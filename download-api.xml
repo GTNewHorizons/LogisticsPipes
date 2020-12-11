@@ -12,7 +12,7 @@
 	<property name="ocapi.dir"            value="${build.dir}/unpack/ocapi"/>
 	<property name="appeng.dir"           value="${build.dir}/unpack/appeng"/>
 
-	<property name="downloadserver"       value="http://rs485.theZorro266.com"/>
+	<property name="downloadserver"       value="http://rs485.network"/>
 	<property name="downloadserver.dir"   value="external/"/>
 	<property name="downloadserver.full"  value="${downloadserver}/${downloadserver.dir}"/>
 

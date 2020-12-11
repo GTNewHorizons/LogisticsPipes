@@ -198,9 +198,15 @@ item.microcapsulator=Micro Capsulator
 item.logicexpander=Logic Expansion Circuit
 item.lense=Focus Lense
 item.acceptor=Laser Acceptor Interface
+item.blankupgrade=Blank Upgrade
+item.goldupgradechip=Gold Upgrade Chip
+item.diamondupgradechip=Diamond Upgrade Chip
+item.goldcraftingupgradechip=Advanced Gold Crafting Chip
+item.diamondcraftingupgradechip=Advanced Diamond Crafting Chip
 item.pipeController=Logistics Pipe Controller
 item.brokenItem=Logistics Broken Item
 item.logisticsFluidContainer=Logistics Fluid Container
+
 # %cRED (DEPRECATED) %cRESET
 item.upgradeManagerItem=Upgrade Manager
 item.HUDbow=Logistics HUD Bow

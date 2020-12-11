@@ -28,8 +28,8 @@ ant.importBuild 'build-ant.xml'
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 
-version = "0.9.3"
-def buildby = 'local'
+version = "0.9.4"
+def buildby = 'GTNH'
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -46,7 +46,7 @@ ant.version = version
 ant.archivesBaseName = archivesBaseName
 
 minecraft {
-    version = "1.7.10-10.13.4.1448-1.7.10"
+    version = "1.7.10-10.13.4.1614-1.7.10"
     runDir = "run/assets"
     replace '%VERSION%', project.version
     replace '%MCVERSION%', "1.7.10"
