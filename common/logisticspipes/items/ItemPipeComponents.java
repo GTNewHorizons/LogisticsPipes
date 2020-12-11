@@ -28,16 +28,6 @@ public class ItemPipeComponents extends LogisticsItem {
 	public static final int ITEM_FOCUSLENSE = 6;
 	//Laser Acceptor Interface
 	public static final int ITEM_POWERACCEPT = 7;
-	//A blank upgrade used in crafting
-	public static final int ITEM_BLANKUPGRADE = 8;
-	//A basic module chip used for upgrading modules
-	public static final int ITEM_GOLDMODULECHIP = 9;
-	//A advanced module chip used for upgrading modules
-	public static final int ITEM_DIAMONDMODULECHIP = 10;
-	//A basic crafting module chip used for upgrading crafting modules
-	public static final int ITEM_GOLDCRAFTINGMODULECHIP = 11;
-	//A advanced crafting module chip used for upgrading crafting modules
-	public static final int ITEM_DIAMONDCRAFTINGMODULECHIP = 12;
 
 	private IIcon[] _icons;
 
@@ -48,15 +38,15 @@ public class ItemPipeComponents extends LogisticsItem {
 
 	@Override
 	public void registerIcons(IIconRegister iconreg) {
-		_icons = new IIcon[12];
-		for (int i = 0; i < 12; i++) {
+		_icons = new IIcon[8];
+		for (int i = 0; i < 8; i++) {
 			_icons[i] = iconreg.registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
 		}
 	}
 
 	@Override
 	public IIcon getIconFromDamage(int i) {
-		return _icons[i % 12];
+		return _icons[i % 8];
 	}
 
 	@Override
@@ -78,16 +68,6 @@ public class ItemPipeComponents extends LogisticsItem {
 				return "item.lense";
 			case 7:
 				return "item.acceptor";
-			case 8:
-				return "item.blankupgrade";
-			case 9:
-				return "item.goldupgradechip";
-			case 10:
-				return "item.diamondupgradechip";
-			case 11:
-				return "item.goldcraftingupgradechip";
-			case 12:
-				return "item.diamondcraftingupgradechip";
 		}
 		return super.getUnlocalizedName(par1ItemStack);
 	}
@@ -109,11 +89,6 @@ public class ItemPipeComponents extends LogisticsItem {
 			par3.add(new ItemStack(this, 1, 5));
 			par3.add(new ItemStack(this, 1, 6));
 			par3.add(new ItemStack(this, 1, 7));
-			par3.add(new ItemStack(this, 1, 8));
-			par3.add(new ItemStack(this, 1, 9));
-			par3.add(new ItemStack(this, 1, 10));
-			par3.add(new ItemStack(this, 1, 11));
-			par3.add(new ItemStack(this, 1, 12));
 		}
 	}
 }
