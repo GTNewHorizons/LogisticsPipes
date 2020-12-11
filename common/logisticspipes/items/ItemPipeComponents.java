@@ -48,15 +48,15 @@ public class ItemPipeComponents extends LogisticsItem {
 
 	@Override
 	public void registerIcons(IIconRegister iconreg) {
-		_icons = new IIcon[8];
-		for (int i = 0; i < 8; i++) {
+		_icons = new IIcon[12];
+		for (int i = 0; i < 12; i++) {
 			_icons[i] = iconreg.registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
 		}
 	}
 
 	@Override
 	public IIcon getIconFromDamage(int i) {
-		return _icons[i % 8];
+		return _icons[i % 12];
 	}
 
 	@Override

@@ -28,7 +28,7 @@ ant.importBuild 'build-ant.xml'
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 
-version = "0.9.4"
+version = "0.9.4.2"
 def buildby = 'GTNH'
 
 def ENV = System.getenv()
@@ -36,7 +36,7 @@ if (ENV.BUILD_NUMBER) {
 	version += "." + ENV.BUILD_NUMBER
 	buildby = 'RS485-Jenkins'
 } else {
-	version += ".local"
+	version += ".GTNH"
 }
 
 group= "rs485.logisticspipes" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
