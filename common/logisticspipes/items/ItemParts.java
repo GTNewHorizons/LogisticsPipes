@@ -18,15 +18,15 @@ public class ItemParts extends LogisticsItem {
 
 	@Override
 	public void registerIcons(IIconRegister iconreg) {
-		_icons = new IIcon[4];
-		for (int i = 0; i < 4; i++) {
+		_icons = new IIcon[9];
+		for (int i = 0; i < 9; i++) {
 			_icons[i] = iconreg.registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
 		}
 	}
 
 	@Override
 	public IIcon getIconFromDamage(int par1) {
-		return _icons[par1 % 4];
+		return _icons[par1 % 9];
 	}
 
 	@Override
@@ -40,6 +40,16 @@ public class ItemParts extends LogisticsItem {
 				return "item.HUDnosebridge";
 			case 3:
 				return "item.NanoHopper";
+			case 4:
+				return "item.blankupgrade";
+			case 5:
+				return "item.goldupgradechip";
+			case 6:
+				return "item.diamondupgradechip";
+			case 7:
+				return "item.goldcraftingupgradechip";
+			case 8:
+				return "item.diamondcraftingupgradechip";
 		}
 		return super.getUnlocalizedName(par1ItemStack);
 	}
@@ -56,6 +66,11 @@ public class ItemParts extends LogisticsItem {
 		par3List.add(new ItemStack(this, 1, 1));
 		par3List.add(new ItemStack(this, 1, 2));
 		par3List.add(new ItemStack(this, 1, 3));
+		par3List.add(new ItemStack(this, 1, 4));
+		par3List.add(new ItemStack(this, 1, 5));
+		par3List.add(new ItemStack(this, 1, 6));
+		par3List.add(new ItemStack(this, 1, 7));
+		par3List.add(new ItemStack(this, 1, 8));
 	}
 
 }
