@@ -36,6 +36,7 @@ public class SolderingStationRecipes {
 
 	public static void loadRecipe(ICraftingParts parts) {
 		if(!Configs.ENABLE_BETA_RECIPES) {
+			/*
 			SolderingStationRecipes.recipes.add(new SolderingStationRecipe(new ItemStack[] {
 					parts.getChipTear1(),
 					null,
@@ -148,6 +149,7 @@ public class SolderingStationRecipes {
 					new ItemStack(Blocks.chest,3),
 					parts.getChipTear3()},
 					new ItemStack(LogisticsPipes.logisticsRequestTable,1), null));
+		*/
 		}
 		if(Configs.ENABLE_BETA_RECIPES) {
 			ItemStack logproc = new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_ROUTEPROCESSOR);;
