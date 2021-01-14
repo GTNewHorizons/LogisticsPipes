@@ -28,7 +28,7 @@ ant.importBuild 'build-ant.xml'
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 
-version = "0.9.4.4"
+version = "0.9.4.5"
 def buildby = 'GTNH'
 
 def ENV = System.getenv()
