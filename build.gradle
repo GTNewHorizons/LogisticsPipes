@@ -29,9 +29,7 @@ repositories {
 
 ant.importBuild 'download-api.xml'
 ant.importBuild 'build-ant.xml'
-
 apply plugin: 'forge'
-apply plugin: 'curseforge'
 
 version = "0.9.4.5"
 def buildby = 'GTNH'
@@ -142,16 +140,6 @@ task deobfJar(type: Jar, dependsOn: 'jar') {
 task sourceJar(type: Jar, dependsOn: 'jar') {
 	from sourceSets.main.allSource
 	classifier = 'src'
-}
-
-curse {
-	displayName = 'Logistics Pipes 0.9.3 (BC7) build ' + System.getenv().BUILD_NUMBER
-	
-    projectId = '232838'
-    apiKey = project.hasProperty('curseForgeApiKey') ? project.curseForgeApiKey : ''
-    releaseType = 'release'
-
-    changelog = project.hasProperty('changelog') ? project.changelog : ''
 }
 
 artifacts {
