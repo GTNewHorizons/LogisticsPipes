@@ -468,6 +468,8 @@ public class ForestryProxy implements IForestryProxy {
 	 */
 	@Override
 	public void addCraftingRecipes(ICraftingParts parts) {
+		if (true)
+			return;
 		//Enable the Beta-Recipes
 		if (Configs.ENABLE_BETA_RECIPES) {
 			//Enable Carpenter-based Recipes

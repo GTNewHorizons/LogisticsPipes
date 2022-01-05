@@ -31,19 +31,19 @@ public class RecipeManager {
 		public LocalCraftingManager() {}
 		@SuppressWarnings("unchecked")
 		public void addRecipe(ItemStack stack, CraftingDependency dependent, Object... objects) {
-			craftingManager.getRecipeList().add(new LPShapedOreRecipe(stack, dependent, objects));
+//			craftingManager.getRecipeList().add(new LPShapedOreRecipe(stack, dependent, objects));
 		}
 		@SuppressWarnings("unchecked")
 		public void addOrdererRecipe(ItemStack stack, String dye, ItemStack orderer) {
-			craftingManager.getRecipeList().add(new ShapelessOrdererRecipe(stack, new Object[] {dye, orderer}));
+//			craftingManager.getRecipeList().add(new ShapelessOrdererRecipe(stack, new Object[] {dye, orderer}));
 		}
 		@SuppressWarnings("unchecked")
 		public void addShapelessRecipe(ItemStack stack, CraftingDependency dependent, Object... objects) {
-			craftingManager.getRecipeList().add(new LPShapelessOreRecipe(stack, dependent, objects));
+//			craftingManager.getRecipeList().add(new LPShapelessOreRecipe(stack, dependent, objects));
 		}
 		@SuppressWarnings("unchecked")
 		public void addShapelessResetRecipe(Item item, int meta) {
-			craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
+//			craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
 		}
 
 		public class ShapelessOrdererRecipe extends ShapelessOreRecipe {
