@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import binnie.core.machines.Machine;
 import binnie.core.machines.TileEntityMachine;
-import binnie.genetics.machine.Analyser;
+import binnie.genetics.machine.analyser.AnalyserPackage;
 import lombok.SneakyThrows;
 
 public class BinnieProxy implements IBinnieProxy {
@@ -28,7 +28,7 @@ public class BinnieProxy implements IBinnieProxy {
 			}
 			Object m = machine.get(tile);
 			Object mP = machinePackage.get(m);
-			if (mP instanceof Analyser.PackageAnalyser) {
+			if (mP instanceof AnalyserPackage) {
 				return true;
 			}
 		}
