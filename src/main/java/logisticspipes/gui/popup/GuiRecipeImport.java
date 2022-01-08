@@ -7,7 +7,6 @@ import java.util.TreeSet;
 
 import logisticspipes.gui.popup.SelectItemOutOfList.IHandleItemChoise;
 import logisticspipes.network.PacketHandler;
-import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.NEISetCraftingRecipe;
 import logisticspipes.network.packets.pipe.FindMostLikelyRecipeComponents;
 import logisticspipes.proxy.MainProxy;

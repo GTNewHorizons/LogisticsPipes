@@ -8,8 +8,6 @@
 
 package logisticspipes.utils.gui;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import logisticspipes.proxy.SimpleServiceLocator;

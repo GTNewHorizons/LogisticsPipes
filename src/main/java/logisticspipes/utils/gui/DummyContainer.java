@@ -22,7 +22,6 @@ import logisticspipes.interfaces.ISlotClick;
 import logisticspipes.items.ItemModule;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
 import logisticspipes.modules.ChassiModule;
-import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.FuzzySlotSettingsPacket;
 import logisticspipes.pipes.PipeLogisticsChassi;

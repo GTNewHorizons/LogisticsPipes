@@ -25,7 +25,6 @@ import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.InventoryHelper;
 import logisticspipes.utils.OrientationsUtil;
 import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;

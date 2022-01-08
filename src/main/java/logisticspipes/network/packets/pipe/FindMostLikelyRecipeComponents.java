@@ -1,8 +1,6 @@
 package logisticspipes.network.packets.pipe;
 
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
-import logisticspipes.gui.GuiLogisticsCraftingTable;
-import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.network.*;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
@@ -13,7 +11,6 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;

@@ -34,7 +34,6 @@ import logisticspipes.utils.FinalNBTTagCompound;
 import logisticspipes.utils.ReflectionHelper;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;

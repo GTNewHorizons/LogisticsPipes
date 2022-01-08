@@ -16,7 +16,6 @@ import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
 import logisticspipes.renderer.newpipe.GLRenderList;
 import logisticspipes.renderer.newpipe.LogisticsNewPipeItemBoxRenderer;
 import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
-import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.transport.PipeFluidTransportLogistics;
 import logisticspipes.transport.PipeTransportLogistics;
