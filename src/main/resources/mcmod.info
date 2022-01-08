@@ -1,9 +1,9 @@
 [{
-    "modid": "LogisticsPipes|Main",
-    "name": "Logistics Pipes",
+    "modid": "${modId}",
+    "name": "${modName}",
     "description": "Logistics Pipes is an extensive overhaul of the Buildcraft pipe system. It allows for better distribution of items via pipes, more organised stockkeeping and easier automated crafting.",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
+    "version": "${modVersion}",
+    "mcversion": "${minecraftVersion}",
     "url": "http://www.minecraftforum.net/topic/1831791-",
     "updateUrl": "",
     "authorList": [ "RS485", "LP Team" ],
