@@ -32,7 +32,7 @@ public class EnderIOProxy implements IEnderIOProxy {
 	@Override
 	public List<TileEntity> getConnectedHyperCubes(TileEntity tile) {
 		List<TileHyperCube> cons = HyperCubeRegister.instance.getCubesForChannel(((TileHyperCube) tile).getChannel());
-		List<TileEntity> tiles = new ArrayList<TileEntity>();
+		List<TileEntity> tiles = new ArrayList<>();
 		for (TileHyperCube cube : cons) {
 			if (cube != tile) {
 				tiles.add(cube);
@@ -44,15 +44,15 @@ public class EnderIOProxy implements IEnderIOProxy {
 	@Override
 	public List<TileEntity> getConnectedTransceivers(TileEntity tile) {
 		TileTransceiver transceiver = (TileTransceiver) tile;
-		List<TileEntity> tiles = new ArrayList<TileEntity>();
-		Object channel = transceiver.getRecieveChannels(ChannelType.ITEM).toArray()[0];
-		for (TileTransceiver t : ServerChannelRegister.instance.getIterator((Channel) channel)) {
+		List<TileEntity> tiles = new ArrayList<>();
+		Channel channel = transceiver.getRecieveChannels(ChannelType.ITEM).iterator().next();
+		for (TileTransceiver t : ServerChannelRegister.instance.getIterator(channel)) {
 			if (t == transceiver) {
 				continue;
 			}
 			Set<Channel> receiveChannels = t.getRecieveChannels(ChannelType.ITEM);
 			Set<Channel> sendChannels = t.getSendChannels(ChannelType.ITEM);
-			if (receiveChannels.size() == 1 && sendChannels.size() == 1 && channel.equals(receiveChannels.toArray()[0]) && channel.equals(sendChannels.toArray()[0])) {
+			if (receiveChannels.size() == 1 && sendChannels.size() == 1 && channel.equals(receiveChannels.iterator().next()) && channel.equals(sendChannels.iterator().next())) {
 				tiles.add(t);
 			}
 		}
@@ -67,7 +67,7 @@ public class EnderIOProxy implements IEnderIOProxy {
 		if (tile instanceof TileTransceiver) {
 			Set<Channel> receiveChannels = ((TileTransceiver) tile).getRecieveChannels(ChannelType.ITEM);
 			Set<Channel> sendChannels = ((TileTransceiver) tile).getSendChannels(ChannelType.ITEM);
-			return receiveChannels.size() == 1 && sendChannels.size() == 1 && receiveChannels.toArray()[0].equals(sendChannels.toArray()[0]);
+            return receiveChannels.size() == 1 && sendChannels.size() == 1 && receiveChannels.iterator().next().equals(sendChannels.iterator().next());
 		}
 		return false;
 	}
