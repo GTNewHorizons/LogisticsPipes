@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Krapht, 2011
- * 
+ *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0, or MMPL. Please check the contents of the license located in
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
@@ -144,12 +144,15 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 		private AtomicReferenceArray<ItemIdentifier> holder;
 
 		public ArrayDamagedItentifierHolder(int damage) {
-			//round to nearest superior power of 2
-			int newlen = 1 << (32 - Integer.numberOfLeadingZeros(damage));
-			holder = new AtomicReferenceArray<ItemIdentifier>(newlen);
+			//round to the nearest superior power of 2
+            holder = new AtomicReferenceArray<>(getArrayLength(damage));
 		}
 
-		@Override
+        private static int getArrayLength(int damage) {
+            return 1 << (32 - Integer.numberOfLeadingZeros(damage));
+        }
+
+        @Override
 		public ItemIdentifier get(int damage) {
 			return holder.get(damage);
 		}
@@ -162,8 +165,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 		@Override
 		public void ensureCapacity(int damage) {
 			if (holder.length() <= damage) {
-				int newlen = 1 << (32 - Integer.numberOfLeadingZeros(damage));
-				AtomicReferenceArray<ItemIdentifier> newdamages = new AtomicReferenceArray<ItemIdentifier>(newlen);
+                AtomicReferenceArray<ItemIdentifier> newdamages = new AtomicReferenceArray<ItemIdentifier>(getArrayLength(damage));
 				for (int i = 0; i < holder.length(); i++) {
 					newdamages.set(i, holder.get(i));
 				}
