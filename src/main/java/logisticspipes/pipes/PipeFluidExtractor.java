@@ -1,6 +1,6 @@
 package logisticspipes.pipes;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.textures.Textures;
@@ -32,7 +32,7 @@ public class PipeFluidExtractor extends PipeFluidInsertion {
 		if (!isNthTick(10)) {
 			return;
 		}
-		LinkedList<AdjacentTile> connected = getConnectedEntities();
+		List<AdjacentTile> connected = getConnectedEntities();
 		for (AdjacentTile tile : connected) {
 			if (tile.tile instanceof IFluidHandler && SimpleServiceLocator.pipeInformationManager.isNotAPipe(tile.tile)) {
 				extractFrom((IFluidHandler) tile.tile, tile.orientation);

@@ -1,6 +1,5 @@
 package logisticspipes.pipes.basic;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import logisticspipes.blocks.powertile.LogisticsPowerProviderTileEntity;
@@ -46,7 +45,7 @@ public class PowerSupplierHandler {
 		if (SimpleServiceLocator.cofhPowerProxy.isAvailable() && pipe.getUpgradeManager().hasRFPowerSupplierUpgrade()) {
 			//Use Buffer
 			WorldUtil worldUtil = new WorldUtil(pipe.getWorld(), pipe.getX(), pipe.getY(), pipe.getZ());
-			LinkedList<AdjacentTile> adjacent = worldUtil.getAdjacentTileEntities(false);
+			List<AdjacentTile> adjacent = worldUtil.getAdjacentTileEntities(false);
 			float globalNeed = 0;
 			float[] need = new float[adjacent.size()];
 			int i = 0;
@@ -128,7 +127,7 @@ public class PowerSupplierHandler {
 		if (SimpleServiceLocator.IC2Proxy.hasIC2() && pipe.getUpgradeManager().getIC2PowerLevel() > 0) {
 			//Use Buffer
 			WorldUtil worldUtil = new WorldUtil(pipe.getWorld(), pipe.getX(), pipe.getY(), pipe.getZ());
-			LinkedList<AdjacentTile> adjacent = worldUtil.getAdjacentTileEntities(false);
+			List<AdjacentTile> adjacent = worldUtil.getAdjacentTileEntities(false);
 			float globalNeed = 0;
 			float[] need = new float[adjacent.size()];
 			int i = 0;

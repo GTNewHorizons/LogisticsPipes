@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Krapht, 2011
- * 
+ *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0, or MMPL. Please check the contents of the license located in
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
@@ -8,7 +8,8 @@
 
 package logisticspipes.utils;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -41,12 +42,12 @@ public class WorldUtil {
 		_z = tile.zCoord;
 	}
 
-	public LinkedList<AdjacentTile> getAdjacentTileEntities() {
+	public List<AdjacentTile> getAdjacentTileEntities() {
 		return getAdjacentTileEntities(false);
 	}
 
-	public LinkedList<AdjacentTile> getAdjacentTileEntities(boolean flag) {
-		LinkedList<AdjacentTile> foundTiles = new LinkedList<AdjacentTile>();
+	public List<AdjacentTile> getAdjacentTileEntities(boolean flag) {
+		ArrayList<AdjacentTile> foundTiles = new ArrayList<>(6);
 		TileEntity tilePipe = null;
 		if (flag) {
 			tilePipe = _worldObj.getTileEntity(_x, _y, _z);

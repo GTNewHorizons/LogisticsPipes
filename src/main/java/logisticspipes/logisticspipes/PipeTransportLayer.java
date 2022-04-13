@@ -1,6 +1,7 @@
 package logisticspipes.logisticspipes;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -11,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * This class is responsible for handling incoming items for standard pipes
- * 
+ *
  * @author Krapht
  */
 public class PipeTransportLayer extends TransportLayer {
@@ -32,8 +33,8 @@ public class PipeTransportLayer extends TransportLayer {
 			_trackStatistics.recievedItem(item.getItemIdentifierStack().getStackSize());
 		}
 
-		LinkedList<AdjacentTile> adjacentEntities = _worldAccess.getConnectedEntities();
-		LinkedList<ForgeDirection> possibleForgeDirection = new LinkedList<ForgeDirection>();
+		List<AdjacentTile> adjacentEntities = _worldAccess.getConnectedEntities();
+		List<ForgeDirection> possibleForgeDirection = new ArrayList<>();
 
 		// 1st prio, deliver to adjacent IInventories
 
