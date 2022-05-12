@@ -12,10 +12,10 @@ public class LPConstants {
 	public static final float BC_PIPE_MIN_POS = 0.25F;
 	public static final float BC_PIPE_MAX_POS = 0.75F;
 
-	public static final boolean DEBUG = "%DEBUG%".equals("%" + "DEBUG" + "%") || "%DEBUG%".equals("true");
-	public static final String MCVersion = "%MCVERSION%";
-	public static final String VERSION = "%VERSION%:%DEBUG%";
-	public static final boolean DEV_BUILD = LPConstants.VERSION.contains(".dev.") || LPConstants.DEBUG;
+	public static final boolean DEBUG = false;
+	public static final String MCVersion = "1.7.10";
+	public static final String VERSION = "GRADLETOKEN_VERSION";
+	public static final boolean DEV_BUILD = false;
 
 	public static int pipeModel = -1;
 	public static int solidBlockModel = -1;

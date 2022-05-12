@@ -160,7 +160,7 @@ import org.apache.logging.log4j.Logger;
 @Mod(
 		modid = "LogisticsPipes",
 		name = "Logistics Pipes",
-		version = "GRADLETOKEN_VERSION",
+		version = LPConstants.VERSION,
 		/* %------------CERTIFICATE-SUM-----------% */
 		dependencies = "required-after:Forge@[10.12.1.1079,);" +
 				"required-after:BuildCraft|Core;" +
