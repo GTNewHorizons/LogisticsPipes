@@ -19,11 +19,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class LaserData {
 
-	@NonNull
 	private int posX;
-	@NonNull
 	private int posY;
-	@NonNull
 	private int posZ;
 	@NonNull
 	private ForgeDirection dir;
