@@ -3,7 +3,6 @@ package logisticspipes.pipes.basic;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import buildcraft.api.transport.IPipeConnection;
@@ -303,7 +302,7 @@ public class LogisticsTileGenericPipe extends TileEntity implements IOCTile, ILP
 		blockNeighborChange = true;
 		boolean connected[] = new boolean[6];
 		WorldUtil world = new WorldUtil(getWorld(), xCoord, yCoord, zCoord);
-		LinkedList<AdjacentTile> adjacent = world.getAdjacentTileEntities(false);
+		List<AdjacentTile> adjacent = world.getAdjacentTileEntities(false);
 		for (AdjacentTile aTile : adjacent) {
 			if (SimpleServiceLocator.ccProxy.isTurtle(aTile.tile)) {
 				connected[aTile.orientation.ordinal()] = true;

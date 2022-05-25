@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Krapht, 2011
- * 
+ *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0, or MMPL. Please check the contents of the license located in
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -314,7 +313,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe implements IClient
 	/**
 	 * Designed to help protect against routing loops - if both pipes are on the
 	 * same block, and of ISided overlapps, return true
-	 * 
+	 *
 	 * @param other
 	 * @return boolean indicating if both pull from the same inventory.
 	 */
@@ -968,20 +967,15 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe implements IClient
 		}
 	}
 
-	/*** -- IAdjacentWorldAccess -- ***/
+	/*** -- IAdjacentWorldAccess --
+     * @return***/
 
 	@Override
-	public LinkedList<AdjacentTile> getConnectedEntities() {
+	public List<AdjacentTile> getConnectedEntities() {
 		WorldUtil world = new WorldUtil(getWorld(), getX(), getY(), getZ());
-		LinkedList<AdjacentTile> adjacent = world.getAdjacentTileEntities(true);
+		List<AdjacentTile> adjacent = world.getAdjacentTileEntities(true);
 
-		Iterator<AdjacentTile> iterator = adjacent.iterator();
-		while (iterator.hasNext()) {
-			AdjacentTile tile = iterator.next();
-			if (!MainProxy.checkPipesConnections(container, tile.tile, tile.orientation)) {
-				iterator.remove();
-			}
-		}
+        adjacent.removeIf(tile -> !MainProxy.checkPipesConnections(container, tile.tile, tile.orientation));
 
 		return adjacent;
 	}
@@ -1330,7 +1324,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe implements IClient
 	/**
 	 * used as a distance offset when deciding which pipe to use NOTE: called
 	 * very regularly, returning a pre-calculated int is probably appropriate.
-	 * 
+	 *
 	 * @return
 	 */
 	public double getLoadFactor() {

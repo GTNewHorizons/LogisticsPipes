@@ -245,8 +245,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
 					Pair<TileEntity, ForgeDirection> pair = adjTanks.get(i);
 					IFluidHandler tank = (IFluidHandler) pair.getValue1();
 					ForgeDirection dir = pair.getValue2();
-					filled = tank.fill(dir.getOpposite(), liquid.copy(), true);
-					liquid.amount -= filled;
+					fillSide(liquid, dir, tank);
 					if (liquid.amount != 0) {
 						continue;
 					}
@@ -281,6 +280,10 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
 			return true;
 		}
 		return false;
+	}
+
+	protected void fillSide(FluidStack toFill, ForgeDirection tankLocation, IFluidHandler tile) {
+		toFill.amount -= tile.fill(tankLocation.getOpposite(), toFill.copy(), true);
 	}
 
 	@Override
