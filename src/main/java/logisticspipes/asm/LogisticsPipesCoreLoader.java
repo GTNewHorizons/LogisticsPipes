@@ -2,10 +2,11 @@ package logisticspipes.asm;
 
 import java.util.Map;
 
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import net.minecraft.launchwrapper.Launch;
 
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-
+@MCVersion("1.7.10")
 public class LogisticsPipesCoreLoader implements IFMLLoadingPlugin {
 
 	public LogisticsPipesCoreLoader() throws Exception {
@@ -25,7 +26,7 @@ public class LogisticsPipesCoreLoader implements IFMLLoadingPlugin {
 
 	@Override
 	public String getAccessTransformerClass() {
-		return "logisticspipes.asm.LogisticsAccessTransformer";
+		return null;
 	}
 
 	@Override
