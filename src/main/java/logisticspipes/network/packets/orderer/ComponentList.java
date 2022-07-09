@@ -1,25 +1,19 @@
 package logisticspipes.network.packets.orderer;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
-import logisticspipes.config.Configs;
-import logisticspipes.gui.orderer.GuiOrderer;
-import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.network.IReadListObject;
 import logisticspipes.network.IWriteListObject;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
+import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.IResource;
-import logisticspipes.request.resources.IResource.ColorCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 
 @Accessors(chain = true)
 public class ComponentList extends ModernPacket {
@@ -42,33 +36,8 @@ public class ComponentList extends ModernPacket {
     }
 
     @Override
-    @ClientSideOnlyMethodContent
     public void processPacket(EntityPlayer player) {
-        if (Configs.DISPLAY_POPUP && FMLClientHandler.instance().getClient().currentScreen instanceof GuiOrderer) {
-            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen)
-                    .handleSimulateAnswer(
-                            used,
-                            missing,
-                            (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
-                            player);
-        } else if (Configs.DISPLAY_POPUP
-                && FMLClientHandler.instance().getClient().currentScreen instanceof GuiRequestTable) {
-            ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen)
-                    .handleSimulateAnswer(
-                            used,
-                            missing,
-                            (GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen,
-                            player);
-        } else {
-            for (IResource item : used) {
-                player.addChatComponentMessage(
-                        new ChatComponentText("Component: " + item.getDisplayText(ColorCode.SUCCESS)));
-            }
-            for (IResource item : missing) {
-                player.addChatComponentMessage(
-                        new ChatComponentText("Missing: " + item.getDisplayText(ColorCode.MISSING)));
-            }
-        }
+        MainProxy.proxy.processComponentListPacket(this, player);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package logisticspipes.asm;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +10,6 @@ import logisticspipes.LPConstants;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import org.objectweb.asm.*;
-import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
@@ -93,10 +90,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
             if (name.equals("dan200.computercraft.core.lua.LuaJLuaMachine")) {
                 return handleCCLuaJLuaMachine(bytes);
             }
-            if (!name.startsWith("logisticspipes.")) {
-                return bytes;
-            }
-            return handleLPTransformation(bytes);
+            return bytes;
         } catch (Exception e) {
             if (LPConstants.DEBUG) { // For better Debugging
                 e.printStackTrace();
@@ -138,54 +132,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
                 e.printStackTrace();
             }
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private byte[] handleLPTransformation(byte[] bytes) {
-        final ClassNode node = new ClassNode();
-        ClassReader reader = new ClassReader(bytes);
-        reader.accept(node, 0);
-        boolean changed = false;
-        for (MethodNode m : node.methods) {
-            if (m.visibleAnnotations != null) {
-                for (AnnotationNode a : m.visibleAnnotations) {
-                    if (a.desc.equals("Llogisticspipes/asm/ClientSideOnlyMethodContent;")) {
-                        if (FMLCommonHandler.instance().getSide().equals(Side.SERVER)) {
-                            m.instructions.clear();
-                            m.localVariables.clear();
-                            m.tryCatchBlocks.clear();
-                            m.visitCode();
-                            Label l0 = new Label();
-                            m.visitLabel(l0);
-                            m.visitMethodInsn(
-                                    Opcodes.INVOKESTATIC,
-                                    "logisticspipes/asm/LogisticsASMHookClass",
-                                    "callingClearedMethod",
-                                    "()V");
-                            Label l1 = new Label();
-                            m.visitLabel(l1);
-                            m.visitInsn(Opcodes.RETURN);
-                            Label l2 = new Label();
-                            m.visitLabel(l2);
-                            m.visitLocalVariable(
-                                    "this", "Llogisticspipes/network/packets/DummyPacket;", null, l0, l2, 0);
-                            m.visitLocalVariable(
-                                    "player", "Lnet/minecraft/entity/player/EntityPlayer;", null, l0, l2, 1);
-                            m.visitMaxs(0, 2);
-                            m.visitEnd();
-                            changed = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        if (!changed) {
-            return bytes;
-        }
-        ClassWriter writer = new ClassWriter(0);
-        node.accept(writer);
-        return writer.toByteArray();
     }
 
     private byte[] handleCCLuaJLuaMachine(byte[] bytes) {

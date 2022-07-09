@@ -1,58 +1,90 @@
 package logisticspipes.proxy.interfaces;
 
+import java.util.List;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
+import logisticspipes.network.packets.gui.GUIPacket;
+import logisticspipes.network.packets.orderer.ComponentList;
+import logisticspipes.network.packets.orderer.MissingItems;
+import logisticspipes.network.packets.pipe.MostLikelyRecipeComponentsResponse;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.utils.item.ItemIdentifier;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetHandler;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 
 public interface IProxy {
 
-    public String getSide();
+    String getSide();
 
-    public World getWorld();
+    World getWorld();
 
-    public void registerTileEntities();
+    void registerTileEntities();
 
-    public EntityPlayer getClientPlayer();
+    EntityPlayer getClientPlayer();
 
-    public void addLogisticsPipesOverride(
+    void addLogisticsPipesOverride(
             IIconRegister par1IIconRegister, int index, String override1, String override2, boolean flag);
 
-    public void registerParticles();
+    void registerParticles();
 
-    public String getName(ItemIdentifier item);
+    String getName(ItemIdentifier item);
 
-    public void updateNames(ItemIdentifier item, String name);
+    void updateNames(ItemIdentifier item, String name);
 
-    public void tick();
+    void tick();
 
-    public void sendNameUpdateRequest(EntityPlayer player);
+    void sendNameUpdateRequest(EntityPlayer player);
 
-    public int getDimensionForWorld(World world);
+    int getDimensionForWorld(World world);
 
-    public LogisticsTileGenericPipe getPipeInDimensionAt(int dimension, int x, int y, int z, EntityPlayer player);
+    LogisticsTileGenericPipe getPipeInDimensionAt(int dimension, int x, int y, int z, EntityPlayer player);
 
-    public void sendBroadCast(String message);
+    void sendBroadCast(String message);
 
-    public void tickServer();
+    void tickServer();
 
-    public void tickClient();
+    void tickClient();
 
-    public EntityPlayer getEntityPlayerFromNetHandler(INetHandler handler);
+    EntityPlayer getEntityPlayerFromNetHandler(INetHandler handler);
 
-    public void setIconProviderFromPipe(ItemLogisticsPipe item, CoreUnroutedPipe dummyPipe);
+    void setIconProviderFromPipe(ItemLogisticsPipe item, CoreUnroutedPipe dummyPipe);
 
-    public LogisticsModule getModuleFromGui();
+    LogisticsModule getModuleFromGui();
 
-    public IItemRenderer getPipeItemRenderer();
+    IItemRenderer getPipeItemRenderer();
 
-    public boolean checkSinglePlayerOwner(String commandSenderName);
+    boolean checkSinglePlayerOwner(String commandSenderName);
 
-    public void openFluidSelectGui(int slotId);
+    void openFluidSelectGui(int slotId);
+
+    default void processGuiPacket(GUIPacket packet, EntityPlayer player) {}
+
+    default void clearChat() {}
+
+    default void storeSendMessages(List<String> sendChatMessages) {}
+
+    default void restoreSendMessages(List<String> sendChatMessages) {}
+
+    default void addSendMessages(List<String> sendChatMessages, String substring) {}
+
+    default void onGuiCraftingPipeCleanupModeChange() {}
+
+    default void openChatGui() {}
+
+    default void refreshGuiSupplierPipeMode() {}
+
+    default void processComponentListPacket(ComponentList packet, EntityPlayer player) {}
+
+    default void processMissingItemsPacket(MissingItems packet, EntityPlayer player) {}
+
+    default void processMostLikelyRecipeComponentsResponse(MostLikelyRecipeComponentsResponse packet) {}
+
+    default MovingObjectPosition getMousedOverObject() {
+        return null;
+    }
 }

@@ -1,9 +1,6 @@
 package logisticspipes.network.packets.module;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
-import logisticspipes.gui.GuiSupplierPipe;
 import logisticspipes.modules.ModuleActiveSupplier;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -45,11 +42,8 @@ public class SupplierPipeLimitedPacket extends ModuleCoordinatesPacket {
         }
     }
 
-    @ClientSideOnlyMethodContent
     private void refresh() {
-        if (FMLClientHandler.instance().getClient().currentScreen instanceof GuiSupplierPipe) {
-            ((GuiSupplierPipe) FMLClientHandler.instance().getClient().currentScreen).refreshMode();
-        }
+        MainProxy.proxy.refreshGuiSupplierPipeMode();
     }
 
     @Override

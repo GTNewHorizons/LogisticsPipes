@@ -16,14 +16,25 @@ import logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.blocks.powertile.LogisticsRFPowerProviderTileEntity;
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
+import logisticspipes.config.Configs;
 import logisticspipes.gui.GuiCraftingPipe;
+import logisticspipes.gui.GuiLogisticsCraftingTable;
+import logisticspipes.gui.GuiSupplierPipe;
 import logisticspipes.gui.modules.ModuleBaseGui;
+import logisticspipes.gui.orderer.GuiOrderer;
+import logisticspipes.gui.orderer.GuiRequestTable;
+import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.gui.popup.SelectItemOutOfList;
 import logisticspipes.gui.popup.SelectItemOutOfList.IHandleItemChoise;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
+import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.DummyContainerSlotClick;
+import logisticspipes.network.packets.gui.GUIPacket;
+import logisticspipes.network.packets.orderer.ComponentList;
+import logisticspipes.network.packets.orderer.MissingItems;
+import logisticspipes.network.packets.pipe.MostLikelyRecipeComponentsResponse;
 import logisticspipes.pipefxhandlers.Particles;
 import logisticspipes.pipefxhandlers.PipeFXRenderHandler;
 import logisticspipes.pipefxhandlers.providers.EntityBlueSparkleFXProvider;
@@ -45,13 +56,17 @@ import logisticspipes.renderer.LogisticsPipeWorldRenderer;
 import logisticspipes.renderer.LogisticsRenderPipe;
 import logisticspipes.renderer.LogisticsSolidBlockWorldRenderer;
 import logisticspipes.renderer.newpipe.GLRenderListHandler;
+import logisticspipes.request.resources.IResource;
 import logisticspipes.textures.Textures;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.ChatColor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,6 +75,7 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.IItemRenderer;
@@ -307,5 +323,150 @@ public class ClientProxy implements IProxy {
         } else {
             throw new UnsupportedOperationException(String.valueOf(Minecraft.getMinecraft().currentScreen));
         }
+    }
+
+    @Override
+    public void processGuiPacket(GUIPacket packet, EntityPlayer player) {
+        NewGuiHandler.openGui(packet, player);
+    }
+
+    @Override
+    public void clearChat() {
+        FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().clearChatMessages();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void storeSendMessages(List<String> sendChatMessages) {
+        sendChatMessages.clear();
+        sendChatMessages.addAll(
+                FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getSentMessages());
+    }
+
+    @Override
+    public void restoreSendMessages(List<String> sendChatMessages) {
+        if (sendChatMessages != null) {
+            for (String o : sendChatMessages) {
+                FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().addToSentMessages(o);
+            }
+            sendChatMessages.clear();
+        }
+    }
+
+    @Override
+    public void addSendMessages(List<String> sendChatMessages, String substring) {
+        if (sendChatMessages != null) {
+            sendChatMessages.add(substring);
+        } else {
+            FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().addToSentMessages(substring);
+        }
+    }
+
+    @Override
+    public void onGuiCraftingPipeCleanupModeChange() {
+        if (Minecraft.getMinecraft().currentScreen instanceof GuiCraftingPipe) {
+            ((GuiCraftingPipe) Minecraft.getMinecraft().currentScreen).onCleanupModeChange();
+        }
+    }
+
+    @Override
+    public void openChatGui() {
+        FMLClientHandler.instance().getClient().displayGuiScreen(new GuiChat());
+    }
+
+    @Override
+    public void refreshGuiSupplierPipeMode() {
+        if (FMLClientHandler.instance().getClient().currentScreen instanceof GuiSupplierPipe) {
+            ((GuiSupplierPipe) FMLClientHandler.instance().getClient().currentScreen).refreshMode();
+        }
+    }
+
+    @Override
+    public void processComponentListPacket(ComponentList packet, EntityPlayer player) {
+        if (Configs.DISPLAY_POPUP && FMLClientHandler.instance().getClient().currentScreen instanceof GuiOrderer) {
+            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen)
+                    .handleSimulateAnswer(
+                            packet.getUsed(),
+                            packet.getMissing(),
+                            (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
+                            player);
+        } else if (Configs.DISPLAY_POPUP
+                && FMLClientHandler.instance().getClient().currentScreen instanceof GuiRequestTable) {
+            ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen)
+                    .handleSimulateAnswer(
+                            packet.getUsed(),
+                            packet.getMissing(),
+                            (GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen,
+                            player);
+        } else {
+            for (IResource item : packet.getUsed()) {
+                player.addChatComponentMessage(
+                        new ChatComponentText("Component: " + item.getDisplayText(IResource.ColorCode.SUCCESS)));
+            }
+            for (IResource item : packet.getMissing()) {
+                player.addChatComponentMessage(
+                        new ChatComponentText("Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
+            }
+        }
+    }
+
+    @Override
+    public void processMissingItemsPacket(MissingItems packet, EntityPlayer player) {
+        if (Configs.DISPLAY_POPUP && FMLClientHandler.instance().getClient().currentScreen instanceof GuiOrderer) {
+            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen)
+                    .handleRequestAnswer(
+                            packet.getItems(),
+                            packet.isFlag(),
+                            (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
+                            player);
+        } else if (Configs.DISPLAY_POPUP
+                && FMLClientHandler.instance().getClient().currentScreen instanceof GuiRequestTable) {
+            ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen)
+                    .handleRequestAnswer(
+                            packet.getItems(),
+                            packet.isFlag(),
+                            (GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen,
+                            player);
+        } else if (packet.isFlag()) {
+            for (IResource item : packet.getItems()) {
+                player.addChatComponentMessage(new ChatComponentText(
+                        ChatColor.RED + "Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
+            }
+        } else {
+            for (IResource item : packet.getItems()) {
+                player.addChatComponentMessage(new ChatComponentText(
+                        ChatColor.GREEN + "Requested: " + item.getDisplayText(IResource.ColorCode.SUCCESS)));
+            }
+            player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN + "Request successful!"));
+        }
+    }
+
+    @Override
+    public void processMostLikelyRecipeComponentsResponse(MostLikelyRecipeComponentsResponse packet) {
+        GuiScreen firstGui = Minecraft.getMinecraft().currentScreen;
+        LogisticsBaseGuiScreen gui;
+        if (firstGui instanceof GuiLogisticsCraftingTable) {
+            gui = (GuiLogisticsCraftingTable) firstGui;
+        } else if (firstGui instanceof GuiRequestTable) {
+            gui = (GuiRequestTable) firstGui;
+        } else {
+            return;
+        }
+        GuiRecipeImport importGui = null;
+        SubGuiScreen sub = gui.getSubGui();
+        while (sub != null) {
+            if (sub instanceof GuiRecipeImport) {
+                importGui = (GuiRecipeImport) sub;
+                break;
+            }
+            sub = sub.getSubGui();
+        }
+        if (importGui == null) return;
+        importGui.handleProposePacket(packet.getResponse());
+    }
+
+    @Override
+    public MovingObjectPosition getMousedOverObject() {
+        return FMLClientHandler.instance().getClient().objectMouseOver;
     }
 }

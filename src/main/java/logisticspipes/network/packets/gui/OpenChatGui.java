@@ -1,12 +1,10 @@
 package logisticspipes.network.packets.gui;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
-import net.minecraft.client.gui.GuiChat;
+import logisticspipes.proxy.MainProxy;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class OpenChatGui extends ModernPacket {
@@ -19,9 +17,9 @@ public class OpenChatGui extends ModernPacket {
     public void readData(LPDataInputStream data) throws IOException {}
 
     @Override
-    @ClientSideOnlyMethodContent
     public void processPacket(EntityPlayer player) {
-        FMLClientHandler.instance().getClient().displayGuiScreen(new GuiChat());
+        if (!player.isClientWorld()) return;
+        MainProxy.proxy.openChatGui();
     }
 
     @Override

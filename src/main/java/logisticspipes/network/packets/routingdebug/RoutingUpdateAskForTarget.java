@@ -1,8 +1,6 @@
 package logisticspipes.network.packets.routingdebug;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -23,9 +21,9 @@ public class RoutingUpdateAskForTarget extends ModernPacket {
     public void readData(LPDataInputStream data) throws IOException {}
 
     @Override
-    @ClientSideOnlyMethodContent
     public void processPacket(EntityPlayer player) {
-        MovingObjectPosition box = FMLClientHandler.instance().getClient().objectMouseOver;
+        if (!player.isClientWorld()) return;
+        MovingObjectPosition box = MainProxy.proxy.getMousedOverObject();
         if (box == null) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RoutingUpdateTargetResponse.class).setMode(TargetMode.None));

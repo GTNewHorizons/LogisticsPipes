@@ -1,11 +1,10 @@
 package logisticspipes.network.packets.gui;
 
 import java.io.IOException;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
-import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
+import logisticspipes.proxy.MainProxy;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -48,9 +47,8 @@ public class GUIPacket extends ModernPacket {
     }
 
     @Override
-    @ClientSideOnlyMethodContent
     public void processPacket(EntityPlayer player) {
-        NewGuiHandler.openGui(this, player);
+        MainProxy.proxy.processGuiPacket(this, player);
     }
 
     @Override

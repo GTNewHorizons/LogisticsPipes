@@ -1,6 +1,5 @@
 package logisticspipes.commands.chathelper;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ClientSideOnlyMethodContent;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
@@ -26,7 +24,7 @@ public class LPChatListener {
     private static final Map<String, Callable<Boolean>> tasks = new HashMap<String, Callable<Boolean>>();
     private static final Map<String, MorePageDisplay> morePageDisplays = new HashMap<String, MorePageDisplay>();
 
-    private List<String> sendChatMessages = null;
+    private List<String> sendChatMessages = new ArrayList<>();
 
     @SubscribeEvent
     public void serverChat(ServerChatEvent event) {
@@ -120,36 +118,21 @@ public class LPChatListener {
         }
     }
 
-    @ClientSideOnlyMethodContent
     private void clearChat() {
-        FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().clearChatMessages();
+        MainProxy.proxy.clearChat();
     }
 
     @SuppressWarnings("unchecked")
-    @ClientSideOnlyMethodContent
     private void storeSendMessages() {
-        sendChatMessages = new ArrayList<String>();
-        sendChatMessages.addAll(
-                FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getSentMessages());
+        MainProxy.proxy.storeSendMessages(sendChatMessages);
     }
 
-    @ClientSideOnlyMethodContent
     private void restoreSendMessages() {
-        if (sendChatMessages != null) {
-            for (String o : sendChatMessages) {
-                FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().addToSentMessages(o);
-            }
-            sendChatMessages = null;
-        }
+        MainProxy.proxy.restoreSendMessages(sendChatMessages);
     }
 
-    @ClientSideOnlyMethodContent
     private void addSendMessages(String substring) {
-        if (sendChatMessages != null) {
-            sendChatMessages.add(substring);
-        } else {
-            FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().addToSentMessages(substring);
-        }
+        MainProxy.proxy.addSendMessages(sendChatMessages, substring);
     }
 
     public static void register(MorePageDisplay displayInput, String name) {
