@@ -14,7 +14,6 @@ import cpw.mods.fml.common.Optional;
 import java.lang.reflect.Field;
 import java.util.*;
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.DummyContainerSlotClick;
@@ -573,19 +572,19 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     }
 
     @Override
-    @ModDependentMethod(modId = "NotEnoughItems")
+    @Optional.Method(modid = "NotEnoughItems")
     public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui) {
         return null;
     }
 
     @Override
-    @ModDependentMethod(modId = "NotEnoughItems")
+    @Optional.Method(modid = "NotEnoughItems")
     public Iterable<Integer> getItemSpawnSlots(GuiContainer gui, ItemStack stack) {
         return null;
     }
 
     @Override
-    @ModDependentMethod(modId = "NotEnoughItems")
+    @Optional.Method(modid = "NotEnoughItems")
     public boolean handleDragNDrop(GuiContainer gui, int mouseX, int mouseY, ItemStack stack, int button) {
         if (gui instanceof LogisticsBaseGuiScreen && gui.inventorySlots instanceof DummyContainer && stack != null) {
             Slot result = null;
@@ -613,7 +612,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     }
 
     @Override
-    @ModDependentMethod(modId = "NotEnoughItems")
+    @Optional.Method(modid = "NotEnoughItems")
     public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
         if (gui instanceof LogisticsBaseGuiScreen) {
             return ((LogisticsBaseGuiScreen) gui).extentionControllerRight.isOverPanel(x, y, w, h);
@@ -622,7 +621,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     }
 
     @Override
-    @ModDependentMethod(modId = "NotEnoughItems")
+    @Optional.Method(modid = "NotEnoughItems")
     public VisiblityData modifyVisiblity(GuiContainer gui, VisiblityData currentVisibility) {
         return null;
     }

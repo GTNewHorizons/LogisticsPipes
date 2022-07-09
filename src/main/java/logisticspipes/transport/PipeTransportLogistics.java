@@ -18,7 +18,6 @@ import java.util.Random;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.interfaces.IBufferItems;
 import logisticspipes.interfaces.IInventoryUtil;
@@ -767,7 +766,7 @@ public class PipeTransportLogistics {
     /**
      * Accept items from BC
      */
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @cpw.mods.fml.common.Optional.Method(modid = "BuildCraft|Transport")
     public void injectItem(TravelingItem item, ForgeDirection inputOrientation) {
         if (MainProxy.isServer(getWorld())) {
             if (item instanceof LPRoutedBCTravelingItem) {

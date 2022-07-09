@@ -26,7 +26,6 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.interfaces.routing.IFilter;
@@ -599,13 +598,11 @@ public class LogisticsTileGenericPipe extends TileEntity
     /**
      * Used to determine where BC items can go.
      */
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public boolean isBCPipeConnected(TileGenericPipe container, ForgeDirection o) {
         return container.isPipeConnected(o);
     }
 
-    // @Override
-    // @ModDependentMethod(modId="BuildCraft|Transport")
     @Override
     public int injectItem(ItemStack payload, boolean doAdd, ForgeDirection from) {
         if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport != null && isPipeConnected(from)) {
@@ -625,7 +622,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public int injectItem(ItemStack payload, boolean doAdd, ForgeDirection from, EnumColor color) {
         return injectItem(payload, doAdd, from);
     }
@@ -635,25 +632,25 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public Node node() {
         return node;
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public void onConnect(Node node1) {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public void onDisconnect(Node node1) {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public void onMessage(Message message) {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public Object[] invoke(String s, Context context, Arguments arguments) throws Exception {
         BaseWrapperClass object = (BaseWrapperClass) CCObjectWrapper.getWrappedObject(pipe, BaseWrapperClass.WRAPPER);
         object.isDirectCall = true;
@@ -661,21 +658,21 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public String[] methods() {
         return new String[] {"getPipe"};
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public boolean canConnect(ForgeDirection dir) {
         return !(this.getTile(dir) instanceof LogisticsTileGenericPipe)
                 && !(this.getTile(dir) instanceof LogisticsSolidTileEntity);
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public Node sidedNode(ForgeDirection dir) {
         if (this.getTile(dir) instanceof LogisticsTileGenericPipe
                 || this.getTile(dir) instanceof LogisticsSolidTileEntity) {
@@ -866,7 +863,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public boolean isPipeConnected(ForgeDirection with) {
         if (worldObj.isRemote) {
             return renderState.pipeConnectionMatrix.isConnected(with);
@@ -980,7 +977,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public PipeType getPipeType() {
         return (PipeType) SimpleServiceLocator.buildCraftProxy.getLPPipeType();
     }
@@ -1004,49 +1001,49 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public IPipe getPipe() {
         return (IPipe) tilePart.getBCPipePart().getOriginal();
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public boolean canInjectItems(ForgeDirection from) {
         return isPipeConnected(from);
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public int x() {
         return xCoord;
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public int y() {
         return yCoord;
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public int z() {
         return zCoord;
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public Block getNeighborBlock(ForgeDirection dir) {
         return getBlock(dir);
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public TileEntity getNeighborTile(ForgeDirection dir) {
         return getTile(dir);
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public IPipe getNeighborPipe(ForgeDirection dir) {
         if (getTile(dir) instanceof IPipeTile) {
             return ((IPipeTile) getTile(dir)).getPipe();
@@ -1055,13 +1052,13 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public int getPipeColor() {
         return 0;
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public PipePluggable getPipePluggable(ForgeDirection direction) {
         if (tilePart.getBCPipePluggable(direction) == null) {
             return null;
@@ -1070,13 +1067,13 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public boolean hasPipePluggable(ForgeDirection direction) {
         return tilePart.getBCPipePluggable(direction) != null;
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public boolean hasBlockingPluggable(ForgeDirection direction) {
         if (tilePart.getBCPipePluggable(direction) == null) {
             return false;
@@ -1085,7 +1082,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "BuildCraft|Transport")
+    @Optional.Method(modid = "BuildCraft|Transport")
     public ConnectOverride overridePipeConnection(PipeType pipeType, ForgeDirection forgeDirection) {
         if (this.pipe != null && this.pipe.isFluidPipe()) {
             if (pipeType == PipeType.FLUID) {

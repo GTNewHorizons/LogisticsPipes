@@ -12,7 +12,6 @@ import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.SidedEnvironment;
 import logisticspipes.LPConstants;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.RequestRotationPacket;
@@ -121,25 +120,25 @@ public class LogisticsSolidTileEntity extends TileEntity
     public void notifyOfBlockChange() {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public Node node() {
         return node;
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public void onConnect(Node node1) {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public void onDisconnect(Node node1) {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public void onMessage(Message message) {}
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public Object[] invoke(String s, Context context, Arguments arguments) throws Exception {
         BaseWrapperClass object = (BaseWrapperClass) CCObjectWrapper.getWrappedObject(this, BaseWrapperClass.WRAPPER);
         object.isDirectCall = true;
@@ -147,21 +146,21 @@ public class LogisticsSolidTileEntity extends TileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public String[] methods() {
         return new String[] {"getBlock"};
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public boolean canConnect(ForgeDirection dir) {
         return !(new WorldUtil(this).getAdjacentTileEntitie(dir) instanceof LogisticsTileGenericPipe)
                 && !(new WorldUtil(this).getAdjacentTileEntitie(dir) instanceof LogisticsSolidTileEntity);
     }
 
     @Override
-    @ModDependentMethod(modId = LPConstants.openComputersModID)
+    @Optional.Method(modid = LPConstants.openComputersModID)
     public Node sidedNode(ForgeDirection dir) {
         if (new WorldUtil(this).getAdjacentTileEntitie(dir) instanceof LogisticsTileGenericPipe
                 || new WorldUtil(this).getAdjacentTileEntitie(dir) instanceof LogisticsSolidTileEntity) {

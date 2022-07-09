@@ -1,12 +1,6 @@
 package logisticspipes.asm;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
-import cpw.mods.fml.common.versioning.ArtifactVersion;
-import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
-import cpw.mods.fml.common.versioning.VersionParser;
-import cpw.mods.fml.common.versioning.VersionRange;
 import cpw.mods.fml.relauncher.Side;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -158,17 +152,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
         for (MethodNode m : node.methods) {
             if (m.visibleAnnotations != null) {
                 for (AnnotationNode a : m.visibleAnnotations) {
-                    if (a.desc.equals("Llogisticspipes/asm/ModDependentMethod;")) {
-                        if (a.values.size() == 2 && a.values.get(0).equals("modId")) {
-                            String modId = a.values.get(1).toString();
-                            if (!ModStatusHelper.isModLoaded(modId)) {
-                                methodsToRemove.add(m);
-                                break;
-                            }
-                        } else {
-                            throw new UnsupportedOperationException("Can't parse the annotation correctly");
-                        }
-                    } else if (a.desc.equals("Llogisticspipes/asm/ClientSideOnlyMethodContent;")) {
+                    if (a.desc.equals("Llogisticspipes/asm/ClientSideOnlyMethodContent;")) {
                         if (FMLCommonHandler.instance().getSide().equals(Side.SERVER)) {
                             m.instructions.clear();
                             m.localVariables.clear();

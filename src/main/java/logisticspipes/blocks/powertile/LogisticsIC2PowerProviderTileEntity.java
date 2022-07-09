@@ -2,7 +2,6 @@ package logisticspipes.blocks.powertile;
 
 import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -125,25 +124,25 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public boolean acceptsEnergyFrom(TileEntity tile, ForgeDirection dir) {
         return true;
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public double getDemandedEnergy() {
         return freeSpace();
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public int getSinkTier() {
         return Integer.MAX_VALUE;
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
         addEnergy((float) amount);
         return 0;

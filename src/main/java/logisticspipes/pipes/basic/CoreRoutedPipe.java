@@ -25,7 +25,6 @@ import java.util.concurrent.PriorityBlockingQueue;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.config.Configs;
@@ -1534,7 +1533,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     @CCCommand(description = "Returns the access to the pipe of the givven router UUID")
-    @ModDependentMethod(modId = LPConstants.computerCraftModID)
+    @cpw.mods.fml.common.Optional.Method(modid = LPConstants.computerCraftModID)
     @CCDirectCall
     public Object getPipeForUUID(String sUuid) throws PermissionException {
         if (!getUpgradeManager().hasCCRemoteControlUpgrade()) {

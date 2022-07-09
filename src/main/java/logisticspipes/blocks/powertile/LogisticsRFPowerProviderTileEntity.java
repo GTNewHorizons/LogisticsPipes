@@ -2,7 +2,6 @@ package logisticspipes.blocks.powertile;
 
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -61,31 +60,31 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         return storage.receiveEnergy(maxReceive, simulate);
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
         return storage.extractEnergy(maxExtract, simulate);
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public boolean canConnectEnergy(ForgeDirection from) {
         return true;
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int getEnergyStored(ForgeDirection from) {
         return storage.getEnergyStored();
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int getMaxEnergyStored(ForgeDirection from) {
         return storage.getMaxEnergyStored();
     }

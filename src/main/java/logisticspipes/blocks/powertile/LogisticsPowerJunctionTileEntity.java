@@ -6,7 +6,6 @@ import ic2.api.energy.tile.IEnergySink;
 import java.util.List;
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.hud.HUDPowerLevel;
@@ -326,7 +325,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public boolean acceptsEnergyFrom(TileEntity tile, ForgeDirection dir) {
         return true;
     }
@@ -340,7 +339,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public double getDemandedEnergy() {
         if (!addedToEnergyNet) {
             return 0;
@@ -352,7 +351,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
         internalBuffer += amount * LogisticsPowerJunctionTileEntity.IC2Multiplier;
         transferFromIC2Buffer();
@@ -360,7 +359,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "IC2")
+    @Optional.Method(modid = "IC2")
     public int getSinkTier() {
         return Integer.MAX_VALUE;
     }
@@ -371,7 +370,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
         if (freeSpace() < 1) {
             return 0;
@@ -390,25 +389,25 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
         return 0;
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public boolean canConnectEnergy(ForgeDirection from) {
         return true;
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int getEnergyStored(ForgeDirection from) {
         return internalStorage * LogisticsPowerJunctionTileEntity.RFDivisor + internalRFbuffer;
     }
 
     @Override
-    @ModDependentMethod(modId = "CoFHAPI|energy")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int getMaxEnergyStored(ForgeDirection from) {
         return LogisticsPowerJunctionTileEntity.MAX_STORAGE * LogisticsPowerJunctionTileEntity.RFDivisor;
     }
