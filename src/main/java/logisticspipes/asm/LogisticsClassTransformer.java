@@ -195,57 +195,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
                             changed = true;
                             break;
                         }
-                    } else if (a.desc.equals("Llogisticspipes/asm/ModDependentMethodName;")) {
-                        if (a.values.size() == 6
-                                && a.values.get(0).equals("modId")
-                                && a.values.get(2).equals("newName")
-                                && a.values.get(4).equals("version")) {
-                            String modId = a.values.get(1).toString();
-                            final String newName = a.values.get(3).toString();
-                            final String version = a.values.get(5).toString();
-                            boolean loaded = ModStatusHelper.isModLoaded(modId);
-                            if (loaded && !version.equals("")) {
-                                ModContainer mod =
-                                        Loader.instance().getIndexedModList().get(modId);
-                                if (mod != null) {
-                                    VersionRange range = VersionParser.parseRange(version);
-                                    ArtifactVersion artifactVersion =
-                                            new DefaultArtifactVersion("Version", mod.getVersion());
-                                    loaded = range.containsVersion(artifactVersion);
-                                } else {
-                                    loaded = false;
-                                }
-                            }
-                            if (loaded) {
-                                final String oldName = m.name;
-                                m.name = newName;
-                                MethodNode newM =
-                                        new MethodNode(
-                                                Opcodes.ASM4,
-                                                m.access,
-                                                m.name,
-                                                m.desc,
-                                                m.signature,
-                                                m.exceptions.toArray(new String[0])) {
-
-                                            @Override
-                                            public void visitMethodInsn(
-                                                    int opcode, String owner, String name, String desc) {
-                                                if (name.equals(oldName) && owner.equals(node.superName)) {
-                                                    super.visitMethodInsn(opcode, owner, newName, desc);
-                                                } else {
-                                                    super.visitMethodInsn(opcode, owner, name, desc);
-                                                }
-                                            }
-                                        };
-                                m.accept(newM);
-                                node.methods.set(node.methods.indexOf(m), newM);
-                                changed = true;
-                                break;
-                            }
-                        } else {
-                            throw new UnsupportedOperationException("Can't parse the annotation correctly");
-                        }
                     }
                 }
             }
