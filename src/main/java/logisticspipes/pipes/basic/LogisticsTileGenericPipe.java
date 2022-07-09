@@ -7,6 +7,7 @@ import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.transport.TileGenericPipe;
 import cofh.api.transport.IItemDuct;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dan200.computercraft.api.peripheral.IComputerAccess;
@@ -25,7 +26,6 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
 import logisticspipes.asm.ModDependentField;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
@@ -77,23 +77,14 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import org.apache.logging.log4j.Level;
 
-@ModDependentInterface(
-        modId = {
-            "CoFHCore",
-            LPConstants.openComputersModID,
-            LPConstants.openComputersModID,
-            LPConstants.openComputersModID,
-            "BuildCraft|Transport",
-            "BuildCraft|Transport"
-        },
-        interfacePath = {
-            "cofh.api.transport.IItemDuct",
-            "li.cil.oc.api.network.ManagedPeripheral",
-            "li.cil.oc.api.network.Environment",
-            "li.cil.oc.api.network.SidedEnvironment",
-            "buildcraft.api.transport.IPipeTile",
-            "buildcraft.api.transport.IPipeConnection"
-        })
+@Optional.InterfaceList({
+    @Optional.Interface(modid = "CoFHCore", iface = "cofh.api.transport.IItemDuct"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
+    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.SidedEnvironment"),
+    @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeTile"),
+    @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeConnection"),
+})
 public class LogisticsTileGenericPipe extends TileEntity
         implements IOCTile,
                 ILPPipeTile,

@@ -1,7 +1,7 @@
 package logisticspipes.blocks.powertile;
 
 import cofh.api.energy.IEnergyHandler;
-import logisticspipes.asm.ModDependentInterface;
+import cpw.mods.fml.common.Optional;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
@@ -10,9 +10,7 @@ import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
-@ModDependentInterface(
-        modId = {"CoFHAPI|energy"},
-        interfacePath = {"cofh.api.energy.IEnergyHandler"})
+@Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler")
 public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergyHandler {
 
     public static final int MAX_STORAGE = 10000000;

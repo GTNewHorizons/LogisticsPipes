@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import net.minecraftforge.common.util.ForgeDirection;
 
+@SuppressWarnings("NullableProblems") // NonNull necessary for Lombok
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor

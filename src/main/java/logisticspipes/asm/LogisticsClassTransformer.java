@@ -154,36 +154,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
         ClassReader reader = new ClassReader(bytes);
         reader.accept(node, 0);
         boolean changed = false;
-        if (node.visibleAnnotations != null) {
-            for (AnnotationNode a : node.visibleAnnotations) {
-                if (a.desc.equals("Llogisticspipes/asm/ModDependentInterface;")) {
-                    if (a.values.size() == 4
-                            && a.values.get(0).equals("modId")
-                            && a.values.get(2).equals("interfacePath")) {
-                        List<String> modId = (List<String>) a.values.get(1);
-                        List<String> interfacePath = (List<String>) a.values.get(3);
-                        if (modId.size() != interfacePath.size()) {
-                            throw new RuntimeException("The Arrays have to be of the same size.");
-                        }
-                        for (int i = 0; i < modId.size(); i++) {
-                            if (!ModStatusHelper.isModLoaded(modId.get(i))) {
-                                interfacesToClearA.add(interfacePath.get(i));
-                                interfacesToClearB.add(interfacePath.get(i));
-                                for (String inter : node.interfaces) {
-                                    if (inter.replace("/", ".").equals(interfacePath.get(i))) {
-                                        node.interfaces.remove(inter);
-                                        changed = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        throw new UnsupportedOperationException("Can't parse the annotations correctly");
-                    }
-                }
-            }
-        }
         List<MethodNode> methodsToRemove = new ArrayList<MethodNode>();
         for (MethodNode m : node.methods) {
             if (m.visibleAnnotations != null) {

@@ -1,11 +1,11 @@
 package logisticspipes.blocks.powertile;
 
 import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
 import java.util.List;
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.Configs;
@@ -36,13 +36,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-@ModDependentInterface(
-        modId = {"IC2", "CoFHAPI|energy", "BuildCraft|Transport"},
-        interfacePath = {
-            "ic2.api.energy.tile.IEnergySink",
-            "cofh.api.energy.IEnergyHandler",
-            "buildcraft.api.power.IPowerReceptor"
-        })
+@Optional.InterfaceList({
+    @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink"),
+    @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler"),
+    @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.power.IPowerReceptor"),
+})
 @CCType(name = "LogisticsPowerJunction")
 public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
         implements IGuiTileEntity,

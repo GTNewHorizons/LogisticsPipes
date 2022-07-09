@@ -1,7 +1,7 @@
 package logisticspipes.blocks.powertile;
 
+import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
-import logisticspipes.asm.ModDependentInterface;
 import logisticspipes.asm.ModDependentMethod;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
@@ -11,9 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-@ModDependentInterface(
-        modId = {"IC2"},
-        interfacePath = {"ic2.api.energy.tile.IEnergySink"})
+@Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink")
 public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergySink {
 
     public static final int MAX_STORAGE = 40000000;
