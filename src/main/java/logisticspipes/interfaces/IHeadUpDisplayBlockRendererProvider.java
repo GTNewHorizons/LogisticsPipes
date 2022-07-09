@@ -2,7 +2,7 @@ package logisticspipes.interfaces;
 
 public interface IHeadUpDisplayBlockRendererProvider extends IHeadUpDisplayRendererProvider {
 
-	public boolean isHUDInvalid();
+    public boolean isHUDInvalid();
 
-	public boolean isHUDExistent();
+    public boolean isHUDExistent();
 }

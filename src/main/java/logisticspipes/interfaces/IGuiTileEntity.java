@@ -4,5 +4,5 @@ import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 
 public interface IGuiTileEntity {
 
-	CoordinatesGuiProvider getGuiProvider();
+    CoordinatesGuiProvider getGuiProvider();
 }

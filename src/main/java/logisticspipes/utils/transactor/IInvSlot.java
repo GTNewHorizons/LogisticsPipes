@@ -4,10 +4,9 @@ import net.minecraft.item.ItemStack;
 
 public interface IInvSlot {
 
-	boolean canPutStackInSlot(ItemStack stack);
+    boolean canPutStackInSlot(ItemStack stack);
 
-	ItemStack getStackInSlot();
+    ItemStack getStackInSlot();
 
-	void setStackInSlot(ItemStack stackInSlot);
-
+    void setStackInSlot(ItemStack stackInSlot);
 }

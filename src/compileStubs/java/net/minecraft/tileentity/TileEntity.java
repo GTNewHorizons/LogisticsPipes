@@ -1,4 +1,3 @@
 package net.minecraft.tileentity;
 
-public class TileEntity {
-}
+public class TileEntity {}

@@ -9,43 +9,43 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class CCItemIdentifierStack implements ILPCCTypeDefinition {
 
-	@Override
-	public ICCTypeWrapped getTypeFor(Object stack) {
-		return new CCItemIdentifierStackImplementation((ItemIdentifierStack) stack);
-	}
+    @Override
+    public ICCTypeWrapped getTypeFor(Object stack) {
+        return new CCItemIdentifierStackImplementation((ItemIdentifierStack) stack);
+    }
 
-	@CCType(name = "ItemIdentifierStack")
-	public static class CCItemIdentifierStackImplementation implements ICCTypeWrapped {
+    @CCType(name = "ItemIdentifierStack")
+    public static class CCItemIdentifierStackImplementation implements ICCTypeWrapped {
 
-		final ItemIdentifierStack stack;
+        final ItemIdentifierStack stack;
 
-		public CCItemIdentifierStackImplementation(ItemIdentifierStack stack2) {
-			stack = stack2;
-		}
+        public CCItemIdentifierStackImplementation(ItemIdentifierStack stack2) {
+            stack = stack2;
+        }
 
-		@CCCommand(description = "Returns the ItemIdentifier from this ItemIdentifierStack")
-		public ItemIdentifier getItem() {
-			return stack.getItem();
-		}
+        @CCCommand(description = "Returns the ItemIdentifier from this ItemIdentifierStack")
+        public ItemIdentifier getItem() {
+            return stack.getItem();
+        }
 
-		@CCCommand(description = "Returns the size of this ItemIdentifierStack")
-		public int getStackSize() {
-			return stack.getStackSize();
-		}
+        @CCCommand(description = "Returns the size of this ItemIdentifierStack")
+        public int getStackSize() {
+            return stack.getStackSize();
+        }
 
-		@CCCommand(description = "Returns the name of this ItemIdentifierStack")
-		public String getName() {
-			return stack.getFriendlyName();
-		}
+        @CCCommand(description = "Returns the name of this ItemIdentifierStack")
+        public String getName() {
+            return stack.getFriendlyName();
+        }
 
-		@CCCommand(description = "Compares this ItemIdentifierStack to another one")
-		public boolean equals(ItemIdentifierStack stack) {
-			return stack.equals(stack);
-		}
+        @CCCommand(description = "Compares this ItemIdentifierStack to another one")
+        public boolean equals(ItemIdentifierStack stack) {
+            return stack.equals(stack);
+        }
 
-		@Override
-		public ItemIdentifierStack getObject() {
-			return stack;
-		}
-	}
+        @Override
+        public ItemIdentifierStack getObject() {
+            return stack;
+        }
+    }
 }

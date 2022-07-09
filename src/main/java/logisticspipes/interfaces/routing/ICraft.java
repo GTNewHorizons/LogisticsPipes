@@ -6,11 +6,11 @@ import logisticspipes.request.resources.IResource;
 
 public interface ICraft extends IProvide {
 
-	void registerExtras(IPromise promise);
+    void registerExtras(IPromise promise);
 
-	ICraftingTemplate addCrafting(IResource type);
+    ICraftingTemplate addCrafting(IResource type);
 
-	boolean canCraft(IResource toCraft);
+    boolean canCraft(IResource toCraft);
 
-	int getTodo();
+    int getTodo();
 }

@@ -5,9 +5,8 @@ package logisticspipes.api;
  */
 public interface ILPPipe {
 
-	/**
-	 * @return true if the pipe can route items inside the network
-	 */
-	boolean isRoutedPipe();
-
+    /**
+     * @return true if the pipe can route items inside the network
+     */
+    boolean isRoutedPipe();
 }

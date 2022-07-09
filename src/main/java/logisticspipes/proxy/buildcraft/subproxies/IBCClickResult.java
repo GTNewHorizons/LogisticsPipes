@@ -2,7 +2,7 @@ package logisticspipes.proxy.buildcraft.subproxies;
 
 public interface IBCClickResult {
 
-	boolean handled();
+    boolean handled();
 
-	boolean blocked();
+    boolean blocked();
 }

@@ -2,7 +2,6 @@ package logisticspipes.interfaces;
 
 import java.util.List;
 import java.util.Map;
-
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.interfaces.routing.IRequestItems;
@@ -14,11 +13,12 @@ import logisticspipes.utils.item.ItemIdentifier;
 
 public interface ILegacyActiveModule {
 
-	void onBlockRemoval();
+    void onBlockRemoval();
 
-	public void canProvide(RequestTreeNode tree, RequestTree root, List<IFilter> filter);
+    public void canProvide(RequestTreeNode tree, RequestTree root, List<IFilter> filter);
 
-	public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info);
+    public LogisticsOrder fullFill(
+            LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info);
 
-	public void getAllItems(Map<ItemIdentifier, Integer> list, List<IFilter> filter);
+    public void getAllItems(Map<ItemIdentifier, Integer> list, List<IFilter> filter);
 }

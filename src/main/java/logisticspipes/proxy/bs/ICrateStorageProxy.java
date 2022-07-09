@@ -4,15 +4,15 @@ import net.minecraft.item.ItemStack;
 
 public interface ICrateStorageProxy {
 
-	Iterable<ItemStack> getContents();
+    Iterable<ItemStack> getContents();
 
-	int getUniqueItems();
+    int getUniqueItems();
 
-	int getItemCount(ItemStack stack);
+    int getItemCount(ItemStack stack);
 
-	ItemStack extractItems(ItemStack stack, int count);
+    ItemStack extractItems(ItemStack stack, int count);
 
-	int getSpaceForItem(ItemStack stack);
+    int getSpaceForItem(ItemStack stack);
 
-	ItemStack insertItems(ItemStack stack);
+    ItemStack insertItems(ItemStack stack);
 }

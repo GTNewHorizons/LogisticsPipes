@@ -1,5 +1,3 @@
 package cofh.thermaldynamics.duct.item;
 
-public class ItemGrid {
-	
-}
+public class ItemGrid {}

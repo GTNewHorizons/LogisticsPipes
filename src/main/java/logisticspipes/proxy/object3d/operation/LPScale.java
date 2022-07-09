@@ -5,19 +5,18 @@ import logisticspipes.proxy.object3d.interfaces.I3DOperation;
 
 public class LPScale implements I3DOperation {
 
-	private final Object ori;
+    private final Object ori;
 
-	public LPScale(double d) {
-		ori = SimpleServiceLocator.cclProxy.getScale(d);
-	}
+    public LPScale(double d) {
+        ori = SimpleServiceLocator.cclProxy.getScale(d);
+    }
 
-	public LPScale(double d, double e, double f) {
-		ori = SimpleServiceLocator.cclProxy.getScale(d, e, f);
-	}
+    public LPScale(double d, double e, double f) {
+        ori = SimpleServiceLocator.cclProxy.getScale(d, e, f);
+    }
 
-	@Override
-	public Object getOriginal() {
-		return ori;
-	}
-
+    @Override
+    public Object getOriginal() {
+        return ori;
+    }
 }

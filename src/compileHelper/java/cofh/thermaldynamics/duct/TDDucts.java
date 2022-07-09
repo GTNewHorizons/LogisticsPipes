@@ -1,5 +1,5 @@
 package cofh.thermaldynamics.duct;
 
 public class TDDucts {
-	  public static DuctItem itemBasic;
+    public static DuctItem itemBasic;
 }

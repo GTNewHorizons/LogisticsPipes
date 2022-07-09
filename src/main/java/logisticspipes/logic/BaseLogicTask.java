@@ -1,73 +1,74 @@
 package logisticspipes.logic;
 
 import java.util.UUID;
-
+import lombok.Getter;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-import lombok.Getter;
-
 public abstract class BaseLogicTask {
 
-	//Graphical Interface
-	@Getter
-	protected int posX;
-	@Getter
-	protected int posY;
-	@Getter
-	protected String name = getTypeName();
-	@Getter
-	protected String comment = "";
+    // Graphical Interface
+    @Getter
+    protected int posX;
 
-	//Saving and Server/Client sync
-	@Getter
-	protected UUID uuid;
+    @Getter
+    protected int posY;
 
-	public BaseLogicTask(NBTTagCompound nbt) {
-		posX = nbt.getInteger("posX");
-		posY = nbt.getInteger("posY");
-		name = nbt.getString("name");
-		comment = nbt.getString("comment");
-		uuid = UUID.fromString(nbt.getString("uuid"));
-	}
+    @Getter
+    protected String name = getTypeName();
 
-	public BaseLogicTask(int posX, int posY) {
-		this.posX = posX;
-		this.posY = posY;
-		uuid = UUID.randomUUID();
-	}
+    @Getter
+    protected String comment = "";
 
-	public final NBTTagCompound getNBTTagCompound() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		addToNBT(nbt);
-		return nbt;
-	}
+    // Saving and Server/Client sync
+    @Getter
+    protected UUID uuid;
 
-	protected void addToNBT(NBTTagCompound nbt) {
-		nbt.setInteger("posX", posX);
-		nbt.setInteger("posY", posY);
-		nbt.setString("name", name);
-		nbt.setString("comment", comment);
-		nbt.setString("uuid", uuid.toString());
-	}
+    public BaseLogicTask(NBTTagCompound nbt) {
+        posX = nbt.getInteger("posX");
+        posY = nbt.getInteger("posY");
+        name = nbt.getString("name");
+        comment = nbt.getString("comment");
+        uuid = UUID.fromString(nbt.getString("uuid"));
+    }
 
-	public abstract int getAmountOfInput();
+    public BaseLogicTask(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
+        uuid = UUID.randomUUID();
+    }
 
-	public abstract int getAmountOfOutput();
+    public final NBTTagCompound getNBTTagCompound() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        addToNBT(nbt);
+        return nbt;
+    }
 
-	public abstract LogicParameterType getInputParameterType(int i);
+    protected void addToNBT(NBTTagCompound nbt) {
+        nbt.setInteger("posX", posX);
+        nbt.setInteger("posY", posY);
+        nbt.setString("name", name);
+        nbt.setString("comment", comment);
+        nbt.setString("uuid", uuid.toString());
+    }
 
-	public abstract LogicParameterType getOutputParameterType(int i);
+    public abstract int getAmountOfInput();
 
-	public abstract void setInputParameter(int i, Object value);
+    public abstract int getAmountOfOutput();
 
-	public abstract boolean isCalculated();
+    public abstract LogicParameterType getInputParameterType(int i);
 
-	public abstract Object getResult(int i);
+    public abstract LogicParameterType getOutputParameterType(int i);
 
-	public abstract void resetState();
+    public abstract void setInputParameter(int i, Object value);
 
-	public abstract String getTypeName();
+    public abstract boolean isCalculated();
 
-	public abstract void syncTick(TileEntity tile);
+    public abstract Object getResult(int i);
+
+    public abstract void resetState();
+
+    public abstract String getTypeName();
+
+    public abstract void syncTick(TileEntity tile);
 }

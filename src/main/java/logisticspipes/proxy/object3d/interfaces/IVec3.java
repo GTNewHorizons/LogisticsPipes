@@ -2,11 +2,11 @@ package logisticspipes.proxy.object3d.interfaces;
 
 public interface IVec3 {
 
-	double x();
+    double x();
 
-	double y();
+    double y();
 
-	double z();
+    double z();
 
-	Object getOriginal();
+    Object getOriginal();
 }

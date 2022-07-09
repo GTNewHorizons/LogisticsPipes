@@ -4,6 +4,5 @@ import java.util.LinkedList;
 
 public class RouteCache {
 
-	public LinkedList<Route> outputRoutes;
-	
+    public LinkedList<Route> outputRoutes;
 }

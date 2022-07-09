@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public interface IGuiOpenControler {
 
-	public void guiOpenedByPlayer(EntityPlayer player);
+    public void guiOpenedByPlayer(EntityPlayer player);
 
-	public void guiClosedByPlayer(EntityPlayer player);
+    public void guiClosedByPlayer(EntityPlayer player);
 }

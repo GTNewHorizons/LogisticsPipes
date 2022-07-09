@@ -1,10 +1,10 @@
 configurations {
-    compileHelper
+	compileHelper
 }
 
 sourceSets {
-    compileStubs
-    compileHelper {
-        compileClasspath += configurations.compileHelper
-    }
+	compileStubs
+	compileHelper {
+		compileClasspath += configurations.compileHelper
+	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IHUDModuleRenderer {
 
-	public void renderContent(boolean shifted);
+    public void renderContent(boolean shifted);
 
-	public List<IHUDButton> getButtons();
+    public List<IHUDButton> getButtons();
 }

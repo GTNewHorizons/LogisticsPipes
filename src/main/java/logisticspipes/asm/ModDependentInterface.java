@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModDependentInterface {
 
-	public String[] modId();
+    public String[] modId();
 
-	public String[] interfacePath();
+    public String[] interfacePath();
 }

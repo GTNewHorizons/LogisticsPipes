@@ -1,5 +1,3 @@
 package cofh.thermaldynamics.duct;
 
-public class DuctItem extends Duct {
-	
-}
+public class DuctItem extends Duct {}

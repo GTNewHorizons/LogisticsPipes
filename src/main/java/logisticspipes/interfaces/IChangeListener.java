@@ -2,5 +2,5 @@ package logisticspipes.interfaces;
 
 public interface IChangeListener {
 
-	public void listenedChanged();
+    public void listenedChanged();
 }

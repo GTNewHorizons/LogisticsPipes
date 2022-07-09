@@ -1,5 +1,3 @@
 package cofh.thermaldynamics.multiblock;
 
-public interface IMultiBlock {
-	
-}
+public interface IMultiBlock {}

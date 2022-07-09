@@ -2,20 +2,19 @@ package logisticspipes.proxy.td.subproxies;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ITDPart {
 
-	TileEntity getInternalDuctForSide(ForgeDirection opposite);
+    TileEntity getInternalDuctForSide(ForgeDirection opposite);
 
-	void setWorldObj_LP(World world);
+    void setWorldObj_LP(World world);
 
-	void invalidate();
+    void invalidate();
 
-	void onChunkUnload();
+    void onChunkUnload();
 
-	void scheduleNeighborChange();
+    void scheduleNeighborChange();
 
-	void connectionsChanged();
+    void connectionsChanged();
 }

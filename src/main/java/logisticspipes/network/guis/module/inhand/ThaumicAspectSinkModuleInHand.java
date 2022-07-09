@@ -8,38 +8,37 @@ import logisticspipes.network.abstractguis.ModuleInHandGuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.DummyModuleContainer;
 import logisticspipes.utils.item.ItemIdentifierInventory;
-
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ThaumicAspectSinkModuleInHand extends ModuleInHandGuiProvider {
 
-	public ThaumicAspectSinkModuleInHand(int id) {
-		super(id);
-	}
+    public ThaumicAspectSinkModuleInHand(int id) {
+        super(id);
+    }
 
-	@Override
-	public Object getClientGui(EntityPlayer player) {
-		LogisticsModule module = getLogisticsModule(player);
-		if (!(module instanceof ModuleThaumicAspectSink)) {
-			return null;
-		}
-		return new GuiThaumicAspectSink(player.inventory, (ModuleThaumicAspectSink) module);
-	}
+    @Override
+    public Object getClientGui(EntityPlayer player) {
+        LogisticsModule module = getLogisticsModule(player);
+        if (!(module instanceof ModuleThaumicAspectSink)) {
+            return null;
+        }
+        return new GuiThaumicAspectSink(player.inventory, (ModuleThaumicAspectSink) module);
+    }
 
-	@Override
-	public DummyContainer getContainer(EntityPlayer player) {
-		DummyModuleContainer dummy = new DummyModuleContainer(player, getInvSlot());
-		if (!(dummy.getModule() instanceof ModuleThaumicAspectSink)) {
-			return null;
-		}
-		dummy.setInventory(new ItemIdentifierInventory(1, "TMP", 1));
-		dummy.addDummySlot(0, 0, 0);
-		dummy.addNormalSlotsForPlayerInventory(0, 0);
-		return dummy;
-	}
+    @Override
+    public DummyContainer getContainer(EntityPlayer player) {
+        DummyModuleContainer dummy = new DummyModuleContainer(player, getInvSlot());
+        if (!(dummy.getModule() instanceof ModuleThaumicAspectSink)) {
+            return null;
+        }
+        dummy.setInventory(new ItemIdentifierInventory(1, "TMP", 1));
+        dummy.addDummySlot(0, 0, 0);
+        dummy.addNormalSlotsForPlayerInventory(0, 0);
+        return dummy;
+    }
 
-	@Override
-	public GuiProvider template() {
-		return new ThaumicAspectSinkModuleInHand(getId());
-	}
+    @Override
+    public GuiProvider template() {
+        return new ThaumicAspectSinkModuleInHand(getId());
+    }
 }

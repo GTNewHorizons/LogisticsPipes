@@ -1,5 +1,3 @@
 package cofh.thermaldynamics.multiblock;
 
-public interface IMultiBlockRoute extends IMultiBlock {
-	
-}
+public interface IMultiBlockRoute extends IMultiBlock {}

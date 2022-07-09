@@ -2,33 +2,33 @@ package logisticspipes.interfaces;
 
 public interface IHUDButton {
 
-	public int getX();
+    public int getX();
 
-	public int getY();
+    public int getY();
 
-	public int sizeX();
+    public int sizeX();
 
-	public int sizeY();
+    public int sizeY();
 
-	public void setFocused();
+    public void setFocused();
 
-	public boolean isFocused();
+    public boolean isFocused();
 
-	public void clearFocused();
+    public void clearFocused();
 
-	public void blockFocused();
+    public void blockFocused();
 
-	public boolean isblockFocused();
+    public boolean isblockFocused();
 
-	public int focusedTime();
+    public int focusedTime();
 
-	public void clicked();
+    public void clicked();
 
-	public void renderButton(boolean hover, boolean clicked, boolean shifted);
+    public void renderButton(boolean hover, boolean clicked, boolean shifted);
 
-	public void renderAlways(boolean shifted);
+    public void renderAlways(boolean shifted);
 
-	public boolean shouldRenderButton();
+    public boolean shouldRenderButton();
 
-	public boolean buttonEnabled();
+    public boolean buttonEnabled();
 }

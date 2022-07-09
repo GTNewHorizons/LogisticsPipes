@@ -4,6 +4,5 @@ import net.minecraft.world.World;
 
 public interface IWorldProvider {
 
-	public abstract World getWorld();
-
+    public abstract World getWorld();
 }

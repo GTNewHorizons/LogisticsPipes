@@ -2,7 +2,7 @@ package logisticspipes.asm.te;
 
 public interface ILPTEInformation {
 
-	LPTileEntityObject getObject();
+    LPTileEntityObject getObject();
 
-	void setObject(LPTileEntityObject object);
+    void setObject(LPTileEntityObject object);
 }

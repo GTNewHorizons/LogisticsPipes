@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModDependentMethodName {
 
-	public String modId();
+    public String modId();
 
-	public String newName();
+    public String newName();
 
-	public String version();
+    public String version();
 }

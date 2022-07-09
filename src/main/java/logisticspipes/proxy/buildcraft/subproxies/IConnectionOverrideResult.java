@@ -2,7 +2,7 @@ package logisticspipes.proxy.buildcraft.subproxies;
 
 public interface IConnectionOverrideResult {
 
-	boolean forceConnect();
+    boolean forceConnect();
 
-	boolean forceDisconnect();
+    boolean forceDisconnect();
 }

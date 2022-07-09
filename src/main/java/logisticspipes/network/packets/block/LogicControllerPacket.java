@@ -5,27 +5,28 @@ import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.guis.logic.LogicControllerGuiProvider;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
 public class LogicControllerPacket extends CoordinatesPacket {
 
-	public LogicControllerPacket(int id) {
-		super(id);
-	}
+    public LogicControllerPacket(int id) {
+        super(id);
+    }
 
-	@Override
-	public void processPacket(EntityPlayer player) {
-		ILogicControllerTile tile = this.getTile(player.getEntityWorld(), ILogicControllerTile.class);
-		if (tile == null) {
-			return;
-		}
-		NewGuiHandler.getGui(LogicControllerGuiProvider.class).setTilePos((TileEntity) tile).open(player);
-	}
+    @Override
+    public void processPacket(EntityPlayer player) {
+        ILogicControllerTile tile = this.getTile(player.getEntityWorld(), ILogicControllerTile.class);
+        if (tile == null) {
+            return;
+        }
+        NewGuiHandler.getGui(LogicControllerGuiProvider.class)
+                .setTilePos((TileEntity) tile)
+                .open(player);
+    }
 
-	@Override
-	public ModernPacket template() {
-		return new LogicControllerPacket(getId());
-	}
+    @Override
+    public ModernPacket template() {
+        return new LogicControllerPacket(getId());
+    }
 }

@@ -1,19 +1,18 @@
 package logisticspipes.logic;
 
+import lombok.Getter;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import lombok.Getter;
-
 public enum LogicParameterType {
-	Number(long.class),
-	Float(double.class),
-	Boolean(boolean.class),
-	Direction(ForgeDirection.class);
+    Number(long.class),
+    Float(double.class),
+    Boolean(boolean.class),
+    Direction(ForgeDirection.class);
 
-	@Getter
-	private final Class<?> javaClass;
+    @Getter
+    private final Class<?> javaClass;
 
-	private LogicParameterType(Class<?> clazz) {
-		javaClass = clazz;
-	}
+    private LogicParameterType(Class<?> clazz) {
+        javaClass = clazz;
+    }
 }

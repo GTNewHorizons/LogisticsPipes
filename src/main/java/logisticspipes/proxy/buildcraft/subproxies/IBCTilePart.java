@@ -1,51 +1,49 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
 import logisticspipes.asm.IgnoreDisabledProxy;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IBCTilePart {
 
-	boolean hasBlockingPluggable(ForgeDirection side);
+    boolean hasBlockingPluggable(ForgeDirection side);
 
-	@IgnoreDisabledProxy
-	void writeToNBT_LP(NBTTagCompound nbt);
+    @IgnoreDisabledProxy
+    void writeToNBT_LP(NBTTagCompound nbt);
 
-	@IgnoreDisabledProxy
-	void readFromNBT_LP(NBTTagCompound nbt);
+    @IgnoreDisabledProxy
+    void readFromNBT_LP(NBTTagCompound nbt);
 
-	boolean isSolidOnSide(ForgeDirection side);
+    boolean isSolidOnSide(ForgeDirection side);
 
-	void invalidate_LP();
+    void invalidate_LP();
 
-	void validate_LP();
+    void validate_LP();
 
-	void updateEntity_LP();
+    void updateEntity_LP();
 
-	void scheduleNeighborChange();
+    void scheduleNeighborChange();
 
-	boolean hasGate(ForgeDirection orientation);
+    boolean hasGate(ForgeDirection orientation);
 
-	IBCRenderState getBCRenderState();
+    IBCRenderState getBCRenderState();
 
-	IBCPipePart getBCPipePart();
+    IBCPipePart getBCPipePart();
 
-	IBCPluggableState getBCPlugableState();
+    IBCPluggableState getBCPlugableState();
 
-	boolean hasEnabledFacade(ForgeDirection dir);
+    boolean hasEnabledFacade(ForgeDirection dir);
 
-	IBCPipePluggable getBCPipePluggable(ForgeDirection sideHit);
+    IBCPipePluggable getBCPipePluggable(ForgeDirection sideHit);
 
-	void readOldRedStone(NBTTagCompound nbt);
+    void readOldRedStone(NBTTagCompound nbt);
 
-	void afterStateUpdated();
+    void afterStateUpdated();
 
-	Object getOriginal();
+    Object getOriginal();
 
-	boolean hasPipePluggable(ForgeDirection dir);
+    boolean hasPipePluggable(ForgeDirection dir);
 
-	void setWorldObj_LP(World world);
+    void setWorldObj_LP(World world);
 }
