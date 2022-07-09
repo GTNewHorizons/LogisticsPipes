@@ -10,7 +10,6 @@ import cofh.api.transport.IItemDuct;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dan200.computercraft.api.peripheral.IComputerAccess;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,6 @@ import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
-import logisticspipes.asm.ModDependentField;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.interfaces.routing.IFilter;
@@ -103,14 +101,11 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     private LogisticsTileRenderController renderController;
 
-    @ModDependentField(modId = LPConstants.computerCraftModID)
-    public HashMap<IComputerAccess, ForgeDirection> connections;
+    public HashMap<Object, ForgeDirection> connections;
 
-    @ModDependentField(modId = LPConstants.computerCraftModID)
-    public IComputerAccess currentPC;
+    public Object currentPC;
 
-    @ModDependentField(modId = LPConstants.openComputersModID)
-    public Node node;
+    public Object node;
 
     private boolean addedToNetwork = false;
 
@@ -125,7 +120,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public LogisticsTileGenericPipe() {
         if (SimpleServiceLocator.ccProxy.isCC()) {
-            connections = new HashMap<IComputerAccess, ForgeDirection>();
+            connections = new HashMap<>();
         }
         SimpleServiceLocator.openComputersProxy.initLogisticsTileGenericPipe(this);
         tilePart = SimpleServiceLocator.buildCraftProxy.getBCTilePart(this);
@@ -634,7 +629,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
     public Node node() {
-        return node;
+        return (Node) node;
     }
 
     @Override

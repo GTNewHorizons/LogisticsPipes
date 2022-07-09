@@ -9,13 +9,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import logisticspipes.LPConstants;
-import logisticspipes.utils.ModStatusHelper;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public class LogisticsClassTransformer implements IClassTransformer {
@@ -148,7 +146,6 @@ public class LogisticsClassTransformer implements IClassTransformer {
         ClassReader reader = new ClassReader(bytes);
         reader.accept(node, 0);
         boolean changed = false;
-        List<MethodNode> methodsToRemove = new ArrayList<MethodNode>();
         for (MethodNode m : node.methods) {
             if (m.visibleAnnotations != null) {
                 for (AnnotationNode a : m.visibleAnnotations) {
@@ -183,31 +180,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
                 }
             }
         }
-        for (MethodNode m : methodsToRemove) {
-            node.methods.remove(m);
-        }
-        List<FieldNode> fieldsToRemove = new ArrayList<FieldNode>();
-        for (FieldNode f : node.fields) {
-            if (f.visibleAnnotations != null) {
-                for (AnnotationNode a : f.visibleAnnotations) {
-                    if (a.desc.equals("Llogisticspipes/asm/ModDependentField;")) {
-                        if (a.values.size() == 2 && a.values.get(0).equals("modId")) {
-                            String modId = a.values.get(1).toString();
-                            if (!ModStatusHelper.isModLoaded(modId)) {
-                                fieldsToRemove.add(f);
-                                break;
-                            }
-                        } else {
-                            throw new UnsupportedOperationException("Can't parse the annotation correctly");
-                        }
-                    }
-                }
-            }
-        }
-        for (FieldNode f : fieldsToRemove) {
-            node.fields.remove(f);
-        }
-        if (!changed && methodsToRemove.isEmpty() && fieldsToRemove.isEmpty()) {
+        if (!changed) {
             return bytes;
         }
         ClassWriter writer = new ClassWriter(0);

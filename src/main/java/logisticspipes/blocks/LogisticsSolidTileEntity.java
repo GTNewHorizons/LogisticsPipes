@@ -11,7 +11,6 @@ import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.SidedEnvironment;
 import logisticspipes.LPConstants;
-import logisticspipes.asm.ModDependentField;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.RequestRotationPacket;
@@ -44,8 +43,8 @@ public class LogisticsSolidTileEntity extends TileEntity
     private boolean init = false;
     public int rotation = 0;
 
-    @ModDependentField(modId = LPConstants.openComputersModID)
-    public Node node;
+    // is a Node
+    public Object node;
 
     public LogisticsSolidTileEntity() {
         SimpleServiceLocator.openComputersProxy.initLogisticsSolidTileEntity(this);
@@ -122,7 +121,7 @@ public class LogisticsSolidTileEntity extends TileEntity
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
     public Node node() {
-        return node;
+        return (Node) node;
     }
 
     @Override
