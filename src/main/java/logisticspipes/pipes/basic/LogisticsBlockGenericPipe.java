@@ -975,7 +975,6 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         LogisticsNewRenderPipe.registerTextures(iconRegister);
-        SimpleServiceLocator.thermalDynamicsProxy.registerTextures(iconRegister);
         if (!skippedFirstIconRegister) {
             skippedFirstIconRegister = true;
             return;

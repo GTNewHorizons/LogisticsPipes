@@ -25,9 +25,6 @@ dependencies {
 	compileOnly('curse.maven:thermal-expansion-69163:2388759') {transitive = false}
 	compileOnly('curse.maven:better-storage-232919:2731636') {transitive = false}
 	compileOnly('curse.maven:minefactory-reloaded-66672:2366150') {transitive = false}
-	compileOnly(sourceSets.compileHelper.output)
-
-	compileHelper(sourceSets.compileStubs.output)
 
 	annotationProcessor('org.projectlombok:lombok:1.18.8')
 }

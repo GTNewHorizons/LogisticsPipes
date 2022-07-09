@@ -7,7 +7,6 @@ import logisticspipes.config.PlayerConfig;
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
 import logisticspipes.renderer.newpipe.LogisticsNewPipeWorldRenderer;
 import logisticspipes.renderer.state.PipeRenderState;
@@ -219,7 +218,6 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
             IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         TileEntity tile = world.getTileEntity(x, y, z);
         LogisticsTileGenericPipe pipeTile = (LogisticsTileGenericPipe) tile;
-        SimpleServiceLocator.thermalDynamicsProxy.renderPipeConnections(pipeTile, renderer);
         if (config.isUseNewRenderer() && !pipeTile.renderState.forceRenderOldPipe) {
             return newRenderer.renderWorldBlock(world, x, y, z, block, modelId, renderer);
         }
