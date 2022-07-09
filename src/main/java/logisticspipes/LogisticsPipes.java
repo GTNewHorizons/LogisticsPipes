@@ -11,7 +11,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -223,8 +222,6 @@ public class LogisticsPipes {
 
     public static boolean WATCHDOG = false;
 
-    private boolean certificateError = false;
-
     // Logistics Pipes
     public static Item LogisticsBasicPipe;
     public static Item LogisticsRequestPipeMk1;
@@ -348,10 +345,6 @@ public class LogisticsPipes {
         loadClasses();
         ProxyManager.load();
         Configs.load();
-        if (certificateError) {
-            LogisticsPipes.log.fatal("Certificate not correct");
-            LogisticsPipes.log.fatal("This in not a LogisticsPipes version from RS485.");
-        }
         if (LPConstants.DEV_BUILD) {
             LogisticsPipes.log.debug("You are using a dev version.");
             LogisticsPipes.log.debug(
@@ -589,17 +582,6 @@ public class LogisticsPipes {
     @EventHandler
     public void registerCommands(FMLServerStartingEvent event) {
         event.registerServerCommand(new LogisticsPipesCommand());
-    }
-
-    @EventHandler
-    public void certificateWarning(FMLFingerprintViolationEvent warning) {
-        if (!LPConstants.DEBUG) {
-            System.out.println("[LogisticsPipes|Certificate] Certificate not correct");
-            System.out.println("[LogisticsPipes|Certificate] Expected: " + warning.expectedFingerprint);
-            System.out.println("[LogisticsPipes|Certificate] File: " + warning.source.getAbsolutePath());
-            System.out.println("[LogisticsPipes|Certificate] This in not a LogisticsPipes version from RS485.");
-            certificateError = true;
-        }
     }
 
     public static Object getComputerLP() {
