@@ -6,40 +6,39 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntrencsTransport extends PipeTransportLogistics {
 
-	public EntrencsTransport() {
-		super(true);
-	}
+    public EntrencsTransport() {
+        super(true);
+    }
 
-	public PipeItemsSystemEntranceLogistics pipe;
+    public PipeItemsSystemEntranceLogistics pipe;
 
-	@Override
-	public ForgeDirection resolveDestination(LPTravelingItemServer data) {
-		if (data.getDestination() < 0 || data.getArrived()) {
-			if (pipe.getLocalFreqUUID() != null) {
-				if (pipe.useEnergy(5)) {
-					for (ExitRoute router : pipe.getRouter().getIRoutersByCost()) {
-						if (!router.containsFlag(PipeRoutingConnectionType.canRouteTo)) {
-							continue;
-						}
-						CoreRoutedPipe lPipe = router.destination.getPipe();
-						if (lPipe instanceof PipeItemsSystemDestinationLogistics) {
-							PipeItemsSystemDestinationLogistics dPipe = (PipeItemsSystemDestinationLogistics) lPipe;
-							if (dPipe.getTargetUUID() != null) {
-								if (dPipe.getTargetUUID().equals(pipe.getLocalFreqUUID())) {
-									data.setDestination(dPipe.getRouter().getSimpleID());
-									data.setArrived(false);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return super.resolveDestination(data);
-	}
+    @Override
+    public ForgeDirection resolveDestination(LPTravelingItemServer data) {
+        if (data.getDestination() < 0 || data.getArrived()) {
+            if (pipe.getLocalFreqUUID() != null) {
+                if (pipe.useEnergy(5)) {
+                    for (ExitRoute router : pipe.getRouter().getIRoutersByCost()) {
+                        if (!router.containsFlag(PipeRoutingConnectionType.canRouteTo)) {
+                            continue;
+                        }
+                        CoreRoutedPipe lPipe = router.destination.getPipe();
+                        if (lPipe instanceof PipeItemsSystemDestinationLogistics) {
+                            PipeItemsSystemDestinationLogistics dPipe = (PipeItemsSystemDestinationLogistics) lPipe;
+                            if (dPipe.getTargetUUID() != null) {
+                                if (dPipe.getTargetUUID().equals(pipe.getLocalFreqUUID())) {
+                                    data.setDestination(dPipe.getRouter().getSimpleID());
+                                    data.setArrived(false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return super.resolveDestination(data);
+    }
 }

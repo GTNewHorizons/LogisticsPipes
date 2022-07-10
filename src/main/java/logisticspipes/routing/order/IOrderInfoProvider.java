@@ -1,39 +1,37 @@
 package logisticspipes.routing.order;
 
 import java.util.List;
-
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
 
 public interface IOrderInfoProvider {
 
-	public enum ResourceType {
-		PROVIDER,
-		CRAFTING,
-		EXTRA
-	};
+    public enum ResourceType {
+        PROVIDER,
+        CRAFTING,
+        EXTRA
+    };
 
-	boolean isFinished();
+    boolean isFinished();
 
-	ItemIdentifierStack getAsDisplayItem();
+    ItemIdentifierStack getAsDisplayItem();
 
-	ResourceType getType();
+    ResourceType getType();
 
-	int getRouterId();
+    int getRouterId();
 
-	boolean isInProgress();
+    boolean isInProgress();
 
-	boolean isWatched();
+    boolean isWatched();
 
-	void setWatched();
+    void setWatched();
 
-	List<Float> getProgresses();
+    List<Float> getProgresses();
 
-	byte getMachineProgress();
+    byte getMachineProgress();
 
-	ItemIdentifier getTargetType();
+    ItemIdentifier getTargetType();
 
-	LPPosition getTargetPosition();
-
+    LPPosition getTargetPosition();
 }

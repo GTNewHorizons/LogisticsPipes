@@ -7,61 +7,70 @@ import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
 import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
 import logisticspipes.proxy.buildcraft.subproxies.IBCTilePart;
 import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IBCProxy {
 
-	void resetItemRotation();
+    void resetItemRotation();
 
-	boolean isIPipeTile(TileEntity tile);
+    boolean isIPipeTile(TileEntity tile);
 
-	void registerPipeInformationProvider();
+    void registerPipeInformationProvider();
 
-	void initProxy();
+    void initProxy();
 
-	boolean checkForPipeConnection(TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe);
+    boolean checkForPipeConnection(TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe);
 
-	IConnectionOverrideResult checkConnectionOverride(TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe);
+    IConnectionOverrideResult checkConnectionOverride(
+            TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe);
 
-	/** Only used by the BC proxy internaly */
-	boolean canPipeConnect(TileEntity pipe, TileEntity tile, ForgeDirection direction);
+    /** Only used by the BC proxy internaly */
+    boolean canPipeConnect(TileEntity pipe, TileEntity tile, ForgeDirection direction);
 
-	boolean isActive();
+    boolean isActive();
 
-	@IgnoreDisabledProxy
-	boolean isInstalled();
+    @IgnoreDisabledProxy
+    boolean isInstalled();
 
-	Object getLPPipeType();
+    Object getLPPipeType();
 
-	void registerTrigger();
+    void registerTrigger();
 
-	ICraftingParts getRecipeParts();
+    ICraftingParts getRecipeParts();
 
-	void addCraftingRecipes(ICraftingParts parts);
+    void addCraftingRecipes(ICraftingParts parts);
 
-	Class<? extends ICraftingRecipeProvider> getAssemblyTableProviderClass();
+    Class<? extends ICraftingRecipeProvider> getAssemblyTableProviderClass();
 
-	void notifyOfChange(LogisticsTileGenericPipe logisticsTileGenericPipe, TileEntity tile, ForgeDirection o);
+    void notifyOfChange(LogisticsTileGenericPipe logisticsTileGenericPipe, TileEntity tile, ForgeDirection o);
 
-	IBCTilePart getBCTilePart(LogisticsTileGenericPipe logisticsTileGenericPipe);
+    IBCTilePart getBCTilePart(LogisticsTileGenericPipe logisticsTileGenericPipe);
 
-	IBCClickResult handleBCClickOnPipe(World world, int x, int y, int z, EntityPlayer player, int side, float xOffset, float yOffset, float zOffset, CoreUnroutedPipe pipe);
+    IBCClickResult handleBCClickOnPipe(
+            World world,
+            int x,
+            int y,
+            int z,
+            EntityPlayer player,
+            int side,
+            float xOffset,
+            float yOffset,
+            float zOffset,
+            CoreUnroutedPipe pipe);
 
-	void callBCNeighborBlockChange(World world, int x, int y, int z, Block block);
+    void callBCNeighborBlockChange(World world, int x, int y, int z, Block block);
 
-	void callBCRemovePipe(World world, int x, int y, int z);
+    void callBCRemovePipe(World world, int x, int y, int z);
 
-	void logWarning(String format);
+    void logWarning(String format);
 
-	IBCRenderTESR getBCRenderTESR();
+    IBCRenderTESR getBCRenderTESR();
 
-	boolean isTileGenericPipe(TileEntity tile);
+    boolean isTileGenericPipe(TileEntity tile);
 
-	void cleanup();
+    void cleanup();
 }

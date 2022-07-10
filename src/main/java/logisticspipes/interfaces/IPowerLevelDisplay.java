@@ -2,13 +2,13 @@ package logisticspipes.interfaces;
 
 public interface IPowerLevelDisplay {
 
-	int getChargeState();
+    int getChargeState();
 
-	int getDisplayPowerLevel();
+    int getDisplayPowerLevel();
 
-	int getMaxStorage();
+    int getMaxStorage();
 
-	boolean isHUDInvalid();
+    boolean isHUDInvalid();
 
-	String getBrand();
+    String getBrand();
 }

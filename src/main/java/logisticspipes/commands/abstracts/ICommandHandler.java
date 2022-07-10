@@ -4,11 +4,11 @@ import net.minecraft.command.ICommandSender;
 
 public interface ICommandHandler {
 
-	public String[] getNames();
+    public String[] getNames();
 
-	public boolean isCommandUsableBy(ICommandSender sender);
+    public boolean isCommandUsableBy(ICommandSender sender);
 
-	public String[] getDescription();
+    public String[] getDescription();
 
-	public void executeCommand(ICommandSender sender, String[] args);
+    public void executeCommand(ICommandSender sender, String[] args);
 }

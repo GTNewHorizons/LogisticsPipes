@@ -4,6 +4,5 @@ import java.util.List;
 
 public interface IClientInformationProvider {
 
-	public abstract List<String> getClientInformation();
-
+    public abstract List<String> getClientInformation();
 }

@@ -1,7 +1,6 @@
 package logisticspipes.logisticspipes;
 
 import java.util.List;
-
 import logisticspipes.utils.AdjacentTile;
 
 /**
@@ -11,7 +10,7 @@ import logisticspipes.utils.AdjacentTile;
  */
 public interface IAdjacentWorldAccess {
 
-	public List<AdjacentTile> getConnectedEntities();
+    public List<AdjacentTile> getConnectedEntities();
 
-	public int getRandomInt(int maxSize);
+    public int getRandomInt(int maxSize);
 }

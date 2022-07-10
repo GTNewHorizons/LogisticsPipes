@@ -2,9 +2,9 @@ package logisticspipes.interfaces;
 
 public interface IRotationProvider {
 
-	public int getRotation();
+    public int getRotation();
 
-	public void setRotation(int rotation);
+    public void setRotation(int rotation);
 
-	public int getFrontTexture();
+    public int getFrontTexture();
 }

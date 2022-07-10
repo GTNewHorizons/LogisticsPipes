@@ -5,11 +5,11 @@ package logisticspipes.api;
  */
 public interface ILPPipeTile {
 
-	/**
-	 * Used to access the internal pipe logic This also can return the
-	 * IRequestAPI or IRoutedPowerProvider
-	 * 
-	 * @return the pipe
-	 */
-	ILPPipe getLPPipe();
+    /**
+     * Used to access the internal pipe logic This also can return the
+     * IRequestAPI or IRoutedPowerProvider
+     *
+     * @return the pipe
+     */
+    ILPPipe getLPPipe();
 }

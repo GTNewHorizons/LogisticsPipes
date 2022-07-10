@@ -2,12 +2,12 @@ package logisticspipes.utils.gui;
 
 public abstract class ISmallColorRenderSlot implements IRenderSlot {
 
-	public abstract int getColor();
+    public abstract int getColor();
 
-	public abstract boolean drawColor();
+    public abstract boolean drawColor();
 
-	@Override
-	public int getSize() {
-		return 8;
-	}
+    @Override
+    public int getSize() {
+        return 8;
+    }
 }

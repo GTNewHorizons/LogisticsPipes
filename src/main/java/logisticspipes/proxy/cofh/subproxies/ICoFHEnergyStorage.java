@@ -4,15 +4,15 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface ICoFHEnergyStorage {
 
-	int extractEnergy(int space, boolean b);
+    int extractEnergy(int space, boolean b);
 
-	int receiveEnergy(int maxReceive, boolean simulate);
+    int receiveEnergy(int maxReceive, boolean simulate);
 
-	int getEnergyStored();
+    int getEnergyStored();
 
-	int getMaxEnergyStored();
+    int getMaxEnergyStored();
 
-	void readFromNBT(NBTTagCompound nbt);
+    void readFromNBT(NBTTagCompound nbt);
 
-	void writeToNBT(NBTTagCompound nbt);
+    void writeToNBT(NBTTagCompound nbt);
 }

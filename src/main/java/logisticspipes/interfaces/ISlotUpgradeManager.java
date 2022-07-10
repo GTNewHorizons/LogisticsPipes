@@ -4,21 +4,21 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ISlotUpgradeManager {
 
-	boolean hasPatternUpgrade();
+    boolean hasPatternUpgrade();
 
-	boolean isAdvancedSatelliteCrafter();
+    boolean isAdvancedSatelliteCrafter();
 
-	boolean hasByproductExtractor();
+    boolean hasByproductExtractor();
 
-	int getFluidCrafter();
+    int getFluidCrafter();
 
-	boolean isFuzzyUpgrade();
+    boolean isFuzzyUpgrade();
 
-	int getCrafterCleanup();
+    int getCrafterCleanup();
 
-	boolean hasSneakyUpgrade();
+    boolean hasSneakyUpgrade();
 
-	ForgeDirection getSneakyOrientation();
+    ForgeDirection getSneakyOrientation();
 
-	boolean hasOwnSneakyUpgrade();
+    boolean hasOwnSneakyUpgrade();
 }

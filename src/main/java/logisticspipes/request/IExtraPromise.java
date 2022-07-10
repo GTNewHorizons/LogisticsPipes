@@ -4,14 +4,14 @@ import logisticspipes.request.resources.IResource;
 
 public interface IExtraPromise extends IPromise {
 
-	void registerExtras(IResource requestType);
+    void registerExtras(IResource requestType);
 
-	@Override
-	IExtraPromise copy();
+    @Override
+    IExtraPromise copy();
 
-	boolean isProvided();
+    boolean isProvided();
 
-	void lowerAmount(int usedcount);
+    void lowerAmount(int usedcount);
 
-	void setAmount(int amount);
+    void setAmount(int amount);
 }

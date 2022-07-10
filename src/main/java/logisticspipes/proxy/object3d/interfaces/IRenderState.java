@@ -2,10 +2,9 @@ package logisticspipes.proxy.object3d.interfaces;
 
 public interface IRenderState {
 
-	void reset();
+    void reset();
 
-	void setUseNormals(boolean b);
+    void setUseNormals(boolean b);
 
-	void setAlphaOverride(int i);
-
+    void setAlphaOverride(int i);
 }

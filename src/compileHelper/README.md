@@ -1,1 +1,0 @@
-LogisticsPipes adds fields via ASM. To enable the access to these fiels, these class stubs are created. These are meant for compileOnly of the mod. Never to be used at runtime! Use the actual ThermalDynamics mod for runtime!

@@ -2,112 +2,115 @@ package logisticspipes.utils.gui.extention;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 public abstract class GuiExtention {
 
-	@Getter
-	@Setter(value = AccessLevel.PACKAGE)
-	private boolean extending;
-	private int currentW = getMinimumWidth();
-	private int currentH = getMinimumHeight();
-	@Getter
-	private int currentXPos = 0;
-	@Getter
-	private int currentYPos = 0;
-	private int targetYPos = 0;
-	private boolean init = true;
-	private List<Integer> slotList = new ArrayList<Integer>();
-	private List<Integer> buttonList = new ArrayList<Integer>();
+    @Getter
+    @Setter(value = AccessLevel.PACKAGE)
+    private boolean extending;
 
-	public abstract int getFinalWidth();
+    private int currentW = getMinimumWidth();
+    private int currentH = getMinimumHeight();
 
-	public abstract int getFinalHeight();
+    @Getter
+    private int currentXPos = 0;
 
-	public abstract void renderForground(int left, int top);
+    @Getter
+    private int currentYPos = 0;
 
-	public final void update(int xPos, int yPos) {
-		currentXPos = xPos;
-		if (yPos > currentYPos + 1 && !init) {
-			currentYPos += 2;
-		} else if (yPos < currentYPos - 1 && !init) {
-			currentYPos -= 2;
-		} else {
-			currentYPos = yPos;
-		}
-		targetYPos = yPos;
-		init = false;
-		if (extending) {
-			if (currentH < getFinalHeight()) {
-				currentH += 4;
-			} else {
-				currentH = getFinalHeight();
-			}
-			if (currentW < getFinalWidth()) {
-				currentW += 2;
-			} else {
-				currentW = getFinalWidth();
-			}
-		} else {
-			if (currentH > getMinimumHeight()) {
-				currentH -= 4;
-			} else {
-				currentH = getMinimumHeight();
-			}
-			if (currentW > getMinimumWidth()) {
-				currentW -= 2;
-			} else {
-				currentW = getMinimumWidth();
-			}
-		}
-	}
+    private int targetYPos = 0;
+    private boolean init = true;
+    private List<Integer> slotList = new ArrayList<Integer>();
+    private List<Integer> buttonList = new ArrayList<Integer>();
 
-	public int getMinimumWidth() {
-		return 23;
-	}
+    public abstract int getFinalWidth();
 
-	public int getMinimumHeight() {
-		return 26;
-	}
+    public abstract int getFinalHeight();
 
-	public int getCurrentWidth() {
-		return currentW;
-	}
+    public abstract void renderForground(int left, int top);
 
-	public int getCurrentHeight() {
-		return currentH;
-	}
+    public final void update(int xPos, int yPos) {
+        currentXPos = xPos;
+        if (yPos > currentYPos + 1 && !init) {
+            currentYPos += 2;
+        } else if (yPos < currentYPos - 1 && !init) {
+            currentYPos -= 2;
+        } else {
+            currentYPos = yPos;
+        }
+        targetYPos = yPos;
+        init = false;
+        if (extending) {
+            if (currentH < getFinalHeight()) {
+                currentH += 4;
+            } else {
+                currentH = getFinalHeight();
+            }
+            if (currentW < getFinalWidth()) {
+                currentW += 2;
+            } else {
+                currentW = getFinalWidth();
+            }
+        } else {
+            if (currentH > getMinimumHeight()) {
+                currentH -= 4;
+            } else {
+                currentH = getMinimumHeight();
+            }
+            if (currentW > getMinimumWidth()) {
+                currentW -= 2;
+            } else {
+                currentW = getMinimumWidth();
+            }
+        }
+    }
 
-	public boolean isFullyExtended() {
-		return currentW == getFinalWidth() && currentH == getFinalHeight() && targetYPos == currentYPos;
-	}
+    public int getMinimumWidth() {
+        return 23;
+    }
 
-	public boolean isFullyRetracted() {
-		return currentW == getMinimumWidth() && currentH == getMinimumHeight() && targetYPos == currentYPos;
-	}
+    public int getMinimumHeight() {
+        return 26;
+    }
 
-	public void handleMouseOverAt(int xPos, int yPos) {}
+    public int getCurrentWidth() {
+        return currentW;
+    }
 
-	public void registerSlot(int id) {
-		slotList.add(id);
-	}
+    public int getCurrentHeight() {
+        return currentH;
+    }
 
-	public boolean renderSlot(int id) {
-		return slotList.contains(id);
-	}
+    public boolean isFullyExtended() {
+        return currentW == getFinalWidth() && currentH == getFinalHeight() && targetYPos == currentYPos;
+    }
 
-	public boolean renderSelectSlot(int id) {
-		return slotList.contains(id);
-	}
+    public boolean isFullyRetracted() {
+        return currentW == getMinimumWidth() && currentH == getMinimumHeight() && targetYPos == currentYPos;
+    }
 
-	public void registerButton(int id) {
-		buttonList.add(id);
-	}
+    public void handleMouseOverAt(int xPos, int yPos) {}
 
-	public boolean renderButton(int id) {
-		return buttonList.contains(id);
-	}
+    public void registerSlot(int id) {
+        slotList.add(id);
+    }
+
+    public boolean renderSlot(int id) {
+        return slotList.contains(id);
+    }
+
+    public boolean renderSelectSlot(int id) {
+        return slotList.contains(id);
+    }
+
+    public void registerButton(int id) {
+        buttonList.add(id);
+    }
+
+    public boolean renderButton(int id) {
+        return buttonList.contains(id);
+    }
 }

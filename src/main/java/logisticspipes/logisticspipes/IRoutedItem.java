@@ -1,24 +1,20 @@
 /**
  * Copyright (c) Krapht, 2011
- * 
+ *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0, or MMPL. Please check the contents of the license located in
  * http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
-
 package logisticspipes.logisticspipes;
 
 import java.util.List;
 import java.util.UUID;
-
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.routing.IRouter;
 import logisticspipes.routing.ItemRoutingInformation;
 import logisticspipes.routing.order.IDistanceTracker;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
 import net.minecraft.nbt.NBTTagCompound;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
@@ -27,58 +23,58 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public interface IRoutedItem {
 
-	public enum TransportMode {
-		Unknown,
-		Default,
-		Passive,
-		Active
-	}
+    public enum TransportMode {
+        Unknown,
+        Default,
+        Passive,
+        Active
+    }
 
-	public int getDestination();
+    public int getDestination();
 
-	public UUID getDestinationUUID();
+    public UUID getDestinationUUID();
 
-	public void setDestination(int destination);
+    public void setDestination(int destination);
 
-	public void clearDestination();
+    public void clearDestination();
 
-	public void setTransportMode(TransportMode transportMode);
+    public void setTransportMode(TransportMode transportMode);
 
-	public TransportMode getTransportMode();
+    public TransportMode getTransportMode();
 
-	public void setAdditionalTargetInformation(IAdditionalTargetInformation info);
+    public void setAdditionalTargetInformation(IAdditionalTargetInformation info);
 
-	public IAdditionalTargetInformation getAdditionalTargetInformation();
+    public IAdditionalTargetInformation getAdditionalTargetInformation();
 
-	public void setDoNotBuffer(boolean doNotBuffer);
+    public void setDoNotBuffer(boolean doNotBuffer);
 
-	public boolean getDoNotBuffer();
+    public boolean getDoNotBuffer();
 
-	public int getBufferCounter();
+    public int getBufferCounter();
 
-	public void setBufferCounter(int counter);
+    public void setBufferCounter(int counter);
 
-	public void setArrived(boolean flag);
+    public void setArrived(boolean flag);
 
-	public boolean getArrived();
+    public boolean getArrived();
 
-	public void addToJamList(IRouter router);
+    public void addToJamList(IRouter router);
 
-	public List<Integer> getJamList();
+    public List<Integer> getJamList();
 
-	public void checkIDFromUUID();
+    public void checkIDFromUUID();
 
-	ItemIdentifierStack getItemIdentifierStack();
+    ItemIdentifierStack getItemIdentifierStack();
 
-	public void readFromNBT(NBTTagCompound data);
+    public void readFromNBT(NBTTagCompound data);
 
-	public void writeToNBT(NBTTagCompound tagentityitem);
+    public void writeToNBT(NBTTagCompound tagentityitem);
 
-	public void setDistanceTracker(IDistanceTracker tracker);
+    public void setDistanceTracker(IDistanceTracker tracker);
 
-	public IDistanceTracker getDistanceTracker();
+    public IDistanceTracker getDistanceTracker();
 
-	public ItemRoutingInformation getInfo();
+    public ItemRoutingInformation getInfo();
 
-	void split(int itemsToTake, ForgeDirection orientation);
+    void split(int itemsToTake, ForgeDirection orientation);
 }

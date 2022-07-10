@@ -5,13 +5,13 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 
 public interface IPipeUpgrade {
 
-	boolean needsUpdate();
+    boolean needsUpdate();
 
-	boolean isAllowedForPipe(CoreRoutedPipe pipe);
+    boolean isAllowedForPipe(CoreRoutedPipe pipe);
 
-	boolean isAllowedForModule(LogisticsModule pipe);
+    boolean isAllowedForModule(LogisticsModule pipe);
 
-	String[] getAllowedPipes();
+    String[] getAllowedPipes();
 
-	String[] getAllowedModules();
+    String[] getAllowedModules();
 }

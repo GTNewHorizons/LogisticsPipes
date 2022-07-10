@@ -4,7 +4,7 @@ import logisticspipes.routing.ItemRoutingInformation;
 
 public interface IDirectRoutingConnection {
 
-	public int getConnectionResistance();
+    public int getConnectionResistance();
 
-	public void addItem(ItemRoutingInformation info);
+    public void addItem(ItemRoutingInformation info);
 }

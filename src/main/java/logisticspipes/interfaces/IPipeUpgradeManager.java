@@ -4,26 +4,25 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IPipeUpgradeManager {
 
-	boolean hasPowerPassUpgrade();
+    boolean hasPowerPassUpgrade();
 
-	boolean hasRFPowerSupplierUpgrade();
+    boolean hasRFPowerSupplierUpgrade();
 
-	int getIC2PowerLevel();
+    int getIC2PowerLevel();
 
-	int getSpeedUpgradeCount();
+    int getSpeedUpgradeCount();
 
-	boolean isSideDisconnected(ForgeDirection side);
+    boolean isSideDisconnected(ForgeDirection side);
 
-	boolean hasCCRemoteControlUpgrade();
+    boolean hasCCRemoteControlUpgrade();
 
-	boolean hasCraftingMonitoringUpgrade();
+    boolean hasCraftingMonitoringUpgrade();
 
-	boolean isOpaque();
+    boolean isOpaque();
 
-	boolean hasUpgradeModuleUpgrade();
+    boolean hasUpgradeModuleUpgrade();
 
-	boolean hasCombinedSneakyUpgrade();
+    boolean hasCombinedSneakyUpgrade();
 
-	ForgeDirection[] getCombinedSneakyOrientation();
-
+    ForgeDirection[] getCombinedSneakyOrientation();
 }

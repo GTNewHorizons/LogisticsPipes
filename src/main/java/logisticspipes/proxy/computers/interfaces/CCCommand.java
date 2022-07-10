@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CCCommand {
 
-	String description() default "";
+    String description() default "";
 
-	boolean needPermission() default true;
+    boolean needPermission() default true;
 }

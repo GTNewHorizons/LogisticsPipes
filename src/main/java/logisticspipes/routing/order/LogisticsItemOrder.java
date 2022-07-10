@@ -3,56 +3,56 @@ package logisticspipes.routing.order;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.request.resources.DictResource;
-import logisticspipes.request.resources.IResource;
 import logisticspipes.routing.IRouter;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
 import lombok.Getter;
 
 public class LogisticsItemOrder extends LogisticsOrder {
 
-	public LogisticsItemOrder(DictResource item, IRequestItems destination, ResourceType type, IAdditionalTargetInformation info) {
-		super(type, info);
-		if (item == null) {
-			throw new NullPointerException();
-		}
-		resource = item;
-		this.destination = destination;
-	}
+    public LogisticsItemOrder(
+            DictResource item, IRequestItems destination, ResourceType type, IAdditionalTargetInformation info) {
+        super(type, info);
+        if (item == null) {
+            throw new NullPointerException();
+        }
+        resource = item;
+        this.destination = destination;
+    }
 
-	@Getter
-	private final DictResource resource;
-	@Getter
-	private final IRequestItems destination;
+    @Getter
+    private final DictResource resource;
 
-	@Override
-	public IRouter getRouter() {
-		if(destination == null) {
-			return null;
-		}
-		return destination.getRouter();
-	}
+    @Getter
+    private final IRequestItems destination;
 
-	@Override
-	public void sendFailed() {
-		if(destination == null) {
-			return;
-		}
-		destination.itemCouldNotBeSend(getResource().stack, getInformation());
-	}
+    @Override
+    public IRouter getRouter() {
+        if (destination == null) {
+            return null;
+        }
+        return destination.getRouter();
+    }
 
-	@Override
-	public ItemIdentifierStack getAsDisplayItem() {
-		return resource.stack;
-	}
+    @Override
+    public void sendFailed() {
+        if (destination == null) {
+            return;
+        }
+        destination.itemCouldNotBeSend(getResource().stack, getInformation());
+    }
 
-	@Override
-	public int getAmount() {
-		return resource.stack.getStackSize();
-	}
+    @Override
+    public ItemIdentifierStack getAsDisplayItem() {
+        return resource.stack;
+    }
 
-	@Override
-	public void reduceAmountBy(int amount) {
-		resource.stack.setStackSize(resource.stack.getStackSize() - amount);
-	}
+    @Override
+    public int getAmount() {
+        return resource.stack.getStackSize();
+    }
+
+    @Override
+    public void reduceAmountBy(int amount) {
+        resource.stack.setStackSize(resource.stack.getStackSize() - amount);
+    }
 }

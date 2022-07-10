@@ -5,44 +5,50 @@ import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.routing.IRouter;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
 import lombok.Getter;
 
 public class LogisticsFluidOrder extends LogisticsOrder {
 
-	public LogisticsFluidOrder(FluidIdentifier fuild, Integer amount, IRequestFluid destination, ResourceType type, IAdditionalTargetInformation info) {
-		super(type, info);
-		if (destination == null) {
-			throw new NullPointerException();
-		}
-		fluid = fuild;
-		this.amount = amount;
-		this.destination = destination;
-	}
+    public LogisticsFluidOrder(
+            FluidIdentifier fuild,
+            Integer amount,
+            IRequestFluid destination,
+            ResourceType type,
+            IAdditionalTargetInformation info) {
+        super(type, info);
+        if (destination == null) {
+            throw new NullPointerException();
+        }
+        fluid = fuild;
+        this.amount = amount;
+        this.destination = destination;
+    }
 
-	@Getter
-	private final FluidIdentifier fluid;
-	@Getter
-	private int amount;
-	private final IRequestFluid destination;
+    @Getter
+    private final FluidIdentifier fluid;
 
-	@Override
-	public ItemIdentifierStack getAsDisplayItem() {
-		return fluid.getItemIdentifier().makeStack(amount);
-	}
+    @Getter
+    private int amount;
 
-	@Override
-	public IRouter getRouter() {
-		return destination.getRouter();
-	}
+    private final IRequestFluid destination;
 
-	@Override
-	public void sendFailed() {
-		destination.sendFailed(fluid, amount);
-	}
+    @Override
+    public ItemIdentifierStack getAsDisplayItem() {
+        return fluid.getItemIdentifier().makeStack(amount);
+    }
 
-	@Override
-	public void reduceAmountBy(int reduce) {
-		amount -= reduce;
-	}
+    @Override
+    public IRouter getRouter() {
+        return destination.getRouter();
+    }
+
+    @Override
+    public void sendFailed() {
+        destination.sendFailed(fluid, amount);
+    }
+
+    @Override
+    public void reduceAmountBy(int reduce) {
+        amount -= reduce;
+    }
 }

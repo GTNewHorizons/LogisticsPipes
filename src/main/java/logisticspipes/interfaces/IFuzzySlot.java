@@ -3,11 +3,11 @@ package logisticspipes.interfaces;
 import logisticspipes.request.resources.DictResource;
 
 public interface IFuzzySlot {
-	DictResource getFuzzyFlags();
+    DictResource getFuzzyFlags();
 
-	int getX();
+    int getX();
 
-	int getY();
+    int getY();
 
-	int getSlotId();
+    int getSlotId();
 }

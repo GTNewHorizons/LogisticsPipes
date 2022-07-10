@@ -4,6 +4,5 @@ import net.minecraft.util.IIcon;
 
 public interface IIconTransformation extends I3DOperation {
 
-	void update(IIcon registerIcon);
-
+    void update(IIcon registerIcon);
 }

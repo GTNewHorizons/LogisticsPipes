@@ -6,19 +6,19 @@ import logisticspipes.utils.tuples.LPPosition;
 
 public interface IFilter {
 
-	boolean isBlocked();
+    boolean isBlocked();
 
-	boolean isFilteredItem(ItemIdentifier item);
+    boolean isFilteredItem(ItemIdentifier item);
 
-	boolean isFilteredItem(IResource resultItem);
+    boolean isFilteredItem(IResource resultItem);
 
-	boolean blockProvider();
+    boolean blockProvider();
 
-	boolean blockCrafting();
+    boolean blockCrafting();
 
-	boolean blockRouting();
+    boolean blockRouting();
 
-	boolean blockPower();
+    boolean blockPower();
 
-	LPPosition getLPPosition();
+    LPPosition getLPPosition();
 }

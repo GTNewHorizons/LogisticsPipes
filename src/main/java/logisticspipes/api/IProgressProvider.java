@@ -7,9 +7,9 @@ package logisticspipes.api;
  */
 public interface IProgressProvider {
 
-	/**
-	 * @return a value between 0 and 100 that indicates the current progress of
-	 *         this TileEntity machine
-	 */
-	public byte getMachineProgressForLP();
+    /**
+     * @return a value between 0 and 100 that indicates the current progress of
+     *         this TileEntity machine
+     */
+    public byte getMachineProgressForLP();
 }

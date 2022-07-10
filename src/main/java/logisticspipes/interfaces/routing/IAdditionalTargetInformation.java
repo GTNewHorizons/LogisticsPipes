@@ -1,5 +1,3 @@
 package logisticspipes.interfaces.routing;
 
-public interface IAdditionalTargetInformation {
-
-}
+public interface IAdditionalTargetInformation {}

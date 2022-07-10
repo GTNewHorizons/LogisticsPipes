@@ -2,5 +2,5 @@ package logisticspipes.proxy.computers.interfaces;
 
 public interface ILPCCTypeDefinition {
 
-	public ICCTypeWrapped getTypeFor(Object input);
+    public ICCTypeWrapped getTypeFor(Object input);
 }
