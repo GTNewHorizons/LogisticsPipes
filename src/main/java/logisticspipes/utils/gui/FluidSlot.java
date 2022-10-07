@@ -3,6 +3,7 @@ package logisticspipes.utils.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 public class FluidSlot extends Slot {
 
@@ -12,6 +13,11 @@ public class FluidSlot extends Slot {
 
     public FluidSlot(Slot slot) {
         super(slot.inventory, slot.getSlotIndex(), slot.xDisplayPosition, slot.yDisplayPosition);
+    }
+
+    @Override
+    public boolean isItemValid(ItemStack p_75214_1_) {
+        return false;
     }
 
     @Override
