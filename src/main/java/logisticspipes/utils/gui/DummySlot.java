@@ -11,6 +11,7 @@ import lombok.Setter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 public class DummySlot extends Slot {
 
@@ -21,6 +22,11 @@ public class DummySlot extends Slot {
 
     public DummySlot(IInventory iinventory, int i, int j, int k) {
         super(iinventory, i, j, k);
+    }
+
+    @Override
+    public boolean isItemValid(ItemStack p_75214_1_) {
+        return false;
     }
 
     @Override
