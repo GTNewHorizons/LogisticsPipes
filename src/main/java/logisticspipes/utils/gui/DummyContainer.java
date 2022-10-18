@@ -39,6 +39,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidContainerItem;
 
 public class DummyContainer extends Container {
 
@@ -672,6 +673,10 @@ public class DummyContainer extends Container {
         if (slot instanceof FluidSlot) {
             if (currentlyEquippedStack != null) {
                 FluidStack liquidId = FluidContainerRegistry.getFluidForFilledItem(currentlyEquippedStack);
+                if (liquidId == null && currentlyEquippedStack.getItem() instanceof IFluidContainerItem) {
+                    IFluidContainerItem item = (IFluidContainerItem) currentlyEquippedStack.getItem();
+                    liquidId = item.drain(currentlyEquippedStack, Integer.MAX_VALUE, false);
+                }
                 if (liquidId != null) {
                     FluidIdentifier ident = FluidIdentifier.get(liquidId);
                     if (mouseButton == 0) {
