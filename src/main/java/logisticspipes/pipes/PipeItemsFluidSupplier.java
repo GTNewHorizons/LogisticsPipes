@@ -104,8 +104,8 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
         if (data.getItemIdentifierStack() == null) {
             return;
         }
-        FluidStack liquidId = FluidContainerRegistry.getFluidForFilledItem(
-                data.getItemIdentifierStack().makeNormalStack());
+        ItemStack representativeStack = data.getItemIdentifierStack().makeNormalStack();
+        FluidStack liquidId = FluidContainerRegistry.getFluidForFilledItem(representativeStack);
         if (liquidId == null) {
             return;
         }
@@ -118,11 +118,9 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
                 && this.useEnergy(5)) {
             container.fill(orientation, liquidId.copy(), true);
             data.getItemIdentifierStack().lowerStackSize(1);
-            Item item = data.getItemIdentifierStack().getItem().item;
-            if (item.hasContainerItem(data.getItemIdentifierStack().makeNormalStack())) {
-                Item containerItem = item.getContainerItem();
-                transport.sendItem(new ItemStack(containerItem, 1));
-            }
+            ItemStack containerItem = FluidContainerRegistry.drainFluidContainer(representativeStack);
+            if (containerItem != null && containerItem.getItem() != null && containerItem.stackSize > 0)
+                transport.sendItem(containerItem);
         }
     }
 
@@ -183,12 +181,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
                         || !wantFluids.containsKey(FluidIdentifier.get(slot.fluid))) {
                     continue;
                 }
-                Integer liquidWant = haveFluids.get(FluidIdentifier.get(slot.fluid));
-                if (liquidWant == null) {
-                    haveFluids.put(FluidIdentifier.get(slot.fluid), slot.fluid.amount);
-                } else {
-                    haveFluids.put(FluidIdentifier.get(slot.fluid), liquidWant + slot.fluid.amount);
-                }
+                haveFluids.merge(FluidIdentifier.get(slot.fluid), slot.fluid.amount, Integer::sum);
             }
 
             // HashMap<Integer, Integer> needFluids = new HashMap<Integer, Integer>();
