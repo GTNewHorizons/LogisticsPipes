@@ -1,8 +1,5 @@
 package logisticspipes.recipes;
 
-import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
-import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
-
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.config.Configs;
@@ -10,7 +7,6 @@ import logisticspipes.items.ItemModule;
 import logisticspipes.items.ItemPipeComponents;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.items.RemoteOrderer;
-import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.proxy.interfaces.ICraftingParts;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,9 +14,11 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
+import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
 
 // @formatter:off
 // CHECKSTYLE:OFF
@@ -48,7 +46,7 @@ public class RecipeManager {
 
         @SuppressWarnings("unchecked")
         public void addShapelessResetRecipe(Item item, int meta) {
-            //			craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
+			craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
         }
 
         public class ShapelessOrdererRecipe extends ShapelessOreRecipe {
@@ -3156,30 +3154,17 @@ public class RecipeManager {
                     });
         }
 
-        for (int i = 0; i < 1000; i++) {
-            LogisticsModule module = LogisticsPipes.ModuleItem.getModuleForItem(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, i), null, null, null);
-            if (module != null) {
-                NBTTagCompound nbt = new NBTTagCompound();
-                boolean force = false;
-                try {
-                    module.writeToNBT(nbt);
-                } catch (Exception e) {
-                    force = true;
-                }
-                if (!nbt.equals(new NBTTagCompound()) || force) {
-                    RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.ModuleItem, i);
-                }
-            }
-        }
+		for (int moduleId : LogisticsPipes.ModuleItem.getRegisteredModulesIDs()) {
+			RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.ModuleItem, moduleId);
+		}
 
-        for (int i = 1; i < 17; i++) {
-            RecipeManager.craftingManager.addOrdererRecipe(
-                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, i),
-                    dyes[i - 1],
-                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, -1));
-            RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, i);
-        }
-        RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, 0);
+//        for (int i = 1; i < 17; i++) {
+//            RecipeManager.craftingManager.addOrdererRecipe(
+//                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, i),
+//                    dyes[i - 1],
+//                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, -1));
+//            RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, i);
+//        }
+//        RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, 0);
     }
 }
