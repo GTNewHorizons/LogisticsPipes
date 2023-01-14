@@ -1,7 +1,5 @@
 package logisticspipes.gui.modules;
 
-import java.util.ArrayList;
-import java.util.List;
 import logisticspipes.modules.ModuleOreDictItemSink;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.DummyContainer;
@@ -13,6 +11,9 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiOreDictItemSink extends ModuleBaseGui {
 
@@ -47,8 +48,8 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        buttonList.add(new SmallGuiButton(0, guiLeft + 159, guiTop + 5, 10, 10, ""));
-        buttonList.add(new SmallGuiButton(1, guiLeft + 159, guiTop + 17, 10, 10, ""));
+        buttonList.add(new SmallGuiButton(0, guiLeft + 159, guiTop + 5, 10, 10, "▲"));
+        buttonList.add(new SmallGuiButton(1, guiLeft + 159, guiTop + 17, 10, 10, "▼"));
         ((GuiButton) buttonList.get(0)).enabled = true;
         ((GuiButton) buttonList.get(1)).enabled = true;
     }

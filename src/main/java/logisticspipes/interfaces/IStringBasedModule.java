@@ -1,16 +1,17 @@
 package logisticspipes.interfaces;
 
-import java.util.List;
 import logisticspipes.utils.item.ItemIdentifier;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.List;
+
 public interface IStringBasedModule {
 
-    public List<String> getStringList();
+    List<String> getStringList();
 
-    public String getStringForItem(ItemIdentifier ident);
+    String getStringForItem(ItemIdentifier ident);
 
-    public void listChanged();
+    void listChanged();
 
-    public void readFromNBT(NBTTagCompound nbt);
+    void readFromNBT(NBTTagCompound nbt);
 }
