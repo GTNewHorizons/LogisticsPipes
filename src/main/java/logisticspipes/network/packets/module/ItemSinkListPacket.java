@@ -1,5 +1,6 @@
 package logisticspipes.network.packets.module;
 
+import java.io.IOException;
 import logisticspipes.interfaces.IStringBasedModule;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -11,8 +12,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.io.IOException;
 
 @Accessors(chain = true)
 public class ItemSinkListPacket extends ModuleCoordinatesPacket {

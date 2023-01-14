@@ -6,6 +6,11 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.objects.ItemData;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.common.tileentities.automation.GT_MetaTileEntity_TypeFilter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
 import logisticspipes.gui.hud.modules.HUDStringBasedItemSink;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
@@ -29,12 +34,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ModuleTypeFilterItemSink extends LogisticsGuiModule
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver, IStringBasedModule {
@@ -111,9 +110,9 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
     @Override
     public List<String> getClientInformation() {
         List<String> list = new ArrayList<>();
-		if(prefixes.isEmpty()) {
-			return Collections.singletonList("No prefixes");
-		}
+        if (prefixes.isEmpty()) {
+            return Collections.singletonList("No prefixes");
+        }
 
         list.add("Prefixes: ");
         for (OrePrefixes prefix : prefixes) {

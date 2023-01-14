@@ -1,9 +1,8 @@
 package logisticspipes.interfaces;
 
+import java.util.List;
 import logisticspipes.utils.item.ItemIdentifier;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.List;
 
 public interface IStringBasedModule {
 

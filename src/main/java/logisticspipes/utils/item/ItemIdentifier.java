@@ -11,6 +11,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReferenceArray;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import logisticspipes.asm.addinfo.IAddInfo;
 import logisticspipes.asm.addinfo.IAddInfoProvider;
 import logisticspipes.items.LogisticsFluidContainer;
@@ -28,16 +37,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.world.World;
-
-import java.lang.ref.ReferenceQueue;
-import java.lang.ref.WeakReference;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReferenceArray;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author Krapht I have no bloody clue what different mods use to differate
@@ -546,9 +545,9 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         return stack;
     }
 
-	public ItemStack makeNormalStackNoTag(int stackSize) {
-		return new ItemStack(item, stackSize, itemDamage);
-	}
+    public ItemStack makeNormalStackNoTag(int stackSize) {
+        return new ItemStack(item, stackSize, itemDamage);
+    }
 
     public EntityItem makeEntityItem(int stackSize, World world, double x, double y, double z) {
         return new EntityItem(world, x, y, z, makeNormalStack(stackSize));
