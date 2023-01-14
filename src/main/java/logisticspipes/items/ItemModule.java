@@ -2,43 +2,10 @@ package logisticspipes.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IWorldProvider;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
-import logisticspipes.modules.ModuleActiveSupplier;
-import logisticspipes.modules.ModuleAdvancedExtractor;
-import logisticspipes.modules.ModuleAdvancedExtractorMK2;
-import logisticspipes.modules.ModuleAdvancedExtractorMK3;
-import logisticspipes.modules.ModuleApiaristAnalyser;
-import logisticspipes.modules.ModuleApiaristRefiller;
-import logisticspipes.modules.ModuleApiaristSink;
-import logisticspipes.modules.ModuleApiaristTerminus;
-import logisticspipes.modules.ModuleCCBasedItemSink;
-import logisticspipes.modules.ModuleCCBasedQuickSort;
-import logisticspipes.modules.ModuleCrafter;
-import logisticspipes.modules.ModuleCrafterMK2;
-import logisticspipes.modules.ModuleCrafterMK3;
-import logisticspipes.modules.ModuleCreativeTabBasedItemSink;
-import logisticspipes.modules.ModuleElectricBuffer;
-import logisticspipes.modules.ModuleElectricManager;
-import logisticspipes.modules.ModuleEnchantmentSink;
-import logisticspipes.modules.ModuleEnchantmentSinkMK2;
-import logisticspipes.modules.ModuleExtractor;
-import logisticspipes.modules.ModuleExtractorMk2;
-import logisticspipes.modules.ModuleExtractorMk3;
-import logisticspipes.modules.ModuleItemSink;
-import logisticspipes.modules.ModuleModBasedItemSink;
-import logisticspipes.modules.ModuleOreDictItemSink;
-import logisticspipes.modules.ModulePassiveSupplier;
-import logisticspipes.modules.ModulePolymorphicItemSink;
-import logisticspipes.modules.ModuleProvider;
-import logisticspipes.modules.ModuleProviderMk2;
-import logisticspipes.modules.ModuleQuickSort;
-import logisticspipes.modules.ModuleTerminus;
-import logisticspipes.modules.ModuleThaumicAspectSink;
+import logisticspipes.modules.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
@@ -62,6 +29,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemModule extends LogisticsItem {
 
     // PASSIVE MODULES
@@ -82,6 +53,7 @@ public class ItemModule extends LogisticsItem {
     public static final int CC_BASED_QUICKSORT = 14;
     public static final int CC_BASED_ITEMSINK = 15;
     public static final int CREATIVETABBASEDITEMSINK = 16;
+    public static final int GT_TYPEFILTER_ITEMSINK = 17;
 
     public static final int THAUMICASPECTSINK = 30;
     public static final int ENCHANTMENTSINK = 31;
@@ -210,6 +182,8 @@ public class ItemModule extends LogisticsItem {
         registerModule(ItemModule.CRAFTER_MK3, ModuleCrafterMK3.class);
         registerModule(ItemModule.ACTIVE_SUPPLIER, ModuleActiveSupplier.class);
         registerModule(ItemModule.CREATIVETABBASEDITEMSINK, ModuleCreativeTabBasedItemSink.class);
+
+		registerModule(ItemModule.GT_TYPEFILTER_ITEMSINK, ModuleTypeFilterItemSink.class);
     }
 
     public void registerModule(int id, Class<? extends LogisticsModule> moduleClass) {

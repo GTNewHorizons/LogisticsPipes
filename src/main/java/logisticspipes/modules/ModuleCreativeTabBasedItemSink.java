@@ -2,17 +2,8 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 import logisticspipes.gui.hud.modules.HUDStringBasedItemSink;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IModuleWatchReciver;
-import logisticspipes.interfaces.IStringBasedModule;
+import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.NewGuiHandler;
@@ -23,7 +14,7 @@ import logisticspipes.network.guis.module.inhand.StringBasedItemSinkModuleGuiInH
 import logisticspipes.network.guis.module.inpipe.StringBasedItemSinkModuleGuiSlot;
 import logisticspipes.network.packets.hud.HUDStartModuleWatchingPacket;
 import logisticspipes.network.packets.hud.HUDStopModuleWatchingPacket;
-import logisticspipes.network.packets.module.ModuleBasedItemSinkList;
+import logisticspipes.network.packets.module.ItemSinkListPacket;
 import logisticspipes.pipes.PipeLogisticsChassi.ChassiTargetInformation;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.PlayerCollectionList;
@@ -34,6 +25,8 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import java.util.*;
 
 public class ModuleCreativeTabBasedItemSink extends LogisticsGuiModule
         implements IStringBasedModule, IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
@@ -146,10 +139,7 @@ public class ModuleCreativeTabBasedItemSink extends LogisticsGuiModule
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ModuleBasedItemSinkList.class)
-                        .setNbt(nbt)
-                        .setModulePos(this),
-                player);
+                PacketHandler.getPacket(ItemSinkListPacket.class).setNbt(nbt).setModulePos(this), player);
     }
 
     @Override
@@ -163,14 +153,14 @@ public class ModuleCreativeTabBasedItemSink extends LogisticsGuiModule
             NBTTagCompound nbt = new NBTTagCompound();
             writeToNBT(nbt);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ModuleBasedItemSinkList.class)
+                    PacketHandler.getPacket(ItemSinkListPacket.class)
                             .setNbt(nbt)
                             .setModulePos(this),
                     localModeWatchers);
         } else {
             NBTTagCompound nbt = new NBTTagCompound();
             writeToNBT(nbt);
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(ModuleBasedItemSinkList.class)
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(ItemSinkListPacket.class)
                     .setNbt(nbt)
                     .setModulePos(this));
         }

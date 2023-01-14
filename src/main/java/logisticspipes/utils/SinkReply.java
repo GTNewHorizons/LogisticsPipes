@@ -8,6 +8,7 @@ public final class SinkReply {
         DefaultRoute,
         ModBasedItemSink,
         OreDictItemSink,
+		GT_TypeFilterSink,
         EnchantmentItemSink,
         Terminus,
         APIARIST_BeeSink,
