@@ -1,5 +1,8 @@
 package logisticspipes.recipes;
 
+import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
+import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.config.Configs;
@@ -16,9 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
-import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
 
 // @formatter:off
 // CHECKSTYLE:OFF
@@ -46,7 +46,7 @@ public class RecipeManager {
 
         @SuppressWarnings("unchecked")
         public void addShapelessResetRecipe(Item item, int meta) {
-			craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
+            craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
         }
 
         public class ShapelessOrdererRecipe extends ShapelessOreRecipe {
@@ -3154,17 +3154,17 @@ public class RecipeManager {
                     });
         }
 
-		for (int moduleId : LogisticsPipes.ModuleItem.getRegisteredModulesIDs()) {
-			RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.ModuleItem, moduleId);
-		}
+        for (int moduleId : LogisticsPipes.ModuleItem.getRegisteredModulesIDs()) {
+            RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.ModuleItem, moduleId);
+        }
 
-//        for (int i = 1; i < 17; i++) {
-//            RecipeManager.craftingManager.addOrdererRecipe(
-//                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, i),
-//                    dyes[i - 1],
-//                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, -1));
-//            RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, i);
-//        }
-//        RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, 0);
+        //        for (int i = 1; i < 17; i++) {
+        //            RecipeManager.craftingManager.addOrdererRecipe(
+        //                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, i),
+        //                    dyes[i - 1],
+        //                    new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, -1));
+        //            RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, i);
+        //        }
+        //        RecipeManager.craftingManager.addShapelessResetRecipe(LogisticsPipes.LogisticsRemoteOrderer, 0);
     }
 }
