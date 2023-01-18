@@ -125,7 +125,7 @@ public class ItemDisplay {
         }
     }
 
-    private class StackComparitor implements Comparator<ItemIdentifierStack> {
+    private static class StackComparitor implements Comparator<ItemIdentifierStack> {
 
         @Override
         public int compare(ItemIdentifierStack o1, ItemIdentifierStack o2) {

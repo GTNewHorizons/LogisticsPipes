@@ -101,7 +101,7 @@ public class ItemUpgrade extends LogisticsItem {
     List<Upgrade> upgrades = new ArrayList<Upgrade>();
     private IIcon[] icons;
 
-    private class Upgrade {
+    private static class Upgrade {
 
         private int id;
         private Class<? extends IPipeUpgrade> upgradeClass;

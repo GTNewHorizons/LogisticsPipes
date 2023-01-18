@@ -141,7 +141,7 @@ public class AETankHandler implements ISpecialTankAccessHandler {
         return world.getTileEntity(coord.x, coord.y, coord.z);
     }
 
-    private class LPActionHost implements IActionHost {
+    private static class LPActionHost implements IActionHost {
 
         public IGridNode node;
 

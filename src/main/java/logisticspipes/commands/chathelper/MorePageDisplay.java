@@ -338,7 +338,7 @@ public class MorePageDisplay {
         }
     }
 
-    private class StringConnected {
+    private static class StringConnected {
 
         StringConnected(String s, boolean b) {
             content = s;

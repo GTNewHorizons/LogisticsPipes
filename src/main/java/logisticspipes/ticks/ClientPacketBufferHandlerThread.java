@@ -24,7 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ClientPacketBufferHandlerThread {
 
-    private class ClientCompressorThread extends Thread {
+    private static class ClientCompressorThread extends Thread {
 
         // list of C->S packets to be serialized and compressed
         private final LinkedList<ModernPacket> clientList = new LinkedList<ModernPacket>();
@@ -141,7 +141,7 @@ public class ClientPacketBufferHandlerThread {
 
     private final ClientCompressorThread clientCompressorThread = new ClientCompressorThread();
 
-    private class ClientDecompressorThread extends Thread {
+    private static class ClientDecompressorThread extends Thread {
 
         // Received compressed S->C data
         private final LinkedList<byte[]> queue = new LinkedList<byte[]>();

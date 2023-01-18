@@ -26,7 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ServerPacketBufferHandlerThread {
 
-    private class ServerCompressorThread extends Thread {
+    private static class ServerCompressorThread extends Thread {
 
         // Map of Players to lists of S->C packets to be serialized and compressed
         private final HashMap<EntityPlayer, LinkedList<ModernPacket>> serverList =
@@ -155,7 +155,7 @@ public class ServerPacketBufferHandlerThread {
 
     private final ServerCompressorThread serverCompressorThread = new ServerCompressorThread();
 
-    private class ServerDecompressorThread extends Thread {
+    private static class ServerDecompressorThread extends Thread {
 
         // Map of Player to received compressed C->S data
         private final HashMap<EntityPlayer, LinkedList<byte[]>> queue = new HashMap<EntityPlayer, LinkedList<byte[]>>();

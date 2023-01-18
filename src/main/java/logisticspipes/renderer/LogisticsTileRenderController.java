@@ -29,7 +29,7 @@ public class LogisticsTileRenderController {
 
     @Data
     @AllArgsConstructor
-    private class LaserKey {
+    private static class LaserKey {
 
         final ForgeDirection dir;
         final int color;
@@ -37,7 +37,7 @@ public class LogisticsTileRenderController {
 
     @Data
     @AllArgsConstructor
-    private class LaserBeamData {
+    private static class LaserBeamData {
 
         final float length;
         int timeout;
@@ -95,7 +95,7 @@ public class LogisticsTileRenderController {
 
     @Data
     @AllArgsConstructor
-    private class LaserBallData {
+    private static class LaserBallData {
 
         final float length;
         int timeout;

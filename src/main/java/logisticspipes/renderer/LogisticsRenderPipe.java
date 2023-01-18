@@ -827,7 +827,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         return false;
     }
 
-    private class DisplayFluidList {
+    private static class DisplayFluidList {
 
         public int[] sideHorizontal = new int[LogisticsRenderPipe.LIQUID_STAGES];
         public int[] sideVertical = new int[LogisticsRenderPipe.LIQUID_STAGES];

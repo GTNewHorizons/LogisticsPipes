@@ -31,7 +31,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class RequestRoutingLasersPacket extends CoordinatesPacket {
 
-    private abstract class Log {
+    private abstract static class Log {
 
         abstract void log(String log);
     }

@@ -243,7 +243,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
         return extracted;
     }
 
-    private class LPActionHost implements IActionHost {
+    private static class LPActionHost implements IActionHost {
 
         public IGridNode node;
 

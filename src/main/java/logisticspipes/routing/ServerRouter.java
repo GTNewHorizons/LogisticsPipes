@@ -85,7 +85,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         return simpleID; // guaranteed to be unique, and uniform distribution over a range.
     }
 
-    protected class LSA {
+    protected static class LSA {
 
         public HashMap<IRouter, Quartet<Double, EnumSet<PipeRoutingConnectionType>, List<IFilter>, Integer>>
                 neighboursWithMetric;
@@ -93,7 +93,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         public ArrayList<Pair<ISubSystemPowerProvider, List<IFilter>>> subSystemPower;
     }
 
-    private abstract class RouterRunnable implements Comparable<RouterRunnable>, Runnable {
+    private abstract static class RouterRunnable implements Comparable<RouterRunnable>, Runnable {
 
         public abstract int getPrority();
 
@@ -1152,7 +1152,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
      * Floodfill recheckAdjacent, leave _prevAdjacentRouter around for LSA
      * updating
      */
-    class floodCheckAdjacent implements IRAction {
+    static class floodCheckAdjacent implements IRAction {
 
         @Override
         public boolean isInteresting(IRouter that) {
@@ -1182,7 +1182,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
      * Floodfill LSA increment and clean up the _prevAdjacentRouter list left by
      * floodCheckAdjacent
      */
-    class flagForLSAUpdate implements IRAction {
+    static class flagForLSAUpdate implements IRAction {
 
         @Override
         public boolean isInteresting(IRouter that) {
@@ -1195,7 +1195,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         }
     }
 
-    class floodClearCache implements IRAction {
+    static class floodClearCache implements IRAction {
 
         @Override
         public boolean isInteresting(IRouter that) {

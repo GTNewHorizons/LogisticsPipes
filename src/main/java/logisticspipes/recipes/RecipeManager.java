@@ -46,7 +46,7 @@ public class RecipeManager {
             craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
         }
 
-        public class ShapelessOrdererRecipe extends ShapelessOreRecipe {
+        public static class ShapelessOrdererRecipe extends ShapelessOreRecipe {
             public ShapelessOrdererRecipe(ItemStack result, Object... recipe) {
                 super(result, recipe);
             }

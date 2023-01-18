@@ -699,7 +699,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     private boolean refreshRenderState = false;
     private boolean pipeBound = false;
 
-    public class CoreState implements IClientState {
+    public static class CoreState implements IClientState {
 
         public int pipeId = -1;
 

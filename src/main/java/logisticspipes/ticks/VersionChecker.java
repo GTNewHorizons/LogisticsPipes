@@ -182,7 +182,7 @@ public final class VersionChecker implements Callable<VersionChecker.VersionInfo
     }
 
     @Data
-    public class VersionInfo {
+    public static class VersionInfo {
 
         private boolean newVersionAvailable;
         private boolean imcMessageSent;

@@ -87,7 +87,7 @@ public class OpenGLDebugger {
         }
     }
 
-    public class ExtendedHashMap extends HashMap<Integer, Object> {
+    public static class ExtendedHashMap extends HashMap<Integer, Object> {
 
         private ArrayList<Integer> orderedKeys;
         private ArrayList<Integer> newKeys;

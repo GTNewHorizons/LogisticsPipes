@@ -193,7 +193,7 @@ public class DebugGuiController {
         }
     }
 
-    private class ObjectIdentification implements IObjectIdentification {
+    private static class ObjectIdentification implements IObjectIdentification {
         @Override
         public boolean toStringObject(Object o) {
             return o.getClass() == ForgeDirection.class
