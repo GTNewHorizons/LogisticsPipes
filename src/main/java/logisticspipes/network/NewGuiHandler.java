@@ -42,7 +42,7 @@ public class NewGuiHandler {
         InstantiationException.class
     })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
-    public static final void initialize() {
+    public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<ClassInfo>(ClassPath.from(NewGuiHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.guis"));
         Collections.sort(classes, new Comparator<ClassInfo>() {
