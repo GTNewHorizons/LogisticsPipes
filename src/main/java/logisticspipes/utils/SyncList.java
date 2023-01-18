@@ -8,6 +8,7 @@ import java.util.ListIterator;
 import logisticspipes.network.abstractpackets.ListSyncPacket;
 import logisticspipes.proxy.MainProxy;
 import net.minecraft.entity.player.EntityPlayer;
+import org.jetbrains.annotations.NotNull;
 
 public class SyncList<E> implements List<E> {
 
@@ -111,7 +112,7 @@ public class SyncList<E> implements List<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] paramArrayOfT) {
+    public <T> T[] toArray(T @NotNull [] paramArrayOfT) {
         return list.toArray(paramArrayOfT);
     }
 
@@ -130,33 +131,33 @@ public class SyncList<E> implements List<E> {
     }
 
     @Override
-    public boolean containsAll(Collection<?> paramCollection) {
+    public boolean containsAll(@NotNull Collection<?> paramCollection) {
         return list.containsAll(paramCollection);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> paramCollection) {
+    public boolean addAll(@NotNull Collection<? extends E> paramCollection) {
         boolean flag = list.addAll(paramCollection);
         markDirty();
         return flag;
     }
 
     @Override
-    public boolean addAll(int paramInt, Collection<? extends E> paramCollection) {
+    public boolean addAll(int paramInt, @NotNull Collection<? extends E> paramCollection) {
         boolean flag = list.addAll(paramInt, paramCollection);
         markDirty();
         return flag;
     }
 
     @Override
-    public boolean removeAll(Collection<?> paramCollection) {
+    public boolean removeAll(@NotNull Collection<?> paramCollection) {
         boolean flag = list.removeAll(paramCollection);
         markDirty();
         return flag;
     }
 
     @Override
-    public boolean retainAll(Collection<?> paramCollection) {
+    public boolean retainAll(@NotNull Collection<?> paramCollection) {
         boolean flag = list.retainAll(paramCollection);
         markDirty();
         return flag;

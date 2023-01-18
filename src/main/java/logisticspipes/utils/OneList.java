@@ -1,5 +1,7 @@
 package logisticspipes.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -27,12 +29,12 @@ public class OneList<E> implements List<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@NotNull Collection<? extends E> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(int index, @NotNull Collection<? extends E> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
@@ -162,12 +164,12 @@ public class OneList<E> implements List<E> {
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@NotNull Collection<?> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(@NotNull Collection<?> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
@@ -192,7 +194,7 @@ public class OneList<E> implements List<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(T @NotNull [] a) {
         throw new UnsupportedOperationException();
     }
 

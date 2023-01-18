@@ -1,5 +1,7 @@
 package logisticspipes.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +27,7 @@ public class DelayedGeneric<T> implements Delayed {
     }
 
     @Override
-    public int compareTo(Delayed delayed) {
+    public int compareTo(@NotNull Delayed delayed) {
         if (delayed == this) {
             return 0;
         }
