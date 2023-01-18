@@ -196,8 +196,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
     }
 
     private ArrayList<LaserData> compressLasers(ArrayList<LaserData> lasers) {
-        ArrayList<LaserData> options = new ArrayList<>();
-        options.addAll(lasers);
+        ArrayList<LaserData> options = new ArrayList<>(lasers);
         Iterator<LaserData> iLasers = lasers.iterator();
         while (iLasers.hasNext()) {
             boolean compressed = false;

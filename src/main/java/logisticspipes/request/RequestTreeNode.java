@@ -314,8 +314,7 @@ public class RequestTreeNode {
             if (r.containsFlag(PipeRoutingConnectionType.canRequestFrom)) {
                 CoreRoutedPipe pipe = r.destination.getPipe();
                 if (pipe instanceof IProvide) {
-                    List<IFilter> list = new LinkedList<>();
-                    list.addAll(r.filters);
+					List<IFilter> list = new LinkedList<>(r.filters);
                     providers.add(new Pair<>((IProvide) pipe, list));
                 }
             }
@@ -610,8 +609,7 @@ public class RequestTreeNode {
                             if (filter.isBlocked() == filter.isFilteredItem(craftable.getResultItem())
                                     || filter.blockCrafting()) {}
                         }
-                        List<IFilter> list = new LinkedList<>();
-                        list.addAll(r.filters);
+						List<IFilter> list = new LinkedList<>(r.filters);
                         crafters.add(new Pair<>(craftable, list));
                     }
                 }
