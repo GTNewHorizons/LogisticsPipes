@@ -34,8 +34,6 @@ public class RequestLogFormator extends Formatter {
             msg.append(" [WARNING] ");
         } else if (lvl == Level.SEVERE) {
             msg.append(" [SEVERE] ");
-        } else if (lvl == Level.SEVERE) {
-            msg.append(" [" + lvl.getLocalizedName() + "] ");
         }
 
         if (record.getLoggerName() != null
