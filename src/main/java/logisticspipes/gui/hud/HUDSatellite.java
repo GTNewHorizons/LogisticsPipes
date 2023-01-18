@@ -94,9 +94,9 @@ public class HUDSatellite extends BasicHUDGui {
             GL11.glScalef(1.5F, 1.5F, 0.0001F);
             String message;
             if (pipe1 != null) {
-                message = "ID: " + Integer.toString(pipe1.satelliteId);
+                message = "ID: " + pipe1.satelliteId;
             } else {
-                message = "ID: " + Integer.toString(pipe2.satelliteId);
+                message = "ID: " + pipe2.satelliteId;
             }
             mc.fontRenderer.drawString(message, -28, -28, 0);
             GL11.glScalef(0.8F, 0.8F, -1F);
@@ -116,7 +116,7 @@ public class HUDSatellite extends BasicHUDGui {
                     false,
                     shifted);
             GL11.glScalef(0.8F, 0.8F, -1F);
-            message = "(" + Integer.toString(page + 1) + "/" + Integer.toString(getMaxPage()) + ")";
+            message = "(" + (page + 1) + "/" + getMaxPage() + ")";
             mc.fontRenderer.drawString(message, 9, -41, 0);
         } else {
             if (day) {

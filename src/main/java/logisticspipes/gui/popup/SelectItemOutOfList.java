@@ -109,7 +109,7 @@ public class SelectItemOutOfList extends SubGuiScreen {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
         fontRendererObj.renderString(
                 StringUtils.translate("misc.selectType"), guiLeft + 10, guiTop + 6, 0x404040, false); // TODO
-        String pageString = Integer.toString(page + 1) + "/" + Integer.toString(maxPage);
+        String pageString = page + 1 + "/" + maxPage;
         fontRendererObj.renderString(
                 pageString,
                 guiLeft + 128 - (fontRendererObj.getStringWidth(pageString) / 2),

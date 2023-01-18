@@ -116,13 +116,13 @@ public class ServerProxy implements IProxy {
     public String getName(ItemIdentifier item) {
         String category = "";
         if (item.isDamageable()) {
-            category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+            category = "itemNames." + Item.getIdFromItem(item.item);
         } else {
             if (item.itemDamage == 0) {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+                category = "itemNames." + Item.getIdFromItem(item.item);
             } else {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item)) + "."
-                        + Integer.toString(item.itemDamage);
+                category = "itemNames." + Item.getIdFromItem(item.item) + "."
+                        + item.itemDamage;
             }
         }
         String name = getNameForCategory(category, item);
@@ -130,7 +130,7 @@ public class ServerProxy implements IProxy {
             if (item.itemDamage == 0) {
                 return item.getFriendlyName();
             } else {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+                category = "itemNames." + Item.getIdFromItem(item.item);
                 name = getNameForCategory(category, item);
                 if (name.equals("LP|UNDEFINED")) {
                     return item.getFriendlyName();
@@ -144,13 +144,13 @@ public class ServerProxy implements IProxy {
     public void updateNames(ItemIdentifier item, String name) {
         String category = "";
         if (item.isDamageable()) {
-            category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+            category = "itemNames." + Item.getIdFromItem(item.item);
         } else {
             if (item.itemDamage == 0) {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+                category = "itemNames." + Item.getIdFromItem(item.item);
             } else {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item)) + "."
-                        + Integer.toString(item.itemDamage);
+                category = "itemNames." + Item.getIdFromItem(item.item) + "."
+                        + item.itemDamage;
             }
         }
         setNameForCategory(category, item, name);

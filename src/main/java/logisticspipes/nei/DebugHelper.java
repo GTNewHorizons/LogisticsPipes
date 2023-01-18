@@ -109,7 +109,7 @@ public class DebugHelper implements IContainerTooltipHandler {
             DefaultMutableTreeNode content = new DefaultMutableTreeNode("Data");
             int i = 0;
             for (byte byt : ((NBTTagByteArray) nbt).func_150292_c()) {
-                content.add(new DefaultMutableTreeNode("[" + i + "]: " + Byte.toString(byt)));
+                content.add(new DefaultMutableTreeNode("[" + i + "]: " + byt));
                 i++;
             }
             node.add(content);

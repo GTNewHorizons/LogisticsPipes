@@ -329,7 +329,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                             List<IOrderInfoProvider> list =
                                     entry.getValue().getValue2().getList();
                             calculateSize(left, top, list);
-                            String ident = "ID: " + Integer.toString(entry.getKey());
+                            String ident = "ID: " + entry.getKey();
                             mc.fontRenderer.drawStringWithShadow(ident, left + 25, top + 7, 16777215);
                             int x = left + 6;
                             int y = top + 25;

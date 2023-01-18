@@ -201,15 +201,15 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
                 }
 
                 var17.drawString(
-                        "ID: " + String.valueOf(Item.getIdFromItem(item)),
-                        -var17.getStringWidth("ID: " + String.valueOf(Item.getIdFromItem(item))) / 2,
+                        "ID: " + Item.getIdFromItem(item),
+                        -var17.getStringWidth("ID: " + Item.getIdFromItem(item)) / 2,
                         0 * 10 - 4 * 5,
                         0);
                 String displayAmount = StringUtils.getFormatedStackSize(amount, false);
                 var17.drawString("Amount:", -var17.getStringWidth("Amount:") / 2, 1 * 10 - 4 * 5, 0);
                 var17.drawString(
-                        String.valueOf(displayAmount),
-                        -var17.getStringWidth(String.valueOf(displayAmount)) / 2,
+                        displayAmount,
+                        -var17.getStringWidth(displayAmount) / 2,
                         2 * 10 - 4 * 5,
                         0);
             } else {

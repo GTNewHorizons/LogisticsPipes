@@ -234,7 +234,7 @@ public class LogisticsWrapperHandler {
                                 && e.getMessage().contains("duplicate class definition")) {
                             Class<?> prev = Class.forName(className);
                             System.err.println(e.getMessage());
-                            System.err.println("Already loaded: " + String.valueOf(prev));
+                            System.err.println("Already loaded: " + prev);
                             String resourcePath = className.replace('.', '/').concat(".class");
                             URL classResource = Launch.classLoader.findResource(resourcePath);
                             if (classResource != null) {
@@ -406,7 +406,7 @@ public class LogisticsWrapperHandler {
                                 && e.getMessage().contains("duplicate class definition")) {
                             Class<?> prev = Class.forName(className);
                             System.err.println(e.getMessage());
-                            System.err.println("Already loaded: " + String.valueOf(prev));
+                            System.err.println("Already loaded: " + prev);
                             String resourcePath = className.replace('.', '/').concat(".class");
                             URL classResource = Launch.classLoader.findResource(resourcePath);
                             if (classResource != null) {
