@@ -114,7 +114,7 @@ public class ItemLogisticsPipe extends LogisticsItem {
 
             if (pipe == null) {
                 LogisticsPipes.log.log(
-                        Level.WARN, "Pipe failed to create during placement at {0},{1},{2}", new Object[] {i, j, k});
+                        Level.WARN, "Pipe failed to create during placement at {},{},{}", i, j, k);
                 return true;
             }
 

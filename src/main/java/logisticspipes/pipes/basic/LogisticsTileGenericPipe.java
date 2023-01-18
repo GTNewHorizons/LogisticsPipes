@@ -370,9 +370,9 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (pipe != null) {
             pipe.readFromNBT(nbt);
         } else {
-            LogisticsPipes.log.log(
-                    Level.WARN, "Pipe failed to load from NBT at {0},{1},{2}", new Object[] {xCoord, yCoord, zCoord});
-            deletePipe = true;
+			LogisticsPipes.log.log(
+				Level.WARN, "Pipe failed to load from NBT at {},{},{}", xCoord, yCoord, zCoord);
+			deletePipe = true;
         }
 
         tilePart.readFromNBT_LP(nbt);
@@ -718,10 +718,8 @@ public class LogisticsTileGenericPipe extends TileEntity
         blockType = getBlockType();
 
         if (pipe == null) {
-            LogisticsPipes.log.log(Level.WARN, "Pipe failed to initialize at {0},{1},{2}, deleting", new Object[] {
-                xCoord, yCoord, zCoord
-            });
-            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+			LogisticsPipes.log.log(Level.WARN, "Pipe failed to initialize at {},{},{}, deleting", xCoord, yCoord, zCoord);
+			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             return;
         }
 
