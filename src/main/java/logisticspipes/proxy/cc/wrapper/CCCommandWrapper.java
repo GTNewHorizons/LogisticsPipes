@@ -218,7 +218,7 @@ public class CCCommandWrapper implements ILuaObject {
             if (help.length() != 0) {
                 command.append("\n");
             }
-            int number = num.intValue();
+            int number = num;
             if (number < 10) {
                 command.append(" ");
             }

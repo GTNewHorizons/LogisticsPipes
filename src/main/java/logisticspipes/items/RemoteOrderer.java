@@ -109,8 +109,8 @@ public class RemoteOrderer extends Item {
         stack.stackTagCompound.setInteger("connectedPipe-z", pipe.getZ());
         int dimension = 0;
         for (Integer dim : DimensionManager.getIDs()) {
-            if (pipe.getWorld().equals(DimensionManager.getWorld(dim.intValue()))) {
-                dimension = dim.intValue();
+            if (pipe.getWorld().equals(DimensionManager.getWorld(dim))) {
+                dimension = dim;
                 break;
             }
         }

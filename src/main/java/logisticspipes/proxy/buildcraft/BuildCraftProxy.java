@@ -160,13 +160,12 @@ public class BuildCraftProxy implements IBCProxy {
     public boolean checkForPipeConnection(TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe) {
         if (with instanceof TileGenericPipe) {
             if (ReflectionHelper.invokePrivateMethodCatched(
-                            Boolean.class,
-                            TileGenericPipe.class,
-                            with,
-                            "hasBlockingPluggable",
-                            new Class[] {ForgeDirection.class},
-                            new Object[] {side.getOpposite()})
-                    .booleanValue()) {
+				Boolean.class,
+				TileGenericPipe.class,
+				with,
+				"hasBlockingPluggable",
+				new Class[]{ForgeDirection.class},
+				new Object[]{side.getOpposite()})) {
                 return false;
             }
             Pipe<?> otherPipe = ((TileGenericPipe) with).pipe;

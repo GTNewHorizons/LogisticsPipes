@@ -198,7 +198,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         // Enchantment? Enchantment!
         Map<Integer, Integer> enchantIdLvlMap = EnchantmentHelper.getEnchantments(item.unsafeMakeNormalStack(1));
         for (Entry<Integer, Integer> e : enchantIdLvlMap.entrySet()) {
-            if (e.getKey().intValue() < Enchantment.enchantmentsList.length
+            if (e.getKey() < Enchantment.enchantmentsList.length
                     && Enchantment.enchantmentsList[e.getKey()] != null) {
                 String enchantname = Enchantment.enchantmentsList[e.getKey()].getTranslatedName(e.getValue());
                 if (enchantname != null) {

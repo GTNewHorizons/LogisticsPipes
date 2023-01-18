@@ -159,7 +159,7 @@ public class CCObjectWrapper {
                         info.commands.put(i, method);
                         if (info.commandTypes.containsKey(method.getName())) {
                             Pair<Boolean, String> pair = info.commandTypes.get(method.getName());
-                            if (pair.getValue1().booleanValue() ^ method.isAnnotationPresent(CCQueued.class)) {
+                            if (pair.getValue1() ^ method.isAnnotationPresent(CCQueued.class)) {
                                 throw new InternalError("Internal Excption (Code: 5, " + method + ")");
                             }
                             if (!pair.getValue2()

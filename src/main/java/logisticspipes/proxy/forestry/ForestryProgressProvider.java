@@ -22,7 +22,7 @@ public class ForestryProgressProvider implements IGenericProgressProvider {
     @Override
     public byte getProgress(TileEntity tile) {
         try {
-            return (byte) Math.max(0, Math.min(((Integer) workCounter.get(tile)).intValue() * 4, 100));
+            return (byte) Math.max(0, Math.min((Integer) workCounter.get(tile) * 4, 100));
         } catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {

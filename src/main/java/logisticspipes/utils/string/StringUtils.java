@@ -29,9 +29,9 @@ public final class StringUtils {
         UnmodifiableListIterator<Character> iter = chars.listIterator();
         while (iter.hasNext()) {
             Character c = iter.next();
-            if (c.charValue() == '%' && iter.hasNext()) {
+            if (c == '%' && iter.hasNext()) {
                 Character c2 = iter.next();
-                if (c2.charValue() == 'c') {
+                if (c2 == 'c') {
                     StringBuilder handled = new StringBuilder();
                     ChatColor[] values = ChatColor.values();
                     List<ChatColor> colors = new ArrayList<ChatColor>(values.length);
@@ -47,7 +47,7 @@ public final class StringUtils {
                             if (color.name().length() <= i) {
                                 break outer;
                             }
-                            if (c3.charValue() != color.name().charAt(i)) {
+                            if (c3 != color.name().charAt(i)) {
                                 colorIter.remove();
                             }
                         }
