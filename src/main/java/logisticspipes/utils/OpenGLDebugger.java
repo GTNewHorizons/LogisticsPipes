@@ -241,12 +241,10 @@ public class OpenGLDebugger {
                 if ("Windows".equals(info.getName())) {
                     try {
                         UIManager.setLookAndFeel(info.getClassName());
-                    } catch (ReflectiveOperationException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedLookAndFeelException e) {
+                    } catch (ReflectiveOperationException | UnsupportedLookAndFeelException e) {
                         e.printStackTrace();
                     }
-                    break;
+					break;
                 }
             }
 

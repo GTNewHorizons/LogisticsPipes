@@ -841,12 +841,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                     signItem[i] = typeClass.newInstance();
                     signItem[i].init(this, ForgeDirection.getOrientation(i));
                     signItem[i].readFromNBT(nbttagcompound.getCompoundTag("PipeSign_" + i + "_tags"));
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-            }
+			}
         }
     }
 
@@ -1799,12 +1797,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                     try {
                         signItem[i] = type.newInstance();
                         signItem[i].init(this, ForgeDirection.getOrientation(i));
-                    } catch (InstantiationException e) {
-                        throw new RuntimeException(e);
-                    } catch (IllegalAccessException e) {
+                    } catch (InstantiationException | IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
-                }
+				}
             } else {
                 signItem[i] = null;
             }

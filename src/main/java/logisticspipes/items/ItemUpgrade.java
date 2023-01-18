@@ -119,20 +119,10 @@ public class ItemUpgrade extends LogisticsItem {
             }
             try {
                 return upgradeClass.getConstructor(new Class[] {}).newInstance();
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+            } catch (IllegalArgumentException | InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | SecurityException e) {
                 e.printStackTrace();
             }
-            return null;
+			return null;
         }
 
         private Class<? extends IPipeUpgrade> getIPipeUpgradeClass() {

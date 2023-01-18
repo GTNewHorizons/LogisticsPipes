@@ -67,17 +67,11 @@ public class DebugGuiController {
             try {
                 entry = IDebugGuiEntry.create();
                 serverDebugger.put(player, entry);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return;
-            } catch (InstantiationException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
                 return;
             }
-        }
+		}
         if (entry == null) {
             System.out.println("DebugGui could not be loaded");
             return;
@@ -98,17 +92,11 @@ public class DebugGuiController {
         if (clientController == null) {
             try {
                 clientController = IDebugGuiEntry.create();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return;
-            } catch (InstantiationException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
                 return;
             }
-        }
+		}
         synchronized (clientList) {
             while (clientList.size() <= identification) clientList.add(null);
             clientList.set(
@@ -140,12 +128,10 @@ public class DebugGuiController {
                 IDataConnection connection = null;
                 try {
                     connection = connectionFuture.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-                if (connection != null) {
+				if (connection != null) {
                     connection.passData(payload);
                 } else {
                     throw new DelayPacketException();

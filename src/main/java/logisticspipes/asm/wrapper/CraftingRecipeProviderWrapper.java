@@ -29,9 +29,7 @@ class CraftingRecipeProviderWrapper extends AbstractWrapper implements ICrafting
         if (isEnabled()) {
             try {
                 provider.canOpenGui(tile);
-            } catch (Exception e) {
-                handleException(e);
-            } catch (NoClassDefFoundError e) {
+            } catch (Exception | NoClassDefFoundError e) {
                 handleException(e);
             }
         }
@@ -43,9 +41,7 @@ class CraftingRecipeProviderWrapper extends AbstractWrapper implements ICrafting
         if (isEnabled()) {
             try {
                 provider.importRecipe(tile, inventory);
-            } catch (Exception e) {
-                handleException(e);
-            } catch (NoClassDefFoundError e) {
+            } catch (Exception | NoClassDefFoundError e) {
                 handleException(e);
             }
         }

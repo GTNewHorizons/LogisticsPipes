@@ -50,11 +50,7 @@ public class CCProxy implements ICCProxy {
     private Runnable getTaget(Thread thread) {
         try {
             return (Runnable) target.get(thread);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (SecurityException | IllegalAccessException | IllegalArgumentException e) {
             e.printStackTrace();
         }
         return null;

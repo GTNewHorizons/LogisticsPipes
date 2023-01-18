@@ -28,20 +28,10 @@ public class PipeInformationManager {
                         if (provider.isCorrect()) {
                             return provider;
                         }
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (SecurityException e) {
+                    } catch (InstantiationException | SecurityException | NoSuchMethodException | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                }
+				}
             }
         }
         return null;
@@ -50,12 +40,10 @@ public class PipeInformationManager {
     public void registerProvider(Class<?> source, Class<? extends IPipeInformationProvider> provider) {
         try {
             provider.getDeclaredConstructor(source);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (SecurityException e) {
+        } catch (NoSuchMethodException | SecurityException e) {
             throw new RuntimeException(e);
         }
-        infoProvider.put(source, provider);
+		infoProvider.put(source, provider);
     }
 
     public boolean canConnect(
@@ -84,20 +72,10 @@ public class PipeInformationManager {
                         if (provider.isCorrect() && provider.isItemPipe()) {
                             return true;
                         }
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (SecurityException e) {
+                    } catch (InstantiationException | SecurityException | NoSuchMethodException | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                }
+				}
             }
         }
         return false;
@@ -120,20 +98,10 @@ public class PipeInformationManager {
                         if (!check || provider.isCorrect()) {
                             return true;
                         }
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (SecurityException e) {
+                    } catch (InstantiationException | SecurityException | NoSuchMethodException | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-                }
+				}
             }
         }
         return false;

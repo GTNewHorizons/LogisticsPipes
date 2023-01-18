@@ -121,12 +121,10 @@ public class CCCommandWrapper implements ILuaObject {
                         throw new RuntimeException(e.getTargetException());
                     }
                     throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalArgumentException e) {
+                } catch (IllegalAccessException | IllegalArgumentException e) {
                     throw new RuntimeException(e);
                 }
-            }
+			}
         }
 
         if (match.getAnnotation(CCQueued.class) != null) {
@@ -186,12 +184,10 @@ public class CCCommandWrapper implements ILuaObject {
                 throw new RuntimeException(e.getTargetException());
             }
             throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException | IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
-        return CCObjectWrapper.createArray(CCObjectWrapper.getWrappedObject(result, CCCommandWrapper.WRAPPER));
+		return CCObjectWrapper.createArray(CCObjectWrapper.getWrappedObject(result, CCCommandWrapper.WRAPPER));
     }
 
     private Object[] help(Object[] arguments) {

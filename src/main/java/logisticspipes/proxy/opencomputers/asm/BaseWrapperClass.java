@@ -235,16 +235,12 @@ public abstract class BaseWrapperClass extends AbstractValue {
                                 + ((ICCTypeWrapped) object).getObject().toString();
                     }
                 }
-            } catch (NoSuchMethodException e) {
-                if (LPConstants.DEBUG) {
-                    e.printStackTrace();
-                }
-            } catch (SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException e) {
                 if (LPConstants.DEBUG) {
                     e.printStackTrace();
                 }
             }
-        }
+		}
         return getType();
     }
 
