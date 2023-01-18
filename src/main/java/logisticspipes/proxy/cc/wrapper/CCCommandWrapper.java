@@ -19,7 +19,7 @@ import org.luaj.vm2.LuaTable;
 
 public class CCCommandWrapper implements ILuaObject {
 
-    public static final ICommandWrapper WRAPPER = (info, object) -> new CCCommandWrapper(info, object);
+    public static final ICommandWrapper WRAPPER = CCCommandWrapper::new;
 
     private CCWrapperInformation info;
     private Object object;

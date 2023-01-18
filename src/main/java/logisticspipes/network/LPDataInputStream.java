@@ -59,7 +59,7 @@ public class LPDataInputStream extends DataInputStream {
         double distanceToDestination = readDouble();
         double destinationDistanceToRoot = readDouble();
         int blockDistance = readInt();
-        List<LPPosition> positions = this.readList(data -> data.readLPPosition());
+        List<LPPosition> positions = this.readList(LPDataInputStream::readLPPosition);
         ExitRoute e = new ExitRoute(
                 root, destination, exitOri, insertOri, destinationDistanceToRoot, connectionDetails, blockDistance);
         e.distanceToDestination = distanceToDestination;
@@ -178,7 +178,7 @@ public class LPDataInputStream extends DataInputStream {
         boolean isFinished = readBoolean();
         boolean inProgress = readBoolean();
         ResourceType type = this.readEnum(ResourceType.class);
-        List<Float> list = this.readList(data -> data.readFloat());
+        List<Float> list = this.readList(DataInputStream::readFloat);
         byte machineProgress = readByte();
         LPPosition pos = null;
         ItemIdentifier ident = null;
@@ -196,8 +196,8 @@ public class LPDataInputStream extends DataInputStream {
 
     public LinkedLogisticsOrderList readLinkedLogisticsOrderList() throws IOException {
         LinkedLogisticsOrderList list = new LinkedLogisticsOrderList();
-        list.addAll(this.readList(data -> data.readOrderInfo()));
-        list.getSubOrders().addAll(this.readList(data -> data.readLinkedLogisticsOrderList()));
+        list.addAll(this.readList(LPDataInputStream::readOrderInfo));
+        list.getSubOrders().addAll(this.readList(LPDataInputStream::readLinkedLogisticsOrderList));
         return list;
     }
 

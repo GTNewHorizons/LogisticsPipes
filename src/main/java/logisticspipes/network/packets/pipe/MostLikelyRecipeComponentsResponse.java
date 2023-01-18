@@ -1,5 +1,7 @@
 package logisticspipes.network.packets.pipe;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 import logisticspipes.network.LPDataInputStream;
@@ -24,7 +26,7 @@ public class MostLikelyRecipeComponentsResponse extends ModernPacket {
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        response = data.readList(data1 -> data1.readInt());
+        response = data.readList(DataInputStream::readInt);
     }
 
     @Override
@@ -34,7 +36,7 @@ public class MostLikelyRecipeComponentsResponse extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeList(response, (data1, object) -> data1.writeInt(object));
+        data.writeList(response, DataOutputStream::writeInt);
     }
 
     @Override

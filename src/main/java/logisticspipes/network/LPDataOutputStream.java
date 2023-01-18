@@ -161,7 +161,7 @@ public class LPDataOutputStream extends DataOutputStream {
         writeBoolean(order.isFinished());
         writeBoolean(order.isInProgress());
         this.writeEnum(order.getType());
-        this.writeList(order.getProgresses(), (data, object) -> data.writeFloat(object));
+        this.writeList(order.getProgresses(), DataOutputStream::writeFloat);
         writeByte(order.getMachineProgress());
         if (order.getTargetPosition() != null) {
             writeBoolean(true);
@@ -177,8 +177,8 @@ public class LPDataOutputStream extends DataOutputStream {
     }
 
     public void writeLinkedLogisticsOrderList(LinkedLogisticsOrderList orders) throws IOException {
-        this.writeList(orders, (data, order) -> data.writeOrderInfo(order));
-        this.writeList(orders.getSubOrders(), (data, order) -> data.writeLinkedLogisticsOrderList(order));
+        this.writeList(orders, LPDataOutputStream::writeOrderInfo);
+        this.writeList(orders.getSubOrders(), LPDataOutputStream::writeLinkedLogisticsOrderList);
     }
 
     public void writeByteArray(byte[] array) throws IOException {

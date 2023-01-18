@@ -1,5 +1,7 @@
 package logisticspipes.network.packets.pipe;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 import logisticspipes.network.LPDataInputStream;
@@ -36,13 +38,13 @@ public class PipeSignTypes extends CoordinatesPacket {
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
         super.writeData(data);
-        data.writeList(types, (data1, object) -> data1.writeInt(object));
+        data.writeList(types, DataOutputStream::writeInt);
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
         super.readData(data);
-        types = data.readList(data1 -> data1.readInt());
+        types = data.readList(DataInputStream::readInt);
     }
 
     @Override

@@ -40,13 +40,13 @@ public class MissingItems extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeCollection(items, (data1, object) -> data1.writeIResource(object));
+        data.writeCollection(items, LPDataOutputStream::writeIResource);
         data.writeBoolean(isFlag());
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        items = data.readList(data1 -> data1.readIResource());
+        items = data.readList(LPDataInputStream::readIResource);
         setFlag(data.readBoolean());
     }
 }

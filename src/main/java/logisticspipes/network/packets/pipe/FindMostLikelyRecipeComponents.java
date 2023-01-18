@@ -110,7 +110,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
         super.readData(data);
         content = data.readList(data12 -> {
             GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<>());
-            can.order = data12.readList(data1 -> data1.readItemIdentifierStack());
+            can.order = data12.readList(LPDataInputStream::readItemIdentifierStack);
             return can;
         });
     }
@@ -121,7 +121,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
         data.writeList(
                 content,
                 (data12, object) ->
-                        data12.writeList(object.order, (data1, object1) -> data1.writeItemIdentifierStack(object1)));
+                        data12.writeList(object.order, LPDataOutputStream::writeItemIdentifierStack));
     }
 
     @Override

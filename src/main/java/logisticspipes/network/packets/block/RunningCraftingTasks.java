@@ -33,12 +33,12 @@ public class RunningCraftingTasks extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeList(identList, (data1, object) -> data1.writeItemIdentifierStack(object));
+        data.writeList(identList, LPDataOutputStream::writeItemIdentifierStack);
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        identList = data.readList(data1 -> data1.readItemIdentifierStack());
+        identList = data.readList(LPDataInputStream::readItemIdentifierStack);
     }
 
     @Override

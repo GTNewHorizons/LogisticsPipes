@@ -40,14 +40,14 @@ public class ComponentList extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeCollection(used, (data12, object) -> data12.writeIResource(object));
-        data.writeCollection(missing, (data1, object) -> data1.writeIResource(object));
+        data.writeCollection(used, LPDataOutputStream::writeIResource);
+        data.writeCollection(missing, LPDataOutputStream::writeIResource);
         data.write(0);
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        used = data.readList(data12 -> data12.readIResource());
-        missing = data.readList(data1 -> data1.readIResource());
+        used = data.readList(LPDataInputStream::readIResource);
+        missing = data.readList(LPDataInputStream::readIResource);
     }
 }
