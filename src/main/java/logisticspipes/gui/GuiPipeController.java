@@ -297,14 +297,8 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                         .setTilePos(pipe.container));
             }
         } else {
-            if (current_Tab == 4) {
-                // if(!_itemDisplay_5.handleClick(par1 - guiLeft, par2 - guiTop, par3)) {
-                super.mouseClicked(par1, par2, par3);
-                // }
-            } else {
-                super.mouseClicked(par1, par2, par3);
-            }
-        }
+			super.mouseClicked(par1, par2, par3);
+		}
     }
 
     @Override

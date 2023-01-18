@@ -92,13 +92,12 @@ public final class FluidRenderer {
 
         if (fluid.getBlock() != null) {
             FluidRenderer.liquidBlock.baseBlock = fluid.getBlock();
-            FluidRenderer.liquidBlock.texture = FluidRenderer.getFluidTexture(fluidStack, flowing);
-        } else {
+		} else {
             FluidRenderer.liquidBlock.baseBlock = Blocks.water;
-            FluidRenderer.liquidBlock.texture = FluidRenderer.getFluidTexture(fluidStack, flowing);
-        }
+		}
+		FluidRenderer.liquidBlock.texture = FluidRenderer.getFluidTexture(fluidStack, flowing);
 
-        cache.put(fluid, diplayLists);
+		cache.put(fluid, diplayLists);
 
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);

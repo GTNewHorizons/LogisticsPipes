@@ -643,9 +643,7 @@ public class DevEnvHelper {
                 }
             }
 
-            return null;
-
-        } else {
+		} else {
 
             // normal method resolution; http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-5.html#jvms-5.4.3.3
 
@@ -701,9 +699,9 @@ public class DevEnvHelper {
                 owner = cn.superName;
             }
 
-            return null;
-        }
-    }
+		}
+		return null;
+	}
 
     public static class Mapping {
 

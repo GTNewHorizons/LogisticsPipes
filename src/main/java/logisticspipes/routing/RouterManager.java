@@ -106,15 +106,13 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
                     r = new ServerRouter(UUid, dimension, xCoord, yCoord, zCoord);
 
                     int rId = r.getSimpleID();
-                    if (_routersServer.size() > rId) {
-                        _routersServer.set(rId, r);
-                    } else {
+                    if (_routersServer.size() <= rId) {
                         _routersServer.ensureCapacity(rId + 1);
                         while (_routersServer.size() <= rId) {
                             _routersServer.add(null);
                         }
-                        _routersServer.set(rId, r);
                     }
+                    _routersServer.set(rId, r);
                     _uuidMap.put(r.getId(), r.getSimpleID());
                 }
             }

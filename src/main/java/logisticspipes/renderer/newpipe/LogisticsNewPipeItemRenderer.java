@@ -165,11 +165,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         switch (type) {
             case ENTITY:
 			case INVENTORY:
-				if (renderAsBlock) {
-                    renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
-                } else {
-                    renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
-                }
+                renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
                 break;
             case EQUIPPED:
                 if (renderAsBlock) {

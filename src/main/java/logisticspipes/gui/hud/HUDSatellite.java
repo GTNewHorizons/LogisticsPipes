@@ -146,20 +146,20 @@ public class HUDSatellite extends BasicHUDGui {
     }
 
     public int getMaxPage() {
-        if (pipe1 != null) {
-            int ret = pipe1.itemList.size() / 12;
+		int ret;
+		if (pipe1 != null) {
+			ret = pipe1.itemList.size() / 12;
             if (pipe1.itemList.size() % 12 != 0 || ret == 0) {
                 ret++;
             }
-            return ret;
-        } else {
-            int ret = pipe2.itemList.size() / 12;
+		} else {
+			ret = pipe2.itemList.size() / 12;
             if (pipe2.itemList.size() % 12 != 0 || ret == 0) {
                 ret++;
             }
-            return ret;
-        }
-    }
+		}
+		return ret;
+	}
 
     @Override
     public boolean display(IHUDConfig config) {
