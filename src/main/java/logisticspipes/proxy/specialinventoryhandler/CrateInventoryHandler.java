@@ -106,8 +106,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public int roomForItem(ItemIdentifier itemIdent, int count) {
-        int space = _tile.getSpaceForItem(itemIdent.unsafeMakeNormalStack(1));
-        return space;
+		return _tile.getSpaceForItem(itemIdent.unsafeMakeNormalStack(1));
     }
 
     @Override

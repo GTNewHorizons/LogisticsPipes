@@ -82,8 +82,7 @@ public class ParamProfiler {
                                 visitInsn(Opcodes.DUP);
                                 visitIntInsn(Opcodes.BIPUSH, count++);
                                 if (!varNode.startsWith("L") && !varNode.startsWith("[")) {
-                                    String primitiveType = varNode;
-                                    switch (primitiveType.charAt(0)) {
+									switch (varNode.charAt(0)) {
                                         case 'I':
                                             visitVarInsn(Opcodes.ILOAD, pos);
                                             pos += 1;
@@ -165,7 +164,7 @@ public class ParamProfiler {
                                                     false);
                                             break;
                                         default:
-                                            throw new UnsupportedOperationException("'" + primitiveType + "'");
+                                            throw new UnsupportedOperationException("'" + varNode + "'");
                                     }
                                 } else {
                                     visitVarInsn(Opcodes.ALOAD, pos);

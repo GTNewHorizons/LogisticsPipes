@@ -562,9 +562,8 @@ public class RequestTreeNode {
             }
 
             ICraftingTemplate template = crafter.getValue1();
-            int stacks = getSubRequests(nCraftingSetsNeeded, template);
 
-            return stacks;
+			return getSubRequests(nCraftingSetsNeeded, template);
         }
 
         int addToWorkRequest(int extraWork) {

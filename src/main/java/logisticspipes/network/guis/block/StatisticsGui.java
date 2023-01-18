@@ -38,8 +38,7 @@ public class StatisticsGui extends CoordinatesGuiProvider {
         tile.tasks = trackingList;
         GuiStatistics gui = new GuiStatistics(tile);
 
-        DummyContainer dummy = new DummyContainer(player.inventory, null);
-        gui.inventorySlots = dummy;
+		gui.inventorySlots = new DummyContainer(player.inventory, null);
 
         return gui;
     }
@@ -51,8 +50,7 @@ public class StatisticsGui extends CoordinatesGuiProvider {
             return null;
         }
 
-        DummyContainer dummy = new DummyContainer(player, null);
-        return dummy;
+		return new DummyContainer(player, null);
     }
 
     @Override

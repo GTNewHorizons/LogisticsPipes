@@ -15,8 +15,6 @@ public class EntityLightRedSparkleFXProvider implements ParticleProvider {
     @Override
     public EntityFX createGenericParticle(WorldClient world, double x, double y, double z, int amount) {
 
-        EntitySparkleFX effect = GenericSparkleFactory.getSparkleInstance(world, x, y, z, red, green, blue, amount);
-
-        return effect;
+		return GenericSparkleFactory.getSparkleInstance(world, x, y, z, red, green, blue, amount);
     }
 }

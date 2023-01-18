@@ -1092,10 +1092,9 @@ public class DevEnvHelper {
                             "Field exists in CSV but not in SRG: " + srgName + " (CSV name: " + mcpName + ")");
                 } else {
                     for (String srgOwner : srgFieldOwners.get(srgName)) {
-                        String mcpOwner = srgOwner;
 
-                        forwardCSV.setField(srgOwner, srgName, mcpName);
-                        reverseCSV.setField(mcpOwner, mcpName, srgName);
+						forwardCSV.setField(srgOwner, srgName, mcpName);
+                        reverseCSV.setField(srgOwner, mcpName, srgName);
                     }
                 }
             }
@@ -1111,11 +1110,9 @@ public class DevEnvHelper {
                     for (String srgOwnerAndDesc : srgMethodOwnersAndDescs.get(srgName)) {
                         String srgDesc = srgOwnerAndDesc.substring(srgOwnerAndDesc.indexOf('('));
                         String srgOwner = srgOwnerAndDesc.substring(0, srgOwnerAndDesc.indexOf('('));
-                        String mcpOwner = srgOwner;
-                        String mcpDesc = srgDesc;
 
-                        forwardCSV.setMethod(srgOwner, srgName, srgDesc, mcpName);
-                        reverseCSV.setMethod(mcpOwner, mcpName, mcpDesc, srgName);
+						forwardCSV.setMethod(srgOwner, srgName, srgDesc, mcpName);
+                        reverseCSV.setMethod(srgOwner, mcpName, srgDesc, srgName);
                     }
                 }
             }

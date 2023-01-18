@@ -97,8 +97,7 @@ public class GuiExtentionController {
                         break;
                     }
                     extention.setExtending(false);
-                    int bottom = yPos + extention.getCurrentHeight();
-                    yPos = bottom;
+					yPos = yPos + extention.getCurrentHeight();
                 }
                 int left;
                 int right;
@@ -173,30 +172,28 @@ public class GuiExtentionController {
     }
 
     public void mouseOver(int i, int j) {
-        int x = i;
-        int y = j;
-        if (currentlyExtended == null) {
+		if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
-                if (x > extention.getCurrentXPos()
-                        && x
+                if (i > extention.getCurrentXPos()
+                        && i
                                 < extention.getCurrentXPos()
                                         + extention.getCurrentWidth()
                                         + (side == GuiSide.RIGHT ? 15 : 0)
-                        && y > extention.getCurrentYPos()
-                        && y < extention.getCurrentYPos() + extention.getCurrentHeight()) {
-                    extention.handleMouseOverAt(x, y);
+                        && j > extention.getCurrentYPos()
+                        && j < extention.getCurrentYPos() + extention.getCurrentHeight()) {
+                    extention.handleMouseOverAt(i, j);
                     return;
                 }
             }
         } else {
-            if (x > currentlyExtended.getCurrentXPos()
-                    && x
+            if (i > currentlyExtended.getCurrentXPos()
+                    && i
                             < currentlyExtended.getCurrentXPos()
                                     + currentlyExtended.getCurrentWidth()
                                     + (side == GuiSide.RIGHT ? 15 : 0)
-                    && y > currentlyExtended.getCurrentYPos()
-                    && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
-                currentlyExtended.handleMouseOverAt(x, y);
+                    && j > currentlyExtended.getCurrentYPos()
+                    && j < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
+                currentlyExtended.handleMouseOverAt(i, j);
                 return;
             }
         }

@@ -292,8 +292,7 @@ public class MorePageDisplay {
         int count = row - header.size() - 1 - linesub;
         page = (page > 0 && !all ? page : 1);
         currentpage = page;
-        int pagecount = getPageCount(count);
-        currentpagecount = pagecount;
+		currentpagecount = getPageCount(count);
         if (all) {
             count = -2;
         }

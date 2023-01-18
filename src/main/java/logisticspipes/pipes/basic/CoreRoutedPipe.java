@@ -1545,8 +1545,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (router == null) {
             return null;
         }
-        CoreRoutedPipe pipe = router.getPipe();
-        return pipe;
+		return router.getPipe();
     }
 
     @CCCommand(

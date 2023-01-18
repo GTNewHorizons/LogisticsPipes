@@ -534,9 +534,8 @@ public class PipeTransportLogistics {
                 }
                 // last chance for chassi to back out
                 if (arrivingItem instanceof IRoutedItem) {
-                    IRoutedItem routed = arrivingItem;
-                    if (routed.getTransportMode() != TransportMode.Active
-                            && !getRoutedPipe().getTransportLayer().stillWantItem(routed)) {
+					if (((IRoutedItem) arrivingItem).getTransportMode() != TransportMode.Active
+                            && !getRoutedPipe().getTransportLayer().stillWantItem(arrivingItem)) {
                         reverseItem(arrivingItem);
                         return;
                     }

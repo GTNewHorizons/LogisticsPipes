@@ -85,8 +85,7 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
     protected void mouseClicked(int par1, int par2, int par3) {
         if (par3 == 0 && par1 > guiLeft && par1 < guiLeft + 220 && par2 > guiTop && par2 < guiTop + 20) {
             par1 -= guiLeft + 3;
-            int select = Math.max(0, Math.min(par1 / 25, tabList.size() - 1));
-            current_Tab = select;
+			current_Tab = Math.max(0, Math.min(par1 / 25, tabList.size() - 1));
         } else {
             for (int i = 0; i < tabList.size(); i++) {
                 if (current_Tab == i) {
