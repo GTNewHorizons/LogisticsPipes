@@ -354,7 +354,7 @@ public class LogisticsPipes {
 
         boolean isClient = side == Side.CLIENT;
 
-        Object renderer = null;
+        FluidContainerRenderer renderer = null;
         if (isClient) {
             renderer = new FluidContainerRenderer();
         }
@@ -365,7 +365,7 @@ public class LogisticsPipes {
                 LogisticsPipes.LogisticsItemCard, LogisticsPipes.LogisticsItemCard.getUnlocalizedName());
         if (isClient) {
             MinecraftForgeClient.registerItemRenderer(
-                    LogisticsPipes.LogisticsItemCard, (FluidContainerRenderer) renderer);
+                    LogisticsPipes.LogisticsItemCard, renderer);
         }
 
         LogisticsPipes.LogisticsRemoteOrderer = new RemoteOrderer();
@@ -421,7 +421,7 @@ public class LogisticsPipes {
         LogisticsPipes.LogisticsFluidContainer.setUnlocalizedName("logisticsFluidContainer");
         if (isClient) {
             MinecraftForgeClient.registerItemRenderer(
-                    LogisticsPipes.LogisticsFluidContainer, (FluidContainerRenderer) renderer);
+                    LogisticsPipes.LogisticsFluidContainer, renderer);
         }
         GameRegistry.registerItem(
                 LogisticsPipes.LogisticsFluidContainer, LogisticsPipes.LogisticsFluidContainer.getUnlocalizedName());
