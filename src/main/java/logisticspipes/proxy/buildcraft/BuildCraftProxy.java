@@ -128,7 +128,7 @@ public class BuildCraftProxy implements IBCProxy {
 
         try {
             canPipeConnect = TileGenericPipe.class.getDeclaredMethod(
-                    "canPipeConnect", new Class[] {TileEntity.class, ForgeDirection.class});
+                    "canPipeConnect", TileEntity.class, ForgeDirection.class);
             canPipeConnect.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();
