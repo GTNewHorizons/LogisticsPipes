@@ -727,9 +727,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 }
             }
         }
-        for (int i = 0; i < queuedParticles.length; i++) {
-            queuedParticles[i] = 0;
-        }
+		Arrays.fill(queuedParticles, 0);
         hasQueuedParticles = false;
     }
 
