@@ -44,13 +44,11 @@ public class FluidContainerRenderer implements IItemRenderer {
                 }
             }
             if (item.getItem() instanceof LogisticsItemCard) {
-                switch (type) {
-                    case INVENTORY:
-                        return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-                    default:
-                        return false;
-                }
-            }
+				if (type == ItemRenderType.INVENTORY) {
+					return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+				}
+				return false;
+			}
         }
         return false;
     }

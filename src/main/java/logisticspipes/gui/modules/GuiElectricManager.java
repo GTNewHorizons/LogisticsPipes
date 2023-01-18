@@ -40,14 +40,12 @@ public class GuiElectricManager extends ModuleBaseGui {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-        switch (guibutton.id) {
-            case 0:
-                _module.setDischargeMode(!_module.isDischargeMode());
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(ElectricManagerPacket.class)
-                        .setFlag(_module.isDischargeMode())
-                        .setModulePos(_module));
-                break;
-        }
+		if (guibutton.id == 0) {
+			_module.setDischargeMode(!_module.isDischargeMode());
+			MainProxy.sendPacketToServer(PacketHandler.getPacket(ElectricManagerPacket.class)
+				.setFlag(_module.isDischargeMode())
+				.setModulePos(_module));
+		}
     }
 
     public GuiElectricManager(IInventory playerInventory, ModuleElectricManager module) {
