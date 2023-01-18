@@ -144,20 +144,7 @@ public class LogisticsHUDRenderer {
             clearList(true);
             return;
         }
-        Collections.sort(newList, new Comparator<Pair<Double, IHeadUpDisplayRendererProvider>>() {
-
-            @Override
-            public int compare(
-                    Pair<Double, IHeadUpDisplayRendererProvider> o1, Pair<Double, IHeadUpDisplayRendererProvider> o2) {
-                if (o1.getValue1() < o2.getValue1()) {
-                    return -1;
-                } else if (o1.getValue1() > o2.getValue1()) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        });
+        newList.sort(Comparator.comparing(Pair::getValue1));
         for (IHeadUpDisplayRendererProvider part : list) {
             boolean contains = false;
             for (Pair<Double, IHeadUpDisplayRendererProvider> inpart : newList) {
