@@ -34,7 +34,7 @@ public class ItemRoutingInformation {
         that.bufferCounter = bufferCounter;
         that._doNotBuffer = _doNotBuffer;
         that._transportMode = _transportMode;
-        that.jamlist = new ArrayList(jamlist);
+        that.jamlist = new ArrayList<>(jamlist);
         that.tracker = tracker;
         that.targetInfo = targetInfo;
         that.item = getItem().clone();

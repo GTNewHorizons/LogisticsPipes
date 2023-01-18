@@ -828,7 +828,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             sb.append("TagCompound(data=");
             Object[] oe = ((NBTTagCompound) nbt).tagMap.entrySet().toArray();
             for (int i = 0; i < oe.length; i++) {
-                Entry<String, NBTBase> e = (Entry<String, NBTBase>) (oe[i]);
+                @SuppressWarnings("unchecked") Entry<String, NBTBase> e = (Entry<String, NBTBase>) (oe[i]);
                 sb.append("\"").append(e.getKey()).append("\"=");
                 debugDumpTag((e.getValue()), sb);
                 if (i < oe.length - 1) {
