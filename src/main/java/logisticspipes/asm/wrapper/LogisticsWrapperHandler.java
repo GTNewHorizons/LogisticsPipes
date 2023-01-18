@@ -238,7 +238,7 @@ public class LogisticsWrapperHandler {
                             String resourcePath = className.replace('.', '/').concat(".class");
                             URL classResource = Launch.classLoader.findResource(resourcePath);
                             if (classResource != null) {
-                                String path = classResource.getPath().toString();
+                                String path = classResource.getPath();
                                 System.err.println("Class source: " + path);
                             } else {
                                 System.err.println("Class source: Null");
@@ -410,7 +410,7 @@ public class LogisticsWrapperHandler {
                             String resourcePath = className.replace('.', '/').concat(".class");
                             URL classResource = Launch.classLoader.findResource(resourcePath);
                             if (classResource != null) {
-                                String path = classResource.getPath().toString();
+                                String path = classResource.getPath();
                                 System.err.println("Class source: " + path);
                             } else {
                                 System.err.println("Class source: Null");

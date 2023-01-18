@@ -349,7 +349,7 @@ public class DevEnvHelper {
             }
             final String resourcePath = name.replace('.', '/').concat(".class");
             URL classResource = Launch.classLoader.findResource(resourcePath);
-            String path = classResource.getPath().toString();
+            String path = classResource.getPath();
             if (path.contains("LP_DEOBF.jar!/")) {
                 final ClassNode cn = new ClassNode();
                 ClassReader reader = new ClassReader(basicClass);
