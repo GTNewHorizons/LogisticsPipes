@@ -651,9 +651,7 @@ public class RequestTreeNode {
 
             return generateRequestTreeFor(workSetsAvailable, template);
         }
-        for (IExtraPromise extra : template.getByproducts(workSetsAvailable)) {
-            byproducts.add(extra);
-        }
+        byproducts.addAll(template.getByproducts(workSetsAvailable));
         return workSetsAvailable;
     }
 
@@ -679,9 +677,7 @@ public class RequestTreeNode {
                 return 0;
             }
         }
-        for (IExtraPromise extra : template.getByproducts(workSets)) {
-            byproducts.add(extra);
-        }
+        byproducts.addAll(template.getByproducts(workSets));
         return workSets;
     }
 

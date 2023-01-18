@@ -714,16 +714,12 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         ArrayList<Pair<ILogisticsPowerProvider, List<IFilter>>> power = null;
         if (_powerAdjacent != null) {
             power = new ArrayList<>();
-            for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : _powerAdjacent) {
-                power.add(provider);
-            }
+            power.addAll(_powerAdjacent);
         }
         ArrayList<Pair<ISubSystemPowerProvider, List<IFilter>>> subSystemPower = null;
         if (_subSystemPowerAdjacent != null) {
             subSystemPower = new ArrayList<>();
-            for (Pair<ISubSystemPowerProvider, List<IFilter>> provider : _subSystemPowerAdjacent) {
-                subSystemPower.add(provider);
-            }
+            subSystemPower.addAll(_subSystemPowerAdjacent);
         }
         if (Configs.MULTI_THREAD_NUMBER > 0) {
             RoutingTableUpdateThread.add(new LSARouterRunnable(neighboursWithMetric, power, subSystemPower));

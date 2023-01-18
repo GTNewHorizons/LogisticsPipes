@@ -1,6 +1,8 @@
 package logisticspipes.commands.chathelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
@@ -33,9 +35,7 @@ public class MorePageDisplay {
     public MorePageDisplay(String[] header, ICommandSender name) {
         if (header.length <= (row - 2)) {
             this.header = new ArrayList<>();
-            for (String element : header) {
-                this.header.add(element);
-            }
+            this.header.addAll(Arrays.asList(header));
         }
         LPChatListener.register(this, name.getCommandSenderName());
         name.getCommandSenderName();
