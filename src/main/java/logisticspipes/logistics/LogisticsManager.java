@@ -52,12 +52,7 @@ public class LogisticsManager implements ILogisticsManager {
      * @param allowDefault
      *            Boolean, if true then a default route will be considered a
      *            valid destination.
-     * @param sourceRouter
-     *            The UUID of the router pipe that wants to send the stack.
-     * @param excludeSource
-     *            Boolean, true means it will not consider the pipe itself as a
-     *            valid destination.
-     */
+	 */
     @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
             ItemIdentifier stack, boolean allowDefault, int sourceID, List<Integer> routerIDsToExclude) {

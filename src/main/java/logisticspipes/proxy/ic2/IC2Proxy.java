@@ -498,8 +498,7 @@ public class IC2Proxy implements IIC2Proxy {
     /**
      * Registers an TileEntity to the IC2 EnergyNet
      *
-     * @param has
-     *            to be an instance of IEnergyTile
+     * @param tile has to be an instance of IEnergyTile
      */
     @Override
     public void registerToEneryNet(TileEntity tile) {
@@ -511,8 +510,7 @@ public class IC2Proxy implements IIC2Proxy {
     /**
      * Removes an TileEntity from the IC2 EnergyNet
      *
-     * @param has
-     *            to be an instance of IEnergyTile
+     * @param tile has to be an instance of IEnergyTile
      */
     @Override
     public void unregisterToEneryNet(TileEntity tile) {
