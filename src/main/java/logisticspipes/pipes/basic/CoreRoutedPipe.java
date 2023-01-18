@@ -1276,7 +1276,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (item != null) {
             synchronized (queuedDataForUnroutedItems) {
                 Queue<Pair<Integer, ItemRoutingInformation>> queue = queuedDataForUnroutedItems.computeIfAbsent(
-                        item.getItem(), k -> new LinkedList<Pair<Integer, ItemRoutingInformation>>());
+                        item.getItem(), k -> new LinkedList<>());
                 queue.add(new Pair<>(item.getStackSize(), information));
             }
         }

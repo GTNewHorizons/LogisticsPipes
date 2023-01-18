@@ -50,7 +50,7 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             if (icons == null) {
                 return false;
             }
-            requestBlock = new HashMap<BlockRotation, IModel3D>();
+            requestBlock = new HashMap<>();
             for (BlockRotation rot : BlockRotation.values()) {
                 requestBlock.put(
                         rot,

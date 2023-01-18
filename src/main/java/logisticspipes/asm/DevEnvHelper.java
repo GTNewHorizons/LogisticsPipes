@@ -997,7 +997,7 @@ public class DevEnvHelper {
                                 + srgFieldOwners.get(srgName) + " and " + srgOwner + ")");
                     }
 
-                    Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<String>());
+                    Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<>());
                     owners.add(srgOwner);
                 }
 
@@ -1018,7 +1018,7 @@ public class DevEnvHelper {
                 String srgOwner = srg.classes.get(obfOwner);
 
                 Set<String> srgMethodOwnersThis =
-                        srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<String>());
+                        srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<>());
                 srgMethodOwnersThis.add(srgOwner + srgDesc);
 
                 forwardSRG.setMethod(obfOwner, obfName, obfDesc, srgName);

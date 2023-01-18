@@ -117,7 +117,7 @@ public class ServerPacketBufferHandlerThread {
         public void addPacketToCompressor(ModernPacket packet, EntityPlayer player) {
             synchronized (serverList) {
                 LinkedList<ModernPacket> packetList =
-                        serverList.computeIfAbsent(player, k -> new LinkedList<ModernPacket>());
+                        serverList.computeIfAbsent(player, k -> new LinkedList<>());
                 packetList.add(packet);
                 if (!pause) {
                     serverList.notify();
@@ -267,7 +267,7 @@ public class ServerPacketBufferHandlerThread {
 
         public void handlePacket(byte[] content, EntityPlayer player) {
             synchronized (queue) {
-                LinkedList<byte[]> list = queue.computeIfAbsent(player, k -> new LinkedList<byte[]>());
+                LinkedList<byte[]> list = queue.computeIfAbsent(player, k -> new LinkedList<>());
                 list.addLast(content);
                 queue.notify();
             }

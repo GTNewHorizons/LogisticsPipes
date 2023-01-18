@@ -109,7 +109,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
     public void readData(LPDataInputStream data) throws IOException {
         super.readData(data);
         content = data.readList(data12 -> {
-            GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<ItemIdentifierStack>());
+            GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<>());
             can.order = data12.readList(data1 -> data1.readItemIdentifierStack());
             return can;
         });

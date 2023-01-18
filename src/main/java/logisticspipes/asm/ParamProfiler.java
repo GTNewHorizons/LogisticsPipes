@@ -247,7 +247,7 @@ public class ParamProfiler {
     @SuppressWarnings("unused") // Used by ASM
     public static void methodStart(long id, String name, Object root, Object... params) {
         if (!isActive) return;
-        Stack<Entry> access = stack.computeIfAbsent(Thread.currentThread(), k -> new Stack<Entry>());
+        Stack<Entry> access = stack.computeIfAbsent(Thread.currentThread(), k -> new Stack<>());
         access.push(new Entry(id, name, root, params));
     }
 

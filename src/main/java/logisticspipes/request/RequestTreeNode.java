@@ -162,7 +162,7 @@ public class RequestTreeNode {
         for (IExtraPromise extra : extrapromises) {
             if (item.matches(extra.getItemType(), IResource.MatchSettings.NORMAL)) {
                 List<IExtraPromise> extras =
-                        extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<IExtraPromise>());
+                        extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<>());
                 extras.add(extra.copy());
             }
         }

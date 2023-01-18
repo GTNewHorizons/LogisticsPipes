@@ -493,7 +493,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
         for (Entry<CoreRoutedPipe, ExitRoute> entry : adjacent.entrySet()) {
             List<CoreRoutedPipe> list = pipeDirections.computeIfAbsent(
-                    entry.getValue().exitOrientation, k -> new ArrayList<CoreRoutedPipe>());
+                    entry.getValue().exitOrientation, k -> new ArrayList<>());
             list.add(entry.getKey());
         }
 
@@ -1421,7 +1421,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     private void addInterest(ItemIdentifier items) {
         Set<IRouter> interests =
-                ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<IRouter>());
+                ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<>());
         interests.add(this);
     }
 
