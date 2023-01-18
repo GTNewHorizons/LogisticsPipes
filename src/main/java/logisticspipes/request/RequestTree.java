@@ -25,7 +25,7 @@ import net.minecraft.item.Item;
 
 public class RequestTree extends RequestTreeNode {
 
-    public static enum ActiveRequestType {
+    public enum ActiveRequestType {
         Provide,
         Craft,
         AcceptPartial,

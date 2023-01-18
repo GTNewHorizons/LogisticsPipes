@@ -27,7 +27,7 @@ public enum CraftingDependency {
     private CraftingDependency[] dependencies;
     private List<ItemStack> results = new ArrayList<ItemStack>();
 
-    private CraftingDependency(CraftingDependency... dependencies) {
+    CraftingDependency(CraftingDependency... dependencies) {
         this.dependencies = dependencies;
     }
 

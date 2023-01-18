@@ -29,7 +29,7 @@ public enum ResourceNetwork {
 
     private final Class<? extends IResource> clazz;
 
-    private ResourceNetwork(Class<? extends IResource> clazz) {
+    ResourceNetwork(Class<? extends IResource> clazz) {
         this.clazz = clazz;
     }
 

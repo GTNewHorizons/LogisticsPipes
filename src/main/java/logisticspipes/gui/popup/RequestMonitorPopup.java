@@ -42,7 +42,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
         LEVEL_1(0.5F, 330, 465, 1, 50, -200, 100),
         LEVEL_2(0.25F, 660, 950, 2, 100, -400, -100);
 
-        private ZOOM_LEVEL(float zoom, int bottom, int right, int line, int moveY, int maxX, int maxY) {
+        ZOOM_LEVEL(float zoom, int bottom, int right, int line, int moveY, int maxX, int maxY) {
             this.zoom = zoom;
             bottomRenderBorder = bottom;
             rightRenderBorder = right;

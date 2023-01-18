@@ -52,7 +52,7 @@ public class DebugController implements IRoutingDebugAdapter {
         return DebugController.instances.get(sender);
     }
 
-    private static enum DebugWaitState {
+    private enum DebugWaitState {
         LOOP,
         CONTINUE,
         NOWAIT;

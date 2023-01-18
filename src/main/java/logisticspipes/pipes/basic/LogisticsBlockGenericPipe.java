@@ -526,7 +526,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
 
     private static long lastRemovedDate = -1;
 
-    public static enum Part {
+    public enum Part {
         Pipe,
         Pluggable
     }
