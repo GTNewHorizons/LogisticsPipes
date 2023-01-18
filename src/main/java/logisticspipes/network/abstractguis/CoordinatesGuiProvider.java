@@ -59,8 +59,6 @@ public abstract class CoordinatesGuiProvider extends GuiProvider {
     /**
      * Retrieves tileEntity at packet coordinates if any.
      *
-     * @param world
-     * @param clazz
      * @return TileEntity
      */
     @SuppressWarnings("unchecked")
