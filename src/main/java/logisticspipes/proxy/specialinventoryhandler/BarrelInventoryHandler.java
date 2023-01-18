@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class BarrelInventoryHandler extends SpecialInventoryHandler {
 
-    private static Class<? extends Object> barrelClass;
+    private static Class<?> barrelClass;
     private static Method getItemCount;
     private static Method setItemCount;
     private static Method getMaxSize;
