@@ -101,7 +101,7 @@ public class Textures {
 
     public static SmallTextureType LOGISTICSPIPE_BASIC_TRANSPORT_TEXTURE = Textures.smallEmpty;
 
-    public static IIcon LOGISTICS_REQUEST_TABLE[] = new IIcon[0];
+    public static IIcon[] LOGISTICS_REQUEST_TABLE = new IIcon[0];
     public static IIcon LOGISTICS_REQUEST_TABLE_NEW = null;
     public static IIcon LOGISTICS_REQUEST_TABLE_NEW_ROUTED = null;
     public static IIcon LOGISTICS_REQUEST_TABLE_NEW_UNROUTED = null;

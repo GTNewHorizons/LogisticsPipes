@@ -97,7 +97,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public Object OPENPERIPHERAL_IGNORE; // Tell OpenPeripheral to ignore this class
 
-    public boolean turtleConnect[] = new boolean[7];
+    public boolean[] turtleConnect = new boolean[7];
 
     private LogisticsTileRenderController renderController;
 
@@ -302,7 +302,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     public void scheduleNeighborChange() {
         tilePart.scheduleNeighborChange();
         blockNeighborChange = true;
-        boolean connected[] = new boolean[6];
+        boolean[] connected = new boolean[6];
         WorldUtil world = new WorldUtil(getWorld(), xCoord, yCoord, zCoord);
         List<AdjacentTile> adjacent = world.getAdjacentTileEntities(false);
         for (AdjacentTile aTile : adjacent) {

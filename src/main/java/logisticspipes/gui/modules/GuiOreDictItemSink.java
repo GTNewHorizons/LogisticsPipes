@@ -155,7 +155,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
     }
 
     private List<String> getOreNames(ItemStack s) {
-        int oreids[] = OreDictionary.getOreIDs(s);
+        int[] oreids = OreDictionary.getOreIDs(s);
         List<String> oreNames = new ArrayList<String>(oreids.length);
         for (int oreid : oreids) {
             String oreName = OreDictionary.getOreName(oreid);

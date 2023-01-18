@@ -41,7 +41,7 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
             } else {
                 ArrayList<Integer> list = new ArrayList<Integer>();
 
-                int allSlots[] = _sidedInventory.getAccessibleSlotsFromSide(_side);
+                int[] allSlots = _sidedInventory.getAccessibleSlotsFromSide(_side);
                 for (int number : allSlots) {
                     ItemStack item = _sidedInventory.getStackInSlot(number);
                     if (!list.contains(number)
@@ -61,7 +61,7 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
         ArrayList<Integer> list = new ArrayList<Integer>();
 
         for (int i = 0; i < 6; i++) {
-            int slots[] = _sidedInventory.getAccessibleSlotsFromSide(i);
+            int[] slots = _sidedInventory.getAccessibleSlotsFromSide(i);
             for (int number : slots) {
                 ItemStack item = _sidedInventory.getStackInSlot(number);
                 if (!list.contains(number)
@@ -72,7 +72,7 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
                 }
             }
         }
-        int slotmap[] = new int[list.size()];
+        int[] slotmap = new int[list.size()];
         int count = 0;
         for (int i : list) {
             slotmap[count++] = i;

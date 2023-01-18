@@ -1037,7 +1037,7 @@ public class LogisticsNewRenderPipe {
             }
         }
 
-        boolean solidSides[] = new boolean[6];
+        boolean[] solidSides = new boolean[6];
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             LPPosition pos = new LPPosition((TileEntity) pipeTile);
             pos.moveForward(dir);
@@ -1120,7 +1120,7 @@ public class LogisticsNewRenderPipe {
     }
 
     private void findOponentOnSameSide(List<Mount> mountCanidates, ForgeDirection dir) {
-        boolean sides[] = new boolean[6];
+        boolean[] sides = new boolean[6];
         Iterator<Mount> iter = mountCanidates.iterator();
         while (iter.hasNext()) {
             Mount mount = iter.next();
@@ -1208,7 +1208,7 @@ public class LogisticsNewRenderPipe {
     }
 
     private void removeIfHasOponentSide(List<Mount> mountCanidates) {
-        boolean sides[] = new boolean[6];
+        boolean[] sides = new boolean[6];
         Iterator<Mount> iter = mountCanidates.iterator();
         while (iter.hasNext()) {
             Mount mount = iter.next();
@@ -1228,7 +1228,7 @@ public class LogisticsNewRenderPipe {
     }
 
     private void removeIfHasConnectedSide(List<Mount> mountCanidates) {
-        boolean sides[] = new boolean[6];
+        boolean[] sides = new boolean[6];
         Iterator<Mount> iter = mountCanidates.iterator();
         while (iter.hasNext()) {
             Mount mount = iter.next();

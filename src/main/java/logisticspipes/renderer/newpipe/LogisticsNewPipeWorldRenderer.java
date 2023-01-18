@@ -110,7 +110,7 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
         }
         tess.addTranslation(-0.00002F, -0.00002F, -0.00002F);
 
-        boolean solidSides[] = new boolean[6];
+        boolean[] solidSides = new boolean[6];
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             LPPosition pos = new LPPosition((TileEntity) pipeTile);
             pos.moveForward(dir);
