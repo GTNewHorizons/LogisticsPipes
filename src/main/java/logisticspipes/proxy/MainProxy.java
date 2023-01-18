@@ -83,11 +83,10 @@ public class MainProxy {
         return MainProxy.isClient();
     }
 
-    @Deprecated
     /**
      * isClient is slow, find a world and check isServer(world)
-     * @return
      */
+	@Deprecated
     public static boolean isClient() {
         return MainProxy.getEffectiveSide() == Side.CLIENT;
     }
@@ -102,11 +101,10 @@ public class MainProxy {
         return MainProxy.isServer();
     }
 
-    @Deprecated
     /**
      * isServer is slow, find a world and check isServer(world)
-     * @return
      */
+	@Deprecated
     public static boolean isServer() {
         return MainProxy.getEffectiveSide() == Side.SERVER;
     }

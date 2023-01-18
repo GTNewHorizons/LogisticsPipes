@@ -56,7 +56,6 @@ public abstract class CoordinatesGuiProvider extends GuiProvider {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
     /**
      * Retrieves tileEntity at packet coordinates if any.
      *
@@ -64,6 +63,7 @@ public abstract class CoordinatesGuiProvider extends GuiProvider {
      * @param clazz
      * @return TileEntity
      */
+	@SuppressWarnings("unchecked")
     public <T> T getTile(World world, Class<T> clazz) {
         if (world == null) {
             return null;

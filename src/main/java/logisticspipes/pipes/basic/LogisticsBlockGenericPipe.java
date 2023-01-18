@@ -374,9 +374,9 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
             return null;
         }
 
-        /**
-         * pipe hits along x, y, and z axis, gate (all 6 sides) [and
-         * wires+facades]
+        /*
+          pipe hits along x, y, and z axis, gate (all 6 sides) [and
+          wires+facades]
          */
         MovingObjectPosition[] hits = new MovingObjectPosition[31];
         AxisAlignedBB[] boxes = new AxisAlignedBB[31];

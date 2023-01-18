@@ -1,9 +1,9 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
+/*
+  Copyright (c) Krapht, 2011
+
+  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+  License 1.0, or MMPL. Please check the contents of the license located in
+  http://www.mod-buildcraft.com/MMPL-1.0.txt
  */
 package logisticspipes.routing;
 
@@ -790,10 +790,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
             // work, this is just an approximate number.
         }
 
-        /**
-         * same info as above, but sorted by distance -- sorting is implicit,
-         * because Dijkstra finds the closest routes first.
-         **/
+        /*
+          same info as above, but sorted by distance -- sorting is implicit,
+          because Dijkstra finds the closest routes first.
+         */
         List<ExitRoute> routeCosts = new ArrayList<ExitRoute>(routingTableSize);
 
         // Add the current Router
@@ -833,7 +833,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
             filterList.add(null);
         }
 
-        /** The total cost for the candidate route **/
+		/* The total cost for the candidate route **/
         PriorityQueue<ExitRoute> candidatesCost = new PriorityQueue<ExitRoute>((int) Math.sqrt(
                 routingTableSize)); // sqrt nodes is a good guess for the total number of candidate nodes at once.
 
