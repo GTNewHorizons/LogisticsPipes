@@ -502,10 +502,10 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
+        tessellator.addVertexWithUV(par1, par2 + par5, zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
         tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
-        tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
-        tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
+        tessellator.addVertexWithUV(par1 + par4, par2, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
+        tessellator.addVertexWithUV(par1, par2, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
         tessellator.draw();
         GL11.glPopMatrix();
     }

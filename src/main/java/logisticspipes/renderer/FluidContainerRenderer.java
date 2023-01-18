@@ -162,7 +162,7 @@ public class FluidContainerRenderer implements IItemRenderer {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(
-                x + 0, y + height, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y + height));
+                x, y + height, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y + height));
         tessellator.addVertexWithUV(
                 x + width,
                 y + height,
@@ -170,8 +170,8 @@ public class FluidContainerRenderer implements IItemRenderer {
                 par3Icon.getInterpolatedU(x + width),
                 par3Icon.getInterpolatedV(y + height));
         tessellator.addVertexWithUV(
-                x + width, y + 0, zLevel, par3Icon.getInterpolatedU(x + width), par3Icon.getInterpolatedV(y));
-        tessellator.addVertexWithUV(x + 0, y + 0, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y));
+                x + width, y, zLevel, par3Icon.getInterpolatedU(x + width), par3Icon.getInterpolatedV(y));
+        tessellator.addVertexWithUV(x, y, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y));
         tessellator.draw();
     }
 

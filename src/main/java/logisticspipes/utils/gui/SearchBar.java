@@ -83,12 +83,12 @@ public class SearchBar {
 
     public void renderSearchBar() {
         if (isFocused()) {
-            screen.drawRect(left + 0, top - 2, left + width - 0, top + heigth - 0, Color.BLACK);
+            screen.drawRect(left, top - 2, left + width, top + heigth, Color.BLACK);
             screen.drawRect(left + 1, top - 1, left + width - 1, top + heigth - 1, Color.WHITE);
         } else {
             screen.drawRect(left + 1, top - 1, left + width - 1, top + heigth - 1, Color.BLACK);
         }
-        screen.drawRect(left + 2, top - 0, left + width - 2, top + heigth - 2, Color.DARKER_GREY);
+        screen.drawRect(left + 2, top, left + width - 2, top + heigth - 2, Color.DARKER_GREY);
         if (alignRight) {
             fontRenderer.drawString(
                     searchinput1 + searchinput2,
