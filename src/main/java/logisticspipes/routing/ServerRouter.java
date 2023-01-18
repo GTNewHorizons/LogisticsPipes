@@ -1113,8 +1113,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         for (IRouter r : _adjacentRouter.keySet()) {
             r.act(hasBeenProcessed, actor);
         }
-        return;
-    }
+	}
 
     /**
      * Flags the last sent LSA as expired. Each router will be responsible of

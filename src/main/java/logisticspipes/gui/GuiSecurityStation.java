@@ -297,20 +297,17 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
         if (editsearch) {
             if (c == 13) {
                 editsearch = false;
-                return;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 searchinput1 = searchinput1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (searchinput1.length() > 0) {
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
                 }
-                return;
-            } else if (Character.isLetterOrDigit(c) || c == ' ') {
+			} else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(searchinput1 + c + searchinput2) <= GuiSecurityStation.searchWidth) {
                     searchinput1 += c;
                 }
-                return;
-            } else if (i == 203) { // Left
+			} else if (i == 203) { // Left
                 if (searchinput1.length() > 0) {
                     searchinput2 = searchinput1.substring(searchinput1.length() - 1) + searchinput2;
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);

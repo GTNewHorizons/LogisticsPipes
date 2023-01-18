@@ -426,8 +426,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public void registerExtras(IPromise promise) {
         if (promise instanceof LogisticsDictPromise) {
             _service.getItemOrderManager().addExtra(((LogisticsDictPromise) promise).getResource());
-            return;
-        } else {
+		} else {
             ItemIdentifierStack stack = new ItemIdentifierStack(promise.getItemType(), promise.getAmount());
             _service.getItemOrderManager().addExtra(new DictResource(stack, null));
         }

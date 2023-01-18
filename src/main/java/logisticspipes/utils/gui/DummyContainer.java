@@ -810,8 +810,7 @@ public class DummyContainer extends Container {
         if (slot instanceof DummySlot) {
             ((DummySlot) slot).setRedirectCall(false);
         }
-        return;
-    }
+	}
 
     @Override
     public void onContainerClosed(EntityPlayer par1EntityPlayer) {

@@ -264,20 +264,17 @@ public class GuiDiskPopup extends SubGuiScreen {
         if (editname) {
             if (c == 13) {
                 writeDiskName();
-                return;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 name1 = name1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (name1.length() > 0) {
                     name1 = name1.substring(0, name1.length() - 1);
                 }
-                return;
-            } else if (Character.isLetterOrDigit(c) || c == ' ') {
+			} else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(name1 + c + name2) <= searchWidth) {
                     name1 += c;
                 }
-                return;
-            } else if (i == 203) { // Left
+			} else if (i == 203) { // Left
                 if (name1.length() > 0) {
                     name2 = name1.substring(name1.length() - 1) + name2;
                     name1 = name1.substring(0, name1.length() - 1);

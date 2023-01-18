@@ -398,8 +398,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                 return;
             default:
                 super.actionPerformed(guibutton);
-                return;
-        }
+		}
     }
 
     @Override

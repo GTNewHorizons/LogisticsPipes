@@ -526,20 +526,17 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
         if (editname) {
             if (c == 13) {
                 editname = false;
-                return;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 name1 = name1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (name1.length() > 0) {
                     name1 = name1.substring(0, name1.length() - 1);
                 }
-                return;
-            } else if (Character.isLetterOrDigit(c) || c == ' ') {
+			} else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(name1 + c + name2) <= nameWidth) {
                     name1 += c;
                 }
-                return;
-            } else if (i == 203) { // Left
+			} else if (i == 203) { // Left
                 if (name1.length() > 0) {
                     name2 = name1.substring(name1.length() - 1) + name2;
                     name1 = name1.substring(0, name1.length() - 1);
@@ -567,20 +564,17 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
         } else if (editsearch) {
             if (c == 13) {
                 editsearch = false;
-                return;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 Search1 = Search1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (Search1.length() > 0) {
                     Search1 = Search1.substring(0, Search1.length() - 1);
                 }
-                return;
-            } else if (Character.isLetterOrDigit(c) || c == ' ') {
+			} else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(Search1 + c + Search2) <= searchWidth) {
                     Search1 += c;
                 }
-                return;
-            } else if (i == 203) { // Left
+			} else if (i == 203) { // Left
                 if (Search1.length() > 0) {
                     Search2 = Search1.substring(Search1.length() - 1) + Search2;
                     Search1 = Search1.substring(0, Search1.length() - 1);

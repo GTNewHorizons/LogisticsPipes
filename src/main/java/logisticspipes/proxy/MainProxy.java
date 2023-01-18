@@ -191,8 +191,7 @@ public class MainProxy {
                     MainProxy.sendPacketToPlayer(packet, player);
                 }
             }
-            return;
-        }
+		}
     }
 
     public static void sendToPlayerList(ModernPacket packet, PlayerCollectionList players) {

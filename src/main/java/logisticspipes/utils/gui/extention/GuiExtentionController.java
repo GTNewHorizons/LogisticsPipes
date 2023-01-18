@@ -194,8 +194,7 @@ public class GuiExtentionController {
                     && j > currentlyExtended.getCurrentYPos()
                     && j < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
                 currentlyExtended.handleMouseOverAt(i, j);
-                return;
-            }
+			}
         }
     }
 

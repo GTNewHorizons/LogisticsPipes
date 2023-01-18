@@ -113,6 +113,5 @@ public class LogisticsCraftingTable implements IFuzzyRecipeProvider {
             }
         }
 
-        return;
-    }
+	}
 }

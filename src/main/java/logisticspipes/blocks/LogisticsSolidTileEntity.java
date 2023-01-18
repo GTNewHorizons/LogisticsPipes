@@ -85,8 +85,7 @@ public class LogisticsSolidTileEntity extends TileEntity
                         .setPosZ(zCoord));
                 init = true;
             }
-            return;
-        }
+		}
     }
 
     @Override
