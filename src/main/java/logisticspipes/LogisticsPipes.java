@@ -130,16 +130,7 @@ public class LogisticsPipes {
                 transformers.set(i, transformers.get(i - 1));
             }
             transformers.set(0, lpClassInjector); // So that our injector can be first
-        } catch (NoSuchFieldException e) {
-            loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
             loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
             e.printStackTrace();
         }
