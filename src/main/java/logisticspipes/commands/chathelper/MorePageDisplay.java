@@ -71,7 +71,7 @@ public class MorePageDisplay {
     }
 
     private String replaceMeta(String input, int page, int count) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         int pagecount = getPageCount(count);
         if (count == -1) {
             pagecount = 0;
@@ -83,19 +83,19 @@ public class MorePageDisplay {
             char c = input.charAt(i);
             switch (c) {
                 case '%':
-                    output += String.valueOf(page);
+                    output.append(String.valueOf(page));
                     break;
                 case '$':
-                    output += String.valueOf(pagecount);
+                    output.append(String.valueOf(pagecount));
                     break;
                 default:
-                    output += c;
+                    output.append(c);
                     break;
             }
         }
         boolean LeftDone = false;
         boolean RightDone = false;
-        String output2 = "";
+        StringBuilder output2 = new StringBuilder();
         // Add = for <>
         for (int i = 0; i < output.length(); i++) {
             char c = output.charAt(i);
@@ -105,22 +105,22 @@ public class MorePageDisplay {
                         break;
                     }
                     LeftDone = true;
-                    output2 += ChatColor.AQUA;
+                    output2.append(ChatColor.AQUA);
                     for (int j = 0; j < ((colum - output.length()) / 2); j++) {
-                        output2 += "=";
+                        output2.append("=");
                     }
-                    output2 += ChatColor.WHITE;
+                    output2.append(ChatColor.WHITE);
                     break;
                 case '>':
                     if (RightDone) {
                         break;
                     }
                     RightDone = true;
-                    output2 += ChatColor.AQUA;
+                    output2.append(ChatColor.AQUA);
                     for (int j = 0; j < ((colum - output.length()) / 2); j++) {
-                        output2 += "=";
+                        output2.append("=");
                     }
-                    output2 += ChatColor.WHITE;
+                    output2.append(ChatColor.WHITE);
                     break;
                 case '(':
                     if (LeftDone) {
@@ -128,7 +128,7 @@ public class MorePageDisplay {
                     }
                     LeftDone = true;
                     for (int j = 0; j < ((colum - output.length()) / 2); j++) {
-                        output2 += " ";
+                        output2.append(" ");
                     }
                     break;
                 case ')':
@@ -137,15 +137,15 @@ public class MorePageDisplay {
                     }
                     RightDone = true;
                     for (int j = 0; j < ((colum - output.length()) / 2); j++) {
-                        output2 += " ";
+                        output2.append(" ");
                     }
                     break;
                 default:
-                    output2 += c;
+                    output2.append(c);
                     break;
             }
         }
-        return output2;
+        return output2.toString();
     }
 
     public boolean handleChat(String input, ICommandSender sender) {

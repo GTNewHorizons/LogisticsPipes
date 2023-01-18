@@ -765,7 +765,7 @@ public class DevEnvHelper {
             }
 
             int pos = 0;
-            String out = "";
+            StringBuilder out = new StringBuilder();
             while (pos < desc.length()) {
                 switch (desc.charAt(pos)) {
                     case 'V':
@@ -780,7 +780,7 @@ public class DevEnvHelper {
                     case '[':
                     case '(':
                     case ')':
-                        out += desc.charAt(pos);
+                        out.append(desc.charAt(pos));
                         pos++;
                         break;
                     case 'L':
@@ -788,7 +788,7 @@ public class DevEnvHelper {
                             int end = desc.indexOf(';', pos);
                             String obf = desc.substring(pos + 1, end);
                             pos = end + 1;
-                            out += "L" + getClass(obf) + ";";
+                            out.append("L").append(getClass(obf)).append(";");
                         }
                         break;
                     default:
@@ -796,7 +796,7 @@ public class DevEnvHelper {
                                 "Unknown method descriptor character: " + desc.charAt(pos) + " (in " + desc + ")");
                 }
             }
-            return out;
+            return out.toString();
         }
 
         public String mapTypeDescriptor(String in) {
