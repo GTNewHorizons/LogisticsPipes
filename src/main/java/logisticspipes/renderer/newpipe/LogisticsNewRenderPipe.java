@@ -792,7 +792,7 @@ public class LogisticsNewRenderPipe {
                             if (renderState.textureMatrix.isSubPowerInDir(dir)) {
                                 texture = new I3DOperation[] {
                                     new LPUVTransformationList(
-                                            new LPUVTranslation(0, +23F / 100), LogisticsNewRenderPipe.statusBCTexture)
+                                            new LPUVTranslation(0, 23F / 100), LogisticsNewRenderPipe.statusBCTexture)
                                 };
                             } else {
                                 texture = new I3DOperation[] {LogisticsNewRenderPipe.statusBCTexture};
@@ -824,7 +824,7 @@ public class LogisticsNewRenderPipe {
                                 if (renderState.textureMatrix.getPointedOrientation() == dir) {
                                     texture = new I3DOperation[] {
                                         new LPUVTransformationList(
-                                                new LPUVTranslation(+2.5F / 10, 0),
+                                                new LPUVTranslation(2.5F / 10, 0),
                                                 LogisticsNewRenderPipe.statusTexture)
                                     };
                                 } else {
@@ -838,7 +838,7 @@ public class LogisticsNewRenderPipe {
                                 if (renderState.textureMatrix.getPointedOrientation() == dir) {
                                     texture = new I3DOperation[] {
                                         new LPUVTransformationList(
-                                                new LPUVTranslation(+2.5F / 10, 37F / 100),
+                                                new LPUVTranslation(2.5F / 10, 37F / 100),
                                                 LogisticsNewRenderPipe.statusTexture)
                                     };
                                 } else {
