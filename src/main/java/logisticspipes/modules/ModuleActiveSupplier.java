@@ -519,7 +519,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             }
         }
         // we have no idea what this is, log it.
-        _service.getDebug().log("Supplier: supplier got unexpected item " + item.toString());
+        _service.getDebug().log("Supplier: supplier got unexpected item " + item);
     }
 
     @Override

@@ -126,8 +126,8 @@ public abstract class BaseWrapperClass extends AbstractValue {
             if (param.toString().length() + command.length() > 50) {
                 command.append("\n      ---");
             }
-            command.append(param.toString());
-            help.append(command.toString());
+            command.append(param);
+            help.append(command);
         }
         String commands = help.toString();
         String[] lines = commands.split("\n");
@@ -142,13 +142,13 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 }
             }
             StringBuilder page = new StringBuilder();
-            page.append(head.toString());
+            page.append(head);
             page.append("Page ");
             page.append(pageNumber);
             page.append(" of ");
             page.append((int) (Math.floor(lines.length / 10) + (lines.length % 10 == 0 ? 0 : 1)));
             page.append("\n");
-            page.append(head2.toString());
+            page.append(head2);
             pageNumber--;
             int from = pageNumber * 11;
             int to = pageNumber * 11 + 11;

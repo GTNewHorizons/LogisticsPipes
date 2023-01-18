@@ -351,7 +351,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
     public void printAllRouters() {
         for (IRouter router : _routersServer) {
             if (router != null) {
-                System.out.println(router.toString());
+                System.out.println(router);
             }
         }
     }

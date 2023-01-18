@@ -520,7 +520,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             if (renderer.getStringWidth(sum.toString() + name.charAt(i) + "...") < 90) {
                 sum.append(name.charAt(i));
             } else {
-                return sum.toString() + "...";
+                return sum + "...";
             }
         }
         return sum.toString();

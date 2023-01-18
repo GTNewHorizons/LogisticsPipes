@@ -60,7 +60,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
                     .append(System.getProperty("line.separator"));
         }
         System.out.print(
-                sb.append(" ############################################# ").toString());
+                sb.append(" ############################################# "));
         System.out.println();
     }
 

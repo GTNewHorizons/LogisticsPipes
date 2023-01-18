@@ -51,7 +51,7 @@ public class RequestLogFormator extends Formatter {
         if (thr != null) {
             StringWriter thrDump = new StringWriter();
             thr.printStackTrace(new PrintWriter(thrDump));
-            msg.append(thrDump.toString());
+            msg.append(thrDump);
         }
 
         return msg.toString();

@@ -333,7 +333,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 GL11.glTranslated(10, 80, 0);
                 GL11.glScaled(0.75D, 0.75D, 1.0D);
                 mc.fontRenderer.drawString(
-                        ChatColor.BLUE.toString() + id.toString(), 0, 0, Color.getValue(Color.DARKER_GREY), false);
+                        ChatColor.BLUE.toString() + id, 0, 0, Color.getValue(Color.DARKER_GREY), false);
                 GL11.glScaled(1 / 0.75D, 1 / 0.75D, 1.0D);
                 GL11.glTranslated(-10, -80, 0);
                 mc.fontRenderer.drawString(

@@ -66,6 +66,6 @@ public class DictItemIdentifier {
             first = false;
         }
         builder.append("]");
-        System.out.println(builder.toString());
+        System.out.println(builder);
     }
 }

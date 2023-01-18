@@ -203,7 +203,7 @@ public class OneList<E> implements List<E> {
 
     @Override
     public String toString() {
-        return "[" + content.toString() + "]";
+        return "[" + content + "]";
     }
 
     private boolean checkRange(int index) {

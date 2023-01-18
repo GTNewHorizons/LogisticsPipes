@@ -527,7 +527,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 
         ServerRouter sr = (ServerRouter) r;
 
-        System.out.println(r.toString());
+        System.out.println(r);
         System.out.println("---------CONNECTED TO---------------");
         for (CoreRoutedPipe adj : sr._adjacent.keySet()) {
             System.out.println(adj.getRouter().getSimpleID());

@@ -763,7 +763,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         StringBuilder sb = new StringBuilder();
         sb.append("Tag: ");
         debugDumpTag(tag, sb);
-        System.out.println(sb.toString());
+        System.out.println(sb);
         System.out.println("Damageable: " + isDamageable());
         System.out.println("MaxStackSize: " + getMaxStackSize());
         if (getUndamaged() == this) {
