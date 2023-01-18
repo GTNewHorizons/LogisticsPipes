@@ -944,7 +944,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 continue;
             }
             if (lowestCostNode.containsFlag(PipeRoutingConnectionType.canPowerFrom)) {
-                if (lsa.power != null && (lsa.power.isEmpty() == false)) {
+                if (lsa.power != null && (!lsa.power.isEmpty())) {
                     for (Pair<ILogisticsPowerProvider, List<IFilter>> p : lsa.power) {
                         Pair<ILogisticsPowerProvider, List<IFilter>> entry = p.copy();
                         List<IFilter> list = new ArrayList<IFilter>();
@@ -958,7 +958,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 }
             }
             if (lowestCostNode.containsFlag(PipeRoutingConnectionType.canPowerSubSystemFrom)) {
-                if (lsa.subSystemPower != null && (lsa.subSystemPower.isEmpty() == false)) {
+                if (lsa.subSystemPower != null && (!lsa.subSystemPower.isEmpty())) {
                     for (Pair<ISubSystemPowerProvider, List<IFilter>> p : lsa.subSystemPower) {
                         Pair<ISubSystemPowerProvider, List<IFilter>> entry = p.copy();
                         List<IFilter> list = new ArrayList<IFilter>();

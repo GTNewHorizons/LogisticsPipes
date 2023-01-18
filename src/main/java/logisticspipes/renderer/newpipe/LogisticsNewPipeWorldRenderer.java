@@ -51,20 +51,18 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             if (icons == null) {
                 return false;
             }
-            if (requestBlock == null || true) {
-                requestBlock = new HashMap<BlockRotation, IModel3D>();
-                for (BlockRotation rot : BlockRotation.values()) {
-                    requestBlock.put(
-                            rot,
-                            LogisticsNewSolidBlockWorldRenderer.block
-                                    .get(rot)
-                                    .copy()
-                                    .apply(new LPScale(0.999))
-                                    .apply(new LPTranslation(0.0005, 0.0005, 0.0005)));
-                }
-            }
+			requestBlock = new HashMap<BlockRotation, IModel3D>();
+			for (BlockRotation rot : BlockRotation.values()) {
+				requestBlock.put(
+						rot,
+						LogisticsNewSolidBlockWorldRenderer.block
+								.get(rot)
+								.copy()
+								.apply(new LPScale(0.999))
+								.apply(new LPTranslation(0.0005, 0.0005, 0.0005)));
+			}
 
-            SimpleServiceLocator.cclProxy.getRenderState().reset();
+			SimpleServiceLocator.cclProxy.getRenderState().reset();
             SimpleServiceLocator.cclProxy.getRenderState().setUseNormals(true);
             SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
 
