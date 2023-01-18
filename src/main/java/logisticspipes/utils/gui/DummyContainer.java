@@ -250,7 +250,7 @@ public class DummyContainer extends Container {
         return false;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     public ItemStack superSlotClick(int par1, int par2, int par3, EntityPlayer par4EntityPlayer) {
         ItemStack itemstack = null;
         InventoryPlayer inventoryplayer = par4EntityPlayer.inventory;

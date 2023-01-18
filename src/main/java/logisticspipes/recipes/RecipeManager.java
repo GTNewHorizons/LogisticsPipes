@@ -109,62 +109,62 @@ public class RecipeManager {
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.BasicTransportPipe, 8), CraftingDependency.Basic, "IgI",
 				" r ",
-				Character.valueOf('g'),
+				'g',
 				new ItemStack(Blocks.glass_pane, 1),
-				Character.valueOf('I'),
+				'I',
 				Items.iron_ingot,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsBasicPipe, 8), CraftingDependency.Basic, "grg",
 				"cdc",
 				" G ",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear2(),
-				Character.valueOf('g'),
+				'g',
 				Blocks.glass,
-				Character.valueOf('d'),
+				'd',
 				parts.getSortingLogic(),
-				Character.valueOf('c'),
+				'c',
 				parts.getBasicTransport(),
-				Character.valueOf('r'),
+				'r',
 				Blocks.redstone_torch);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsBasicPipe, 8), CraftingDependency.Basic, "grg",
 				"cdc",
 				" G ",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear2(),
-				Character.valueOf('g'),
+				'g',
 				Blocks.glass,
-				Character.valueOf('d'),
+				'd',
 				parts.getSortingLogic(),
-				Character.valueOf('c'),
+				'c',
 				parts.getBasicTransport(),
-				Character.valueOf('r'),
+				'r',
 				Blocks.redstone_torch);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsProviderPipeMk1, 1), CraftingDependency.Basic, " G ",
 				"rPr",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsProviderPipeMk1, 1), CraftingDependency.Basic, "G",
 				"P",
 				"R",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear2(),
-				Character.valueOf('R'),
+				'R',
 				Blocks.redstone_torch);
 
             RecipeManager.craftingManager.addRecipe(
@@ -172,9 +172,9 @@ public class RecipeManager {
                     CraftingDependency.Fast_Crafting,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -182,60 +182,60 @@ public class RecipeManager {
                     CraftingDependency.Fast_Crafting,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsCraftingPipeMk1, 1), CraftingDependency.Basic, "r",
 				"P",
 				"S",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('S'),
+				'S',
 				"gearStone",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSatellitePipe, 1),
                     CraftingDependency.DistanceRequest,
 				"rPr",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSupplierPipe, 1),
                     CraftingDependency.DistanceRequest,
 				"lPl",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue");
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsRequestPipeMk1, 1), CraftingDependency.Basic, "g",
 				"P",
 				"i",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('g'),
+				'g',
 				parts.getGearTear2(),
-				Character.valueOf('i'),
+				'i',
 				parts.getGearTear1());
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsRequestPipeMk1, 1), CraftingDependency.Basic, "g",
 				"P",
 				"i",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('g'),
+				'g',
 				parts.getChipTear2(),
-				Character.valueOf('i'),
+				'i',
 				parts.getGearTear1());
 
             RecipeManager.craftingManager.addRecipe(
@@ -244,11 +244,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"r",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsRequestPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear3(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -256,9 +256,9 @@ public class RecipeManager {
                     CraftingDependency.Fast_Crafting,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsRequestPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -267,11 +267,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"r",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsCraftingPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -279,9 +279,9 @@ public class RecipeManager {
                     CraftingDependency.Fast_Crafting,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsCraftingPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -290,11 +290,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"r",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('U'),
+				'U',
 				Items.ender_pearl,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -302,11 +302,11 @@ public class RecipeManager {
                     CraftingDependency.Passthrough,
 				" E ",
 				"rPr",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('E'),
+				'E',
 				Items.ender_pearl,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -314,9 +314,9 @@ public class RecipeManager {
                     CraftingDependency.Passthrough,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				"dyeGreen");
 
             RecipeManager.craftingManager.addRecipe(
@@ -324,20 +324,20 @@ public class RecipeManager {
                     CraftingDependency.Passthrough,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				"dyeRed");
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsItemDisk, 1), CraftingDependency.Fast_Crafting, "igi",
 				"grg",
 				"igi",
-				Character.valueOf('i'),
+				'i',
 				"dyeBlack",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_nugget);
 
             RecipeManager.craftingManager.addRecipe(
@@ -346,11 +346,11 @@ public class RecipeManager {
 				" p ",
 				"rpr",
 				" g ",
-				Character.valueOf('p'),
+				'p',
 				Items.paper,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_nugget);
 
             RecipeManager.craftingManager.addRecipe(
@@ -358,13 +358,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeGreen",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -372,11 +372,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeGreen",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear1(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -384,13 +384,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeRed",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -398,11 +398,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeRed",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear1(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -410,11 +410,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				" G ",
 				"rBr",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.PASSIVE_SUPPLIER));
 
             RecipeManager.craftingManager.addRecipe(
@@ -422,9 +422,9 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"G",
 				"B",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear2(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.PASSIVE_SUPPLIER));
 
             RecipeManager.craftingManager.addRecipe(
@@ -432,13 +432,13 @@ public class RecipeManager {
                     CraftingDependency.Active_Modules,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -446,11 +446,11 @@ public class RecipeManager {
                     CraftingDependency.Active_Modules,
 				"CGC",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear1(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -458,9 +458,9 @@ public class RecipeManager {
                     CraftingDependency.Active_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -468,9 +468,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -478,9 +478,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -488,9 +488,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ADVANCED_EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -498,9 +498,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -508,9 +508,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ADVANCED_EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -518,9 +518,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -528,9 +528,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -538,9 +538,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ADVANCED_EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -548,9 +548,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ADVANCED_EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -558,9 +558,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK3),
-				Character.valueOf('U'),
+				'U',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -568,13 +568,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeOrange",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -582,11 +582,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeOrange",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear1(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -594,13 +594,13 @@ public class RecipeManager {
                     CraftingDependency.Active_Modules,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear3(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -608,11 +608,11 @@ public class RecipeManager {
                     CraftingDependency.Active_Modules,
 				"CGC",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear3(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -620,15 +620,15 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGD",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlack",
-				Character.valueOf('D'),
+				'D',
 				"dyePurple",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -636,13 +636,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGD",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlack",
-				Character.valueOf('D'),
+				'D',
 				"dyePurple",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear1(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -650,13 +650,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -664,11 +664,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				" B ",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear2(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -676,9 +676,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.PROVIDER),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -686,9 +686,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.PROVIDER),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -697,15 +697,15 @@ public class RecipeManager {
 				"rGR",
 				" b ",
 				"B r",
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('B'),
+				'B',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear1(),
-				Character.valueOf('b'),
+				'b',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -714,13 +714,13 @@ public class RecipeManager {
 				" GR",
 				" b ",
 				"B  ",
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('B'),
+				'B',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear1(),
-				Character.valueOf('b'),
+				'b',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addShapelessRecipe(
@@ -744,9 +744,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -754,9 +754,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -764,9 +764,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.MODBASEDITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				Items.book);
 
             RecipeManager.craftingManager.addRecipe(
@@ -774,9 +774,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.OREDICTITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -784,9 +784,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.OREDICTITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -794,9 +794,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"E",
 				"B",
-				Character.valueOf('E'),
+				'E',
 				Items.enchanted_book,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -804,18 +804,18 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('U'),
+				'U',
 				parts.getChipTear2(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ENCHANTMENTSINK));
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ENCHANTMENTSINK_MK2),
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('U'),
+				'U',
 				parts.getGearTear2(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ENCHANTMENTSINK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -823,11 +823,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"iii",
 				"uPu",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('u'),
+				'u',
 				Items.iron_ingot,
-				Character.valueOf('i'),
+				'i',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -835,9 +835,9 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"iii",
 				"iPi",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -845,11 +845,11 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				" i ",
 				"uPu",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('u'),
+				'u',
 				Items.iron_ingot,
-				Character.valueOf('i'),
+				'i',
 				parts.getChipTear1());
 
             RecipeManager.craftingManager.addRecipe(
@@ -858,9 +858,9 @@ public class RecipeManager {
 				"iii",
 				"iPi",
 				"iii",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -869,11 +869,11 @@ public class RecipeManager {
 				" i ",
 				"uPu",
 				" i ",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('u'),
+				'u',
 				Items.iron_ingot,
-				Character.valueOf('i'),
+				'i',
 				parts.getChipTear1());
 
             RecipeManager.craftingManager.addRecipe(
@@ -882,11 +882,11 @@ public class RecipeManager {
 				"iii",
 				"iPi",
 				"ggg",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -895,13 +895,13 @@ public class RecipeManager {
 				" i ",
 				"uPu",
 				" g ",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('u'),
+				'u',
 				Items.iron_ingot,
-				Character.valueOf('i'),
+				'i',
 				parts.getChipTear1(),
-				Character.valueOf('g'),
+				'g',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -909,9 +909,9 @@ public class RecipeManager {
                     CraftingDependency.Large_Chasie,
 				"d",
 				"P",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsChassisPipeMk4,
-				Character.valueOf('d'),
+				'd',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -920,9 +920,9 @@ public class RecipeManager {
 				"g g",
 				" G ",
 				" g ",
-				Character.valueOf('g'),
+				'g',
 				Items.gold_ingot,
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -931,9 +931,9 @@ public class RecipeManager {
 				"g g",
 				" G ",
 				" g ",
-				Character.valueOf('g'),
+				'g',
 				Items.gold_ingot,
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear2());
 
             RecipeManager.craftingManager.addRecipe(
@@ -942,9 +942,9 @@ public class RecipeManager {
 				"gg",
 				"gg",
 				"DD",
-				Character.valueOf('g'),
+				'g',
 				Blocks.glass,
-				Character.valueOf('D'),
+				'D',
 				parts.getGearTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -953,9 +953,9 @@ public class RecipeManager {
 				"gg",
 				"gg",
 				"DD",
-				Character.valueOf('g'),
+				'g',
 				Blocks.glass,
-				Character.valueOf('D'),
+				'D',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -964,11 +964,11 @@ public class RecipeManager {
 				"G G",
 				" S ",
 				" D ",
-				Character.valueOf('G'),
+				'G',
 				parts.getGearTear2(),
-				Character.valueOf('S'),
+				'S',
 				Items.sign,
-				Character.valueOf('D'),
+				'D',
 				parts.getGearTear3());
 
             RecipeManager.craftingManager.addRecipe(
@@ -977,72 +977,72 @@ public class RecipeManager {
 				"G G",
 				" S ",
 				" D ",
-				Character.valueOf('G'),
+				'G',
 				parts.getChipTear2(),
-				Character.valueOf('S'),
+				'S',
 				Items.sign,
-				Character.valueOf('D'),
+				'D',
 				parts.getChipTear3());
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 0), CraftingDependency.Basic, "iCi",
 				"i i",
 				"iri",
-				Character.valueOf('C'),
+				'C',
 				new ItemStack(Blocks.crafting_table, 1),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 1), CraftingDependency.Basic, "iii",
 				"rRr",
 				"iii",
-				Character.valueOf('R'),
+				'R',
 				Blocks.redstone_block,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 2), CraftingDependency.Security, "iDi",
 				"rBr",
 				"iii",
-				Character.valueOf('D'),
+				'D',
 				parts.getGearTear3(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 2), CraftingDependency.Security, "iDi",
 				"rBr",
 				"iii",
-				Character.valueOf('D'),
+				'D',
 				parts.getChipTear3(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 3), CraftingDependency.Basic, "wCw",
 				" G ",
 				"wSw",
-				Character.valueOf('w'),
+				'w',
 				"plankWood",
-				Character.valueOf('C'),
+				'C',
 				Blocks.crafting_table,
-				Character.valueOf('S'),
+				'S',
 				Blocks.chest,
-				Character.valueOf('G'),
+				'G',
 				"gearStone");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1051,12 +1051,12 @@ public class RecipeManager {
                     CraftingDependency.Basic,
 				"Q",
 				"T",
-				Character.valueOf('T'),
+				'T',
 				new ItemStack(
 						LogisticsPipes.LogisticsSolidBlock,
 						1,
 						LogisticsSolidBlock.LOGISTICS_AUTOCRAFTING_TABLE),
-				Character.valueOf('Q'),
+				'Q',
 				Items.quartz);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1066,13 +1066,13 @@ public class RecipeManager {
 				"iDi",
 				"rBr",
 				"iii",
-				Character.valueOf('D'),
+				'D',
 				parts.getGearTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1082,13 +1082,13 @@ public class RecipeManager {
 				"iDi",
 				"rBr",
 				"iii",
-				Character.valueOf('D'),
+				'D',
 				parts.getChipTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1096,13 +1096,13 @@ public class RecipeManager {
 				"srs",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1110,13 +1110,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"srs",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1124,13 +1124,13 @@ public class RecipeManager {
 				"PsP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1138,13 +1138,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PsP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1152,13 +1152,13 @@ public class RecipeManager {
 				"PrP",
 				"sCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1166,13 +1166,13 @@ public class RecipeManager {
 				"PrP",
 				"rCs",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1180,11 +1180,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1192,11 +1192,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.gold_ingot,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1204,11 +1204,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.iron_ingot,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1216,11 +1216,11 @@ public class RecipeManager {
 				"RbR",
 				"bCb",
 				"RbR",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear2(),
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('b'),
+				'b',
 				Items.glass_bottle);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1228,11 +1228,11 @@ public class RecipeManager {
 				"RgR",
 				"gCg",
 				"RgR",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('g'),
+				'g',
 				"gearWood");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1240,13 +1240,13 @@ public class RecipeManager {
 				"srs",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1254,13 +1254,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"srs",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1268,13 +1268,13 @@ public class RecipeManager {
 				"PsP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1282,13 +1282,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PsP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1296,13 +1296,13 @@ public class RecipeManager {
 				"PrP",
 				"sCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1310,13 +1310,13 @@ public class RecipeManager {
 				"PrP",
 				"rCs",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1324,17 +1324,17 @@ public class RecipeManager {
 				"Rhy",
 				"iCi",
 				"riR",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('r'),
+				'r',
 				"dyeRed",
-				Character.valueOf('y'),
+				'y',
 				"dyeYellow",
-				Character.valueOf('h'),
+				'h',
 				Blocks.hopper,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1342,11 +1342,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear2(),
-				Character.valueOf('r'),
+				'r',
 				Items.quartz,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1356,15 +1356,15 @@ public class RecipeManager {
 				"PRP",
 				"CGC",
 				"PLP",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('R'),
+				'R',
 				Blocks.redstone_block,
-				Character.valueOf('G'),
+				'G',
 				Blocks.glowstone,
-				Character.valueOf('L'),
+				'L',
 				Blocks.lapis_block,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1374,17 +1374,17 @@ public class RecipeManager {
 				"RLR",
 				"aCb",
 				"RPR",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear3(),
-				Character.valueOf('P'),
+				'P',
 				new ItemStack(LogisticsPipes.LogisticsCraftingPipeMk2, 1, 0),
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('L'),
+				'L',
 				"dyeBlue",
-				Character.valueOf('a'),
+				'a',
 				"dyeGreen",
-				Character.valueOf('b'),
+				'b',
 				"dyeYellow");
 
             RecipeManager.craftingManager.addRecipe(
@@ -1394,11 +1394,11 @@ public class RecipeManager {
 				"RbR",
 				"bCb",
 				"RbR",
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('b'),
+				'b',
 				"dyeWhite");
 
             /*
@@ -1411,15 +1411,15 @@ public class RecipeManager {
 				"rRr",
 				"PCP",
 				"rBr",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear1(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK3));
 
             RecipeManager.craftingManager.addRecipe(
@@ -1429,15 +1429,15 @@ public class RecipeManager {
 				"rRr",
 				"PCP",
 				"rBr",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear2(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2));
 
             RecipeManager.craftingManager.addRecipe(
@@ -1447,15 +1447,15 @@ public class RecipeManager {
 				"rRr",
 				"PCP",
 				"rBr",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('C'),
+				'C',
 				parts.getChipTear3(),
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR));
 
             /* add end */
@@ -1466,11 +1466,11 @@ public class RecipeManager {
 				"w",
 				"B",
 				"b",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('w'),
+				'w',
 				parts.getWaterProof(),
-				Character.valueOf('b'),
+				'b',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1478,20 +1478,20 @@ public class RecipeManager {
                     CraftingDependency.DistanceRequest,
 				"lPl",
 				" B ",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsBasicPipe,
-				Character.valueOf('B'),
+				'B',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsFluidSatellitePipe, 1),
                     CraftingDependency.Active_Liquid,
 				"rLr",
-				Character.valueOf('L'),
+				'L',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1500,11 +1500,11 @@ public class RecipeManager {
 				" g ",
 				"lPl",
 				" g ",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1513,9 +1513,9 @@ public class RecipeManager {
 				" g ",
 				"gLg",
 				" g ",
-				Character.valueOf('L'),
+				'L',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('g'),
+				'g',
 				Items.glass_bottle);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1523,18 +1523,18 @@ public class RecipeManager {
                     CraftingDependency.Basic_Liquid,
 				"g",
 				"L",
-				Character.valueOf('L'),
+				'L',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('g'),
+				'g',
 				Items.glass_bottle);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsFluidRequestPipe, 1),
                     CraftingDependency.Basic_Liquid,
 				"gLg",
-				Character.valueOf('L'),
+				'L',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('g'),
+				'g',
 				Items.glass_bottle);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1542,9 +1542,9 @@ public class RecipeManager {
                     CraftingDependency.Active_Liquid,
 				"w",
 				"I",
-				Character.valueOf('I'),
+				'I',
 				LogisticsPipes.LogisticsFluidInsertionPipe,
-				Character.valueOf('w'),
+				'w',
 				parts.getExtractorFluid());
         }
         if (Configs.ENABLE_BETA_RECIPES) {
@@ -1568,16 +1568,16 @@ public class RecipeManager {
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_PIPESTRUCTURE),
                     CraftingDependency.Basic,
-				"I I", "   ", "I I", Character.valueOf('I'), Items.iron_ingot);
+				"I I", "   ", "I I", 'I', Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.BasicTransportPipe, 8), CraftingDependency.Basic, "gSg",
 				" r ",
-				Character.valueOf('g'),
+				'g',
 				new ItemStack(Blocks.glass_pane, 1),
-				Character.valueOf('S'),
+				'S',
 				new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_PIPESTRUCTURE),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1586,9 +1586,9 @@ public class RecipeManager {
 				"IrI",
 				"rIr",
 				"IrI",
-				Character.valueOf('I'),
+				'I',
 				Items.iron_ingot,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1597,11 +1597,11 @@ public class RecipeManager {
 				"rPr",
 				"I I",
 				"IrI",
-				Character.valueOf('P'),
+				'P',
 				new ItemStack(Blocks.sticky_piston, 1),
-				Character.valueOf('I'),
+				'I',
 				Items.iron_ingot,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1610,13 +1610,13 @@ public class RecipeManager {
 				"rPr",
 				"IGI",
 				"IrI",
-				Character.valueOf('P'),
+				'P',
 				new ItemStack(Blocks.sticky_piston, 1),
-				Character.valueOf('G'),
+				'G',
 				Items.glass_bottle,
-				Character.valueOf('I'),
+				'I',
 				Items.iron_ingot,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1625,11 +1625,11 @@ public class RecipeManager {
 				"nrn",
 				"rDr",
 				"nrn",
-				Character.valueOf('n'),
+				'n',
 				Items.gold_nugget,
-				Character.valueOf('D'),
+				'D',
 				Items.diamond,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1638,17 +1638,17 @@ public class RecipeManager {
 				"nrn",
 				"rIr",
 				"nrn",
-				Character.valueOf('n'),
+				'n',
 				Items.gold_nugget,
-				Character.valueOf('I'),
+				'I',
 				Items.iron_ingot,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 2, ItemPipeComponents.ITEM_FOCUSLENSE),
                     CraftingDependency.Basic,
-				" g ", "ggg", " g ", Character.valueOf('g'), Blocks.glass);
+				" g ", "ggg", " g ", 'g', Blocks.glass);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_POWERACCEPT),
@@ -1656,29 +1656,29 @@ public class RecipeManager {
 				"R  ",
 				"LRI",
 				"RII",
-				Character.valueOf('L'),
+				'L',
 				lense,
-				Character.valueOf('I'),
+				'I',
 				"nuggetIron",
-				Character.valueOf('R'),
+				'R',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsBasicPipe, 8),
                     CraftingDependency.Basic,
-				"ppp", "plp", "ppp", Character.valueOf('l'), logproc, Character.valueOf('p'), basic);
+				"ppp", "plp", "ppp", 'l', logproc, 'p', basic);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsProviderPipeMk1, 1), CraftingDependency.Basic, " p ",
 				"rPr",
 				" m ",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('p'),
+				'p',
 				packager,
-				Character.valueOf('m'),
+				'm',
 				micserv,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1686,21 +1686,21 @@ public class RecipeManager {
                     CraftingDependency.Fast_Crafting,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsCraftingPipeMk1, 1), CraftingDependency.Basic, " r ",
 				"pPm",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('p'),
+				'p',
 				packager,
-				Character.valueOf('m'),
+				'm',
 				micserv,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1709,13 +1709,13 @@ public class RecipeManager {
 				" y ",
 				"rPr",
 				" p ",
-				Character.valueOf('y'),
+				'y',
 				"dyeYellow",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('p'),
+				'p',
 				packager);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1723,22 +1723,22 @@ public class RecipeManager {
                     CraftingDependency.DistanceRequest,
 				"rPr",
 				" p ",
-				Character.valueOf('r'),
+				'r',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('p'),
+				'p',
 				packager);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsRequestPipeMk1, 1), CraftingDependency.Basic, "g",
 				"P",
 				"i",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('g'),
+				'g',
 				logproc,
-				Character.valueOf('i'),
+				'i',
 				packager);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1747,11 +1747,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"r",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsRequestPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				logproc,
-				Character.valueOf('r'),
+				'r',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1760,11 +1760,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"r",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsCraftingPipeMk1,
-				Character.valueOf('U'),
+				'U',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1773,11 +1773,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"r",
-				Character.valueOf('B'),
+				'B',
 				pipe,
-				Character.valueOf('U'),
+				'U',
 				Items.ender_pearl,
-				Character.valueOf('r'),
+				'r',
 				packager);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1786,13 +1786,13 @@ public class RecipeManager {
 				" E ",
 				"rPr",
 				" p ",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('E'),
+				'E',
 				Items.ender_pearl,
-				Character.valueOf('p'),
+				'p',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1801,11 +1801,11 @@ public class RecipeManager {
 				"U",
 				"B",
 				"P",
-				Character.valueOf('U'),
+				'U',
 				"dyeGreen",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('P'),
+				'P',
 				packager);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1814,22 +1814,22 @@ public class RecipeManager {
 				"U",
 				"B",
 				"P",
-				Character.valueOf('U'),
+				'U',
 				"dyeRed",
-				Character.valueOf('B'),
+				'B',
 				LogisticsPipes.LogisticsProviderPipeMk1,
-				Character.valueOf('P'),
+				'P',
 				packager);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsItemDisk, 1), CraftingDependency.Fast_Crafting, "igi",
 				"grg",
 				"igi",
-				Character.valueOf('i'),
+				'i',
 				"dyeBlack",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_nugget);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1838,11 +1838,11 @@ public class RecipeManager {
 				" p ",
 				"rpr",
 				" g ",
-				Character.valueOf('p'),
+				'p',
 				Items.paper,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_nugget);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1850,13 +1850,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeGreen",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -1864,13 +1864,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeRed",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addShapelessRecipe(
@@ -1884,15 +1884,15 @@ public class RecipeManager {
 				"CGC",
 				"rBr",
 				" s ",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('s'),
+				's',
 				micserv,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -1900,9 +1900,9 @@ public class RecipeManager {
                     CraftingDependency.Active_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1910,9 +1910,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				micserv);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1920,9 +1920,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ADVANCED_EXTRACTOR),
-				Character.valueOf('U'),
+				'U',
 				micserv);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1930,9 +1930,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1940,9 +1940,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				micserv);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1950,9 +1950,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ADVANCED_EXTRACTOR_MK2),
-				Character.valueOf('U'),
+				'U',
 				micserv);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1960,9 +1960,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK3),
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -1970,13 +1970,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeOrange",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -1985,15 +1985,15 @@ public class RecipeManager {
 				"CGC",
 				"rBr",
 				" P ",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				logproc,
-				Character.valueOf('P'),
+				'P',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2001,15 +2001,15 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGD",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlack",
-				Character.valueOf('D'),
+				'D',
 				"dyePurple",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2017,13 +2017,13 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"CGC",
 				"rBr",
-				Character.valueOf('C'),
+				'C',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2031,9 +2031,9 @@ public class RecipeManager {
                     CraftingDependency.High_Tech_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.PROVIDER),
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2042,15 +2042,15 @@ public class RecipeManager {
 				"rGR",
 				" B ",
 				"D r",
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('D'),
+				'D',
 				"dyeBlue",
-				Character.valueOf('G'),
+				'G',
 				packager,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addShapelessRecipe(
@@ -2069,9 +2069,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2079,9 +2079,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.MODBASEDITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				Items.book);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2089,9 +2089,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.OREDICTITEMSINK),
-				Character.valueOf('U'),
+				'U',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2099,9 +2099,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"E",
 				"B",
-				Character.valueOf('E'),
+				'E',
 				Items.enchanted_book,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2109,9 +2109,9 @@ public class RecipeManager {
                     CraftingDependency.Sink_Modules,
 				"U",
 				"B",
-				Character.valueOf('U'),
+				'U',
 				expand,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ENCHANTMENTSINK));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2119,22 +2119,22 @@ public class RecipeManager {
                     CraftingDependency.Modular_Pipes,
 				"iii",
 				"uPu",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('u'),
+				'u',
 				Items.iron_ingot,
-				Character.valueOf('i'),
+				'i',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsChassisPipeMk2, 1),
                     CraftingDependency.Modular_Pipes,
-				"iii", "iPi", Character.valueOf('P'), pipe, Character.valueOf('i'), Items.iron_ingot);
+				"iii", "iPi", 'P', pipe, 'i', Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsChassisPipeMk3, 1),
                     CraftingDependency.Modular_Pipes,
-				"iii", "iPi", "iii", Character.valueOf('P'), pipe, Character.valueOf('i'), Items.iron_ingot);
+				"iii", "iPi", "iii", 'P', pipe, 'i', Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsChassisPipeMk4, 1),
@@ -2142,11 +2142,11 @@ public class RecipeManager {
 				"iii",
 				"iPi",
 				"ggg",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot,
-				Character.valueOf('g'),
+				'g',
 				Items.gold_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2154,20 +2154,20 @@ public class RecipeManager {
                     CraftingDependency.Large_Chasie,
 				"d",
 				"P",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsChassisPipeMk4,
-				Character.valueOf('d'),
+				'd',
 				logproc);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsPipeControllerItem, 1),
                     CraftingDependency.Basic,
-				"g g", " G ", " g ", Character.valueOf('g'), Items.gold_ingot, Character.valueOf('G'), logproc);
+				"g g", " G ", " g ", 'g', Items.gold_ingot, 'G', logproc);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsRemoteOrderer, 1, 0),
                     CraftingDependency.DistanceRequest,
-				"gg", "gg", "DD", Character.valueOf('g'), Blocks.glass, Character.valueOf('D'), logproc);
+				"gg", "gg", "DD", 'g', Blocks.glass, 'D', logproc);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsCraftingSignCreator, 1),
@@ -2175,11 +2175,11 @@ public class RecipeManager {
 				"G G",
 				" S ",
 				" D ",
-				Character.valueOf('G'),
+				'G',
 				logproc,
-				Character.valueOf('S'),
+				'S',
 				Items.sign,
-				Character.valueOf('D'),
+				'D',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2188,11 +2188,11 @@ public class RecipeManager {
 				"iCi",
 				"i i",
 				"iri",
-				Character.valueOf('C'),
+				'C',
 				new ItemStack(Blocks.crafting_table, 1),
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2201,11 +2201,11 @@ public class RecipeManager {
 				"iii",
 				"rRr",
 				"iii",
-				Character.valueOf('R'),
+				'R',
 				Blocks.redstone_block,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2215,13 +2215,13 @@ public class RecipeManager {
 				"iDi",
 				"rBr",
 				"iii",
-				Character.valueOf('D'),
+				'D',
 				logproc,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				pipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2231,13 +2231,13 @@ public class RecipeManager {
 				"wCw",
 				" G ",
 				"wSw",
-				Character.valueOf('w'),
+				'w',
 				"plankWood",
-				Character.valueOf('C'),
+				'C',
 				Blocks.crafting_table,
-				Character.valueOf('S'),
+				'S',
 				Blocks.chest,
-				Character.valueOf('G'),
+				'G',
 				expand);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2246,12 +2246,12 @@ public class RecipeManager {
                     CraftingDependency.Basic,
 				"Q",
 				"T",
-				Character.valueOf('T'),
+				'T',
 				new ItemStack(
 						LogisticsPipes.LogisticsSolidBlock,
 						1,
 						LogisticsSolidBlock.LOGISTICS_AUTOCRAFTING_TABLE),
-				Character.valueOf('Q'),
+				'Q',
 				Items.quartz);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2261,13 +2261,13 @@ public class RecipeManager {
 				"iDi",
 				"rBr",
 				"iii",
-				Character.valueOf('D'),
+				'D',
 				Items.gold_ingot,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('B'),
+				'B',
 				pipe,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2275,13 +2275,13 @@ public class RecipeManager {
 				"srs",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2289,13 +2289,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"srs",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2303,13 +2303,13 @@ public class RecipeManager {
 				"PsP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2317,13 +2317,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PsP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2331,13 +2331,13 @@ public class RecipeManager {
 				"PrP",
 				"sCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2345,13 +2345,13 @@ public class RecipeManager {
 				"PrP",
 				"rCs",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				"slimeball");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2359,11 +2359,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2371,11 +2371,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.gold_ingot,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2383,11 +2383,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.iron_ingot,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2395,11 +2395,11 @@ public class RecipeManager {
 				"RbR",
 				"bCb",
 				"RbR",
-				Character.valueOf('C'),
+				'C',
 				capsler,
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('b'),
+				'b',
 				Items.glass_bottle);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2407,11 +2407,11 @@ public class RecipeManager {
 				"RgR",
 				"gCg",
 				"RgR",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('g'),
+				'g',
 				"plankWood");
 
             RecipeManager.craftingManager.addRecipe(
@@ -2419,13 +2419,13 @@ public class RecipeManager {
 				"srs",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2433,13 +2433,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"srs",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2447,13 +2447,13 @@ public class RecipeManager {
 				"PsP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2461,13 +2461,13 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PsP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2475,13 +2475,13 @@ public class RecipeManager {
 				"PrP",
 				"sCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2489,13 +2489,13 @@ public class RecipeManager {
 				"PrP",
 				"rCs",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('s'),
+				's',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2503,17 +2503,17 @@ public class RecipeManager {
 				"Rhy",
 				"iCi",
 				"riR",
-				Character.valueOf('r'),
+				'r',
 				"dyeRed",
-				Character.valueOf('y'),
+				'y',
 				"dyeYellow",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('R'),
+				'R',
 				Items.redstone,
-				Character.valueOf('h'),
+				'h',
 				Blocks.hopper,
-				Character.valueOf('i'),
+				'i',
 				Items.iron_ingot);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2521,11 +2521,11 @@ public class RecipeManager {
 				"PrP",
 				"rCr",
 				"PrP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('r'),
+				'r',
 				Items.quartz,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2535,13 +2535,13 @@ public class RecipeManager {
 				"PGP",
 				"RCR",
 				"PRP",
-				Character.valueOf('C'),
+				'C',
 				expand,
-				Character.valueOf('R'),
+				'R',
 				lense,
-				Character.valueOf('G'),
+				'G',
 				Blocks.glowstone,
-				Character.valueOf('P'),
+				'P',
 				Items.paper);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2551,17 +2551,17 @@ public class RecipeManager {
 				"RLR",
 				"aCb",
 				"RPR",
-				Character.valueOf('L'),
+				'L',
 				"dyeBlue",
-				Character.valueOf('a'),
+				'a',
 				"dyeGreen",
-				Character.valueOf('b'),
+				'b',
 				"dyeYellow",
-				Character.valueOf('C'),
+				'C',
 				logproc,
-				Character.valueOf('P'),
+				'P',
 				new ItemStack(LogisticsPipes.LogisticsCraftingPipeMk2, 1, 0),
-				Character.valueOf('R'),
+				'R',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2571,9 +2571,9 @@ public class RecipeManager {
 				" b ",
 				"bIb",
 				" b ",
-				Character.valueOf('b'),
+				'b',
 				"dyeWhite",
-				Character.valueOf('I'),
+				'I',
 				Items.iron_ingot);
 
             /*
@@ -2588,13 +2588,13 @@ public class RecipeManager {
 				"rBr",
 				'r',
 				Items.redstone,
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('C'),
+				'C',
 				micserv,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK3));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2604,15 +2604,15 @@ public class RecipeManager {
 				"rRr",
 				"PCP",
 				"rBr",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('C'),
+				'C',
 				micserv,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR_MK2));
 
             RecipeManager.craftingManager.addRecipe(
@@ -2622,15 +2622,15 @@ public class RecipeManager {
 				"rRr",
 				"PCP",
 				"rBr",
-				Character.valueOf('r'),
+				'r',
 				Items.redstone,
-				Character.valueOf('R'),
+				'R',
 				"dyeRed",
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('C'),
+				'C',
 				micserv,
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.EXTRACTOR));
 
             /* add end */
@@ -2638,18 +2638,18 @@ public class RecipeManager {
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsFluidBasicPipe, 1),
                     CraftingDependency.Basic_Liquid,
-				" l ", "lPl", " l ", Character.valueOf('l'), "dyeBlue", Character.valueOf('P'), pipe);
+				" l ", "lPl", " l ", 'l', "dyeBlue", 'P', pipe);
 
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.LogisticsFluidSupplierPipeMk1, 1),
                     CraftingDependency.DistanceRequest,
 				"lPl",
 				" b ",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				pipe,
-				Character.valueOf('b'),
+				'b',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2658,11 +2658,11 @@ public class RecipeManager {
 				" r ",
 				"rPr",
 				" c ",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('c'),
+				'c',
 				capsler,
-				Character.valueOf('r'),
+				'r',
 				Items.redstone);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2670,13 +2670,13 @@ public class RecipeManager {
                     CraftingDependency.Active_Liquid,
 				" l ",
 				"cPb",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('c'),
+				'c',
 				capsler,
-				Character.valueOf('b'),
+				'b',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2685,13 +2685,13 @@ public class RecipeManager {
 				" c ",
 				"lPl",
 				" b ",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('c'),
+				'c',
 				capsler,
-				Character.valueOf('b'),
+				'b',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2700,13 +2700,13 @@ public class RecipeManager {
 				" b ",
 				"lPl",
 				" c ",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('c'),
+				'c',
 				capsler,
-				Character.valueOf('b'),
+				'b',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2714,13 +2714,13 @@ public class RecipeManager {
                     CraftingDependency.Basic_Liquid,
 				" l ",
 				"bPc",
-				Character.valueOf('l'),
+				'l',
 				"dyeBlue",
-				Character.valueOf('P'),
+				'P',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('c'),
+				'c',
 				capsler,
-				Character.valueOf('b'),
+				'b',
 				Items.bucket);
 
             RecipeManager.craftingManager.addRecipe(
@@ -2729,11 +2729,11 @@ public class RecipeManager {
 				"w",
 				"I",
 				"c",
-				Character.valueOf('I'),
+				'I',
 				LogisticsPipes.LogisticsFluidBasicPipe,
-				Character.valueOf('w'),
+				'w',
 				micserv,
-				Character.valueOf('c'),
+				'c',
 				capsler);
         }
 

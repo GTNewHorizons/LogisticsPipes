@@ -66,15 +66,15 @@ public class CoFHPowerProxy implements ICoFHPowerProxy {
 				"PEP",
 				"RBR",
 				"PTP",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_TRANSPORTATION),
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('E'),
+				'E',
 				parts.getBlockDynamo(),
-				Character.valueOf('T'),
+				'T',
 				parts.getPowerCoilSilver(),
-				Character.valueOf('R'),
+				'R',
 				parts.getPowerCoilGold());
             craftingManager.addRecipe(
                     new ItemStack(
@@ -84,15 +84,15 @@ public class CoFHPowerProxy implements ICoFHPowerProxy {
 				"PEP",
 				"RBR",
 				"PTP",
-				Character.valueOf('B'),
+				'B',
 				Blocks.redstone_block,
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('E'),
+				'E',
 				parts.getBlockDynamo(),
-				Character.valueOf('T'),
+				'T',
 				parts.getPowerCoilSilver(),
-				Character.valueOf('R'),
+				'R',
 				parts.getPowerCoilGold());
         }
         if (Configs.ENABLE_BETA_RECIPES) {
@@ -103,15 +103,15 @@ public class CoFHPowerProxy implements ICoFHPowerProxy {
 				"PEP",
 				"RBR",
 				"PTP",
-				Character.valueOf('B'),
+				'B',
 				new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER),
-				Character.valueOf('P'),
+				'P',
 				Items.paper,
-				Character.valueOf('E'),
+				'E',
 				new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_POWERACCEPT),
-				Character.valueOf('T'),
+				'T',
 				parts.getPowerCoilSilver(),
-				Character.valueOf('R'),
+				'R',
 				parts.getPowerCoilGold());
             craftingManager.addRecipe(
                     new ItemStack(
@@ -121,15 +121,15 @@ public class CoFHPowerProxy implements ICoFHPowerProxy {
 				"PEP",
 				"RBR",
 				"PTP",
-				Character.valueOf('B'),
+				'B',
 				Blocks.glowstone,
-				Character.valueOf('P'),
+				'P',
 				Items.iron_ingot,
-				Character.valueOf('E'),
+				'E',
 				new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_FOCUSLENSE),
-				Character.valueOf('T'),
+				'T',
 				parts.getPowerCoilSilver(),
-				Character.valueOf('R'),
+				'R',
 				parts.getPowerCoilGold());
         }
     }

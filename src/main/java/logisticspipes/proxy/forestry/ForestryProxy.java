@@ -488,11 +488,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					packager,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -503,9 +503,9 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -516,14 +516,14 @@ public class ForestryProxy implements IForestryProxy {
 					" p ",
 					"r r",
 					"CwC",
-					Character.valueOf('p'),
+                        'p',
 					pollen,
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('w'),
+                        'w',
 					new ItemStack(
 							LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROCAPSULATOR),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -534,15 +534,15 @@ public class ForestryProxy implements IForestryProxy {
 					"CGD",
 					"s s",
 					"DrC",
-					Character.valueOf('C'),
+                        'C',
 					"dyeBlack",
-					Character.valueOf('D'),
+                        'D',
 					"dyePurple",
-					Character.valueOf('G'),
+                        'G',
 					pollen,
-					Character.valueOf('r'),
+                        'r',
 					expand,
-					Character.valueOf('s'),
+                        's',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -553,11 +553,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					expand,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -568,9 +568,9 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
             }
             // Disable Carpenter-based Recipes
@@ -587,13 +587,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					packager,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -602,13 +602,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					expand,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -617,11 +617,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK));
 
                 manager.addRecipe(
@@ -630,16 +630,16 @@ public class ForestryProxy implements IForestryProxy {
 					" p ",
 					"rBr",
 					"CwC",
-					Character.valueOf('p'),
+                        'p',
 					pollen,
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('w'),
+                        'w',
 					new ItemStack(
 							LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROSERVO),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -648,15 +648,15 @@ public class ForestryProxy implements IForestryProxy {
 					"CGD",
 					"rBr",
 					"DrC",
-					Character.valueOf('C'),
+                        'C',
 					"dyeBlack",
-					Character.valueOf('D'),
+                        'D',
 					"dyePurple",
-					Character.valueOf('G'),
+                        'G',
 					pollen,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -665,14 +665,14 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					new ItemStack(
 							LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_ROUTEPROCESSOR),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.LogisticsBasicPipe, 1, 0));
 
                 manager.addRecipe(
@@ -681,11 +681,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.LogisticsBasicPipe, 1, 0));
             }
         }
@@ -702,11 +702,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getGearTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -717,11 +717,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getChipTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -732,9 +732,9 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -745,13 +745,13 @@ public class ForestryProxy implements IForestryProxy {
 					" p ",
 					"r r",
 					"CwC",
-					Character.valueOf('p'),
+                        'p',
 					pollen,
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('w'),
+                        'w',
 					parts.getExtractorItem(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -762,13 +762,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGD",
 					"r r",
 					"DrC",
-					Character.valueOf('C'),
+                        'C',
 					"dyeBlack",
-					Character.valueOf('D'),
+                        'D',
 					"dyePurple",
-					Character.valueOf('G'),
+                        'G',
 					pollen,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -779,11 +779,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getGearTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -794,11 +794,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getChipTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
 
                 RecipeManagers.carpenterManager.addRecipe(
@@ -809,9 +809,9 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"r r",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone);
             }
             // Disable Carpenter-based Recipes
@@ -824,13 +824,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getGearTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -839,13 +839,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getChipTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -854,11 +854,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK));
 
                 manager.addRecipe(
@@ -867,15 +867,15 @@ public class ForestryProxy implements IForestryProxy {
 					" p ",
 					"rBr",
 					"CwC",
-					Character.valueOf('p'),
+                        'p',
 					pollen,
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('w'),
+                        'w',
 					parts.getExtractorItem(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -884,15 +884,15 @@ public class ForestryProxy implements IForestryProxy {
 					"CGD",
 					"rBr",
 					"DrC",
-					Character.valueOf('C'),
+                        'C',
 					"dyeBlack",
-					Character.valueOf('D'),
+                        'D',
 					"dyePurple",
-					Character.valueOf('G'),
+                        'G',
 					pollen,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
                 manager.addRecipe(
@@ -901,13 +901,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getGearTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.LogisticsBasicPipe, 1, 0));
 
                 manager.addRecipe(
@@ -916,13 +916,13 @@ public class ForestryProxy implements IForestryProxy {
 					"CGC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('G'),
+                        'G',
 					parts.getChipTear1(),
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.LogisticsBasicPipe, 1, 0));
 
                 manager.addRecipe(
@@ -931,11 +931,11 @@ public class ForestryProxy implements IForestryProxy {
 					"CrC",
 					"rBr",
 					"CrC",
-					Character.valueOf('C'),
+                        'C',
 					propolis,
-					Character.valueOf('r'),
+                        'r',
 					Items.redstone,
-					Character.valueOf('B'),
+                        'B',
 					new ItemStack(LogisticsPipes.LogisticsBasicPipe, 1, 0));
             }
         }
