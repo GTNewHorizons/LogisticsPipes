@@ -7,10 +7,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.packets.gui.GUIPacket;
@@ -43,7 +41,7 @@ public class NewGuiHandler {
     public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(NewGuiHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.guis"));
-        classes.sort((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
+        classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
 
         NewGuiHandler.guilist = new ArrayList<>(classes.size());
         NewGuiHandler.guimap = new HashMap<>(classes.size());

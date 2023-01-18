@@ -13,10 +13,8 @@ import io.netty.handler.codec.MessageToMessageCodec;
 import io.netty.util.AttributeKey;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -83,7 +81,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(PacketHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.packets"));
-        classes.sort((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
+        classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
 
         PacketHandler.packetlist = new ArrayList<>(classes.size());
         PacketHandler.packetmap = new HashMap<>(classes.size());
