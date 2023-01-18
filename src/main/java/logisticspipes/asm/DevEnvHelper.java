@@ -786,7 +786,7 @@ public class DevEnvHelper {
 
         public List<String> getExceptions(String clazz, String method, String desc) {
             List<String> ret = exceptions.get(clazz + "/" + method + desc);
-            return ret == null ? Collections.<String>emptyList() : ret;
+            return ret == null ? Collections.emptyList() : ret;
         }
 
         public void addPrefix(String old, String new_) {
