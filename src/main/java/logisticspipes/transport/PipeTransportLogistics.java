@@ -427,7 +427,7 @@ public class PipeTransportLogistics {
     }
 
     public void readjustSpeed(LPTravelingItemServer item) {
-        float defaultBoost = 1F;
+        float defaultBoost;
 
         switch (item.getTransportMode()) {
             case Passive:
@@ -554,9 +554,6 @@ public class PipeTransportLogistics {
                                 if (util.getSizeInventory() > slot) {
                                     int added = ((ISpecialInsertion) util).addToSlot(toAdd, slot);
                                     arrivingItem.getItemIdentifierStack().lowerStackSize(added);
-                                    if (added > 0) {
-                                        tookSome = true;
-                                    }
                                 }
                             }
                         }
@@ -581,8 +578,7 @@ public class PipeTransportLogistics {
                     arrivingItem.getItemIdentifierStack().lowerStackSize(added.stackSize);
 
                     if (added.stackSize > 0 && arrivingItem instanceof IRoutedItem) {
-                        tookSome = true;
-                        ((IRoutedItem) arrivingItem).setBufferCounter(0);
+						((IRoutedItem) arrivingItem).setBufferCounter(0);
                     }
 
                     ItemRoutingInformation info;
@@ -613,8 +609,7 @@ public class PipeTransportLogistics {
 
                         arrivingItem.getItemIdentifierStack().lowerStackSize(added.stackSize);
                         if (added.stackSize > 0 && arrivingItem instanceof IRoutedItem) {
-                            tookSome = true;
-                            ((IRoutedItem) arrivingItem).setBufferCounter(0);
+							((IRoutedItem) arrivingItem).setBufferCounter(0);
                         }
                         ItemRoutingInformation info;
 

@@ -150,10 +150,10 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
         }
         for (IAEItemStack items : tmp.getItemInventory().getStorageList()) {
             ItemIdentifier ident = ItemIdentifier.get(items.getItemStack());
-            if (ident.equals(item)) {
-                return true;
-            }
-        }
+			if (ident != null && ident.equals(item)) {
+				return true;
+			}
+		}
         return false;
     }
 

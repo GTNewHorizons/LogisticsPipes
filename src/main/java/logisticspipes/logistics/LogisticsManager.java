@@ -209,7 +209,7 @@ public class LogisticsManager implements ILogisticsManager {
             boolean activeRequest,
             boolean allowDefault) {
 
-        SinkReply reply = null;
+        SinkReply reply;
         LogisticsModule module = destination.getLogisticsModule();
         CoreRoutedPipe crp = destination.getPipe();
         if (module == null) {

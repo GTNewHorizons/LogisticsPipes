@@ -425,7 +425,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     private String getName(ItemStack stack) {
-        String name = "???";
+        String name;
         try {
             name = item.getItemStackDisplayName(stack);
             if (name == null) {
@@ -474,7 +474,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     public String getCreativeTabName() {
         if (creativeTabName == null) {
             try {
-                CreativeTabs tab = null;
+                CreativeTabs tab;
                 try {
                     tab = ReflectionHelper.getPrivateField(CreativeTabs.class, Item.class, "tabToDisplayOn", item);
                 } catch (NoSuchFieldException e1) {

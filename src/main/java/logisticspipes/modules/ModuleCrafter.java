@@ -463,7 +463,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             if (resourceStack == null || resourceStack.getStackSize() == 0) {
                 continue;
             }
-            IResource req = null;
+            IResource req;
             if (getUpgradeManager().isFuzzyUpgrade()
                     && fuzzyCraftingFlagArray[i].getBitSet().nextSetBit(0) != -1) {
                 DictResource dict;
@@ -1261,7 +1261,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             if (getUpgradeManager().getCrafterCleanup() > 0) {
                 List<AdjacentTile> crafters = locateCrafters();
                 ItemStack extracted = null;
-                AdjacentTile tile = null;
+                AdjacentTile tile;
                 for (AdjacentTile crafter : crafters) {
                     tile = crafter;
                     extracted = extractFiltered(

@@ -114,7 +114,7 @@ public class ServerProxy implements IProxy {
 
     @Override
     public String getName(ItemIdentifier item) {
-        String category = "";
+        String category;
         if (item.isDamageable()) {
             category = "itemNames." + Item.getIdFromItem(item.item);
         } else {
@@ -141,7 +141,7 @@ public class ServerProxy implements IProxy {
 
     @Override
     public void updateNames(ItemIdentifier item, String name) {
-        String category = "";
+        String category;
         if (item.isDamageable()) {
             category = "itemNames." + Item.getIdFromItem(item.item);
         } else {

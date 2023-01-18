@@ -869,7 +869,7 @@ public class LogisticsNewRenderPipe {
                             model2 = model.copy();
                             IVec3 min = model2.bounds().min();
                             model2.apply(new LPTranslation(min).inverse());
-                            double toAdd = 1;
+                            double toAdd;
                             if (dir.ordinal() % 2 == 1) {
                                 toAdd = 1 + (bound / LPConstants.PIPE_MIN_POS);
                                 model2.apply(new LPScale(

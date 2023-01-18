@@ -352,10 +352,8 @@ public class LogisticsHUDRenderer {
                 // box.blockZ).getTileEntity(DimensionManager.getWorld(0));
                 // Insert debug code here
 
-                if (textData.isEmpty()) {
-                    textData = SimpleServiceLocator.neiProxy.getInfoForPosition(player.worldObj, player, box);
-                }
-                if (!textData.isEmpty()) {
+				textData = SimpleServiceLocator.neiProxy.getInfoForPosition(player.worldObj, player, box);
+				if (!textData.isEmpty()) {
                     double xCoord = box.blockX + 0.5D;
                     double yCoord = box.blockY + 0.5D;
                     double zCoord = box.blockZ + 0.5D;
@@ -591,7 +589,7 @@ public class LogisticsHUDRenderer {
 
     public double up(double input) {
         input %= 360.0D;
-        while (input < 0 && !Double.isNaN(input) && !Double.isInfinite(input)) {
+        while (input < 0 && !Double.isInfinite(input)) {
             input += 360;
         }
         return input;

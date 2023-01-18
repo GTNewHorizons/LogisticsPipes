@@ -157,7 +157,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
         }
         Entry<ItemIdentifier, Integer> entry = cached.get(i);
         ItemStack stack = entry.getKey().makeNormalStack(j);
-        ItemStack extracted = null;
+        ItemStack extracted;
         int count = _tile.getItemCount(stack);
         if (count <= (_hideOnePerStack ? 1 : 0)) {
             return null;

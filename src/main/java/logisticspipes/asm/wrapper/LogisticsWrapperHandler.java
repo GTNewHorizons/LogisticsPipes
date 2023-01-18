@@ -122,7 +122,7 @@ public class LogisticsWrapperHandler {
             modId = modId.substring(1);
         }
         List<Class<?>> wrapperInterfacesList = Arrays.asList(wrapperInterfaces);
-        Class<?> clazz = null;
+        Class<?> clazz;
         synchronized (lookupMap) {
             clazz = LogisticsWrapperHandler.lookupMap.get(className);
             if (clazz == null) {
@@ -287,7 +287,7 @@ public class LogisticsWrapperHandler {
         String proxyName = interfaze.getSimpleName().substring(1);
         String className = "logisticspipes/asm/wrapper/generated/" + proxyName + "ProxyWrapper";
 
-        Class<?> clazz = null;
+        Class<?> clazz;
         synchronized (lookupMap) {
             clazz = LogisticsWrapperHandler.lookupMap.get(className);
             if (clazz == null) {
@@ -474,7 +474,7 @@ public class LogisticsWrapperHandler {
         desc.append(")");
         String resultClassL = null;
         String resultClass = null;
-        int returnType = 0;
+        int returnType;
         if (retclazz == null || retclazz == void.class) {
             desc.append("V");
             returnType = Opcodes.RETURN;

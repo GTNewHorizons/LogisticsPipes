@@ -335,7 +335,7 @@ public class DummyContainer extends Container {
 
             if ((par3 == 0 || par3 == 1) && (par2 == 0 || par2 == 1)) {
                 if (par1 == -999) {
-                    if (inventoryplayer.getItemStack() != null && par1 == -999) {
+                    if (inventoryplayer.getItemStack() != null) {
                         if (par2 == 0) {
                             par4EntityPlayer.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), true);
                             inventoryplayer.setItemStack(null);
@@ -487,7 +487,7 @@ public class DummyContainer extends Container {
 
                     if (!flag) {
                         l1 = inventoryplayer.getFirstEmptyStack();
-                        flag |= l1 > -1;
+                        flag = l1 > -1;
                     }
 
                     if (slot2.getHasStack() && flag) {
@@ -638,7 +638,7 @@ public class DummyContainer extends Container {
         // we get a leftclick *and* a doubleclick message if there's a doubleclick with no item on the pointer, filter
         // it out
         if (currentlyEquippedStack == null && isShift == 6) {
-            return currentlyEquippedStack;
+            return null;
         }
 
         if (slot instanceof HandelableSlot) {

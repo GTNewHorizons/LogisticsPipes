@@ -362,7 +362,7 @@ public class ItemDisplay {
                     prevPage();
                 }
             }
-        } else if (isShift && !isControl && !isShiftPageChange()) {
+        } else if (isShift && !isControl) {
             if (wheel > 0) {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
                     requestCount = Math.max(1, requestCount - (wheel * getAmountChangeMode(4)));
@@ -396,7 +396,7 @@ public class ItemDisplay {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(1));
                 }
             }
-        } else if (isControl && !isShift) {
+        } else if (!isShift) {
             if (wheel > 0) {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
                     requestCount = Math.max(1, requestCount - wheel * getAmountChangeMode(2));
@@ -416,7 +416,7 @@ public class ItemDisplay {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(2));
                 }
             }
-        } else if (isControl && isShift) {
+        } else {
             if (wheel > 0) {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
                     requestCount = Math.max(1, requestCount - wheel * getAmountChangeMode(3));

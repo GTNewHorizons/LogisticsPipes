@@ -103,7 +103,7 @@ public class ServerPacketBufferHandlerThread {
                     }
                 }
                 synchronized (playersToClear) {
-                    EntityPlayer player = null;
+                    EntityPlayer player;
                     do {
                         player = playersToClear.poll();
                         if (player != null) {
@@ -164,7 +164,7 @@ public class ServerPacketBufferHandlerThread {
         }
 
         public void serverTickEnd() {
-            boolean flag = false;
+            boolean flag;
             do {
                 flag = false;
                 Pair<EntityPlayer, byte[]> part = null;
@@ -187,7 +187,7 @@ public class ServerPacketBufferHandlerThread {
         @Override
         public void run() {
             while (true) {
-                boolean flag = false;
+                boolean flag;
                 do {
                     flag = false;
                     byte[] buffer = null;
@@ -254,7 +254,7 @@ public class ServerPacketBufferHandlerThread {
                     }
                 }
                 synchronized (playersToClear) {
-                    EntityPlayer player = null;
+                    EntityPlayer player;
                     do {
                         player = playersToClear.poll();
                         if (player != null) {
@@ -322,7 +322,7 @@ public class ServerPacketBufferHandlerThread {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
             GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(contentBytes));
-            int buffer = 0;
+            int buffer;
             while ((buffer = gzip.read()) != -1) {
                 out.write(buffer);
             }

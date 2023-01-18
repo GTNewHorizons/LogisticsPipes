@@ -41,7 +41,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
 
     protected PlayerCollectionList watchingPlayers = new PlayerCollectionList();
 
-    private ILPPositionProvider pos = null;
+    private ILPPositionProvider pos;
 
     protected void listen() {
         changed();

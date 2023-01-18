@@ -110,7 +110,7 @@ public class InventoryUtil implements IInventoryUtil, ISpecialInsertion {
             if (itemsToSplit == 0) {
                 continue;
             }
-            ItemStack removed = null;
+            ItemStack removed;
             if (stack.stackSize > itemsToSplit) { // then we only want part of the stack
                 removed = stack.splitStack(itemsToSplit);
                 _inventory.setInventorySlotContents(i, stack);

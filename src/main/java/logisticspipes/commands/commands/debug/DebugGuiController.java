@@ -72,11 +72,7 @@ public class DebugGuiController {
                 return;
             }
         }
-        if (entry == null) {
-            System.out.println("DebugGui could not be loaded");
-            return;
-        }
-        MainProxy.sendPacketToPlayer(
+		MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(DebugPanelOpen.class)
                         .setName(object.getClass().getSimpleName()),
                 player);

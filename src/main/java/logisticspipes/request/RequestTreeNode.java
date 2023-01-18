@@ -192,8 +192,7 @@ public class RequestTreeNode {
                 IExtraPromise extra = it.next();
                 if (extra.getAmount() >= usedcount) {
                     extra.lowerAmount(usedcount);
-                    usedcount = 0;
-                    break;
+					break;
                 } else {
                     usedcount -= extra.getAmount();
                     it.remove();

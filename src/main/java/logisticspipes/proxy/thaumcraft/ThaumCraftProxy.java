@@ -97,7 +97,7 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
      *            The gui to render on.
      */
     private void renderAspectAt(Aspect tag, int x, int y, GuiScreen gui, int amount, boolean drawBackground) {
-        if (!(tag instanceof Aspect)) {
+        if (tag == null) {
             return;
         }
         Minecraft mc = FMLClientHandler.instance().getClient();

@@ -23,7 +23,7 @@ public class PipeFXLaserPowerBall extends EntityFX {
     private static final int ROTATIONSPEED = 5;
     private static final Random RAND = new Random();
 
-    private float random = 0;
+    private float random;
     private TileEntity tile;
 
     public PipeFXLaserPowerBall(World par1World, LPPosition pos, int color, TileEntity tile) {

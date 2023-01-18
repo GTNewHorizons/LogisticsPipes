@@ -203,7 +203,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
             LaserData data = iLasers.next();
             LPPosition next = new LPPosition(data.getPosX(), data.getPosY(), data.getPosZ());
             next.moveForward(data.getDir(), data.getLength());
-            boolean found = false;
+            boolean found;
             do {
                 found = false;
                 Iterator<LaserData> iOptions = options.iterator();

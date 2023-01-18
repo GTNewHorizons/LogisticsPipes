@@ -225,7 +225,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
                 jamList.add(reply.getValue1());
                 reply = _service.hasDestination(ItemIdentifier.get(slot), false, jamList);
             }
-            ItemStack returned = null;
+            ItemStack returned;
             int amountToExtract = sizePrev - slot.stackSize;
             if (slot.stackSize > 0) {
                 partialSend = true;

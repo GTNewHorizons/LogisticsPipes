@@ -3,7 +3,7 @@ package logisticspipes.utils;
 public class ManualResetEvent {
 
     private final Object monitor = new Object();
-    private volatile boolean open = false;
+    private volatile boolean open;
 
     public ManualResetEvent(boolean open) {
         this.open = open;

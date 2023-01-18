@@ -308,7 +308,7 @@ public class DevEnvHelper {
         public byte[] transform_Sub(String name, String transformedName, byte[] basicClass)
                 throws IOException, SecurityException, IllegalArgumentException {
             if (basicClass == null) {
-                return basicClass;
+                return null;
             }
             final String resourcePath = name.replace('.', '/').concat(".class");
             URL classResource = Launch.classLoader.findResource(resourcePath);
@@ -1203,9 +1203,8 @@ public class DevEnvHelper {
 
                 i = line.indexOf('|');
                 String excs = line.substring(0, i);
-                line = line.substring(i + 1);
 
-                if (excs.contains("CL_")) {
+				if (excs.contains("CL_")) {
                     throw new RuntimeException(excs);
                 }
 

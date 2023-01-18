@@ -7,10 +7,6 @@
 */
 package logisticspipes.pipes.basic;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.PriorityBlockingQueue;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
@@ -78,6 +74,11 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.PriorityBlockingQueue;
 
 @CCType(name = "LogisticsPipes:Normal")
 public abstract class CoreRoutedPipe extends CoreUnroutedPipe
@@ -362,12 +363,14 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         // remove old items _inTransit -- these should have arrived, but have probably been lost instead. In either
         // case, it will allow a re-send so that another attempt to re-fill the inventory can be made.
         while (_inTransitToMe.peek() != null && _inTransitToMe.peek().getTickToTimeOut() <= 0) {
-            final ItemRoutingInformation p = _inTransitToMe.poll();
-            if (LPConstants.DEBUG) {
-                LogisticsPipes.log.info("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
-            }
-            debug.log("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
-        }
+			final ItemRoutingInformation p = _inTransitToMe.poll();
+			if (p != null) {
+				if (LPConstants.DEBUG) {
+					LogisticsPipes.log.info("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
+				}
+				debug.log("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
+			}
+		}
         // update router before ticking logic/transport
         getRouter()
                 .update(
@@ -541,8 +544,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             //				}
             // Just in case
             CoreRoutedPipe.pipecount = Math.max(CoreRoutedPipe.pipecount - 1, 0);
-
-            if (transport != null && transport instanceof PipeTransportLogistics) {
+            if (transport != null) {
                 transport.dropBuffer();
             }
             getOriginalUpgradeManager().dropUpgrades();
@@ -1190,7 +1192,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 
     @Override
     public void queueEvent(String event, Object[] arguments) {
-        if (container instanceof LogisticsTileGenericPipe) {
+        if (container != null) {
             container.queueEvent(event, arguments);
         }
     }
@@ -1263,7 +1265,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         ISecurityProvider sec = getSecurityProvider();
         if (sec != null) {
             int id = -1;
-            if (container instanceof LogisticsTileGenericPipe) {
+            if (container != null) {
                 id = container.getLastCCID();
             }
             if (!sec.getAllowCC(id)) {
@@ -1386,7 +1388,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     @CCCommand(description = "Sets the TurtleConnect flag for this Turtle on this LogisticsPipe")
     @CCDirectCall
     public void setTurtleConnect(Boolean flag) {
-        if (container instanceof LogisticsTileGenericPipe) {
+        if (container != null) {
             container.setTurtleConnect(flag);
         }
     }
@@ -1394,7 +1396,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     @CCCommand(description = "Returns the TurtleConnect flag for this Turtle on this LogisticsPipe")
     @CCDirectCall
     public boolean getTurtleConnect() {
-        if (container instanceof LogisticsTileGenericPipe) {
+        if (container != null) {
             return container.getTurtleConnect();
         }
         return false;
@@ -1407,7 +1409,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         ISecurityProvider sec = getSecurityProvider();
         if (sec != null) {
             int id = -1;
-            if (container instanceof LogisticsTileGenericPipe) {
+            if (container != null) {
                 id = container.getLastCCID();
             }
             return sec.getAllowCC(id);
@@ -1421,7 +1423,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     @CCDirectCall
     public void sendMessage(final Double computerId, final Object message) {
         int sourceId = -1;
-        if (container instanceof LogisticsTileGenericPipe) {
+        if (container != null) {
             sourceId = SimpleServiceLocator.ccProxy.getLastCCID(container);
         }
         final int fSourceId = sourceId;
@@ -1441,7 +1443,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     @CCDirectCall
     public void sendBroadcast(final String message) {
         int sourceId = -1;
-        if (container instanceof LogisticsTileGenericPipe) {
+        if (container != null) {
             sourceId = SimpleServiceLocator.ccProxy.getLastCCID(container);
         }
         final int fSourceId = sourceId;
@@ -1484,7 +1486,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     private void handleMesssage(int computerId, Object message, int sourceId) {
-        if (container instanceof LogisticsTileGenericPipe) {
+        if (container != null) {
             container.handleMesssage(computerId, message, sourceId);
         }
     }

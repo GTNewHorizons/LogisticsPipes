@@ -96,8 +96,8 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     private class UpdateRouterRunnable extends RouterRunnable {
 
-        int newVersion = 0;
-        boolean run = false;
+        int newVersion;
+        boolean run;
         IRouter target;
 
         UpdateRouterRunnable(IRouter target) {

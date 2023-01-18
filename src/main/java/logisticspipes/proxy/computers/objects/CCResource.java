@@ -144,7 +144,7 @@ public class CCResource implements ILPCCTypeDefinition {
                 return ((ItemResource) resource).getItem();
             }
             if (resource instanceof DictResource) {
-                return ((ItemResource) resource).getItem();
+                return ((DictResource) resource).getItem();
             }
             return null;
         }

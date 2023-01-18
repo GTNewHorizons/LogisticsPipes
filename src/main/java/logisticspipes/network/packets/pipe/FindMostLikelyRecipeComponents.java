@@ -76,8 +76,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                 int newAmount = SimpleServiceLocator.logisticsManager.getAmountFor(
                         ident, pipe.getRouter().getIRoutersByCost());
                 if (newAmount > max) {
-                    maxItem = ident;
-                    max = newAmount;
+					max = newAmount;
                     maxItemPos = i;
                 }
             }
@@ -90,8 +89,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                     for (int i = 0; i < canidates.order.size(); i++) {
                         ItemIdentifier ident = canidates.order.get(i).getItem();
                         if (craft == ident) {
-                            maxItem = ident;
-                            maxItemPos = i;
+							maxItemPos = i;
                             break;
                         }
                     }

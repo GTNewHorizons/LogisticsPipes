@@ -125,8 +125,6 @@ public class AssemblyTable implements ICraftingRecipeProvider {
                     processed = new ItemStack((Item) input);
                 } else if (input instanceof Block) {
                     processed = new ItemStack((Block) input, 1, 0);
-                } else if (input instanceof Integer) {
-                    processed = null;
                 } else {
                     throw new IllegalArgumentException("Unknown Object passed to recipe!");
                 }

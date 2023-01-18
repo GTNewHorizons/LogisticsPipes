@@ -114,7 +114,7 @@ public class RequestTree extends RequestTreeNode {
 
         @Override
         public int compare(ExitRoute o1, ExitRoute o2) {
-            int c = 0;
+            int c;
             if (o1.destination.getPipe() instanceof IHavePriority) {
                 if (o2.destination.getPipe() instanceof IHavePriority) {
                     c = ((IHavePriority) o2.destination.getCachedPipe()).getPriority()

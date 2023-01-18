@@ -18,7 +18,7 @@ public class PipeFXRenderHandler {
             double var15 = mc.renderViewEntity.posX - x;
             double var17 = mc.renderViewEntity.posY - y;
             double var19 = mc.renderViewEntity.posZ - z;
-            EntityFX effect = null;
+            EntityFX effect;
 
             double var22 = 16.0D;
 

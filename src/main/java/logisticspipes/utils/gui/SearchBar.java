@@ -12,12 +12,12 @@ public class SearchBar {
 
     public String searchinput1 = "";
     public String searchinput2 = "";
-    private boolean isActive = false;
+    private boolean isActive;
     private boolean displaycursor = true;
     private long oldSystemTime = 0;
-    private int searchWidth = 150;
-    private boolean numberOnly = false;
-    private boolean alignRight = false;
+    private int searchWidth;
+    private boolean numberOnly;
+    private boolean alignRight;
 
     private final FontRenderer fontRenderer;
     private final LogisticsBaseGuiScreen screen;
@@ -99,7 +99,7 @@ public class SearchBar {
             fontRenderer.drawString(searchinput1 + searchinput2, left + 5, top + 3, 0xFFFFFF);
         }
         if (isFocused()) {
-            int linex = 0;
+            int linex;
             if (alignRight) {
                 linex = left + 5 + searchWidth - fontRenderer.getStringWidth(searchinput2);
             } else {

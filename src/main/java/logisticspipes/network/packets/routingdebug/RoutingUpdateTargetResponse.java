@@ -52,7 +52,7 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
             byte[] bytes = new byte[arraySize];
             data.read(bytes);
             ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in = null;
+            ObjectInput in;
             in = new ObjectInputStream(bis);
             try {
                 Object o = in.readObject();
@@ -108,7 +108,7 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
         data.writeInt(additions.length);
         for (Object addition : additions) {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutput out = null;
+            ObjectOutput out;
             out = new ObjectOutputStream(bos);
             out.writeObject(addition);
             byte[] bytes = bos.toByteArray();

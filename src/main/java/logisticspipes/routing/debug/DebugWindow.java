@@ -11,8 +11,8 @@ public class DebugWindow extends JFrame {
 
     private int width;
     private int height;
-    private JTextPane textArea = null;
-    private JScrollPane pane = null;
+    private JTextPane textArea;
+    private JScrollPane pane;
 
     public DebugWindow(String title, int width, int height) {
         super(title);
