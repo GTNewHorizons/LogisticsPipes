@@ -377,76 +377,89 @@ public abstract class BaseWrapperClass extends AbstractValue {
         if (type.equals("")) {
             return;
         }
-        if (type.equals("LPGlobalCCAccess")) {
-            object = LogisticsPipes.getComputerLP();
-            checkType();
-        } else if (type.equals("CoreRoutedPipe")) {
-            int x = nbt.getInteger("X");
-            int y = nbt.getInteger("Y");
-            int z = nbt.getInteger("Z");
-            final LPPosition pos = new LPPosition(x, y, z);
-            final int dim = nbt.getInteger("Dim");
-            QueuedTasks.queueTask(new Callable<Object>() {
+		switch (type) {
+			case "LPGlobalCCAccess":
+				object = LogisticsPipes.getComputerLP();
+				checkType();
+				break;
+			case "CoreRoutedPipe": {
+				int x = nbt.getInteger("X");
+				int y = nbt.getInteger("Y");
+				int z = nbt.getInteger("Z");
+				final LPPosition pos = new LPPosition(x, y, z);
+				final int dim = nbt.getInteger("Dim");
+				QueuedTasks.queueTask(new Callable<Object>() {
 
-                @Override
-                public Object call() throws Exception {
-                    World world = DimensionManager.getWorld(dim);
-                    if (world != null) {
-                        TileEntity tile = pos.getTileEntity(world);
-                        if (tile instanceof LogisticsTileGenericPipe
-                                && ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
-                            object = ((LogisticsTileGenericPipe) tile).pipe;
-                            checkType();
-                        }
-                    }
-                    return null;
-                }
-            });
-        } else if (type.equals("CCItemIdentifierImplementation")) {
-            ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
-            if (stack != null) {
-                object = new CCItemIdentifierImplementation(ItemIdentifier.get(stack));
-                checkType();
-            }
-        } else if (type.equals("CCItemIdentifierStackImplementation")) {
-            ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
-            if (stack != null) {
-                object = new CCItemIdentifierStackImplementation(ItemIdentifierStack.getFromStack(stack));
-                checkType();
-            }
-        } else if (type.equals("CCItemIdentifierBuilder")) {
-            ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
-            if (stack != null) {
-                CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
-                builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
-                builder.setItemData(Double.valueOf(stack.getItemDamage()));
-                object = builder;
-                checkType();
-            }
-        } else if (type.equals("LogisticsSolidTileEntity")) {
-            int x = nbt.getInteger("X");
-            int y = nbt.getInteger("Y");
-            int z = nbt.getInteger("Z");
-            final LPPosition pos = new LPPosition(x, y, z);
-            final int dim = nbt.getInteger("Dim");
-            QueuedTasks.queueTask(new Callable<Object>() {
+					@Override
+					public Object call() throws Exception {
+						World world = DimensionManager.getWorld(dim);
+						if (world != null) {
+							TileEntity tile = pos.getTileEntity(world);
+							if (tile instanceof LogisticsTileGenericPipe
+								&& ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
+								object = ((LogisticsTileGenericPipe) tile).pipe;
+								checkType();
+							}
+						}
+						return null;
+					}
+				});
+				break;
+			}
+			case "CCItemIdentifierImplementation": {
+				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
+				if (stack != null) {
+					object = new CCItemIdentifierImplementation(ItemIdentifier.get(stack));
+					checkType();
+				}
+				break;
+			}
+			case "CCItemIdentifierStackImplementation": {
+				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
+				if (stack != null) {
+					object = new CCItemIdentifierStackImplementation(ItemIdentifierStack.getFromStack(stack));
+					checkType();
+				}
+				break;
+			}
+			case "CCItemIdentifierBuilder": {
+				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
+				if (stack != null) {
+					CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
+					builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
+					builder.setItemData(Double.valueOf(stack.getItemDamage()));
+					object = builder;
+					checkType();
+				}
+				break;
+			}
+			case "LogisticsSolidTileEntity": {
+				int x = nbt.getInteger("X");
+				int y = nbt.getInteger("Y");
+				int z = nbt.getInteger("Z");
+				final LPPosition pos = new LPPosition(x, y, z);
+				final int dim = nbt.getInteger("Dim");
+				QueuedTasks.queueTask(new Callable<Object>() {
 
-                @Override
-                public Object call() throws Exception {
-                    World world = DimensionManager.getWorld(dim);
-                    if (world != null) {
-                        TileEntity tile = pos.getTileEntity(world);
-                        if (tile instanceof LogisticsSolidTileEntity) {
-                            object = tile;
-                            checkType();
-                        }
-                    }
-                    return null;
-                }
-            });
-        } else {
-            System.out.println("Unknown type to load");
-        }
+					@Override
+					public Object call() throws Exception {
+						World world = DimensionManager.getWorld(dim);
+						if (world != null) {
+							TileEntity tile = pos.getTileEntity(world);
+							if (tile instanceof LogisticsSolidTileEntity) {
+								object = tile;
+								checkType();
+							}
+						}
+						return null;
+					}
+				});
+				break;
+			}
+			default:
+				System.out.println("Unknown type to load");
+				break;
+		}
     }
 
     @Override
