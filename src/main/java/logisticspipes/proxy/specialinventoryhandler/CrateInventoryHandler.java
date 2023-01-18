@@ -65,12 +65,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
         for (ItemStack stack : _tile.getContents()) {
             ItemIdentifier itemId = ItemIdentifier.get(stack);
             int stackSize = stack.stackSize - (_hideOnePerStack ? 1 : 0);
-            Integer m = map.get(itemId);
-            if (m == null) {
-                map.put(itemId, stackSize);
-            } else {
-                map.put(itemId, m + stackSize);
-            }
+			map.merge(itemId, stackSize, Integer::sum);
         }
         return map;
     }

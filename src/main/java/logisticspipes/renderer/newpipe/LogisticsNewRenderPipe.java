@@ -933,7 +933,7 @@ public class LogisticsNewRenderPipe {
             } else if (!renderState.textureMatrix.isRouted() && connectionCount > 2) {
                 cornerTexture = LogisticsNewRenderPipe.inactiveTexture;
             }
-            int count = connectionAtCorner.containsKey(corner) ? connectionAtCorner.get(corner) : 0;
+            int count = connectionAtCorner.getOrDefault(corner, 0);
             if (count == 0) {
                 for (IModel3D model : LogisticsNewRenderPipe.corners_M.get(corner)) {
                     objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(model, new I3DOperation[] {cornerTexture}));

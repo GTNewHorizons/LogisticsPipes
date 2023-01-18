@@ -1030,11 +1030,8 @@ public class DevEnvHelper {
                                 + srgFieldOwners.get(srgName) + " and " + srgOwner + ")");
                     }
 
-                    Set<String> owners = srgFieldOwners.get(srgName);
-                    if (owners == null) {
-                        srgFieldOwners.put(srgName, owners = new HashSet<String>());
-                    }
-                    owners.add(srgOwner);
+					Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<String>());
+					owners.add(srgOwner);
                 }
 
                 forwardSRG.setField(obfOwner, obfName, srgName);
@@ -1053,11 +1050,8 @@ public class DevEnvHelper {
                 String srgDesc = forwardSRG.mapMethodDescriptor(obfDesc);
                 String srgOwner = srg.classes.get(obfOwner);
 
-                Set<String> srgMethodOwnersThis = srgMethodOwnersAndDescs.get(srgName);
-                if (srgMethodOwnersThis == null) {
-                    srgMethodOwnersAndDescs.put(srgName, srgMethodOwnersThis = new HashSet<String>());
-                }
-                srgMethodOwnersThis.add(srgOwner + srgDesc);
+				Set<String> srgMethodOwnersThis = srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<String>());
+				srgMethodOwnersThis.add(srgOwner + srgDesc);
 
                 forwardSRG.setMethod(obfOwner, obfName, obfDesc, srgName);
                 reverseSRG.setMethod(srgOwner, srgName, srgDesc, obfName);

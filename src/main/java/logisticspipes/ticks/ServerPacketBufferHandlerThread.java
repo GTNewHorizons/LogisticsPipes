@@ -122,12 +122,8 @@ public class ServerPacketBufferHandlerThread {
 
         public void addPacketToCompressor(ModernPacket packet, EntityPlayer player) {
             synchronized (serverList) {
-                LinkedList<ModernPacket> packetList = serverList.get(player);
-                if (packetList == null) {
-                    packetList = new LinkedList<ModernPacket>();
-                    serverList.put(player, packetList);
-                }
-                packetList.add(packet);
+				LinkedList<ModernPacket> packetList = serverList.computeIfAbsent(player, k -> new LinkedList<ModernPacket>());
+				packetList.add(packet);
                 if (!pause) {
                     serverList.notify();
                 }
@@ -225,12 +221,8 @@ public class ServerPacketBufferHandlerThread {
                         }
                     }
                     if (flag && buffer != null && player != null) {
-                        byte[] ByteBufferForPlayer = ByteBuffer.get(player);
-                        if (ByteBufferForPlayer == null) {
-                            ByteBufferForPlayer = new byte[] {};
-                            ByteBuffer.put(player, ByteBufferForPlayer);
-                        }
-                        byte[] packetbytes = ServerPacketBufferHandlerThread.decompress(buffer);
+						byte[] ByteBufferForPlayer = ByteBuffer.computeIfAbsent(player, k -> new byte[]{});
+						byte[] packetbytes = ServerPacketBufferHandlerThread.decompress(buffer);
                         byte[] newBuffer = new byte[packetbytes.length + ByteBufferForPlayer.length];
                         System.arraycopy(ByteBufferForPlayer, 0, newBuffer, 0, ByteBufferForPlayer.length);
                         System.arraycopy(packetbytes, 0, newBuffer, ByteBufferForPlayer.length, packetbytes.length);
@@ -281,12 +273,8 @@ public class ServerPacketBufferHandlerThread {
 
         public void handlePacket(byte[] content, EntityPlayer player) {
             synchronized (queue) {
-                LinkedList<byte[]> list = queue.get(player);
-                if (list == null) {
-                    list = new LinkedList<byte[]>();
-                    queue.put(player, list);
-                }
-                list.addLast(content);
+				LinkedList<byte[]> list = queue.computeIfAbsent(player, k -> new LinkedList<byte[]>());
+				list.addLast(content);
                 queue.notify();
             }
         }

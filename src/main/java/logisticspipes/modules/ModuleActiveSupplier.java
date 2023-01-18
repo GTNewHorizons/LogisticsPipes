@@ -352,12 +352,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         // How many do I have?
         HashMap<ItemIdentifier, Integer> haveUndamaged = new HashMap<ItemIdentifier, Integer>();
         for (Entry<ItemIdentifier, Integer> item : have.entrySet()) {
-            Integer n = haveUndamaged.get(item.getKey().getUndamaged());
-            if (n == null) {
-                haveUndamaged.put(item.getKey().getUndamaged(), item.getValue());
-            } else {
-                haveUndamaged.put(item.getKey().getUndamaged(), item.getValue() + n);
-            }
+            haveUndamaged.merge(item.getKey().getUndamaged(), item.getValue(), Integer::sum);
         }
 
         // Reduce what I have and what have been requested already

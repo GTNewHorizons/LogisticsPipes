@@ -161,12 +161,8 @@ public class RequestTreeNode {
     protected void checkForExtras(IResource item, HashMap<IProvide, List<IExtraPromise>> extraMap) {
         for (IExtraPromise extra : extrapromises) {
             if (item.matches(extra.getItemType(), IResource.MatchSettings.NORMAL)) {
-                List<IExtraPromise> extras = extraMap.get(extra.getProvider());
-                if (extras == null) {
-                    extras = new LinkedList<IExtraPromise>();
-                    extraMap.put(extra.getProvider(), extras);
-                }
-                extras.add(extra.copy());
+				List<IExtraPromise> extras = extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<IExtraPromise>());
+				extras.add(extra.copy());
             }
         }
         for (RequestTreeNode subNode : subRequests) {

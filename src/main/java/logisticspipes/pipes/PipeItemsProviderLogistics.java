@@ -385,12 +385,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
                     }
                 }
 
-                Integer addedAmount = addedItems.get(currItem.getKey());
-                if (addedAmount == null) {
-                    addedItems.put(currItem.getKey(), currItem.getValue());
-                } else {
-                    addedItems.put(currItem.getKey(), addedAmount + currItem.getValue());
-                }
+                addedItems.merge(currItem.getKey(), currItem.getValue(), Integer::sum);
             }
         }
 

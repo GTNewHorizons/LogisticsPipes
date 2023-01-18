@@ -510,12 +510,8 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         Map<ForgeDirection, List<CoreRoutedPipe>> pipeDirections = new HashMap<ForgeDirection, List<CoreRoutedPipe>>();
 
         for (Entry<CoreRoutedPipe, ExitRoute> entry : adjacent.entrySet()) {
-            List<CoreRoutedPipe> list = pipeDirections.get(entry.getValue().exitOrientation);
-            if (list == null) {
-                list = new ArrayList<CoreRoutedPipe>();
-                pipeDirections.put(entry.getValue().exitOrientation, list);
-            }
-            list.add(entry.getKey());
+			List<CoreRoutedPipe> list = pipeDirections.computeIfAbsent(entry.getValue().exitOrientation, k -> new ArrayList<CoreRoutedPipe>());
+			list.add(entry.getKey());
         }
 
         for (Entry<ForgeDirection, List<CoreRoutedPipe>> entry : pipeDirections.entrySet()) {
@@ -1447,12 +1443,8 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     }
 
     private void addInterest(ItemIdentifier items) {
-        Set<IRouter> interests = ServerRouter._globalSpecificInterests.get(items);
-        if (interests == null) {
-            interests = new TreeSet<IRouter>();
-            ServerRouter._globalSpecificInterests.put(items, interests);
-        }
-        interests.add(this);
+		Set<IRouter> interests = ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<IRouter>());
+		interests.add(this);
     }
 
     private void removeInterest(ItemIdentifier p2) {

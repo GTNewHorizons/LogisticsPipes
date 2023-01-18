@@ -39,9 +39,7 @@ public class LPRobotConnectionControl implements ISpecialPipedConnection {
             new WeakHashMap<World, Set<Pair<LPPosition, ForgeDirection>>>();
 
     public void addRobot(World world, LPPosition pos, ForgeDirection dir) {
-        if (globalAvailableRobots.get(world) == null) {
-            globalAvailableRobots.put(world, new HashSet<Pair<LPPosition, ForgeDirection>>());
-        }
+        globalAvailableRobots.computeIfAbsent(world, k -> new HashSet<Pair<LPPosition, ForgeDirection>>());
         globalAvailableRobots.get(world).add(new Pair<LPPosition, ForgeDirection>(pos, dir));
         checkAll(world);
     }

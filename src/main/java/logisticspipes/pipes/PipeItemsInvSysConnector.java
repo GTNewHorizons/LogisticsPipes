@@ -370,13 +370,10 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
     public void addItem(ItemRoutingInformation info) {
         if (info.getItem() != null && info.getItem().getStackSize() > 0 && info.destinationint >= 0) {
             ItemIdentifier insertedType = info.getItem().getItem();
-            List<ItemRoutingInformation> entry = itemsOnRoute.get(insertedType);
-            if (entry == null) {
-                entry = new LinkedList<
-                        ItemRoutingInformation>(); // linked list as this is almost always very small, but experiences
-                // random removal
-                itemsOnRoute.put(insertedType, entry);
-            }
+            List<ItemRoutingInformation> entry = itemsOnRoute.computeIfAbsent(insertedType, k -> new LinkedList<
+                    ItemRoutingInformation>());
+            // linked list as this is almost always very small, but experiences
+            // random removal
             entry.add(info);
             updateContentListener();
         }

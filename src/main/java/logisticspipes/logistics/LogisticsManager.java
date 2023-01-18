@@ -399,12 +399,7 @@ public class LogisticsManager implements ILogisticsManager {
         HashMap<ItemIdentifier, Integer> allAvailableItems = new HashMap<ItemIdentifier, Integer>();
         for (Map<ItemIdentifier, Integer> allItems : items) {
             for (Entry<ItemIdentifier, Integer> item : allItems.entrySet()) {
-                Integer currentItem = allAvailableItems.get(item.getKey());
-                if (currentItem == null) {
-                    allAvailableItems.put(item.getKey(), item.getValue());
-                } else {
-                    allAvailableItems.put(item.getKey(), currentItem + item.getValue());
-                }
+				allAvailableItems.merge(item.getKey(), item.getValue(), Integer::sum);
             }
         }
         return allAvailableItems;

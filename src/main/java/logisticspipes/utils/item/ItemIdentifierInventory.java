@@ -362,12 +362,7 @@ public class ItemIdentifierInventory
                 continue;
             }
             ItemIdentifier itemId = _content.getItem();
-            Integer count = _contentsMap.get(itemId);
-            if (count == null) {
-                _contentsMap.put(itemId, _content.getStackSize());
-            } else {
-                _contentsMap.put(itemId, _contentsMap.get(itemId) + _content.getStackSize());
-            }
+			_contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
             _contentsUndamagedSet.add(
                     itemId.getUndamaged()); // add is cheaper than check then add; it just returns false if it is
             // already there
