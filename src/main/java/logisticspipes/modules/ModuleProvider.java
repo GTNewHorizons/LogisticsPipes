@@ -244,7 +244,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
             if (inv != null) {
                 Map<ItemIdentifier, Integer> currentInv = inv.getItemsAndCount();
                 for (ItemIdentifier item : currentInv.keySet()) {
-                    if (((DictResource) tree.getRequestType()).matches(item, IResource.MatchSettings.NORMAL)) {
+                    if (tree.getRequestType().matches(item, IResource.MatchSettings.NORMAL)) {
                         possible.add(item);
                     }
                 }

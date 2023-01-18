@@ -59,7 +59,7 @@ public class AssemblyTable implements ICraftingRecipeProvider {
                     break;
                 }
                 if (output != null && ItemStack.areItemStacksEqual(output, ((FlexibleRecipe<ItemStack>) r).output)) {
-                    if (((FlexibleRecipe<ItemStack>) r)
+                    if (r
                             .canBeCrafted(
                                     new IFlexibleCrafter() { // Read Proxy to IInventory
 

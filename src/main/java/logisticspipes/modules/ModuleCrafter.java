@@ -1170,9 +1170,9 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public void openAttachedGui(EntityPlayer player) {
         if (MainProxy.isClient(player.worldObj)) {
             if (player instanceof EntityPlayerMP) {
-                ((EntityPlayerMP) player).closeScreen();
+                player.closeScreen();
             } else if (player instanceof EntityPlayerSP) {
-                ((EntityPlayerSP) player).closeScreen();
+                player.closeScreen();
             }
             MainProxy.sendPacketToServer(PacketHandler.getPacket(CraftingPipeOpenConnectedGuiPacket.class)
                     .setModulePos(this));

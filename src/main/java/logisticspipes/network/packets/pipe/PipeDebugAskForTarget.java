@@ -43,9 +43,9 @@ public class PipeDebugAskForTarget extends ModernPacket {
                 TileEntity tile =
                         new LPPosition(box.blockX, box.blockY, box.blockZ).getTileEntity(player.getEntityWorld());
                 if (tile instanceof LogisticsTileGenericPipe) {
-                    ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).debug.debugThisPipe =
-                            !((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).debug.debugThisPipe;
-                    if (((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).debug.debugThisPipe) {
+                    ((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe =
+                            !((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe;
+                    if (((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe) {
                         player.addChatComponentMessage(new ChatComponentText("Debug enabled On Client"));
                     } else {
                         player.addChatComponentMessage(new ChatComponentText("Debug disabled On Client"));

@@ -160,7 +160,7 @@ public class ForestryProxy implements IForestryProxy {
         if (!(forestry.api.genetics.AlleleManager.alleleRegistry.getAllele(uid) instanceof IAlleleSpecies)) {
             return "";
         }
-        return ((IAlleleSpecies) forestry.api.genetics.AlleleManager.alleleRegistry.getAllele(uid)).getName();
+        return AlleleManager.alleleRegistry.getAllele(uid).getName();
     }
 
     /**

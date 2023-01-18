@@ -99,7 +99,7 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
     @Override
     public boolean canCraft(IResource type) {
         if (type instanceof DictResource) {
-            return ((DictResource) type).matches(_result.getItem(), IResource.MatchSettings.NORMAL)
+            return type.matches(_result.getItem(), IResource.MatchSettings.NORMAL)
                     && _result.matches(((DictResource) type).getItem(), IResource.MatchSettings.NORMAL)
                     && _result.getBitSet().equals(((DictResource) type).getBitSet());
         }

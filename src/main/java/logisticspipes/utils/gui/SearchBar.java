@@ -233,7 +233,7 @@ public class SearchBar {
     private static String getClipboardString() {
         try {
             Transferable transferable =
-                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents((Object) null);
+                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }

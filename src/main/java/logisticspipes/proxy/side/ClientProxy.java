@@ -165,10 +165,10 @@ public class ClientProxy implements IProxy {
     @Override
     public int getDimensionForWorld(World world) {
         if (world instanceof WorldServer) {
-            return ((WorldServer) world).provider.dimensionId;
+            return world.provider.dimensionId;
         }
         if (world instanceof WorldClient) {
-            return ((WorldClient) world).provider.dimensionId;
+            return world.provider.dimensionId;
         }
         return world.getWorldInfo().getVanillaDimension();
     }

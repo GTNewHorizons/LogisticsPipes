@@ -52,12 +52,12 @@ public class LogisticsWrapperHandler {
             LogisticsPipes.log.info("Loaded " + modId + ", " + name + " ProgressProvider");
         } else {
             if (e != null) {
-                ((AbstractWrapper) instance).setState(WrapperState.Exception);
-                ((AbstractWrapper) instance).setReason(e);
+                instance.setState(WrapperState.Exception);
+                instance.setReason(e);
                 LogisticsPipes.log.info("Couldn't load " + modId + ", " + name + " ProgressProvider");
             } else {
                 LogisticsPipes.log.info("Didn't load " + modId + ", " + name + " ProgressProvider");
-                ((AbstractWrapper) instance).setState(WrapperState.ModMissing);
+                instance.setState(WrapperState.ModMissing);
             }
         }
         instance.setModId(modId);
@@ -88,12 +88,12 @@ public class LogisticsWrapperHandler {
             LogisticsPipes.log.info("Loaded " + name + " RecipeProvider");
         } else {
             if (e != null) {
-                ((AbstractWrapper) instance).setState(WrapperState.Exception);
-                ((AbstractWrapper) instance).setReason(e);
+                instance.setState(WrapperState.Exception);
+                instance.setReason(e);
                 LogisticsPipes.log.info("Couldn't load " + name + " RecipeProvider");
             } else {
                 LogisticsPipes.log.info("Didn't load " + name + " RecipeProvider");
-                ((AbstractWrapper) instance).setState(WrapperState.ModMissing);
+                instance.setState(WrapperState.ModMissing);
             }
         }
         instance.setModId(modId);
