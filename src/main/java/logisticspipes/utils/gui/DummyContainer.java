@@ -288,32 +288,31 @@ public class DummyContainer extends Container {
                 if (!field_94537_h.isEmpty()) {
                     itemstack3 = inventoryplayer.getItemStack().copy();
                     i1 = inventoryplayer.getItemStack().stackSize;
-                    Iterator iterator = field_94537_h.iterator();
 
-                    while (iterator.hasNext()) {
-                        Slot slot1 = (Slot) iterator.next();
+					for (Object o : field_94537_h) {
+						Slot slot1 = (Slot) o;
 
-                        if (slot1 != null
-                                && Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
-                                && slot1.isItemValid(inventoryplayer.getItemStack())
-                                && inventoryplayer.getItemStack().stackSize >= field_94537_h.size()
-                                && canDragIntoSlot(slot1)) {
-                            ItemStack itemstack1 = itemstack3.copy();
-                            int j1 = slot1.getHasStack() ? slot1.getStack().stackSize : 0;
-                            Container.func_94525_a(field_94537_h, field_94535_f, itemstack1, j1);
+						if (slot1 != null
+							&& Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
+							&& slot1.isItemValid(inventoryplayer.getItemStack())
+							&& inventoryplayer.getItemStack().stackSize >= field_94537_h.size()
+							&& canDragIntoSlot(slot1)) {
+							ItemStack itemstack1 = itemstack3.copy();
+							int j1 = slot1.getHasStack() ? slot1.getStack().stackSize : 0;
+							Container.func_94525_a(field_94537_h, field_94535_f, itemstack1, j1);
 
-                            if (itemstack1.stackSize > itemstack1.getMaxStackSize()) {
-                                itemstack1.stackSize = itemstack1.getMaxStackSize();
-                            }
+							if (itemstack1.stackSize > itemstack1.getMaxStackSize()) {
+								itemstack1.stackSize = itemstack1.getMaxStackSize();
+							}
 
-                            if (itemstack1.stackSize > slot1.getSlotStackLimit()) {
-                                itemstack1.stackSize = slot1.getSlotStackLimit();
-                            }
+							if (itemstack1.stackSize > slot1.getSlotStackLimit()) {
+								itemstack1.stackSize = slot1.getSlotStackLimit();
+							}
 
-                            i1 -= itemstack1.stackSize - j1;
-                            slot1.putStack(itemstack1);
-                        }
-                    }
+							i1 -= itemstack1.stackSize - j1;
+							slot1.putStack(itemstack1);
+						}
+					}
 
                     itemstack3.stackSize = i1;
 

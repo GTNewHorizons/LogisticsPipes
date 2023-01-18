@@ -274,22 +274,20 @@ public class LogisticsTileRenderController {
     }
 
     public void sendInit() {
-        Iterator<LaserKey> iter = powerLasersBeam.keySet().iterator();
-        while (iter.hasNext()) {
-            LaserKey key = iter.next();
-            LaserBeamData data = powerLasersBeam.get(key);
-            boolean isBall = powerLasersBall.containsKey(key.color);
-            MainProxy.sendPacketToAllWatchingChunk(
-                    pipe.getX(),
-                    pipe.getZ(),
-                    MainProxy.getDimensionForWorld(pipe.getWorld()),
-                    PacketHandler.getPacket(PowerPacketLaser.class)
-                            .setColor(key.color)
-                            .setRenderBall(isBall)
-                            .setDir(key.dir)
-                            .setLength(data.length)
-                            .setReverse(data.reverse)
-                            .setTilePos(pipe));
-        }
+		for (LaserKey key : powerLasersBeam.keySet()) {
+			LaserBeamData data = powerLasersBeam.get(key);
+			boolean isBall = powerLasersBall.containsKey(key.color);
+			MainProxy.sendPacketToAllWatchingChunk(
+				pipe.getX(),
+				pipe.getZ(),
+				MainProxy.getDimensionForWorld(pipe.getWorld()),
+				PacketHandler.getPacket(PowerPacketLaser.class)
+					.setColor(key.color)
+					.setRenderBall(isBall)
+					.setDir(key.dir)
+					.setLength(data.length)
+					.setReverse(data.reverse)
+					.setTilePos(pipe));
+		}
     }
 }

@@ -477,15 +477,13 @@ public class RequestTreeNode {
                     cap = Math.min(
                             cap, floor + (itemsNeeded + craftersToBalance.size() - 1) / craftersToBalance.size());
 
-                    Iterator<CraftingSorterNode> iter = craftersToBalance.iterator();
-                    while (iter.hasNext()) {
-                        CraftingSorterNode crafter = iter.next();
-                        int request = Math.min(itemsNeeded, cap - floor);
-                        if (request > 0) {
-                            int craftingDone = crafter.addToWorkRequest(request);
-                            itemsNeeded -= craftingDone; // ignored under-crafting
-                        }
-                    }
+					for (CraftingSorterNode crafter : craftersToBalance) {
+						int request = Math.min(itemsNeeded, cap - floor);
+						if (request > 0) {
+							int craftingDone = crafter.addToWorkRequest(request);
+							itemsNeeded -= craftingDone; // ignored under-crafting
+						}
+					}
                 } // all craftersToBalance exhausted, or work completed.
             } // end of else more than 1 crafter at this priority
             // commit this work set.

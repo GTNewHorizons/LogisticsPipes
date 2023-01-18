@@ -967,31 +967,27 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                     }
                 }
             }
-            Iterator<Entry<IRouter, Quartet<Double, EnumSet<PipeRoutingConnectionType>, List<IFilter>, Integer>>> it =
-                    lsa.neighboursWithMetric.entrySet().iterator();
-            while (it.hasNext()) {
-                Entry<IRouter, Quartet<Double, EnumSet<PipeRoutingConnectionType>, List<IFilter>, Integer>>
-                        newCandidate = it.next();
-                double candidateCost = lowestCostNode.distanceToDestination
-                        + newCandidate.getValue().getValue1();
-                int blockDistance =
-                        lowestCostNode.blockDistance + newCandidate.getValue().getValue4();
-                EnumSet<PipeRoutingConnectionType> newCT = lowestCostNode.getFlags();
-                newCT.retainAll(newCandidate.getValue().getValue2());
-                if (!newCT.isEmpty()) {
-                    ExitRoute next = new ExitRoute(
-                            lowestCostNode.root,
-                            newCandidate.getKey(),
-                            candidateCost,
-                            newCT,
-                            lowestCostNode.filters,
-                            newCandidate.getValue().getValue3(),
-                            blockDistance);
-                    next.debug.isTraced = lowestCostNode.debug.isTraced;
-                    candidatesCost.add(next);
-                    debug.newCanidate(next);
-                }
-            }
+			for (Entry<IRouter, Quartet<Double, EnumSet<PipeRoutingConnectionType>, List<IFilter>, Integer>> newCandidate : lsa.neighboursWithMetric.entrySet()) {
+				double candidateCost = lowestCostNode.distanceToDestination
+					+ newCandidate.getValue().getValue1();
+				int blockDistance =
+					lowestCostNode.blockDistance + newCandidate.getValue().getValue4();
+				EnumSet<PipeRoutingConnectionType> newCT = lowestCostNode.getFlags();
+				newCT.retainAll(newCandidate.getValue().getValue2());
+				if (!newCT.isEmpty()) {
+					ExitRoute next = new ExitRoute(
+						lowestCostNode.root,
+						newCandidate.getKey(),
+						candidateCost,
+						newCT,
+						lowestCostNode.filters,
+						newCandidate.getValue().getValue3(),
+						blockDistance);
+					next.debug.isTraced = lowestCostNode.debug.isTraced;
+					candidatesCost.add(next);
+					debug.newCanidate(next);
+				}
+			}
 
             lowestCostClosedFlags = lowestCostClosedFlags.clone();
 
@@ -1046,31 +1042,29 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                         EnumSet.allOf(PipeRoutingConnectionType.class),
                         0)));
 
-        Iterator<ExitRoute> itr = routeCosts.iterator();
-        while (itr.hasNext()) {
-            ExitRoute node = itr.next();
-            IRouter firstHop = node.root;
-            ExitRoute hop = _adjacentRouter.get(firstHop);
-            if (hop == null) {
-                continue;
-            }
-            node.root = this; // replace the root with this, rather than the first hop.
-            node.exitOrientation = hop.exitOrientation;
-            while (node.destination.getSimpleID()
-                    >= routeTable.size()) { // the array will not expand, as it is init'd to contain enough elements
-                routeTable.add(null);
-            }
+		for (ExitRoute node : routeCosts) {
+			IRouter firstHop = node.root;
+			ExitRoute hop = _adjacentRouter.get(firstHop);
+			if (hop == null) {
+				continue;
+			}
+			node.root = this; // replace the root with this, rather than the first hop.
+			node.exitOrientation = hop.exitOrientation;
+			while (node.destination.getSimpleID()
+				>= routeTable.size()) { // the array will not expand, as it is init'd to contain enough elements
+				routeTable.add(null);
+			}
 
-            List<ExitRoute> current = routeTable.get(node.destination.getSimpleID());
-            if (current != null && !current.isEmpty()) {
-                List<ExitRoute> list = new ArrayList<ExitRoute>();
-                list.addAll(current);
-                list.add(node);
-                routeTable.set(node.destination.getSimpleID(), Collections.unmodifiableList(list));
-            } else {
-                routeTable.set(node.destination.getSimpleID(), new OneList<ExitRoute>(node));
-            }
-        }
+			List<ExitRoute> current = routeTable.get(node.destination.getSimpleID());
+			if (current != null && !current.isEmpty()) {
+				List<ExitRoute> list = new ArrayList<ExitRoute>();
+				list.addAll(current);
+				list.add(node);
+				routeTable.set(node.destination.getSimpleID(), Collections.unmodifiableList(list));
+			} else {
+				routeTable.set(node.destination.getSimpleID(), new OneList<ExitRoute>(node));
+			}
+		}
         debug.stepTwoDone();
         if (!debug.independent()) {
             routingTableUpdateWriteLock.lock();

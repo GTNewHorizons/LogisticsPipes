@@ -1153,20 +1153,18 @@ public class LogisticsNewRenderPipe {
 
     private void reduceToOnePerSide(List<Mount> mountCanidates, ForgeDirection dir, ForgeDirection pref) {
         boolean found = false;
-        Iterator<Mount> iter = mountCanidates.iterator();
-        while (iter.hasNext()) {
-            Mount mount = iter.next();
-            if (mount.dir != dir) {
-                continue;
-            }
-            if (mount.side == pref) {
-                found = true;
-            }
-        }
+		for (Mount mount : mountCanidates) {
+			if (mount.dir != dir) {
+				continue;
+			}
+			if (mount.side == pref) {
+				found = true;
+			}
+		}
         if (!found) {
             reduceToOnePerSide(mountCanidates, dir);
         } else {
-            iter = mountCanidates.iterator();
+			Iterator<Mount> iter = mountCanidates.iterator();
             while (iter.hasNext()) {
                 Mount mount = iter.next();
                 if (mount.dir != dir) {
@@ -1197,11 +1195,9 @@ public class LogisticsNewRenderPipe {
 
     private void removeIfHasOponentSide(List<Mount> mountCanidates) {
         boolean[] sides = new boolean[6];
-        Iterator<Mount> iter = mountCanidates.iterator();
-        while (iter.hasNext()) {
-            Mount mount = iter.next();
-            sides[mount.dir.ordinal()] = true;
-        }
+		for (Mount mount : mountCanidates) {
+			sides[mount.dir.ordinal()] = true;
+		}
         if (sides[2] && sides[3]) {
             removeFromSide(mountCanidates, ForgeDirection.EAST);
             removeFromSide(mountCanidates, ForgeDirection.WEST);
@@ -1217,11 +1213,9 @@ public class LogisticsNewRenderPipe {
 
     private void removeIfHasConnectedSide(List<Mount> mountCanidates) {
         boolean[] sides = new boolean[6];
-        Iterator<Mount> iter = mountCanidates.iterator();
-        while (iter.hasNext()) {
-            Mount mount = iter.next();
-            sides[mount.dir.ordinal()] = true;
-        }
+		for (Mount mount : mountCanidates) {
+			sides[mount.dir.ordinal()] = true;
+		}
         for (int i = 2; i < 6; i++) {
             ForgeDirection dir = ForgeDirection.getOrientation(i);
             ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
