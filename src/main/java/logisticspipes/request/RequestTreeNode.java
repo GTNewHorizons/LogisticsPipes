@@ -310,7 +310,7 @@ public class RequestTreeNode {
             }
         }
         // closer providers are good
-        Collections.sort(validSources, new workWeightedSorter(1.0));
+        validSources.sort(new workWeightedSorter(1.0));
 
         List<Pair<IProvide, List<IFilter>>> providers = new LinkedList<Pair<IProvide, List<IFilter>>>();
         for (ExitRoute r : validSources) {
@@ -382,7 +382,7 @@ public class RequestTreeNode {
         workWeightedSorter wSorter = new workWeightedSorter(
                 0); // distance doesn't matter, because ingredients have to be delivered to the crafter, and we can't
         // tell how long that will take.
-        Collections.sort(validSources, wSorter);
+        validSources.sort(wSorter);
 
         List<Pair<ICraftingTemplate, List<IFilter>>> allCraftersForItem =
                 RequestTreeNode.getCrafters(getRequestType(), validSources);

@@ -237,14 +237,14 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
         if (posibilities.isEmpty()) {
             return false;
         }
-        Collections.sort(posibilities, (o1, o2) -> {
-            int c = o2.getValue1() - o1.getValue1();
-            if (c != 0) {
-                return c;
-            }
-            double e = o1.getValue2() - o2.getValue2();
-            return e < 0 ? -1 : 1;
-        });
+        posibilities.sort((o1, o2) -> {
+			int c = o2.getValue1() - o1.getValue1();
+			if (c != 0) {
+				return c;
+			}
+			double e = o1.getValue2() - o2.getValue2();
+			return e < 0 ? -1 : 1;
+		});
         boolean sended = false;
         for (Triplet<Integer, Double, CCSinkResponder> triple : posibilities) {
             CCSinkResponder sink = triple.getValue3();

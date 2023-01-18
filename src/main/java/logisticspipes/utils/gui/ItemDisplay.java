@@ -108,7 +108,7 @@ public class ItemDisplay {
         listbyserver = true;
         _allItems.clear();
         _allItems.addAll(allItems);
-        Collections.sort(_allItems, new StackComparitor());
+        _allItems.sort(new StackComparitor());
         boolean found = false;
         if (selectedItem == null) {
             return;
@@ -198,7 +198,7 @@ public class ItemDisplay {
             i = 0;
         }
         ItemDisplay.option = DisplayOption.values()[i];
-        Collections.sort(_allItems, new StackComparitor());
+        _allItems.sort(new StackComparitor());
     }
 
     public void renderSortMode(int x, int y) {

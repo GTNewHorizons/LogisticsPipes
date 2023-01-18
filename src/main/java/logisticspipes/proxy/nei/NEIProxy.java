@@ -27,7 +27,7 @@ public class NEIProxy implements INEIProxy {
         if (items.isEmpty()) {
             return new ArrayList<String>(0);
         }
-        Collections.sort(items, (stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
+        items.sort((stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
         return ItemInfo.getText(items.get(0), world, player, objectMouseOver);
     }
 
@@ -76,7 +76,7 @@ public class NEIProxy implements INEIProxy {
         if (items.isEmpty()) {
             return null;
         }
-        Collections.sort(items, (stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
+        items.sort((stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
         return items.get(0);
     }
 }

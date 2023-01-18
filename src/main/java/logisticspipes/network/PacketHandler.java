@@ -85,7 +85,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<ClassInfo>(ClassPath.from(PacketHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.packets"));
-        Collections.sort(classes, (o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
+        classes.sort((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
 
         PacketHandler.packetlist = new ArrayList<ModernPacket>(classes.size());
         PacketHandler.packetmap = new HashMap<Class<? extends ModernPacket>, ModernPacket>(classes.size());

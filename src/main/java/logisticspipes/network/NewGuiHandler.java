@@ -45,7 +45,7 @@ public class NewGuiHandler {
     public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<ClassInfo>(ClassPath.from(NewGuiHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.guis"));
-        Collections.sort(classes, (o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
+        classes.sort((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
 
         NewGuiHandler.guilist = new ArrayList<GuiProvider>(classes.size());
         NewGuiHandler.guimap = new HashMap<Class<? extends GuiProvider>, GuiProvider>(classes.size());
