@@ -157,7 +157,7 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
 
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-        return config.isUseNewRenderer() ? newRenderer.shouldUseRenderHelper(type, item, helper) : true;
+        return !config.isUseNewRenderer() || newRenderer.shouldUseRenderHelper(type, item, helper);
     }
 
     @Override

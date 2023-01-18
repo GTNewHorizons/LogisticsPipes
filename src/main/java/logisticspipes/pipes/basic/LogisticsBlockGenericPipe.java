@@ -468,30 +468,24 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     private boolean isVecInsideYZBounds(Vec3 par1Vec3) {
-        return par1Vec3 == null
-                ? false
-                : par1Vec3.yCoord >= minY
-                        && par1Vec3.yCoord <= maxY
-                        && par1Vec3.zCoord >= minZ
-                        && par1Vec3.zCoord <= maxZ;
+        return par1Vec3 != null && par1Vec3.yCoord >= minY
+			&& par1Vec3.yCoord <= maxY
+			&& par1Vec3.zCoord >= minZ
+			&& par1Vec3.zCoord <= maxZ;
     }
 
     private boolean isVecInsideXZBounds(Vec3 par1Vec3) {
-        return par1Vec3 == null
-                ? false
-                : par1Vec3.xCoord >= minX
-                        && par1Vec3.xCoord <= maxX
-                        && par1Vec3.zCoord >= minZ
-                        && par1Vec3.zCoord <= maxZ;
+        return par1Vec3 != null && par1Vec3.xCoord >= minX
+			&& par1Vec3.xCoord <= maxX
+			&& par1Vec3.zCoord >= minZ
+			&& par1Vec3.zCoord <= maxZ;
     }
 
     private boolean isVecInsideXYBounds(Vec3 par1Vec3) {
-        return par1Vec3 == null
-                ? false
-                : par1Vec3.xCoord >= minX
-                        && par1Vec3.xCoord <= maxX
-                        && par1Vec3.yCoord >= minY
-                        && par1Vec3.yCoord <= maxY;
+        return par1Vec3 != null && par1Vec3.xCoord >= minX
+			&& par1Vec3.xCoord <= maxX
+			&& par1Vec3.yCoord >= minY
+			&& par1Vec3.yCoord <= maxY;
     }
 
     public static IIcon getRequestTableTextureFromSide(int l) {
