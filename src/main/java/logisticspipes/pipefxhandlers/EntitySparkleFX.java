@@ -51,7 +51,7 @@ public class EntitySparkleFX extends EntityFX {
         int var8 = particle + particleAge / multiplier;
         float var9 = var8 % 8 / 8.0F;
         float var10 = var9 + 0.124875F;
-        float var11 = var8 / 8 / 8.0F;
+        float var11 = (float) (var8 / 8) / 8.0F;
         float var12 = var11 + 0.124875F;
         float var13 = 0.1F * particleScale * ((float) (particleMaxAge - particleAge + 1) / (float) particleMaxAge);
         float var14 = (float) (prevPosX + (posX - prevPosX) * var2 - EntityFX.interpPosX);

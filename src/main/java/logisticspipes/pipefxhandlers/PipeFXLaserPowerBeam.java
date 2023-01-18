@@ -81,7 +81,7 @@ public class PipeFXLaserPowerBeam extends EntityFX {
         GL11.glPushMatrix();
         float slide = worldObj.getTotalWorldTime() + random;
         float rot = worldObj.provider.getWorldTime()
-                        % (360 / PipeFXLaserPowerBeam.ROTATIONSPEED)
+                        % ((float) (360 / PipeFXLaserPowerBeam.ROTATIONSPEED))
                         * PipeFXLaserPowerBeam.ROTATIONSPEED
                 + PipeFXLaserPowerBeam.ROTATIONSPEED * f;
 

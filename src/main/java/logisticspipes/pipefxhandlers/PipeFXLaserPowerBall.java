@@ -1,7 +1,6 @@
 package logisticspipes.pipefxhandlers;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.util.Random;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.experimental.Accessors;
 import net.minecraft.client.Minecraft;
@@ -12,6 +11,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+
+import java.util.Random;
 
 @Accessors(chain = true)
 public class PipeFXLaserPowerBall extends EntityFX {
@@ -64,7 +65,7 @@ public class PipeFXLaserPowerBall extends EntityFX {
         tessellator.draw();
         GL11.glPushMatrix();
         float rot = (worldObj.provider.getWorldTime() + random)
-                        % (360 / PipeFXLaserPowerBall.ROTATIONSPEED)
+                        % ((float) (360 / PipeFXLaserPowerBall.ROTATIONSPEED))
                         * PipeFXLaserPowerBall.ROTATIONSPEED
                 + PipeFXLaserPowerBall.ROTATIONSPEED * f;
 

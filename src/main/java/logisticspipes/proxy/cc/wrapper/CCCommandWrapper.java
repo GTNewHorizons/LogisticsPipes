@@ -256,7 +256,7 @@ public class CCCommandWrapper implements ILuaObject {
             page.append("Page ");
             page.append(pageNumber);
             page.append(" of ");
-            page.append((int) (Math.floor(lines.length / 10) + (lines.length % 10 == 0 ? 0 : 1)));
+            page.append(lines.length / 10 + (lines.length % 10 == 0 ? 0 : 1));
             page.append("\n");
             page.append(head2);
             pageNumber--;
