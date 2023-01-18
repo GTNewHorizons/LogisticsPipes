@@ -41,7 +41,7 @@ public class PipeFXLaserPowerBeam extends EntityFX {
         this.tile = tile;
         particleRed = ((float) ((color & 0xff0000) >> 16)) / 0xff;
         particleGreen = ((float) ((color & 0x00ff00) >> 8)) / 0xff;
-        particleBlue = ((float) ((color & 0x0000ff) >> 0)) / 0xff;
+        particleBlue = ((float) ((color & 0x0000ff))) / 0xff;
         noClip = true;
         motionX = 0.0D;
         motionY = 0.0D;
