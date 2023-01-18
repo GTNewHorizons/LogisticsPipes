@@ -184,9 +184,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
                         lpPipe.getRoutingPipe().triggerConnectionCheck();
                         recheckThisPipe = true;
                     }
-                } else if (activeActions.containsKey(direction)) {
-                    activeActions.remove(direction);
-                }
+                } else activeActions.remove(direction);
 
                 if (p instanceof RobotStationPluggable) {
                     if (((RobotStationPluggable) p).getStation() != null

@@ -243,10 +243,10 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         if (MainProxy.isClient()) {
             return;
         }
-        if (satelliteId == 0 && PipeFluidSatellite.AllSatellites.contains(this)) {
+        if (satelliteId == 0) {
             PipeFluidSatellite.AllSatellites.remove(this);
         }
-        if (satelliteId != 0 && !PipeFluidSatellite.AllSatellites.contains(this)) {
+        if (satelliteId != 0) {
             PipeFluidSatellite.AllSatellites.add(this);
         }
     }
@@ -306,9 +306,7 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         if (MainProxy.isClient(getWorld())) {
             return;
         }
-        if (PipeFluidSatellite.AllSatellites.contains(this)) {
-            PipeFluidSatellite.AllSatellites.remove(this);
-        }
+		PipeFluidSatellite.AllSatellites.remove(this);
     }
 
     @Override

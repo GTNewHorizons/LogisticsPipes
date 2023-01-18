@@ -241,10 +241,10 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         if (MainProxy.isClient()) {
             return;
         }
-        if (satelliteId == 0 && PipeItemsSatelliteLogistics.AllSatellites.contains(this)) {
+        if (satelliteId == 0) {
             PipeItemsSatelliteLogistics.AllSatellites.remove(this);
         }
-        if (satelliteId != 0 && !PipeItemsSatelliteLogistics.AllSatellites.contains(this)) {
+        if (satelliteId != 0) {
             PipeItemsSatelliteLogistics.AllSatellites.add(this);
         }
     }
@@ -304,9 +304,7 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         if (MainProxy.isClient(getWorld())) {
             return;
         }
-        if (PipeItemsSatelliteLogistics.AllSatellites.contains(this)) {
-            PipeItemsSatelliteLogistics.AllSatellites.remove(this);
-        }
+		PipeItemsSatelliteLogistics.AllSatellites.remove(this);
     }
 
     @Override

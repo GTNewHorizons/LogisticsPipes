@@ -170,9 +170,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
     }
 
     public void removeListener(ISimpleInventoryEventHandler listner) {
-        if (_listener.contains(listner)) {
-            _listener.remove(listner);
-        }
+		_listener.remove(listner);
     }
 
     @Override

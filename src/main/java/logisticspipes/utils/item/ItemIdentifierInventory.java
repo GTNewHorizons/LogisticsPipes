@@ -255,9 +255,7 @@ public class ItemIdentifierInventory
     }
 
     public void removeListener(ISimpleInventoryEventHandler listner) {
-        if (_listener.contains(listner)) {
-            _listener.remove(listner);
-        }
+		_listener.remove(listner);
     }
 
     @Override

@@ -299,9 +299,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
 
     @Override
     public void deauthorizeUUID(UUID id) {
-        if (_authorized.contains(id.toString())) {
-            _authorized.remove(id.toString());
-        }
+		_authorized.remove(id.toString());
         sendClientAuthorizationList();
     }
 
