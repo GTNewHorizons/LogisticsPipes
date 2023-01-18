@@ -253,7 +253,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
                         > 0.05) {
                     continue; // Not at station
                 }
-                Double mindis = Double.NaN;
+                double mindis = Double.NaN;
                 for (LPTravelingItemServer item : items) {
                     item.checkIDFromUUID();
                     if (item.getInfo().destinationint < 0) {
@@ -269,12 +269,12 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
                     if (route == null) {
                         continue;
                     }
-                    if (mindis.isNaN()) {
+                    if (Double.isNaN(mindis)) {
                         mindis = route.distanceToDestination;
                     }
                     mindis = Math.min(mindis, route.distanceToDestination);
                 }
-                if (mindis.isNaN()) {
+                if (Double.isNaN(mindis)) {
                     continue;
                 }
                 double distanceToItem = ((distance * 3) + 21) + mindis;
