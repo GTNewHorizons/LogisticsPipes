@@ -18,10 +18,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 @Accessors(chain = true)
 public class LaserData {
 
+    @NonNull
     private int posX;
 
+    @NonNull
     private int posY;
 
+    @NonNull
     private int posZ;
 
     @NonNull
