@@ -356,13 +356,9 @@ public class ServerPacketBufferHandlerThread {
     }
 
     public void clear(final EntityPlayer player) {
-        new Thread() {
-
-            @Override
-            public void run() {
-                serverCompressorThread.clear(player);
-                serverDecompressorThread.clear(player);
-            }
-        }.start();
+        new Thread(() -> {
+			serverCompressorThread.clear(player);
+			serverDecompressorThread.clear(player);
+		}).start();
     }
 }

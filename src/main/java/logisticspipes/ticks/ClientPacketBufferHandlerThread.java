@@ -127,15 +127,11 @@ public class ClientPacketBufferHandlerThread {
 
         public void clear() {
             clear = true;
-            new Thread() {
-
-                @Override
-                public void run() {
-                    clearLock.lock();
-                    clientList.clear();
-                    clearLock.unlock();
-                }
-            }.start();
+            new Thread(() -> {
+				clearLock.lock();
+				clientList.clear();
+				clearLock.unlock();
+			}).start();
         }
     }
 
