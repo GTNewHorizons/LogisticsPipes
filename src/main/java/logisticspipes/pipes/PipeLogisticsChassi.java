@@ -230,7 +230,6 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
             }
         }
     }
-    ;
 
     @Override
     public void onBlockPlaced() {

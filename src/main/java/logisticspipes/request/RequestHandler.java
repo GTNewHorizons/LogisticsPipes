@@ -35,7 +35,7 @@ public class RequestHandler {
     public enum DisplayOptions {
         Both,
         SupplyOnly,
-        CraftOnly;
+        CraftOnly
     }
 
     public static void request(final EntityPlayer player, final ItemIdentifierStack stack, final CoreRoutedPipe pipe) {

@@ -20,7 +20,7 @@ public abstract class CoordinatesPacket extends ModernPacket {
     public enum LTGPCompletionCheck {
         NONE,
         PIPE,
-        TRANSPORT;
+        TRANSPORT
     }
 
     public CoordinatesPacket(int id) {

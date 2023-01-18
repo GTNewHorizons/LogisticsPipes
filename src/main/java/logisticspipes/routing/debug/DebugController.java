@@ -55,8 +55,8 @@ public class DebugController implements IRoutingDebugAdapter {
     private enum DebugWaitState {
         LOOP,
         CONTINUE,
-        NOWAIT;
-    }
+        NOWAIT
+	}
 
     private Thread oldThread = null;
     private DebugWaitState state;

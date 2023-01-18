@@ -38,7 +38,7 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
     public enum TargetMode {
         Block,
         Entity,
-        None;
+        None
     }
 
     @Getter

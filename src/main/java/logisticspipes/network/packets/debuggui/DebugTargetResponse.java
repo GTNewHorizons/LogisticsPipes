@@ -36,7 +36,7 @@ public class DebugTargetResponse extends ModernPacket {
     public enum TargetMode {
         Block,
         Entity,
-        None;
+        None
     }
 
     @Getter

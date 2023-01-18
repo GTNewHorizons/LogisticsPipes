@@ -1688,9 +1688,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public int getSourceint() {
         return getRouter().getSimpleID();
     }
-    ;
 
-    @Override
+	@Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
             ItemIdentifier stack, boolean allowDefault, List<Integer> routerIDsToExclude) {
         return SimpleServiceLocator.logisticsManager.hasDestination(

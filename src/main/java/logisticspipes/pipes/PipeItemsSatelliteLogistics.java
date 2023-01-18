@@ -192,7 +192,6 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
 
     public static Set<PipeItemsSatelliteLogistics> AllSatellites =
             Collections.newSetFromMap(new WeakHashMap<PipeItemsSatelliteLogistics, Boolean>());
-    ;
 
     // called only on server shutdown
     public static void cleanup() {

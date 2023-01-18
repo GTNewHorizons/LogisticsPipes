@@ -153,7 +153,6 @@ public class SolderingStationRecipes {
         if (Configs.ENABLE_BETA_RECIPES) {
             ItemStack logproc =
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_ROUTEPROCESSOR);
-            ;
             ItemStack expand =
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER);
 

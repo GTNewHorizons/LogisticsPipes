@@ -69,7 +69,6 @@ public class InventoryUtilFactory {
         IInventoryUtil util = getUtilForInv(inv, dir, hideOnePerStack, hideOne, cropStart, cropEnd);
         if (util == null) {
             util = new InventoryUtil(InventoryHelper.getInventory(inv), hideOnePerStack, hideOne, cropStart, cropEnd);
-            ;
         }
         return util;
     }

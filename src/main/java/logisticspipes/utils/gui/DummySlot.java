@@ -18,8 +18,6 @@ public class DummySlot extends Slot {
     @Setter
     private boolean redirectCall = false;
 
-    ;
-
     public DummySlot(IInventory iinventory, int i, int j, int k) {
         super(iinventory, i, j, k);
     }

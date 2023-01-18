@@ -187,13 +187,11 @@ public class FluidContainerRenderer implements IItemRenderer {
                 public boolean shouldBob() {
                     return false;
                 }
-                ;
 
                 @Override
                 public boolean shouldSpreadItems() {
                     return false;
                 }
-                ;
             };
             renderItem.setRenderManager(RenderManager.instance);
         }

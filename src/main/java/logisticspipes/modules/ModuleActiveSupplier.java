@@ -201,8 +201,8 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         Partial,
         Full,
         Bulk50,
-        Bulk100;
-    }
+        Bulk100
+	}
 
     private SupplyMode _requestMode = SupplyMode.Bulk50;
     private PatternMode _patternMode = PatternMode.Bulk50;

@@ -274,7 +274,6 @@ public class MorePageDisplay {
         for (int i = 0; i < content.size(); i++, lineOnCurentPage++) {
             int I;
             for (I = i; I < (content.size() - 1) && content.get(I + 1).connected; I++) {
-                ;
             }
             int needed = I - i;
             if (lineOnCurentPage + needed > count - 1) {
@@ -313,7 +312,6 @@ public class MorePageDisplay {
             } else {
                 int I;
                 for (I = i; I < (content.size() - 1) && content.get(I + 1).connected; I++) {
-                    ;
                 }
                 int needed = I - i;
                 if (lineOnCurentPage + needed > count - 1) {

@@ -47,9 +47,8 @@ import logisticspipes.utils.RoutedItemHelper;
 public final class SimpleServiceLocator {
 
     private SimpleServiceLocator() {}
-    ;
 
-    public static IBCProxy buildCraftProxy = null;
+	public static IBCProxy buildCraftProxy = null;
 
     public static void setBuildCraftProxy(final IBCProxy bcProxy) {
         SimpleServiceLocator.buildCraftProxy = bcProxy;

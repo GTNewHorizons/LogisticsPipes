@@ -11,7 +11,7 @@ public interface IOrderInfoProvider {
         PROVIDER,
         CRAFTING,
         EXTRA
-    };
+    }
 
     boolean isFinished();
 

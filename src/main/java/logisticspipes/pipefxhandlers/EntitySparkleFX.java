@@ -127,7 +127,6 @@ public class EntitySparkleFX extends EntityFX {
                 motionZ *= 0.699999988079071D;
             }
         } catch (Exception var3) {
-            ;
         }
     }
 }
