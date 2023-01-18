@@ -1583,23 +1583,23 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder("ServerRouter: {ID: ");
-        string.append(simpleID);
-        string.append(", UUID: ");
-        string.append(getId());
-        string.append(", AT: (");
-        string.append(_dimension);
-        string.append(", ");
-        string.append(_xCoord);
-        string.append(", ");
-        string.append(_yCoord);
-        string.append(", ");
-        string.append(_zCoord);
-        string.append("), Version: ");
-        string.append(_LSAVersion);
-        string.append("), Destroied: ");
-        string.append(isDestroied());
-        return string.append("}").toString();
+		String string = "ServerRouter: {ID: " + simpleID +
+			", UUID: " +
+			getId() +
+			", AT: (" +
+			_dimension +
+			", " +
+			_xCoord +
+			", " +
+			_yCoord +
+			", " +
+			_zCoord +
+			"), Version: " +
+			_LSAVersion +
+			"), Destroied: " +
+			isDestroied() +
+			"}";
+        return string;
     }
 
     @Override

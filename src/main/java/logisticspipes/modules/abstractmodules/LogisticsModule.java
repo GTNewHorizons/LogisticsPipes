@@ -179,17 +179,15 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
 
     @Override
     public String toString() {
-        return (new StringBuilder())
-                .append(getClass().getSimpleName())
-                .append("@")
-                .append("(")
-                .append(getX())
-                .append(", ")
-                .append(getY())
-                .append(", ")
-                .append(getZ())
-                .append(")")
-                .toString();
+        return getClass().getSimpleName() +
+			"@" +
+			"(" +
+			getX() +
+			", " +
+			getY() +
+			", " +
+			getZ() +
+			")";
     }
 
     /**

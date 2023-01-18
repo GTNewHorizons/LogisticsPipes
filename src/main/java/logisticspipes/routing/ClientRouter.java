@@ -192,15 +192,14 @@ public class ClientRouter implements IRouter {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder("ServerRouter: {UUID: ");
-        string.append(getId());
-        string.append(", AT: (");
-        string.append(_xCoord);
-        string.append(", ");
-        string.append(_yCoord);
-        string.append(", ");
-        string.append(_zCoord);
-        return string.append(")").toString();
+		return "ServerRouter: {UUID: " + getId() +
+			", AT: (" +
+			_xCoord +
+			", " +
+			_yCoord +
+			", " +
+			_zCoord +
+			")";
     }
 
     @Override

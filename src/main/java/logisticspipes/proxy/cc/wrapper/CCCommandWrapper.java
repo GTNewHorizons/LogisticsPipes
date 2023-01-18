@@ -293,7 +293,7 @@ public class CCCommandWrapper implements ILuaObject {
             }
         }
         return new Object[] {
-            new StringBuilder().append(head).append(head2).append(help).toString()
+			String.valueOf(head) + head2 + help
         };
     }
 
