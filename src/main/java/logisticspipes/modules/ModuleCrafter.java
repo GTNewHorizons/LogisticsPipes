@@ -1367,10 +1367,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                             null,
                             true,
                             false);
-                    boolean defersend = false;
-                    if (reply == null || reply.bufferMode != BufferMode.NONE || reply.maxNumberOfItems < 1) {
-                        defersend = true;
-                    }
+                    boolean defersend = reply == null || reply.bufferMode != BufferMode.NONE || reply.maxNumberOfItems < 1;
                     IRoutedItem item = SimpleServiceLocator.routedItemHelper.createNewTravelItem(stackToSend);
                     item.setDestination(nextOrder.getDestination().getRouter().getSimpleID());
                     item.setTransportMode(TransportMode.Active);

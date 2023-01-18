@@ -163,11 +163,8 @@ public class GuiHandler implements IGuiHandler {
                         if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
                             return false;
                         }
-                        if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
-                            return false;
-                        }
-                        return true;
-                    });
+						return itemStack.getItemDamage() == LogisticsItemCard.FREQ_CARD;
+					});
 
                     dummy.addNormalSlotsForPlayerInventory(0, 50);
 
@@ -204,11 +201,8 @@ public class GuiHandler implements IGuiHandler {
                         if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
                             return false;
                         }
-                        if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
-                            return false;
-                        }
-                        return true;
-                    });
+						return itemStack.getItemDamage() == LogisticsItemCard.FREQ_CARD;
+					});
                     dummy.addNormalSlotsForPlayerInventory(0, 0);
 
                     return dummy;

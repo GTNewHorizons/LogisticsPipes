@@ -315,10 +315,7 @@ public class ForestryProxy implements IForestryProxy {
         if (isQueen(bee)) {
             return false;
         }
-        if (isDrone(bee)) {
-            return false;
-        }
-        return true;
+        return !isDrone(bee);
     }
 
     /**

@@ -60,14 +60,11 @@ public class PipeController extends CoordinatesGuiProvider {
                             return false;
                         }
                         if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                            if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                                    .isAllowedForPipe(pipe)) {
-                                return false;
-                            }
+                            return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+                                    .isAllowedForPipe(pipe);
                         } else {
                             return false;
                         }
-                        return true;
                     });
         }
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
@@ -81,13 +78,10 @@ public class PipeController extends CoordinatesGuiProvider {
                             if (!(upgrade instanceof SneakyUpgrade)) {
                                 return false;
                             }
-                            if (!upgrade.isAllowedForPipe(pipe)) {
-                                return false;
-                            }
+                            return upgrade.isAllowedForPipe(pipe);
                         } else {
                             return false;
                         }
-                        return true;
                     });
         }
         // TAB_2 SLOTS
@@ -106,11 +100,8 @@ public class PipeController extends CoordinatesGuiProvider {
                     if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
                         return false;
                     }
-                    if (!SimpleServiceLocator.securityStationManager.isAuthorized(
-                            UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
-                        return false;
-                    }
-                    return true;
+                    return SimpleServiceLocator.securityStationManager.isAuthorized(
+                            UUID.fromString(itemStack.getTagCompound().getString("UUID")));
                 },
                 1);
         dummy.addRestrictedSlot(0, tile.logicController.diskInv, 14, 36, LogisticsPipes.LogisticsItemDisk);

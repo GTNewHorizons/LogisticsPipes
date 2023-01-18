@@ -668,11 +668,8 @@ public class PipeTransportLogistics {
             if (tile instanceof ILogisticsPowerProvider || tile instanceof ISubSystemPowerProvider) {
                 ForgeDirection ori = OrientationsUtil.getOrientationOfTilewithTile(container, tile);
                 if (ori != null && ori != ForgeDirection.UNKNOWN) {
-                    if ((tile instanceof LogisticsPowerJunctionTileEntity || tile instanceof ISubSystemPowerProvider)
-                            && !OrientationsUtil.isSide(ori)) {
-                        return false;
-                    }
-                    return true;
+                    return (!(tile instanceof LogisticsPowerJunctionTileEntity) && !(tile instanceof ISubSystemPowerProvider))
+                            || OrientationsUtil.isSide(ori);
                 }
             }
             if (SimpleServiceLocator.betterStorageProxy.isBetterStorageCrate(tile)

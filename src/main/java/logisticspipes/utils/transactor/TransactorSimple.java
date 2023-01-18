@@ -106,9 +106,6 @@ public class TransactorSimple extends Transactor {
         if (!stack1.isItemEqual(stack2)) {
             return false;
         }
-        if (!ItemStack.areItemStackTagsEqual(stack1, stack2)) {
-            return false;
-        }
-        return true;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 }

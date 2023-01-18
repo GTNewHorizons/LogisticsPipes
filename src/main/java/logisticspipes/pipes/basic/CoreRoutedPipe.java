@@ -691,11 +691,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return false;
         }
 
-        if (tilePipe instanceof ILogisticsPowerProvider || tilePipe instanceof ISubSystemPowerProvider) {
-            return true;
-        }
-        return false;
-    }
+		return tilePipe instanceof ILogisticsPowerProvider || tilePipe instanceof ISubSystemPowerProvider;
+	}
 
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
@@ -1062,11 +1059,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return true;
         }
         if (!stillNeedReplace) {
-            if (getRouter().isSideDisconneceted(side)
-                    && !ignoreSystemDisconnection
-                    && !globalIgnoreConnectionDisconnection) {
-                return true;
-            }
+			return getRouter().isSideDisconneceted(side)
+				&& !ignoreSystemDisconnection
+				&& !globalIgnoreConnectionDisconnection;
         }
         return false;
     }
@@ -1244,9 +1239,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public boolean canBeDestroyed() {
         ISecurityProvider sec = getSecurityProvider();
         if (sec != null) {
-            if (!sec.canAutomatedDestroy()) {
-                return false;
-            }
+			return sec.canAutomatedDestroy();
         }
         return true;
     }

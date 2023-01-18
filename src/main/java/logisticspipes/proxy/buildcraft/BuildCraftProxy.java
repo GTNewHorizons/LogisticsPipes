@@ -156,14 +156,10 @@ public class BuildCraftProxy implements IBCProxy {
             }
 
             if (pipe.pipe != null && pipe.pipe.isFluidPipe()) {
-                if (!(otherPipe.transport instanceof PipeTransportItems)
-                        && !(otherPipe.transport instanceof PipeTransportFluids)) {
-                    return false;
-                }
+                return otherPipe.transport instanceof PipeTransportItems
+                        || otherPipe.transport instanceof PipeTransportFluids;
             } else {
-                if (!(otherPipe.transport instanceof PipeTransportItems)) {
-                    return false;
-                }
+                return otherPipe.transport instanceof PipeTransportItems;
             }
         }
         return true;

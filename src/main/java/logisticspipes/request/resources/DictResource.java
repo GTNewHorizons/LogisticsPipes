@@ -92,10 +92,7 @@ public class DictResource implements IResource {
         if (!stack_n.hasTagCompound() && !other_n.hasTagCompound()) {
             return true;
         }
-        if (ItemStack.areItemStackTagsEqual(stack_n, other_n)) {
-            return true;
-        }
-        return false;
+        return ItemStack.areItemStackTagsEqual(stack_n, other_n);
     }
 
     @Override

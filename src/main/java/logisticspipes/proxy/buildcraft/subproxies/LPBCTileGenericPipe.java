@@ -325,10 +325,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
 
             @Override
             public boolean isAcceptingItems(LPTravelingItemServer arrivingItem) {
-                if (plug instanceof RobotStationPluggable) {
-                    return true;
-                }
-                return false;
+                return plug instanceof RobotStationPluggable;
             }
 
             @Override

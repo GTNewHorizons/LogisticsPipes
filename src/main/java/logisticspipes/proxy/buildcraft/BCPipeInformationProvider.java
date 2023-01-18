@@ -93,27 +93,21 @@ public class BCPipeInformationProvider implements IPipeInformationProvider {
         if (pipe.pipe instanceof PipeItemsObsidian) { // Obsidian seperates networks
             return true;
         }
-        if (pipe.pipe instanceof PipeStructureCobblestone) { // don't recurse onto structure pipes.
-            return true;
-        }
-        return false;
-    }
+		// don't recurse onto structure pipes.
+		return pipe.pipe instanceof PipeStructureCobblestone;
+	}
 
     @Override
     public boolean powerOnly() {
-        if (pipe.pipe instanceof PipeItemsDiamond) { // Diamond only allows power through
-            return true;
-        }
-        return false;
-    }
+		// Diamond only allows power through
+		return pipe.pipe instanceof PipeItemsDiamond;
+	}
 
     @Override
     public boolean isOnewayPipe() {
-        if (pipe.pipe instanceof PipeItemsIron) { // Iron requests and power can come from closed sides
-            return true;
-        }
-        return false;
-    }
+		// Iron requests and power can come from closed sides
+		return pipe.pipe instanceof PipeItemsIron;
+	}
 
     @Override
     public boolean isOutputOpen(ForgeDirection direction) {

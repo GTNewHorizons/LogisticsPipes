@@ -78,10 +78,7 @@ public class LogisticsGuiOverrenderer {
         if (FMLClientHandler.instance().getClient() == null) {
             return false;
         }
-        if (!(FMLClientHandler.instance().getClient().currentScreen instanceof GuiContainer)) {
-            return false;
-        }
-        return true;
+        return FMLClientHandler.instance().getClient().currentScreen instanceof GuiContainer;
     }
 
     public void preRender() {

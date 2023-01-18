@@ -25,9 +25,7 @@ public class BinnieProxy implements IBinnieProxy {
             }
             Object m = machine.get(tile);
             Object mP = machinePackage.get(m);
-            if (mP instanceof AnalyserPackage) {
-                return true;
-            }
+            return mP instanceof AnalyserPackage;
         }
         return false;
     }

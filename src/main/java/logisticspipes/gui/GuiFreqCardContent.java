@@ -20,11 +20,8 @@ public class GuiFreqCardContent extends LogisticsBaseGuiScreen {
             if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
                 return false;
             }
-            if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
-                return false;
-            }
-            return true;
-        });
+			return itemStack.getItemDamage() == LogisticsItemCard.FREQ_CARD;
+		});
         dummy.addNormalSlotsForPlayerInventory(10, 45);
         inventorySlots = dummy;
     }

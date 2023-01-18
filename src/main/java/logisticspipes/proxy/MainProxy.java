@@ -283,9 +283,7 @@ public class MainProxy {
             }
         }
         if (toInfo != null) {
-            if (!toInfo.canConnect(from, way.getOpposite(), ignoreSystemDisconnection)) {
-                return false;
-            }
+			return toInfo.canConnect(from, way.getOpposite(), ignoreSystemDisconnection);
         }
         return true;
     }

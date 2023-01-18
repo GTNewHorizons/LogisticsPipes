@@ -23,10 +23,7 @@ public class ImmibisCraftingTableMk2 implements ICraftingRecipeProvider {
 
     @Override
     public boolean canOpenGui(TileEntity tile) {
-        if (tileAutoCraftingMk2.isInstance(tile)) {
-            return true;
-        }
-        return false;
+        return tileAutoCraftingMk2.isInstance(tile);
     }
 
     @Override

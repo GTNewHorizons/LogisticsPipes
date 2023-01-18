@@ -15,13 +15,10 @@ public class LPRoutedBCTravelingItem extends TravelingItem {
 
         @Override
         public boolean canInsertItem(TravelingItem item, IInventory inv) {
-            if (item.getItemStack() != null
-                    && item.getItemStack().getItem() instanceof IItemAdvancedExistance
-                    && !((IItemAdvancedExistance) item.getItemStack().getItem())
-                            .canExistInNormalInventory(item.getItemStack())) {
-                return false;
-            }
-            return true;
+            return item.getItemStack() == null
+                    || !(item.getItemStack().getItem() instanceof IItemAdvancedExistance)
+                    || ((IItemAdvancedExistance) item.getItemStack().getItem())
+                    .canExistInNormalInventory(item.getItemStack());
         }
     };
 
