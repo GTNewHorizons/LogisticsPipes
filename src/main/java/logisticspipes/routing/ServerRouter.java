@@ -546,18 +546,20 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         }
 
         for (CoreRoutedPipe pipe : _adjacent.keySet()) {
-            if (!adjacent.containsKey(pipe)) {
-                adjacentChanged = true;
-            }
+			if (!adjacent.containsKey(pipe)) {
+				adjacentChanged = true;
+				break;
+			}
         }
         if (_powerAdjacent != null) {
             if (power == null) {
                 adjacentChanged = true;
             } else {
                 for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : _powerAdjacent) {
-                    if (!power.contains(provider)) {
-                        adjacentChanged = true;
-                    }
+					if (!power.contains(provider)) {
+						adjacentChanged = true;
+						break;
+					}
                 }
             }
         }
@@ -566,9 +568,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 adjacentChanged = true;
             } else {
                 for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : power) {
-                    if (!_powerAdjacent.contains(provider)) {
-                        adjacentChanged = true;
-                    }
+					if (!_powerAdjacent.contains(provider)) {
+						adjacentChanged = true;
+						break;
+					}
                 }
             }
         }
@@ -577,9 +580,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 adjacentChanged = true;
             } else {
                 for (Pair<ISubSystemPowerProvider, List<IFilter>> provider : _subSystemPowerAdjacent) {
-                    if (!subSystemPower.contains(provider)) {
-                        adjacentChanged = true;
-                    }
+					if (!subSystemPower.contains(provider)) {
+						adjacentChanged = true;
+						break;
+					}
                 }
             }
         }
@@ -588,9 +592,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 adjacentChanged = true;
             } else {
                 for (Pair<ISubSystemPowerProvider, List<IFilter>> provider : subSystemPower) {
-                    if (!_subSystemPowerAdjacent.contains(provider)) {
-                        adjacentChanged = true;
-                    }
+					if (!_subSystemPowerAdjacent.contains(provider)) {
+						adjacentChanged = true;
+						break;
+					}
                 }
             }
         }

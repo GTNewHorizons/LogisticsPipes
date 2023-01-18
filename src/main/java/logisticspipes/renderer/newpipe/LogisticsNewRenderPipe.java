@@ -1148,6 +1148,7 @@ public class LogisticsNewRenderPipe {
             }
             if (mount.side == pref) {
                 found = true;
+                break;
             }
         }
         if (!found) {
