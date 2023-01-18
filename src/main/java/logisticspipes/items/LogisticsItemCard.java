@@ -20,7 +20,7 @@ public class LogisticsItemCard extends LogisticsItem implements IItemAdvancedExi
         hasSubtypes = true;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {

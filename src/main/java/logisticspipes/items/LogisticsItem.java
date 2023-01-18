@@ -42,7 +42,7 @@ public class LogisticsItem extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
         if (addShiftInfo()) {

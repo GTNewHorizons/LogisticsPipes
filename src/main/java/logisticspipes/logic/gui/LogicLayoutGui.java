@@ -93,8 +93,7 @@ public class LogicLayoutGui extends LogisticsBaseGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void initGui() {
+	public void initGui() {
         super.initGui();
         /*
         buttonList.clear();

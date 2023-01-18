@@ -218,7 +218,7 @@ public class ItemModule extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (Module module : modules) {
@@ -353,7 +353,7 @@ public class ItemModule extends LogisticsItem {
         return null;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
         if (itemStack.hasTagCompound()) {

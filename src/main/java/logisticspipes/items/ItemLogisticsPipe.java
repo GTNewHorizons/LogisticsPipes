@@ -52,7 +52,7 @@ public class ItemLogisticsPipe extends LogisticsItem {
      * shows full tooltip, without it you just get the first line.
      */
     @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flags) {
         StringUtils.addShiftAddition(stack, list);
     }

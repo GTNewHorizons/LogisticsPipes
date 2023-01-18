@@ -1161,7 +1161,6 @@ public class DevEnvHelper {
         public static Map<String, String> read(Reader r, int[] n_sides) throws IOException {
             Map<String, String> data = new HashMap<String, String>();
 
-            @SuppressWarnings("resource")
             Scanner in = new Scanner(r);
 
             in.useDelimiter(",");
@@ -1231,7 +1230,6 @@ public class DevEnvHelper {
 
             ExcFile rv = new ExcFile();
 
-            @SuppressWarnings("resource")
             Scanner in = new Scanner(r);
             while (in.hasNextLine()) {
                 String line = in.nextLine();
@@ -1304,7 +1302,6 @@ public class DevEnvHelper {
 
         /** Does not close <var>r</var>. */
         public static SrgFile read(Reader r, boolean reverse) throws IOException {
-            @SuppressWarnings("resource")
             Scanner in = new Scanner(r);
             SrgFile rv = new SrgFile();
             while (in.hasNextLine()) {

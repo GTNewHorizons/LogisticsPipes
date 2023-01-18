@@ -29,17 +29,14 @@ public class RecipeManager {
 
         public LocalCraftingManager() {}
 
-        @SuppressWarnings("unchecked")
         public void addRecipe(ItemStack stack, CraftingDependency dependent, Object... objects) {
             //			craftingManager.getRecipeList().add(new LPShapedOreRecipe(stack, dependent, objects));
         }
 
-        @SuppressWarnings("unchecked")
         public void addOrdererRecipe(ItemStack stack, String dye, ItemStack orderer) {
             //			craftingManager.getRecipeList().add(new ShapelessOrdererRecipe(stack, new Object[] {dye, orderer}));
         }
 
-        @SuppressWarnings("unchecked")
         public void addShapelessRecipe(ItemStack stack, CraftingDependency dependent, Object... objects) {
             //			craftingManager.getRecipeList().add(new LPShapelessOreRecipe(stack, dependent, objects));
         }

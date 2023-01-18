@@ -222,7 +222,7 @@ public class ItemUpgrade extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (Upgrade upgrade : upgrades) {
@@ -329,7 +329,7 @@ public class ItemUpgrade extends LogisticsItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean flag) {
         super.addInformation(stack, par2EntityPlayer, list, flag);
         IPipeUpgrade upgrade = getUpgradeForItem(stack, null);

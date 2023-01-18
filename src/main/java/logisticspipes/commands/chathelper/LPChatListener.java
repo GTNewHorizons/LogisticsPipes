@@ -122,7 +122,6 @@ public class LPChatListener {
         MainProxy.proxy.clearChat();
     }
 
-    @SuppressWarnings("unchecked")
     private void storeSendMessages() {
         MainProxy.proxy.storeSendMessages(sendChatMessages);
     }

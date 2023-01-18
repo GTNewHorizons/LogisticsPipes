@@ -102,8 +102,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    public void addCollisionBoxesToList(
+	public void addCollisionBoxesToList(
             World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist, Entity par7Entity) {
         TileEntity tile = world.getTileEntity(i, j, k);
         if (tile instanceof LogisticsTileGenericPipe
