@@ -3,12 +3,7 @@ package logisticspipes.pipes.basic;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.Callable;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
@@ -102,7 +97,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     @Override
-	public void addCollisionBoxesToList(
+    public void addCollisionBoxesToList(
             World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist, Entity par7Entity) {
         TileEntity tile = world.getTileEntity(i, j, k);
         if (tile instanceof LogisticsTileGenericPipe
@@ -238,12 +233,12 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
             AxisAlignedBB box = rayTraceResult.boundingBox;
             switch (rayTraceResult.hitPart) {
                 case Pluggable:
-				case Pipe: {
+                case Pipe: {
                     float scale = 0.001F;
                     box = box.expand(scale, scale, scale);
                     break;
                 }
-			}
+            }
             return box.getOffsetBoundingBox(x, y, z);
         }
         return super.getSelectedBoundingBoxFromPool(world, x, y, z).expand(-0.85F, -0.85F, -0.85F);
@@ -371,9 +366,9 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         }
 
         /*
-          pipe hits along x, y, and z axis, gate (all 6 sides) [and
-          wires+facades]
-         */
+         pipe hits along x, y, and z axis, gate (all 6 sides) [and
+         wires+facades]
+        */
         MovingObjectPosition[] hits = new MovingObjectPosition[31];
         AxisAlignedBB[] boxes = new AxisAlignedBB[31];
         ForgeDirection[] sideHit = new ForgeDirection[31];
@@ -516,8 +511,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         return new LogisticsTileGenericPipe();
     }
 
-    public static Map<Item, Class<? extends CoreUnroutedPipe>> pipes =
-		new HashMap<>();
+    public static Map<Item, Class<? extends CoreUnroutedPipe>> pipes = new HashMap<>();
     public static Map<LPPosition, CoreUnroutedPipe> pipeRemoved = new HashMap<>();
 
     private static long lastRemovedDate = -1;
@@ -1125,23 +1119,23 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         final CoreUnroutedPipe fPipe = pipe;
         fPipe.setPreventRemove(true);
         QueuedTasks.queueTask((Callable<Object>) () -> {
-			if (!fPipe.preventRemove()) {
-				return null;
-			}
-			boolean changed = false;
-			if (worldCache.getBlock(xCache, yCache, zCache) != LogisticsPipes.LogisticsPipeBlock) {
-				worldCache.setBlock(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
-				changed = true;
-			}
-			if (worldCache.getTileEntity(xCache, yCache, zCache) != tileCache) {
-				worldCache.setTileEntity(xCache, yCache, zCache, tileCache);
-				changed = true;
-			}
-			if (changed) {
-				worldCache.notifyBlockChange(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
-			}
-			fPipe.setPreventRemove(false);
-			return null;
-		});
+            if (!fPipe.preventRemove()) {
+                return null;
+            }
+            boolean changed = false;
+            if (worldCache.getBlock(xCache, yCache, zCache) != LogisticsPipes.LogisticsPipeBlock) {
+                worldCache.setBlock(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
+                changed = true;
+            }
+            if (worldCache.getTileEntity(xCache, yCache, zCache) != tileCache) {
+                worldCache.setTileEntity(xCache, yCache, zCache, tileCache);
+                changed = true;
+            }
+            if (changed) {
+                worldCache.notifyBlockChange(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
+            }
+            fPipe.setPreventRemove(false);
+            return null;
+        });
     }
 }

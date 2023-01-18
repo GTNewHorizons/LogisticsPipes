@@ -1,13 +1,6 @@
 package logisticspipes.network.packets.debuggui;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.util.concurrent.Callable;
+import java.io.*;
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.commands.commands.debug.DebugGuiController;
 import logisticspipes.network.LPDataInputStream;

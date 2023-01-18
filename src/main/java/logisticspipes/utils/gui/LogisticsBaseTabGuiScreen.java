@@ -20,18 +20,18 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-		for (TabSubGui tabSubGui : tabList) {
-			tabSubGui.initTab();
-		}
+        for (TabSubGui tabSubGui : tabList) {
+            tabSubGui.initTab();
+        }
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
-		for (TabSubGui tabSubGui : tabList) {
-			if (tabSubGui.isButtonFromGui(button)) {
-				tabSubGui.buttonClicked(button);
-			}
-		}
+        for (TabSubGui tabSubGui : tabList) {
+            if (tabSubGui.isButtonFromGui(button)) {
+                tabSubGui.buttonClicked(button);
+            }
+        }
     }
 
     @Override
@@ -67,10 +67,10 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
         GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 10, guiTop + 135);
 
         int x = 6;
-		for (TabSubGui tabSubGui : tabList) {
-			tabSubGui.renderIcon(guiLeft + x, guiTop + 3);
-			x += 25;
-		}
+        for (TabSubGui tabSubGui : tabList) {
+            tabSubGui.renderIcon(guiLeft + x, guiTop + 3);
+            x += 25;
+        }
 
         for (int i = 0; i < tabList.size(); i++) {
             if (current_Tab == i) {
@@ -85,7 +85,7 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
     protected void mouseClicked(int par1, int par2, int par3) {
         if (par3 == 0 && par1 > guiLeft && par1 < guiLeft + 220 && par2 > guiTop && par2 < guiTop + 20) {
             par1 -= guiLeft + 3;
-			current_Tab = Math.max(0, Math.min(par1 / 25, tabList.size() - 1));
+            current_Tab = Math.max(0, Math.min(par1 / 25, tabList.size() - 1));
         } else {
             for (int i = 0; i < tabList.size(); i++) {
                 if (current_Tab == i) {
@@ -108,9 +108,9 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
             }
         }
         if (p_73869_2_ == 1 || p_73869_2_ == mc.gameSettings.keyBindInventory.getKeyCode()) {
-			for (TabSubGui tabSubGui : tabList) {
-				tabSubGui.guiClose();
-			}
+            for (TabSubGui tabSubGui : tabList) {
+                tabSubGui.guiClose();
+            }
         }
         super.keyTyped(p_73869_1_, p_73869_2_);
     }

@@ -102,19 +102,18 @@ public class ItemRoutingInformation {
 
     @Override
     public String toString() {
-		return "(" +
-			item +
-			", " +
-			destinationint +
-			", " +
-			destinationUUID +
-			", " +
-			_transportMode +
-			", " +
-			jamlist +
-			", " +
-			delay +
-			", " +
-			tracker;
+        return "(" + item
+                + ", "
+                + destinationint
+                + ", "
+                + destinationUUID
+                + ", "
+                + _transportMode
+                + ", "
+                + jamlist
+                + ", "
+                + delay
+                + ", "
+                + tracker;
     }
 }

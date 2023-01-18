@@ -29,14 +29,14 @@ public class OrdererRefreshRequestPacket extends IntegerCoordinatesPacket {
         }
         RequestHandler.DisplayOptions option;
         switch (getInteger() % 10) {
-			case 1:
+            case 1:
                 option = RequestHandler.DisplayOptions.SupplyOnly;
                 break;
             case 2:
                 option = RequestHandler.DisplayOptions.CraftOnly;
                 break;
-			case 0:
-			default:
+            case 0:
+            default:
                 option = RequestHandler.DisplayOptions.Both;
                 break;
         }

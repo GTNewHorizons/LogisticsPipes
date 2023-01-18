@@ -1,21 +1,11 @@
 package logisticspipes.blocks.powertile;
 
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.gui.hud.HUDPowerLevel;
-import logisticspipes.interfaces.IBlockWatchingHandler;
-import logisticspipes.interfaces.IGuiOpenControler;
-import logisticspipes.interfaces.IGuiTileEntity;
-import logisticspipes.interfaces.IHeadUpDisplayBlockRendererProvider;
-import logisticspipes.interfaces.IHeadUpDisplayRenderer;
-import logisticspipes.interfaces.IPowerLevelDisplay;
-import logisticspipes.interfaces.ISubSystemPowerProvider;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
@@ -166,8 +156,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         if (sourceRouter == destinationRouter) {
             return;
         }
-        LinkedList<Triplet<IRouter, ForgeDirection, Boolean>> todo =
-                new LinkedList<>();
+        LinkedList<Triplet<IRouter, ForgeDirection, Boolean>> todo = new LinkedList<>();
         todo.add(new Triplet<>(sourceRouter, exitOrientation, addBall));
         while (!todo.isEmpty()) {
             Triplet<IRouter, ForgeDirection, Boolean> part = todo.pollFirst();

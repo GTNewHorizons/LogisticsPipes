@@ -1,29 +1,15 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import logisticspipes.LPConstants;
@@ -213,10 +199,8 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     public Map<CoreRoutedPipe, ExitRoute> _adjacent = new HashMap<>();
     public Map<IRouter, ExitRoute> _adjacentRouter = new HashMap<>();
     public Map<IRouter, ExitRoute> _adjacentRouter_Old = new HashMap<>();
-    public List<Pair<ILogisticsPowerProvider, List<IFilter>>> _powerAdjacent =
-		new ArrayList<>();
-    public List<Pair<ISubSystemPowerProvider, List<IFilter>>> _subSystemPowerAdjacent =
-		new ArrayList<>();
+    public List<Pair<ILogisticsPowerProvider, List<IFilter>>> _powerAdjacent = new ArrayList<>();
+    public List<Pair<ISubSystemPowerProvider, List<IFilter>>> _subSystemPowerAdjacent = new ArrayList<>();
 
     public boolean[] sideDisconnected = new boolean[6];
 
@@ -246,8 +230,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
             Collections.unmodifiableList(new ArrayList<>());
 
     private EnumSet<ForgeDirection> _routedExits = EnumSet.noneOf(ForgeDirection.class);
-    private EnumMap<ForgeDirection, Integer> _subPowerExits =
-		new EnumMap<>(ForgeDirection.class);
+    private EnumMap<ForgeDirection, Integer> _subPowerExits = new EnumMap<>(ForgeDirection.class);
 
     private static int firstFreeId = 1;
     private static BitSet simpleIdUsedSet = new BitSet();
@@ -319,8 +302,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         _zCoord = zCoord;
         clearPipeCache();
         _myLsa = new LSA();
-        _myLsa.neighboursWithMetric =
-			new HashMap<>();
+        _myLsa.neighboursWithMetric = new HashMap<>();
         _myLsa.power = new ArrayList<>();
         ServerRouter.SharedLSADatabasewriteLock
                 .lock(); // any time after we claim the SimpleID, the database could be accessed at that index
@@ -510,8 +492,9 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         Map<ForgeDirection, List<CoreRoutedPipe>> pipeDirections = new HashMap<>();
 
         for (Entry<CoreRoutedPipe, ExitRoute> entry : adjacent.entrySet()) {
-			List<CoreRoutedPipe> list = pipeDirections.computeIfAbsent(entry.getValue().exitOrientation, k -> new ArrayList<CoreRoutedPipe>());
-			list.add(entry.getKey());
+            List<CoreRoutedPipe> list = pipeDirections.computeIfAbsent(
+                    entry.getValue().exitOrientation, k -> new ArrayList<CoreRoutedPipe>());
+            list.add(entry.getKey());
         }
 
         for (Entry<ForgeDirection, List<CoreRoutedPipe>> entry : pipeDirections.entrySet()) {
@@ -722,11 +705,11 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         for (Entry<IRouter, ExitRoute> adjacent : _adjacentRouter.entrySet()) {
             neighboursWithMetric.put(
                     adjacent.getKey(),
-				new Quartet<>(
-					adjacent.getValue().distanceToDestination,
-					adjacent.getValue().connectionDetails,
-					adjacent.getValue().filters,
-					adjacent.getValue().blockDistance));
+                    new Quartet<>(
+                            adjacent.getValue().distanceToDestination,
+                            adjacent.getValue().connectionDetails,
+                            adjacent.getValue().filters,
+                            adjacent.getValue().blockDistance));
         }
         ArrayList<Pair<ILogisticsPowerProvider, List<IFilter>>> power = null;
         if (_powerAdjacent != null) {
@@ -786,9 +769,9 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         }
 
         /*
-          same info as above, but sorted by distance -- sorting is implicit,
-          because Dijkstra finds the closest routes first.
-         */
+         same info as above, but sorted by distance -- sorting is implicit,
+         because Dijkstra finds the closest routes first.
+        */
         List<ExitRoute> routeCosts = new ArrayList<>(routingTableSize);
 
         // Add the current Router
@@ -816,20 +799,20 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
         // space and time inefficient, a bitset with 3 bits per node would save a lot but makes the main iteration look
         // like a complete mess
-        ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet =
-			new ArrayList<>(ServerRouter.getBiggestSimpleID());
+        ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet = new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
             closedSet.add(null);
         }
 
-        ArrayList<EnumMap<PipeRoutingConnectionType, List<List<IFilter>>>> filterList = new ArrayList<>(ServerRouter.getBiggestSimpleID());
+        ArrayList<EnumMap<PipeRoutingConnectionType, List<List<IFilter>>>> filterList =
+                new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
             filterList.add(null);
         }
 
-		/* The total cost for the candidate route **/
+        /* The total cost for the candidate route **/
         PriorityQueue<ExitRoute> candidatesCost = new PriorityQueue<>((int) Math.sqrt(
-			routingTableSize)); // sqrt nodes is a good guess for the total number of candidate nodes at once.
+                routingTableSize)); // sqrt nodes is a good guess for the total number of candidate nodes at once.
 
         // Init candidates
         // the shortest way to go to an adjacent item is the adjacent item.
@@ -843,7 +826,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                         currentE.distanceToDestination,
                         currentE.connectionDetails,
                         currentE.filters,
-					new ArrayList<>(0),
+                        new ArrayList<>(0),
                         currentE.blockDistance);
                 candidatesCost.add(newER);
                 debug.newCanidate(newER);
@@ -965,27 +948,28 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                     }
                 }
             }
-			for (Entry<IRouter, Quartet<Double, EnumSet<PipeRoutingConnectionType>, List<IFilter>, Integer>> newCandidate : lsa.neighboursWithMetric.entrySet()) {
-				double candidateCost = lowestCostNode.distanceToDestination
-					+ newCandidate.getValue().getValue1();
-				int blockDistance =
-					lowestCostNode.blockDistance + newCandidate.getValue().getValue4();
-				EnumSet<PipeRoutingConnectionType> newCT = lowestCostNode.getFlags();
-				newCT.retainAll(newCandidate.getValue().getValue2());
-				if (!newCT.isEmpty()) {
-					ExitRoute next = new ExitRoute(
-						lowestCostNode.root,
-						newCandidate.getKey(),
-						candidateCost,
-						newCT,
-						lowestCostNode.filters,
-						newCandidate.getValue().getValue3(),
-						blockDistance);
-					next.debug.isTraced = lowestCostNode.debug.isTraced;
-					candidatesCost.add(next);
-					debug.newCanidate(next);
-				}
-			}
+            for (Entry<IRouter, Quartet<Double, EnumSet<PipeRoutingConnectionType>, List<IFilter>, Integer>>
+                    newCandidate : lsa.neighboursWithMetric.entrySet()) {
+                double candidateCost = lowestCostNode.distanceToDestination
+                        + newCandidate.getValue().getValue1();
+                int blockDistance =
+                        lowestCostNode.blockDistance + newCandidate.getValue().getValue4();
+                EnumSet<PipeRoutingConnectionType> newCT = lowestCostNode.getFlags();
+                newCT.retainAll(newCandidate.getValue().getValue2());
+                if (!newCT.isEmpty()) {
+                    ExitRoute next = new ExitRoute(
+                            lowestCostNode.root,
+                            newCandidate.getKey(),
+                            candidateCost,
+                            newCT,
+                            lowestCostNode.filters,
+                            newCandidate.getValue().getValue3(),
+                            blockDistance);
+                    next.debug.isTraced = lowestCostNode.debug.isTraced;
+                    candidatesCost.add(next);
+                    debug.newCanidate(next);
+                }
+            }
 
             lowestCostClosedFlags = lowestCostClosedFlags.clone();
 
@@ -1031,38 +1015,38 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         }
         routeTable.set(
                 simpleID,
-			new OneList<>(new ExitRoute(
-				this,
-				this,
-				ForgeDirection.UNKNOWN,
-				ForgeDirection.UNKNOWN,
-				0,
-				EnumSet.allOf(PipeRoutingConnectionType.class),
-				0)));
+                new OneList<>(new ExitRoute(
+                        this,
+                        this,
+                        ForgeDirection.UNKNOWN,
+                        ForgeDirection.UNKNOWN,
+                        0,
+                        EnumSet.allOf(PipeRoutingConnectionType.class),
+                        0)));
 
-		for (ExitRoute node : routeCosts) {
-			IRouter firstHop = node.root;
-			ExitRoute hop = _adjacentRouter.get(firstHop);
-			if (hop == null) {
-				continue;
-			}
-			node.root = this; // replace the root with this, rather than the first hop.
-			node.exitOrientation = hop.exitOrientation;
-			while (node.destination.getSimpleID()
-				>= routeTable.size()) { // the array will not expand, as it is init'd to contain enough elements
-				routeTable.add(null);
-			}
+        for (ExitRoute node : routeCosts) {
+            IRouter firstHop = node.root;
+            ExitRoute hop = _adjacentRouter.get(firstHop);
+            if (hop == null) {
+                continue;
+            }
+            node.root = this; // replace the root with this, rather than the first hop.
+            node.exitOrientation = hop.exitOrientation;
+            while (node.destination.getSimpleID()
+                    >= routeTable.size()) { // the array will not expand, as it is init'd to contain enough elements
+                routeTable.add(null);
+            }
 
-			List<ExitRoute> current = routeTable.get(node.destination.getSimpleID());
-			if (current != null && !current.isEmpty()) {
-				List<ExitRoute> list = new ArrayList<>();
-				list.addAll(current);
-				list.add(node);
-				routeTable.set(node.destination.getSimpleID(), Collections.unmodifiableList(list));
-			} else {
-				routeTable.set(node.destination.getSimpleID(), new OneList<>(node));
-			}
-		}
+            List<ExitRoute> current = routeTable.get(node.destination.getSimpleID());
+            if (current != null && !current.isEmpty()) {
+                List<ExitRoute> list = new ArrayList<>();
+                list.addAll(current);
+                list.add(node);
+                routeTable.set(node.destination.getSimpleID(), Collections.unmodifiableList(list));
+            } else {
+                routeTable.set(node.destination.getSimpleID(), new OneList<>(node));
+            }
+        }
         debug.stepTwoDone();
         if (!debug.independent()) {
             routingTableUpdateWriteLock.lock();
@@ -1101,7 +1085,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         for (IRouter r : _adjacentRouter.keySet()) {
             r.act(hasBeenProcessed, actor);
         }
-	}
+    }
 
     /**
      * Flags the last sent LSA as expired. Each router will be responsible of
@@ -1435,8 +1419,9 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     }
 
     private void addInterest(ItemIdentifier items) {
-		Set<IRouter> interests = ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<IRouter>());
-		interests.add(this);
+        Set<IRouter> interests =
+                ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<IRouter>());
+        interests.add(this);
     }
 
     private void removeInterest(ItemIdentifier p2) {
@@ -1566,22 +1551,21 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     @Override
     public String toString() {
-		String string = "ServerRouter: {ID: " + simpleID +
-			", UUID: " +
-			getId() +
-			", AT: (" +
-			_dimension +
-			", " +
-			_xCoord +
-			", " +
-			_yCoord +
-			", " +
-			_zCoord +
-			"), Version: " +
-			_LSAVersion +
-			"), Destroied: " +
-			isDestroied() +
-			"}";
+        String string = "ServerRouter: {ID: " + simpleID + ", UUID: "
+                + getId()
+                + ", AT: ("
+                + _dimension
+                + ", "
+                + _xCoord
+                + ", "
+                + _yCoord
+                + ", "
+                + _zCoord
+                + "), Version: "
+                + _LSAVersion
+                + "), Destroied: "
+                + isDestroied()
+                + "}";
         return string;
     }
 

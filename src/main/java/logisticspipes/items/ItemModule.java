@@ -98,10 +98,15 @@ public class ItemModule extends LogisticsItem {
             }
             try {
                 return moduleClass.getConstructor(new Class[] {}).newInstance();
-            } catch (IllegalArgumentException | InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | SecurityException e) {
+            } catch (IllegalArgumentException
+                    | InstantiationException
+                    | NoSuchMethodException
+                    | InvocationTargetException
+                    | IllegalAccessException
+                    | SecurityException e) {
                 e.printStackTrace();
             }
-			return null;
+            return null;
         }
 
         private Class<? extends LogisticsModule> getILogisticsModuleClass() {
@@ -128,7 +133,7 @@ public class ItemModule extends LogisticsItem {
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
-			}
+            }
         }
     }
 

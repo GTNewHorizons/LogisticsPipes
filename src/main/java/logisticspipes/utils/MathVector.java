@@ -82,16 +82,7 @@ public class MathVector {
 
     @Override
     public String toString() {
-        return "[" +
-			X +
-			"," +
-			Y +
-			"," +
-			Z +
-			"]" +
-			"(" +
-			abs() +
-			")";
+        return "[" + X + "," + Y + "," + Z + "]" + "(" + abs() + ")";
     }
 
     @Override

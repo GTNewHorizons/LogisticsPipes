@@ -1,19 +1,13 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.ISaveState;
@@ -255,7 +249,7 @@ public class ItemIdentifierInventory
     }
 
     public void removeListener(ISimpleInventoryEventHandler listner) {
-		_listener.remove(listner);
+        _listener.remove(listner);
     }
 
     @Override
@@ -362,7 +356,7 @@ public class ItemIdentifierInventory
                 continue;
             }
             ItemIdentifier itemId = _content.getItem();
-			_contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
+            _contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
             _contentsUndamagedSet.add(
                     itemId.getUndamaged()); // add is cheaper than check then add; it just returns false if it is
             // already there

@@ -76,8 +76,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     }
 
     protected int spaceFor(ItemIdentifier item, boolean includeInTransit, boolean addBufferSpace) {
-        Triplet<String, ItemIdentifier, Boolean> key =
-                new Triplet<>("spaceForMK3", item, addBufferSpace);
+        Triplet<String, ItemIdentifier, Boolean> key = new Triplet<>("spaceForMK3", item, addBufferSpace);
         int invSpace = super.spaceFor(item, includeInTransit);
         Object cache = _service.getCacheHolder().getCacheFor(CacheTypes.Inventory, key);
         if (cache != null) {

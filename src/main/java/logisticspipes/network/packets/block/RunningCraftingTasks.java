@@ -4,8 +4,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
 import java.util.List;
 import logisticspipes.gui.GuiStatistics;
-import logisticspipes.network.IReadListObject;
-import logisticspipes.network.IWriteListObject;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;

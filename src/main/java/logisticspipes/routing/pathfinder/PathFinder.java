@@ -1,22 +1,14 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing.pathfinder;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.asm.te.ITileEntityChangeListener;
@@ -60,7 +52,7 @@ public class PathFinder {
      * @param maxLength
      *            - The maximum recurse depth, i.e. the maximum length pipe that
      *            is supported
-	 */
+     */
     public static HashMap<CoreRoutedPipe, ExitRoute> paintAndgetConnectedRoutingPipes(
             TileEntity startPipe,
             ForgeDirection startOrientation,
@@ -241,8 +233,7 @@ public class PathFinder {
                                 (ILogisticsPowerProvider) tile, new OneList<>(startPipe.getFirewallFilter())));
                     } else {
                         powerNodes.add(new Pair<>(
-                                (ILogisticsPowerProvider) tile,
-                                Collections.unmodifiableList(new ArrayList<>(0))));
+                                (ILogisticsPowerProvider) tile, Collections.unmodifiableList(new ArrayList<>(0))));
                     }
                 }
                 if (root && tile instanceof ISubSystemPowerProvider) {
@@ -255,8 +246,7 @@ public class PathFinder {
                                 (ISubSystemPowerProvider) tile, new OneList<>(startPipe.getFirewallFilter())));
                     } else {
                         subPowerProvider.add(new Pair<>(
-                                (ISubSystemPowerProvider) tile,
-                                Collections.unmodifiableList(new ArrayList<>(0))));
+                                (ISubSystemPowerProvider) tile, Collections.unmodifiableList(new ArrayList<>(0))));
                     }
                 }
             }

@@ -75,7 +75,7 @@ public abstract class SubCommandHandler implements ICommandHandler {
         String command = args[0];
         if (command.equalsIgnoreCase("help")) {
             displayHelp(sender);
-		} else {
+        } else {
             for (ICommandHandler handler : subCommands) {
                 if (Arrays.asList(handler.getNames()).contains(command)) {
                     if (!handler.isCommandUsableBy(sender)) {

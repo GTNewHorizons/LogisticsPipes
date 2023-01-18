@@ -6,13 +6,7 @@ import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.robotics.RobotStationPluggable;
 import buildcraft.transport.TileGenericPipe;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.routing.ISpecialPipedConnection;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
@@ -31,12 +25,10 @@ public class LPRobotConnectionControl implements ISpecialPipedConnection {
 
     public static class RobotConnection {
 
-        public final Set<Pair<LPPosition, ForgeDirection>> localConnectedRobots =
-			new HashSet<>();
+        public final Set<Pair<LPPosition, ForgeDirection>> localConnectedRobots = new HashSet<>();
     }
 
-    private final Map<World, Set<Pair<LPPosition, ForgeDirection>>> globalAvailableRobots =
-		new WeakHashMap<>();
+    private final Map<World, Set<Pair<LPPosition, ForgeDirection>>> globalAvailableRobots = new WeakHashMap<>();
 
     public void addRobot(World world, LPPosition pos, ForgeDirection dir) {
         globalAvailableRobots.computeIfAbsent(world, k -> new HashSet<Pair<LPPosition, ForgeDirection>>());

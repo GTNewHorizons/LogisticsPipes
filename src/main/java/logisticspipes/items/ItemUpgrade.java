@@ -8,38 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import logisticspipes.LPConstants;
-import logisticspipes.pipes.upgrades.AdvancedSatelliteUpgrade;
-import logisticspipes.pipes.upgrades.CCRemoteControlUpgrade;
-import logisticspipes.pipes.upgrades.CombinedSneakyUpgrade;
-import logisticspipes.pipes.upgrades.CraftingByproductUpgrade;
-import logisticspipes.pipes.upgrades.CraftingCleanupUpgrade;
-import logisticspipes.pipes.upgrades.CraftingMonitoringUpgrade;
-import logisticspipes.pipes.upgrades.FluidCraftingUpgrade;
-import logisticspipes.pipes.upgrades.FuzzyUpgrade;
-import logisticspipes.pipes.upgrades.IPipeUpgrade;
-import logisticspipes.pipes.upgrades.LogicControllerUpgrade;
-import logisticspipes.pipes.upgrades.OpaqueUpgrade;
-import logisticspipes.pipes.upgrades.PatternUpgrade;
-import logisticspipes.pipes.upgrades.PowerTransportationUpgrade;
-import logisticspipes.pipes.upgrades.SpeedUpgrade;
-import logisticspipes.pipes.upgrades.UpgradeModuleUpgrade;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeDOWN;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeEAST;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeNORTH;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeSOUTH;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeUP;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeWEST;
-import logisticspipes.pipes.upgrades.power.IC2EVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2HVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2LVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2MVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.RFPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeDOWN;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeEAST;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeNORTH;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeSOUTH;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeUP;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeWEST;
+import logisticspipes.pipes.upgrades.*;
+import logisticspipes.pipes.upgrades.connection.*;
+import logisticspipes.pipes.upgrades.power.*;
+import logisticspipes.pipes.upgrades.sneaky.*;
 import logisticspipes.utils.string.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -119,10 +91,15 @@ public class ItemUpgrade extends LogisticsItem {
             }
             try {
                 return upgradeClass.getConstructor(new Class[] {}).newInstance();
-            } catch (IllegalArgumentException | InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | SecurityException e) {
+            } catch (IllegalArgumentException
+                    | InstantiationException
+                    | NoSuchMethodException
+                    | InvocationTargetException
+                    | IllegalAccessException
+                    | SecurityException e) {
                 e.printStackTrace();
             }
-			return null;
+            return null;
         }
 
         private Class<? extends IPipeUpgrade> getIPipeUpgradeClass() {

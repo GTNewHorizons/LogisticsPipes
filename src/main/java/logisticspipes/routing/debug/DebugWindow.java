@@ -1,9 +1,7 @@
 package logisticspipes.routing.debug;
 
-import java.awt.Color;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;

@@ -348,7 +348,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                         }
                         break;
                     default:
-				}
+                }
                 renderSign(pipe, pair.getValue2(), partialTickTime);
                 GL11.glPopMatrix();
             }

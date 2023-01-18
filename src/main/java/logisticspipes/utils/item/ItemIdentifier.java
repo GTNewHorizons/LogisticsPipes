@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -146,8 +146,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         @Override
         public void ensureCapacity(int damage) {
             if (holder.length() <= damage) {
-                AtomicReferenceArray<ItemIdentifier> newdamages =
-					new AtomicReferenceArray<>(getArrayLength(damage));
+                AtomicReferenceArray<ItemIdentifier> newdamages = new AtomicReferenceArray<>(getArrayLength(damage));
                 for (int i = 0; i < holder.length(); i++) {
                     newdamages.set(i, holder.get(i));
                 }
@@ -158,11 +157,11 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     // array of ItemIdentifiers for damage=0,tag=null items
     private static final ConcurrentHashMap<Item, ItemIdentifier> simpleIdentifiers =
-		new ConcurrentHashMap<>(4096, 0.5f, 1);
+            new ConcurrentHashMap<>(4096, 0.5f, 1);
 
     // array of arrays for items with damage>0 and tag==null
     private static final ConcurrentHashMap<Item, IDamagedIdentifierHolder> damageIdentifiers =
-		new ConcurrentHashMap<>(4096, 0.5f, 1);
+            new ConcurrentHashMap<>(4096, 0.5f, 1);
 
     // map for id+damage+tag -> ItemIdentifier lookup
     private static final HashMap<ItemKey, IDReference> keyRefMap = new HashMap<>(1024, 0.5f);
@@ -515,9 +514,12 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                         }
                     }
                 }
-            } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException | SecurityException ignored) {
+            } catch (NoSuchFieldException
+                    | IllegalAccessException
+                    | IllegalArgumentException
+                    | SecurityException ignored) {
             }
-			if (creativeTabName == null) {
+            if (creativeTabName == null) {
                 creativeTabName = "UNKNOWN";
             }
         }

@@ -12,10 +12,11 @@ public interface IThaumCraftProxy {
 
     List<String> getListOfTagsForStack(ItemStack stack);
 
-    @SideOnly(Side.CLIENT) void renderAspectsDown(ItemStack item, int x, int y, GuiScreen gui);
+    @SideOnly(Side.CLIENT)
+    void renderAspectsDown(ItemStack item, int x, int y, GuiScreen gui);
 
-    @SideOnly(Side.CLIENT) void renderAspectsInGrid(
-            List<String> eTags, int x, int y, int legnth, int width, GuiScreen gui);
+    @SideOnly(Side.CLIENT)
+    void renderAspectsInGrid(List<String> eTags, int x, int y, int legnth, int width, GuiScreen gui);
 
     void addCraftingRecipes(ICraftingParts parts);
 }

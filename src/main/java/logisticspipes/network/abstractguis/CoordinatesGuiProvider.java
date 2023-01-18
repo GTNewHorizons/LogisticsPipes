@@ -63,7 +63,7 @@ public abstract class CoordinatesGuiProvider extends GuiProvider {
      * @param clazz
      * @return TileEntity
      */
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public <T> T getTile(World world, Class<T> clazz) {
         if (world == null) {
             return null;
@@ -98,7 +98,7 @@ public abstract class CoordinatesGuiProvider extends GuiProvider {
     /**
      * Retrieves pipe at packet coordinates if any.
      *
-	 */
+     */
     public LogisticsTileGenericPipe getPipe(World world) {
         return getTile(world, LogisticsTileGenericPipe.class);
     }

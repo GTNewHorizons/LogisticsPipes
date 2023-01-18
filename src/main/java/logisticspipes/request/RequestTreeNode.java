@@ -60,8 +60,8 @@ public class RequestTreeNode {
         }
 
         if (requestFlags.contains(ActiveRequestType.Craft) && checkCrafting()) {
-			// crafting was able to complete
-		}
+            // crafting was able to complete
+        }
 
         // crafting is not done!
     }
@@ -161,8 +161,9 @@ public class RequestTreeNode {
     protected void checkForExtras(IResource item, HashMap<IProvide, List<IExtraPromise>> extraMap) {
         for (IExtraPromise extra : extrapromises) {
             if (item.matches(extra.getItemType(), IResource.MatchSettings.NORMAL)) {
-				List<IExtraPromise> extras = extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<IExtraPromise>());
-				extras.add(extra.copy());
+                List<IExtraPromise> extras =
+                        extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<IExtraPromise>());
+                extras.add(extra.copy());
             }
         }
         for (RequestTreeNode subNode : subRequests) {
@@ -477,18 +478,18 @@ public class RequestTreeNode {
                     cap = Math.min(
                             cap, floor + (itemsNeeded + craftersToBalance.size() - 1) / craftersToBalance.size());
 
-					for (CraftingSorterNode crafter : craftersToBalance) {
-						int request = Math.min(itemsNeeded, cap - floor);
-						if (request > 0) {
-							int craftingDone = crafter.addToWorkRequest(request);
-							itemsNeeded -= craftingDone; // ignored under-crafting
-						}
-					}
+                    for (CraftingSorterNode crafter : craftersToBalance) {
+                        int request = Math.min(itemsNeeded, cap - floor);
+                        if (request > 0) {
+                            int craftingDone = crafter.addToWorkRequest(request);
+                            itemsNeeded -= craftingDone; // ignored under-crafting
+                        }
+                    }
                 } // all craftersToBalance exhausted, or work completed.
             } // end of else more than 1 crafter at this priority
             // commit this work set.
-			// then it ran out of resources
-			craftersToBalance.removeIf(c -> c.stacksOfWorkRequested > 0 && !c.addWorkPromisesToTree());
+            // then it ran out of resources
+            craftersToBalance.removeIf(c -> c.stacksOfWorkRequested > 0 && !c.addWorkPromisesToTree());
             itemsNeeded = getMissingAmount();
 
             if (itemsNeeded <= 0) {
@@ -552,7 +553,7 @@ public class RequestTreeNode {
 
             ICraftingTemplate template = crafter.getValue1();
 
-			return getSubRequests(nCraftingSetsNeeded, template);
+            return getSubRequests(nCraftingSetsNeeded, template);
         }
 
         int addToWorkRequest(int extraWork) {
@@ -598,8 +599,7 @@ public class RequestTreeNode {
 
     private static List<Pair<ICraftingTemplate, List<IFilter>>> getCrafters(
             IResource iRequestType, List<ExitRoute> validDestinations) {
-        List<Pair<ICraftingTemplate, List<IFilter>>> crafters =
-			new ArrayList<>(validDestinations.size());
+        List<Pair<ICraftingTemplate, List<IFilter>>> crafters = new ArrayList<>(validDestinations.size());
         for (ExitRoute r : validDestinations) {
             CoreRoutedPipe pipe = r.destination.getPipe();
             if (r.containsFlag(PipeRoutingConnectionType.canRequestFrom)) {
@@ -608,8 +608,7 @@ public class RequestTreeNode {
                     if (craftable != null) {
                         for (IFilter filter : r.filters) {
                             if (filter.isBlocked() == filter.isFilteredItem(craftable.getResultItem())
-                                    || filter.blockCrafting()) {
-							}
+                                    || filter.blockCrafting()) {}
                         }
                         List<IFilter> list = new LinkedList<>();
                         list.addAll(r.filters);

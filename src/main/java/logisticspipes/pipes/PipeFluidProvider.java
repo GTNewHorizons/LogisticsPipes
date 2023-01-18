@@ -1,11 +1,7 @@
 package logisticspipes.pipes;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
 import logisticspipes.interfaces.ISpecialTankAccessHandler;
 import logisticspipes.interfaces.ISpecialTankHandler;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;

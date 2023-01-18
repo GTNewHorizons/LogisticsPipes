@@ -25,7 +25,6 @@ import logisticspipes.gui.orderer.GuiOrderer;
 import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.gui.popup.SelectItemOutOfList;
-import logisticspipes.gui.popup.SelectItemOutOfList.IHandleItemChoise;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.NewGuiHandler;
@@ -37,15 +36,7 @@ import logisticspipes.network.packets.orderer.MissingItems;
 import logisticspipes.network.packets.pipe.MostLikelyRecipeComponentsResponse;
 import logisticspipes.pipefxhandlers.Particles;
 import logisticspipes.pipefxhandlers.PipeFXRenderHandler;
-import logisticspipes.pipefxhandlers.providers.EntityBlueSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityGoldSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityGreenSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityLightGreenSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityLightRedSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityOrangeSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityRedSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityVioletSparkleFXProvider;
-import logisticspipes.pipefxhandlers.providers.EntityWhiteSparkleFXProvider;
+import logisticspipes.pipefxhandlers.providers.*;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
@@ -191,7 +182,7 @@ public class ClientProxy implements IProxy {
     /**
      * Retrieves pipe at specified coordinates if any.
      *
-	 */
+     */
     private static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null || !world.blockExists(x, y, z)) {
             return null;
@@ -295,10 +286,12 @@ public class ClientProxy implements IProxy {
                 }
                 list.add(fluid.getItemIdentifier().makeStack(1));
             }
-            SelectItemOutOfList subGui = new SelectItemOutOfList(list, slot -> MainProxy.sendPacketToServer(PacketHandler.getPacket(DummyContainerSlotClick.class)
-					.setSlotId(slotId)
-					.setStack(list.get(slot).makeNormalStack())
-					.setButton(0)));
+            SelectItemOutOfList subGui = new SelectItemOutOfList(
+                    list,
+                    slot -> MainProxy.sendPacketToServer(PacketHandler.getPacket(DummyContainerSlotClick.class)
+                            .setSlotId(slotId)
+                            .setStack(list.get(slot).makeNormalStack())
+                            .setButton(0)));
             LogisticsBaseGuiScreen gui = (LogisticsBaseGuiScreen) Minecraft.getMinecraft().currentScreen;
             if (!gui.hasSubGui()) {
                 gui.setSubGui(subGui);

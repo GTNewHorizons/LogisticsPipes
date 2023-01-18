@@ -1,17 +1,13 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.routing.debug.ExitRouteDebug;
 import net.minecraftforge.common.util.ForgeDirection;

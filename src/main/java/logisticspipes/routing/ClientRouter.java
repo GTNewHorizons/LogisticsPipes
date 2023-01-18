@@ -1,10 +1,6 @@
 package logisticspipes.routing;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.interfaces.ISubSystemPowerProvider;
@@ -192,14 +188,7 @@ public class ClientRouter implements IRouter {
 
     @Override
     public String toString() {
-		return "ServerRouter: {UUID: " + getId() +
-			", AT: (" +
-			_xCoord +
-			", " +
-			_yCoord +
-			", " +
-			_zCoord +
-			")";
+        return "ServerRouter: {UUID: " + getId() + ", AT: (" + _xCoord + ", " + _yCoord + ", " + _zCoord + ")";
     }
 
     @Override

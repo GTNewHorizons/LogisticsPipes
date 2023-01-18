@@ -1,28 +1,14 @@
 package logisticspipes.routing.debug;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.concurrent.Callable;
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.interfaces.IRoutingDebugAdapter;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateCanidatePipe;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateClearClient;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugCanidateList;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugClosedSet;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugFilters;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDoneDebug;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateInitDebug;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateSourcePipe;
+import logisticspipes.network.packets.routingdebug.*;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.ExitRoute;
@@ -56,7 +42,7 @@ public class DebugController implements IRoutingDebugAdapter {
         LOOP,
         CONTINUE,
         NOWAIT
-	}
+    }
 
     private Thread oldThread = null;
     private DebugWaitState state;
@@ -118,8 +104,7 @@ public class DebugController implements IRoutingDebugAdapter {
             LPChatListener.addTask(
                     () -> {
                         state = DebugWaitState.CONTINUE;
-                        MainProxy.sendPacketToPlayer(
-                                PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                        MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
                         return true;
                     },
                     sender);

@@ -5,7 +5,6 @@ import java.util.List;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
 import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
 import logisticspipes.proxy.object3d.interfaces.IModel3D;
 import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe.Corner;
@@ -68,19 +67,17 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
     }
 
     private void generatePipeRenderList(int texture) {
-        List<Pair<IModel3D, IIconTransformation>> objectsToRender =
-			new ArrayList<>();
+        List<Pair<IModel3D, IIconTransformation>> objectsToRender = new ArrayList<>();
 
         for (Corner corner : Corner.values()) {
             for (IModel3D model : LogisticsNewRenderPipe.corners_M.get(corner)) {
-                objectsToRender.add(
-					new Pair<>(model, LogisticsNewRenderPipe.basicTexture));
+                objectsToRender.add(new Pair<>(model, LogisticsNewRenderPipe.basicTexture));
             }
         }
 
         for (Edge edge : Edge.values()) {
-            objectsToRender.add(new Pair<>(
-				LogisticsNewRenderPipe.edges.get(edge), LogisticsNewRenderPipe.basicTexture));
+            objectsToRender.add(
+                    new Pair<>(LogisticsNewRenderPipe.edges.get(edge), LogisticsNewRenderPipe.basicTexture));
         }
 
         // ArrayList<Pair<CCModel, IconTransformation>> objectsToRender2 = new ArrayList<Pair<CCModel,
@@ -146,11 +143,11 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         switch (type) {
             case ENTITY:
-			case INVENTORY:
-			case EQUIPPED_FIRST_PERSON:
-			case EQUIPPED:
-				return true;
-			default:
+            case INVENTORY:
+            case EQUIPPED_FIRST_PERSON:
+            case EQUIPPED:
+                return true;
+            default:
                 return false;
         }
     }
@@ -164,7 +161,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         switch (type) {
             case ENTITY:
-			case INVENTORY:
+            case INVENTORY:
                 renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
                 break;
             case EQUIPPED:
@@ -181,7 +178,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
                     renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
                 }
                 break;
-			default:
+            default:
         }
     }
 }

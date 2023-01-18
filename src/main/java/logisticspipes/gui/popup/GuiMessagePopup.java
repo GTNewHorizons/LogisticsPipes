@@ -59,8 +59,8 @@ public class GuiMessagePopup extends SubGuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-		if (guibutton.id == 0) {
-			super.exitGui();
-		}
+        if (guibutton.id == 0) {
+            super.exitGui();
+        }
     }
 }

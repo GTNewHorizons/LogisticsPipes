@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.gui;
 
 import codechicken.nei.VisiblityData;
@@ -469,16 +469,16 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
         }
         boolean handledButton = false;
         if (par3 == 0) {
-			for (Object o : buttonList) {
-				GuiButton guibutton = (GuiButton) o;
-				if (guibutton.mousePressed(mc, par1, par2)) {
-					selectedButton = guibutton;
-					guibutton.func_146113_a(mc.getSoundHandler());
-					actionPerformed(guibutton);
-					handledButton = true;
-					break;
-				}
-			}
+            for (Object o : buttonList) {
+                GuiButton guibutton = (GuiButton) o;
+                if (guibutton.mousePressed(mc, par1, par2)) {
+                    selectedButton = guibutton;
+                    guibutton.func_146113_a(mc.getSoundHandler());
+                    actionPerformed(guibutton);
+                    handledButton = true;
+                    break;
+                }
+            }
         }
         if (!handledButton) {
             super.mouseClicked(par1, par2, par3);
@@ -503,12 +503,12 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     }
 
     private boolean mouseCanPressButton(int par1, int par2) {
-		for (Object o : buttonList) {
-			GuiButton guibutton = (GuiButton) o;
-			if (guibutton.mousePressed(mc, par1, par2)) {
-				return true;
-			}
-		}
+        for (Object o : buttonList) {
+            GuiButton guibutton = (GuiButton) o;
+            if (guibutton.mousePressed(mc, par1, par2)) {
+                return true;
+            }
+        }
         return false;
     }
 

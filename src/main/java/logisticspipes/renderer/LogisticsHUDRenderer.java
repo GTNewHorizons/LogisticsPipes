@@ -1,12 +1,7 @@
 package logisticspipes.renderer;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import logisticspipes.api.IHUDArmor;
 import logisticspipes.config.Configs;
 import logisticspipes.hud.HUDConfig;
@@ -49,8 +44,7 @@ public class LogisticsHUDRenderer {
     private int progress = 0;
     private long last = 0;
 
-    private ArrayList<IHeadUpDisplayBlockRendererProvider> providers =
-		new ArrayList<>();
+    private ArrayList<IHeadUpDisplayBlockRendererProvider> providers = new ArrayList<>();
 
     private List<LaserData> lasers = new ArrayList<>();
 
@@ -91,8 +85,7 @@ public class LogisticsHUDRenderer {
     }
 
     private void refreshList(double x, double y, double z) {
-        ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>> newList =
-			new ArrayList<>();
+        ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>> newList = new ArrayList<>();
         for (IRouter router : SimpleServiceLocator.routerManager.getRouters()) {
             if (router == null) {
                 continue;
@@ -107,8 +100,7 @@ public class LogisticsHUDRenderer {
                 double dis =
                         Math.hypot(pipe.getX() - x + 0.5, Math.hypot(pipe.getY() - y + 0.5, pipe.getZ() - z + 0.5));
                 if (dis < Configs.LOGISTICS_HUD_RENDER_DISTANCE && dis > 0.75) {
-                    newList.add(new Pair<>(
-						dis, (IHeadUpDisplayRendererProvider) pipe));
+                    newList.add(new Pair<>(dis, (IHeadUpDisplayRendererProvider) pipe));
                     if (!list.contains(pipe)) {
                         ((IHeadUpDisplayRendererProvider) pipe).startWatching();
                     }
@@ -461,7 +453,7 @@ public class LogisticsHUDRenderer {
                 case SOUTH:
                     GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                     break;
-				case WEST:
+                case WEST:
                     GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
                     break;
                 case UP:
@@ -470,8 +462,8 @@ public class LogisticsHUDRenderer {
                 case DOWN:
                     GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
                     break;
-				case EAST:
-				default:
+                case EAST:
+                default:
                     break;
             }
 

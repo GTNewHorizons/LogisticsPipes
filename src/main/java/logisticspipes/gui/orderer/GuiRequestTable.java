@@ -9,16 +9,11 @@ import logisticspipes.gui.popup.GuiRequestPopup;
 import logisticspipes.gui.popup.RequestMonitorPopup;
 import logisticspipes.interfaces.IChainAddList;
 import logisticspipes.interfaces.IDiskProvider;
-import logisticspipes.interfaces.ISlotClick;
 import logisticspipes.interfaces.ISpecialItemRenderer;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.ClearCraftingGridPacket;
 import logisticspipes.network.packets.block.CraftingCycleRecipe;
-import logisticspipes.network.packets.orderer.DiskRequestConectPacket;
-import logisticspipes.network.packets.orderer.OrdererRefreshRequestPacket;
-import logisticspipes.network.packets.orderer.RequestComponentPacket;
-import logisticspipes.network.packets.orderer.RequestSubmitListPacket;
-import logisticspipes.network.packets.orderer.RequestSubmitPacket;
+import logisticspipes.network.packets.orderer.*;
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.IResource;
@@ -26,15 +21,7 @@ import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.routing.order.LinkedLogisticsOrderList;
 import logisticspipes.utils.ChainAddArrayList;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiCheckBox;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.IItemSearch;
-import logisticspipes.utils.gui.ISubGuiControler;
-import logisticspipes.utils.gui.ItemDisplay;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SearchBar;
-import logisticspipes.utils.gui.SmallGuiButton;
+import logisticspipes.utils.gui.*;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -211,9 +198,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     @Override
     public void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-		for (GuiButton sycleButton : sycleButtons) {
-			sycleButton.visible = _table.targetType != null;
-		}
+        for (GuiButton sycleButton : sycleButtons) {
+            sycleButton.visible = _table.targetType != null;
+        }
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right - (showRequest ? 0 : 105), bottom, zLevel, true);
 
         drawRect(guiLeft + 162, guiTop + 23, guiLeft + 182, guiTop + 43, Color.BLACK);
@@ -266,8 +253,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 handledExtention.set(entry.getKey());
                 extentionControllerLeft.addExtention(new GuiExtention() {
 
-                    private Map<Pair<Integer, Integer>, IOrderInfoProvider> ordererPosition =
-						new HashMap<>();
+                    private Map<Pair<Integer, Integer>, IOrderInfoProvider> ordererPosition = new HashMap<>();
                     private int height;
                     private int width = 4;
                     private GuiButton localControlledButton;
@@ -605,7 +591,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     size -= toUse;
                 }
             }
-			list.removeIf(itemIdentifierStack -> itemIdentifierStack.getStackSize() <= 0);
+            list.removeIf(itemIdentifierStack -> itemIdentifierStack.getStackSize() <= 0);
             if (!list.isEmpty()) {
                 MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSubmitListPacket.class)
                         .setIdentList(list)
@@ -665,8 +651,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         // Enchantment? Enchantment!
         Map<Integer, Integer> enchantIdLvlMap = EnchantmentHelper.getEnchantments(item.unsafeMakeNormalStack(1));
         for (Entry<Integer, Integer> e : enchantIdLvlMap.entrySet()) {
-            if (e.getKey() < Enchantment.enchantmentsList.length
-                    && Enchantment.enchantmentsList[e.getKey()] != null) {
+            if (e.getKey() < Enchantment.enchantmentsList.length && Enchantment.enchantmentsList[e.getKey()] != null) {
                 String enchantname = Enchantment.enchantmentsList[e.getKey()].getTranslatedName(e.getValue());
                 if (enchantname != null) {
                     if (isSearched(

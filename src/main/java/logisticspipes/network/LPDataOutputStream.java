@@ -5,12 +5,7 @@ import io.netty.buffer.ByteBufOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.List;
-import logisticspipes.interfaces.routing.IFilter;
+import java.util.*;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.request.resources.ResourceNetwork;
 import logisticspipes.routing.ExitRoute;
@@ -151,9 +146,9 @@ public class LPDataOutputStream extends DataOutputStream {
 
     public <T> void writeList(List<T> list, IWriteListObject<T> handler) throws IOException {
         writeInt(list.size());
-		for (T t : list) {
-			handler.writeObject(this, t);
-		}
+        for (T t : list) {
+            handler.writeObject(this, t);
+        }
     }
 
     public <T> void writeCollection(Collection<T> collection, IWriteListObject<T> handler) throws IOException {

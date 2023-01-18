@@ -1,9 +1,8 @@
 package logisticspipes.utils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.NotNull;
 
 public class DelayedGeneric<T> implements Delayed {
 

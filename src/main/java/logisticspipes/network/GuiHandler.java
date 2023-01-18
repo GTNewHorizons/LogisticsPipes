@@ -2,46 +2,24 @@ package logisticspipes.network;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import logisticspipes.LogisticsPipes;
-import logisticspipes.gui.GuiFirewall;
-import logisticspipes.gui.GuiFluidBasic;
-import logisticspipes.gui.GuiFluidSupplierMk2Pipe;
-import logisticspipes.gui.GuiFluidSupplierPipe;
-import logisticspipes.gui.GuiFreqCardContent;
-import logisticspipes.gui.GuiInvSysConnector;
-import logisticspipes.gui.GuiProviderPipe;
-import logisticspipes.gui.GuiSatellitePipe;
+import logisticspipes.gui.*;
 import logisticspipes.gui.hud.GuiHUDSettings;
 import logisticspipes.gui.orderer.FluidGuiOrderer;
 import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.gui.orderer.NormalGuiOrderer;
 import logisticspipes.gui.orderer.NormalMk2GuiOrderer;
 import logisticspipes.interfaces.IGuiOpenControler;
-import logisticspipes.interfaces.ISlotCheck;
-import logisticspipes.interfaces.ISlotClick;
 import logisticspipes.items.LogisticsItemCard;
 import logisticspipes.network.packets.pipe.FluidSupplierMinMode;
 import logisticspipes.network.packets.pipe.FluidSupplierMode;
 import logisticspipes.network.packets.pipe.InvSysConResistance;
-import logisticspipes.pipes.PipeBlockRequestTable;
-import logisticspipes.pipes.PipeFluidBasic;
-import logisticspipes.pipes.PipeFluidRequestLogistics;
-import logisticspipes.pipes.PipeFluidSatellite;
-import logisticspipes.pipes.PipeFluidSupplierMk2;
-import logisticspipes.pipes.PipeItemsFirewall;
-import logisticspipes.pipes.PipeItemsFluidSupplier;
-import logisticspipes.pipes.PipeItemsInvSysConnector;
-import logisticspipes.pipes.PipeItemsProviderLogistics;
-import logisticspipes.pipes.PipeItemsRequestLogisticsMk2;
-import logisticspipes.pipes.PipeItemsSatelliteLogistics;
-import logisticspipes.pipes.PipeItemsSystemDestinationLogistics;
-import logisticspipes.pipes.PipeItemsSystemEntranceLogistics;
+import logisticspipes.pipes.*;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -293,7 +271,9 @@ public class GuiHandler implements IGuiHandler {
                         }
                     }
                     dummy.addCallableSlotHandler(
-                            0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, () -> ((PipeBlockRequestTable) fpipe.pipe).getResultForClick());
+                            0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, () -> ((PipeBlockRequestTable)
+                                            fpipe.pipe)
+                                    .getResultForClick());
                     dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).toSortInv, 0, 0);
                     dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).diskInv, 0, 0);
                     dummy.addNormalSlotsForPlayerInventory(0, 0);

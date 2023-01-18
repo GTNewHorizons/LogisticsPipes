@@ -121,8 +121,7 @@ public class ServerProxy implements IProxy {
             if (item.itemDamage == 0) {
                 category = "itemNames." + Item.getIdFromItem(item.item);
             } else {
-                category = "itemNames." + Item.getIdFromItem(item.item) + "."
-                        + item.itemDamage;
+                category = "itemNames." + Item.getIdFromItem(item.item) + "." + item.itemDamage;
             }
         }
         String name = getNameForCategory(category, item);
@@ -149,8 +148,7 @@ public class ServerProxy implements IProxy {
             if (item.itemDamage == 0) {
                 category = "itemNames." + Item.getIdFromItem(item.item);
             } else {
-                category = "itemNames." + Item.getIdFromItem(item.item) + "."
-                        + item.itemDamage;
+                category = "itemNames." + Item.getIdFromItem(item.item) + "." + item.itemDamage;
             }
         }
         setNameForCategory(category, item, name);
@@ -214,7 +212,7 @@ public class ServerProxy implements IProxy {
     /**
      * Retrieves pipe at specified coordinates if any.
      *
-	 */
+     */
     protected static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null) {
             return null;

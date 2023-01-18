@@ -17,8 +17,7 @@ public interface ILegacyActiveModule {
 
     void canProvide(RequestTreeNode tree, RequestTree root, List<IFilter> filter);
 
-    LogisticsOrder fullFill(
-            LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info);
+    LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info);
 
     void getAllItems(Map<ItemIdentifier, Integer> list, List<IFilter> filter);
 }

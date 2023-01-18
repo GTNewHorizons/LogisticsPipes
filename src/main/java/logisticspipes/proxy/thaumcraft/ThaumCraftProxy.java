@@ -199,7 +199,9 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     public void addCraftingRecipes(ICraftingParts parts) {
         if (!Configs.ENABLE_BETA_RECIPES) {
             CraftingManager.getInstance()
-                    .addRecipe(new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK), "wGe",
+                    .addRecipe(
+                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK),
+                            "wGe",
                             "rBr",
                             "fra",
                             'w',
@@ -219,7 +221,9 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
         }
         if (Configs.ENABLE_BETA_RECIPES) {
             CraftingManager.getInstance()
-                    .addRecipe(new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK), "wGe",
+                    .addRecipe(
+                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK),
+                            "wGe",
                             "rBr",
                             "fra",
                             'w',
@@ -231,7 +235,8 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
                             'a',
                             new ItemStack(itemShard, 1, 0),
                             'G',
-                            new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER),
+                            new ItemStack(
+                                    LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER),
                             'r',
                             Items.redstone,
                             'B',

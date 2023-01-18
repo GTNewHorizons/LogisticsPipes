@@ -4,7 +4,6 @@ import logisticspipes.pipes.PipeItemsFirewall;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
-import logisticspipes.utils.gui.GuiStringHandlerButton.StringHandler;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
 import net.minecraft.client.gui.GuiButton;
@@ -36,16 +35,16 @@ public class GuiFirewall extends LogisticsBaseGuiScreen {
         buttonList.clear();
         final String blocked = StringUtils.translate(GuiFirewall.PREFIX + "Blocked");
         final String allowed = StringUtils.translate(GuiFirewall.PREFIX + "Allowed");
-        buttonList.add(
-                new GuiStringHandlerButton(0, width / 2 + 23, height / 2 + 27 - 139, 60, 20, () -> pipe.isBlocking() ? blocked : allowed));
-        buttonList.add(
-                new GuiStringHandlerButton(1, width / 2 + 23, height / 2 + 60 - 139, 60, 20, () -> pipe.isBlockProvider() ? blocked : allowed));
-        buttonList.add(
-                new GuiStringHandlerButton(2, width / 2 + 23, height / 2 + 93 - 139, 60, 20, () -> pipe.isBlockCrafer() ? blocked : allowed));
-        buttonList.add(
-                new GuiStringHandlerButton(3, width / 2 + 23, height / 2 + 126 - 139, 60, 20, () -> pipe.isBlockSorting() ? blocked : allowed));
-        buttonList.add(
-                new GuiStringHandlerButton(4, width / 2 + 23, height / 2 + 160 - 139, 60, 20, () -> pipe.isBlockPower() ? blocked : allowed));
+        buttonList.add(new GuiStringHandlerButton(
+                0, width / 2 + 23, height / 2 + 27 - 139, 60, 20, () -> pipe.isBlocking() ? blocked : allowed));
+        buttonList.add(new GuiStringHandlerButton(
+                1, width / 2 + 23, height / 2 + 60 - 139, 60, 20, () -> pipe.isBlockProvider() ? blocked : allowed));
+        buttonList.add(new GuiStringHandlerButton(
+                2, width / 2 + 23, height / 2 + 93 - 139, 60, 20, () -> pipe.isBlockCrafer() ? blocked : allowed));
+        buttonList.add(new GuiStringHandlerButton(
+                3, width / 2 + 23, height / 2 + 126 - 139, 60, 20, () -> pipe.isBlockSorting() ? blocked : allowed));
+        buttonList.add(new GuiStringHandlerButton(
+                4, width / 2 + 23, height / 2 + 160 - 139, 60, 20, () -> pipe.isBlockPower() ? blocked : allowed));
     }
 
     @Override

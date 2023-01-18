@@ -128,10 +128,11 @@ public class ClientPacketBufferHandlerThread {
         public void clear() {
             clear = true;
             new Thread(() -> {
-				clearLock.lock();
-				clientList.clear();
-				clearLock.unlock();
-			}).start();
+                        clearLock.lock();
+                        clientList.clear();
+                        clearLock.unlock();
+                    })
+                    .start();
         }
     }
 
@@ -144,11 +145,9 @@ public class ClientPacketBufferHandlerThread {
         // decompressed serialized S->C data
         private byte[] ByteBuffer = new byte[] {};
         // FIFO for deserialized S->C packets, decompressor adds, tickEnd removes
-        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer =
-			new LinkedList<>();
+        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer = new LinkedList<>();
         // List of packets that that should be reattempted to apply in the next tick
-        private final LinkedList<Pair<EntityPlayer, ModernPacket>> retryPackets =
-			new LinkedList<>();
+        private final LinkedList<Pair<EntityPlayer, ModernPacket>> retryPackets = new LinkedList<>();
         // Clear content on next tick
         private boolean clear = false;
 

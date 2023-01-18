@@ -1,11 +1,6 @@
 package logisticspipes.request;
 
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IProvide;
 import logisticspipes.interfaces.routing.IRequestFluid;
@@ -92,8 +87,7 @@ public class RequestTree extends RequestTreeNode {
     }
 
     protected void promiseAdded(IPromise promise) {
-        FinalPair<IProvide, ItemIdentifier> key =
-			new FinalPair<>(promise.getProvider(), promise.getItemType());
+        FinalPair<IProvide, ItemIdentifier> key = new FinalPair<>(promise.getProvider(), promise.getItemType());
         if (_promisetotals == null) {
             _promisetotals = new HashMap<>();
         }
@@ -101,8 +95,7 @@ public class RequestTree extends RequestTreeNode {
     }
 
     protected void promiseRemoved(IPromise promise) {
-        FinalPair<IProvide, ItemIdentifier> key =
-			new FinalPair<>(promise.getProvider(), promise.getItemType());
+        FinalPair<IProvide, ItemIdentifier> key = new FinalPair<>(promise.getProvider(), promise.getItemType());
         int r = getExistingPromisesFor(key) - promise.getAmount();
         if (r == 0) {
             _promisetotals.remove(key);

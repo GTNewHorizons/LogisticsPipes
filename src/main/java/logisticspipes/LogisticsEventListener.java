@@ -9,13 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import logisticspipes.config.Configs;
 import logisticspipes.config.PlayerConfig;
@@ -34,11 +28,7 @@ import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.LogisticsGuiOverrenderer;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.ticks.VersionChecker;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.PlayerIdentifier;
-import logisticspipes.utils.QuickSortChestMarkerStorage;
-import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,9 +54,8 @@ import net.minecraftforge.event.world.WorldEvent;
 public class LogisticsEventListener {
 
     public static final WeakHashMap<EntityPlayer, List<WeakReference<ModuleQuickSort>>> chestQuickSortConnection =
-		new WeakHashMap<>();
-    public static Map<ChunkCoordIntPair, PlayerCollectionList> watcherList =
-		new ConcurrentHashMap<>();
+            new WeakHashMap<>();
+    public static Map<ChunkCoordIntPair, PlayerCollectionList> watcherList = new ConcurrentHashMap<>();
     int taskCount = 0;
     public static Map<PlayerIdentifier, PlayerConfig> playerConfigs = new HashMap<>();
 
@@ -137,7 +126,7 @@ public class LogisticsEventListener {
                                     for (int i = 0; i < chassi.getChassiSize(); i++) {
                                         if (chassi.getLogisticsModule().getSubModule(i) instanceof ModuleQuickSort) {
                                             list.add(new WeakReference<>((ModuleQuickSort)
-												chassi.getLogisticsModule().getSubModule(i)));
+                                                    chassi.getLogisticsModule().getSubModule(i)));
                                         }
                                     }
                                 }
@@ -283,39 +272,39 @@ public class LogisticsEventListener {
 
         if (Configs.CHECK_FOR_UPDATES) {
             LogisticsPipes.singleThreadExecutor.execute(() -> {
-				// try to get player entity ten times, once a second
-				int times = 0;
-				EntityClientPlayerMP playerEntity;
-				do {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						return;
-					}
-					playerEntity = FMLClientHandler.instance().getClientPlayerEntity();
-					++times;
-				} while (playerEntity == null && times <= 10);
+                // try to get player entity ten times, once a second
+                int times = 0;
+                EntityClientPlayerMP playerEntity;
+                do {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    playerEntity = FMLClientHandler.instance().getClientPlayerEntity();
+                    ++times;
+                } while (playerEntity == null && times <= 10);
 
-				if (times > 10) {
-					return;
-				}
-				assert playerEntity != null;
+                if (times > 10) {
+                    return;
+                }
+                assert playerEntity != null;
 
-				VersionChecker checker = LogisticsPipes.versionChecker;
+                VersionChecker checker = LogisticsPipes.versionChecker;
 
-				// send player message
-				String versionMessage = checker.getVersionCheckerStatus();
+                // send player message
+                String versionMessage = checker.getVersionCheckerStatus();
 
-				if (checker.isVersionCheckDone()
-						&& checker.getVersionInfo().isNewVersionAvailable()
-						&& !checker.getVersionInfo().isImcMessageSent()) {
-					playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
-					playerEntity.addChatComponentMessage(
-							new ChatComponentText("Use \"/logisticspipes changelog\" to see a changelog."));
-				} else if (!checker.isVersionCheckDone()) {
-					playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
-				}
-			});
+                if (checker.isVersionCheckDone()
+                        && checker.getVersionInfo().isNewVersionAvailable()
+                        && !checker.getVersionInfo().isImcMessageSent()) {
+                    playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
+                    playerEntity.addChatComponentMessage(
+                            new ChatComponentText("Use \"/logisticspipes changelog\" to see a changelog."));
+                } else if (!checker.isVersionCheckDone()) {
+                    playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
+                }
+            });
         }
     }
 

@@ -9,5 +9,6 @@ public interface IIronChestProxy {
 
     boolean isIronChest(TileEntity tile);
 
-    @SideOnly(Side.CLIENT) boolean isChestGui(GuiScreen gui);
+    @SideOnly(Side.CLIENT)
+    boolean isChestGui(GuiScreen gui);
 }

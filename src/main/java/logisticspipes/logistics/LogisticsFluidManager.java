@@ -47,10 +47,10 @@ public class LogisticsFluidManager implements ILogisticsFluidManager {
 
             int amount = ((IFluidSink) pipe).sinkAmount(stack);
             if (amount > 0) {
-				return new Pair<Integer, Integer>(candidateRouter.destination.getSimpleID(), amount);
+                return new Pair<Integer, Integer>(candidateRouter.destination.getSimpleID(), amount);
             }
         }
-		return new Pair<Integer, Integer>(0, 0);
+        return new Pair<Integer, Integer>(0, 0);
     }
 
     @Override

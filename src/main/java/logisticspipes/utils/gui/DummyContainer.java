@@ -1,15 +1,14 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.gui;
 
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Iterator;
 import java.util.List;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
@@ -79,7 +78,7 @@ public class DummyContainer extends Container {
     /***
      * Adds all slots for the player inventory and hotbar
      *
-	 */
+     */
     public void addNormalSlotsForPlayerInventory(int xOffset, int yOffset) {
         if (_playerInventory == null) {
             return;
@@ -289,30 +288,30 @@ public class DummyContainer extends Container {
                     itemstack3 = inventoryplayer.getItemStack().copy();
                     i1 = inventoryplayer.getItemStack().stackSize;
 
-					for (Object o : field_94537_h) {
-						Slot slot1 = (Slot) o;
+                    for (Object o : field_94537_h) {
+                        Slot slot1 = (Slot) o;
 
-						if (slot1 != null
-							&& Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
-							&& slot1.isItemValid(inventoryplayer.getItemStack())
-							&& inventoryplayer.getItemStack().stackSize >= field_94537_h.size()
-							&& canDragIntoSlot(slot1)) {
-							ItemStack itemstack1 = itemstack3.copy();
-							int j1 = slot1.getHasStack() ? slot1.getStack().stackSize : 0;
-							Container.func_94525_a(field_94537_h, field_94535_f, itemstack1, j1);
+                        if (slot1 != null
+                                && Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
+                                && slot1.isItemValid(inventoryplayer.getItemStack())
+                                && inventoryplayer.getItemStack().stackSize >= field_94537_h.size()
+                                && canDragIntoSlot(slot1)) {
+                            ItemStack itemstack1 = itemstack3.copy();
+                            int j1 = slot1.getHasStack() ? slot1.getStack().stackSize : 0;
+                            Container.func_94525_a(field_94537_h, field_94535_f, itemstack1, j1);
 
-							if (itemstack1.stackSize > itemstack1.getMaxStackSize()) {
-								itemstack1.stackSize = itemstack1.getMaxStackSize();
-							}
+                            if (itemstack1.stackSize > itemstack1.getMaxStackSize()) {
+                                itemstack1.stackSize = itemstack1.getMaxStackSize();
+                            }
 
-							if (itemstack1.stackSize > slot1.getSlotStackLimit()) {
-								itemstack1.stackSize = slot1.getSlotStackLimit();
-							}
+                            if (itemstack1.stackSize > slot1.getSlotStackLimit()) {
+                                itemstack1.stackSize = slot1.getSlotStackLimit();
+                            }
 
-							i1 -= itemstack1.stackSize - j1;
-							slot1.putStack(itemstack1);
-						}
-					}
+                            i1 -= itemstack1.stackSize - j1;
+                            slot1.putStack(itemstack1);
+                        }
+                    }
 
                     itemstack3.stackSize = i1;
 
@@ -809,7 +808,7 @@ public class DummyContainer extends Container {
         if (slot instanceof DummySlot) {
             ((DummySlot) slot).setRedirectCall(false);
         }
-	}
+    }
 
     @Override
     public void onContainerClosed(EntityPlayer par1EntityPlayer) {
@@ -930,19 +929,19 @@ public class DummyContainer extends Container {
                 itemstack1 = itemstack == null ? null : itemstack.copy();
                 inventoryItemStacks.set(i, itemstack1);
 
-				for (Object crafter : crafters) {
-					boolean revert = false;
-					if (overrideMCAntiSend
-						&& crafter instanceof EntityPlayerMP
-						&& ((EntityPlayerMP) crafter).isChangingQuantityOnly) {
-						((EntityPlayerMP) crafter).isChangingQuantityOnly = false;
-						revert = true;
-					}
-					((ICrafting) crafter).sendSlotContents(this, i, itemstack1);
-					if (revert) {
-						((EntityPlayerMP) crafter).isChangingQuantityOnly = true;
-					}
-				}
+                for (Object crafter : crafters) {
+                    boolean revert = false;
+                    if (overrideMCAntiSend
+                            && crafter instanceof EntityPlayerMP
+                            && ((EntityPlayerMP) crafter).isChangingQuantityOnly) {
+                        ((EntityPlayerMP) crafter).isChangingQuantityOnly = false;
+                        revert = true;
+                    }
+                    ((ICrafting) crafter).sendSlotContents(this, i, itemstack1);
+                    if (revert) {
+                        ((EntityPlayerMP) crafter).isChangingQuantityOnly = true;
+                    }
+                }
             }
         }
         overrideMCAntiSend = false;

@@ -279,8 +279,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
                 }
                 double distanceToItem = ((distance * 3) + 21) + mindis;
                 if (result == null || result.getValue1() > distanceToItem) {
-                    result = new Pair<>(
-                            distanceToItem, (LogisticsRoutingBoardRobot) connectedRobot.getBoard());
+                    result = new Pair<>(distanceToItem, (LogisticsRoutingBoardRobot) connectedRobot.getBoard());
                 }
             }
         }

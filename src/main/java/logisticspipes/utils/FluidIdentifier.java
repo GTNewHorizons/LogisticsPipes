@@ -1,11 +1,6 @@
 package logisticspipes.utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -19,12 +14,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.*;
 
 public class FluidIdentifier implements ILPCCTypeHolder {
 
@@ -33,8 +23,7 @@ public class FluidIdentifier implements ILPCCTypeHolder {
     private static final Lock wlock = FluidIdentifier.dblock.writeLock();
 
     // map uniqueID -> FluidIdentifier
-    private static final HashMap<Integer, FluidIdentifier> _fluidIdentifierIdCache =
-            new HashMap<>(256, 0.5f);
+    private static final HashMap<Integer, FluidIdentifier> _fluidIdentifierIdCache = new HashMap<>(256, 0.5f);
 
     // for fluids with tags, map fluidID -> map tag -> FluidIdentifier
     private static final ArrayList<HashMap<FinalNBTTagCompound, FluidIdentifier>> _fluidIdentifierTagCache =

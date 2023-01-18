@@ -15,11 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.ManagedPeripheral;
-import li.cil.oc.api.network.Message;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.SidedEnvironment;
+import li.cil.oc.api.network.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
@@ -48,12 +44,8 @@ import logisticspipes.renderer.LogisticsTileRenderController;
 import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
 import logisticspipes.transport.LPTravelingItem;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.OrientationsUtil;
-import logisticspipes.utils.StackTraceUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.StackTraceUtil.Info;
-import logisticspipes.utils.TileBuffer;
-import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
@@ -370,9 +362,8 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (pipe != null) {
             pipe.readFromNBT(nbt);
         } else {
-			LogisticsPipes.log.log(
-				Level.WARN, "Pipe failed to load from NBT at {},{},{}", xCoord, yCoord, zCoord);
-			deletePipe = true;
+            LogisticsPipes.log.log(Level.WARN, "Pipe failed to load from NBT at {},{},{}", xCoord, yCoord, zCoord);
+            deletePipe = true;
         }
 
         tilePart.readFromNBT_LP(nbt);
@@ -718,8 +709,9 @@ public class LogisticsTileGenericPipe extends TileEntity
         blockType = getBlockType();
 
         if (pipe == null) {
-			LogisticsPipes.log.log(Level.WARN, "Pipe failed to initialize at {},{},{}, deleting", xCoord, yCoord, zCoord);
-			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            LogisticsPipes.log.log(
+                    Level.WARN, "Pipe failed to initialize at {},{},{}, deleting", xCoord, yCoord, zCoord);
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             return;
         }
 

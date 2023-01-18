@@ -37,18 +37,18 @@ public class FluidContainerRenderer implements IItemRenderer {
             if (item.getItem() instanceof LogisticsFluidContainer) {
                 switch (type) {
                     case ENTITY:
-					case INVENTORY:
-						return true;
-					default:
+                    case INVENTORY:
+                        return true;
+                    default:
                         return false;
                 }
             }
             if (item.getItem() instanceof LogisticsItemCard) {
-				if (type == ItemRenderType.INVENTORY) {
-					return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-				}
-				return false;
-			}
+                if (type == ItemRenderType.INVENTORY) {
+                    return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+                }
+                return false;
+            }
         }
         return false;
     }

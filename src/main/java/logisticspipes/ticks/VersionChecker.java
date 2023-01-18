@@ -96,10 +96,10 @@ public final class VersionChecker implements Callable<VersionChecker.VersionInfo
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         InputStream inputStream = (InputStream) conn.getContent();
         String jsonString;
-		try (Scanner sc = new Scanner(inputStream)) {
-			sc.useDelimiter("\\A");
-			jsonString = sc.next();
-		}
+        try (Scanner sc = new Scanner(inputStream)) {
+            sc.useDelimiter("\\A");
+            jsonString = sc.next();
+        }
 
         Gson gson = new Gson();
         LinkedTreeMap part = gson.fromJson(jsonString, LinkedTreeMap.class);

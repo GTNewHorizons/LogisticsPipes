@@ -3,8 +3,6 @@ package logisticspipes.network.packets.orderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import logisticspipes.network.IReadListObject;
-import logisticspipes.network.IWriteListObject;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;

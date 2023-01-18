@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.proxy;
 
 import java.util.LinkedList;
@@ -12,25 +12,7 @@ import logisticspipes.interfaces.ISecurityStationManager;
 import logisticspipes.interfaces.routing.IDirectConnectionManager;
 import logisticspipes.logistics.ILogisticsFluidManager;
 import logisticspipes.logistics.ILogisticsManager;
-import logisticspipes.proxy.interfaces.IBCProxy;
-import logisticspipes.proxy.interfaces.IBetterStorageProxy;
-import logisticspipes.proxy.interfaces.IBinnieProxy;
-import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.interfaces.ICCProxy;
-import logisticspipes.proxy.interfaces.ICoFHPowerProxy;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.proxy.interfaces.IEnderIOProxy;
-import logisticspipes.proxy.interfaces.IEnderStorageProxy;
-import logisticspipes.proxy.interfaces.IExtraCellsProxy;
-import logisticspipes.proxy.interfaces.IFactorizationProxy;
-import logisticspipes.proxy.interfaces.IForestryProxy;
-import logisticspipes.proxy.interfaces.IIC2Proxy;
-import logisticspipes.proxy.interfaces.IIronChestProxy;
-import logisticspipes.proxy.interfaces.INEIProxy;
-import logisticspipes.proxy.interfaces.IOpenComputersProxy;
-import logisticspipes.proxy.interfaces.IThaumCraftProxy;
-import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
-import logisticspipes.proxy.interfaces.IToolWrenchProxy;
+import logisticspipes.proxy.interfaces.*;
 import logisticspipes.proxy.progressprovider.MachineProgressProvider;
 import logisticspipes.proxy.specialconnection.SpecialPipeConnection;
 import logisticspipes.proxy.specialconnection.SpecialTileConnection;
@@ -48,7 +30,7 @@ public final class SimpleServiceLocator {
 
     private SimpleServiceLocator() {}
 
-	public static IBCProxy buildCraftProxy = null;
+    public static IBCProxy buildCraftProxy = null;
 
     public static void setBuildCraftProxy(final IBCProxy bcProxy) {
         SimpleServiceLocator.buildCraftProxy = bcProxy;
@@ -108,8 +90,7 @@ public final class SimpleServiceLocator {
         SimpleServiceLocator.inventoryUtilFactory = invUtilFactory;
     }
 
-    public static LinkedList<ICraftingRecipeProvider> craftingRecipeProviders =
-            new LinkedList<>();
+    public static LinkedList<ICraftingRecipeProvider> craftingRecipeProviders = new LinkedList<>();
 
     public static void addCraftingRecipeProvider(ICraftingRecipeProvider provider) {
         SimpleServiceLocator.craftingRecipeProviders.add(provider);

@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
 import java.util.ArrayList;
@@ -255,8 +255,8 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     @CCCommand(description = "Asks for all craftable ItemIdentifier inside the Logistics Network")
     @CCQueued
     public List<ItemIdentifier> getCraftableItems() {
-		return SimpleServiceLocator.logisticsManager.getCraftableItems(
-				getRouter().getIRoutersByCost());
+        return SimpleServiceLocator.logisticsManager.getCraftableItems(
+                getRouter().getIRoutersByCost());
     }
 
     @CCCommand(description = "Asks for the amount of an ItemIdentifier Id inside the Logistics Network")

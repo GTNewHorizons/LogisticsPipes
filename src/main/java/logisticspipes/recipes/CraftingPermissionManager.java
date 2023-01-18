@@ -1,11 +1,6 @@
 package logisticspipes.recipes;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class CraftingPermissionManager {
 
-    private Map<PlayerIdentifier, Pair<Long, EnumSet<CraftingDependency>>> serverCache =
-            new HashMap<>();
+    private Map<PlayerIdentifier, Pair<Long, EnumSet<CraftingDependency>>> serverCache = new HashMap<>();
     private int tick = 0;
     public EnumSet<CraftingDependency> clientSidePermission;
 
@@ -88,10 +82,7 @@ public class CraftingPermissionManager {
             }
             serverCache.put(player, new Pair<>(System.currentTimeMillis(), enumSet));
         } catch (Exception e) {
-            serverCache.put(
-                    player,
-                    new Pair<>(
-                            System.currentTimeMillis(), EnumSet.of(CraftingDependency.Basic)));
+            serverCache.put(player, new Pair<>(System.currentTimeMillis(), EnumSet.of(CraftingDependency.Basic)));
         }
     }
 

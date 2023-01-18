@@ -24,7 +24,12 @@ public class GuiApiaristAnalyser extends ModuleBaseGui {
         super.initGui();
         buttonList.clear();
         buttonList.add(new GuiStringHandlerButton(
-                0, guiLeft + 12, guiTop + 20, 96, 20, () -> module.getExtractMode() == 1 ? "Extract Mode: on" : "Extract Mode: off"));
+                0,
+                guiLeft + 12,
+                guiTop + 20,
+                96,
+                20,
+                () -> module.getExtractMode() == 1 ? "Extract Mode: on" : "Extract Mode: off"));
     }
 
     @Override

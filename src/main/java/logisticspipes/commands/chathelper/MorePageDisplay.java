@@ -273,8 +273,7 @@ public class MorePageDisplay {
         int lineOnCurentPage = 0;
         for (int i = 0; i < content.size(); i++, lineOnCurentPage++) {
             int I;
-            for (I = i; I < (content.size() - 1) && content.get(I + 1).connected; I++) {
-            }
+            for (I = i; I < (content.size() - 1) && content.get(I + 1).connected; I++) {}
             int needed = I - i;
             if (lineOnCurentPage + needed > count - 1) {
                 currentPage++;
@@ -292,7 +291,7 @@ public class MorePageDisplay {
         int count = row - header.size() - 1 - linesub;
         page = (page > 0 && !all ? page : 1);
         currentpage = page;
-		currentpagecount = getPageCount(count);
+        currentpagecount = getPageCount(count);
         if (all) {
             count = -2;
         }
@@ -310,8 +309,7 @@ public class MorePageDisplay {
                 sender.addChatMessage(new ChatComponentText(content.get(i).content));
             } else {
                 int I;
-                for (I = i; I < (content.size() - 1) && content.get(I + 1).connected; I++) {
-                }
+                for (I = i; I < (content.size() - 1) && content.get(I + 1).connected; I++) {}
                 int needed = I - i;
                 if (lineOnCurentPage + needed > count - 1) {
                     currentPage++;

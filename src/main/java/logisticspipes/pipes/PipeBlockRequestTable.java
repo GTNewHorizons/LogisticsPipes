@@ -1,10 +1,6 @@
 package logisticspipes.pipes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.crafting.AutoCraftingInventory;
@@ -64,8 +60,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
     private boolean init = false;
 
     private PlayerCollectionList localGuiWatcher = new PlayerCollectionList();
-    public Map<Integer, Pair<IResource, LinkedLogisticsOrderList>> watchedRequests =
-            new HashMap<>();
+    public Map<Integer, Pair<IResource, LinkedLogisticsOrderList>> watchedRequests = new HashMap<>();
     private int localLastUsedWatcherId = 0;
 
     public ItemIdentifier targetType = null;

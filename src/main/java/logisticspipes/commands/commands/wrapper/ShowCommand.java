@@ -62,7 +62,7 @@ public class ShowCommand implements ICommandHandler {
             Throwable t = wrapper.getReason();
             if (t == null) {
                 sender.addChatMessage(new ChatComponentText("null"));
-			} else {
+            } else {
                 sender.addChatMessage(new ChatComponentText("-----------------------------------------------------"));
                 sender.addChatMessage(new ChatComponentText(t.toString()));
                 for (StackTraceElement s : t.getStackTrace()) {

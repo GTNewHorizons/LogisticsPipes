@@ -1,26 +1,15 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes.basic;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.UUID;
 import java.util.concurrent.PriorityBlockingQueue;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
@@ -28,39 +17,15 @@ import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.config.Configs;
-import logisticspipes.interfaces.IClientState;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.ILPPositionProvider;
-import logisticspipes.interfaces.IPipeServiceProvider;
-import logisticspipes.interfaces.IPipeUpgradeManager;
-import logisticspipes.interfaces.IQueueCCEvent;
-import logisticspipes.interfaces.ISecurityProvider;
-import logisticspipes.interfaces.ISlotUpgradeManager;
-import logisticspipes.interfaces.ISubSystemPowerProvider;
-import logisticspipes.interfaces.IWatchingHandler;
-import logisticspipes.interfaces.IWorldProvider;
-import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
-import logisticspipes.interfaces.routing.IFilter;
-import logisticspipes.interfaces.routing.IRequestItems;
-import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
-import logisticspipes.interfaces.routing.IRequireReliableTransport;
+import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.routing.*;
 import logisticspipes.items.ItemPipeSignCreator;
-import logisticspipes.logisticspipes.ExtractionMode;
-import logisticspipes.logisticspipes.IAdjacentWorldAccess;
-import logisticspipes.logisticspipes.IRoutedItem;
+import logisticspipes.logisticspipes.*;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
-import logisticspipes.logisticspipes.ITrackStatistics;
-import logisticspipes.logisticspipes.PipeTransportLayer;
-import logisticspipes.logisticspipes.RouteLayer;
-import logisticspipes.logisticspipes.TransportLayer;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
-import logisticspipes.network.GuiIDs;
-import logisticspipes.network.LPDataInputStream;
-import logisticspipes.network.LPDataOutputStream;
-import logisticspipes.network.NewGuiHandler;
-import logisticspipes.network.PacketHandler;
+import logisticspipes.network.*;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.guis.pipe.PipeController;
 import logisticspipes.network.packets.pipe.ParticleFX;
@@ -82,7 +47,6 @@ import logisticspipes.proxy.computers.interfaces.CCSecurtiyCheck;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.IRouter;
-import logisticspipes.routing.IRouterQueuedTask;
 import logisticspipes.routing.ItemRoutingInformation;
 import logisticspipes.routing.ServerRouter;
 import logisticspipes.routing.order.IOrderInfoProvider;
@@ -94,15 +58,7 @@ import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
 import logisticspipes.transport.PipeTransportLogistics;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.CacheHolder;
-import logisticspipes.utils.FluidIdentifier;
-import logisticspipes.utils.InventoryHelper;
-import logisticspipes.utils.OrientationsUtil;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SidedInventoryMinecraftAdapter;
-import logisticspipes.utils.SinkReply;
-import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
@@ -164,7 +120,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     protected RouteLayer _routeLayer;
     protected TransportLayer _transportLayer;
     protected final PriorityBlockingQueue<ItemRoutingInformation> _inTransitToMe =
-		new PriorityBlockingQueue<>(10, new ItemRoutingInformation.DelayComparator());
+            new PriorityBlockingQueue<>(10, new ItemRoutingInformation.DelayComparator());
 
     protected UpgradeManager upgradeManager = new UpgradeManager(this);
     protected LogisticsItemOrderManager _orderItemManager = null;
@@ -182,8 +138,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 
     public int server_routing_table_size = 0;
 
-    protected final LinkedList<Triplet<IRoutedItem, ForgeDirection, ItemSendMode>> _sendQueue =
-		new LinkedList<>();
+    protected final LinkedList<Triplet<IRoutedItem, ForgeDirection, ItemSendMode>> _sendQueue = new LinkedList<>();
 
     protected final Map<ItemIdentifier, Queue<Pair<Integer, ItemRoutingInformation>>> queuedDataForUnroutedItems =
             Collections.synchronizedMap(new TreeMap<>());
@@ -252,8 +207,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (from == null) {
             throw new NullPointerException();
         }
-        _sendQueue.addLast(
-			new Triplet<>(routedItem, from, ItemSendMode.Normal));
+        _sendQueue.addLast(new Triplet<>(routedItem, from, ItemSendMode.Normal));
         sendQueueChanged(false);
     }
 
@@ -727,7 +681,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 }
             }
         }
-		Arrays.fill(queuedParticles, 0);
+        Arrays.fill(queuedParticles, 0);
         hasQueuedParticles = false;
     }
 
@@ -844,7 +798,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-			}
+            }
         }
     }
 
@@ -1328,8 +1282,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public void queueUnroutedItemInformation(ItemIdentifierStack item, ItemRoutingInformation information) {
         if (item != null) {
             synchronized (queuedDataForUnroutedItems) {
-				Queue<Pair<Integer, ItemRoutingInformation>> queue = queuedDataForUnroutedItems.computeIfAbsent(item.getItem(), k -> new LinkedList<Pair<Integer, ItemRoutingInformation>>());
-				queue.add(new Pair<>(item.getStackSize(), information));
+                Queue<Pair<Integer, ItemRoutingInformation>> queue = queuedDataForUnroutedItems.computeIfAbsent(
+                        item.getItem(), k -> new LinkedList<Pair<Integer, ItemRoutingInformation>>());
+                queue.add(new Pair<>(item.getStackSize(), information));
             }
         }
     }
@@ -1480,7 +1435,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
-                exit.destination.queueTask(10, (pipe, router) -> pipe.handleMesssage((int) ((double) computerId), message, fSourceId));
+                exit.destination.queueTask(
+                        10, (pipe, router) -> pipe.handleMesssage((int) ((double) computerId), message, fSourceId));
                 set.set(exit.destination.getSimpleID());
             }
         }
@@ -1518,7 +1474,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (router == null) {
             return null;
         }
-		return router.getPipe();
+        return router.getPipe();
     }
 
     @CCCommand(
@@ -1661,7 +1617,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         return getRouter().getSimpleID();
     }
 
-	@Override
+    @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
             ItemIdentifier stack, boolean allowDefault, List<Integer> routerIDsToExclude) {
         return SimpleServiceLocator.logisticsManager.hasDestination(
@@ -1800,7 +1756,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                     } catch (InstantiationException | IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
-				}
+                }
             } else {
                 signItem[i] = null;
             }

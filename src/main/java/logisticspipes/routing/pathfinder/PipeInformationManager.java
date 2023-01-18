@@ -8,8 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeInformationManager {
 
-    private Map<Class<?> /*TileEntity*/, Class<? extends IPipeInformationProvider>> infoProvider =
-            new HashMap<>();
+    private Map<Class<?> /*TileEntity*/, Class<? extends IPipeInformationProvider>> infoProvider = new HashMap<>();
 
     public IPipeInformationProvider getInformationProviderFor(TileEntity tile) {
         if (tile == null) {
@@ -28,10 +27,15 @@ public class PipeInformationManager {
                         if (provider.isCorrect()) {
                             return provider;
                         }
-                    } catch (InstantiationException | SecurityException | NoSuchMethodException | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
+                    } catch (InstantiationException
+                            | SecurityException
+                            | NoSuchMethodException
+                            | InvocationTargetException
+                            | IllegalArgumentException
+                            | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-				}
+                }
             }
         }
         return null;
@@ -43,7 +47,7 @@ public class PipeInformationManager {
         } catch (NoSuchMethodException | SecurityException e) {
             throw new RuntimeException(e);
         }
-		infoProvider.put(source, provider);
+        infoProvider.put(source, provider);
     }
 
     public boolean canConnect(
@@ -72,10 +76,15 @@ public class PipeInformationManager {
                         if (provider.isCorrect() && provider.isItemPipe()) {
                             return true;
                         }
-                    } catch (InstantiationException | SecurityException | NoSuchMethodException | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
+                    } catch (InstantiationException
+                            | SecurityException
+                            | NoSuchMethodException
+                            | InvocationTargetException
+                            | IllegalArgumentException
+                            | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-				}
+                }
             }
         }
         return false;
@@ -98,10 +107,15 @@ public class PipeInformationManager {
                         if (!check || provider.isCorrect()) {
                             return true;
                         }
-                    } catch (InstantiationException | SecurityException | NoSuchMethodException | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
+                    } catch (InstantiationException
+                            | SecurityException
+                            | NoSuchMethodException
+                            | InvocationTargetException
+                            | IllegalArgumentException
+                            | IllegalAccessException e) {
                         e.printStackTrace();
                     }
-				}
+                }
             }
         }
         return false;

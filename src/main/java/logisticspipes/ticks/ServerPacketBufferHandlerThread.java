@@ -6,13 +6,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Queue;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import logisticspipes.network.LPDataInputStream;
@@ -29,8 +24,7 @@ public class ServerPacketBufferHandlerThread {
     private static class ServerCompressorThread extends Thread {
 
         // Map of Players to lists of S->C packets to be serialized and compressed
-        private final HashMap<EntityPlayer, LinkedList<ModernPacket>> serverList =
-			new HashMap<>();
+        private final HashMap<EntityPlayer, LinkedList<ModernPacket>> serverList = new HashMap<>();
         // Map of Players to serialized but still uncompressed S->C data
         private final HashMap<EntityPlayer, byte[]> serverBuffer = new HashMap<>();
         // used to cork the compressor so we can queue up a whole bunch of packets at once
@@ -122,8 +116,9 @@ public class ServerPacketBufferHandlerThread {
 
         public void addPacketToCompressor(ModernPacket packet, EntityPlayer player) {
             synchronized (serverList) {
-				LinkedList<ModernPacket> packetList = serverList.computeIfAbsent(player, k -> new LinkedList<ModernPacket>());
-				packetList.add(packet);
+                LinkedList<ModernPacket> packetList =
+                        serverList.computeIfAbsent(player, k -> new LinkedList<ModernPacket>());
+                packetList.add(packet);
                 if (!pause) {
                     serverList.notify();
                 }
@@ -158,8 +153,7 @@ public class ServerPacketBufferHandlerThread {
         // Map of Player to decompressed serialized C->S data
         private final HashMap<EntityPlayer, byte[]> ByteBuffer = new HashMap<>();
         // FIFO for deserialized C->S packets, decompressor adds, tickEnd removes
-        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer =
-			new LinkedList<>();
+        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer = new LinkedList<>();
         // Clear content on next tick
         private Queue<EntityPlayer> playersToClear = new LinkedList<>();
 
@@ -221,8 +215,8 @@ public class ServerPacketBufferHandlerThread {
                         }
                     }
                     if (flag && buffer != null && player != null) {
-						byte[] ByteBufferForPlayer = ByteBuffer.computeIfAbsent(player, k -> new byte[]{});
-						byte[] packetbytes = ServerPacketBufferHandlerThread.decompress(buffer);
+                        byte[] ByteBufferForPlayer = ByteBuffer.computeIfAbsent(player, k -> new byte[] {});
+                        byte[] packetbytes = ServerPacketBufferHandlerThread.decompress(buffer);
                         byte[] newBuffer = new byte[packetbytes.length + ByteBufferForPlayer.length];
                         System.arraycopy(ByteBufferForPlayer, 0, newBuffer, 0, ByteBufferForPlayer.length);
                         System.arraycopy(packetbytes, 0, newBuffer, ByteBufferForPlayer.length, packetbytes.length);
@@ -249,7 +243,7 @@ public class ServerPacketBufferHandlerThread {
                         }
                     }
                 }
-				ByteBuffer.values().removeIf(ByteBufferForPlayer -> ByteBufferForPlayer.length == 0);
+                ByteBuffer.values().removeIf(ByteBufferForPlayer -> ByteBufferForPlayer.length == 0);
 
                 synchronized (queue) {
                     while (queue.size() == 0) {
@@ -273,8 +267,8 @@ public class ServerPacketBufferHandlerThread {
 
         public void handlePacket(byte[] content, EntityPlayer player) {
             synchronized (queue) {
-				LinkedList<byte[]> list = queue.computeIfAbsent(player, k -> new LinkedList<byte[]>());
-				list.addLast(content);
+                LinkedList<byte[]> list = queue.computeIfAbsent(player, k -> new LinkedList<byte[]>());
+                list.addLast(content);
                 queue.notify();
             }
         }
@@ -340,8 +334,9 @@ public class ServerPacketBufferHandlerThread {
 
     public void clear(final EntityPlayer player) {
         new Thread(() -> {
-			serverCompressorThread.clear(player);
-			serverDecompressorThread.clear(player);
-		}).start();
+                    serverCompressorThread.clear(player);
+                    serverDecompressorThread.clear(player);
+                })
+                .start();
     }
 }

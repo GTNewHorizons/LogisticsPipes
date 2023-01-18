@@ -1,12 +1,6 @@
 package logisticspipes.network.packets.pipe;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
@@ -17,7 +11,6 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.routing.ExitRoute;
-import logisticspipes.routing.IPaintPath;
 import logisticspipes.routing.IRouter;
 import logisticspipes.routing.LaserData;
 import logisticspipes.routing.PipeRoutingConnectionType;
@@ -26,7 +19,6 @@ import logisticspipes.utils.tuples.LPPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class RequestRoutingLasersPacket extends CoordinatesPacket {
@@ -140,7 +132,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                     connectionType);
             for (CoreRoutedPipe connectedPipe : map.keySet()) {
                 IRouter newRouter = connectedPipe.getRouter();
-				connectedRouters.removeIf(route -> route.destination == newRouter);
+                connectedRouters.removeIf(route -> route.destination == newRouter);
             }
             Map<CoreRoutedPipe, ArrayList<ExitRoute>> sort = new HashMap<>();
             for (ExitRoute routeTo : connectedRouters) {
@@ -170,8 +162,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
             }
 
             for (Entry<CoreRoutedPipe, ArrayList<ExitRoute>> connectedPipe : sort.entrySet()) {
-                HashMap<ForgeDirection, ArrayList<ExitRoute>> routers =
-					new HashMap<>();
+                HashMap<ForgeDirection, ArrayList<ExitRoute>> routers = new HashMap<>();
                 for (ExitRoute exit : connectedPipe.getValue()) {
                     if (!routers.containsKey(exit.exitOrientation)) {
                         routers.put(exit.exitOrientation, new ArrayList<>());

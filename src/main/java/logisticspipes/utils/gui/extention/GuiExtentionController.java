@@ -97,7 +97,7 @@ public class GuiExtentionController {
                         break;
                     }
                     extention.setExtending(false);
-					yPos = yPos + extention.getCurrentHeight();
+                    yPos = yPos + extention.getCurrentHeight();
                 }
                 int left;
                 int right;
@@ -172,7 +172,7 @@ public class GuiExtentionController {
     }
 
     public void mouseOver(int i, int j) {
-		if (currentlyExtended == null) {
+        if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
                 if (i > extention.getCurrentXPos()
                         && i
@@ -194,7 +194,7 @@ public class GuiExtentionController {
                     && j > currentlyExtended.getCurrentYPos()
                     && j < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
                 currentlyExtended.handleMouseOverAt(i, j);
-			}
+            }
         }
     }
 

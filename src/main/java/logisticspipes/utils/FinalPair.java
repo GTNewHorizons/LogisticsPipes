@@ -26,11 +26,7 @@ public class FinalPair<T1, T2> {
 
     @Override
     public String toString() {
-        return "<" +
-			_value1.toString() +
-			"," +
-			_value2.toString() +
-			">";
+        return "<" + _value1.toString() + "," + _value2.toString() + ">";
     }
 
     @Override

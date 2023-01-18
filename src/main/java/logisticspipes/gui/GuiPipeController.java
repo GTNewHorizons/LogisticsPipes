@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import logisticspipes.LogisticsPipes;
-import logisticspipes.interfaces.ISlotCheck;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.items.LogisticsItemCard;
 import logisticspipes.network.PacketHandler;
@@ -18,11 +17,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.ItemDisplay;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SmallGuiButton;
+import logisticspipes.utils.gui.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
@@ -71,44 +66,40 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
             TAB_SLOTS_1_1.add(dummy.addRestrictedSlot(
                     pipeSlot, pipe.getOriginalUpgradeManager().getInv(), 10 + pipeSlot * 18, 42, itemStack -> {
-						if (itemStack == null) {
-							return false;
-						}
-						if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-							if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-									.isAllowedForPipe(pipe)) {
-								return false;
-							}
-						} else {
-							return false;
-						}
-						return true;
-					}));
+                        if (itemStack == null) {
+                            return false;
+                        }
+                        if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                            if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+                                    .isAllowedForPipe(pipe)) {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                        return true;
+                    }));
         }
 
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
             TAB_SLOTS_1_2.add(dummy.addRestrictedSlot(
-                    pipeSlot,
-                    pipe.getOriginalUpgradeManager().getSneakyInv(),
-                    10 + pipeSlot * 18,
-                    78,
-				itemStack -> {
-					if (itemStack == null) {
-						return false;
-					}
-					if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-						IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
-						if (!(upgrade instanceof SneakyUpgrade)) {
-							return false;
-						}
-						if (!upgrade.isAllowedForPipe(pipe)) {
-							return false;
-						}
-					} else {
-						return false;
-					}
-					return true;
-				}));
+                    pipeSlot, pipe.getOriginalUpgradeManager().getSneakyInv(), 10 + pipeSlot * 18, 78, itemStack -> {
+                        if (itemStack == null) {
+                            return false;
+                        }
+                        if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                            IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
+                            if (!(upgrade instanceof SneakyUpgrade)) {
+                                return false;
+                            }
+                            if (!upgrade.isAllowedForPipe(pipe)) {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                        return true;
+                    }));
         }
 
         // TAB_2 SLOTS
@@ -117,22 +108,22 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 pipe.getOriginalUpgradeManager().getSecInv(),
                 10,
                 42,
-			itemStack -> {
-				if (itemStack == null) {
-					return false;
-				}
-				if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-					return false;
-				}
-				if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
-					return false;
-				}
-				if (!SimpleServiceLocator.securityStationManager.isAuthorized(
-						UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
-					return false;
-				}
-				return true;
-			},
+                itemStack -> {
+                    if (itemStack == null) {
+                        return false;
+                    }
+                    if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+                        return false;
+                    }
+                    if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
+                        return false;
+                    }
+                    if (!SimpleServiceLocator.securityStationManager.isAuthorized(
+                            UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
+                        return false;
+                    }
+                    return true;
+                },
                 1));
 
         TAB_SLOTS_4.add(dummy.addRestrictedSlot(
@@ -285,8 +276,8 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                         .setTilePos(pipe.container));
             }
         } else {
-			super.mouseClicked(par1, par2, par3);
-		}
+            super.mouseClicked(par1, par2, par3);
+        }
     }
 
     @Override

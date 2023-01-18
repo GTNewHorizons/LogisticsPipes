@@ -128,9 +128,9 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
                     if (inputStack != null) {
                         match = false;
                     }
-				} else if (inputStack == null) {
+                } else if (inputStack == null) {
                     match = false;
-				} else {
+                } else {
                     if (!itemEquals(recipestack, inputStack)) {
                         match = false;
                     } else {
@@ -165,9 +165,9 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
                     if (inputStack != null) {
                         match = false;
                     }
-				} else if (inputStack == null) {
+                } else if (inputStack == null) {
                     match = false;
-				} else {
+                } else {
                     if (!itemEquals(recipestack, inputStack)) {
                         match = false;
                     }

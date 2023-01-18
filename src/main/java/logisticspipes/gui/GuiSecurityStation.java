@@ -9,21 +9,12 @@ import logisticspipes.gui.popup.GuiSecurityStationPopup;
 import logisticspipes.interfaces.PlayerListReciver;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.PlayerListRequest;
-import logisticspipes.network.packets.block.SecurityAuthorizationPacket;
-import logisticspipes.network.packets.block.SecurityCardPacket;
-import logisticspipes.network.packets.block.SecurityRequestCCIdsPacket;
-import logisticspipes.network.packets.block.SecurityStationAutoDestroy;
-import logisticspipes.network.packets.block.SecurityStationCC;
-import logisticspipes.network.packets.block.SecurityStationOpenPlayerRequest;
+import logisticspipes.network.packets.block.*;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.security.SecuritySettings;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiCheckBox;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SmallGuiButton;
+import logisticspipes.utils.gui.*;
 import logisticspipes.utils.string.StringUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -297,17 +288,17 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
         if (editsearch) {
             if (c == 13) {
                 editsearch = false;
-			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 searchinput1 = searchinput1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (searchinput1.length() > 0) {
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
                 }
-			} else if (Character.isLetterOrDigit(c) || c == ' ') {
+            } else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(searchinput1 + c + searchinput2) <= GuiSecurityStation.searchWidth) {
                     searchinput1 += c;
                 }
-			} else if (i == 203) { // Left
+            } else if (i == 203) { // Left
                 if (searchinput1.length() > 0) {
                     searchinput2 = searchinput1.substring(searchinput1.length() - 1) + searchinput2;
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);

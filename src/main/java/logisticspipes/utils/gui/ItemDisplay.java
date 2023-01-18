@@ -1,12 +1,7 @@
 package logisticspipes.utils.gui;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ISpecialItemRenderer;
@@ -47,8 +42,7 @@ public class ItemDisplay {
 
     private ItemIdentifierStack selectedItem = null;
     public final LinkedList<ItemIdentifierStack> _allItems = new LinkedList<>();
-    private final Map<Pair<Integer, Integer>, ItemIdentifierStack> map =
-		new HashMap<>();
+    private final Map<Pair<Integer, Integer>, ItemIdentifierStack> map = new HashMap<>();
 
     @Getter
     private int page = 0;

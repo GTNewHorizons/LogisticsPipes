@@ -71,7 +71,7 @@ public class DebugGuiController {
                 e.printStackTrace();
                 return;
             }
-		}
+        }
         if (entry == null) {
             System.out.println("DebugGui could not be loaded");
             return;
@@ -96,7 +96,7 @@ public class DebugGuiController {
                 e.printStackTrace();
                 return;
             }
-		}
+        }
         synchronized (clientList) {
             while (clientList.size() <= identification) clientList.add(null);
             clientList.set(
@@ -131,7 +131,7 @@ public class DebugGuiController {
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-				if (connection != null) {
+                if (connection != null) {
                     connection.passData(payload);
                 } else {
                     throw new DelayPacketException();

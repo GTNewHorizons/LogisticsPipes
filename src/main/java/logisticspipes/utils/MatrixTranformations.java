@@ -12,7 +12,7 @@ public final class MatrixTranformations {
     /**
      * Mirrors the array on the Y axis by calculating offsets from 0.5F
      *
-	 */
+     */
     public static void mirrorY(float[][] targetArray) {
         float temp = targetArray[1][0];
         targetArray[1][0] = (targetArray[1][1] - 0.5F) * -1F + 0.5F; // 1 -> 0.5F -> -0.5F -> 0F
@@ -39,7 +39,7 @@ public final class MatrixTranformations {
     /**
      * @param targetArray
      *            the array that should be transformed
-	 */
+     */
     public static void transform(float[][] targetArray, ForgeDirection direction) {
         if ((direction.ordinal() & 0x1) == 1) {
             MatrixTranformations.mirrorY(targetArray);

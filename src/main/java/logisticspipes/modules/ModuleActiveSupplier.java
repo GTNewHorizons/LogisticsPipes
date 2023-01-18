@@ -2,19 +2,9 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -37,11 +27,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.request.RequestTree;
 import logisticspipes.routing.IRouter;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.ISimpleInventoryEventHandler;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SinkReply;
-import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -202,7 +188,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         Full,
         Bulk50,
         Bulk100
-	}
+    }
 
     private SupplyMode _requestMode = SupplyMode.Bulk50;
     private PatternMode _patternMode = PatternMode.Bulk50;
@@ -341,8 +327,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
     private void createSupplyRequest(IInventoryUtil invUtil) {
         _service.getDebug().log("Supplier: Start calculating supply request");
         // How many do I want?
-        HashMap<ItemIdentifier, Integer> needed =
-			new HashMap<>(dummyInventory.getItemsAndCount());
+        HashMap<ItemIdentifier, Integer> needed = new HashMap<>(dummyInventory.getItemsAndCount());
         _service.getDebug().log("Supplier: Needed: " + needed);
 
         // How many do I have?

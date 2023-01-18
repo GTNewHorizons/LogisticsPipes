@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.request;
 
 import java.util.ArrayList;
@@ -25,8 +25,7 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
     protected ItemIdentifierStack _result;
     protected ICraftItems _crafter;
 
-    protected ArrayList<Pair<IResource, IAdditionalTargetInformation>> _required =
-            new ArrayList<>(9);
+    protected ArrayList<Pair<IResource, IAdditionalTargetInformation>> _required = new ArrayList<>(9);
 
     protected ArrayList<ItemIdentifierStack> _byproduct = new ArrayList<>(9);
 
@@ -128,13 +127,12 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
 
     @Override
     public List<Pair<IResource, IAdditionalTargetInformation>> getComponents(int nCraftingSetsNeeded) {
-        List<Pair<IResource, IAdditionalTargetInformation>> stacks =
-                new ArrayList<>(_required.size());
+        List<Pair<IResource, IAdditionalTargetInformation>> stacks = new ArrayList<>(_required.size());
 
         // for each thing needed to satisfy this promise
         for (Pair<IResource, IAdditionalTargetInformation> stack : _required) {
-            Pair<IResource, IAdditionalTargetInformation> pair = new Pair<>(
-                    stack.getValue1().clone(nCraftingSetsNeeded), stack.getValue2());
+            Pair<IResource, IAdditionalTargetInformation> pair =
+                    new Pair<>(stack.getValue1().clone(nCraftingSetsNeeded), stack.getValue2());
             stacks.add(pair);
         }
         return stacks;

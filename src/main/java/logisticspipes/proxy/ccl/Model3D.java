@@ -2,7 +2,6 @@ package logisticspipes.proxy.ccl;
 
 import codechicken.lib.lighting.LightModel;
 import codechicken.lib.render.CCModel;
-import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.CCRenderState.IVertexOperation;
 import codechicken.lib.render.uv.UVTransformation;
 import codechicken.lib.vec.Cuboid6;

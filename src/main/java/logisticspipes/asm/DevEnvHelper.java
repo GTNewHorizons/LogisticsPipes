@@ -9,14 +9,7 @@ import cpw.mods.fml.common.asm.transformers.ModAccessTransformer;
 import cpw.mods.fml.relauncher.CoreModManager;
 import cpw.mods.fml.relauncher.FMLRelaunchLog;
 import cpw.mods.fml.relauncher.FileListHelper;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,16 +17,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import logisticspipes.LPConstants;
@@ -48,20 +32,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.AnnotationNode;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.FrameNode;
-import org.objectweb.asm.tree.InnerClassNode;
-import org.objectweb.asm.tree.LdcInsnNode;
-import org.objectweb.asm.tree.LocalVariableNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.MultiANewArrayInsnNode;
-import org.objectweb.asm.tree.TryCatchBlockNode;
-import org.objectweb.asm.tree.TypeInsnNode;
+import org.objectweb.asm.tree.*;
 
 public class DevEnvHelper {
 
@@ -637,7 +608,7 @@ public class DevEnvHelper {
                 }
             }
 
-		} else {
+        } else {
 
             // normal method resolution; http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-5.html#jvms-5.4.3.3
 
@@ -692,10 +663,9 @@ public class DevEnvHelper {
 
                 owner = cn.superName;
             }
-
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
     public static class Mapping {
 
@@ -915,8 +885,7 @@ public class DevEnvHelper {
         // reverse: mcp -> searge -> obf
         private Mapping forwardSRG, reverseSRG, forwardCSV, reverseCSV;
 
-        private Map<String, Set<String>> srgMethodOwnersAndDescs =
-			new HashMap<>(); // SRG name -> SRG owners
+        private Map<String, Set<String>> srgMethodOwnersAndDescs = new HashMap<>(); // SRG name -> SRG owners
         private Map<String, Set<String>> srgFieldOwners = new HashMap<>(); // SRG name -> SRG owners
 
         private ExcFile excFileData;
@@ -1030,8 +999,8 @@ public class DevEnvHelper {
                                 + srgFieldOwners.get(srgName) + " and " + srgOwner + ")");
                     }
 
-					Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<String>());
-					owners.add(srgOwner);
+                    Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<String>());
+                    owners.add(srgOwner);
                 }
 
                 forwardSRG.setField(obfOwner, obfName, srgName);
@@ -1050,8 +1019,9 @@ public class DevEnvHelper {
                 String srgDesc = forwardSRG.mapMethodDescriptor(obfDesc);
                 String srgOwner = srg.classes.get(obfOwner);
 
-				Set<String> srgMethodOwnersThis = srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<String>());
-				srgMethodOwnersThis.add(srgOwner + srgDesc);
+                Set<String> srgMethodOwnersThis =
+                        srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<String>());
+                srgMethodOwnersThis.add(srgOwner + srgDesc);
 
                 forwardSRG.setMethod(obfOwner, obfName, obfDesc, srgName);
                 reverseSRG.setMethod(srgOwner, srgName, srgDesc, obfName);
@@ -1079,7 +1049,7 @@ public class DevEnvHelper {
                 } else {
                     for (String srgOwner : srgFieldOwners.get(srgName)) {
 
-						forwardCSV.setField(srgOwner, srgName, mcpName);
+                        forwardCSV.setField(srgOwner, srgName, mcpName);
                         reverseCSV.setField(srgOwner, mcpName, srgName);
                     }
                 }
@@ -1097,7 +1067,7 @@ public class DevEnvHelper {
                         String srgDesc = srgOwnerAndDesc.substring(srgOwnerAndDesc.indexOf('('));
                         String srgOwner = srgOwnerAndDesc.substring(0, srgOwnerAndDesc.indexOf('('));
 
-						forwardCSV.setMethod(srgOwner, srgName, srgDesc, mcpName);
+                        forwardCSV.setMethod(srgOwner, srgName, srgDesc, mcpName);
                         reverseCSV.setMethod(srgOwner, mcpName, srgDesc, srgName);
                     }
                 }
@@ -1121,15 +1091,15 @@ public class DevEnvHelper {
         }
 
         public static String getMCVer(File mcpDir) throws IOException {
-			try (Scanner in = new Scanner(new File(mcpDir, "version.cfg"))) {
-				while (in.hasNextLine()) {
-					String line = in.nextLine();
-					if (line.startsWith("ClientVersion")) {
-						return line.split("=")[1].trim();
-					}
-				}
-				return "unknown";
-			}
+            try (Scanner in = new Scanner(new File(mcpDir, "version.cfg"))) {
+                while (in.hasNextLine()) {
+                    String line = in.nextLine();
+                    if (line.startsWith("ClientVersion")) {
+                        return line.split("=")[1].trim();
+                    }
+                }
+                return "unknown";
+            }
         }
     }
 
@@ -1159,9 +1129,9 @@ public class DevEnvHelper {
 
         @Deprecated
         public static Map<String, String> read(File f, int[] n_sides) throws IOException {
-			try (Reader r = new BufferedReader(new FileReader(f))) {
-				return CsvFile.read(r, n_sides);
-			}
+            try (Reader r = new BufferedReader(new FileReader(f))) {
+                return CsvFile.read(r, n_sides);
+            }
         }
 
         private static boolean sideIn(int i, int[] ar) {
@@ -1249,9 +1219,9 @@ public class DevEnvHelper {
 
         @Deprecated
         public ExcFile(File f) throws IOException {
-			try (FileReader fr = new FileReader(f)) {
-				exceptions = ExcFile.read(fr).exceptions;
-			}
+            try (FileReader fr = new FileReader(f)) {
+                exceptions = ExcFile.read(fr).exceptions;
+            }
         }
     }
 
@@ -1311,12 +1281,12 @@ public class DevEnvHelper {
 
         @Deprecated
         public SrgFile(File f, boolean reverse) throws IOException {
-			try (FileReader fr = new FileReader(f)) {
-				SrgFile sf = SrgFile.read(new BufferedReader(fr), reverse);
-				classes = sf.classes;
-				fields = sf.fields;
-				methods = sf.methods;
-			}
+            try (FileReader fr = new FileReader(f)) {
+                SrgFile sf = SrgFile.read(new BufferedReader(fr), reverse);
+                classes = sf.classes;
+                fields = sf.fields;
+                methods = sf.methods;
+            }
         }
 
         public Mapping toMapping(NameSet fromNS, NameSet toNS) {

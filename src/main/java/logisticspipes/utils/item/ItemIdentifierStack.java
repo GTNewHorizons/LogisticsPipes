@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
 import java.util.LinkedList;
@@ -89,9 +89,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
 
     @Override
     public String toString() {
-        return Integer.toString(getStackSize()) +
-			"x " +
-			_item.toString();
+        return Integer.toString(getStackSize()) + "x " + _item.toString();
     }
 
     @Override

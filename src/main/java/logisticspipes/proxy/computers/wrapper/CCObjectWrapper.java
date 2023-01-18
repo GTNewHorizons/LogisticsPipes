@@ -5,21 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
-import logisticspipes.proxy.computers.interfaces.CCCommand;
-import logisticspipes.proxy.computers.interfaces.CCQueued;
-import logisticspipes.proxy.computers.interfaces.CCSecurtiyCheck;
-import logisticspipes.proxy.computers.interfaces.CCType;
-import logisticspipes.proxy.computers.interfaces.ILPCCTypeDefinition;
-import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
-import logisticspipes.proxy.computers.objects.CCFilterInventory;
-import logisticspipes.proxy.computers.objects.CCFluidIdentifier;
-import logisticspipes.proxy.computers.objects.CCItemIdentifier;
-import logisticspipes.proxy.computers.objects.CCItemIdentifierInventory;
-import logisticspipes.proxy.computers.objects.CCItemIdentifierStack;
-import logisticspipes.proxy.computers.objects.CCPair;
-import logisticspipes.proxy.computers.objects.CCQuartet;
-import logisticspipes.proxy.computers.objects.CCResource;
-import logisticspipes.proxy.computers.objects.CCTriplet;
+import logisticspipes.proxy.computers.interfaces.*;
+import logisticspipes.proxy.computers.objects.*;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -34,8 +21,7 @@ public class CCObjectWrapper {
 
     private static Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<>();
     private static Map<Object, Object> wrappedObjects = new WeakHashMap<>();
-    private static Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings =
-            new HashMap<>();
+    private static Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings = new HashMap<>();
 
     static {
         CCObjectWrapper.specialMappings.put(ItemIdentifier.class, new CCItemIdentifier());

@@ -261,7 +261,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
         if (editsearch) {
             if (c == 13) {
                 editsearch = false;
-			} else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 try {
                     Integer.valueOf(GuiScreen.getClipboardString());
                     searchinput1 = searchinput1 + GuiScreen.getClipboardString();
@@ -272,12 +272,12 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                 if (searchinput1.length() > 0) {
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
                 }
-			} else if (Character.isDigit(c)) {
+            } else if (Character.isDigit(c)) {
                 if (mc.fontRenderer.getStringWidth(searchinput1 + c + searchinput2)
                         <= GuiEditCCAccessTable.searchWidth) {
                     searchinput1 += c;
                 }
-			} else if (i == 203) { // Left
+            } else if (i == 203) { // Left
                 if (searchinput1.length() > 0) {
                     searchinput2 = searchinput1.substring(searchinput1.length() - 1) + searchinput2;
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);

@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing.order;
 
 import java.util.Arrays;
@@ -53,13 +53,12 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
     public void dump() {
         StringBuilder sb = new StringBuilder(" ############################################# ")
                 .append(System.getProperty("line.separator"));
-		for (T s : _orders) {
+        for (T s : _orders) {
             sb.append(s.getAsDisplayItem() + " / " + s.getAmount() + " / "
                             + s.getType().name())
                     .append(System.getProperty("line.separator"));
         }
-        System.out.print(
-                sb.append(" ############################################# "));
+        System.out.print(sb.append(" ############################################# "));
         System.out.println();
     }
 

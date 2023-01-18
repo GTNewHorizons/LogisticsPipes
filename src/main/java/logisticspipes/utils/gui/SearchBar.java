@@ -1,6 +1,6 @@
 package logisticspipes.utils.gui;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.Locale;

@@ -1,12 +1,7 @@
 package logisticspipes.transport;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -36,10 +31,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 public abstract class LPTravelingItem {
 
-    public static final Map<Integer, WeakReference<LPTravelingItemServer>> serverList =
-            new HashMap<>();
-    public static final Map<Integer, WeakReference<LPTravelingItemClient>> clientList =
-            new HashMap<>();
+    public static final Map<Integer, WeakReference<LPTravelingItemServer>> serverList = new HashMap<>();
+    public static final Map<Integer, WeakReference<LPTravelingItemClient>> clientList = new HashMap<>();
     public static final List<Pair<Integer, Object>> forceKeep = new ArrayList<>();
     public static final SlidingWindowBitSet clientSideKnownIDs = new SlidingWindowBitSet(20); // 20
 

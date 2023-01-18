@@ -86,7 +86,7 @@ public class MainProxy {
     /**
      * isClient is slow, find a world and check isServer(world)
      */
-	@Deprecated
+    @Deprecated
     public static boolean isClient() {
         return MainProxy.getEffectiveSide() == Side.CLIENT;
     }
@@ -104,7 +104,7 @@ public class MainProxy {
     /**
      * isServer is slow, find a world and check isServer(world)
      */
-	@Deprecated
+    @Deprecated
     public static boolean isServer() {
         return MainProxy.getEffectiveSide() == Side.SERVER;
     }
@@ -191,7 +191,7 @@ public class MainProxy {
                     MainProxy.sendPacketToPlayer(packet, player);
                 }
             }
-		}
+        }
     }
 
     public static void sendToPlayerList(ModernPacket packet, PlayerCollectionList players) {

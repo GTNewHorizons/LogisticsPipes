@@ -3,28 +3,11 @@ package logisticspipes.modules;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.DelayQueue;
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleWatchReciver;
-import logisticspipes.interfaces.IPipeServiceProvider;
-import logisticspipes.interfaces.ISlotUpgradeManager;
-import logisticspipes.interfaces.IWorldProvider;
-import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
-import logisticspipes.interfaces.routing.ICraftItems;
-import logisticspipes.interfaces.routing.IFilter;
-import logisticspipes.interfaces.routing.IItemSpaceControl;
-import logisticspipes.interfaces.routing.IRequestFluid;
-import logisticspipes.interfaces.routing.IRequestItems;
+import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.routing.*;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.logistics.LogisticsManager;
 import logisticspipes.logisticspipes.IRoutedItem;
@@ -41,23 +24,10 @@ import logisticspipes.network.guis.module.inhand.CraftingModuleInHand;
 import logisticspipes.network.guis.module.inpipe.CraftingModuleSlot;
 import logisticspipes.network.packets.block.CraftingPipeNextAdvancedSatellitePacket;
 import logisticspipes.network.packets.block.CraftingPipePrevAdvancedSatellitePacket;
-import logisticspipes.network.packets.cpipe.CPipeNextSatellite;
-import logisticspipes.network.packets.cpipe.CPipePrevSatellite;
-import logisticspipes.network.packets.cpipe.CPipeSatelliteId;
-import logisticspipes.network.packets.cpipe.CPipeSatelliteImport;
-import logisticspipes.network.packets.cpipe.CPipeSatelliteImportBack;
-import logisticspipes.network.packets.cpipe.CraftingAdvancedSatelliteId;
-import logisticspipes.network.packets.cpipe.CraftingPipeOpenConnectedGuiPacket;
+import logisticspipes.network.packets.cpipe.*;
 import logisticspipes.network.packets.hud.HUDStartModuleWatchingPacket;
 import logisticspipes.network.packets.hud.HUDStopModuleWatchingPacket;
-import logisticspipes.network.packets.pipe.CraftingPipePriorityDownPacket;
-import logisticspipes.network.packets.pipe.CraftingPipePriorityUpPacket;
-import logisticspipes.network.packets.pipe.CraftingPipeUpdatePacket;
-import logisticspipes.network.packets.pipe.CraftingPriority;
-import logisticspipes.network.packets.pipe.FluidCraftingAdvancedSatelliteId;
-import logisticspipes.network.packets.pipe.FluidCraftingAmount;
-import logisticspipes.network.packets.pipe.FluidCraftingPipeAdvancedSatelliteNextPacket;
-import logisticspipes.network.packets.pipe.FluidCraftingPipeAdvancedSatellitePrevPacket;
+import logisticspipes.network.packets.pipe.*;
 import logisticspipes.pipefxhandlers.Particles;
 import logisticspipes.pipes.PipeFluidSatellite;
 import logisticspipes.pipes.PipeItemsCraftingLogistics;
@@ -77,16 +47,10 @@ import logisticspipes.request.resources.ItemResource;
 import logisticspipes.routing.*;
 import logisticspipes.routing.order.IOrderInfoProvider.ResourceType;
 import logisticspipes.routing.order.LogisticsItemOrder;
-import logisticspipes.utils.AdjacentTile;
+import logisticspipes.utils.*;
 import logisticspipes.utils.CacheHolder.CacheTypes;
-import logisticspipes.utils.DelayedGeneric;
-import logisticspipes.utils.FluidIdentifier;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SidedInventoryMinecraftAdapter;
-import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.BufferMode;
 import logisticspipes.utils.SinkReply.FixedPriority;
-import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -140,7 +104,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public boolean cleanupModeIsExclude = true;
     // for reliable transport
     protected final DelayQueue<DelayedGeneric<Pair<ItemIdentifierStack, IAdditionalTargetInformation>>> _lostItems =
-		new DelayQueue<>();
+            new DelayQueue<>();
 
     protected final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -258,8 +222,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 SinkReply reply = LogisticsManager.canSink(
                         getRouter(), null, true, pair.getValue1().getItem(), null, true, true);
                 if (reply == null || reply.maxNumberOfItems < 1) {
-                    _lostItems.add(new DelayedGeneric<>(
-						pair, 9000 + (int) (Math.random() * 2000)));
+                    _lostItems.add(new DelayedGeneric<>(pair, 9000 + (int) (Math.random() * 2000)));
                     lostItem = _lostItems.poll();
                     continue;
                 }
@@ -268,8 +231,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             rerequested++;
             if (received < pair.getValue1().getStackSize()) {
                 pair.getValue1().setStackSize(pair.getValue1().getStackSize() - received);
-                _lostItems.add(new DelayedGeneric<>(
-					pair, 4500 + (int) (Math.random() * 1000)));
+                _lostItems.add(new DelayedGeneric<>(pair, 4500 + (int) (Math.random() * 1000)));
             }
             lostItem = _lostItems.poll();
         }
@@ -280,8 +242,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
 
     @Override
     public void itemLost(ItemIdentifierStack item, IAdditionalTargetInformation info) {
-        _lostItems.add(new DelayedGeneric<>(
-			new Pair<>(item, info), 5000));
+        _lostItems.add(new DelayedGeneric<>(new Pair<>(item, info), 5000));
     }
 
     @Override
@@ -426,7 +387,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public void registerExtras(IPromise promise) {
         if (promise instanceof LogisticsDictPromise) {
             _service.getItemOrderManager().addExtra(((LogisticsDictPromise) promise).getResource());
-		} else {
+        } else {
             ItemIdentifierStack stack = new ItemIdentifierStack(promise.getItemType(), promise.getAmount());
             _service.getItemOrderManager().addExtra(new DictResource(stack, null));
         }
@@ -569,7 +530,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             }
             for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                 if (satellite.satelliteId == satelliteId) {
-					if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     IRouter satRouter = satellite.getRouter();
@@ -589,7 +550,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 }
                 for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                     if (satellite.satelliteId == advancedSatelliteIdArray[i]) {
-						if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                        if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
                             continue;
                         }
                         IRouter satRouter = satellite.getRouter();
@@ -644,7 +605,10 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             return prev ? Math.max(0, satelliteId - 1) : satelliteId + 1;
         }
         for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
-			if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null || satellite.isFluidPipe()) {
+            if (satellite == null
+                    || satellite.stillNeedReplace()
+                    || satellite.getRouter() == null
+                    || satellite.isFluidPipe()) {
                 continue;
             }
             IRouter satRouter = satellite.getRouter();
@@ -692,7 +656,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     protected int getNextConnectFluidSatelliteId(boolean prev, int x) {
         int closestIdFound = prev ? 0 : Integer.MAX_VALUE;
         for (final PipeFluidSatellite satellite : PipeFluidSatellite.AllSatellites) {
-			if (satellite == null
+            if (satellite == null
                     || satellite.stillNeedReplace()
                     || satellite.getRouter() == null
                     || !((CoreRoutedPipe) satellite).isFluidPipe()) {
@@ -783,7 +747,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         if (x == -1) {
             for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                 if (satellite.satelliteId == satelliteId) {
-					if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -792,7 +756,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         } else {
             for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                 if (satellite.satelliteId == advancedSatelliteIdArray[x]) {
-					if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -1184,7 +1148,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         if (x == -1) {
             for (final PipeFluidSatellite satellite : PipeFluidSatellite.AllSatellites) {
                 if (satellite.satelliteId == liquidSatelliteId) {
-					if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -1193,7 +1157,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         } else {
             for (final PipeFluidSatellite satellite : PipeFluidSatellite.AllSatellites) {
                 if (satellite.satelliteId == liquidSatelliteIdArray[x]) {
-					if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -1298,17 +1262,17 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 List<AdjacentTile> crafters = locateCrafters();
                 ItemStack extracted = null;
                 AdjacentTile tile = null;
-				for (AdjacentTile crafter : crafters) {
-					tile = crafter;
-					extracted = extractFiltered(
-						tile,
-						_cleanupInventory,
-						cleanupModeIsExclude,
-						getUpgradeManager().getCrafterCleanup() * 3);
-					if (extracted != null && extracted.stackSize > 0) {
-						break;
-					}
-				}
+                for (AdjacentTile crafter : crafters) {
+                    tile = crafter;
+                    extracted = extractFiltered(
+                            tile,
+                            _cleanupInventory,
+                            cleanupModeIsExclude,
+                            getUpgradeManager().getCrafterCleanup() * 3);
+                    if (extracted != null && extracted.stackSize > 0) {
+                        break;
+                    }
+                }
                 if (extracted != null && extracted.stackSize > 0) {
                     _service.queueRoutedItem(
                             SimpleServiceLocator.routedItemHelper.createNewTravelItem(extracted), ForgeDirection.UP);
@@ -1347,13 +1311,13 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             // retrieve the new crafted items
             ItemStack extracted = null;
             AdjacentTile tile = null;
-			for (AdjacentTile crafter : crafters) {
-				tile = crafter;
-				extracted = extract(tile, nextOrder.getResource(), maxtosend);
-				if (extracted != null && extracted.stackSize > 0) {
-					break;
-				}
-			}
+            for (AdjacentTile crafter : crafters) {
+                tile = crafter;
+                extracted = extract(tile, nextOrder.getResource(), maxtosend);
+                if (extracted != null && extracted.stackSize > 0) {
+                    break;
+                }
+            }
             if (extracted == null || extracted.stackSize == 0) {
                 _service.getItemOrderManager().deferSend();
                 break;

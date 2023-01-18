@@ -42,8 +42,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
 
     public static final ICommandWrapper WRAPPER = new ICommandWrapper() {
 
-        private Map<Class<?>, Class<? extends BaseWrapperClass>> map =
-			new HashMap<>();
+        private Map<Class<?>, Class<? extends BaseWrapperClass>> map = new HashMap<>();
 
         @Override
         public Object getWrappedObject(CCWrapperInformation info, Object object) {
@@ -168,9 +167,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 head.append("\n").append(buffer);
             }
         }
-        return new Object[] {
-			String.valueOf(head) + head2 + help
-        };
+        return new Object[] {String.valueOf(head) + head2 + help};
     }
 
     @Callback(direct = true)
@@ -240,7 +237,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                     e.printStackTrace();
                 }
             }
-		}
+        }
         return getType();
     }
 
@@ -373,89 +370,89 @@ public abstract class BaseWrapperClass extends AbstractValue {
         if (type.equals("")) {
             return;
         }
-		switch (type) {
-			case "LPGlobalCCAccess":
-				object = LogisticsPipes.getComputerLP();
-				checkType();
-				break;
-			case "CoreRoutedPipe": {
-				int x = nbt.getInteger("X");
-				int y = nbt.getInteger("Y");
-				int z = nbt.getInteger("Z");
-				final LPPosition pos = new LPPosition(x, y, z);
-				final int dim = nbt.getInteger("Dim");
-				QueuedTasks.queueTask(new Callable<Object>() {
+        switch (type) {
+            case "LPGlobalCCAccess":
+                object = LogisticsPipes.getComputerLP();
+                checkType();
+                break;
+            case "CoreRoutedPipe": {
+                int x = nbt.getInteger("X");
+                int y = nbt.getInteger("Y");
+                int z = nbt.getInteger("Z");
+                final LPPosition pos = new LPPosition(x, y, z);
+                final int dim = nbt.getInteger("Dim");
+                QueuedTasks.queueTask(new Callable<Object>() {
 
-					@Override
-					public Object call() throws Exception {
-						World world = DimensionManager.getWorld(dim);
-						if (world != null) {
-							TileEntity tile = pos.getTileEntity(world);
-							if (tile instanceof LogisticsTileGenericPipe
-								&& ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
-								object = ((LogisticsTileGenericPipe) tile).pipe;
-								checkType();
-							}
-						}
-						return null;
-					}
-				});
-				break;
-			}
-			case "CCItemIdentifierImplementation": {
-				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
-				if (stack != null) {
-					object = new CCItemIdentifierImplementation(ItemIdentifier.get(stack));
-					checkType();
-				}
-				break;
-			}
-			case "CCItemIdentifierStackImplementation": {
-				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
-				if (stack != null) {
-					object = new CCItemIdentifierStackImplementation(ItemIdentifierStack.getFromStack(stack));
-					checkType();
-				}
-				break;
-			}
-			case "CCItemIdentifierBuilder": {
-				ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
-				if (stack != null) {
-					CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
-					builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
-					builder.setItemData((double) stack.getItemDamage());
-					object = builder;
-					checkType();
-				}
-				break;
-			}
-			case "LogisticsSolidTileEntity": {
-				int x = nbt.getInteger("X");
-				int y = nbt.getInteger("Y");
-				int z = nbt.getInteger("Z");
-				final LPPosition pos = new LPPosition(x, y, z);
-				final int dim = nbt.getInteger("Dim");
-				QueuedTasks.queueTask(new Callable<Object>() {
+                    @Override
+                    public Object call() throws Exception {
+                        World world = DimensionManager.getWorld(dim);
+                        if (world != null) {
+                            TileEntity tile = pos.getTileEntity(world);
+                            if (tile instanceof LogisticsTileGenericPipe
+                                    && ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
+                                object = ((LogisticsTileGenericPipe) tile).pipe;
+                                checkType();
+                            }
+                        }
+                        return null;
+                    }
+                });
+                break;
+            }
+            case "CCItemIdentifierImplementation": {
+                ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
+                if (stack != null) {
+                    object = new CCItemIdentifierImplementation(ItemIdentifier.get(stack));
+                    checkType();
+                }
+                break;
+            }
+            case "CCItemIdentifierStackImplementation": {
+                ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
+                if (stack != null) {
+                    object = new CCItemIdentifierStackImplementation(ItemIdentifierStack.getFromStack(stack));
+                    checkType();
+                }
+                break;
+            }
+            case "CCItemIdentifierBuilder": {
+                ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
+                if (stack != null) {
+                    CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
+                    builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
+                    builder.setItemData((double) stack.getItemDamage());
+                    object = builder;
+                    checkType();
+                }
+                break;
+            }
+            case "LogisticsSolidTileEntity": {
+                int x = nbt.getInteger("X");
+                int y = nbt.getInteger("Y");
+                int z = nbt.getInteger("Z");
+                final LPPosition pos = new LPPosition(x, y, z);
+                final int dim = nbt.getInteger("Dim");
+                QueuedTasks.queueTask(new Callable<Object>() {
 
-					@Override
-					public Object call() throws Exception {
-						World world = DimensionManager.getWorld(dim);
-						if (world != null) {
-							TileEntity tile = pos.getTileEntity(world);
-							if (tile instanceof LogisticsSolidTileEntity) {
-								object = tile;
-								checkType();
-							}
-						}
-						return null;
-					}
-				});
-				break;
-			}
-			default:
-				System.out.println("Unknown type to load");
-				break;
-		}
+                    @Override
+                    public Object call() throws Exception {
+                        World world = DimensionManager.getWorld(dim);
+                        if (world != null) {
+                            TileEntity tile = pos.getTileEntity(world);
+                            if (tile instanceof LogisticsSolidTileEntity) {
+                                object = tile;
+                                checkType();
+                            }
+                        }
+                        return null;
+                    }
+                });
+                break;
+            }
+            default:
+                System.out.println("Unknown type to load");
+                break;
+        }
     }
 
     @Override

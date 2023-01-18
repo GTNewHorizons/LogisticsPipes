@@ -8,7 +8,8 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodNode;
 
 public class ParamProfiler {
     private static final boolean isActive = false;
@@ -82,7 +83,7 @@ public class ParamProfiler {
                                 visitInsn(Opcodes.DUP);
                                 visitIntInsn(Opcodes.BIPUSH, count++);
                                 if (!varNode.startsWith("L") && !varNode.startsWith("[")) {
-									switch (varNode.charAt(0)) {
+                                    switch (varNode.charAt(0)) {
                                         case 'I':
                                             visitVarInsn(Opcodes.ILOAD, pos);
                                             pos += 1;
@@ -246,8 +247,8 @@ public class ParamProfiler {
     @SuppressWarnings("unused") // Used by ASM
     public static void methodStart(long id, String name, Object root, Object... params) {
         if (!isActive) return;
-		Stack<Entry> access = stack.computeIfAbsent(Thread.currentThread(), k -> new Stack<Entry>());
-		access.push(new Entry(id, name, root, params));
+        Stack<Entry> access = stack.computeIfAbsent(Thread.currentThread(), k -> new Stack<Entry>());
+        access.push(new Entry(id, name, root, params));
     }
 
     @SuppressWarnings("unused") // Used by ASM

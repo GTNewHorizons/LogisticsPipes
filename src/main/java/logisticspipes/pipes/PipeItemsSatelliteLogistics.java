@@ -1,10 +1,10 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
 import java.util.*;
@@ -190,8 +190,7 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         return HUD;
     }
 
-    public static Set<PipeItemsSatelliteLogistics> AllSatellites =
-            Collections.newSetFromMap(new WeakHashMap<>());
+    public static Set<PipeItemsSatelliteLogistics> AllSatellites = Collections.newSetFromMap(new WeakHashMap<>());
 
     // called only on server shutdown
     public static void cleanup() {
@@ -304,7 +303,7 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         if (MainProxy.isClient(getWorld())) {
             return;
         }
-		PipeItemsSatelliteLogistics.AllSatellites.remove(this);
+        PipeItemsSatelliteLogistics.AllSatellites.remove(this);
     }
 
     @Override

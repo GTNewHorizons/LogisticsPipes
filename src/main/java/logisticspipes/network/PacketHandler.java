@@ -14,8 +14,6 @@ import io.netty.util.AttributeKey;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +82,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
     public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(PacketHandler.class.getClassLoader())
-			.getTopLevelClassesRecursive("logisticspipes.network.packets"));
+                .getTopLevelClassesRecursive("logisticspipes.network.packets"));
         classes.sort((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
 
         PacketHandler.packetlist = new ArrayList<>(classes.size());
@@ -104,7 +102,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
 
     // TODO correct to work with WeakReference (See FML original)
     protected static final AttributeKey<ThreadLocal<FMLProxyPacket>> INBOUNDPACKETTRACKER =
-		new AttributeKey<>("lp:inboundpacket");
+            new AttributeKey<>("lp:inboundpacket");
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {

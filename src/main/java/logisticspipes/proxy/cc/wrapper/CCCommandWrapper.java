@@ -124,7 +124,7 @@ public class CCCommandWrapper implements ILuaObject {
                 } catch (IllegalAccessException | IllegalArgumentException e) {
                     throw new RuntimeException(e);
                 }
-			}
+            }
         }
 
         if (match.getAnnotation(CCQueued.class) != null) {
@@ -135,23 +135,23 @@ public class CCCommandWrapper implements ILuaObject {
             booleans[0] = false;
             booleans[1] = false;
             QueuedTasks.queueTask((Callable<Object>) () -> {
-				try {
-					Object result = m.invoke(object, a);
-					if (result != null) {
-						resultArray[0] = result;
-					}
-				} catch (InvocationTargetException e) {
-					if (e.getTargetException() instanceof PermissionException) {
-						booleans[1] = true;
-						resultArray[0] = e.getTargetException();
-					} else {
-						booleans[0] = true;
-						throw e;
-					}
-				}
-				booleans[0] = true;
-				return null;
-			});
+                try {
+                    Object result = m.invoke(object, a);
+                    if (result != null) {
+                        resultArray[0] = result;
+                    }
+                } catch (InvocationTargetException e) {
+                    if (e.getTargetException() instanceof PermissionException) {
+                        booleans[1] = true;
+                        resultArray[0] = e.getTargetException();
+                    } else {
+                        booleans[0] = true;
+                        throw e;
+                    }
+                }
+                booleans[0] = true;
+                return null;
+            });
             int count = 0;
             while (!booleans[0] && count < 200) {
                 try {
@@ -187,7 +187,7 @@ public class CCCommandWrapper implements ILuaObject {
         } catch (IllegalAccessException | IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
-		return CCObjectWrapper.createArray(CCObjectWrapper.getWrappedObject(result, CCCommandWrapper.WRAPPER));
+        return CCObjectWrapper.createArray(CCObjectWrapper.getWrappedObject(result, CCCommandWrapper.WRAPPER));
     }
 
     private Object[] help(Object[] arguments) {
@@ -278,9 +278,7 @@ public class CCCommandWrapper implements ILuaObject {
                 head.append("\n").append(buffer);
             }
         }
-        return new Object[] {
-			String.valueOf(head) + head2 + help
-        };
+        return new Object[] {String.valueOf(head) + head2 + help};
     }
 
     private Object[] helpCommand(Object[] arguments) {

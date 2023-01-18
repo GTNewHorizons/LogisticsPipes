@@ -8,8 +8,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +42,7 @@ public class NewGuiHandler {
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
     public static void initialize() {
         final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(NewGuiHandler.class.getClassLoader())
-			.getTopLevelClassesRecursive("logisticspipes.network.guis"));
+                .getTopLevelClassesRecursive("logisticspipes.network.guis"));
         classes.sort((o1, o2) -> o1.getSimpleName().compareTo(o2.getSimpleName()));
 
         NewGuiHandler.guilist = new ArrayList<>(classes.size());

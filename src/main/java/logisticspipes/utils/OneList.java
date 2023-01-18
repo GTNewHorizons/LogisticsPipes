@@ -1,11 +1,10 @@
 package logisticspipes.utils;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import org.jetbrains.annotations.NotNull;
 
 public class OneList<E> implements List<E> {
 

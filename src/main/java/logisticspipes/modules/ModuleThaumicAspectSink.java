@@ -72,11 +72,11 @@ public class ModuleThaumicAspectSink extends LogisticsGuiModule
         if (itemAspectList == null || itemAspectList.size() == 0) {
             return false;
         }
-		for (String s : itemAspectList) {
-			if (aspectList.contains(s)) {
-				return true;
-			}
-		}
+        for (String s : itemAspectList) {
+            if (aspectList.contains(s)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -153,10 +153,10 @@ public class ModuleThaumicAspectSink extends LogisticsGuiModule
         if (aspectList.size() == 0) {
             info.add("none");
         }
-		for (String s : aspectList) {
-			// info.add(" - " + SimpleServiceLocator.thaumCraftProxy.getNameForTagID(aspectList.get(i)));
-			info.add(" - " + s);
-		}
+        for (String s : aspectList) {
+            // info.add(" - " + SimpleServiceLocator.thaumCraftProxy.getNameForTagID(aspectList.get(i)));
+            info.add(" - " + s);
+        }
         return info;
     }
 

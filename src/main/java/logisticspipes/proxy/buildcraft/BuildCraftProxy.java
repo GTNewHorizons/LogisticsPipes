@@ -36,25 +36,12 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.VersionNotSupportedException;
-import logisticspipes.proxy.buildcraft.gates.ActionDisableLogistics;
-import logisticspipes.proxy.buildcraft.gates.ActionRobotRoutingLogistics;
-import logisticspipes.proxy.buildcraft.gates.LogisticsActionProvider;
-import logisticspipes.proxy.buildcraft.gates.LogisticsTriggerProvider;
-import logisticspipes.proxy.buildcraft.gates.TriggerCrafting;
-import logisticspipes.proxy.buildcraft.gates.TriggerHasDestination;
-import logisticspipes.proxy.buildcraft.gates.TriggerNeedsPower;
-import logisticspipes.proxy.buildcraft.gates.TriggerSupplierFailed;
+import logisticspipes.proxy.buildcraft.gates.*;
 import logisticspipes.proxy.buildcraft.recipeprovider.AssemblyTable;
 import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
 import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
 import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobotNBT;
-import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
-import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
-import logisticspipes.proxy.buildcraft.subproxies.IBCTilePart;
-import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
-import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
-import logisticspipes.proxy.buildcraft.subproxies.LPBCPipeTransportsItems;
-import logisticspipes.proxy.buildcraft.subproxies.LPBCTileGenericPipe;
+import logisticspipes.proxy.buildcraft.subproxies.*;
 import logisticspipes.proxy.interfaces.IBCProxy;
 import logisticspipes.proxy.interfaces.ICraftingParts;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
@@ -154,12 +141,12 @@ public class BuildCraftProxy implements IBCProxy {
     public boolean checkForPipeConnection(TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe) {
         if (with instanceof TileGenericPipe) {
             if (ReflectionHelper.invokePrivateMethodCatched(
-				Boolean.class,
-				TileGenericPipe.class,
-				with,
-				"hasBlockingPluggable",
-				new Class[]{ForgeDirection.class},
-				new Object[]{side.getOpposite()})) {
+                    Boolean.class,
+                    TileGenericPipe.class,
+                    with,
+                    "hasBlockingPluggable",
+                    new Class[] {ForgeDirection.class},
+                    new Object[] {side.getOpposite()})) {
                 return false;
             }
             Pipe<?> otherPipe = ((TileGenericPipe) with).pipe;

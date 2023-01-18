@@ -94,7 +94,7 @@ public class ItemPipeSignCreator extends LogisticsItem {
                 } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
-			} else {
+            } else {
                 return false;
             }
         } else {

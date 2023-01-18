@@ -65,9 +65,9 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float fA, int iA, int jA) {
-		for (GuiButton sycleButton : sycleButtons) {
-			sycleButton.visible = _crafter.targetType != null;
-		}
+        for (GuiButton sycleButton : sycleButtons) {
+            sycleButton.visible = _crafter.targetType != null;
+        }
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
         for (int x = 0; x < 3; x++) {

@@ -1,20 +1,13 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.WeakHashMap;
+import java.util.*;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.interfaces.ISecurityStationManager;
 import logisticspipes.interfaces.routing.IDirectConnectionManager;
@@ -30,8 +23,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
     private final ArrayList<IRouter> _routersServer = new ArrayList<>();
     private final Map<UUID, Integer> _uuidMap = new HashMap<>();
 
-    private final WeakHashMap<LogisticsSecurityTileEntity, Void> _security =
-		new WeakHashMap<>();
+    private final WeakHashMap<LogisticsSecurityTileEntity, Void> _security = new WeakHashMap<>();
     private List<String> _authorized = new LinkedList<>();
 
     private final ArrayList<DirectConnection> connectedPipes = new ArrayList<>();
@@ -297,7 +289,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
 
     @Override
     public void deauthorizeUUID(UUID id) {
-		_authorized.remove(id.toString());
+        _authorized.remove(id.toString());
         sendClientAuthorizationList();
     }
 

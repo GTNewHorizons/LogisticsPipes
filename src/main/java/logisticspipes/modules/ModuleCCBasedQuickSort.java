@@ -2,21 +2,10 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.gui.hud.modules.HUDCCBasedQuickSort;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
@@ -52,8 +41,7 @@ import net.minecraft.util.IIcon;
 public class ModuleCCBasedQuickSort extends ModuleQuickSort
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
 
-    private Map<Integer, Pair<Integer, List<CCSinkResponder>>> sinkResponses =
-		new HashMap<>();
+    private Map<Integer, Pair<Integer, List<CCSinkResponder>>> sinkResponses = new HashMap<>();
 
     @Getter
     private int timeout = 100;
@@ -206,8 +194,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
             return false;
         }
         final IRouter source = _service.getRouter();
-        List<Triplet<Integer, Double, CCSinkResponder>> posibilities =
-			new ArrayList<>();
+        List<Triplet<Integer, Double, CCSinkResponder>> posibilities = new ArrayList<>();
         for (CCSinkResponder sink : list) {
             if (!sink.isDone()) {
                 continue;
@@ -238,13 +225,13 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
             return false;
         }
         posibilities.sort((o1, o2) -> {
-			int c = o2.getValue1() - o1.getValue1();
-			if (c != 0) {
-				return c;
-			}
-			double e = o1.getValue2() - o2.getValue2();
-			return e < 0 ? -1 : 1;
-		});
+            int c = o2.getValue1() - o1.getValue1();
+            if (c != 0) {
+                return c;
+            }
+            double e = o1.getValue2() - o2.getValue2();
+            return e < 0 ? -1 : 1;
+        });
         boolean sended = false;
         for (Triplet<Integer, Double, CCSinkResponder> triple : posibilities) {
             CCSinkResponder sink = triple.getValue3();

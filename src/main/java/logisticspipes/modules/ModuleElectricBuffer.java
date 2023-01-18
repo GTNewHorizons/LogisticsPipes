@@ -106,7 +106,7 @@ public class ModuleElectricBuffer extends LogisticsModule {
                 _service.sendStack(inv.decrStackSize(i, 1), reply, ItemSendMode.Normal);
                 return;
             }
-		}
+        }
     }
 
     @Override

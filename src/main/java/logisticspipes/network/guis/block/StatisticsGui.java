@@ -5,8 +5,6 @@ import java.util.List;
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.blocks.stats.TrackingTask;
 import logisticspipes.gui.GuiStatistics;
-import logisticspipes.network.IReadListObject;
-import logisticspipes.network.IWriteListObject;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
@@ -38,7 +36,7 @@ public class StatisticsGui extends CoordinatesGuiProvider {
         tile.tasks = trackingList;
         GuiStatistics gui = new GuiStatistics(tile);
 
-		gui.inventorySlots = new DummyContainer(player.inventory, null);
+        gui.inventorySlots = new DummyContainer(player.inventory, null);
 
         return gui;
     }
@@ -50,7 +48,7 @@ public class StatisticsGui extends CoordinatesGuiProvider {
             return null;
         }
 
-		return new DummyContainer(player, null);
+        return new DummyContainer(player, null);
     }
 
     @Override

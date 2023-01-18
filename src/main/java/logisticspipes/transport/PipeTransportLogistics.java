@@ -1,30 +1,20 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.transport;
 
 import buildcraft.transport.TravelingItem;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
-import logisticspipes.interfaces.IBufferItems;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IItemAdvancedExistance;
-import logisticspipes.interfaces.ISlotUpgradeManager;
-import logisticspipes.interfaces.ISpecialInsertion;
-import logisticspipes.interfaces.ISubSystemPowerProvider;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.ITargetSlotInformation;
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
@@ -307,7 +297,7 @@ public class PipeTransportLogistics {
             }
             if (!this.container.isPipeConnected(dir)) {
                 iter.remove();
-			}
+            }
         }
         if (dirs.isEmpty()) {
             return ForgeDirection.UNKNOWN;
@@ -343,9 +333,7 @@ public class PipeTransportLogistics {
                                 data.getItemIdentifierStack().getItem())
                 && data.getBufferCounter() < MAX_DESTINATION_UNREACHABLE_BUFFER) {
             _itemBuffer.add(new Triplet<>(
-				data.getItemIdentifierStack(),
-				new Pair<>(_bufferTimeOut, data.getBufferCounter()),
-				data));
+                    data.getItemIdentifierStack(), new Pair<>(_bufferTimeOut, data.getBufferCounter()), data));
             return null;
         }
 
@@ -364,9 +352,7 @@ public class PipeTransportLogistics {
         }
         if (value == ForgeDirection.UNKNOWN && !data.getDoNotBuffer() && data.getBufferCounter() < 5) {
             _itemBuffer.add(new Triplet<>(
-				data.getItemIdentifierStack(),
-				new Pair<>(_bufferTimeOut, data.getBufferCounter()),
-				null));
+                    data.getItemIdentifierStack(), new Pair<>(_bufferTimeOut, data.getBufferCounter()), null));
             return null;
         }
 
@@ -408,9 +394,9 @@ public class PipeTransportLogistics {
         for (int i = 0; i < nbttaglist2.tagCount(); i++) {
             NBTTagCompound nbttagcompound1 = nbttaglist2.getCompoundTagAt(i);
             _itemBuffer.add(new Triplet<>(
-				ItemIdentifierStack.getFromStack(ItemStack.loadItemStackFromNBT(nbttagcompound1)),
-				new Pair<>(_bufferTimeOut, 0),
-				null));
+                    ItemIdentifierStack.getFromStack(ItemStack.loadItemStackFromNBT(nbttagcompound1)),
+                    new Pair<>(_bufferTimeOut, 0),
+                    null));
         }
     }
 
@@ -444,15 +430,15 @@ public class PipeTransportLogistics {
         float defaultBoost = 1F;
 
         switch (item.getTransportMode()) {
-			case Passive:
+            case Passive:
                 defaultBoost = 25F;
                 break;
             case Active:
                 defaultBoost = 30F;
                 break;
-			case Unknown:
-			case Default:
-			default:
+            case Unknown:
+            case Default:
+            default:
                 defaultBoost = 20F;
                 break;
         }
@@ -525,7 +511,7 @@ public class PipeTransportLogistics {
                 }
                 // last chance for chassi to back out
                 if (arrivingItem instanceof IRoutedItem) {
-					if (((IRoutedItem) arrivingItem).getTransportMode() != TransportMode.Active
+                    if (((IRoutedItem) arrivingItem).getTransportMode() != TransportMode.Active
                             && !getRoutedPipe().getTransportLayer().stillWantItem(arrivingItem)) {
                         reverseItem(arrivingItem);
                         return;

@@ -2,12 +2,7 @@ package logisticspipes.proxy.buildcraft;
 
 import buildcraft.core.CoreConstants;
 import buildcraft.core.lib.TileBuffer;
-import buildcraft.transport.BlockGenericPipe;
-import buildcraft.transport.PipeTransportFluids;
-import buildcraft.transport.PipeTransportItems;
-import buildcraft.transport.PipeTransportPower;
-import buildcraft.transport.TileGenericPipe;
-import buildcraft.transport.TravelingItem;
+import buildcraft.transport.*;
 import buildcraft.transport.pipes.PipeItemsDiamond;
 import buildcraft.transport.pipes.PipeItemsIron;
 import buildcraft.transport.pipes.PipeItemsObsidian;

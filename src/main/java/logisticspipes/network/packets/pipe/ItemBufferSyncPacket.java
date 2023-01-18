@@ -38,8 +38,7 @@ public class ItemBufferSyncPacket
     @Override
     public Triplet<ItemIdentifierStack, Pair<Integer /* Time */, Integer /* BufferCounter */>, LPTravelingItemServer>
             readObject(LPDataInputStream data) throws IOException {
-        return new Triplet<>(
-                data.readItemIdentifierStack(), null, null);
+        return new Triplet<>(data.readItemIdentifierStack(), null, null);
     }
 
     @Override

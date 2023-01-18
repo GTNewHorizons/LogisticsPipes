@@ -1,9 +1,10 @@
 package logisticspipes.log;
 
 /*
-  Copied from ConsoleLogFormatter for shared use on the client
+ Copied from ConsoleLogFormatter for shared use on the client
 
- */
+*/
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;

@@ -1,5 +1,6 @@
 package logisticspipes.network.abstractpackets;
 
+import java.io.IOException;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.exception.TargetNotFoundException;
@@ -11,8 +12,6 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import java.io.IOException;
 
 @Accessors(chain = true)
 @ToString
@@ -77,12 +76,12 @@ public abstract class CoordinatesPacket extends ModernPacket {
         return this;
     }
 
-	/**
+    /**
      * Retrieves tileEntity at packet coordinates if any.
      * @return TileEntity
      */
-	@SuppressWarnings("unchecked")
-	public <T> T getTile(World world, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    public <T> T getTile(World world, Class<T> clazz) {
         if (world == null) {
             targetNotFound("World was null");
             return null;
@@ -108,8 +107,8 @@ public abstract class CoordinatesPacket extends ModernPacket {
      * Retrieves tileEntity or CoreUnroutedPipe at packet coordinates if any.
      * @return TileEntity
      */
-	@SuppressWarnings("unchecked")
-	public <T> T getTileOrPipe(World world, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    public <T> T getTileOrPipe(World world, Class<T> clazz) {
         if (world == null) {
             targetNotFound("World was null");
             return null;
@@ -143,7 +142,7 @@ public abstract class CoordinatesPacket extends ModernPacket {
     /**
      * Retrieves pipe at packet coordinates if any.
      *
-	 */
+     */
     public LogisticsTileGenericPipe getPipe(World world) {
         return getPipe(world, LTGPCompletionCheck.NONE);
     }

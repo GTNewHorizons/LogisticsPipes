@@ -11,13 +11,7 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.AddItemToTrackPacket;
 import logisticspipes.network.packets.block.RequestAmountTaskSubGui;
 import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.gui.GuiCheckBox;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.IItemSearch;
-import logisticspipes.utils.gui.ItemDisplay;
-import logisticspipes.utils.gui.SearchBar;
-import logisticspipes.utils.gui.SmallGuiButton;
-import logisticspipes.utils.gui.SubGuiScreen;
+import logisticspipes.utils.gui.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
@@ -198,8 +192,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         // Enchantment? Enchantment!
         Map<Integer, Integer> enchantIdLvlMap = EnchantmentHelper.getEnchantments(item.unsafeMakeNormalStack(1));
         for (Entry<Integer, Integer> e : enchantIdLvlMap.entrySet()) {
-            if (e.getKey() < Enchantment.enchantmentsList.length
-                    && Enchantment.enchantmentsList[e.getKey()] != null) {
+            if (e.getKey() < Enchantment.enchantmentsList.length && Enchantment.enchantmentsList[e.getKey()] != null) {
                 String enchantname = Enchantment.enchantmentsList[e.getKey()].getTranslatedName(e.getValue());
                 if (enchantname != null) {
                     if (isSearched(

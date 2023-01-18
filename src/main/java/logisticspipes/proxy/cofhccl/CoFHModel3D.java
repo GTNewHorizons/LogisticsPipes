@@ -2,7 +2,6 @@ package logisticspipes.proxy.cofhccl;
 
 import cofh.repack.codechicken.lib.lighting.LightModel;
 import cofh.repack.codechicken.lib.render.CCModel;
-import cofh.repack.codechicken.lib.render.CCRenderState;
 import cofh.repack.codechicken.lib.render.CCRenderState.IVertexOperation;
 import cofh.repack.codechicken.lib.render.uv.UVTransformation;
 import cofh.repack.codechicken.lib.vec.Cuboid6;

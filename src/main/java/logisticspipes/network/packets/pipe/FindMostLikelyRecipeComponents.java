@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.TreeSet;
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.gui.popup.GuiRecipeImport;
-import logisticspipes.network.*;
+import logisticspipes.network.LPDataInputStream;
+import logisticspipes.network.LPDataOutputStream;
+import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.PipeBlockRequestTable;
@@ -116,7 +118,10 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
         super.writeData(data);
-        data.writeList(content, (data12, object) -> data12.writeList(object.order, (data1, object1) -> data1.writeItemIdentifierStack(object1)));
+        data.writeList(
+                content,
+                (data12, object) ->
+                        data12.writeList(object.order, (data1, object1) -> data1.writeItemIdentifierStack(object1)));
     }
 
     @Override

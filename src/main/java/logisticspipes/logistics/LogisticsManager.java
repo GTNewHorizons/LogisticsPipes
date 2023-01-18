@@ -1,19 +1,13 @@
 /*
-  Copyright (c) Krapht, 2011
+ Copyright (c) Krapht, 2011
 
-  "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
-  License 1.0, or MMPL. Please check the contents of the license located in
-  http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.logistics;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.interfaces.routing.IFilter;
@@ -52,7 +46,7 @@ public class LogisticsManager implements ILogisticsManager {
      * @param allowDefault
      *            Boolean, if true then a default route will be considered a
      *            valid destination.
-	 */
+     */
     @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
             ItemIdentifier stack, boolean allowDefault, int sourceID, List<Integer> routerIDsToExclude) {
@@ -115,7 +109,7 @@ public class LogisticsManager implements ILogisticsManager {
                 SimpleServiceLocator.routerManager.getRouter(sourceRouter),
                 SimpleServiceLocator.routerManager.getRouter(sourceRouter).getIRoutersByCost(),
                 excludeSource,
-			new ArrayList<>(),
+                new ArrayList<>(),
                 null,
                 true);
         if (search.getValue2() == null) {
@@ -194,7 +188,7 @@ public class LogisticsManager implements ILogisticsManager {
                 result.setValue2(reply);
                 List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
-			}
+            }
         }
         if (result.getValue1() != null) {
             CoreRoutedPipe pipe = SimpleServiceLocator.routerManager
@@ -369,8 +363,7 @@ public class LogisticsManager implements ILogisticsManager {
     @Override
     public HashMap<ItemIdentifier, Integer> getAvailableItems(List<ExitRoute> validDestinations) {
         // TODO: Replace this entire function wiht a fetch from the pre-built arrays (path incoming later)
-        List<Map<ItemIdentifier, Integer>> items =
-			new ArrayList<>(ServerRouter.getBiggestSimpleID());
+        List<Map<ItemIdentifier, Integer>> items = new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
             items.add(new HashMap<>());
         }
@@ -399,7 +392,7 @@ public class LogisticsManager implements ILogisticsManager {
         HashMap<ItemIdentifier, Integer> allAvailableItems = new HashMap<>();
         for (Map<ItemIdentifier, Integer> allItems : items) {
             for (Entry<ItemIdentifier, Integer> item : allItems.entrySet()) {
-				allAvailableItems.merge(item.getKey(), item.getValue(), Integer::sum);
+                allAvailableItems.merge(item.getKey(), item.getValue(), Integer::sum);
             }
         }
         return allAvailableItems;
@@ -456,8 +449,7 @@ public class LogisticsManager implements ILogisticsManager {
     @Override
     public int getAmountFor(ItemIdentifier itemType, List<ExitRoute> validDestinations) {
         // TODO: Replace this entire function wiht a fetch from the pre-built arrays (path incoming later)
-        List<Map<ItemIdentifier, Integer>> items =
-			new ArrayList<>(ServerRouter.getBiggestSimpleID());
+        List<Map<ItemIdentifier, Integer>> items = new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
             items.add(new HashMap<>());
         }

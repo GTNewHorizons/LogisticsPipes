@@ -73,7 +73,7 @@ public class LPDataInputStream extends DataInputStream {
 
     /**
      * @return ServerRouter or ClientRouter depending where we are
-	 */
+     */
     public IRouter readIRouter(World world) throws IOException {
         if (in.read() == 0) {
             return null;
