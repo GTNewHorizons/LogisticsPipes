@@ -267,13 +267,7 @@ public class GuiRecipeImport extends SubGuiScreen {
                     && mouseX < guiLeft + 20 + x * 40 + 16
                     && guiTop + 90 + y * 40 < mouseY
                     && mouseY < guiTop + 90 + y * 40 + 16) {
-                setSubGui(new SelectItemOutOfList(canidate.order, new IHandleItemChoise() {
-
-                    @Override
-                    public void handleItemChoise(int slot) {
-                        canidate.pos = slot;
-                    }
-                }));
+                setSubGui(new SelectItemOutOfList(canidate.order, slot -> canidate.pos = slot));
             }
 
             x++;

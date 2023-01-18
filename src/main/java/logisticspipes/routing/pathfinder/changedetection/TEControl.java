@@ -43,42 +43,38 @@ public class TEControl {
             if (((ILPTEInformation) tile).getObject().initialised < 5) {
                 return;
             }
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    if (!SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
-                        return null;
-                    }
-                    for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                        LPPosition newPos = pos.copy();
-                        newPos.moveForward(dir);
-                        if (!newPos.blockExists(world)) {
-                            continue;
-                        }
-                        TileEntity nextTile = newPos.getTileEntity(world);
-                        if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
-                            if (SimpleServiceLocator.pipeInformationManager.isItemPipe(nextTile)) {
-                                SimpleServiceLocator.pipeInformationManager
-                                        .getInformationProviderFor(nextTile)
-                                        .refreshTileCacheOnSide(dir.getOpposite());
-                            }
-                            if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
-                                SimpleServiceLocator.pipeInformationManager
-                                        .getInformationProviderFor(tile)
-                                        .refreshTileCacheOnSide(dir);
-                                SimpleServiceLocator.pipeInformationManager
-                                        .getInformationProviderFor(tile)
-                                        .refreshTileCacheOnSide(dir.getOpposite());
-                            }
-                            for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
-                                    ((ILPTEInformation) nextTile).getObject().changeListeners)) {
-                                listener.pipeAdded(pos, dir.getOpposite());
-                            }
-                        }
-                    }
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+                if (!SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
                     return null;
                 }
+                for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+                    LPPosition newPos = pos.copy();
+                    newPos.moveForward(dir);
+                    if (!newPos.blockExists(world)) {
+                        continue;
+                    }
+                    TileEntity nextTile = newPos.getTileEntity(world);
+                    if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
+                        if (SimpleServiceLocator.pipeInformationManager.isItemPipe(nextTile)) {
+                            SimpleServiceLocator.pipeInformationManager
+                                    .getInformationProviderFor(nextTile)
+                                    .refreshTileCacheOnSide(dir.getOpposite());
+                        }
+                        if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
+                            SimpleServiceLocator.pipeInformationManager
+                                    .getInformationProviderFor(tile)
+                                    .refreshTileCacheOnSide(dir);
+                            SimpleServiceLocator.pipeInformationManager
+                                    .getInformationProviderFor(tile)
+                                    .refreshTileCacheOnSide(dir.getOpposite());
+                        }
+                        for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
+                                ((ILPTEInformation) nextTile).getObject().changeListeners)) {
+                            listener.pipeAdded(pos, dir.getOpposite());
+                        }
+                    }
+                }
+                return null;
             });
         }
     }
@@ -95,32 +91,28 @@ public class TEControl {
             return;
         }
         if (((ILPTEInformation) tile).getObject() != null) {
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    LPPosition pos = new LPPosition(tile);
-                    for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                        LPPosition newPos = pos.copy();
-                        newPos.moveForward(dir);
-                        if (!newPos.blockExists(world)) {
-                            continue;
-                        }
-                        TileEntity nextTile = newPos.getTileEntity(world);
-                        if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
-                            if (SimpleServiceLocator.pipeInformationManager.isItemPipe(nextTile)) {
-                                SimpleServiceLocator.pipeInformationManager
-                                        .getInformationProviderFor(nextTile)
-                                        .refreshTileCacheOnSide(dir.getOpposite());
-                            }
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+                LPPosition pos = new LPPosition(tile);
+                for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+                    LPPosition newPos = pos.copy();
+                    newPos.moveForward(dir);
+                    if (!newPos.blockExists(world)) {
+                        continue;
+                    }
+                    TileEntity nextTile = newPos.getTileEntity(world);
+                    if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
+                        if (SimpleServiceLocator.pipeInformationManager.isItemPipe(nextTile)) {
+                            SimpleServiceLocator.pipeInformationManager
+                                    .getInformationProviderFor(nextTile)
+                                    .refreshTileCacheOnSide(dir.getOpposite());
                         }
                     }
-                    for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
-                            ((ILPTEInformation) tile).getObject().changeListeners)) {
-                        listener.pipeRemoved(pos);
-                    }
-                    return null;
                 }
+                for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
+                        ((ILPTEInformation) tile).getObject().changeListeners)) {
+                    listener.pipeRemoved(pos);
+                }
+                return null;
             });
         }
     }
@@ -164,31 +156,27 @@ public class TEControl {
         if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)
                 || SimpleServiceLocator.specialtileconnection.isType(tile)) {
             info.getUpdateQueued().add(pos);
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                        LPPosition newPos = pos.copy();
-                        newPos.moveForward(dir);
-                        if (!newPos.blockExists(world)) {
-                            continue;
-                        }
-                        TileEntity nextTile = newPos.getTileEntity(world);
-                        if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
-                            for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
-                                    ((ILPTEInformation) nextTile).getObject().changeListeners)) {
-                                listener.pipeModified(pos);
-                            }
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+                for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+                    LPPosition newPos = pos.copy();
+                    newPos.moveForward(dir);
+                    if (!newPos.blockExists(world)) {
+                        continue;
+                    }
+                    TileEntity nextTile = newPos.getTileEntity(world);
+                    if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
+                        for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
+                                ((ILPTEInformation) nextTile).getObject().changeListeners)) {
+                            listener.pipeModified(pos);
                         }
                     }
-                    for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
-                            ((ILPTEInformation) tile).getObject().changeListeners)) {
-                        listener.pipeModified(pos);
-                    }
-                    info.getUpdateQueued().remove(pos);
-                    return null;
                 }
+                for (ITileEntityChangeListener listener : new ArrayList<ITileEntityChangeListener>(
+                        ((ILPTEInformation) tile).getObject().changeListeners)) {
+                    listener.pipeModified(pos);
+                }
+                info.getUpdateQueued().remove(pos);
+                return null;
             });
         }
     }

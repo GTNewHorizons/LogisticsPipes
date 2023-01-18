@@ -271,13 +271,7 @@ public class OpenGLDebugger {
             });
 
             mainPanel.registerKeyboardAction(
-                    new ActionListener() {
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            stop();
-                        }
-                    },
+                    e -> stop(),
                     KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                     JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         }

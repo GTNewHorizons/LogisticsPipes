@@ -57,13 +57,7 @@ public class LPDataOutputStream extends DataOutputStream {
         writeDouble(route.distanceToDestination);
         writeDouble(route.destinationDistanceToRoot);
         writeInt(route.blockDistance);
-        this.writeList(route.filters, new IWriteListObject<IFilter>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, IFilter filter) throws IOException {
-                data.writeLPPosition(filter.getLPPosition());
-            }
-        });
+        this.writeList(route.filters, (data, filter) -> data.writeLPPosition(filter.getLPPosition()));
         writeUTF(route.toString());
         writeBoolean(route.debug.isNewlyAddedCanidate);
         writeBoolean(route.debug.isTraced);
@@ -172,13 +166,7 @@ public class LPDataOutputStream extends DataOutputStream {
         writeBoolean(order.isFinished());
         writeBoolean(order.isInProgress());
         this.writeEnum(order.getType());
-        this.writeList(order.getProgresses(), new IWriteListObject<Float>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, Float object) throws IOException {
-                data.writeFloat(object);
-            }
-        });
+        this.writeList(order.getProgresses(), (data, object) -> data.writeFloat(object));
         writeByte(order.getMachineProgress());
         if (order.getTargetPosition() != null) {
             writeBoolean(true);
@@ -194,20 +182,8 @@ public class LPDataOutputStream extends DataOutputStream {
     }
 
     public void writeLinkedLogisticsOrderList(LinkedLogisticsOrderList orders) throws IOException {
-        this.writeList(orders, new IWriteListObject<IOrderInfoProvider>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, IOrderInfoProvider order) throws IOException {
-                data.writeOrderInfo(order);
-            }
-        });
-        this.writeList(orders.getSubOrders(), new IWriteListObject<LinkedLogisticsOrderList>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, LinkedLogisticsOrderList order) throws IOException {
-                data.writeLinkedLogisticsOrderList(order);
-            }
-        });
+        this.writeList(orders, (data, order) -> data.writeOrderInfo(order));
+        this.writeList(orders.getSubOrders(), (data, order) -> data.writeLinkedLogisticsOrderList(order));
     }
 
     public void writeByteArray(byte[] array) throws IOException {

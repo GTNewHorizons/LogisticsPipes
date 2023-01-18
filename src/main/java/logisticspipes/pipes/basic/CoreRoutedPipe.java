@@ -1486,13 +1486,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
-                exit.destination.queueTask(10, new IRouterQueuedTask() {
-
-                    @Override
-                    public void call(CoreRoutedPipe pipe, IRouter router) {
-                        pipe.handleMesssage((int) ((double) computerId), message, fSourceId);
-                    }
-                });
+                exit.destination.queueTask(10, (pipe, router) -> pipe.handleMesssage((int) ((double) computerId), message, fSourceId));
                 set.set(exit.destination.getSimpleID());
             }
         }
@@ -1511,13 +1505,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
-                exit.destination.queueTask(10, new IRouterQueuedTask() {
-
-                    @Override
-                    public void call(CoreRoutedPipe pipe, IRouter router) {
-                        pipe.handleBroadcast(message, fSourceId);
-                    }
-                });
+                exit.destination.queueTask(10, (pipe, router) -> pipe.handleBroadcast(message, fSourceId));
                 set.set(exit.destination.getSimpleID());
             }
         }

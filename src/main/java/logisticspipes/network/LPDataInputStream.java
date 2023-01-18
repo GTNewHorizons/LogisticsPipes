@@ -59,13 +59,7 @@ public class LPDataInputStream extends DataInputStream {
         double distanceToDestination = readDouble();
         double destinationDistanceToRoot = readDouble();
         int blockDistance = readInt();
-        List<LPPosition> positions = this.readList(new IReadListObject<LPPosition>() {
-
-            @Override
-            public LPPosition readObject(LPDataInputStream data) throws IOException {
-                return data.readLPPosition();
-            }
-        });
+        List<LPPosition> positions = this.readList(data -> data.readLPPosition());
         ExitRoute e = new ExitRoute(
                 root, destination, exitOri, insertOri, destinationDistanceToRoot, connectionDetails, blockDistance);
         e.distanceToDestination = distanceToDestination;
@@ -184,13 +178,7 @@ public class LPDataInputStream extends DataInputStream {
         boolean isFinished = readBoolean();
         boolean inProgress = readBoolean();
         ResourceType type = this.readEnum(ResourceType.class);
-        List<Float> list = this.readList(new IReadListObject<Float>() {
-
-            @Override
-            public Float readObject(LPDataInputStream data) throws IOException {
-                return data.readFloat();
-            }
-        });
+        List<Float> list = this.readList(data -> data.readFloat());
         byte machineProgress = readByte();
         LPPosition pos = null;
         ItemIdentifier ident = null;
@@ -208,20 +196,8 @@ public class LPDataInputStream extends DataInputStream {
 
     public LinkedLogisticsOrderList readLinkedLogisticsOrderList() throws IOException {
         LinkedLogisticsOrderList list = new LinkedLogisticsOrderList();
-        list.addAll(this.readList(new IReadListObject<IOrderInfoProvider>() {
-
-            @Override
-            public IOrderInfoProvider readObject(LPDataInputStream data) throws IOException {
-                return data.readOrderInfo();
-            }
-        }));
-        list.getSubOrders().addAll(this.readList(new IReadListObject<LinkedLogisticsOrderList>() {
-
-            @Override
-            public LinkedLogisticsOrderList readObject(LPDataInputStream data) throws IOException {
-                return data.readLinkedLogisticsOrderList();
-            }
-        }));
+        list.addAll(this.readList(data -> data.readOrderInfo()));
+        list.getSubOrders().addAll(this.readList(data -> data.readLinkedLogisticsOrderList()));
         return list;
     }
 

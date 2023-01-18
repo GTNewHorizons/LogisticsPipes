@@ -826,12 +826,7 @@ public class ProxyManager {
                 }));
 
         SimpleServiceLocator.setFactorizationProxy(ProxyManager.getWrappedProxy(
-                "factorization", IFactorizationProxy.class, FactorizationProxy.class, new IFactorizationProxy() {
-                    @Override
-                    public boolean isBarral(TileEntity tile) {
-                        return false;
-                    }
-                }));
+                "factorization", IFactorizationProxy.class, FactorizationProxy.class, tile -> false));
 
         SimpleServiceLocator.setEnderIOProxy(
                 ProxyManager.getWrappedProxy("EnderIO", IEnderIOProxy.class, EnderIOProxy.class, new IEnderIOProxy() {
@@ -939,12 +934,7 @@ public class ProxyManager {
                 }));
 
         SimpleServiceLocator.setExtraCellsProxy(ProxyManager.getWrappedProxy(
-                "extracells", IExtraCellsProxy.class, ExtraCellsProxy.class, new IExtraCellsProxy() {
-                    @Override
-                    public boolean canSeeFluidInNetwork(Fluid fluid) {
-                        return true;
-                    }
-                }));
+                "extracells", IExtraCellsProxy.class, ExtraCellsProxy.class, fluid -> true));
 
         SimpleServiceLocator.setCoFHPowerProxy(ProxyManager.getWrappedProxy(
                 "CoFHAPI|energy",
@@ -1024,12 +1014,7 @@ public class ProxyManager {
                 ICoFHEnergyStorage.class));
 
         SimpleServiceLocator.setBinnieProxy(
-                ProxyManager.getWrappedProxy("Genetics", IBinnieProxy.class, BinnieProxy.class, new IBinnieProxy() {
-                    @Override
-                    public boolean isTileAnalyser(TileEntity tile) {
-                        return false;
-                    }
-                }));
+                ProxyManager.getWrappedProxy("Genetics", IBinnieProxy.class, BinnieProxy.class, tile -> false));
 
         ICCLProxy dummyCCLProxy = new ICCLProxy() {
             @Override

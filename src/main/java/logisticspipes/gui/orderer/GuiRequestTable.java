@@ -107,13 +107,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 dummy.addDummySlot(i++, guiLeft + (x * 18) + 20, guiTop + (y * 18) + 15);
             }
         }
-        dummy.addCallableSlotHandler(0, _table.resultInv, guiLeft + 101, guiTop + 33, new ISlotClick() {
-
-            @Override
-            public ItemStack getResultForClick() {
-                return _table.getResultForClick();
-            }
-        });
+        dummy.addCallableSlotHandler(0, _table.resultInv, guiLeft + 101, guiTop + 33, () -> _table.getResultForClick());
         dummy.addNormalSlot(0, _table.toSortInv, guiLeft + 164, guiTop + 51);
         dummy.addNormalSlot(0, _table.diskInv, guiLeft + 164, guiTop + 25);
         dummy.addNormalSlotsForPlayerInventory(20, 150);

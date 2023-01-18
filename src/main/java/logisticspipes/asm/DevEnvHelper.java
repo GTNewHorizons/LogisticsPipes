@@ -112,13 +112,7 @@ public class DevEnvHelper {
 
         FMLRelaunchLog.fine("Discovering coremods");
         File coreMods = (File) setupCoreModDir.invoke(null, mcDir.get(null));
-        FilenameFilter ff = new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".jar");
-            }
-        };
+        FilenameFilter ff = (dir, name) -> name.endsWith(".jar");
         File[] FMLcoreModListArray = coreMods.listFiles(ff);
         File versionedModDir = new File(coreMods, "1.7.10");
         if (versionedModDir.isDirectory()) {

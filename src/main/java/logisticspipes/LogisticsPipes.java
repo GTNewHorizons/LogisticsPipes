@@ -582,14 +582,9 @@ public class LogisticsPipes {
         res.setUnlocalizedName(clas.getSimpleName());
         final CoreUnroutedPipe pipe = LogisticsBlockGenericPipe.createPipe(res);
         if (pipe instanceof CoreRoutedPipe) {
-            postInitRun.add(new Runnable() {
-                @Override
-                public void run() {
-                    res.setPipeIconIndex(
-                            ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).normal,
-                            ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).newTexture);
-                }
-            });
+            postInitRun.add(() -> res.setPipeIconIndex(
+                    ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).normal,
+                    ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).newTexture));
         }
 
         if (side.isClient()) {

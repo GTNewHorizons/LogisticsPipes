@@ -132,13 +132,9 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                     dir,
                     Configs.LOGISTICS_DETECTION_COUNT,
                     Configs.LOGISTICS_DETECTION_LENGTH,
-                    new IPaintPath() {
-
-                        @Override
-                        public void addLaser(World worldObj, LaserData laser) {
-                            if (pipe.getWorld() == worldObj) {
-                                lasers.add(laser);
-                            }
+                    (worldObj, laser) -> {
+                        if (pipe.getWorld() == worldObj) {
+                            lasers.add(laser);
                         }
                     },
                     connectionType);

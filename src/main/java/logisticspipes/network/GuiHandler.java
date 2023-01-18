@@ -178,21 +178,17 @@ public class GuiHandler implements IGuiHandler {
                     }
                     dummy = new DummyContainer(player.inventory, ((PipeItemsInvSysConnector) pipe.pipe).inv);
 
-                    dummy.addRestrictedSlot(0, ((PipeItemsInvSysConnector) pipe.pipe).inv, 50, 10, new ISlotCheck() {
-
-                        @Override
-                        public boolean isStackAllowed(ItemStack itemStack) {
-                            if (itemStack == null) {
-                                return false;
-                            }
-                            if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-                                return false;
-                            }
-                            if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
-                                return false;
-                            }
-                            return true;
+                    dummy.addRestrictedSlot(0, ((PipeItemsInvSysConnector) pipe.pipe).inv, 50, 10, itemStack -> {
+                        if (itemStack == null) {
+                            return false;
                         }
+                        if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+                            return false;
+                        }
+                        if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
+                            return false;
+                        }
+                        return true;
                     });
 
                     dummy.addNormalSlotsForPlayerInventory(0, 50);
@@ -223,21 +219,17 @@ public class GuiHandler implements IGuiHandler {
 
                     dummy = new DummyContainer(player.inventory, inv);
 
-                    dummy.addRestrictedSlot(0, inv, 40, 40, new ISlotCheck() {
-
-                        @Override
-                        public boolean isStackAllowed(ItemStack itemStack) {
-                            if (itemStack == null) {
-                                return false;
-                            }
-                            if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-                                return false;
-                            }
-                            if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
-                                return false;
-                            }
-                            return true;
+                    dummy.addRestrictedSlot(0, inv, 40, 40, itemStack -> {
+                        if (itemStack == null) {
+                            return false;
                         }
+                        if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+                            return false;
+                        }
+                        if (itemStack.getItemDamage() != LogisticsItemCard.FREQ_CARD) {
+                            return false;
+                        }
+                        return true;
                     });
                     dummy.addNormalSlotsForPlayerInventory(0, 0);
 
@@ -301,13 +293,7 @@ public class GuiHandler implements IGuiHandler {
                         }
                     }
                     dummy.addCallableSlotHandler(
-                            0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, new ISlotClick() {
-
-                                @Override
-                                public ItemStack getResultForClick() {
-                                    return ((PipeBlockRequestTable) fpipe.pipe).getResultForClick();
-                                }
-                            });
+                            0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, () -> ((PipeBlockRequestTable) fpipe.pipe).getResultForClick());
                     dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).toSortInv, 0, 0);
                     dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).diskInv, 0, 0);
                     dummy.addNormalSlotsForPlayerInventory(0, 0);

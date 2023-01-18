@@ -1124,28 +1124,24 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         final TileEntity tileCache = pipe.container;
         final CoreUnroutedPipe fPipe = pipe;
         fPipe.setPreventRemove(true);
-        QueuedTasks.queueTask(new Callable<Object>() {
-
-            @Override
-            public Object call() throws Exception {
-                if (!fPipe.preventRemove()) {
-                    return null;
-                }
-                boolean changed = false;
-                if (worldCache.getBlock(xCache, yCache, zCache) != LogisticsPipes.LogisticsPipeBlock) {
-                    worldCache.setBlock(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
-                    changed = true;
-                }
-                if (worldCache.getTileEntity(xCache, yCache, zCache) != tileCache) {
-                    worldCache.setTileEntity(xCache, yCache, zCache, tileCache);
-                    changed = true;
-                }
-                if (changed) {
-                    worldCache.notifyBlockChange(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
-                }
-                fPipe.setPreventRemove(false);
-                return null;
-            }
-        });
+        QueuedTasks.queueTask((Callable<Object>) () -> {
+			if (!fPipe.preventRemove()) {
+				return null;
+			}
+			boolean changed = false;
+			if (worldCache.getBlock(xCache, yCache, zCache) != LogisticsPipes.LogisticsPipeBlock) {
+				worldCache.setBlock(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
+				changed = true;
+			}
+			if (worldCache.getTileEntity(xCache, yCache, zCache) != tileCache) {
+				worldCache.setTileEntity(xCache, yCache, zCache, tileCache);
+				changed = true;
+			}
+			if (changed) {
+				worldCache.notifyBlockChange(xCache, yCache, zCache, LogisticsPipes.LogisticsPipeBlock);
+			}
+			fPipe.setPreventRemove(false);
+			return null;
+		});
     }
 }

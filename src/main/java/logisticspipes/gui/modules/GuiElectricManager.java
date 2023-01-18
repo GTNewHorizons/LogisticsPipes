@@ -29,13 +29,7 @@ public class GuiElectricManager extends ModuleBaseGui {
         // Default item toggle:
         buttonList.clear();
         buttonList.add(new GuiStringHandlerButton(
-                0, width / 2 - 6, height / 2 - 34, 88, 20, new GuiStringHandlerButton.StringHandler() {
-
-                    @Override
-                    public String getContent() {
-                        return _module.isDischargeMode() ? "Discharge Items" : "Charge Items";
-                    }
-                }));
+                0, width / 2 - 6, height / 2 - 34, 88, 20, () -> _module.isDischargeMode() ? "Discharge Items" : "Charge Items"));
     }
 
     @Override

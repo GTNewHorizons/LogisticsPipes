@@ -291,37 +291,34 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
                 // int posY = 0;
                 final int posX = slot.xDisplayPosition + guiLeft;
                 final int posY = slot.yDisplayPosition + 17 + guiTop;
-                renderAtTheEnd.add(new Runnable() {
-                    @Override
-                    public void run() {
-                        GL11.glDisable(GL11.GL_DEPTH_TEST);
-                        GL11.glDisable(GL11.GL_LIGHTING);
-                        GuiGraphics.drawGuiBackGround(
-                                mc, posX, posY, posX + 60, posY + 52, zLevel, true, true, true, true, true);
-                        final String PREFIX = "gui.crafting.";
-                        mc.fontRenderer.drawString(
-                                StringUtils.translate(PREFIX + "OreDict"),
-                                posX + 4,
-                                posY + 4,
-                                (!resource.use_od ? 0x404040 : 0xFF4040));
-                        mc.fontRenderer.drawString(
-                                StringUtils.translate(PREFIX + "IgnDamage"),
-                                posX + 4,
-                                posY + 14,
-                                (!resource.ignore_dmg ? 0x404040 : 0x40FF40));
-                        mc.fontRenderer.drawString(
-                                StringUtils.translate(PREFIX + "IgnNBT"),
-                                posX + 4,
-                                posY + 26,
-                                (!resource.ignore_nbt ? 0x404040 : 0x4040FF));
-                        mc.fontRenderer.drawString(
-                                StringUtils.translate(PREFIX + "OrePrefix"),
-                                posX + 4,
-                                posY + 38,
-                                (!resource.use_category ? 0x404040 : 0x7F7F40));
-                        GL11.glEnable(GL11.GL_LIGHTING);
-                        GL11.glEnable(GL11.GL_DEPTH_TEST);
-                    }
+                renderAtTheEnd.add(() -> {
+                    GL11.glDisable(GL11.GL_DEPTH_TEST);
+                    GL11.glDisable(GL11.GL_LIGHTING);
+                    GuiGraphics.drawGuiBackGround(
+                            mc, posX, posY, posX + 60, posY + 52, zLevel, true, true, true, true, true);
+                    final String PREFIX = "gui.crafting.";
+                    mc.fontRenderer.drawString(
+                            StringUtils.translate(PREFIX + "OreDict"),
+                            posX + 4,
+                            posY + 4,
+                            (!resource.use_od ? 0x404040 : 0xFF4040));
+                    mc.fontRenderer.drawString(
+                            StringUtils.translate(PREFIX + "IgnDamage"),
+                            posX + 4,
+                            posY + 14,
+                            (!resource.ignore_dmg ? 0x404040 : 0x40FF40));
+                    mc.fontRenderer.drawString(
+                            StringUtils.translate(PREFIX + "IgnNBT"),
+                            posX + 4,
+                            posY + 26,
+                            (!resource.ignore_nbt ? 0x404040 : 0x4040FF));
+                    mc.fontRenderer.drawString(
+                            StringUtils.translate(PREFIX + "OrePrefix"),
+                            posX + 4,
+                            posY + 38,
+                            (!resource.use_category ? 0x404040 : 0x7F7F40));
+                    GL11.glEnable(GL11.GL_LIGHTING);
+                    GL11.glEnable(GL11.GL_DEPTH_TEST);
                 });
             }
         }

@@ -106,35 +106,17 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
     @Override
     public void readData(LPDataInputStream data) throws IOException {
         super.readData(data);
-        content = data.readList(new IReadListObject<GuiRecipeImport.Canidates>() {
-            @Override
-            public GuiRecipeImport.Canidates readObject(LPDataInputStream data) throws IOException {
-                GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<ItemIdentifierStack>());
-                can.order = data.readList(new IReadListObject<ItemIdentifierStack>() {
-                    @Override
-                    public ItemIdentifierStack readObject(LPDataInputStream data) throws IOException {
-                        return data.readItemIdentifierStack();
-                    }
-                });
-                return can;
-            }
+        content = data.readList(data12 -> {
+            GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<ItemIdentifierStack>());
+            can.order = data12.readList(data1 -> data1.readItemIdentifierStack());
+            return can;
         });
     }
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
         super.writeData(data);
-        data.writeList(content, new IWriteListObject<GuiRecipeImport.Canidates>() {
-            @Override
-            public void writeObject(LPDataOutputStream data, GuiRecipeImport.Canidates object) throws IOException {
-                data.writeList(object.order, new IWriteListObject<ItemIdentifierStack>() {
-                    @Override
-                    public void writeObject(LPDataOutputStream data, ItemIdentifierStack object) throws IOException {
-                        data.writeItemIdentifierStack(object);
-                    }
-                });
-            }
-        });
+        data.writeList(content, (data12, object) -> data12.writeList(object.order, (data1, object1) -> data1.writeItemIdentifierStack(object1)));
     }
 
     @Override

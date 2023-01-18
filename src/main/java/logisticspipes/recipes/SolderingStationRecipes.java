@@ -169,13 +169,10 @@ public class SolderingStationRecipes {
                         null
                     },
                     new ItemStack(LogisticsPipes.LogisticsItemCard, 2, 0),
-                    new ICraftingResultHandler() {
-                        @Override
-                        public void handleCrafting(ItemStack stack) {
-                            stack.stackTagCompound = new NBTTagCompound();
-                            stack.stackTagCompound.setString(
-                                    "UUID", UUID.randomUUID().toString());
-                        }
+                    stack -> {
+                        stack.stackTagCompound = new NBTTagCompound();
+                        stack.stackTagCompound.setString(
+                                "UUID", UUID.randomUUID().toString());
                     }));
 
             SolderingStationRecipes.recipes.add(new SolderingStationRecipe(

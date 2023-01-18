@@ -84,17 +84,13 @@ public class DebugTargetResponse extends ModernPacket {
                 player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No TileEntity found"));
             } else {
                 LPChatListener.addTask(
-                        new Callable<Boolean>() {
-
-                            @Override
-                            public Boolean call() throws Exception {
-                                player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
-                                        + "Starting debuging of TileEntity: " + ChatColor.BLUE + ChatColor.UNDERLINE
-                                        + tile.getClass().getSimpleName()));
-                                DebugGuiController.instance().startWatchingOf(tile, player);
-                                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
-                                return true;
-                            }
+                        () -> {
+                            player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
+                                    + "Starting debuging of TileEntity: " + ChatColor.BLUE + ChatColor.UNDERLINE
+                                    + tile.getClass().getSimpleName()));
+                            DebugGuiController.instance().startWatchingOf(tile, player);
+                            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
+                            return true;
                         },
                         player);
                 player.addChatComponentMessage(new ChatComponentText(ChatColor.AQUA + "Start debuging of TileEntity: "
@@ -110,17 +106,13 @@ public class DebugTargetResponse extends ModernPacket {
                 player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No Entity found"));
             } else {
                 LPChatListener.addTask(
-                        new Callable<Boolean>() {
-
-                            @Override
-                            public Boolean call() throws Exception {
-                                player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
-                                        + "Starting debuging of Entity: " + ChatColor.BLUE + ChatColor.UNDERLINE
-                                        + entity.getClass().getSimpleName()));
-                                DebugGuiController.instance().startWatchingOf(entity, player);
-                                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
-                                return true;
-                            }
+                        () -> {
+                            player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
+                                    + "Starting debuging of Entity: " + ChatColor.BLUE + ChatColor.UNDERLINE
+                                    + entity.getClass().getSimpleName()));
+                            DebugGuiController.instance().startWatchingOf(entity, player);
+                            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
+                            return true;
                         },
                         player);
                 player.addChatComponentMessage(

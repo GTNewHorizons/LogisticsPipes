@@ -70,24 +70,20 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         // TAB_1 SLOTS
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
             TAB_SLOTS_1_1.add(dummy.addRestrictedSlot(
-                    pipeSlot, pipe.getOriginalUpgradeManager().getInv(), 10 + pipeSlot * 18, 42, new ISlotCheck() {
-
-                        @Override
-                        public boolean isStackAllowed(ItemStack itemStack) {
-                            if (itemStack == null) {
-                                return false;
-                            }
-                            if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                                if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                                        .isAllowedForPipe(pipe)) {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                            return true;
-                        }
-                    }));
+                    pipeSlot, pipe.getOriginalUpgradeManager().getInv(), 10 + pipeSlot * 18, 42, itemStack -> {
+						if (itemStack == null) {
+							return false;
+						}
+						if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+							if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+									.isAllowedForPipe(pipe)) {
+								return false;
+							}
+						} else {
+							return false;
+						}
+						return true;
+					}));
         }
 
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
@@ -96,27 +92,23 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                     pipe.getOriginalUpgradeManager().getSneakyInv(),
                     10 + pipeSlot * 18,
                     78,
-                    new ISlotCheck() {
-
-                        @Override
-                        public boolean isStackAllowed(ItemStack itemStack) {
-                            if (itemStack == null) {
-                                return false;
-                            }
-                            if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                                IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
-                                if (!(upgrade instanceof SneakyUpgrade)) {
-                                    return false;
-                                }
-                                if (!upgrade.isAllowedForPipe(pipe)) {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                            return true;
-                        }
-                    }));
+				itemStack -> {
+					if (itemStack == null) {
+						return false;
+					}
+					if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+						IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
+						if (!(upgrade instanceof SneakyUpgrade)) {
+							return false;
+						}
+						if (!upgrade.isAllowedForPipe(pipe)) {
+							return false;
+						}
+					} else {
+						return false;
+					}
+					return true;
+				}));
         }
 
         // TAB_2 SLOTS
@@ -125,26 +117,22 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 pipe.getOriginalUpgradeManager().getSecInv(),
                 10,
                 42,
-                new ISlotCheck() {
-
-                    @Override
-                    public boolean isStackAllowed(ItemStack itemStack) {
-                        if (itemStack == null) {
-                            return false;
-                        }
-                        if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-                            return false;
-                        }
-                        if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
-                            return false;
-                        }
-                        if (!SimpleServiceLocator.securityStationManager.isAuthorized(
-                                UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
-                            return false;
-                        }
-                        return true;
-                    }
-                },
+			itemStack -> {
+				if (itemStack == null) {
+					return false;
+				}
+				if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+					return false;
+				}
+				if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
+					return false;
+				}
+				if (!SimpleServiceLocator.securityStationManager.isAuthorized(
+						UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
+					return false;
+				}
+				return true;
+			},
                 1));
 
         TAB_SLOTS_4.add(dummy.addRestrictedSlot(

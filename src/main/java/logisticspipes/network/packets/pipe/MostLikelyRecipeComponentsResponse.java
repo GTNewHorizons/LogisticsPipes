@@ -26,12 +26,7 @@ public class MostLikelyRecipeComponentsResponse extends ModernPacket {
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        response = data.readList(new IReadListObject<Integer>() {
-            @Override
-            public Integer readObject(LPDataInputStream data) throws IOException {
-                return data.readInt();
-            }
-        });
+        response = data.readList(data1 -> data1.readInt());
     }
 
     @Override
@@ -41,12 +36,7 @@ public class MostLikelyRecipeComponentsResponse extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeList(response, new IWriteListObject<Integer>() {
-            @Override
-            public void writeObject(LPDataOutputStream data, Integer object) throws IOException {
-                data.writeInt(object);
-            }
-        });
+        data.writeList(response, (data1, object) -> data1.writeInt(object));
     }
 
     @Override

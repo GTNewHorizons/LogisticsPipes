@@ -282,44 +282,40 @@ public class LogisticsEventListener {
         SimpleServiceLocator.clientBufferHandler.clear();
 
         if (Configs.CHECK_FOR_UPDATES) {
-            LogisticsPipes.singleThreadExecutor.execute(new Runnable() {
+            LogisticsPipes.singleThreadExecutor.execute(() -> {
+				// try to get player entity ten times, once a second
+				int times = 0;
+				EntityClientPlayerMP playerEntity;
+				do {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						return;
+					}
+					playerEntity = FMLClientHandler.instance().getClientPlayerEntity();
+					++times;
+				} while (playerEntity == null && times <= 10);
 
-                @Override
-                public void run() {
-                    // try to get player entity ten times, once a second
-                    int times = 0;
-                    EntityClientPlayerMP playerEntity;
-                    do {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            return;
-                        }
-                        playerEntity = FMLClientHandler.instance().getClientPlayerEntity();
-                        ++times;
-                    } while (playerEntity == null && times <= 10);
+				if (times > 10) {
+					return;
+				}
+				assert playerEntity != null;
 
-                    if (times > 10) {
-                        return;
-                    }
-                    assert playerEntity != null;
+				VersionChecker checker = LogisticsPipes.versionChecker;
 
-                    VersionChecker checker = LogisticsPipes.versionChecker;
+				// send player message
+				String versionMessage = checker.getVersionCheckerStatus();
 
-                    // send player message
-                    String versionMessage = checker.getVersionCheckerStatus();
-
-                    if (checker.isVersionCheckDone()
-                            && checker.getVersionInfo().isNewVersionAvailable()
-                            && !checker.getVersionInfo().isImcMessageSent()) {
-                        playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
-                        playerEntity.addChatComponentMessage(
-                                new ChatComponentText("Use \"/logisticspipes changelog\" to see a changelog."));
-                    } else if (!checker.isVersionCheckDone()) {
-                        playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
-                    }
-                }
-            });
+				if (checker.isVersionCheckDone()
+						&& checker.getVersionInfo().isNewVersionAvailable()
+						&& !checker.getVersionInfo().isImcMessageSent()) {
+					playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
+					playerEntity.addChatComponentMessage(
+							new ChatComponentText("Use \"/logisticspipes changelog\" to see a changelog."));
+				} else if (!checker.isVersionCheckDone()) {
+					playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
+				}
+			});
         }
     }
 

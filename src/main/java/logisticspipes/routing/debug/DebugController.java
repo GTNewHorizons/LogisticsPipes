@@ -68,43 +68,39 @@ public class DebugController implements IRoutingDebugAdapter {
     private ArrayList<EnumMap<PipeRoutingConnectionType, List<List<IFilter>>>> filterList = null;
 
     public void debug(final ServerRouter serverRouter) {
-        QueuedTasks.queueTask(new Callable<Object>() {
+        QueuedTasks.queueTask((Callable<Object>) () -> {
+            state = DebugWaitState.LOOP;
+            Thread tmp = new Thread() {
 
-            @Override
-            public Object call() throws Exception {
-                state = DebugWaitState.LOOP;
-                Thread tmp = new Thread() {
-
-                    @Override
-                    public void run() {
-                        while (LPChatListener.existTaskFor(sender.getCommandSenderName())) {
-                            try {
-                                Thread.sleep(10);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                @Override
+                public void run() {
+                    while (LPChatListener.existTaskFor(sender.getCommandSenderName())) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                        MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-                        if (oldThread != null) {
-                            oldThread.stop();
-                        }
-                        oldThread = new RoutingTableDebugUpdateThread() {
-
-                            @Override
-                            public void run() {
-                                serverRouter.CreateRouteTable(0, DebugController.this);
-                                oldThread = null;
-                            }
-                        };
-                        oldThread.setDaemon(true);
-                        oldThread.setName("RoutingTable update debug Thread");
-                        oldThread.start();
                     }
-                };
-                tmp.setDaemon(true);
-                tmp.start();
-                return null;
-            }
+                    MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                    if (oldThread != null) {
+                        oldThread.stop();
+                    }
+                    oldThread = new RoutingTableDebugUpdateThread() {
+
+                        @Override
+                        public void run() {
+                            serverRouter.CreateRouteTable(0, DebugController.this);
+                            oldThread = null;
+                        }
+                    };
+                    oldThread.setDaemon(true);
+                    oldThread.setName("RoutingTable update debug Thread");
+                    oldThread.start();
+                }
+            };
+            tmp.setDaemon(true);
+            tmp.start();
+            return null;
         });
     }
 
@@ -117,25 +113,17 @@ public class DebugController implements IRoutingDebugAdapter {
             return;
         }
         state = DebugWaitState.LOOP;
-        QueuedTasks.queueTask(new Callable<Object>() {
-
-            @Override
-            public Object call() throws Exception {
-                sender.addChatMessage(new ChatComponentText(reson));
-                LPChatListener.addTask(
-                        new Callable<Boolean>() {
-
-                            @Override
-                            public Boolean call() throws Exception {
-                                state = DebugWaitState.CONTINUE;
-                                MainProxy.sendPacketToPlayer(
-                                        PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-                                return true;
-                            }
-                        },
-                        sender);
-                return null;
-            }
+        QueuedTasks.queueTask((Callable<Object>) () -> {
+            sender.addChatMessage(new ChatComponentText(reson));
+            LPChatListener.addTask(
+                    () -> {
+                        state = DebugWaitState.CONTINUE;
+                        MainProxy.sendPacketToPlayer(
+                                PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                        return true;
+                    },
+                    sender);
+            return null;
         });
         boolean exist = false;
         while (state == DebugWaitState.LOOP) {

@@ -35,13 +35,7 @@ public class PlayerCollectionList {
 
     public Iterable<EntityPlayer> players() {
         checkPlayers();
-        return new Iterable<EntityPlayer>() {
-
-            @Override
-            public Iterator<EntityPlayer> iterator() {
-                return new Itr(players.iterator());
-            }
-        };
+        return () -> new Itr(players.iterator());
     }
 
     public int size() {

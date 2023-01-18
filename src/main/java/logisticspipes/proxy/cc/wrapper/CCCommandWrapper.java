@@ -19,13 +19,7 @@ import org.luaj.vm2.LuaTable;
 
 public class CCCommandWrapper implements ILuaObject {
 
-    public static final ICommandWrapper WRAPPER = new ICommandWrapper() {
-
-        @Override
-        public Object getWrappedObject(CCWrapperInformation info, Object object) {
-            return new CCCommandWrapper(info, object);
-        }
-    };
+    public static final ICommandWrapper WRAPPER = (info, object) -> new CCCommandWrapper(info, object);
 
     private CCWrapperInformation info;
     private Object object;
@@ -142,28 +136,24 @@ public class CCCommandWrapper implements ILuaObject {
             final Boolean[] booleans = new Boolean[2];
             booleans[0] = false;
             booleans[1] = false;
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    try {
-                        Object result = m.invoke(object, a);
-                        if (result != null) {
-                            resultArray[0] = result;
-                        }
-                    } catch (InvocationTargetException e) {
-                        if (e.getTargetException() instanceof PermissionException) {
-                            booleans[1] = true;
-                            resultArray[0] = e.getTargetException();
-                        } else {
-                            booleans[0] = true;
-                            throw e;
-                        }
-                    }
-                    booleans[0] = true;
-                    return null;
-                }
-            });
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+				try {
+					Object result = m.invoke(object, a);
+					if (result != null) {
+						resultArray[0] = result;
+					}
+				} catch (InvocationTargetException e) {
+					if (e.getTargetException() instanceof PermissionException) {
+						booleans[1] = true;
+						resultArray[0] = e.getTargetException();
+					} else {
+						booleans[0] = true;
+						throw e;
+					}
+				}
+				booleans[0] = true;
+				return null;
+			});
             int count = 0;
             while (!booleans[0] && count < 200) {
                 try {

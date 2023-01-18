@@ -42,38 +42,14 @@ public class ComponentList extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeCollection(used, new IWriteListObject<IResource>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, IResource object) throws IOException {
-                data.writeIResource(object);
-            }
-        });
-        data.writeCollection(missing, new IWriteListObject<IResource>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, IResource object) throws IOException {
-                data.writeIResource(object);
-            }
-        });
+        data.writeCollection(used, (data12, object) -> data12.writeIResource(object));
+        data.writeCollection(missing, (data1, object) -> data1.writeIResource(object));
         data.write(0);
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        used = data.readList(new IReadListObject<IResource>() {
-
-            @Override
-            public IResource readObject(LPDataInputStream data) throws IOException {
-                return data.readIResource();
-            }
-        });
-        missing = data.readList(new IReadListObject<IResource>() {
-
-            @Override
-            public IResource readObject(LPDataInputStream data) throws IOException {
-                return data.readIResource();
-            }
-        });
+        used = data.readList(data12 -> data12.readIResource());
+        missing = data.readList(data1 -> data1.readIResource());
     }
 }
