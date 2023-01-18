@@ -37,10 +37,9 @@ public class FluidContainerRenderer implements IItemRenderer {
             if (item.getItem() instanceof LogisticsFluidContainer) {
                 switch (type) {
                     case ENTITY:
-                        return true;
-                    case INVENTORY:
-                        return true;
-                    default:
+					case INVENTORY:
+						return true;
+					default:
                         return false;
                 }
             }

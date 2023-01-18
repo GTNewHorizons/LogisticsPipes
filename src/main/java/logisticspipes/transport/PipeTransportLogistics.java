@@ -449,19 +449,15 @@ public class PipeTransportLogistics {
         float defaultBoost = 1F;
 
         switch (item.getTransportMode()) {
-            case Default:
-                defaultBoost = 20F;
-                break;
-            case Passive:
+			case Passive:
                 defaultBoost = 25F;
                 break;
             case Active:
                 defaultBoost = 30F;
                 break;
-            case Unknown:
-                defaultBoost = 20F;
-                break;
-            default:
+			case Unknown:
+			case Default:
+			default:
                 defaultBoost = 20F;
                 break;
         }

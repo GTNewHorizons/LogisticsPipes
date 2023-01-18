@@ -146,14 +146,11 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         switch (type) {
             case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
-            case EQUIPPED_FIRST_PERSON:
-                return true;
-            case INVENTORY:
-                return true;
-            default:
+			case INVENTORY:
+			case EQUIPPED_FIRST_PERSON:
+			case EQUIPPED:
+				return true;
+			default:
                 return false;
         }
     }
@@ -167,7 +164,8 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         switch (type) {
             case ENTITY:
-                if (renderAsBlock) {
+			case INVENTORY:
+				if (renderAsBlock) {
                     renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
                 } else {
                     renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
@@ -187,14 +185,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
                     renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
                 }
                 break;
-            case INVENTORY:
-                if (renderAsBlock) {
-                    renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
-                } else {
-                    renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
-                }
-                break;
-            default:
+			default:
         }
     }
 }

@@ -237,17 +237,13 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         if (rayTraceResult != null && rayTraceResult.boundingBox != null) {
             AxisAlignedBB box = rayTraceResult.boundingBox;
             switch (rayTraceResult.hitPart) {
-                case Pluggable: {
+                case Pluggable:
+				case Pipe: {
                     float scale = 0.001F;
                     box = box.expand(scale, scale, scale);
                     break;
                 }
-                case Pipe: {
-                    float scale = 0.001F;
-                    box = box.expand(scale, scale, scale);
-                    break;
-                }
-            }
+			}
             return box.getOffsetBoundingBox(x, y, z);
         }
         return super.getSelectedBoundingBoxFromPool(world, x, y, z).expand(-0.85F, -0.85F, -0.85F);

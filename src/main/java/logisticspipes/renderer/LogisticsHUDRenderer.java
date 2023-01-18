@@ -474,9 +474,7 @@ public class LogisticsHUDRenderer {
                 case SOUTH:
                     GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                     break;
-                case EAST:
-                    break;
-                case WEST:
+				case WEST:
                     GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
                     break;
                 case UP:
@@ -485,7 +483,8 @@ public class LogisticsHUDRenderer {
                 case DOWN:
                     GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
                     break;
-                default:
+				case EAST:
+				default:
                     break;
             }
 

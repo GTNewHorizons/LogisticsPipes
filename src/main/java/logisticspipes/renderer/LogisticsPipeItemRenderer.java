@@ -146,14 +146,11 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         }
         switch (type) {
             case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
-            case EQUIPPED_FIRST_PERSON:
-                return true;
-            case INVENTORY:
-                return true;
-            default:
+			case INVENTORY:
+			case EQUIPPED_FIRST_PERSON:
+			case EQUIPPED:
+				return true;
+			default:
                 return false;
         }
     }
@@ -171,18 +168,14 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         }
         switch (type) {
             case ENTITY:
-                renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
+			case INVENTORY:
+				renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
                 break;
             case EQUIPPED:
-                renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
+			case EQUIPPED_FIRST_PERSON:
+				renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
                 break;
-            case EQUIPPED_FIRST_PERSON:
-                renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
-                break;
-            case INVENTORY:
-                renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
-                break;
-            default:
+			default:
         }
     }
 }
