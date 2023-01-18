@@ -104,7 +104,7 @@ public class ServerPacketBufferHandlerThread {
                     while (pause || serverList.size() == 0) {
                         try {
                             serverList.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }
@@ -268,7 +268,7 @@ public class ServerPacketBufferHandlerThread {
                     while (queue.size() == 0) {
                         try {
                             queue.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }

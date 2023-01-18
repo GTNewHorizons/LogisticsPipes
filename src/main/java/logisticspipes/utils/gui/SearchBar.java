@@ -237,7 +237,7 @@ public class SearchBar {
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }
-        } catch (Exception exception) {
+        } catch (Exception ignored) {
         }
         return "";
     }

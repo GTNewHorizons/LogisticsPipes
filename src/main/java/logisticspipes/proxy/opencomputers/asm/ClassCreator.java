@@ -111,7 +111,7 @@ public class ClassCreator {
         if (ClassCreator.createdClasses.contains(className)) {
             try {
                 return (Class<? extends BaseWrapperClass>) Class.forName(newClassName_DOT);
-            } catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException ignored) {
             }
         }
         byte[] bytes = ClassCreator.getWrappedClassAsBytes(info, className);

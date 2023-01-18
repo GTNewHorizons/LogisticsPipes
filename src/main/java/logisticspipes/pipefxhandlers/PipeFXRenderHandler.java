@@ -40,7 +40,7 @@ public class PipeFXRenderHandler {
                 }
             }
 
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
     }
 

@@ -79,7 +79,7 @@ public class LogWindow extends JPanel {
         if (document != null) {
             try {
                 document.insertString(document.getLength(), data + "\n", attr);
-            } catch (BadLocationException badlocationexception) {
+            } catch (BadLocationException ignored) {
             }
         }
         validate();

@@ -34,7 +34,7 @@ public class DebugWindow extends JFrame {
         if (document != null) {
             try {
                 document.insertString(document.getLength(), data, attr);
-            } catch (BadLocationException badlocationexception) {
+            } catch (BadLocationException ignored) {
             }
         }
         getContentPane().validate();

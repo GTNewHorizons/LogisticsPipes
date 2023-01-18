@@ -821,7 +821,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             }
             GL11.glPopMatrix();
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         GL11.glPopMatrix();
         return false;

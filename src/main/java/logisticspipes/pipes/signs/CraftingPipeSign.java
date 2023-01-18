@@ -102,7 +102,7 @@ public class CraftingPipeSign implements IPipeSign {
                 } catch (Exception e) {
                     try {
                         name = item.getUnlocalizedName();
-                    } catch (Exception e1) {
+                    } catch (Exception ignored) {
                     }
                 }
 

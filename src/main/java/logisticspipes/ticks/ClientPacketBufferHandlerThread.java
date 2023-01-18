@@ -96,7 +96,7 @@ public class ClientPacketBufferHandlerThread {
                     while (pause || clientList.size() == 0) {
                         try {
                             clientList.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }
@@ -224,7 +224,7 @@ public class ClientPacketBufferHandlerThread {
                     while (queue.size() == 0) {
                         try {
                             queue.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }

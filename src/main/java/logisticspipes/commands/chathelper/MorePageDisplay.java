@@ -233,7 +233,7 @@ public class MorePageDisplay {
             if (numstring.equalsIgnoreCase(input)) {
                 return true;
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return false;
     }
@@ -241,7 +241,7 @@ public class MorePageDisplay {
     public static int toNumber(String input) {
         try {
             return Integer.parseInt(input);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return -1;
     }

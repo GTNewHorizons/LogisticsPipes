@@ -515,10 +515,10 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                         }
                     }
                 }
-            } catch (NoSuchFieldException e) {
-            } catch (SecurityException e) {
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
+            } catch (NoSuchFieldException ignored) {
+            } catch (SecurityException ignored) {
+            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalAccessException ignored) {
             }
             if (creativeTabName == null) {
                 creativeTabName = "UNKNOWN";

@@ -196,7 +196,7 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
                 } catch (Exception e) {
                     try {
                         name = item.getUnlocalizedName();
-                    } catch (Exception e1) {
+                    } catch (Exception ignored) {
                     }
                 }
 

@@ -219,7 +219,7 @@ public class DevEnvHelper {
                 AccessTransformer acc = new AccessTransformer("CoFH_at.cfg") {};
                 insertTransformer(acc);
             }
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
         }
     }
 
@@ -1170,7 +1170,7 @@ public class DevEnvHelper {
                     if (CsvFile.sideIn(Integer.parseInt(side), n_sides)) {
                         data.put(searge, name);
                     }
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
             return data;

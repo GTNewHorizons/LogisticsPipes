@@ -51,7 +51,7 @@ public class RoutingTableUpdateThread extends Thread {
                     }
                 }
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
 
         }
     }
