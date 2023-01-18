@@ -620,8 +620,7 @@ public class RequestTreeNode {
                         for (IFilter filter : r.filters) {
                             if (filter.isBlocked() == filter.isFilteredItem(craftable.getResultItem())
                                     || filter.blockCrafting()) {
-                                continue;
-                            }
+							}
                         }
                         List<IFilter> list = new LinkedList<IFilter>();
                         list.addAll(r.filters);

@@ -311,8 +311,7 @@ public class PipeTransportLogistics {
             }
             if (!this.container.isPipeConnected(dir)) {
                 iter.remove();
-                continue;
-            }
+			}
         }
         if (dirs.isEmpty()) {
             return ForgeDirection.UNKNOWN;

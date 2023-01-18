@@ -91,8 +91,7 @@ public class LPItemList implements Iterable<LPTravelingItem> {
 
             if (item.getContainer() != pipe.container) {
                 it.remove();
-                continue;
-            }
+			}
         }
     }
 

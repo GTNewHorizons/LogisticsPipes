@@ -194,8 +194,7 @@ public class LogisticsManager implements ILogisticsManager {
                 result.setValue2(reply);
                 List<IFilter> list = new LinkedList<IFilter>();
                 result.setValue3(list);
-                continue;
-            }
+			}
         }
         if (result.getValue1() != null) {
             CoreRoutedPipe pipe = SimpleServiceLocator.routerManager
