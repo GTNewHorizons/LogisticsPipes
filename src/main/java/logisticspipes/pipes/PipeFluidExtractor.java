@@ -50,7 +50,7 @@ public class PipeFluidExtractor extends PipeFluidInsertion {
         }
         FluidStack extracted = container.drain(
                 side.getOpposite(),
-                liquidToExtract[i] > PipeFluidExtractor.flowRate ? PipeFluidExtractor.flowRate : liquidToExtract[i],
+			Math.min(liquidToExtract[i], PipeFluidExtractor.flowRate),
                 false);
 
         int inserted = 0;
