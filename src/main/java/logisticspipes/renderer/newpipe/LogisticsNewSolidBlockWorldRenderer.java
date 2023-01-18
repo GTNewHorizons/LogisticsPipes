@@ -192,7 +192,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block
                 .get(rotation)
-                .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                .render(new LPTranslation(x, y, z), icon);
         LPPosition pos = new LPPosition(blockTile);
         for (CoverSides side : CoverSides.values()) {
             boolean render = true;
@@ -210,11 +210,11 @@ public class LogisticsNewSolidBlockWorldRenderer {
                 LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                         .get(side)
                         .get(rotation)
-                        .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                        .render(new LPTranslation(x, y, z), icon);
                 LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner
                         .get(side)
                         .get(rotation)
-                        .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                        .render(new LPTranslation(x, y, z), icon);
             }
         }
     }
@@ -237,12 +237,12 @@ public class LogisticsNewSolidBlockWorldRenderer {
                 SimpleServiceLocator.cclProxy.createIconTransformer(LogisticsSolidBlock.getNewIcon(metadata));
 
         // Draw
-        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(new I3DOperation[] {icon});
+        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
         for (CoverSides side : CoverSides.values()) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                     .get(side)
                     .get(rotation)
-                    .render(new I3DOperation[] {icon});
+                    .render(icon);
         }
         tess.draw();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

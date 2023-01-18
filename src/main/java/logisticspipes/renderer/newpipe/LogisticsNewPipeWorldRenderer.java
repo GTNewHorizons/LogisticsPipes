@@ -78,18 +78,18 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             IIconTransformation icon =
                     SimpleServiceLocator.cclProxy.createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
 
-            requestBlock.get(rotation).render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+            requestBlock.get(rotation).render(new LPTranslation(x, y, z), icon);
 
             for (CoverSides side : CoverSides.values()) {
                 if (!pipeTile.renderState.pipeConnectionMatrix.isConnected(side.getDir(rotation))) {
                     LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                             .get(side)
                             .get(rotation)
-                            .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                            .render(new LPTranslation(x, y, z), icon);
                     LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner
                             .get(side)
                             .get(rotation)
-                            .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                            .render(new LPTranslation(x, y, z), icon);
                 }
             }
 

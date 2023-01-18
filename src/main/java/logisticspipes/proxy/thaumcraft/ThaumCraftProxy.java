@@ -199,47 +199,43 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     public void addCraftingRecipes(ICraftingParts parts) {
         if (!Configs.ENABLE_BETA_RECIPES) {
             CraftingManager.getInstance()
-                    .addRecipe(new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK), new Object[] {
-                        "wGe",
-                        "rBr",
-                        "fra",
-                        Character.valueOf('w'),
-                        new ItemStack(itemShard, 1, 2),
-                        Character.valueOf('e'),
-                        new ItemStack(itemShard, 1, 3),
-                        Character.valueOf('f'),
-                        new ItemStack(itemShard, 1, 1),
-                        Character.valueOf('a'),
-                        new ItemStack(itemShard, 1, 0),
-                        Character.valueOf('G'),
-                        parts.getChipTear1(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    .addRecipe(new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK), "wGe",
+                            "rBr",
+                            "fra",
+                            Character.valueOf('w'),
+                            new ItemStack(itemShard, 1, 2),
+                            Character.valueOf('e'),
+                            new ItemStack(itemShard, 1, 3),
+                            Character.valueOf('f'),
+                            new ItemStack(itemShard, 1, 1),
+                            Character.valueOf('a'),
+                            new ItemStack(itemShard, 1, 0),
+                            Character.valueOf('G'),
+                            parts.getChipTear1(),
+                            Character.valueOf('r'),
+                            Items.redstone,
+                            Character.valueOf('B'),
+                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
         }
         if (Configs.ENABLE_BETA_RECIPES) {
             CraftingManager.getInstance()
-                    .addRecipe(new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK), new Object[] {
-                        "wGe",
-                        "rBr",
-                        "fra",
-                        Character.valueOf('w'),
-                        new ItemStack(itemShard, 1, 2),
-                        Character.valueOf('e'),
-                        new ItemStack(itemShard, 1, 3),
-                        Character.valueOf('f'),
-                        new ItemStack(itemShard, 1, 1),
-                        Character.valueOf('a'),
-                        new ItemStack(itemShard, 1, 0),
-                        Character.valueOf('G'),
-                        new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    .addRecipe(new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK), "wGe",
+                            "rBr",
+                            "fra",
+                            Character.valueOf('w'),
+                            new ItemStack(itemShard, 1, 2),
+                            Character.valueOf('e'),
+                            new ItemStack(itemShard, 1, 3),
+                            Character.valueOf('f'),
+                            new ItemStack(itemShard, 1, 1),
+                            Character.valueOf('a'),
+                            new ItemStack(itemShard, 1, 0),
+                            Character.valueOf('G'),
+                            new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER),
+                            Character.valueOf('r'),
+                            Items.redstone,
+                            Character.valueOf('B'),
+                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
         }
     }
 

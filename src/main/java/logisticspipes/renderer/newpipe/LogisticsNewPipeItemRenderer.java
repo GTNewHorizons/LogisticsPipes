@@ -118,12 +118,12 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
                 SimpleServiceLocator.cclProxy.createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
 
         // Draw
-        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(new I3DOperation[] {icon});
+        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
         for (CoverSides side : CoverSides.values()) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                     .get(side)
                     .get(rotation)
-                    .render(new I3DOperation[] {icon});
+                    .render(icon);
         }
         tess.draw();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

@@ -118,7 +118,7 @@ public class ItemUpgrade extends LogisticsItem {
                 return null;
             }
             try {
-                return upgradeClass.getConstructor(new Class[] {}).newInstance(new Object[] {});
+                return upgradeClass.getConstructor(new Class[] {}).newInstance();
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             } catch (SecurityException e) {

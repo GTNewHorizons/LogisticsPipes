@@ -40,7 +40,7 @@ public class LogisticsPipesCommand extends CommandBase {
 
     @Override
     public List<String> getCommandAliases() {
-        return Arrays.asList(new String[] {"lp", "logipipes"});
+        return Arrays.asList("lp", "logipipes");
     }
 
     @Override
