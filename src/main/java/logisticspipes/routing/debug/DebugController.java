@@ -56,34 +56,30 @@ public class DebugController implements IRoutingDebugAdapter {
     public void debug(final ServerRouter serverRouter) {
         QueuedTasks.queueTask((Callable<Object>) () -> {
             state = DebugWaitState.LOOP;
-            Thread tmp = new Thread() {
+            Thread tmp = new Thread(() -> {
+				while (LPChatListener.existTaskFor(sender.getCommandSenderName())) {
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+				if (oldThread != null) {
+					oldThread.stop();
+				}
+				oldThread = new RoutingTableDebugUpdateThread() {
 
-                @Override
-                public void run() {
-                    while (LPChatListener.existTaskFor(sender.getCommandSenderName())) {
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-                    if (oldThread != null) {
-                        oldThread.stop();
-                    }
-                    oldThread = new RoutingTableDebugUpdateThread() {
-
-                        @Override
-                        public void run() {
-                            serverRouter.CreateRouteTable(0, DebugController.this);
-                            oldThread = null;
-                        }
-                    };
-                    oldThread.setDaemon(true);
-                    oldThread.setName("RoutingTable update debug Thread");
-                    oldThread.start();
-                }
-            };
+					@Override
+					public void run() {
+						serverRouter.CreateRouteTable(0, DebugController.this);
+						oldThread = null;
+					}
+				};
+				oldThread.setDaemon(true);
+				oldThread.setName("RoutingTable update debug Thread");
+				oldThread.start();
+			});
             tmp.setDaemon(true);
             tmp.start();
             return null;
