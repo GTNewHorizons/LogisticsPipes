@@ -40,7 +40,7 @@ public class RequestLogFormator extends Formatter {
         if (record.getLoggerName() != null
                 && !record.getLoggerName().equals("LogisticsPipes|Request")
                 && !record.getLoggerName().equals("")) {
-            msg.append("[" + record.getLoggerName() + "] ");
+            msg.append("[").append(record.getLoggerName()).append("] ");
         }
 
         msg.append(record.getMessage());

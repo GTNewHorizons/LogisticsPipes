@@ -784,19 +784,19 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             return;
         }
         if (nbt instanceof NBTTagByte) {
-            sb.append("TagByte(data=" + ((NBTTagByte) nbt).func_150290_f() + ")");
+            sb.append("TagByte(data=").append(((NBTTagByte) nbt).func_150290_f()).append(")");
         } else if (nbt instanceof NBTTagShort) {
-            sb.append("TagShort(data=" + ((NBTTagShort) nbt).func_150289_e() + ")");
+            sb.append("TagShort(data=").append(((NBTTagShort) nbt).func_150289_e()).append(")");
         } else if (nbt instanceof NBTTagInt) {
-            sb.append("TagInt(data=" + ((NBTTagInt) nbt).func_150287_d() + ")");
+            sb.append("TagInt(data=").append(((NBTTagInt) nbt).func_150287_d()).append(")");
         } else if (nbt instanceof NBTTagLong) {
-            sb.append("TagLong(data=" + ((NBTTagLong) nbt).func_150291_c() + ")");
+            sb.append("TagLong(data=").append(((NBTTagLong) nbt).func_150291_c()).append(")");
         } else if (nbt instanceof NBTTagFloat) {
-            sb.append("TagFloat(data=" + ((NBTTagFloat) nbt).func_150288_h() + ")");
+            sb.append("TagFloat(data=").append(((NBTTagFloat) nbt).func_150288_h()).append(")");
         } else if (nbt instanceof NBTTagDouble) {
-            sb.append("TagDouble(data=" + ((NBTTagDouble) nbt).func_150286_g() + ")");
+            sb.append("TagDouble(data=").append(((NBTTagDouble) nbt).func_150286_g()).append(")");
         } else if (nbt instanceof NBTTagString) {
-            sb.append("TagString(data=\"" + ((NBTTagString) nbt).func_150285_a_() + "\")");
+            sb.append("TagString(data=\"").append(((NBTTagString) nbt).func_150285_a_()).append("\")");
         } else if (nbt instanceof NBTTagByteArray) {
             sb.append("TagByteArray(data=");
             for (int i = 0; i < ((NBTTagByteArray) nbt).func_150292_c().length; i++) {
@@ -829,7 +829,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             Object[] oe = ((NBTTagCompound) nbt).tagMap.entrySet().toArray();
             for (int i = 0; i < oe.length; i++) {
                 Entry<String, NBTBase> e = (Entry<String, NBTBase>) (oe[i]);
-                sb.append("\"" + e.getKey() + "\"=");
+                sb.append("\"").append(e.getKey()).append("\"=");
                 debugDumpTag((e.getValue()), sb);
                 if (i < oe.length - 1) {
                     sb.append(",");
@@ -837,7 +837,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             }
             sb.append(")");
         } else {
-            sb.append(nbt.getClass().getName() + "(?)");
+            sb.append(nbt.getClass().getName()).append("(?)");
         }
     }
 

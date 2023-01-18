@@ -54,8 +54,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
         StringBuilder sb = new StringBuilder(" ############################################# ")
                 .append(System.getProperty("line.separator"));
         for (T s : _orders) {
-            sb.append(s.getAsDisplayItem() + " / " + s.getAmount() + " / "
-                            + s.getType().name())
+            sb.append(s.getAsDisplayItem()).append(" / ").append(s.getAmount()).append(" / ").append(s.getType().name())
                     .append(System.getProperty("line.separator"));
         }
         System.out.print(sb.append(" ############################################# "));
