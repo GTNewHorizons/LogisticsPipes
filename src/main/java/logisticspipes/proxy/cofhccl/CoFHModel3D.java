@@ -32,7 +32,7 @@ public class CoFHModel3D implements IModel3D {
         for (I3DOperation op : i3dOperations) {
             list.add((IVertexOperation) op.getOriginal());
         }
-        model.render(list.toArray(new IVertexOperation[list.size()]));
+        model.render(list.toArray(new IVertexOperation[0]));
     }
 
     @Override

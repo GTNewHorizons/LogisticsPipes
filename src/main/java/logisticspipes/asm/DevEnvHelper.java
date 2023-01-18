@@ -135,7 +135,7 @@ public class DevEnvHelper {
             }
         }
 
-        coreModList = Arrays.asList(FileListHelper.sortFileList(coreModList.toArray(new File[coreModList.size()])));
+        coreModList = Arrays.asList(FileListHelper.sortFileList(coreModList.toArray(new File[0])));
 
         for (File coreMod : coreModList) {
             FMLRelaunchLog.fine("Examining for coremod candidacy %s", coreMod.getName());

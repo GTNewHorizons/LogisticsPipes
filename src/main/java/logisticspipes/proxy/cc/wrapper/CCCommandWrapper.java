@@ -41,7 +41,7 @@ public class CCCommandWrapper implements ILuaObject {
         for (int i = 0; i < info.commandMap.size(); i++) {
             list.add(info.commandMap.get(i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     @Override

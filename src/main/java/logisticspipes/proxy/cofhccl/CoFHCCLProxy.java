@@ -136,7 +136,7 @@ public class CoFHCCLProxy implements ICCLProxy {
         for (I3DOperation op : uvTranslation) {
             transforms.add((UVTransformation) op.getOriginal());
         }
-        return new UVTransformationList(transforms.toArray(new UVTransformation[transforms.size()]));
+        return new UVTransformationList(transforms.toArray(new UVTransformation[0]));
     }
 
     @Override
