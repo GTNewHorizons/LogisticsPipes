@@ -30,7 +30,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
 
     @Data
     @AllArgsConstructor
-    private class DataEntry {
+    private static class DataEntry {
 
         final LogisticsTileGenericPipe pipe;
         final ForgeDirection dir;
@@ -176,20 +176,20 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                         continue;
                     }
                     worklist.add(new DataEntry(
-                            connectedPipe.getKey().container,
-                            exitDir,
-                            routers.get(exitDir),
-                            lasers,
-                            map.get(connectedPipe.getKey()).connectionDetails,
-                            new Log() {
+						connectedPipe.getKey().container,
+						exitDir,
+						routers.get(exitDir),
+						lasers,
+						map.get(connectedPipe.getKey()).connectionDetails,
+						new Log() {
 
-                                @Override
-                                void log(String logString) {
-                                    if (LPConstants.DEBUG) {
-                                        log.log(exitDir.name() + ": " + logString);
-                                    }
-                                }
-                            }));
+							@Override
+							void log(String logString) {
+								if (LPConstants.DEBUG) {
+									log.log(exitDir.name() + ": " + logString);
+								}
+							}
+						}));
                 }
             }
         }
