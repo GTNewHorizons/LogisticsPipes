@@ -377,7 +377,7 @@ public class ItemDisplay {
                     if (requestCount == 1) {
                         requestCount -= 1;
                     }
-                    requestCount += -(wheel * getAmountChangeMode(4));
+                    requestCount -= (wheel * getAmountChangeMode(4));
                 } else {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(4));
                 }
@@ -391,7 +391,7 @@ public class ItemDisplay {
                 }
             } else {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
-                    requestCount += -(wheel * getAmountChangeMode(1));
+                    requestCount -= (wheel * getAmountChangeMode(1));
                 } else {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(1));
                 }
