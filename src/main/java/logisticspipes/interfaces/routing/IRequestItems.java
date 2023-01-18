@@ -11,8 +11,8 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 public interface IRequestItems extends Comparable<IRequestItems>, IRequest {
 
-    public void itemCouldNotBeSend(ItemIdentifierStack item, IAdditionalTargetInformation info);
+    void itemCouldNotBeSend(ItemIdentifierStack item, IAdditionalTargetInformation info);
 
     @Override
-    public int compareTo(IRequestItems value2);
+	int compareTo(IRequestItems value2);
 }

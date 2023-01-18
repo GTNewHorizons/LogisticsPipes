@@ -11,7 +11,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 public interface IRequireReliableTransport {
 
-    public void itemLost(ItemIdentifierStack item, IAdditionalTargetInformation info);
+    void itemLost(ItemIdentifierStack item, IAdditionalTargetInformation info);
 
-    public void itemArrived(ItemIdentifierStack item, IAdditionalTargetInformation info);
+    void itemArrived(ItemIdentifierStack item, IAdditionalTargetInformation info);
 }

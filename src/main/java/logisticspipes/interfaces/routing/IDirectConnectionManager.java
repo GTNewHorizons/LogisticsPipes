@@ -6,11 +6,11 @@ import logisticspipes.routing.IRouter;
 
 public interface IDirectConnectionManager {
 
-    public boolean hasDirectConnection(IRouter router);
+    boolean hasDirectConnection(IRouter router);
 
-    public boolean addDirectConnection(UUID ident, IRouter router);
+    boolean addDirectConnection(UUID ident, IRouter router);
 
-    public CoreRoutedPipe getConnectedPipe(IRouter router);
+    CoreRoutedPipe getConnectedPipe(IRouter router);
 
-    public void removeDirectConnection(IRouter router);
+    void removeDirectConnection(IRouter router);
 }

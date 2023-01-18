@@ -4,5 +4,5 @@ import logisticspipes.utils.tuples.LPPosition;
 
 public interface ILPPositionProvider {
 
-    public LPPosition getLPPosition();
+    LPPosition getLPPosition();
 }

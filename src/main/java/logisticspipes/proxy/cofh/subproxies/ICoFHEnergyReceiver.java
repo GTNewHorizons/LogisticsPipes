@@ -4,11 +4,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ICoFHEnergyReceiver {
 
-    public int getMaxEnergyStored(ForgeDirection opposite);
+    int getMaxEnergyStored(ForgeDirection opposite);
 
-    public int getEnergyStored(ForgeDirection opposite);
+    int getEnergyStored(ForgeDirection opposite);
 
-    public boolean canConnectEnergy(ForgeDirection opposite);
+    boolean canConnectEnergy(ForgeDirection opposite);
 
-    public int receiveEnergy(ForgeDirection opposite, int i, boolean b);
+    int receiveEnergy(ForgeDirection opposite, int i, boolean b);
 }

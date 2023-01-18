@@ -16,9 +16,9 @@ import org.lwjgl.opengl.GL11;
 
 public class SelectItemOutOfList extends SubGuiScreen {
 
-    public static interface IHandleItemChoise {
+    public interface IHandleItemChoise {
 
-        public void handleItemChoise(int slot);
+        void handleItemChoise(int slot);
     }
 
     private final List<ItemIdentifierStack> canidate;

@@ -15,8 +15,8 @@ import logisticspipes.utils.item.ItemIdentifier;
 
 public interface IProvideItems extends IProvide {
 
-    public LogisticsOrder fullFill(
+    LogisticsOrder fullFill(
             LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info);
 
-    public void getAllItems(Map<ItemIdentifier, Integer> list, List<IFilter> filter);
+    void getAllItems(Map<ItemIdentifier, Integer> list, List<IFilter> filter);
 }

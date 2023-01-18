@@ -10,11 +10,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 public interface ILogisticsFluidManager {
 
-    public Pair<Integer, Integer> getBestReply(FluidStack stack, IRouter sourceRouter, List<Integer> jamList);
+    Pair<Integer, Integer> getBestReply(FluidStack stack, IRouter sourceRouter, List<Integer> jamList);
 
-    public ItemIdentifierStack getFluidContainer(FluidStack stack);
+    ItemIdentifierStack getFluidContainer(FluidStack stack);
 
-    public FluidStack getFluidFromContainer(ItemIdentifierStack stack);
+    FluidStack getFluidFromContainer(ItemIdentifierStack stack);
 
-    public TreeSet<ItemIdentifierStack> getAvailableFluid(List<ExitRoute> list);
+    TreeSet<ItemIdentifierStack> getAvailableFluid(List<ExitRoute> list);
 }

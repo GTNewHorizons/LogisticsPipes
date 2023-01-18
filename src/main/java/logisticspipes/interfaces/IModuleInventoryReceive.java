@@ -5,5 +5,5 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 public interface IModuleInventoryReceive {
 
-    public void handleInvContent(Collection<ItemIdentifierStack> _allItems);
+    void handleInvContent(Collection<ItemIdentifierStack> _allItems);
 }

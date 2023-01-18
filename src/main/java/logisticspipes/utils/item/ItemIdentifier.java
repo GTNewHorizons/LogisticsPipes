@@ -89,7 +89,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         }
     }
 
-    private static interface IDamagedIdentifierHolder {
+    private interface IDamagedIdentifierHolder {
 
         ItemIdentifier get(int damage);
 

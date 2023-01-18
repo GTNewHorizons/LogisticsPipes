@@ -10,7 +10,7 @@ import logisticspipes.utils.AdjacentTile;
  */
 public interface IAdjacentWorldAccess {
 
-    public List<AdjacentTile> getConnectedEntities();
+    List<AdjacentTile> getConnectedEntities();
 
-    public int getRandomInt(int maxSize);
+    int getRandomInt(int maxSize);
 }

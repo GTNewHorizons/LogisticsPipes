@@ -4,5 +4,5 @@ import net.minecraft.item.ItemStack;
 
 public interface ISlotCheck {
 
-    public boolean isStackAllowed(ItemStack itemStack);
+    boolean isStackAllowed(ItemStack itemStack);
 }
