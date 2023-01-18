@@ -306,9 +306,7 @@ public class DevEnvHelper {
         }
 
         public byte[] transform_Sub(String name, String transformedName, byte[] basicClass)
-                throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException,
-                        IllegalAccessException, NoSuchMethodException, InvocationTargetException,
-                        ClassNotFoundException {
+                throws IOException, SecurityException, IllegalArgumentException {
             if (basicClass == null) {
                 return basicClass;
             }
@@ -971,7 +969,7 @@ public class DevEnvHelper {
             loadCSVMapping(fieldNames, methodNames);
         }
 
-        private void loadSRGMapping(SrgFile srg) throws CantLoadMCPMappingException {
+        private void loadSRGMapping(SrgFile srg) {
             forwardSRG.setDefaultPackage("net/minecraft/src/");
             reverseSRG.addPrefix("net/minecraft/src/", "");
 
@@ -1037,8 +1035,7 @@ public class DevEnvHelper {
             }
         }
 
-        private void loadCSVMapping(Map<String, String> fieldNames, Map<String, String> methodNames)
-                throws CantLoadMCPMappingException {
+        private void loadCSVMapping(Map<String, String> fieldNames, Map<String, String> methodNames) {
             for (Map.Entry<String, String> entry : fieldNames.entrySet()) {
                 String srgName = entry.getKey();
                 String mcpName = entry.getValue();
@@ -1106,7 +1103,7 @@ public class DevEnvHelper {
     public abstract static class CsvFile {
 
         /** Does not close <var>r</var>. */
-        public static Map<String, String> read(Reader r, int[] n_sides) throws IOException {
+        public static Map<String, String> read(Reader r, int[] n_sides) {
             Map<String, String> data = new HashMap<>();
 
             Scanner in = new Scanner(r);
@@ -1167,7 +1164,7 @@ public class DevEnvHelper {
         }
 
         /** Does not close <var>r</var>. */
-        public static ExcFile read(Reader r) throws IOException {
+        public static ExcFile read(Reader r) {
             // example line:
             // net/minecraft/src/NetClientHandler.<init>(Lnet/minecraft/client/Minecraft;Ljava/lang/String;I)V=java/net/UnknownHostException,java/io/IOException|p_i42_1_,p_i42_2_,p_i42_3_
 
@@ -1239,7 +1236,7 @@ public class DevEnvHelper {
         private SrgFile() {}
 
         /** Does not close <var>r</var>. */
-        public static SrgFile read(Reader r, boolean reverse) throws IOException {
+        public static SrgFile read(Reader r, boolean reverse) {
             Scanner in = new Scanner(r);
             SrgFile rv = new SrgFile();
             while (in.hasNextLine()) {

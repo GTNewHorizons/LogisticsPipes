@@ -108,7 +108,7 @@ public class LogisticsWrapperHandler {
             Class<? extends T> proxyClazz,
             T dummyProxy,
             Class<?>... wrapperInterfaces)
-            throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException,
+            throws SecurityException, IllegalArgumentException,
                     IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
         String proxyName = interfaze.getSimpleName().substring(1);
         if (!proxyName.endsWith("Proxy")) {
@@ -279,7 +279,7 @@ public class LogisticsWrapperHandler {
 
     @SuppressWarnings("unchecked")
     public static <T> T getWrappedSubProxy(AbstractWrapper wrapper, Class<T> interfaze, T proxy, T dummyProxy)
-            throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException,
+            throws SecurityException, IllegalArgumentException,
                     IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
         if (proxy == null) {
             return null;

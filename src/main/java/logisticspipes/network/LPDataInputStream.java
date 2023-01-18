@@ -34,11 +34,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class LPDataInputStream extends DataInputStream {
 
-    public LPDataInputStream(byte[] inputBytes) throws IOException {
+    public LPDataInputStream(byte[] inputBytes) {
         super(new ByteArrayInputStream(inputBytes));
     }
 
-    public LPDataInputStream(ByteBuf inputBytes) throws IOException {
+    public LPDataInputStream(ByteBuf inputBytes) {
         super(new ByteBufInputStream(inputBytes));
     }
 

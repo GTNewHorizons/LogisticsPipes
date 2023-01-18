@@ -384,7 +384,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 QueuedTasks.queueTask(new Callable<Object>() {
 
                     @Override
-                    public Object call() throws Exception {
+                    public Object call() {
                         World world = DimensionManager.getWorld(dim);
                         if (world != null) {
                             TileEntity tile = pos.getTileEntity(world);
@@ -435,7 +435,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 QueuedTasks.queueTask(new Callable<Object>() {
 
                     @Override
-                    public Object call() throws Exception {
+                    public Object call() {
                         World world = DimensionManager.getWorld(dim);
                         if (world != null) {
                             TileEntity tile = pos.getTileEntity(world);

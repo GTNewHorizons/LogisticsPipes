@@ -260,10 +260,10 @@ public class ProxyManager {
                             public IBCPluggableState getBCPlugableState() {
                                 return new IBCPluggableState() {
                                     @Override
-                                    public void writeData(LPDataOutputStream data) throws IOException {}
+                                    public void writeData(LPDataOutputStream data) {}
 
                                     @Override
-                                    public void readData(LPDataInputStream data) throws IOException {}
+                                    public void readData(LPDataInputStream data) {}
 
                                     @Override
                                     public boolean isDirty(boolean clean) {

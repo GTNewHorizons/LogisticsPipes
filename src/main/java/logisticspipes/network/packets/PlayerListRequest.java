@@ -39,8 +39,8 @@ public class PlayerListRequest extends ModernPacket {
     }
 
     @Override
-    public void readData(LPDataInputStream data) throws IOException {}
+    public void readData(LPDataInputStream data) {}
 
     @Override
-    public void writeData(LPDataOutputStream data) throws IOException {}
+    public void writeData(LPDataOutputStream data) {}
 }

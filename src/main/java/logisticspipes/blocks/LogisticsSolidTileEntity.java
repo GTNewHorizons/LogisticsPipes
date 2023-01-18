@@ -133,7 +133,7 @@ public class LogisticsSolidTileEntity extends TileEntity
 
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
-    public Object[] invoke(String s, Context context, Arguments arguments) throws Exception {
+    public Object[] invoke(String s, Context context, Arguments arguments) {
         BaseWrapperClass object = (BaseWrapperClass) CCObjectWrapper.getWrappedObject(this, BaseWrapperClass.WRAPPER);
         object.isDirectCall = true;
         return CCObjectWrapper.createArray(object);

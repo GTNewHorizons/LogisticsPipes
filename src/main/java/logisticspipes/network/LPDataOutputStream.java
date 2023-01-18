@@ -30,7 +30,7 @@ public class LPDataOutputStream extends DataOutputStream {
         byteStream = (ByteArrayOutputStream) out;
     }
 
-    public LPDataOutputStream(ByteBuf outBytes) throws IOException {
+    public LPDataOutputStream(ByteBuf outBytes) {
         super(new ByteBufOutputStream(outBytes));
         byteStream = null;
     }

@@ -587,7 +587,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     @SuppressWarnings("rawtypes")
     public static Map<Object, Object> getNBTBaseAsMap(NBTBase nbt)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+            throws SecurityException, IllegalArgumentException {
         if (nbt == null) {
             return null;
         }
