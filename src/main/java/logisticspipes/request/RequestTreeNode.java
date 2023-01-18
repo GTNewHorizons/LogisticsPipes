@@ -503,7 +503,7 @@ public class RequestTreeNode {
             itemsNeeded = getMissingAmount();
 
             if (itemsNeeded <= 0) {
-                break outer; // we have everything we need for this crafting request
+                break; // we have everything we need for this crafting request
             }
 
             // don't clear, because we might have under-requested, and need to consider these again
