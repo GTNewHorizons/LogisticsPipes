@@ -89,7 +89,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
 
     @Override
     public String toString() {
-        return Integer.toString(getStackSize()) + "x " + _item.toString();
+        return getStackSize() + "x " + _item.toString();
     }
 
     @Override
