@@ -931,19 +931,19 @@ public class DummyContainer extends Container {
                 itemstack1 = itemstack == null ? null : itemstack.copy();
                 inventoryItemStacks.set(i, itemstack1);
 
-                for (int j = 0; j < crafters.size(); ++j) {
-                    boolean revert = false;
-                    if (overrideMCAntiSend
-                            && crafters.get(j) instanceof EntityPlayerMP
-                            && ((EntityPlayerMP) crafters.get(j)).isChangingQuantityOnly) {
-                        ((EntityPlayerMP) crafters.get(j)).isChangingQuantityOnly = false;
-                        revert = true;
-                    }
-                    ((ICrafting) crafters.get(j)).sendSlotContents(this, i, itemstack1);
-                    if (revert) {
-                        ((EntityPlayerMP) crafters.get(j)).isChangingQuantityOnly = true;
-                    }
-                }
+				for (Object crafter : crafters) {
+					boolean revert = false;
+					if (overrideMCAntiSend
+						&& crafter instanceof EntityPlayerMP
+						&& ((EntityPlayerMP) crafter).isChangingQuantityOnly) {
+						((EntityPlayerMP) crafter).isChangingQuantityOnly = false;
+						revert = true;
+					}
+					((ICrafting) crafter).sendSlotContents(this, i, itemstack1);
+					if (revert) {
+						((EntityPlayerMP) crafter).isChangingQuantityOnly = true;
+					}
+				}
             }
         }
         overrideMCAntiSend = false;

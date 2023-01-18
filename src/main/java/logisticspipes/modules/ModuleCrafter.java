@@ -1298,17 +1298,17 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 List<AdjacentTile> crafters = locateCrafters();
                 ItemStack extracted = null;
                 AdjacentTile tile = null;
-                for (Iterator<AdjacentTile> it = crafters.iterator(); it.hasNext(); ) {
-                    tile = it.next();
-                    extracted = extractFiltered(
-                            tile,
-                            _cleanupInventory,
-                            cleanupModeIsExclude,
-                            getUpgradeManager().getCrafterCleanup() * 3);
-                    if (extracted != null && extracted.stackSize > 0) {
-                        break;
-                    }
-                }
+				for (AdjacentTile crafter : crafters) {
+					tile = crafter;
+					extracted = extractFiltered(
+						tile,
+						_cleanupInventory,
+						cleanupModeIsExclude,
+						getUpgradeManager().getCrafterCleanup() * 3);
+					if (extracted != null && extracted.stackSize > 0) {
+						break;
+					}
+				}
                 if (extracted != null && extracted.stackSize > 0) {
                     _service.queueRoutedItem(
                             SimpleServiceLocator.routedItemHelper.createNewTravelItem(extracted), ForgeDirection.UP);
@@ -1347,13 +1347,13 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             // retrieve the new crafted items
             ItemStack extracted = null;
             AdjacentTile tile = null;
-            for (Iterator<AdjacentTile> it = crafters.iterator(); it.hasNext(); ) {
-                tile = it.next();
-                extracted = extract(tile, nextOrder.getResource(), maxtosend);
-                if (extracted != null && extracted.stackSize > 0) {
-                    break;
-                }
-            }
+			for (AdjacentTile crafter : crafters) {
+				tile = crafter;
+				extracted = extract(tile, nextOrder.getResource(), maxtosend);
+				if (extracted != null && extracted.stackSize > 0) {
+					break;
+				}
+			}
             if (extracted == null || extracted.stackSize == 0) {
                 _service.getItemOrderManager().deferSend();
                 break;

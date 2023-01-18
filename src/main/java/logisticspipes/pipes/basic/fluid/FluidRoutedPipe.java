@@ -243,16 +243,15 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
             if (isConnectableTank(tile, arrivingItem.output, false)) {
                 List<Pair<TileEntity, ForgeDirection>> adjTanks = getAdjacentTanks(false);
                 // Try to put liquid into all adjacent tanks.
-                for (int i = 0; i < adjTanks.size(); i++) {
-                    Pair<TileEntity, ForgeDirection> pair = adjTanks.get(i);
-                    IFluidHandler tank = (IFluidHandler) pair.getValue1();
-                    ForgeDirection dir = pair.getValue2();
-                    fillSide(liquid, dir, tank);
-                    if (liquid.amount != 0) {
-                        continue;
-                    }
-                    return true;
-                }
+				for (Pair<TileEntity, ForgeDirection> pair : adjTanks) {
+					IFluidHandler tank = (IFluidHandler) pair.getValue1();
+					ForgeDirection dir = pair.getValue2();
+					fillSide(liquid, dir, tank);
+					if (liquid.amount != 0) {
+						continue;
+					}
+					return true;
+				}
                 // Try inserting the liquid into the pipe side tank
                 filled = ((PipeFluidTransportLogistics) transport)
                         .sideTanks[arrivingItem.output.ordinal()].fill(liquid, true);

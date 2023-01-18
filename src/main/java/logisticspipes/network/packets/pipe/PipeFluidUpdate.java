@@ -49,13 +49,13 @@ public class PipeFluidUpdate extends CoordinatesPacket {
             bits.set(i, renderCache[i] != null);
         }
         data.writeBitSet(bits);
-        for (int i = 0; i < renderCache.length; i++) {
-            if (renderCache[i] != null) {
-                data.writeInt(FluidRegistry.getFluidID(renderCache[i].getFluid()));
-                data.writeInt(renderCache[i].amount);
-                data.writeNBTTagCompound(renderCache[i].tag);
-            }
-        }
+		for (FluidStack fluidStack : renderCache) {
+			if (fluidStack != null) {
+				data.writeInt(FluidRegistry.getFluidID(fluidStack.getFluid()));
+				data.writeInt(fluidStack.amount);
+				data.writeNBTTagCompound(fluidStack.tag);
+			}
+		}
     }
 
     @Override

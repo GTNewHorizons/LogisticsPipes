@@ -211,9 +211,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     @Override
     public void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        for (int c = 0; c < sycleButtons.length; c++) {
-            sycleButtons[c].visible = _table.targetType != null;
-        }
+		for (GuiButton sycleButton : sycleButtons) {
+			sycleButton.visible = _table.targetType != null;
+		}
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right - (showRequest ? 0 : 105), bottom, zLevel, true);
 
         drawRect(guiLeft + 162, guiTop + 23, guiLeft + 182, guiTop + 43, Color.BLACK);

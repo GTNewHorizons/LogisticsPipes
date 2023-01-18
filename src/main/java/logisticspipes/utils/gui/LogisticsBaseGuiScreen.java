@@ -469,16 +469,16 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
         }
         boolean handledButton = false;
         if (par3 == 0) {
-            for (int l = 0; l < buttonList.size(); ++l) {
-                GuiButton guibutton = (GuiButton) buttonList.get(l);
-                if (guibutton.mousePressed(mc, par1, par2)) {
-                    selectedButton = guibutton;
-                    guibutton.func_146113_a(mc.getSoundHandler());
-                    actionPerformed(guibutton);
-                    handledButton = true;
-                    break;
-                }
-            }
+			for (Object o : buttonList) {
+				GuiButton guibutton = (GuiButton) o;
+				if (guibutton.mousePressed(mc, par1, par2)) {
+					selectedButton = guibutton;
+					guibutton.func_146113_a(mc.getSoundHandler());
+					actionPerformed(guibutton);
+					handledButton = true;
+					break;
+				}
+			}
         }
         if (!handledButton) {
             super.mouseClicked(par1, par2, par3);
@@ -503,12 +503,12 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     }
 
     private boolean mouseCanPressButton(int par1, int par2) {
-        for (int l = 0; l < buttonList.size(); ++l) {
-            GuiButton guibutton = (GuiButton) buttonList.get(l);
-            if (guibutton.mousePressed(mc, par1, par2)) {
-                return true;
-            }
-        }
+		for (Object o : buttonList) {
+			GuiButton guibutton = (GuiButton) o;
+			if (guibutton.mousePressed(mc, par1, par2)) {
+				return true;
+			}
+		}
         return false;
     }
 

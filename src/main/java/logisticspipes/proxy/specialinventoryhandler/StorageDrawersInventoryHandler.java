@@ -41,18 +41,17 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
     @Override
     public boolean init() {
         List<ModContainer> modList = Loader.instance().getModList();
-        for (int i = 0, n = modList.size(); i < n; i++) {
-            ModContainer mod = modList.get(i);
-            if (mod.getModId().equals("StorageDrawers")) {
-                try {
-                    VersionRange validVersions = VersionRange.createFromVersionSpec("[1.7.8,)");
-                    ArtifactVersion version = new DefaultArtifactVersion(mod.getVersion());
-                    return validVersions.containsVersion(version);
-                } catch (InvalidVersionSpecificationException e) {
-                    return false;
-                }
-            }
-        }
+		for (ModContainer mod : modList) {
+			if (mod.getModId().equals("StorageDrawers")) {
+				try {
+					VersionRange validVersions = VersionRange.createFromVersionSpec("[1.7.8,)");
+					ArtifactVersion version = new DefaultArtifactVersion(mod.getVersion());
+					return validVersions.containsVersion(version);
+				} catch (InvalidVersionSpecificationException e) {
+					return false;
+				}
+			}
+		}
 
         return false;
     }

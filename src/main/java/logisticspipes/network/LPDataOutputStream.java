@@ -151,9 +151,9 @@ public class LPDataOutputStream extends DataOutputStream {
 
     public <T> void writeList(List<T> list, IWriteListObject<T> handler) throws IOException {
         writeInt(list.size());
-        for (int i = 0; i < list.size(); i++) {
-            handler.writeObject(this, list.get(i));
-        }
+		for (T t : list) {
+			handler.writeObject(this, t);
+		}
     }
 
     public <T> void writeCollection(Collection<T> collection, IWriteListObject<T> handler) throws IOException {
