@@ -1121,20 +1121,15 @@ public class DevEnvHelper {
         }
 
         public static String getMCVer(File mcpDir) throws IOException {
-            Scanner in = new Scanner(new File(mcpDir, "version.cfg"));
-            try {
-                while (in.hasNextLine()) {
-                    String line = in.nextLine();
-                    if (line.startsWith("ClientVersion")) {
-                        return line.split("=")[1].trim();
-                    }
-                }
-                return "unknown";
-            } finally {
-                if (in != null) {
-                    in.close();
-                }
-            }
+			try (Scanner in = new Scanner(new File(mcpDir, "version.cfg"))) {
+				while (in.hasNextLine()) {
+					String line = in.nextLine();
+					if (line.startsWith("ClientVersion")) {
+						return line.split("=")[1].trim();
+					}
+				}
+				return "unknown";
+			}
         }
     }
 
@@ -1164,14 +1159,9 @@ public class DevEnvHelper {
 
         @Deprecated
         public static Map<String, String> read(File f, int[] n_sides) throws IOException {
-            Reader r = new BufferedReader(new FileReader(f));
-            try {
-                return CsvFile.read(r, n_sides);
-            } finally {
-                if (r != null) {
-                    r.close();
-                }
-            }
+			try (Reader r = new BufferedReader(new FileReader(f))) {
+				return CsvFile.read(r, n_sides);
+			}
         }
 
         private static boolean sideIn(int i, int[] ar) {
@@ -1259,14 +1249,9 @@ public class DevEnvHelper {
 
         @Deprecated
         public ExcFile(File f) throws IOException {
-            FileReader fr = new FileReader(f);
-            try {
-                exceptions = ExcFile.read(fr).exceptions;
-            } finally {
-                if (fr != null) {
-                    fr.close();
-                }
-            }
+			try (FileReader fr = new FileReader(f)) {
+				exceptions = ExcFile.read(fr).exceptions;
+			}
         }
     }
 
@@ -1326,17 +1311,12 @@ public class DevEnvHelper {
 
         @Deprecated
         public SrgFile(File f, boolean reverse) throws IOException {
-            FileReader fr = new FileReader(f);
-            try {
-                SrgFile sf = SrgFile.read(new BufferedReader(fr), reverse);
-                classes = sf.classes;
-                fields = sf.fields;
-                methods = sf.methods;
-            } finally {
-                if (fr != null) {
-                    fr.close();
-                }
-            }
+			try (FileReader fr = new FileReader(f)) {
+				SrgFile sf = SrgFile.read(new BufferedReader(fr), reverse);
+				classes = sf.classes;
+				fields = sf.fields;
+				methods = sf.methods;
+			}
         }
 
         public Mapping toMapping(NameSet fromNS, NameSet toNS) {
