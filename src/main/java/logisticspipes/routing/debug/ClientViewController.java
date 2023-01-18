@@ -25,8 +25,8 @@ public class ClientViewController implements IDebugHUDProvider {
     private final List<LPPosition> canidates = new ArrayList<>();
     private DebugWindow debugWindow;
 
-    private List<IHeadUpDisplayRendererProvider> listHUD = new ArrayList<>();
-    private HashMap<LPPosition, DebugInformation> HUDPositions = new HashMap<>();
+    private final List<IHeadUpDisplayRendererProvider> listHUD = new ArrayList<>();
+    private final HashMap<LPPosition, DebugInformation> HUDPositions = new HashMap<>();
 
     public static class DebugInformation {
 

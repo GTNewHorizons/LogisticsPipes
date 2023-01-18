@@ -293,7 +293,7 @@ public class DevEnvHelper {
      */
 
     private static Mapping m;
-    private static IClassTransformer transformer = new IClassTransformer() {
+    private static final IClassTransformer transformer = new IClassTransformer() {
 
         @Override
         public byte[] transform(String name, String transformedName, byte[] basicClass) {
@@ -667,11 +667,11 @@ public class DevEnvHelper {
 
     public static class Mapping {
 
-        private Map<String, String> classes = new HashMap<>();
-        private Map<String, String> methods = new HashMap<>();
-        private Map<String, String> fields = new HashMap<>();
-        private Map<String, List<String>> exceptions = new HashMap<>();
-        private Map<String, String> classPrefixes = new HashMap<>();
+        private final Map<String, String> classes = new HashMap<>();
+        private final Map<String, String> methods = new HashMap<>();
+        private final Map<String, String> fields = new HashMap<>();
+        private final Map<String, List<String>> exceptions = new HashMap<>();
+        private final Map<String, String> classPrefixes = new HashMap<>();
         private String defaultPackage = "";
 
         public final NameSet fromNS, toNS;
@@ -883,8 +883,8 @@ public class DevEnvHelper {
         // reverse: mcp -> searge -> obf
         private Mapping forwardSRG, reverseSRG, forwardCSV, reverseCSV;
 
-        private Map<String, Set<String>> srgMethodOwnersAndDescs = new HashMap<>(); // SRG name -> SRG owners
-        private Map<String, Set<String>> srgFieldOwners = new HashMap<>(); // SRG name -> SRG owners
+        private final Map<String, Set<String>> srgMethodOwnersAndDescs = new HashMap<>(); // SRG name -> SRG owners
+        private final Map<String, Set<String>> srgFieldOwners = new HashMap<>(); // SRG name -> SRG owners
 
         private ExcFile excFileData;
 
@@ -1145,7 +1145,7 @@ public class DevEnvHelper {
 
         public Map<String, String[]> exceptions = new HashMap<>();
 
-        private static String[] EMPTY_STRING_ARRAY = new String[0];
+        private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
         // returns internal names, can return null
         // input uses SRG names
@@ -1204,7 +1204,7 @@ public class DevEnvHelper {
                 i = line.indexOf('|');
                 String excs = line.substring(0, i);
 
-				if (excs.contains("CL_")) {
+                if (excs.contains("CL_")) {
                     throw new RuntimeException(excs);
                 }
 

@@ -1,6 +1,5 @@
 package logisticspipes.network.packets.chassis;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import logisticspipes.LogisticsEventListener;

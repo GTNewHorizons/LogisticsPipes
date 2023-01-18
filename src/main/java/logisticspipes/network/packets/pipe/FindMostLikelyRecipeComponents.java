@@ -19,7 +19,6 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -76,7 +75,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                 int newAmount = SimpleServiceLocator.logisticsManager.getAmountFor(
                         ident, pipe.getRouter().getIRoutersByCost());
                 if (newAmount > max) {
-					max = newAmount;
+                    max = newAmount;
                     maxItemPos = i;
                 }
             }
@@ -89,7 +88,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                     for (int i = 0; i < canidates.order.size(); i++) {
                         ItemIdentifier ident = canidates.order.get(i).getItem();
                         if (craft == ident) {
-							maxItemPos = i;
+                            maxItemPos = i;
                             break;
                         }
                     }
@@ -118,8 +117,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
         super.writeData(data);
         data.writeList(
                 content,
-                (data12, object) ->
-                        data12.writeList(object.order, LPDataOutputStream::writeItemIdentifierStack));
+                (data12, object) -> data12.writeList(object.order, LPDataOutputStream::writeItemIdentifierStack));
     }
 
     @Override

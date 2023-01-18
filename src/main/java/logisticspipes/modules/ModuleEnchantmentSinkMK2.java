@@ -46,7 +46,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
         _filterInventory.addListener(this);
     }
 
-    private IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
+    private final IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

@@ -15,7 +15,7 @@ public class LogicController {
     public List<BaseLogicConnection> connections = new ArrayList<>();
     public List<BaseLogicTask> tasks = new ArrayList<>();
 
-    private Thread oldThread = null;
+    private final Thread oldThread = null;
 
     @Getter
     private boolean unresolvedTasks = false;

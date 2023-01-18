@@ -6,21 +6,18 @@ import logisticspipes.network.LPDataOutputStream;
 
 public enum ResourceNetwork {
     DictResource(DictResource.class) {
-
         @Override
         protected IResource readData(LPDataInputStream data) throws IOException {
             return new DictResource(data);
         }
     },
     ItemResource(ItemResource.class) {
-
         @Override
         protected IResource readData(LPDataInputStream data) throws IOException {
             return new ItemResource(data);
         }
     },
     FluidResource(FluidResource.class) {
-
         @Override
         protected IResource readData(LPDataInputStream data) throws IOException {
             return new FluidResource(data);

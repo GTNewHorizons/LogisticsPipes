@@ -179,9 +179,9 @@ public class ClientProxy implements IProxy {
     }
 
     // BuildCraft method
+
     /**
      * Retrieves pipe at specified coordinates if any.
-     *
      */
     private static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null || !world.blockExists(x, y, z)) {

@@ -28,7 +28,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
     private boolean editsearchb = false;
     private boolean displaycursor = true;
     private long oldSystemTime = 0;
-    private static int searchWidth = 55;
+    private static final int searchWidth = 55;
     private int lastClickedx = 0;
     private int lastClickedy = 0;
     private int lastClickedk = 0;

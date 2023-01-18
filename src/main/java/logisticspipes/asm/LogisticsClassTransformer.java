@@ -13,7 +13,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
 
     public List<String> interfacesToClearA = new ArrayList<>();
     public List<String> interfacesToClearB = new ArrayList<>();
-    private LaunchClassLoader cl = (LaunchClassLoader) LogisticsClassTransformer.class.getClassLoader();
+    private final LaunchClassLoader cl = (LaunchClassLoader) LogisticsClassTransformer.class.getClassLoader();
     private Field negativeResourceCache;
     private Field invalidClasses;
 

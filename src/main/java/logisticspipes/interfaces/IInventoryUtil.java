@@ -18,6 +18,7 @@ public interface IInventoryUtil {
     /**
      * Checks to see if the item is inside the inventory. Used by the PolymorphicItemSink
      * This includes slots that are limited to one item type but don't contain any items.
+     *
      * @param item The item to check
      * @return true if the item is inside the inventory
      */
@@ -30,7 +31,7 @@ public interface IInventoryUtil {
      * found.
      *
      * @return spaces found. If this is less than max, then there are only
-     *         spaces for that amount.
+     * spaces for that amount.
      */
     int roomForItem(ItemIdentifier item, int count);
 

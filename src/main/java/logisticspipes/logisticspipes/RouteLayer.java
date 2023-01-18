@@ -10,12 +10,11 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.IRouter;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Krapht This class is responsible for resolving where incoming items
- *         should go.
+ * should go.
  */
 public class RouteLayer {
 
@@ -46,8 +45,7 @@ public class RouteLayer {
                                 item.getItemIdentifierStack().getItem())
                         || item.getArrived())) {
             item = SimpleServiceLocator.logisticsManager.assignDestinationFor(item, _router.getSimpleID(), false);
-            _pipe.debug.log(
-                    "Unreachable Destination, sssigned new destination: (" + item.getInfo());
+            _pipe.debug.log("Unreachable Destination, sssigned new destination: (" + item.getInfo());
         }
 
         item.checkIDFromUUID();

@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 
 public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pair<ItemStack, Integer>> {
 
-    private ItemStack[] _contents;
+    private final ItemStack[] _contents;
     private final String _name;
     private final int _stackLimit;
 

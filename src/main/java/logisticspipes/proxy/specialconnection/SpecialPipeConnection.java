@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class SpecialPipeConnection {
 
-    private List<ISpecialPipedConnection> handler = new ArrayList<>();
+    private final List<ISpecialPipedConnection> handler = new ArrayList<>();
 
     public void registerHandler(ISpecialPipedConnection connectionHandler) {
         if (connectionHandler.init()) {

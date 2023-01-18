@@ -10,7 +10,7 @@ import scala.actors.threadpool.Arrays;
 
 public class StackTraceUtil {
 
-    private static Map<Thread, LinkedList<Pair<StackTraceElement, String>>> informationMap = new HashMap<>();
+    private static final Map<Thread, LinkedList<Pair<StackTraceElement, String>>> informationMap = new HashMap<>();
 
     public abstract static class Info {
 
@@ -24,8 +24,8 @@ public class StackTraceUtil {
     }
 
     private static LinkedList<Pair<StackTraceElement, String>> getList() {
-        LinkedList<Pair<StackTraceElement, String>> list = StackTraceUtil.informationMap.computeIfAbsent(
-                Thread.currentThread(), k -> new LinkedList<>());
+        LinkedList<Pair<StackTraceElement, String>> list =
+                StackTraceUtil.informationMap.computeIfAbsent(Thread.currentThread(), k -> new LinkedList<>());
         return list;
     }
 

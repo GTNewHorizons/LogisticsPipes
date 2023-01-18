@@ -24,7 +24,7 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
 
     private static final String PREFIX = "gui.fluidsuppliermk2.";
 
-    private PipeFluidSupplierMk2 logic;
+    private final PipeFluidSupplierMk2 logic;
 
     public GuiFluidSupplierMk2Pipe(IInventory playerInventory, IInventory dummyInventory, PipeFluidSupplierMk2 logic) {
         super(null);

@@ -24,8 +24,8 @@ public class GuiExtentionController {
     private int maxBottom;
 
     private GuiExtention currentlyExtended = null;
-    private Map<Slot, Integer> slotMap = new HashMap<>();
-    private Map<GuiButton, Integer> buttonMap = new HashMap<>();
+    private final Map<Slot, Integer> slotMap = new HashMap<>();
+    private final Map<GuiButton, Integer> buttonMap = new HashMap<>();
 
     private final GuiSide side;
 
@@ -284,9 +284,9 @@ public class GuiExtentionController {
         } else {
             return x + w > currentlyExtended.getCurrentXPos()
                     && x
-                    < currentlyExtended.getCurrentXPos()
-                    + currentlyExtended.getCurrentWidth()
-                    + (side == GuiSide.RIGHT ? 15 : 0)
+                            < currentlyExtended.getCurrentXPos()
+                                    + currentlyExtended.getCurrentWidth()
+                                    + (side == GuiSide.RIGHT ? 15 : 0)
                     && y + h > currentlyExtended.getCurrentYPos()
                     && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight();
         }

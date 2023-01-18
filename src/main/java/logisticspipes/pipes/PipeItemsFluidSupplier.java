@@ -53,10 +53,8 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
                         }
                         if (tile instanceof IFluidHandler) {
                             IFluidHandler liq = (IFluidHandler) tile;
-                            if (liq.getTankInfo(dir.getOpposite()) != null
-                                    && liq.getTankInfo(dir.getOpposite()).length > 0) {
-                                return true;
-                            }
+                            return liq.getTankInfo(dir.getOpposite()) != null
+                                    && liq.getTankInfo(dir.getOpposite()).length > 0;
                         }
                         return false;
                     }
@@ -130,7 +128,8 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
     }
 
     // from PipeItemsFluidSupplier
-    private ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(9, "Fluids to keep stocked", 127);
+    private final ItemIdentifierInventory dummyInventory =
+            new ItemIdentifierInventory(9, "Fluids to keep stocked", 127);
 
     private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<>();
 

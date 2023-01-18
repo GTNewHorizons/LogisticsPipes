@@ -8,7 +8,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.packets.gui.GUIPacket;

@@ -11,10 +11,10 @@ import net.minecraft.item.ItemStack;
 public class ModuleSlot extends RestrictedSlot {
 
     @Getter
-    private PipeLogisticsChassi _pipe;
+    private final PipeLogisticsChassi _pipe;
 
     @Getter
-    private int _moduleIndex;
+    private final int _moduleIndex;
 
     public ModuleSlot(IInventory iinventory, int i, int j, int k, PipeLogisticsChassi pipe) {
         super(iinventory, i, j, k, LogisticsPipes.ModuleItem);

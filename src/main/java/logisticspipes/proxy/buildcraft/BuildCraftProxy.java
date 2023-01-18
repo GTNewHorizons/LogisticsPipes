@@ -127,8 +127,8 @@ public class BuildCraftProxy implements IBCProxy {
         }
 
         try {
-            canPipeConnect = TileGenericPipe.class.getDeclaredMethod(
-                    "canPipeConnect", TileEntity.class, ForgeDirection.class);
+            canPipeConnect =
+                    TileGenericPipe.class.getDeclaredMethod("canPipeConnect", TileEntity.class, ForgeDirection.class);
             canPipeConnect.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -439,7 +439,7 @@ public class BuildCraftProxy implements IBCProxy {
 
     /**
      * @see buildcraft.robotics.ItemRobot#onItemUse(ItemStack, EntityPlayer,
-     *      World, int, int, int, int, float, float, float)
+     * World, int, int, int, int, float, float, float)
      */
     private boolean checkRobot(World world, int x, int y, int z, EntityPlayer player, ItemStack currentItem) {
         if (!world.isRemote) {

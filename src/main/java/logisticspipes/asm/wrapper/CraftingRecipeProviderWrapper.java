@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 
 class CraftingRecipeProviderWrapper extends AbstractWrapper implements ICraftingRecipeProvider {
 
-    private ICraftingRecipeProvider provider;
+    private final ICraftingRecipeProvider provider;
     private final String name;
 
     CraftingRecipeProviderWrapper(ICraftingRecipeProvider provider, String name) {

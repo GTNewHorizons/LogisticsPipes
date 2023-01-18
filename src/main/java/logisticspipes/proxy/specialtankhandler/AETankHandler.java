@@ -62,7 +62,7 @@ public class AETankHandler implements ISpecialTankAccessHandler {
         Map<FluidIdentifier, Long> map = new HashMap<>();
         if (tile instanceof ITileStorageMonitorable) {
             ITileStorageMonitorable mon = (ITileStorageMonitorable) tile;
-			for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                 MachineSource source = new MachineSource(new LPActionHost(((IGridHost) tile).getGridNode(dir)));
                 IStorageMonitorable monitor = mon.getMonitorable(dir, source);
                 if (monitor == null || monitor.getFluidInventory() == null) {
@@ -92,7 +92,7 @@ public class AETankHandler implements ISpecialTankAccessHandler {
     public FluidStack drainFrom(TileEntity tile, FluidIdentifier ident, Integer amount, boolean drain) {
         if (tile instanceof ITileStorageMonitorable) {
             ITileStorageMonitorable mon = (ITileStorageMonitorable) tile;
-			for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                 MachineSource source = new MachineSource(new LPActionHost(((IGridHost) tile).getGridNode(dir)));
                 IStorageMonitorable monitor = mon.getMonitorable(dir, source);
                 if (monitor == null || monitor.getFluidInventory() == null) {

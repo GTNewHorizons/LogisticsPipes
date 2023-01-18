@@ -37,19 +37,15 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     /**
      * Shard meta: 0 = air 1 = fire 2 = water 3 = earth 4 = vis 5 = dull
      */
-    private Item itemShard;
+    private final Item itemShard;
 
     /**
      * Renders the aspect icons for a given stack downwards starting at x, y.
      *
-     * @param x
-     *            The x coord of the screen.
-     * @param y
-     *            The y coord of the screen.
-     * @param item
-     *            The ItemStack to render aspects for.
-     * @param gui
-     *            The Gui screen to render on.
+     * @param x    The x coord of the screen.
+     * @param y    The y coord of the screen.
+     * @param item The ItemStack to render aspects for.
+     * @param gui  The Gui screen to render on.
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -74,8 +70,7 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     /**
      * Used to get an ObjectTags of all aspects inside a given stack.
      *
-     * @param stack
-     *            The stack to get ObjectTags for.
+     * @param stack The stack to get ObjectTags for.
      * @return ObjectTags containing all of the aspects for stack.
      */
     private AspectList getTagsForStack(ItemStack stack) {
@@ -91,10 +86,8 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
      * Used to render a icon of an aspect at a give x and y on top of a given
      * GuiScreen.
      *
-     * @param tag
-     *            The EnumTag (aspect) to render
-     * @param gui
-     *            The gui to render on.
+     * @param tag The EnumTag (aspect) to render
+     * @param gui The gui to render on.
      */
     private void renderAspectAt(Aspect tag, int x, int y, GuiScreen gui, int amount, boolean drawBackground) {
         if (tag == null) {
@@ -131,18 +124,12 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
      * then the next row down, and so on. It will stop when it runs out of
      * aspects to render.
      *
-     * @param etagIDs
-     *            A list of aspect IDs in Integer list to render.
-     * @param x
-     *            Starting coordinate, top left.
-     * @param y
-     *            Starting coordinate, top left.
-     * @param legnth
-     *            Int of number of columns.
-     * @param width
-     *            Int of number of rows.
-     * @param gui
-     *            The GuiScreen to render on.
+     * @param etagIDs A list of aspect IDs in Integer list to render.
+     * @param x       Starting coordinate, top left.
+     * @param y       Starting coordinate, top left.
+     * @param legnth  Int of number of columns.
+     * @param width   Int of number of rows.
+     * @param gui     The GuiScreen to render on.
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -171,8 +158,7 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
      * Used to get a list of integers representing the IDs of all the aspects in
      * the given ItemStack. Returns null if object has no tags.
      *
-     * @param stack
-     *            The item to get tags for.
+     * @param stack The item to get tags for.
      * @return An Integer list of aspect IDs.
      */
     @Override

@@ -150,10 +150,10 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
         }
         for (IAEItemStack items : tmp.getItemInventory().getStorageList()) {
             ItemIdentifier ident = ItemIdentifier.get(items.getItemStack());
-			if (ident != null && ident.equals(item)) {
-				return true;
-			}
-		}
+            if (ident != null && ident.equals(item)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -210,7 +210,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
     public void initCache() {
         Map<ItemIdentifier, Integer> map = getItemsAndCount(true);
         cached = new LinkedList<>();
-		cached.addAll(map.entrySet());
+        cached.addAll(map.entrySet());
     }
 
     @Override

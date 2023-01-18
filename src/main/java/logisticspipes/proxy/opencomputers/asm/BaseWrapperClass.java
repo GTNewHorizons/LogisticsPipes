@@ -42,7 +42,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
 
     public static final ICommandWrapper WRAPPER = new ICommandWrapper() {
 
-        private Map<Class<?>, Class<? extends BaseWrapperClass>> map = new HashMap<>();
+        private final Map<Class<?>, Class<? extends BaseWrapperClass>> map = new HashMap<>();
 
         @Override
         public Object getWrappedObject(CCWrapperInformation info, Object object) {
@@ -382,17 +382,17 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 final LPPosition pos = new LPPosition(x, y, z);
                 final int dim = nbt.getInteger("Dim");
                 QueuedTasks.queueTask((Callable<Object>) () -> {
-					World world = DimensionManager.getWorld(dim);
-					if (world != null) {
-						TileEntity tile = pos.getTileEntity(world);
-						if (tile instanceof LogisticsTileGenericPipe
-								&& ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
-							object = ((LogisticsTileGenericPipe) tile).pipe;
-							checkType();
-						}
-					}
-					return null;
-				});
+                    World world = DimensionManager.getWorld(dim);
+                    if (world != null) {
+                        TileEntity tile = pos.getTileEntity(world);
+                        if (tile instanceof LogisticsTileGenericPipe
+                                && ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
+                            object = ((LogisticsTileGenericPipe) tile).pipe;
+                            checkType();
+                        }
+                    }
+                    return null;
+                });
                 break;
             }
             case "CCItemIdentifierImplementation": {
@@ -429,16 +429,16 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 final LPPosition pos = new LPPosition(x, y, z);
                 final int dim = nbt.getInteger("Dim");
                 QueuedTasks.queueTask((Callable<Object>) () -> {
-					World world = DimensionManager.getWorld(dim);
-					if (world != null) {
-						TileEntity tile = pos.getTileEntity(world);
-						if (tile instanceof LogisticsSolidTileEntity) {
-							object = tile;
-							checkType();
-						}
-					}
-					return null;
-				});
+                    World world = DimensionManager.getWorld(dim);
+                    if (world != null) {
+                        TileEntity tile = pos.getTileEntity(world);
+                        if (tile instanceof LogisticsSolidTileEntity) {
+                            object = tile;
+                            checkType();
+                        }
+                    }
+                    return null;
+                });
                 break;
             }
             default:

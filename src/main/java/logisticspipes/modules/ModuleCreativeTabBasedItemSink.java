@@ -33,7 +33,7 @@ public class ModuleCreativeTabBasedItemSink extends LogisticsGuiModule
     public final List<String> tabList = new LinkedList<>();
     private final Set<String> tabSet = new HashSet<>();
 
-    private IHUDModuleRenderer HUD = new HUDStringBasedItemSink(this);
+    private final IHUDModuleRenderer HUD = new HUDStringBasedItemSink(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

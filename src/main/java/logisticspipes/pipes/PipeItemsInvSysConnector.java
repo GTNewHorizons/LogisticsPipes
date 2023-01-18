@@ -43,13 +43,13 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
         implements IDirectRoutingConnection, IHeadUpDisplayRendererProvider, IOrderManagerContentReceiver {
 
     private boolean init = false;
-    private HashMap<ItemIdentifier, List<ItemRoutingInformation>> itemsOnRoute = new HashMap<>();
+    private final HashMap<ItemIdentifier, List<ItemRoutingInformation>> itemsOnRoute = new HashMap<>();
     public ItemIdentifierInventory inv = new ItemIdentifierInventory(1, "Freq. card", 1);
     public int resistance;
     public Set<ItemIdentifierStack> oldList = new TreeSet<>();
     public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
-    private HUDInvSysConnector HUD = new HUDInvSysConnector(this);
+    private final HUDInvSysConnector HUD = new HUDInvSysConnector(this);
     private UUID idbuffer = UUID.randomUUID();
 
     public PipeItemsInvSysConnector(Item item) {
@@ -212,9 +212,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
         if (inv != null) {
             if (inv.getStackInSlot(0) != null) {
                 if (inv.getStackInSlot(0).hasTagCompound()) {
-                    if (inv.getStackInSlot(0).getTagCompound().hasKey("UUID")) {
-                        return true;
-                    }
+                    return inv.getStackInSlot(0).getTagCompound().hasKey("UUID");
                 }
             }
         }

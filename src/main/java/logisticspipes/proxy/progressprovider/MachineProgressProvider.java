@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class MachineProgressProvider {
 
-    private List<IGenericProgressProvider> providers = new ArrayList<>();
+    private final List<IGenericProgressProvider> providers = new ArrayList<>();
 
     public void registerProgressProvider(IGenericProgressProvider provider) {
         providers.add(provider);

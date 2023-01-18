@@ -45,8 +45,8 @@ public class DummyContainer extends Container {
     protected IInventory _playerInventory;
     protected IInventory _dummyInventory;
     protected IGuiOpenControler[] _controler;
-    private List<Slot> transferTop = new ArrayList<>();
-    private List<Slot> transferBottom = new ArrayList<>();
+    private final List<Slot> transferTop = new ArrayList<>();
+    private final List<Slot> transferBottom = new ArrayList<>();
     private long lastClicked;
     private long lastDragnDropLockup;
     boolean wasDummyLookup;
@@ -103,12 +103,9 @@ public class DummyContainer extends Container {
     /**
      * Add a dummy slot that will not consume players items
      *
-     * @param slotId
-     *            The slot number in the dummy IInventory this slot should map
-     * @param xCoord
-     *            xCoord of TopLeft corner of where the slot should be rendered
-     * @param yCoord
-     *            yCoord of TopLeft corner of where the slot should be rendered
+     * @param slotId The slot number in the dummy IInventory this slot should map
+     * @param xCoord xCoord of TopLeft corner of where the slot should be rendered
+     * @param yCoord yCoord of TopLeft corner of where the slot should be rendered
      */
     public Slot addDummySlot(int slotId, int xCoord, int yCoord) {
         return addSlotToContainer(new DummySlot(_dummyInventory, slotId, xCoord, yCoord));
@@ -617,10 +614,10 @@ public class DummyContainer extends Container {
             }
         }
         if ((!(slot instanceof DummySlot)
-			&& !(slot instanceof UnmodifiableSlot)
-			&& !(slot instanceof FluidSlot)
-			&& !(slot instanceof ColorSlot)
-			&& !(slot instanceof HandelableSlot))) {
+                && !(slot instanceof UnmodifiableSlot)
+                && !(slot instanceof FluidSlot)
+                && !(slot instanceof ColorSlot)
+                && !(slot instanceof HandelableSlot))) {
             ItemStack stack1 = superSlotClick(slotId, mouseButton, isShift, entityplayer);
             ItemStack stack2 = slot.getStack();
             if (stack2 != null && stack2.getItem() == LogisticsPipes.ModuleItem) {

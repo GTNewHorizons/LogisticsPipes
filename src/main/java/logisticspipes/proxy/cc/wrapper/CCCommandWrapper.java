@@ -21,8 +21,8 @@ public class CCCommandWrapper implements ILuaObject {
 
     public static final ICommandWrapper WRAPPER = CCCommandWrapper::new;
 
-    private CCWrapperInformation info;
-    private Object object;
+    private final CCWrapperInformation info;
+    private final Object object;
     public boolean isDirectCall;
 
     public LuaTable table;

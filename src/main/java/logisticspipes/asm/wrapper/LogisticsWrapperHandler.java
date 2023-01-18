@@ -22,7 +22,7 @@ public class LogisticsWrapperHandler {
 
     private static final boolean DUMP = false;
 
-    private static Map<String, Class<?>> lookupMap = new HashMap<>();
+    private static final Map<String, Class<?>> lookupMap = new HashMap<>();
     public static List<AbstractWrapper> wrapperController = new ArrayList<>();
 
     private static Method m_defineClass = null;
@@ -108,8 +108,8 @@ public class LogisticsWrapperHandler {
             Class<? extends T> proxyClazz,
             T dummyProxy,
             Class<?>... wrapperInterfaces)
-            throws SecurityException, IllegalArgumentException,
-                    IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+            throws SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException,
+                    InvocationTargetException, NoSuchMethodException {
         String proxyName = interfaze.getSimpleName().substring(1);
         if (!proxyName.endsWith("Proxy")) {
             throw new RuntimeException("UnuportedProxyName: " + proxyName);
@@ -279,8 +279,8 @@ public class LogisticsWrapperHandler {
 
     @SuppressWarnings("unchecked")
     public static <T> T getWrappedSubProxy(AbstractWrapper wrapper, Class<T> interfaze, T proxy, T dummyProxy)
-            throws SecurityException, IllegalArgumentException,
-                    IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+            throws SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException,
+                    InvocationTargetException, NoSuchMethodException {
         if (proxy == null) {
             return null;
         }

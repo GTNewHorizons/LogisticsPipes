@@ -70,14 +70,11 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                             return false;
                         }
                         if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                            if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                                    .isAllowedForPipe(pipe)) {
-                                return false;
-                            }
+                            return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+                                    .isAllowedForPipe(pipe);
                         } else {
                             return false;
                         }
-                        return true;
                     }));
         }
 
@@ -92,13 +89,10 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                             if (!(upgrade instanceof SneakyUpgrade)) {
                                 return false;
                             }
-                            if (!upgrade.isAllowedForPipe(pipe)) {
-                                return false;
-                            }
+                            return upgrade.isAllowedForPipe(pipe);
                         } else {
                             return false;
                         }
-                        return true;
                     }));
         }
 
@@ -118,11 +112,8 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                     if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
                         return false;
                     }
-                    if (!SimpleServiceLocator.securityStationManager.isAuthorized(
-                            UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
-                        return false;
-                    }
-                    return true;
+                    return SimpleServiceLocator.securityStationManager.isAuthorized(
+                            UUID.fromString(itemStack.getTagCompound().getString("UUID")));
                 },
                 1));
 
@@ -446,10 +437,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         if (TAB_SLOTS_2.contains(slot) && current_Tab != 1) {
             return false;
         }
-        if (TAB_SLOTS_4.contains(slot) && current_Tab != 3) {
-            return false;
-        }
-        return true;
+        return !TAB_SLOTS_4.contains(slot) || current_Tab == 3;
     }
 
     @Override

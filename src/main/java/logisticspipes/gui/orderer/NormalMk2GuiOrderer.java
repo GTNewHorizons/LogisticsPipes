@@ -22,7 +22,7 @@ public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvid
 
     public PipeItemsRequestLogisticsMk2 pipe;
     private SmallGuiButton Macrobutton;
-    private RenderItem renderItem = new RenderItem();
+    private final RenderItem renderItem = new RenderItem();
 
     public NormalMk2GuiOrderer(PipeItemsRequestLogisticsMk2 RequestPipeMK2, EntityPlayer entityPlayer) {
         super(

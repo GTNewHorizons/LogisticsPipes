@@ -1,6 +1,7 @@
 package logisticspipes.pipefxhandlers;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import java.util.Random;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.experimental.Accessors;
 import net.minecraft.client.Minecraft;
@@ -12,8 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Random;
-
 @Accessors(chain = true)
 public class PipeFXLaserPowerBall extends EntityFX {
 
@@ -23,8 +22,8 @@ public class PipeFXLaserPowerBall extends EntityFX {
     private static final int ROTATIONSPEED = 5;
     private static final Random RAND = new Random();
 
-    private float random;
-    private TileEntity tile;
+    private final float random;
+    private final TileEntity tile;
 
     public PipeFXLaserPowerBall(World par1World, LPPosition pos, int color, TileEntity tile) {
         super(par1World, pos.getXD() + 0.5D, pos.getYD() + 0.5D, pos.getZD() + 0.5D, 0.0D, 0.0D, 0.0D);

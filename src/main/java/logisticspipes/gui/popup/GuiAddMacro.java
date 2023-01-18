@@ -39,7 +39,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     private int wheeldown = 0;
     private boolean editsearch = false;
     private boolean editname = false;
-    private LinkedList<ItemIdentifierStack> macroItems = new LinkedList<>();
+    private final LinkedList<ItemIdentifierStack> macroItems = new LinkedList<>();
     private String name1 = "";
     private String name2 = "";
     private String Search1 = "";
@@ -49,8 +49,8 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 
     private Object[] tooltip;
 
-    private int nameWidth = 122;
-    private int searchWidth = 138;
+    private final int nameWidth = 122;
+    private final int searchWidth = 138;
 
     public GuiAddMacro(IDiskProvider diskProvider, String macroName) {
         super(200, 200, 0, 0);

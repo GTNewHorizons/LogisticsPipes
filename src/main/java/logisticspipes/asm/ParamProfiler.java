@@ -242,7 +242,7 @@ public class ParamProfiler {
         return writer.toByteArray();
     }
 
-    private static Map<Thread, Stack<Entry>> stack = new HashMap<>();
+    private static final Map<Thread, Stack<Entry>> stack = new HashMap<>();
 
     @SuppressWarnings("unused") // Used by ASM
     public static void methodStart(long id, String name, Object root, Object... params) {
@@ -268,7 +268,7 @@ public class ParamProfiler {
     }
 
     @Getter
-    private static WeakHashMap<Throwable, ArrayList<Entry>> infoLink = new WeakHashMap<>();
+    private static final WeakHashMap<Throwable, ArrayList<Entry>> infoLink = new WeakHashMap<>();
 
     @SuppressWarnings("unused") // Used by ASM
     public static void handleException(Throwable t) {

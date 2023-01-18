@@ -40,7 +40,7 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ServerProxy implements IProxy {
 
-    private Configuration langDatabase;
+    private final Configuration langDatabase;
     private long saveThreadTime = 0;
 
     public ServerProxy() {
@@ -209,9 +209,9 @@ public class ServerProxy implements IProxy {
     }
 
     // BuildCraft method
+
     /**
      * Retrieves pipe at specified coordinates if any.
-     *
      */
     protected static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null) {

@@ -15,10 +15,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class ModuleUpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgradeManager {
 
     @Getter
-    private SimpleStackInventory inv = new SimpleStackInventory(2, "UpgradeInventory", 16);
+    private final SimpleStackInventory inv = new SimpleStackInventory(2, "UpgradeInventory", 16);
 
-    private IPipeUpgrade[] upgrades = new IPipeUpgrade[2];
-    private PipeLogisticsChassi pipe;
+    private final IPipeUpgrade[] upgrades = new IPipeUpgrade[2];
+    private final PipeLogisticsChassi pipe;
 
     private final UpgradeManager parent;
 

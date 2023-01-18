@@ -50,10 +50,10 @@ public class ModuleElectricManager extends LogisticsGuiModule
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Electric Items", 1);
     private boolean _dischargeMode;
 
-    private int ticksToAction = 100;
+    private final int ticksToAction = 100;
     private int currentTick = 0;
 
-    private IHUDModuleRenderer HUD = new HUDElectricManager(this);
+    private final IHUDModuleRenderer HUD = new HUDElectricManager(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

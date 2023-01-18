@@ -31,11 +31,9 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
     /**
      * Registers the Inventory and ItemSender to the module
      *
-     * @param world
-     *            that the module is in.
-     * @param service
-     *            Inventory access, power and utility functions provided by the
-     *            pipe
+     * @param world   that the module is in.
+     * @param service Inventory access, power and utility functions provided by the
+     *                pipe
      */
     public void registerHandler(IWorldProvider world, IPipeServiceProvider service) {
         _world = world;
@@ -87,17 +85,12 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
     /**
      * Gives an sink answer on the given itemstack
      *
-     * @param stack
-     *            to sink
-     * @param bestPriority
-     *            best priority seen so far
-     * @param bestCustomPriority
-     *            best custom subpriority
-     * @param allowDefault
-     *            is a default only sink allowed to sink this?
-     * @param includeInTransit
-     *            inclide the "in transit" items? -- true for a destination
-     *            search, false for a sink check.
+     * @param stack              to sink
+     * @param bestPriority       best priority seen so far
+     * @param bestCustomPriority best custom subpriority
+     * @param allowDefault       is a default only sink allowed to sink this?
+     * @param includeInTransit   inclide the "in transit" items? -- true for a destination
+     *                           search, false for a sink check.
      * @return SinkReply whether the module sinks the item or not
      */
     public abstract SinkReply sinksItem(
@@ -123,8 +116,8 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
      * Is this module interested in all items, or just some specific ones?
      *
      * @return true: this module will be checked against every item request
-     *         false: only requests involving items returned by
-     *         getSpecificInterestes() will be checked
+     * false: only requests involving items returned by
+     * getSpecificInterestes() will be checked
      */
     public abstract boolean hasGenericInterests();
 
@@ -132,7 +125,6 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
      * the list of items which this module is capable of providing or supplying
      * (or is otherwise interested in) the size of the list here does not
      * influence the ongoing computational cost.
-     *
      */
     public abstract Collection<ItemIdentifier> getSpecificInterests();
 
@@ -151,7 +143,6 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
 
     /**
      * get The Icon for this Module Class
-     *
      */
     @SideOnly(Side.CLIENT)
     public abstract IIcon getIconTexture(IIconRegister register);

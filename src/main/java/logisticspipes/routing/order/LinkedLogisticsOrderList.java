@@ -9,7 +9,7 @@ public class LinkedLogisticsOrderList extends ArrayList<IOrderInfoProvider> {
     private static final long serialVersionUID = 4328359512757178338L;
 
     @Getter
-    private List<LinkedLogisticsOrderList> subOrders = new ArrayList<>();
+    private final List<LinkedLogisticsOrderList> subOrders = new ArrayList<>();
 
     private List<IOrderInfoProvider> cachedList = null;
     private List<Float> cachedProgress = null;

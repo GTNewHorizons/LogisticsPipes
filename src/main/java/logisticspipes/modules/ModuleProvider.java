@@ -79,7 +79,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
     public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<>();
     private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<>();
 
-    private IHUDModuleRenderer HUD = new HUDProviderModule(this);
+    private final IHUDModuleRenderer HUD = new HUDProviderModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

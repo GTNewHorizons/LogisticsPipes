@@ -34,12 +34,12 @@ public class TriggerHasDestination extends LPTrigger implements ITriggerInternal
                 if (parameter != null && parameter.getItemStack() != null) {
                     ItemStack item = parameter.getItemStack();
                     return SimpleServiceLocator.logisticsManager.hasDestination(
-                            ItemIdentifier.get(item),
-                            false,
-                            ((CoreRoutedPipe) ((LPBCPipe) pipe).pipe.pipe)
-                                    .getRouter()
-                                    .getSimpleID(),
-                            new ArrayList<>())
+                                    ItemIdentifier.get(item),
+                                    false,
+                                    ((CoreRoutedPipe) ((LPBCPipe) pipe).pipe.pipe)
+                                            .getRouter()
+                                            .getSimpleID(),
+                                    new ArrayList<>())
                             != null;
                 }
             }

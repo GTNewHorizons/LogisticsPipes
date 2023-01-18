@@ -17,7 +17,7 @@ import javax.swing.tree.DefaultTreeModel;
 @SuppressWarnings("serial")
 public class LogWindow extends JPanel {
 
-    private static Map<Integer, LogWindow> map = new HashMap<>();
+    private static final Map<Integer, LogWindow> map = new HashMap<>();
 
     public static LogWindow getWindow(int id) {
         LogWindow window = LogWindow.map.get(id);
@@ -28,11 +28,11 @@ public class LogWindow extends JPanel {
         return window;
     }
 
-    private JTextPane logArea;
-    private JScrollPane logPane;
-    private DefaultMutableTreeNode baseNode;
-    private JTree tree;
-    private JScrollPane treeView;
+    private final JTextPane logArea;
+    private final JScrollPane logPane;
+    private final DefaultMutableTreeNode baseNode;
+    private final JTree tree;
+    private final JScrollPane treeView;
     private List<StatusEntry> currentLayout = new ArrayList<>(0);
     private JFrame frame;
 

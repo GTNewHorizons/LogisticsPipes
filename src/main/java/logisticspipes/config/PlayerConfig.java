@@ -203,7 +203,7 @@ public class PlayerConfig {
             } finally {
                 fileAccesLock.unlock();
             }
-		}
+        }
     }
 
     public void applyTo(PlayerConfig playerConfig) {

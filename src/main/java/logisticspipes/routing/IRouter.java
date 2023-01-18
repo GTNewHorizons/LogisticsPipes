@@ -68,11 +68,9 @@ public interface IRouter {
     LPPosition getLPPosition();
 
     /**
-     * @param hasBeenProcessed
-     *            a bitset flagging which nodes have already been acted on (the
-     *            router should set the bit for it's own id, then return true.
-     * @param actor
-     *            the visitor
+     * @param hasBeenProcessed a bitset flagging which nodes have already been acted on (the
+     *                         router should set the bit for it's own id, then return true.
+     * @param actor            the visitor
      */
     void act(BitSet hasBeenProcessed, IRAction actor);
 

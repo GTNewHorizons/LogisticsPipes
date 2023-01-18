@@ -21,7 +21,7 @@ public class GuiSatellitePipe extends LogisticsBaseGuiScreen {
 
     private PipeItemsSatelliteLogistics _satellite;
     private PipeFluidSatellite _liquidSatellite;
-    private EntityPlayer _player;
+    private final EntityPlayer _player;
 
     public GuiSatellitePipe(PipeItemsSatelliteLogistics satellite, EntityPlayer player) {
         super(new Container() {

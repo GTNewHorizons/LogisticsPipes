@@ -16,7 +16,7 @@ public class LPActionTriggerIconProvider implements IIconProvider {
     public static int triggerHasDestinationIconIndex = 5;
     public static int actionRobotRoutingIconIndex = 6;
 
-    private IIcon[] icons;
+    private final IIcon[] icons;
 
     public LPActionTriggerIconProvider() {
         icons = new IIcon[7];

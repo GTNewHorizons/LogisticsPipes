@@ -35,7 +35,7 @@ public class ClientPacketBufferHandlerThread {
         // Clear content on next tick
         private boolean clear = false;
 
-        private Lock clearLock = new ReentrantLock();
+        private final Lock clearLock = new ReentrantLock();
 
         public ClientCompressorThread() {
             super("LogisticsPipes Packet Compressor Client");

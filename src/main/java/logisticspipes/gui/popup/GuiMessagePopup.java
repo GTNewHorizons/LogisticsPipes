@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiButton;
 
 public class GuiMessagePopup extends SubGuiScreen {
 
-    private String[] text;
+    private final String[] text;
     private int mWidth = 0;
 
     public GuiMessagePopup(Object... message) {

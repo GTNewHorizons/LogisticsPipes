@@ -22,7 +22,7 @@ import net.minecraft.util.IIcon;
 public class ModuleElectricBuffer extends LogisticsModule {
 
     private int currentTickCount = 0;
-    private int ticksToAction = 80;
+    private final int ticksToAction = 80;
 
     public ModuleElectricBuffer() {}
 

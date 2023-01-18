@@ -18,7 +18,7 @@ import org.objectweb.asm.tree.ClassNode;
 
 public class LogisticsPipesClassInjector implements IClassTransformer {
 
-    private Field fResourceCache;
+    private final Field fResourceCache;
     private Boolean isObfEnv = null;
 
     public LogisticsPipesClassInjector() throws NoSuchFieldException, SecurityException {

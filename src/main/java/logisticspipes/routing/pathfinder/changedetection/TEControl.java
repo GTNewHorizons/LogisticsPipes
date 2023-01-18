@@ -68,8 +68,8 @@ public class TEControl {
                                     .getInformationProviderFor(tile)
                                     .refreshTileCacheOnSide(dir.getOpposite());
                         }
-                        for (ITileEntityChangeListener listener : new ArrayList<>(
-                                ((ILPTEInformation) nextTile).getObject().changeListeners)) {
+                        for (ITileEntityChangeListener listener :
+                                new ArrayList<>(((ILPTEInformation) nextTile).getObject().changeListeners)) {
                             listener.pipeAdded(pos, dir.getOpposite());
                         }
                     }
@@ -108,8 +108,8 @@ public class TEControl {
                         }
                     }
                 }
-                for (ITileEntityChangeListener listener : new ArrayList<>(
-                        ((ILPTEInformation) tile).getObject().changeListeners)) {
+                for (ITileEntityChangeListener listener :
+                        new ArrayList<>(((ILPTEInformation) tile).getObject().changeListeners)) {
                     listener.pipeRemoved(pos);
                 }
                 return null;
@@ -165,14 +165,14 @@ public class TEControl {
                     }
                     TileEntity nextTile = newPos.getTileEntity(world);
                     if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
-                        for (ITileEntityChangeListener listener : new ArrayList<>(
-                                ((ILPTEInformation) nextTile).getObject().changeListeners)) {
+                        for (ITileEntityChangeListener listener :
+                                new ArrayList<>(((ILPTEInformation) nextTile).getObject().changeListeners)) {
                             listener.pipeModified(pos);
                         }
                     }
                 }
-                for (ITileEntityChangeListener listener : new ArrayList<>(
-                        ((ILPTEInformation) tile).getObject().changeListeners)) {
+                for (ITileEntityChangeListener listener :
+                        new ArrayList<>(((ILPTEInformation) tile).getObject().changeListeners)) {
                     listener.pipeModified(pos);
                 }
                 info.getUpdateQueued().remove(pos);

@@ -28,7 +28,7 @@ public class ItemIdentifierInventory
         implements IInventory, ISaveState, ILPCCTypeHolder, Iterable<Pair<ItemIdentifierStack, Integer>> {
 
     private Object ccType;
-    private ItemIdentifierStack[] _contents;
+    private final ItemIdentifierStack[] _contents;
     private final String _name;
     private final int _stackLimit;
     private final HashMap<ItemIdentifier, Integer> _contentsMap;

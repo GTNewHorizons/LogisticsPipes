@@ -37,7 +37,7 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
     private int left;
     private int top;
 
-    private boolean hasUpgradeModuleUpgarde;
+    private final boolean hasUpgradeModuleUpgarde;
 
     public GuiChassiPipe(
             EntityPlayer player,
@@ -186,7 +186,9 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
         if (!(_moduleInventory.getStackInSlot(slot).getItem() instanceof ItemModule)) {
             return "";
         }
-        String name = ((ItemModule) _moduleInventory.getStackInSlot(slot).getItem())
+        String name = _moduleInventory
+                .getStackInSlot(slot)
+                .getItem()
                 .getItemStackDisplayName(_moduleInventory.getStackInSlot(slot));
         if (!hasUpgradeModuleUpgarde) {
             return name;

@@ -8,7 +8,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class DictItemIdentifier {
 
-    private static ConcurrentHashMap<BitSet, DictItemIdentifier> identifiers = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<BitSet, DictItemIdentifier> identifiers = new ConcurrentHashMap<>();
 
     public static DictItemIdentifier getDictItemIdentifier(ItemIdentifier itemIdent) {
         BitSet ids = new BitSet();
@@ -28,7 +28,7 @@ public class DictItemIdentifier {
         return dictIdent;
     }
 
-    private List<DictIdentifier> parts = new ArrayList<>();
+    private final List<DictIdentifier> parts = new ArrayList<>();
 
     private DictItemIdentifier(BitSet set) {
         int id = -1;

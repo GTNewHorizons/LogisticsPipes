@@ -30,7 +30,7 @@ public class ServerPacketBufferHandlerThread {
         // used to cork the compressor so we can queue up a whole bunch of packets at once
         private boolean pause = false;
         // Clear content on next tick
-        private Queue<EntityPlayer> playersToClear = new LinkedList<>();
+        private final Queue<EntityPlayer> playersToClear = new LinkedList<>();
 
         public ServerCompressorThread() {
             super("LogisticsPipes Packet Compressor Server");
@@ -116,8 +116,7 @@ public class ServerPacketBufferHandlerThread {
 
         public void addPacketToCompressor(ModernPacket packet, EntityPlayer player) {
             synchronized (serverList) {
-                LinkedList<ModernPacket> packetList =
-                        serverList.computeIfAbsent(player, k -> new LinkedList<>());
+                LinkedList<ModernPacket> packetList = serverList.computeIfAbsent(player, k -> new LinkedList<>());
                 packetList.add(packet);
                 if (!pause) {
                     serverList.notify();
@@ -155,7 +154,7 @@ public class ServerPacketBufferHandlerThread {
         // FIFO for deserialized C->S packets, decompressor adds, tickEnd removes
         private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer = new LinkedList<>();
         // Clear content on next tick
-        private Queue<EntityPlayer> playersToClear = new LinkedList<>();
+        private final Queue<EntityPlayer> playersToClear = new LinkedList<>();
 
         public ServerDecompressorThread() {
             super("LogisticsPipes Packet Decompressor Server");

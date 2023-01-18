@@ -25,7 +25,7 @@ public class ItemPipeSignCreator extends LogisticsItem {
 
     public static final List<Class<? extends IPipeSign>> signTypes = new ArrayList<>();
 
-    private IIcon[] itemIcon = new IIcon[2];
+    private final IIcon[] itemIcon = new IIcon[2];
 
     public ItemPipeSignCreator() {
         super();

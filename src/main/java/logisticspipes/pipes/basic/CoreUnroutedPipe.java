@@ -109,9 +109,8 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
      * Should return the index in the array returned by GetTextureIcons() for a
      * specified direction
      *
-     * @param direction
-     *            - The direction for which the indexed should be rendered.
-     *            Unknown for pipe center
+     * @param direction - The direction for which the indexed should be rendered.
+     *                  Unknown for pipe center
      * @return An index valid in the array returned by getTextureIcons()
      */
     public abstract int getIconIndex(ForgeDirection direction);

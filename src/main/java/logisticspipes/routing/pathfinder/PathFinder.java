@@ -44,14 +44,11 @@ public class PathFinder {
      * PipeItemsRouting. maxVisited and maxLength are safeguards for recursion
      * runaways.
      *
-     * @param startPipe
-     *            - The TileEntity to start the search from
-     * @param maxVisited
-     *            - The maximum number of pipes to visit, regardless of
-     *            recursion level
-     * @param maxLength
-     *            - The maximum recurse depth, i.e. the maximum length pipe that
-     *            is supported
+     * @param startPipe  - The TileEntity to start the search from
+     * @param maxVisited - The maximum number of pipes to visit, regardless of
+     *                   recursion level
+     * @param maxLength  - The maximum recurse depth, i.e. the maximum length pipe that
+     *                   is supported
      */
     public static HashMap<CoreRoutedPipe, ExitRoute> paintAndgetConnectedRoutingPipes(
             TileEntity startPipe,

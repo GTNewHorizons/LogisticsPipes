@@ -14,7 +14,6 @@ import io.netty.util.AttributeKey;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractpackets.ModernPacket;

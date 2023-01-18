@@ -28,11 +28,11 @@ public class PipeFXLaserPowerBeam extends EntityFX {
     @Setter
     private boolean reverse = false;
 
-    private float length;
-    private float yaw;
-    private float pitch;
-    private float random;
-    private TileEntity tile;
+    private final float length;
+    private final float yaw;
+    private final float pitch;
+    private final float random;
+    private final TileEntity tile;
 
     public PipeFXLaserPowerBeam(
             World par1World, LPPosition pos, float length, ForgeDirection dir, int color, TileEntity tile) {

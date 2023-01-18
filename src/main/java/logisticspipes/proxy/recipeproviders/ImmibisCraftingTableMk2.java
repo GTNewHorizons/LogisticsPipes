@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ImmibisCraftingTableMk2 implements ICraftingRecipeProvider {
 
-    private Class<?> tileAutoCraftingMk2;
+    private final Class<?> tileAutoCraftingMk2;
 
     public ImmibisCraftingTableMk2() throws ClassNotFoundException {
         tileAutoCraftingMk2 = Class.forName("mods.immibis.tubestuff.TileAutoCraftingMk2");

@@ -176,20 +176,20 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                         continue;
                     }
                     worklist.add(new DataEntry(
-						connectedPipe.getKey().container,
-						exitDir,
-						routers.get(exitDir),
-						lasers,
-						map.get(connectedPipe.getKey()).connectionDetails,
-						new Log() {
+                            connectedPipe.getKey().container,
+                            exitDir,
+                            routers.get(exitDir),
+                            lasers,
+                            map.get(connectedPipe.getKey()).connectionDetails,
+                            new Log() {
 
-							@Override
-							void log(String logString) {
-								if (LPConstants.DEBUG) {
-									log.log(exitDir.name() + ": " + logString);
-								}
-							}
-						}));
+                                @Override
+                                void log(String logString) {
+                                    if (LPConstants.DEBUG) {
+                                        log.log(exitDir.name() + ": " + logString);
+                                    }
+                                }
+                            }));
                 }
             }
         }

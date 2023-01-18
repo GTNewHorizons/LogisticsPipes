@@ -41,7 +41,7 @@ public abstract class LogisticsOrder implements IOrderInfoProvider {
     @Setter
     private byte machineProgress = 0;
 
-    private List<IDistanceTracker> trackers = new CopyOnWriteArrayList<>();
+    private final List<IDistanceTracker> trackers = new CopyOnWriteArrayList<>();
 
     public LogisticsOrder(ResourceType type, IAdditionalTargetInformation info) {
         if (type == null) {

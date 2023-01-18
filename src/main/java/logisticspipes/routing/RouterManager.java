@@ -125,8 +125,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
      * This assumes you know what you are doing. expect exceptions to be thrown
      * if you pass the wrong side.
      *
-     * @param side
-     *            false for server, true for client.
+     * @param side false for server, true for client.
      * @return is this a router for the side.
      */
     @Override

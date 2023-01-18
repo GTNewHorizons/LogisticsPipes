@@ -72,12 +72,12 @@ public class RequestTreeNode {
     private final IAdditionalTargetInformation info;
     private final RequestTreeNode parentNode;
     protected final RequestTree root;
-    private List<RequestTreeNode> subRequests = new ArrayList<>();
-    private List<IPromise> promises = new ArrayList<>();
-    private List<IExtraPromise> extrapromises = new ArrayList<>();
-    private List<IExtraPromise> byproducts = new ArrayList<>();
-    private SortedSet<ICraftingTemplate> usedCrafters = new TreeSet<>();
-    private Set<LogisticsOrderManager<?, ?>> usedExtrasFromManager = new HashSet<>();
+    private final List<RequestTreeNode> subRequests = new ArrayList<>();
+    private final List<IPromise> promises = new ArrayList<>();
+    private final List<IExtraPromise> extrapromises = new ArrayList<>();
+    private final List<IExtraPromise> byproducts = new ArrayList<>();
+    private final SortedSet<ICraftingTemplate> usedCrafters = new TreeSet<>();
+    private final Set<LogisticsOrderManager<?, ?>> usedExtrasFromManager = new HashSet<>();
     private ICraftingTemplate lastCrafterTried = null;
 
     private int promiseAmount = 0;
@@ -161,8 +161,7 @@ public class RequestTreeNode {
     protected void checkForExtras(IResource item, HashMap<IProvide, List<IExtraPromise>> extraMap) {
         for (IExtraPromise extra : extrapromises) {
             if (item.matches(extra.getItemType(), IResource.MatchSettings.NORMAL)) {
-                List<IExtraPromise> extras =
-                        extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<>());
+                List<IExtraPromise> extras = extraMap.computeIfAbsent(extra.getProvider(), k -> new LinkedList<>());
                 extras.add(extra.copy());
             }
         }
@@ -192,7 +191,7 @@ public class RequestTreeNode {
                 IExtraPromise extra = it.next();
                 if (extra.getAmount() >= usedcount) {
                     extra.lowerAmount(usedcount);
-					break;
+                    break;
                 } else {
                     usedcount -= extra.getAmount();
                     it.remove();
@@ -313,7 +312,7 @@ public class RequestTreeNode {
             if (r.containsFlag(PipeRoutingConnectionType.canRequestFrom)) {
                 CoreRoutedPipe pipe = r.destination.getPipe();
                 if (pipe instanceof IProvide) {
-					List<IFilter> list = new LinkedList<>(r.filters);
+                    List<IFilter> list = new LinkedList<>(r.filters);
                     providers.add(new Pair<>((IProvide) pipe, list));
                 }
             }
@@ -608,7 +607,7 @@ public class RequestTreeNode {
                             if (filter.isBlocked() == filter.isFilteredItem(craftable.getResultItem())
                                     || filter.blockCrafting()) {}
                         }
-						List<IFilter> list = new LinkedList<>(r.filters);
+                        List<IFilter> list = new LinkedList<>(r.filters);
                         crafters.add(new Pair<>(craftable, list));
                     }
                 }

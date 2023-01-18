@@ -40,11 +40,11 @@ import net.minecraft.world.World;
 
 /**
  * @author Krapht I have no bloody clue what different mods use to differate
- *         between items except for itemID, there is metadata, damage, and
- *         whatnot. so..... to avoid having to change all my bloody code every
- *         time I need to support a new item flag that would make it a
- *         "different" item, I made this cache here A ItemIdentifier is
- *         immutable, singleton and most importantly UNIQUE!
+ * between items except for itemID, there is metadata, damage, and
+ * whatnot. so..... to avoid having to change all my bloody code every
+ * time I need to support a new item flag that would make it a
+ * "different" item, I made this cache here A ItemIdentifier is
+ * immutable, singleton and most importantly UNIQUE!
  */
 public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTypeHolder {
 
@@ -100,7 +100,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     private static class MapDamagedItentifierHolder implements IDamagedIdentifierHolder {
 
-        private ConcurrentHashMap<Integer, ItemIdentifier> holder;
+        private final ConcurrentHashMap<Integer, ItemIdentifier> holder;
 
         public MapDamagedItentifierHolder() {
             holder = new ConcurrentHashMap<>(4096, 0.5f, 1);
@@ -586,8 +586,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     @SuppressWarnings("rawtypes")
-    public static Map<Object, Object> getNBTBaseAsMap(NBTBase nbt)
-            throws SecurityException, IllegalArgumentException {
+    public static Map<Object, Object> getNBTBaseAsMap(NBTBase nbt) throws SecurityException, IllegalArgumentException {
         if (nbt == null) {
             return null;
         }
@@ -784,19 +783,31 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             return;
         }
         if (nbt instanceof NBTTagByte) {
-            sb.append("TagByte(data=").append(((NBTTagByte) nbt).func_150290_f()).append(")");
+            sb.append("TagByte(data=")
+                    .append(((NBTTagByte) nbt).func_150290_f())
+                    .append(")");
         } else if (nbt instanceof NBTTagShort) {
-            sb.append("TagShort(data=").append(((NBTTagShort) nbt).func_150289_e()).append(")");
+            sb.append("TagShort(data=")
+                    .append(((NBTTagShort) nbt).func_150289_e())
+                    .append(")");
         } else if (nbt instanceof NBTTagInt) {
             sb.append("TagInt(data=").append(((NBTTagInt) nbt).func_150287_d()).append(")");
         } else if (nbt instanceof NBTTagLong) {
-            sb.append("TagLong(data=").append(((NBTTagLong) nbt).func_150291_c()).append(")");
+            sb.append("TagLong(data=")
+                    .append(((NBTTagLong) nbt).func_150291_c())
+                    .append(")");
         } else if (nbt instanceof NBTTagFloat) {
-            sb.append("TagFloat(data=").append(((NBTTagFloat) nbt).func_150288_h()).append(")");
+            sb.append("TagFloat(data=")
+                    .append(((NBTTagFloat) nbt).func_150288_h())
+                    .append(")");
         } else if (nbt instanceof NBTTagDouble) {
-            sb.append("TagDouble(data=").append(((NBTTagDouble) nbt).func_150286_g()).append(")");
+            sb.append("TagDouble(data=")
+                    .append(((NBTTagDouble) nbt).func_150286_g())
+                    .append(")");
         } else if (nbt instanceof NBTTagString) {
-            sb.append("TagString(data=\"").append(((NBTTagString) nbt).func_150285_a_()).append("\")");
+            sb.append("TagString(data=\"")
+                    .append(((NBTTagString) nbt).func_150285_a_())
+                    .append("\")");
         } else if (nbt instanceof NBTTagByteArray) {
             sb.append("TagByteArray(data=");
             for (int i = 0; i < ((NBTTagByteArray) nbt).func_150292_c().length; i++) {
@@ -828,7 +839,8 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             sb.append("TagCompound(data=");
             Object[] oe = ((NBTTagCompound) nbt).tagMap.entrySet().toArray();
             for (int i = 0; i < oe.length; i++) {
-                @SuppressWarnings("unchecked") Entry<String, NBTBase> e = (Entry<String, NBTBase>) (oe[i]);
+                @SuppressWarnings("unchecked")
+                Entry<String, NBTBase> e = (Entry<String, NBTBase>) (oe[i]);
                 sb.append("\"").append(e.getKey()).append("\"=");
                 debugDumpTag((e.getValue()), sb);
                 if (i < oe.length - 1) {

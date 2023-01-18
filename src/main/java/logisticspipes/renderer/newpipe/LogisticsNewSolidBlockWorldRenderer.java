@@ -32,10 +32,10 @@ public class LogisticsNewSolidBlockWorldRenderer {
         WEST(ForgeDirection.WEST, "W"),
         EAST(ForgeDirection.EAST, "E");
 
-        private ForgeDirection dir;
+        private final ForgeDirection dir;
 
         @Getter
-        private String letter;
+        private final String letter;
 
         CoverSides(ForgeDirection dir, String letter) {
             this.dir = dir;
@@ -64,7 +64,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         THREE(3);
 
         @Getter
-        private int integer;
+        private final int integer;
 
         BlockRotation(int rot) {
             integer = rot;

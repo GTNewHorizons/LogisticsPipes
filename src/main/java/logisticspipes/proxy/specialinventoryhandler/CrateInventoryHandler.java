@@ -135,7 +135,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
     public void initCache() {
         Map<ItemIdentifier, Integer> map = getItemsAndCount(true);
         cached = new LinkedList<>();
-		cached.addAll(map.entrySet());
+        cached.addAll(map.entrySet());
     }
 
     @Override

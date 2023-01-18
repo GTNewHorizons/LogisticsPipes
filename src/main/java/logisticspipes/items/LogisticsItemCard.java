@@ -65,9 +65,6 @@ public class LogisticsItemCard extends LogisticsItem implements IItemAdvancedExi
 
     @Override
     public boolean canExistInWorld(ItemStack stack) {
-        if (stack.getItemDamage() == LogisticsItemCard.SEC_CARD) {
-            return false;
-        }
-        return true;
+        return stack.getItemDamage() != LogisticsItemCard.SEC_CARD;
     }
 }

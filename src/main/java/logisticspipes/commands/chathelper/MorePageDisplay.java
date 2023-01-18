@@ -2,7 +2,6 @@ package logisticspipes.commands.chathelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
@@ -14,7 +13,7 @@ import net.minecraft.util.ChatComponentText;
 public class MorePageDisplay {
 
     private ArrayList<String> header = new ArrayList<>();
-    private ArrayList<StringConnected> content = new ArrayList<>();
+    private final ArrayList<StringConnected> content = new ArrayList<>();
 
     private final int row = 20;
     private final int colum = 55;
@@ -83,10 +82,10 @@ public class MorePageDisplay {
             char c = input.charAt(i);
             switch (c) {
                 case '%':
-                    output.append(String.valueOf(page));
+                    output.append(page);
                     break;
                 case '$':
-                    output.append(String.valueOf(pagecount));
+                    output.append(pagecount);
                     break;
                 default:
                     output.append(c);

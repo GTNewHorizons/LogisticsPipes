@@ -24,7 +24,7 @@ public class GuiProviderPipe extends LogisticsBaseGuiScreen {
 
     private static final String PREFIX = "gui.providerpipe.";
 
-    private PipeItemsProviderLogistics logic;
+    private final PipeItemsProviderLogistics logic;
 
     public GuiProviderPipe(IInventory playerInventory, IInventory dummyInventory, PipeItemsProviderLogistics logic) {
         super(null);

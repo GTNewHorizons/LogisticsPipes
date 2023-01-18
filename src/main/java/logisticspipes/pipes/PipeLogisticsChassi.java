@@ -89,7 +89,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     // HUD
     public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
-    private HudChassisPipe hud;
+    private final HudChassisPipe hud;
 
     public PipeLogisticsChassi(Item item) {
         super(item);

@@ -697,7 +697,7 @@ public class LogisticsNewRenderPipe {
         }
     }
 
-    private PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
+    private final PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
 
     public void renderTileEntityAt(
             LogisticsTileGenericPipe pipeTile, double x, double y, double z, float partialTickTime, double distance) {
@@ -824,8 +824,7 @@ public class LogisticsNewRenderPipe {
                                 if (renderState.textureMatrix.getPointedOrientation() == dir) {
                                     texture = new I3DOperation[] {
                                         new LPUVTransformationList(
-                                                new LPUVTranslation(2.5F / 10, 0),
-                                                LogisticsNewRenderPipe.statusTexture)
+                                                new LPUVTranslation(2.5F / 10, 0), LogisticsNewRenderPipe.statusTexture)
                                     };
                                 } else {
                                     texture = new I3DOperation[] {

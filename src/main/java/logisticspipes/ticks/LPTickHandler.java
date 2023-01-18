@@ -44,7 +44,8 @@ public class LPTickHandler {
         DebugGuiController.instance().execServer();
     }
 
-    private static Map<World, LPWorldInfo> worldInfo = new MapMaker().weakKeys().makeMap();
+    private static final Map<World, LPWorldInfo> worldInfo =
+            new MapMaker().weakKeys().makeMap();
 
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {

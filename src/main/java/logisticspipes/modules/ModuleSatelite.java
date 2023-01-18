@@ -47,7 +47,7 @@ public class ModuleSatelite extends LogisticsModule {
         return pipe.getZ();
     }
 
-    private SinkReply _sinkReply = new SinkReply(FixedPriority.ItemSink, 0, true, false, 1, 0, null);
+    private final SinkReply _sinkReply = new SinkReply(FixedPriority.ItemSink, 0, true, false, 1, 0, null);
 
     @Override
     public SinkReply sinksItem(

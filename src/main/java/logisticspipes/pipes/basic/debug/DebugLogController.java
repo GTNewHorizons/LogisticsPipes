@@ -18,7 +18,7 @@ public class DebugLogController {
     public final CoreUnroutedPipe pipe;
     public boolean debugThisPipe = false;
     private List<StatusEntry> oldList = new ArrayList<>();
-    private PlayerCollectionList players = new PlayerCollectionList();
+    private final PlayerCollectionList players = new PlayerCollectionList();
 
     public DebugLogController(CoreUnroutedPipe pipe) {
         this.pipe = pipe;

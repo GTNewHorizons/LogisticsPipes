@@ -28,7 +28,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsApiaristAnalyser extends CoreRoutedPipe implements ISendRoutedItem {
 
-    private ModuleApiaristAnalyser analyserModule;
+    private final ModuleApiaristAnalyser analyserModule;
 
     public PipeItemsApiaristAnalyser(Item item) {
         super(item);

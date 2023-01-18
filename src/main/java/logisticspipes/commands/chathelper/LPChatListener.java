@@ -24,7 +24,7 @@ public class LPChatListener {
     private static final Map<String, Callable<Boolean>> tasks = new HashMap<>();
     private static final Map<String, MorePageDisplay> morePageDisplays = new HashMap<>();
 
-    private List<String> sendChatMessages = new ArrayList<>();
+    private final List<String> sendChatMessages = new ArrayList<>();
 
     @SubscribeEvent
     public void serverChat(ServerChatEvent event) {

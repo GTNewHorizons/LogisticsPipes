@@ -41,7 +41,7 @@ import net.minecraft.util.IIcon;
 public class ModuleCCBasedQuickSort extends ModuleQuickSort
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
 
-    private Map<Integer, Pair<Integer, List<CCSinkResponder>>> sinkResponses = new HashMap<>();
+    private final Map<Integer, Pair<Integer, List<CCSinkResponder>>> sinkResponses = new HashMap<>();
 
     @Getter
     private int timeout = 100;
@@ -51,7 +51,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
-    private IHUDModuleRenderer HUD = new HUDCCBasedQuickSort(this);
+    private final IHUDModuleRenderer HUD = new HUDCCBasedQuickSort(this);
 
     private void createSinkMessage(int slot, ItemIdentifierStack stack) {
         List<CCSinkResponder> respones = new ArrayList<>();

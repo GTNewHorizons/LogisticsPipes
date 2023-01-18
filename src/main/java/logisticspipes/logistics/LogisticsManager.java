@@ -39,13 +39,11 @@ public class LogisticsManager implements ILogisticsManager {
     /**
      * Method used to check if a given stack has a destination.
      *
+     * @param stack        The stack to check if it has destination.
+     * @param allowDefault Boolean, if true then a default route will be considered a
+     *                     valid destination.
      * @return Triplet of destinationSimpleID, sinkreply, relays; null if
-     *         nothing found
-     * @param stack
-     *            The stack to check if it has destination.
-     * @param allowDefault
-     *            Boolean, if true then a default route will be considered a
-     *            valid destination.
+     * nothing found
      */
     @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
@@ -86,17 +84,13 @@ public class LogisticsManager implements ILogisticsManager {
      * Method used to check if a given stack has a passive sink destination at a
      * priority.
      *
+     * @param stack         The stack to check if it has destination.
+     * @param sourceRouter  The UUID of the router pipe that wants to send the stack.
+     * @param excludeSource Boolean, true means it will not consider the pipe itself as a
+     *                      valid destination.
+     * @param priority      The priority that the stack must have.
      * @return Triplet of destinationSimpleID, sinkreply, relays; null if
-     *         nothing found
-     * @param stack
-     *            The stack to check if it has destination.
-     * @param sourceRouter
-     *            The UUID of the router pipe that wants to send the stack.
-     * @param excludeSource
-     *            Boolean, true means it will not consider the pipe itself as a
-     *            valid destination.
-     * @param priority
-     *            The priority that the stack must have.
+     * nothing found
      */
     @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestinationWithMinPriority(
@@ -241,15 +235,12 @@ public class LogisticsManager implements ILogisticsManager {
      * Will assign a destination for a IRoutedItem based on a best sink reply
      * recieved from other pipes.
      *
-     * @param item
-     *            The item that needs to be routed.
-     * @param sourceRouterID
-     *            The SimpleID of the pipe that is sending the item. (the
-     *            routedItem will cache the UUID, and that the SimpleID belongs
-     *            to the UUID will be checked when appropriate)
-     * @param excludeSource
-     *            Boolean, true means that it wont set the source as the
-     *            destination.
+     * @param item           The item that needs to be routed.
+     * @param sourceRouterID The SimpleID of the pipe that is sending the item. (the
+     *                       routedItem will cache the UUID, and that the SimpleID belongs
+     *                       to the UUID will be checked when appropriate)
+     * @param excludeSource  Boolean, true means that it wont set the source as the
+     *                       destination.
      * @return IRoutedItem with a newly assigned destination
      */
     @Override
@@ -321,10 +312,9 @@ public class LogisticsManager implements ILogisticsManager {
      * If there is a better router name available, it will return it. Else, it
      * will return the UUID as a string.
      *
-     * @param r
-     *            The IRouter that you want the name for.
+     * @param r The IRouter that you want the name for.
      * @return String with value of a better name if available, else just the
-     *         UUID as a string.
+     * UUID as a string.
      */
     @Override
     public String getBetterRouterName(IRouter r) {
@@ -355,10 +345,9 @@ public class LogisticsManager implements ILogisticsManager {
     }
 
     /**
-     * @param validDestinations
-     *            a list of ExitRoute of valid destinations.
+     * @param validDestinations a list of ExitRoute of valid destinations.
      * @return HashMap with ItemIdentifier and Integer item count of available
-     *         items.
+     * items.
      */
     @Override
     public HashMap<ItemIdentifier, Integer> getAvailableItems(List<ExitRoute> validDestinations) {
@@ -399,8 +388,7 @@ public class LogisticsManager implements ILogisticsManager {
     }
 
     /**
-     * @param validDestinations
-     *            a List of ExitRoute of valid destinations.
+     * @param validDestinations a List of ExitRoute of valid destinations.
      * @return LinkedList with ItemIdentifier
      */
     @Override

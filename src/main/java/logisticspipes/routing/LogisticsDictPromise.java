@@ -13,7 +13,7 @@ import lombok.Getter;
 public class LogisticsDictPromise extends LogisticsPromise {
 
     @Getter
-    private DictResource resource;
+    private final DictResource resource;
 
     public LogisticsDictPromise(
             DictResource item, int stackSize, IProvideItems sender, IOrderInfoProvider.ResourceType type) {

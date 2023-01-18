@@ -66,7 +66,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     private IFuzzySlot fuzzySlot;
     private boolean fuzzySlotActiveGui;
     private int fuzzySlotGuiHoverTime;
-    private Queue<Runnable> renderAtTheEnd = new LinkedList<>();
+    private final Queue<Runnable> renderAtTheEnd = new LinkedList<>();
 
     public LogisticsBaseGuiScreen(int xSize, int ySize, int xCenterOffset, int yCenterOffset) {
         this(new DummyContainer(null, null), xSize, ySize, xCenterOffset, yCenterOffset);

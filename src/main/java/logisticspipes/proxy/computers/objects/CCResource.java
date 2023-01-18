@@ -31,7 +31,7 @@ public class CCResource implements ILPCCTypeDefinition {
     @CCType(name = "ItemResource")
     public static class CCItemResourceImplementation extends CCResourceImplementation {
 
-        private ItemResource resource;
+        private final ItemResource resource;
 
         protected CCItemResourceImplementation(ItemResource resource) {
             super(resource);
@@ -52,7 +52,7 @@ public class CCResource implements ILPCCTypeDefinition {
     @CCType(name = "DictResource")
     public static class CCDictResourceImplementation extends CCResourceImplementation {
 
-        private DictResource resource;
+        private final DictResource resource;
 
         protected CCDictResourceImplementation(DictResource resource) {
             super(resource);
@@ -95,7 +95,7 @@ public class CCResource implements ILPCCTypeDefinition {
     @CCType(name = "FluidResource")
     public static class CCFluidResourceImplementation extends CCResourceImplementation {
 
-        private FluidResource resource;
+        private final FluidResource resource;
 
         protected CCFluidResourceImplementation(FluidResource resource) {
             super(resource);
@@ -111,7 +111,7 @@ public class CCResource implements ILPCCTypeDefinition {
     @CCType(name = "Resource")
     public static class CCResourceImplementation implements ICCTypeWrapped {
 
-        private IResource resource;
+        private final IResource resource;
 
         protected CCResourceImplementation(IResource resource) {
             this.resource = resource;

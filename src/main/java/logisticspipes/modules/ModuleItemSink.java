@@ -51,7 +51,7 @@ public class ModuleItemSink extends LogisticsGuiModule
     private BitSet ignoreData = new BitSet(_filterInventory.getSizeInventory());
     private BitSet ignoreNBT = new BitSet(_filterInventory.getSizeInventory());
 
-    private IHUDModuleRenderer HUD = new HUDItemSink(this);
+    private final IHUDModuleRenderer HUD = new HUDItemSink(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

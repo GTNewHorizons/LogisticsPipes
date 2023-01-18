@@ -24,7 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class PipeItemsSupplierLogistics extends CoreRoutedPipe implements IRequestItems, IRequireReliableTransport {
 
-    private ModuleActiveSupplier module;
+    private final ModuleActiveSupplier module;
 
     public PipeItemsSupplierLogistics(Item item) {
         super(item);

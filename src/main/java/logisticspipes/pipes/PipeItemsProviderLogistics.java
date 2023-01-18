@@ -539,7 +539,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
     }
 
     // import from logic
-    private ItemIdentifierInventory providingInventory = new ItemIdentifierInventory(9, "", 1);
+    private final ItemIdentifierInventory providingInventory = new ItemIdentifierInventory(9, "", 1);
     private boolean _filterIsExclude;
     private ExtractionMode _extractionMode = ExtractionMode.Normal;
 

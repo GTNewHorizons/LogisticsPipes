@@ -5,9 +5,9 @@ import java.util.*;
 public class LogisticsOrderLinkedList<E extends LogisticsOrder, I> implements Iterable<E> {
 
     private final IIdentityProvider<E, I> identifyer;
-    private Map<I, Integer> extraSize = new HashMap<>();
-    private LinkedList<E> list = new LinkedList<>();
-    private List<E> unmodifiable = Collections.unmodifiableList(list);
+    private final Map<I, Integer> extraSize = new HashMap<>();
+    private final LinkedList<E> list = new LinkedList<>();
+    private final List<E> unmodifiable = Collections.unmodifiableList(list);
     private int globalExtraCount = 0;
 
     public LogisticsOrderLinkedList(IIdentityProvider<E, I> identifyer) {

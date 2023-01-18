@@ -91,7 +91,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
     private int mouseY;
     private double guiMapX;
     private double guiMapY;
-    private int minY = -230;
+    private final int minY = -230;
     private int maxY = 0;
     private int minX = -800;
     private int maxX = 800;

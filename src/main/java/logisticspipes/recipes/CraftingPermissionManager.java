@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class CraftingPermissionManager {
 
-    private Map<PlayerIdentifier, Pair<Long, EnumSet<CraftingDependency>>> serverCache = new HashMap<>();
+    private final Map<PlayerIdentifier, Pair<Long, EnumSet<CraftingDependency>>> serverCache = new HashMap<>();
     private int tick = 0;
     public EnumSet<CraftingDependency> clientSidePermission;
 

@@ -117,7 +117,7 @@ public abstract class LPTravelingItem {
         private ItemIdentifierStack item;
 
         private int age;
-        private float hoverStart = (float) (Math.random() * Math.PI * 2.0D);
+        private final float hoverStart = (float) (Math.random() * Math.PI * 2.0D);
 
         public LPTravelingItemClient(int id, float position, ForgeDirection input, ForgeDirection output) {
             super(id, position, input, output);

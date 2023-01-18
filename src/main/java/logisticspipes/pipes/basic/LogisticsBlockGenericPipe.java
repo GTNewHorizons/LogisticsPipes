@@ -468,24 +468,27 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     private boolean isVecInsideYZBounds(Vec3 par1Vec3) {
-        return par1Vec3 != null && par1Vec3.yCoord >= minY
-			&& par1Vec3.yCoord <= maxY
-			&& par1Vec3.zCoord >= minZ
-			&& par1Vec3.zCoord <= maxZ;
+        return par1Vec3 != null
+                && par1Vec3.yCoord >= minY
+                && par1Vec3.yCoord <= maxY
+                && par1Vec3.zCoord >= minZ
+                && par1Vec3.zCoord <= maxZ;
     }
 
     private boolean isVecInsideXZBounds(Vec3 par1Vec3) {
-        return par1Vec3 != null && par1Vec3.xCoord >= minX
-			&& par1Vec3.xCoord <= maxX
-			&& par1Vec3.zCoord >= minZ
-			&& par1Vec3.zCoord <= maxZ;
+        return par1Vec3 != null
+                && par1Vec3.xCoord >= minX
+                && par1Vec3.xCoord <= maxX
+                && par1Vec3.zCoord >= minZ
+                && par1Vec3.zCoord <= maxZ;
     }
 
     private boolean isVecInsideXYBounds(Vec3 par1Vec3) {
-        return par1Vec3 != null && par1Vec3.xCoord >= minX
-			&& par1Vec3.xCoord <= maxX
-			&& par1Vec3.yCoord >= minY
-			&& par1Vec3.yCoord <= maxY;
+        return par1Vec3 != null
+                && par1Vec3.xCoord >= minX
+                && par1Vec3.xCoord <= maxX
+                && par1Vec3.yCoord >= minY
+                && par1Vec3.yCoord <= maxY;
     }
 
     public static IIcon getRequestTableTextureFromSide(int l) {
@@ -976,12 +979,9 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
      * the particles. Useful when you have entirely different texture sheets for
      * different sides/locations in the world.
      *
-     * @param worldObj
-     *            The current world
-     * @param target
-     *            The target the player is looking at {x/y/z/side/sub}
-     * @param effectRenderer
-     *            A reference to the current effect renderer.
+     * @param worldObj       The current world
+     * @param target         The target the player is looking at {x/y/z/side/sub}
+     * @param effectRenderer A reference to the current effect renderer.
      * @return True to prevent vanilla digging particles form spawning.
      */
     @SideOnly(Side.CLIENT)
@@ -1053,18 +1053,12 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
      * your block. So be sure to do proper sanity checks before assuming that
      * the location is this block.
      *
-     * @param worldObj
-     *            The current world
-     * @param x
-     *            X position to spawn the particle
-     * @param y
-     *            Y position to spawn the particle
-     * @param z
-     *            Z position to spawn the particle
-     * @param meta
-     *            The metadata for the block before it was destroyed.
-     * @param effectRenderer
-     *            A reference to the current effect renderer.
+     * @param worldObj       The current world
+     * @param x              X position to spawn the particle
+     * @param y              Y position to spawn the particle
+     * @param z              Z position to spawn the particle
+     * @param meta           The metadata for the block before it was destroyed.
+     * @param effectRenderer A reference to the current effect renderer.
      * @return True to prevent vanilla break particles from spawning.
      */
     @SideOnly(Side.CLIENT)

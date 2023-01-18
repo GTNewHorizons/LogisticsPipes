@@ -176,10 +176,8 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     /**
      * Computes the PacketFluidUpdate packet for transmission to a client
      *
-     * @param initPacket
-     *            everything is sent, no delta stuff ( first packet )
-     * @param persistChange
-     *            The render cache change is persisted
+     * @param initPacket    everything is sent, no delta stuff ( first packet )
+     * @param persistChange The render cache change is persisted
      * @return PacketFluidUpdate liquid update packet
      */
     private ModernPacket computeFluidUpdate(boolean initPacket, boolean persistChange) {

@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL11;
 public class LogisticsGuiOverrenderer {
 
     @Getter
-    private static LogisticsGuiOverrenderer instance = new LogisticsGuiOverrenderer();
+    private static final LogisticsGuiOverrenderer instance = new LogisticsGuiOverrenderer();
 
     private int oldX;
     private int oldY;

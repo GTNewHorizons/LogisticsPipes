@@ -38,7 +38,7 @@ public class ModulePassiveSupplier extends LogisticsSimpleFilterModule
 
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Requested items", 64);
 
-    private IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
+    private final IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

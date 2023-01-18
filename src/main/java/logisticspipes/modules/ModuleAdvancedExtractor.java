@@ -54,7 +54,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
 
     private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
-    private IHUDModuleRenderer HUD = new HUDAdvancedExtractor(this);
+    private final IHUDModuleRenderer HUD = new HUDAdvancedExtractor(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

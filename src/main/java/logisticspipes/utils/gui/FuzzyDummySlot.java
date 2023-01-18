@@ -6,7 +6,7 @@ import net.minecraft.inventory.IInventory;
 
 public class FuzzyDummySlot extends DummySlot implements IFuzzySlot {
 
-    private DictResource dictResource;
+    private final DictResource dictResource;
 
     public FuzzyDummySlot(IInventory iinventory, int i, int j, int k, DictResource dictResource) {
         super(iinventory, i, j, k);

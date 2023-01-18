@@ -41,7 +41,7 @@ public class ModuleTerminus extends LogisticsSimpleFilterModule
 
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Terminated items", 1);
 
-    private IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
+    private final IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

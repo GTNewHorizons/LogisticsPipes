@@ -31,7 +31,7 @@ public class GuiSupplierPipe extends LogisticsBaseGuiScreen {
 
     private static final String PREFIX = "gui.supplierpipe.";
 
-    private ModuleActiveSupplier module;
+    private final ModuleActiveSupplier module;
     private final boolean hasPatternUpgrade;
 
     public GuiSupplierPipe(

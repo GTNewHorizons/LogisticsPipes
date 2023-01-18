@@ -7,6 +7,10 @@
 */
 package logisticspipes.pipes.basic;
 
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.PriorityBlockingQueue;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
@@ -75,11 +79,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.PriorityBlockingQueue;
-
 @CCType(name = "LogisticsPipes:Normal")
 public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         implements IClientState,
@@ -113,7 +112,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     private boolean enabled = true;
     private boolean preventRemove = false;
     private boolean destroyByPlayer = false;
-    private PowerSupplierHandler powerHandler = new PowerSupplierHandler(this);
+    private final PowerSupplierHandler powerHandler = new PowerSupplierHandler(this);
 
     public long delayTo = 0;
     public int repeatFor = 0;
@@ -127,7 +126,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     protected LogisticsItemOrderManager _orderItemManager = null;
 
     @Getter
-    private List<IOrderInfoProvider> clientSideOrderManager = new ArrayList<>();
+    private final List<IOrderInfoProvider> clientSideOrderManager = new ArrayList<>();
 
     public int stat_session_sent;
     public int stat_session_recieved;
@@ -154,7 +153,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     protected int throttleTime = 20;
     private int throttleTimeLeft = 20 + new Random().nextInt(Configs.LOGISTICS_DETECTION_FREQUENCY);
 
-    private int[] queuedParticles = new int[Particles.values().length];
+    private final int[] queuedParticles = new int[Particles.values().length];
     private boolean hasQueuedParticles = false;
 
     protected IPipeSign[] signItem = new IPipeSign[6];
@@ -221,8 +220,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     /**
-     * @param force
-     *            == true never delegates to a thread
+     * @param force == true never delegates to a thread
      * @return number of things sent.
      */
     public int sendQueueChanged(boolean force) {
@@ -363,14 +361,14 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         // remove old items _inTransit -- these should have arrived, but have probably been lost instead. In either
         // case, it will allow a re-send so that another attempt to re-fill the inventory can be made.
         while (_inTransitToMe.peek() != null && _inTransitToMe.peek().getTickToTimeOut() <= 0) {
-			final ItemRoutingInformation p = _inTransitToMe.poll();
-			if (p != null) {
-				if (LPConstants.DEBUG) {
-					LogisticsPipes.log.info("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
-				}
-				debug.log("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
-			}
-		}
+            final ItemRoutingInformation p = _inTransitToMe.poll();
+            if (p != null) {
+                if (LPConstants.DEBUG) {
+                    LogisticsPipes.log.info("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
+                }
+                debug.log("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
+            }
+        }
         // update router before ticking logic/transport
         getRouter()
                 .update(
@@ -693,8 +691,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return false;
         }
 
-		return tilePipe instanceof ILogisticsPowerProvider || tilePipe instanceof ISubSystemPowerProvider;
-	}
+        return tilePipe instanceof ILogisticsPowerProvider || tilePipe instanceof ISubSystemPowerProvider;
+    }
 
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
@@ -1061,9 +1059,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return true;
         }
         if (!stillNeedReplace) {
-			return getRouter().isSideDisconneceted(side)
-				&& !ignoreSystemDisconnection
-				&& !globalIgnoreConnectionDisconnection;
+            return getRouter().isSideDisconneceted(side)
+                    && !ignoreSystemDisconnection
+                    && !globalIgnoreConnectionDisconnection;
         }
         return false;
     }
@@ -1241,7 +1239,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public boolean canBeDestroyed() {
         ISecurityProvider sec = getSecurityProvider();
         if (sec != null) {
-			return sec.canAutomatedDestroy();
+            return sec.canAutomatedDestroy();
         }
         return true;
     }
@@ -1277,8 +1275,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public void queueUnroutedItemInformation(ItemIdentifierStack item, ItemRoutingInformation information) {
         if (item != null) {
             synchronized (queuedDataForUnroutedItems) {
-                Queue<Pair<Integer, ItemRoutingInformation>> queue = queuedDataForUnroutedItems.computeIfAbsent(
-                        item.getItem(), k -> new LinkedList<>());
+                Queue<Pair<Integer, ItemRoutingInformation>> queue =
+                        queuedDataForUnroutedItems.computeIfAbsent(item.getItem(), k -> new LinkedList<>());
                 queue.add(new Pair<>(item.getStackSize(), information));
             }
         }

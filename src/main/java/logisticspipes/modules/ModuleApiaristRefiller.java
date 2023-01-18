@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class ModuleApiaristRefiller extends LogisticsModule {
 
     private int currentTickCount = 0;
-    private int ticksToOperation = 200;
+    private final int ticksToOperation = 200;
 
     public ModuleApiaristRefiller() {}
 

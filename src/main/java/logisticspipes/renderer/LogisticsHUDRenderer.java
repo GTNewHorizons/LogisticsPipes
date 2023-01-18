@@ -36,7 +36,7 @@ public class LogisticsHUDRenderer {
 
     public IDebugHUDProvider debugHUD = null;
 
-    private LinkedList<IHeadUpDisplayRendererProvider> list = new LinkedList<>();
+    private final LinkedList<IHeadUpDisplayRendererProvider> list = new LinkedList<>();
     private double lastXPos = 0;
     private double lastYPos = 0;
     private double lastZPos = 0;
@@ -44,9 +44,9 @@ public class LogisticsHUDRenderer {
     private int progress = 0;
     private long last = 0;
 
-    private ArrayList<IHeadUpDisplayBlockRendererProvider> providers = new ArrayList<>();
+    private final ArrayList<IHeadUpDisplayBlockRendererProvider> providers = new ArrayList<>();
 
-    private List<LaserData> lasers = new ArrayList<>();
+    private final List<LaserData> lasers = new ArrayList<>();
 
     private static LogisticsHUDRenderer renderer = null;
 
@@ -352,8 +352,8 @@ public class LogisticsHUDRenderer {
                 // box.blockZ).getTileEntity(DimensionManager.getWorld(0));
                 // Insert debug code here
 
-				textData = SimpleServiceLocator.neiProxy.getInfoForPosition(player.worldObj, player, box);
-				if (!textData.isEmpty()) {
+                textData = SimpleServiceLocator.neiProxy.getInfoForPosition(player.worldObj, player, box);
+                if (!textData.isEmpty()) {
                     double xCoord = box.blockX + 0.5D;
                     double yCoord = box.blockY + 0.5D;
                     double zCoord = box.blockZ + 0.5D;

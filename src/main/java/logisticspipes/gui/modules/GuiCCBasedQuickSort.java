@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 
 public class GuiCCBasedQuickSort extends ModuleBaseGui {
 
-    private ModuleCCBasedQuickSort _sortModule;
+    private final ModuleCCBasedQuickSort _sortModule;
 
     public GuiCCBasedQuickSort(IInventory playerInventory, ModuleCCBasedQuickSort sortModule) {
         super(new DummyContainer(playerInventory, null), sortModule);

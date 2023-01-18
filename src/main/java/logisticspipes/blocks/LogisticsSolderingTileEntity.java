@@ -35,12 +35,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
         implements IGuiTileEntity, ISidedInventory, IGuiOpenControler {
 
-    private ItemIdentifierInventory inv = new ItemIdentifierInventory(12, "Soldering Inventory", 64);
+    private final ItemIdentifierInventory inv = new ItemIdentifierInventory(12, "Soldering Inventory", 64);
     public int heat = 0;
     public int progress = 0;
     public boolean hasWork = false;
 
-    private PlayerCollectionList listener = new PlayerCollectionList();
+    private final PlayerCollectionList listener = new PlayerCollectionList();
 
     public LogisticsSolderingTileEntity() {}
 

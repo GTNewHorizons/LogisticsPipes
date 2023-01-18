@@ -78,6 +78,7 @@ public abstract class CoordinatesPacket extends ModernPacket {
 
     /**
      * Retrieves tileEntity at packet coordinates if any.
+     *
      * @return TileEntity
      */
     @SuppressWarnings("unchecked")
@@ -105,6 +106,7 @@ public abstract class CoordinatesPacket extends ModernPacket {
 
     /**
      * Retrieves tileEntity or CoreUnroutedPipe at packet coordinates if any.
+     *
      * @return TileEntity
      */
     @SuppressWarnings("unchecked")
@@ -141,7 +143,6 @@ public abstract class CoordinatesPacket extends ModernPacket {
 
     /**
      * Retrieves pipe at packet coordinates if any.
-     *
      */
     public LogisticsTileGenericPipe getPipe(World world) {
         return getPipe(world, LTGPCompletionCheck.NONE);

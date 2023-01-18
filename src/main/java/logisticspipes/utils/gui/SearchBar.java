@@ -16,8 +16,8 @@ public class SearchBar {
     private boolean displaycursor = true;
     private long oldSystemTime = 0;
     private int searchWidth;
-    private boolean numberOnly;
-    private boolean alignRight;
+    private final boolean numberOnly;
+    private final boolean alignRight;
 
     private final FontRenderer fontRenderer;
     private final LogisticsBaseGuiScreen screen;

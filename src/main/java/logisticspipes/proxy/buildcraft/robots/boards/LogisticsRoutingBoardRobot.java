@@ -41,7 +41,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
     private boolean init = false;
 
     @Getter
-    private Set<LPTravelingItemServer> items = new HashSet<>();
+    private final Set<LPTravelingItemServer> items = new HashSet<>();
 
     private LPPosition targetStationPos;
     private ForgeDirection targetStationSide = ForgeDirection.UNKNOWN;
@@ -49,7 +49,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
     private int ticksWithContent = 0;
 
     @Getter
-    private RobotConnection connectionDetails = new RobotConnection();
+    private final RobotConnection connectionDetails = new RobotConnection();
 
     @Getter
     private Pair<Double, LogisticsRoutingBoardRobot> currentTarget = null;

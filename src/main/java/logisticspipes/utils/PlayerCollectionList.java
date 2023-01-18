@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 
 public class PlayerCollectionList {
 
-    private List<EqualWeakReference<EntityPlayer>> players = new ArrayList<>();
+    private final List<EqualWeakReference<EntityPlayer>> players = new ArrayList<>();
     private boolean checkingPlayers = false;
 
     public void checkPlayers() {

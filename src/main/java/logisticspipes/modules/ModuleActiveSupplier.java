@@ -171,7 +171,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         _lastRequestFailed = value;
     }
 
-    private ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(9, "", 127);
+    private final ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(9, "", 127);
 
     private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<>();
 

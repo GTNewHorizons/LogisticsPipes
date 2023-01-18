@@ -15,16 +15,14 @@ public interface ISaveState {
      * Called to read every information for the given class from the
      * NBTTagCompount
      *
-     * @param nbttagcompound
-     *            to read from
+     * @param nbttagcompound to read from
      */
     void readFromNBT(NBTTagCompound nbttagcompound);
 
     /**
      * Called to save all information of the given class into an NBTTagCompount
      *
-     * @param nbttagcompound
-     *            to save the information in
+     * @param nbttagcompound to save the information in
      */
     void writeToNBT(NBTTagCompound nbttagcompound);
 }

@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class SpecialTileConnection {
 
-    private List<ISpecialTileConnection> handler = new ArrayList<>();
+    private final List<ISpecialTileConnection> handler = new ArrayList<>();
 
     public void registerHandler(ISpecialTileConnection connectionHandler) {
         if (connectionHandler.init()) {

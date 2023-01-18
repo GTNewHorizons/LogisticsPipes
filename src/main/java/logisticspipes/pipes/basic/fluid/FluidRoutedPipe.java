@@ -76,10 +76,8 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
         if (tile instanceof IFluidHandler) {
             IFluidHandler liq = (IFluidHandler) tile;
 
-            if (liq.getTankInfo(connection.getOpposite()) != null
-                    && liq.getTankInfo(connection.getOpposite()).length > 0) {
-                return true;
-            }
+            return liq.getTankInfo(connection.getOpposite()) != null
+                    && liq.getTankInfo(connection.getOpposite()).length > 0;
         }
         return false;
     }
@@ -134,10 +132,8 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
             if (!flag) {
                 return false;
             }
-            if (((LogisticsTileGenericPipe) tile).pipe == null
-                    || !(((LogisticsTileGenericPipe) tile).pipe.transport instanceof IFluidHandler)) {
-                return false;
-            }
+            return ((LogisticsTileGenericPipe) tile).pipe != null
+                    && ((LogisticsTileGenericPipe) tile).pipe.transport instanceof IFluidHandler;
         }
         return true;
     }

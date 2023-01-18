@@ -1,6 +1,5 @@
 package logisticspipes.network.packets.gui;
 
-import java.io.IOException;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;

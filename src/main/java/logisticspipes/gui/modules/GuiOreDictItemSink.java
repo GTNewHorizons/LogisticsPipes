@@ -22,7 +22,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
     private int mouseX = 0;
     private int mouseY = 0;
 
-    private List<String> unsunkNames = new ArrayList<>();
+    private final List<String> unsunkNames = new ArrayList<>();
     private int currentOffset = 0;
 
     public GuiOreDictItemSink(IInventory playerInventory, ModuleOreDictItemSink itemSink) {

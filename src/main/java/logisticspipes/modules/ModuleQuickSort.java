@@ -36,7 +36,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
     protected int lastStackLookedAt = 0;
     protected int lastSuceededStack = 0;
 
-    private PlayerCollectionList _watchingPlayer = new PlayerCollectionList();
+    private final PlayerCollectionList _watchingPlayer = new PlayerCollectionList();
     private int lastPosSend = 0;
 
     public ModuleQuickSort() {}

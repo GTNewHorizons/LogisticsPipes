@@ -75,8 +75,8 @@ public class ItemUpgrade extends LogisticsItem {
 
     private static class Upgrade {
 
-        private int id;
-        private Class<? extends IPipeUpgrade> upgradeClass;
+        private final int id;
+        private final Class<? extends IPipeUpgrade> upgradeClass;
         private int textureIndex = -1;
 
         private Upgrade(int id, Class<? extends IPipeUpgrade> moduleClass, int textureIndex) {
@@ -215,9 +215,6 @@ public class ItemUpgrade extends LogisticsItem {
                     }
                 }
                 IPipeUpgrade newupgrade = upgrade.getIPipeUpgrade();
-                if (newupgrade == null) {
-                    return null;
-                }
                 return newupgrade;
             }
         }

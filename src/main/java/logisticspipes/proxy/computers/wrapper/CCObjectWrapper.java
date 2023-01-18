@@ -19,9 +19,9 @@ import net.minecraft.nbt.NBTBase;
 
 public class CCObjectWrapper {
 
-    private static Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<>();
-    private static Map<Object, Object> wrappedObjects = new WeakHashMap<>();
-    private static Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings = new HashMap<>();
+    private static final Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<>();
+    private static final Map<Object, Object> wrappedObjects = new WeakHashMap<>();
+    private static final Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings = new HashMap<>();
 
     static {
         CCObjectWrapper.specialMappings.put(ItemIdentifier.class, new CCItemIdentifier());

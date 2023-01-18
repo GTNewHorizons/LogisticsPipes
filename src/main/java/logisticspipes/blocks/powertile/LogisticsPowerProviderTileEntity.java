@@ -59,9 +59,9 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     private float lastUpdateStorage = 0;
     protected int maxMode = 1;
 
-    private PlayerCollectionList guiListener = new PlayerCollectionList();
-    private PlayerCollectionList watcherList = new PlayerCollectionList();
-    private IHeadUpDisplayRenderer HUD;
+    private final PlayerCollectionList guiListener = new PlayerCollectionList();
+    private final PlayerCollectionList watcherList = new PlayerCollectionList();
+    private final IHeadUpDisplayRenderer HUD;
     private boolean init = false;
 
     protected LogisticsPowerProviderTileEntity() {

@@ -64,12 +64,12 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     private int startLeft;
     private int startXSize;
 
-    private BitSet handledExtention = new BitSet();
+    private final BitSet handledExtention = new BitSet();
     private int orderIdForButton;
 
-    private GuiButton[] sycleButtons = new GuiButton[2];
-    private IChainAddList<GuiButton> moveWhileSmall = new ChainAddArrayList<>();
-    private IChainAddList<GuiButton> hideWhileSmall = new ChainAddArrayList<>();
+    private final GuiButton[] sycleButtons = new GuiButton[2];
+    private final IChainAddList<GuiButton> moveWhileSmall = new ChainAddArrayList<>();
+    private final IChainAddList<GuiButton> hideWhileSmall = new ChainAddArrayList<>();
     private GuiButton hideShowButton;
 
     public GuiRequestTable(EntityPlayer entityPlayer, PipeBlockRequestTable table) {
@@ -253,7 +253,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 handledExtention.set(entry.getKey());
                 extentionControllerLeft.addExtention(new GuiExtention() {
 
-                    private Map<Pair<Integer, Integer>, IOrderInfoProvider> ordererPosition = new HashMap<>();
+                    private final Map<Pair<Integer, Integer>, IOrderInfoProvider> ordererPosition = new HashMap<>();
                     private int height;
                     private int width = 4;
                     private GuiButton localControlledButton;

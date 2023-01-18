@@ -16,7 +16,7 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     public static final int MAX_MAXMODE = 8;
     public static final int MAX_PROVIDE_PER_TICK = 10000; // TODO
 
-    private ICoFHEnergyStorage storage;
+    private final ICoFHEnergyStorage storage;
 
     public LogisticsRFPowerProviderTileEntity() {
         storage = SimpleServiceLocator.cofhPowerProxy.getEnergyStorage(10000);

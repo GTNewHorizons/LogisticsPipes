@@ -13,7 +13,7 @@ public class GuiFirewall extends LogisticsBaseGuiScreen {
 
     private static final String PREFIX = "gui.firewall.";
 
-    private PipeItemsFirewall pipe;
+    private final PipeItemsFirewall pipe;
 
     public GuiFirewall(PipeItemsFirewall pipe, EntityPlayer player) {
         super(230, 260, 0, 0);

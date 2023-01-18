@@ -778,8 +778,8 @@ public class ProxyManager {
                             EntityPlayer thePlayer,
                             boolean advancedItemTooltips,
                             GuiContainer screen) {
-						//noinspection unchecked
-						return stack.getTooltip(thePlayer, advancedItemTooltips);
+                        //noinspection unchecked
+                        return stack.getTooltip(thePlayer, advancedItemTooltips);
                     }
 
                     @Override

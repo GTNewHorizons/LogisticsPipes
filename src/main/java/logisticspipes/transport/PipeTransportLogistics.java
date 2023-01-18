@@ -230,9 +230,8 @@ public class PipeTransportLogistics {
      * you may assume that it is now either buffered by the pipe or moving
      * through the pipe.
      *
-     * @param item
-     *            the item that just bounced off an inventory. In the case of a
-     *            pipe with a buffer, this function will alter item.
+     * @param item the item that just bounced off an inventory. In the case of a
+     *             pipe with a buffer, this function will alter item.
      */
     protected void reverseItem(LPTravelingItemServer item) {
         if (item.isCorrupted()) {
@@ -578,7 +577,7 @@ public class PipeTransportLogistics {
                     arrivingItem.getItemIdentifierStack().lowerStackSize(added.stackSize);
 
                     if (added.stackSize > 0 && arrivingItem instanceof IRoutedItem) {
-						((IRoutedItem) arrivingItem).setBufferCounter(0);
+                        ((IRoutedItem) arrivingItem).setBufferCounter(0);
                     }
 
                     ItemRoutingInformation info;
@@ -609,7 +608,7 @@ public class PipeTransportLogistics {
 
                         arrivingItem.getItemIdentifierStack().lowerStackSize(added.stackSize);
                         if (added.stackSize > 0 && arrivingItem instanceof IRoutedItem) {
-							((IRoutedItem) arrivingItem).setBufferCounter(0);
+                            ((IRoutedItem) arrivingItem).setBufferCounter(0);
                         }
                         ItemRoutingInformation info;
 
@@ -663,7 +662,8 @@ public class PipeTransportLogistics {
             if (tile instanceof ILogisticsPowerProvider || tile instanceof ISubSystemPowerProvider) {
                 ForgeDirection ori = OrientationsUtil.getOrientationOfTilewithTile(container, tile);
                 if (ori != null && ori != ForgeDirection.UNKNOWN) {
-                    return (!(tile instanceof LogisticsPowerJunctionTileEntity) && !(tile instanceof ISubSystemPowerProvider))
+                    return (!(tile instanceof LogisticsPowerJunctionTileEntity)
+                                    && !(tile instanceof ISubSystemPowerProvider))
                             || OrientationsUtil.isSide(ori);
                 }
             }

@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 public class HUDInvSysConnector extends BasicHUDGui {
 
-    private PipeItemsInvSysConnector pipe;
+    private final PipeItemsInvSysConnector pipe;
     private long display = System.currentTimeMillis();
 
     public HUDInvSysConnector(PipeItemsInvSysConnector pipe) {

@@ -233,11 +233,11 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     private EnumMap<ForgeDirection, Integer> _subPowerExits = new EnumMap<>(ForgeDirection.class);
 
     private static int firstFreeId = 1;
-    private static BitSet simpleIdUsedSet = new BitSet();
+    private static final BitSet simpleIdUsedSet = new BitSet();
 
     protected final int simpleID;
     public final UUID id;
-    private int _dimension;
+    private final int _dimension;
 
     @Getter
     private final int _xCoord;
@@ -253,7 +253,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     private boolean destroied = false;
 
     private WeakReference<CoreRoutedPipe> _myPipeCache = null;
-    private LinkedList<Pair<Integer, IRouterQueuedTask>> queue = new LinkedList<>();
+    private final LinkedList<Pair<Integer, IRouterQueuedTask>> queue = new LinkedList<>();
 
     @Override
     public void clearPipeCache() {
@@ -414,9 +414,9 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     }
 
     private int connectionNeedsChecking = 0;
-    private List<LPPosition> causedBy = new LinkedList<>();
+    private final List<LPPosition> causedBy = new LinkedList<>();
 
-    private ITileEntityChangeListener localChangeListener = new ITileEntityChangeListener() {
+    private final ITileEntityChangeListener localChangeListener = new ITileEntityChangeListener() {
 
         @Override
         public void pipeRemoved(LPPosition pos) {
@@ -492,8 +492,8 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         Map<ForgeDirection, List<CoreRoutedPipe>> pipeDirections = new HashMap<>();
 
         for (Entry<CoreRoutedPipe, ExitRoute> entry : adjacent.entrySet()) {
-            List<CoreRoutedPipe> list = pipeDirections.computeIfAbsent(
-                    entry.getValue().exitOrientation, k -> new ArrayList<>());
+            List<CoreRoutedPipe> list =
+                    pipeDirections.computeIfAbsent(entry.getValue().exitOrientation, k -> new ArrayList<>());
             list.add(entry.getKey());
         }
 
@@ -546,20 +546,20 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         }
 
         for (CoreRoutedPipe pipe : _adjacent.keySet()) {
-			if (!adjacent.containsKey(pipe)) {
-				adjacentChanged = true;
-				break;
-			}
+            if (!adjacent.containsKey(pipe)) {
+                adjacentChanged = true;
+                break;
+            }
         }
         if (_powerAdjacent != null) {
             if (power == null) {
                 adjacentChanged = true;
             } else {
                 for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : _powerAdjacent) {
-					if (!power.contains(provider)) {
-						adjacentChanged = true;
-						break;
-					}
+                    if (!power.contains(provider)) {
+                        adjacentChanged = true;
+                        break;
+                    }
                 }
             }
         }
@@ -568,10 +568,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 adjacentChanged = true;
             } else {
                 for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : power) {
-					if (!_powerAdjacent.contains(provider)) {
-						adjacentChanged = true;
-						break;
-					}
+                    if (!_powerAdjacent.contains(provider)) {
+                        adjacentChanged = true;
+                        break;
+                    }
                 }
             }
         }
@@ -580,10 +580,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 adjacentChanged = true;
             } else {
                 for (Pair<ISubSystemPowerProvider, List<IFilter>> provider : _subSystemPowerAdjacent) {
-					if (!subSystemPower.contains(provider)) {
-						adjacentChanged = true;
-						break;
-					}
+                    if (!subSystemPower.contains(provider)) {
+                        adjacentChanged = true;
+                        break;
+                    }
                 }
             }
         }
@@ -592,10 +592,10 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
                 adjacentChanged = true;
             } else {
                 for (Pair<ISubSystemPowerProvider, List<IFilter>> provider : subSystemPower) {
-					if (!_subSystemPowerAdjacent.contains(provider)) {
-						adjacentChanged = true;
-						break;
-					}
+                    if (!_subSystemPowerAdjacent.contains(provider)) {
+                        adjacentChanged = true;
+                        break;
+                    }
                 }
             }
         }
@@ -1420,8 +1420,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     }
 
     private void addInterest(ItemIdentifier items) {
-        Set<IRouter> interests =
-                ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<>());
+        Set<IRouter> interests = ServerRouter._globalSpecificInterests.computeIfAbsent(items, k -> new TreeSet<>());
         interests.add(this);
     }
 

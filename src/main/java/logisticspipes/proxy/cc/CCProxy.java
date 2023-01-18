@@ -24,7 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class CCProxy implements ICCProxy {
 
-    private Field target;
+    private final Field target;
 
     public CCProxy() throws NoSuchFieldException, SecurityException {
         ComputerCraftAPI.registerPeripheralProvider(new LPPeripheralProvider());

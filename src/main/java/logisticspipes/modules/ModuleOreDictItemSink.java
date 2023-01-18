@@ -42,7 +42,7 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
     // map of Item:<set of damagevalues>, empty set if wildcard damage
     private Map<Item, Set<Integer>> oreItemIdMap;
 
-    private IHUDModuleRenderer HUD = new HUDOreDictItemSink(this);
+    private final IHUDModuleRenderer HUD = new HUDOreDictItemSink(this);
     private List<ItemIdentifierStack> oreHudList;
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();

@@ -59,7 +59,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
     private int rotation;
     private boolean init = false;
 
-    private PlayerCollectionList localGuiWatcher = new PlayerCollectionList();
+    private final PlayerCollectionList localGuiWatcher = new PlayerCollectionList();
     public Map<Integer, Pair<IResource, LinkedLogisticsOrderList>> watchedRequests = new HashMap<>();
     private int localLastUsedWatcherId = 0;
 

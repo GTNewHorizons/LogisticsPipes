@@ -45,7 +45,7 @@ public class MainProxy {
 
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
 
-    private static WeakHashMap<Thread, Side> threadSideMap = new WeakHashMap<>();
+    private static final WeakHashMap<Thread, Side> threadSideMap = new WeakHashMap<>();
     public static final String networkChannelName = "LogisticsPipes";
 
     private static Side getEffectiveSide() {
@@ -283,7 +283,7 @@ public class MainProxy {
             }
         }
         if (toInfo != null) {
-			return toInfo.canConnect(from, way.getOpposite(), ignoreSystemDisconnection);
+            return toInfo.canConnect(from, way.getOpposite(), ignoreSystemDisconnection);
         }
         return true;
     }

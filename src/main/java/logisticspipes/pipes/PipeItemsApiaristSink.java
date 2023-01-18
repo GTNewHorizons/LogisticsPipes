@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class PipeItemsApiaristSink extends CoreRoutedPipe {
 
-    private ModuleApiaristSink sinkModule;
+    private final ModuleApiaristSink sinkModule;
 
     public PipeItemsApiaristSink(Item item) {
         super(item);

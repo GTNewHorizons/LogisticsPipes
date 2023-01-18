@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class PipeFluidInsertion extends FluidRoutedPipe {
 
-    private List<Pair<Integer, Integer>> localJamList = new ArrayList<>();
+    private final List<Pair<Integer, Integer>> localJamList = new ArrayList<>();
     private int[] nextSendMax = new int[ForgeDirection.VALID_DIRECTIONS.length];
     private int[] nextSendMin = new int[ForgeDirection.VALID_DIRECTIONS.length];
 

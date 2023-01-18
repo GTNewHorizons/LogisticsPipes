@@ -3,6 +3,7 @@ package logisticspipes.blocks.powertile;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
+import java.util.List;
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
@@ -28,8 +29,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 @Optional.InterfaceList({
     @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink"),
@@ -66,9 +65,9 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     private boolean addedToEnergyNet = false;
 
     private boolean init = false;
-    private PlayerCollectionList guiListener = new PlayerCollectionList();
-    private PlayerCollectionList watcherList = new PlayerCollectionList();
-    private IHeadUpDisplayRenderer HUD;
+    private final PlayerCollectionList guiListener = new PlayerCollectionList();
+    private final PlayerCollectionList watcherList = new PlayerCollectionList();
+    private final IHeadUpDisplayRenderer HUD;
 
     public LogisticsPowerJunctionTileEntity() {
         HUD = new HUDPowerLevel(this);
@@ -342,7 +341,8 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
         }
         transferFromIC2Buffer();
         // round up so we demand enough to completely fill visible storage
-		return (double) (freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1) / LogisticsPowerJunctionTileEntity.IC2Multiplier;
+        return (double) (freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1)
+                / LogisticsPowerJunctionTileEntity.IC2Multiplier;
     }
 
     @Override

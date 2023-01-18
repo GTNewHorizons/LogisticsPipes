@@ -34,7 +34,7 @@ import net.minecraft.util.IIcon;
 public class ModuleApiaristAnalyser extends LogisticsGuiModule
         implements IClientInformationProvider, IModuleWatchReciver {
 
-    private int ticksToAction = 100;
+    private final int ticksToAction = 100;
     private int currentTick = 0;
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();

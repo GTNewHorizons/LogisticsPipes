@@ -22,7 +22,7 @@ import net.minecraft.util.ChatComponentText;
 
 public class DebugController implements IRoutingDebugAdapter {
 
-    private static HashMap<ICommandSender, DebugController> instances = new HashMap<>();
+    private static final HashMap<ICommandSender, DebugController> instances = new HashMap<>();
     public List<WeakReference<ExitRoute>> cachedRoutes = new LinkedList<>();
 
     private final ICommandSender sender;
@@ -57,29 +57,29 @@ public class DebugController implements IRoutingDebugAdapter {
         QueuedTasks.queueTask((Callable<Object>) () -> {
             state = DebugWaitState.LOOP;
             Thread tmp = new Thread(() -> {
-				while (LPChatListener.existTaskFor(sender.getCommandSenderName())) {
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-				if (oldThread != null) {
-					oldThread.stop();
-				}
-				oldThread = new RoutingTableDebugUpdateThread() {
+                while (LPChatListener.existTaskFor(sender.getCommandSenderName())) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                if (oldThread != null) {
+                    oldThread.stop();
+                }
+                oldThread = new RoutingTableDebugUpdateThread() {
 
-					@Override
-					public void run() {
-						serverRouter.CreateRouteTable(0, DebugController.this);
-						oldThread = null;
-					}
-				};
-				oldThread.setDaemon(true);
-				oldThread.setName("RoutingTable update debug Thread");
-				oldThread.start();
-			});
+                    @Override
+                    public void run() {
+                        serverRouter.CreateRouteTable(0, DebugController.this);
+                        oldThread = null;
+                    }
+                };
+                oldThread.setDaemon(true);
+                oldThread.setName("RoutingTable update debug Thread");
+                oldThread.start();
+            });
             tmp.setDaemon(true);
             tmp.start();
             return null;

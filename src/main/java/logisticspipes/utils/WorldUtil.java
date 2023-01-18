@@ -18,11 +18,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorldUtil {
 
-    private int _x;
-    private int _y;
-    private int _z;
+    private final int _x;
+    private final int _y;
+    private final int _z;
 
-    private World _worldObj;
+    private final World _worldObj;
 
     public WorldUtil(World worldObj, int x, int y, int z) {
         _worldObj = worldObj;

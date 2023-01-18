@@ -26,9 +26,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class IC2Proxy implements IIC2Proxy {
 
     /**
+     * @param stack The stack to check.
      * @return Boolean, true if itemstack is a ic2 electric item.
-     * @param stack
-     *            The stack to check.
      */
     @Override
     public boolean isElectricItem(ItemStack stack) {
@@ -36,12 +35,10 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack    The stack to check
+     * @param template The stack to compare to
      * @return Boolean, true if stack is the same type of ic2 electric item as
-     *         template.
-     * @param stack
-     *            The stack to check
-     * @param template
-     *            The stack to compare to
+     * template.
      */
     @Override
     public boolean isSimilarElectricItem(ItemStack stack, ItemStack template) {
@@ -55,9 +52,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to get charge for.
      * @return Int value of current charge on electric item.
-     * @param stack
-     *            The stack to get charge for.
      */
     private double getCharge(ItemStack stack) {
         if ((stack.getItem() instanceof IElectricItem) && stack.hasTagCompound()) {
@@ -68,9 +64,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to get max charge for.
      * @return Int value of maximum charge on electric item.
-     * @param stack
-     *            The stack to get max charge for.
      */
     private double getMaxCharge(ItemStack stack) {
         if (!(stack.getItem() instanceof IElectricItem)) {
@@ -80,9 +75,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to check if its fully charged.
      * @return Boolean, true if electric item is fully charged.
-     * @param stack
-     *            The stack to check if its fully charged.
      */
     @Override
     public boolean isFullyCharged(ItemStack stack) {
@@ -98,9 +92,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to check if its fully discharged.
      * @return Boolean, true if electric item is fully discharged.
-     * @param stack
-     *            The stack to check if its fully discharged.
      */
     @Override
     public boolean isFullyDischarged(ItemStack stack) {
@@ -115,9 +108,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to check if its partially charged.
      * @return Boolean, true if electric item contains charge but is not full.
-     * @param stack
-     *            The stack to check if its partially charged.
      */
     @Override
     public boolean isPartiallyCharged(ItemStack stack) {

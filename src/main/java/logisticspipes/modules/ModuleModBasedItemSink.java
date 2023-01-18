@@ -33,7 +33,7 @@ public class ModuleModBasedItemSink extends LogisticsGuiModule
     public final List<String> modList = new LinkedList<>();
     private final Set<String> modIdSet = new HashSet<>();
 
-    private IHUDModuleRenderer HUD = new HUDStringBasedItemSink(this);
+    private final IHUDModuleRenderer HUD = new HUDStringBasedItemSink(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 

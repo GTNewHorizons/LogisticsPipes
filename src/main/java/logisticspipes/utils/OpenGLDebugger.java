@@ -27,11 +27,11 @@ public class OpenGLDebugger {
 
     private static HashMap<Integer, String> niceToHave = null;
     private static int probeID = 0;
-    private Thread probeGUIThread;
+    private final Thread probeGUIThread;
     private int cycleCount;
     private boolean started;
-    private ExtendedHashMap glStuff;
-    private ConcurrentHashMap<Integer, GLTypes> glVariablesToCheck;
+    private final ExtendedHashMap glStuff;
+    private final ConcurrentHashMap<Integer, GLTypes> glVariablesToCheck;
     private final Lock debuggerLock;
     private final Condition glVariablesCondition;
     private boolean glVariablesUpdated;
@@ -47,9 +47,9 @@ public class OpenGLDebugger {
         INTEGER(Integer.class, "int", "GL11.glGetInteger"),
         INTEGER64(Long.class, "long", "GL32.glGetInteger64");
 
-        private Class javaClass;
-        private String getterFunction;
-        private String niceName;
+        private final Class javaClass;
+        private final String getterFunction;
+        private final String niceName;
 
         GLTypes(Class javaClass, String niceName, String getterFunction) {
             this.javaClass = javaClass;
@@ -72,7 +72,7 @@ public class OpenGLDebugger {
 
     public static class ExtendedHashMap extends HashMap<Integer, Object> {
 
-        private ArrayList<Integer> orderedKeys;
+        private final ArrayList<Integer> orderedKeys;
         private ArrayList<Integer> newKeys;
         private ArrayList<Integer> updatedKeys;
         private boolean sessionStarted;

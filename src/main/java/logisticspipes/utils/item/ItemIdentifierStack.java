@@ -45,8 +45,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
     }
 
     /**
-     * @param stackSize
-     *            the stackSize to set
+     * @param stackSize the stackSize to set
      */
     public void setStackSize(int stackSize) {
         this.stackSize = stackSize;

@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class GenericProgressProviderWrapper extends AbstractWrapper implements IGenericProgressProvider {
 
-    private IGenericProgressProvider provider;
+    private final IGenericProgressProvider provider;
     private final String name;
 
     GenericProgressProviderWrapper(IGenericProgressProvider provider, String name) {

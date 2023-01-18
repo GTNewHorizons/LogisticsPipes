@@ -48,7 +48,7 @@ public class LogisticsCraftingTableTileEntity extends LogisticsSolidTileEntity
     private EntityPlayer fake;
     private PlayerIdentifier placedBy = null;
 
-    private PlayerCollectionList guiWatcher = new PlayerCollectionList();
+    private final PlayerCollectionList guiWatcher = new PlayerCollectionList();
 
     public LogisticsCraftingTableTileEntity() {
         matrix.addListener(this);

@@ -25,7 +25,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeManager {
     public static class LocalCraftingManager {
-        private CraftingManager craftingManager = CraftingManager.getInstance();
+        private final CraftingManager craftingManager = CraftingManager.getInstance();
 
         public LocalCraftingManager() {}
 

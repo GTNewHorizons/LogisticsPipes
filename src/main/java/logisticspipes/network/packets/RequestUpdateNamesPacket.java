@@ -1,7 +1,6 @@
 package logisticspipes.network.packets;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

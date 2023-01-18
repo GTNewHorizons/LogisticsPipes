@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ForestryProgressProvider implements IGenericProgressProvider {
 
-    private Field workCounter;
+    private final Field workCounter;
 
     public ForestryProgressProvider() throws NoSuchFieldException, SecurityException {
         workCounter = TilePowered.class.getDeclaredField("workCounter");

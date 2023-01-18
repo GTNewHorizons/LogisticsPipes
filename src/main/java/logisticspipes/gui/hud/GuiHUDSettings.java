@@ -15,8 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class GuiHUDSettings extends LogisticsBaseGuiScreen {
 
-    private int slot;
-    private EntityPlayer player;
+    private final int slot;
+    private final EntityPlayer player;
 
     public GuiHUDSettings(EntityPlayer player, int slot) {
         super(180, 160, 0, 0);

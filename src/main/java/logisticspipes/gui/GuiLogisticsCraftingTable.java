@@ -21,11 +21,11 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
 
     public LogisticsCraftingTableTileEntity _crafter;
 
-    private int fuzzyPanelSelection = -1;
-    private int fuzzyPanelHover = -1;
-    private int fuzzyPanelHoverTime = 0;
+    private final int fuzzyPanelSelection = -1;
+    private final int fuzzyPanelHover = -1;
+    private final int fuzzyPanelHoverTime = 0;
 
-    private GuiButton[] sycleButtons = new GuiButton[2];
+    private final GuiButton[] sycleButtons = new GuiButton[2];
 
     public GuiLogisticsCraftingTable(EntityPlayer player, LogisticsCraftingTableTileEntity crafter) {
         super(176, 218, 0, 0);

@@ -1,6 +1,5 @@
 package logisticspipes.network.packets;
 
-import java.io.IOException;
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.nei.LoadingHelper;
