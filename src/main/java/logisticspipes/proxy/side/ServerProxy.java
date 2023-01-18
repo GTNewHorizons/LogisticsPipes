@@ -183,8 +183,8 @@ public class ServerProxy implements IProxy {
                     itemPart = itemPartSplit[0];
                     metaPart = itemPartSplit[1];
                 }
-                int id = Integer.valueOf(itemPart);
-                int meta = Integer.valueOf(metaPart);
+                int id = Integer.parseInt(itemPart);
+                int meta = Integer.parseInt(metaPart);
                 SimpleServiceLocator.serverBufferHandler.addPacketToCompressor(
                         PacketHandler.getPacket(UpdateName.class)
                                 .setIdent(ItemIdentifier.get(Item.getItemById(id), meta, null))

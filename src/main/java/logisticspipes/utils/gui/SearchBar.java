@@ -139,7 +139,7 @@ public class SearchBar {
             searchinput1 += searchinput2;
             searchinput2 = "";
             try {
-                int value = Integer.valueOf(searchinput1);
+                int value = Integer.parseInt(searchinput1);
                 searchinput1 = Integer.toString(value);
             } catch (Exception e) {
                 searchinput1 = "";

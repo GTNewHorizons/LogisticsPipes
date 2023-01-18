@@ -112,8 +112,8 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
         public void guiClose() {
             PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
             try {
-                config.setRenderPipeDistance(Integer.valueOf(renderDistance.getContent()));
-                config.setRenderPipeContentDistance(Integer.valueOf(contentRenderDistance.getContent()));
+                config.setRenderPipeDistance(Integer.parseInt(renderDistance.getContent()));
+                config.setRenderPipeContentDistance(Integer.parseInt(contentRenderDistance.getContent()));
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -212,13 +212,13 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     @CCCommand(description = "Requests the given ItemIdentifierStack")
     @CCQueued
     public Object[] makeRequest(ItemIdentifierStack stack) throws Exception {
-        return makeRequest(stack.getItem(), Double.valueOf(stack.getStackSize()), false);
+        return makeRequest(stack.getItem(), (double) stack.getStackSize(), false);
     }
 
     @CCCommand(description = "Requests the given ItemIdentifierStack")
     @CCQueued
     public Object[] makeRequest(ItemIdentifierStack stack, Boolean forceCrafting) throws Exception {
-        return makeRequest(stack.getItem(), Double.valueOf(stack.getStackSize()), forceCrafting);
+        return makeRequest(stack.getItem(), (double) stack.getStackSize(), forceCrafting);
     }
 
     @CCCommand(description = "Requests the given ItemIdentifier with the given amount")

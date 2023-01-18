@@ -19,7 +19,7 @@ public class RequestLogFormator extends Formatter {
     @Override
     public String format(LogRecord record) {
         StringBuilder msg = new StringBuilder();
-        msg.append(dateFormat.format(Long.valueOf(record.getMillis())));
+        msg.append(dateFormat.format(record.getMillis()));
         Level lvl = record.getLevel();
 
         if (lvl == Level.FINEST) {

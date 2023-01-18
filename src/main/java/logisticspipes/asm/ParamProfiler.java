@@ -63,7 +63,7 @@ public class ParamProfiler {
                             Label l0 = new Label();
                             visitLabel(l0);
 
-                            visitLdcInsn(new Long(methodId));
+                            visitLdcInsn(methodId);
                             visitLdcInsn(className + "+" + methodName + "+" + methodDesc);
                             if ((m.access & Opcodes.ACC_STATIC) != 0) {
                                 visitInsn(Opcodes.ACONST_NULL);
@@ -188,7 +188,7 @@ public class ParamProfiler {
                                     || opcode == Opcodes.FRETURN
                                     || opcode == Opcodes.DRETURN
                                     || opcode == Opcodes.ARETURN) {
-                                visitLdcInsn(new Long(methodId));
+                                visitLdcInsn(methodId);
                                 visitMethodInsn(
                                         Opcodes.INVOKESTATIC,
                                         "logisticspipes/asm/ParamProfiler",
