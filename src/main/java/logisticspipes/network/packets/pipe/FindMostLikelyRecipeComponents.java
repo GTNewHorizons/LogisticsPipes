@@ -58,7 +58,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                 pipe = (CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe;
             }
         }
-        List<Integer> list = new ArrayList<Integer>(content.size());
+        List<Integer> list = new ArrayList<>(content.size());
         while (list.size() < content.size()) {
             list.add(-1);
         }

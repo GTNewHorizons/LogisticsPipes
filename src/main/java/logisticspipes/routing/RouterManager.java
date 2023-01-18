@@ -26,15 +26,15 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class RouterManager implements IRouterManager, IDirectConnectionManager, ISecurityStationManager {
 
-    private final ArrayList<IRouter> _routersClient = new ArrayList<IRouter>();
-    private final ArrayList<IRouter> _routersServer = new ArrayList<IRouter>();
-    private final Map<UUID, Integer> _uuidMap = new HashMap<UUID, Integer>();
+    private final ArrayList<IRouter> _routersClient = new ArrayList<>();
+    private final ArrayList<IRouter> _routersServer = new ArrayList<>();
+    private final Map<UUID, Integer> _uuidMap = new HashMap<>();
 
     private final WeakHashMap<LogisticsSecurityTileEntity, Void> _security =
-            new WeakHashMap<LogisticsSecurityTileEntity, Void>();
-    private List<String> _authorized = new LinkedList<String>();
+		new WeakHashMap<>();
+    private List<String> _authorized = new LinkedList<>();
 
-    private final ArrayList<DirectConnection> connectedPipes = new ArrayList<DirectConnection>();
+    private final ArrayList<DirectConnection> connectedPipes = new ArrayList<>();
 
     @Override
     public IRouter getRouter(int id) {

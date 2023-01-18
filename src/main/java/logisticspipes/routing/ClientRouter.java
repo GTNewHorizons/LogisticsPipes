@@ -72,7 +72,7 @@ public class ClientRouter implements IRouter {
         if (LPConstants.DEBUG) {
             throw new UnsupportedOperationException("noClientRouting");
         }
-        return new ArrayList<List<ExitRoute>>();
+        return new ArrayList<>();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ClientRouter implements IRouter {
         if (LPConstants.DEBUG) {
             throw new UnsupportedOperationException("noClientRouting");
         }
-        return new LinkedList<ExitRoute>();
+        return new LinkedList<>();
     }
 
     @Override

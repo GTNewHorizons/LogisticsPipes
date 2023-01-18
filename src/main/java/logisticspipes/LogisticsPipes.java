@@ -214,7 +214,7 @@ public class LogisticsPipes {
     public static ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
     public static VersionChecker versionChecker;
 
-    private Queue<Runnable> postInitRun = new LinkedList<Runnable>();
+    private Queue<Runnable> postInitRun = new LinkedList<>();
     private static LPGlobalCCAccess generalAccess;
     private static PlayerConfig playerConfig;
 

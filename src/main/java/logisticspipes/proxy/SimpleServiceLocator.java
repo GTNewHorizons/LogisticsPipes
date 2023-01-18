@@ -109,7 +109,7 @@ public final class SimpleServiceLocator {
     }
 
     public static LinkedList<ICraftingRecipeProvider> craftingRecipeProviders =
-            new LinkedList<ICraftingRecipeProvider>();
+            new LinkedList<>();
 
     public static void addCraftingRecipeProvider(ICraftingRecipeProvider provider) {
         SimpleServiceLocator.craftingRecipeProviders.add(provider);

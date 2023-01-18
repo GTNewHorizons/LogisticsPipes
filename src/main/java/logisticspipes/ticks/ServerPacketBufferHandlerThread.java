@@ -30,13 +30,13 @@ public class ServerPacketBufferHandlerThread {
 
         // Map of Players to lists of S->C packets to be serialized and compressed
         private final HashMap<EntityPlayer, LinkedList<ModernPacket>> serverList =
-                new HashMap<EntityPlayer, LinkedList<ModernPacket>>();
+			new HashMap<>();
         // Map of Players to serialized but still uncompressed S->C data
-        private final HashMap<EntityPlayer, byte[]> serverBuffer = new HashMap<EntityPlayer, byte[]>();
+        private final HashMap<EntityPlayer, byte[]> serverBuffer = new HashMap<>();
         // used to cork the compressor so we can queue up a whole bunch of packets at once
         private boolean pause = false;
         // Clear content on next tick
-        private Queue<EntityPlayer> playersToClear = new LinkedList<EntityPlayer>();
+        private Queue<EntityPlayer> playersToClear = new LinkedList<>();
 
         public ServerCompressorThread() {
             super("LogisticsPipes Packet Compressor Server");
@@ -154,14 +154,14 @@ public class ServerPacketBufferHandlerThread {
     private static class ServerDecompressorThread extends Thread {
 
         // Map of Player to received compressed C->S data
-        private final HashMap<EntityPlayer, LinkedList<byte[]>> queue = new HashMap<EntityPlayer, LinkedList<byte[]>>();
+        private final HashMap<EntityPlayer, LinkedList<byte[]>> queue = new HashMap<>();
         // Map of Player to decompressed serialized C->S data
-        private final HashMap<EntityPlayer, byte[]> ByteBuffer = new HashMap<EntityPlayer, byte[]>();
+        private final HashMap<EntityPlayer, byte[]> ByteBuffer = new HashMap<>();
         // FIFO for deserialized C->S packets, decompressor adds, tickEnd removes
         private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer =
-                new LinkedList<Pair<EntityPlayer, byte[]>>();
+			new LinkedList<>();
         // Clear content on next tick
-        private Queue<EntityPlayer> playersToClear = new LinkedList<EntityPlayer>();
+        private Queue<EntityPlayer> playersToClear = new LinkedList<>();
 
         public ServerDecompressorThread() {
             super("LogisticsPipes Packet Decompressor Server");
@@ -245,7 +245,7 @@ public class ServerPacketBufferHandlerThread {
                                 Arrays.copyOfRange(ByteBufferForPlayer, size + 4, ByteBufferForPlayer.length);
                         player.setValue(ByteBufferForPlayer);
                         synchronized (PacketBuffer) {
-                            PacketBuffer.add(new Pair<EntityPlayer, byte[]>(player.getKey(), packet));
+                            PacketBuffer.add(new Pair<>(player.getKey(), packet));
                         }
                     }
                 }

@@ -82,12 +82,12 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
 
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
-    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<ItemIdentifier, Integer>();
-    public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<ItemIdentifierStack>();
-    private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<ItemIdentifierStack>();
+    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<>();
+    public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<>();
+    private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<>();
 
-    public final LinkedList<ItemIdentifierStack> oldManagerList = new LinkedList<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> itemListOrderer = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> oldManagerList = new LinkedList<>();
+    public final LinkedList<ItemIdentifierStack> itemListOrderer = new LinkedList<>();
     private final HUDProvider HUD = new HUDProvider(this);
 
     protected LogisticsItemOrderManager _orderManager = new LogisticsItemOrderManager(this, this);
@@ -318,7 +318,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
             tree.addPromise(promise);
         } else if (tree.getRequestType() instanceof DictResource) {
             DictResource dict = (DictResource) tree.getRequestType();
-            HashMap<ItemIdentifier, Integer> available = new HashMap<ItemIdentifier, Integer>();
+            HashMap<ItemIdentifier, Integer> available = new HashMap<>();
             getAllItems(available, filters);
             for (Entry<ItemIdentifier, Integer> item : available.entrySet()) {
                 if (!dict.matches(item.getKey(), IResource.MatchSettings.NORMAL)) {
@@ -352,7 +352,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
         if (!isEnabled()) {
             return;
         }
-        HashMap<ItemIdentifier, Integer> addedItems = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> addedItems = new HashMap<>();
 
         WorldUtil wUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
         for (AdjacentTile tile : wUtil.getAdjacentTileEntities(true)) {
@@ -434,7 +434,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
         }
         displayList.clear();
         displayMap.clear();
-        getAllItems(displayMap, new ArrayList<IFilter>(0));
+        getAllItems(displayMap, new ArrayList<>(0));
         displayList.ensureCapacity(displayMap.size());
         for (Entry<ItemIdentifier, Integer> item : displayMap.entrySet()) {
             displayList.add(new ItemIdentifierStack(item.getKey(), item.getValue()));

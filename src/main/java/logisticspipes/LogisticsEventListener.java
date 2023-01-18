@@ -64,11 +64,11 @@ import net.minecraftforge.event.world.WorldEvent;
 public class LogisticsEventListener {
 
     public static final WeakHashMap<EntityPlayer, List<WeakReference<ModuleQuickSort>>> chestQuickSortConnection =
-            new WeakHashMap<EntityPlayer, List<WeakReference<ModuleQuickSort>>>();
+		new WeakHashMap<>();
     public static Map<ChunkCoordIntPair, PlayerCollectionList> watcherList =
-            new ConcurrentHashMap<ChunkCoordIntPair, PlayerCollectionList>();
+		new ConcurrentHashMap<>();
     int taskCount = 0;
-    public static Map<PlayerIdentifier, PlayerConfig> playerConfigs = new HashMap<PlayerIdentifier, PlayerConfig>();
+    public static Map<PlayerIdentifier, PlayerConfig> playerConfigs = new HashMap<>();
 
     @SubscribeEvent
     public void onEntitySpawn(EntityJoinWorldEvent event) {
@@ -125,7 +125,7 @@ public class LogisticsEventListener {
             if (event.action == Action.RIGHT_CLICK_BLOCK) {
                 final TileEntity tile = event.entityPlayer.worldObj.getTileEntity(event.x, event.y, event.z);
                 if (tile instanceof TileEntityChest || SimpleServiceLocator.ironChestProxy.isIronChest(tile)) {
-                    List<WeakReference<ModuleQuickSort>> list = new ArrayList<WeakReference<ModuleQuickSort>>();
+                    List<WeakReference<ModuleQuickSort>> list = new ArrayList<>();
                     for (AdjacentTile adj : new WorldUtil(tile).getAdjacentTileEntities()) {
                         if (adj.tile instanceof LogisticsTileGenericPipe) {
                             if (((LogisticsTileGenericPipe) adj.tile).pipe instanceof PipeLogisticsChassi) {
@@ -136,8 +136,8 @@ public class LogisticsEventListener {
                                             (PipeLogisticsChassi) ((LogisticsTileGenericPipe) adj.tile).pipe;
                                     for (int i = 0; i < chassi.getChassiSize(); i++) {
                                         if (chassi.getLogisticsModule().getSubModule(i) instanceof ModuleQuickSort) {
-                                            list.add(new WeakReference<ModuleQuickSort>((ModuleQuickSort)
-                                                    chassi.getLogisticsModule().getSubModule(i)));
+                                            list.add(new WeakReference<>((ModuleQuickSort)
+												chassi.getLogisticsModule().getSubModule(i)));
                                         }
                                     }
                                 }
@@ -152,7 +152,7 @@ public class LogisticsEventListener {
         }
     }
 
-    public static HashMap<Integer, Long> WorldLoadTime = new HashMap<Integer, Long>();
+    public static HashMap<Integer, Long> WorldLoadTime = new HashMap<>();
 
     @SubscribeEvent
     public void WorldLoad(WorldEvent.Load event) {
@@ -236,7 +236,7 @@ public class LogisticsEventListener {
     }
 
     @Getter(lazy = true)
-    private static final Queue<GuiEntry> guiPos = new LinkedList<GuiEntry>();
+    private static final Queue<GuiEntry> guiPos = new LinkedList<>();
 
     // Handle GuiRepoen
     @SubscribeEvent

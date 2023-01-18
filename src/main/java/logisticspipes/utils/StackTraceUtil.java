@@ -11,7 +11,7 @@ import scala.actors.threadpool.Arrays;
 public class StackTraceUtil {
 
     private static Map<Thread, LinkedList<Pair<StackTraceElement, String>>> informationMap =
-            new HashMap<Thread, LinkedList<Pair<StackTraceElement, String>>>();
+		new HashMap<>();
 
     public abstract static class Info {
 
@@ -50,7 +50,7 @@ public class StackTraceUtil {
     private static Info addTraceInformationFor(
             final StackTraceElement calledFrom, final String information, final Info... infos) {
         synchronized (StackTraceUtil.informationMap) {
-            StackTraceUtil.getList().addLast(new Pair<StackTraceElement, String>(calledFrom, information));
+            StackTraceUtil.getList().addLast(new Pair<>(calledFrom, information));
             return new Info() {
 
                 @Override
@@ -88,7 +88,7 @@ public class StackTraceUtil {
                         Arrays.asList(Thread.currentThread().getStackTrace()));
                 traceList.removeFirst();
                 traceList.removeFirst();
-                LinkedList<Pair<StackTraceElement, String>> paired = new LinkedList<Pair<StackTraceElement, String>>();
+                LinkedList<Pair<StackTraceElement, String>> paired = new LinkedList<>();
                 Pair<StackTraceElement, String> lastFound = null;
                 StackTraceElement current = traceList.removeLast();
                 while (current != null) {
@@ -110,7 +110,7 @@ public class StackTraceUtil {
                             result = pair.getValue2();
                         }
                     }
-                    paired.addFirst(new Pair<StackTraceElement, String>(current, result));
+                    paired.addFirst(new Pair<>(current, result));
                     if (traceList.isEmpty()) {
                         current = null;
                     } else {

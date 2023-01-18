@@ -288,7 +288,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void openFluidSelectGui(final int slotId) {
         if (Minecraft.getMinecraft().currentScreen instanceof LogisticsBaseGuiScreen) {
-            final List<ItemIdentifierStack> list = new ArrayList<ItemIdentifierStack>();
+            final List<ItemIdentifierStack> list = new ArrayList<>();
             for (FluidIdentifier fluid : FluidIdentifier.all()) {
                 if (fluid == null) {
                     continue;

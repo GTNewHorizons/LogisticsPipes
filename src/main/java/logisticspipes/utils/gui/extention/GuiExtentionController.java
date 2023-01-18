@@ -17,15 +17,15 @@ public class GuiExtentionController {
         RIGHT
     }
 
-    private final List<GuiExtention> extentions = new ArrayList<GuiExtention>();
-    private final List<GuiExtention> extentionsToRemove = new ArrayList<GuiExtention>();
+    private final List<GuiExtention> extentions = new ArrayList<>();
+    private final List<GuiExtention> extentionsToRemove = new ArrayList<>();
 
     @Setter
     private int maxBottom;
 
     private GuiExtention currentlyExtended = null;
-    private Map<Slot, Integer> slotMap = new HashMap<Slot, Integer>();
-    private Map<GuiButton, Integer> buttonMap = new HashMap<GuiButton, Integer>();
+    private Map<Slot, Integer> slotMap = new HashMap<>();
+    private Map<GuiButton, Integer> buttonMap = new HashMap<>();
 
     private final GuiSide side;
 

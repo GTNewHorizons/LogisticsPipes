@@ -44,13 +44,13 @@ public class GuiRecipeImport extends SubGuiScreen {
     public GuiRecipeImport(TileEntity tile, ItemStack[][] stacks) {
         super(150, 200, 0, 0);
         this.tile = tile;
-        list = new ArrayList<Canidates>();
+        list = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             if (stacks[i] == null) {
                 continue;
             }
-            Set<ItemIdentifierStack> part = new TreeSet<ItemIdentifierStack>();
-            List<ItemIdentifierStack> order = new ArrayList<ItemIdentifierStack>();
+            Set<ItemIdentifierStack> part = new TreeSet<>();
+            List<ItemIdentifierStack> order = new ArrayList<>();
             for (ItemStack stack : stacks[i]) {
                 ItemIdentifierStack iStack = ItemIdentifierStack.getFromStack(stack);
                 part.add(iStack);

@@ -52,11 +52,11 @@ public class DebugGuiController {
         }
     }
 
-    private HashMap<EntityPlayer, IDebugGuiEntry> serverDebugger = new HashMap<EntityPlayer, IDebugGuiEntry>();
-    private List<IDataConnection> serverList = new LinkedList<IDataConnection>();
+    private HashMap<EntityPlayer, IDebugGuiEntry> serverDebugger = new HashMap<>();
+    private List<IDataConnection> serverList = new LinkedList<>();
 
     private IDebugGuiEntry clientController = null;
-    private List<Future<IDataConnection>> clientList = new LinkedList<Future<IDataConnection>>();
+    private List<Future<IDataConnection>> clientList = new LinkedList<>();
 
     public void startWatchingOf(Object object, EntityPlayer player) {
         if (object == null) {

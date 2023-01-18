@@ -41,7 +41,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
     private boolean init = false;
 
     @Getter
-    private Set<LPTravelingItemServer> items = new HashSet<LPTravelingItemServer>();
+    private Set<LPTravelingItemServer> items = new HashSet<>();
 
     private LPPosition targetStationPos;
     private ForgeDirection targetStationSide = ForgeDirection.UNKNOWN;
@@ -279,7 +279,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
                 }
                 double distanceToItem = ((distance * 3) + 21) + mindis;
                 if (result == null || result.getValue1() > distanceToItem) {
-                    result = new Pair<Double, LogisticsRoutingBoardRobot>(
+                    result = new Pair<>(
                             distanceToItem, (LogisticsRoutingBoardRobot) connectedRobot.getBoard());
                 }
             }

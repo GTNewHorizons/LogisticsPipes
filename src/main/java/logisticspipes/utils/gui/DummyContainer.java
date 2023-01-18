@@ -46,13 +46,13 @@ public class DummyContainer extends Container {
     protected IInventory _playerInventory;
     protected IInventory _dummyInventory;
     protected IGuiOpenControler[] _controler;
-    private List<Slot> transferTop = new ArrayList<Slot>();
-    private List<Slot> transferBottom = new ArrayList<Slot>();
+    private List<Slot> transferTop = new ArrayList<>();
+    private List<Slot> transferBottom = new ArrayList<>();
     private long lastClicked;
     private long lastDragnDropLockup;
     boolean wasDummyLookup;
     boolean overrideMCAntiSend;
-    public List<BitSet> inventoryFuzzySlotsContent = new ArrayList<BitSet>();
+    public List<BitSet> inventoryFuzzySlotsContent = new ArrayList<>();
 
     public DummyContainer(IInventory playerInventory, IInventory dummyInventory) {
         _playerInventory = playerInventory;

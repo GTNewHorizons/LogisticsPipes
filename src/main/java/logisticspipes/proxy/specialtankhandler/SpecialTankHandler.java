@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class SpecialTankHandler {
 
-    private List<ISpecialTankHandler> handlers = new ArrayList<ISpecialTankHandler>();
+    private List<ISpecialTankHandler> handlers = new ArrayList<>();
 
     public void registerHandler(ISpecialTankHandler handler) {
         try {

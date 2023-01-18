@@ -45,7 +45,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
     @Getter
     private final LogisticsTileGenericPipe lpPipe;
 
-    public Map<ForgeDirection, List<StatementSlot>> activeActions = new HashMap<ForgeDirection, List<StatementSlot>>();
+    public Map<ForgeDirection, List<StatementSlot>> activeActions = new HashMap<>();
 
     public LPBCTileGenericPipe(LPBCPipe pipe, LogisticsTileGenericPipe lpPipe)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
@@ -176,7 +176,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
                 // Check Gate for ActionChanges
                 if (p instanceof GatePluggable && lpPipe.isRoutingPipe()) {
                     if (!activeActions.containsKey(direction)) {
-                        activeActions.put(direction, new ArrayList<StatementSlot>());
+                        activeActions.put(direction, new ArrayList<>());
                     }
                     if (!listEquals(activeActions.get(direction), pipe.gates[direction.ordinal()].activeActions)) {
                         activeActions.get(direction).clear();

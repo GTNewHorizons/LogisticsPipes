@@ -157,7 +157,7 @@ public class LPDataOutputStream extends DataOutputStream {
     }
 
     public <T> void writeCollection(Collection<T> collection, IWriteListObject<T> handler) throws IOException {
-        this.writeList(new ArrayList<T>(collection), handler);
+        this.writeList(new ArrayList<>(collection), handler);
     }
 
     public void writeOrderInfo(IOrderInfoProvider order) throws IOException {

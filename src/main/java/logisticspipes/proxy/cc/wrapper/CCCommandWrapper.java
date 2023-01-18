@@ -34,7 +34,7 @@ public class CCCommandWrapper implements ILuaObject {
 
     @Override
     public String[] getMethodNames() {
-        LinkedList<String> list = new LinkedList<String>();
+        LinkedList<String> list = new LinkedList<>();
         list.add("help");
         list.add("commandHelp");
         list.add("getType");

@@ -32,7 +32,7 @@ import net.minecraft.util.IIcon;
 public class ModuleThaumicAspectSink extends LogisticsGuiModule
         implements IClientInformationProvider, IModuleWatchReciver {
 
-    public final List<String> aspectList = new LinkedList<String>();
+    public final List<String> aspectList = new LinkedList<>();
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -148,7 +148,7 @@ public class ModuleThaumicAspectSink extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> info = new ArrayList<String>();
+        List<String> info = new ArrayList<>();
         info.add("Aspects: ");
         if (aspectList.size() == 0) {
             info.add("none");

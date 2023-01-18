@@ -31,7 +31,7 @@ public class SolderingStationRecipes {
         }
     }
 
-    private static final ArrayList<SolderingStationRecipe> recipes = new ArrayList<SolderingStationRecipe>();
+    private static final ArrayList<SolderingStationRecipe> recipes = new ArrayList<>();
 
     public static void loadRecipe(ICraftingParts parts) {
         if (!Configs.ENABLE_BETA_RECIPES) {

@@ -143,7 +143,7 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
             return null;
         }
 
-        Set<ItemIdentifier> l1 = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> l1 = new TreeSet<>();
         Collection<ItemIdentifier> current = itemSinkModule.getSpecificInterests();
         if (current != null) {
             l1.addAll(current);

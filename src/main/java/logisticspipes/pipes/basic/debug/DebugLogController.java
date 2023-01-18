@@ -17,7 +17,7 @@ public class DebugLogController {
     private final int ID = DebugLogController.nextID++;
     public final CoreUnroutedPipe pipe;
     public boolean debugThisPipe = false;
-    private List<StatusEntry> oldList = new ArrayList<StatusEntry>();
+    private List<StatusEntry> oldList = new ArrayList<>();
     private PlayerCollectionList players = new PlayerCollectionList();
 
     public DebugLogController(CoreUnroutedPipe pipe) {
@@ -40,7 +40,7 @@ public class DebugLogController {
     }
 
     public void generateStatus() {
-        List<StatusEntry> status = new ArrayList<StatusEntry>();
+        List<StatusEntry> status = new ArrayList<>();
         pipe.addStatusInformation(status);
         if (!status.equals(oldList)) {
             MainProxy.sendToPlayerList(
@@ -54,7 +54,7 @@ public class DebugLogController {
 
     public void openForPlayer(EntityPlayer player) {
         players.add(player);
-        List<StatusEntry> status = new ArrayList<StatusEntry>();
+        List<StatusEntry> status = new ArrayList<>();
         pipe.addStatusInformation(status);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(SendNewLogWindow.class).setWindowID(ID).setTitle(pipe.toString()), player);

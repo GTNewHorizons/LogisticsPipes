@@ -32,10 +32,10 @@ import net.minecraft.nbt.NBTBase;
 
 public class CCObjectWrapper {
 
-    private static Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<Class<?>, CCWrapperInformation>();
-    private static Map<Object, Object> wrappedObjects = new WeakHashMap<Object, Object>();
+    private static Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<>();
+    private static Map<Object, Object> wrappedObjects = new WeakHashMap<>();
     private static Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings =
-            new HashMap<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition>();
+            new HashMap<>();
 
     static {
         CCObjectWrapper.specialMappings.put(ItemIdentifier.class, new CCItemIdentifier());
@@ -170,7 +170,7 @@ public class CCObjectWrapper {
                         } else {
                             info.commandTypes.put(
                                     method.getName(),
-                                    new Pair<Boolean, String>(
+                                    new Pair<>(
                                             method.isAnnotationPresent(CCQueued.class),
                                             method.getAnnotation(CCCommand.class)
                                                     .description()));

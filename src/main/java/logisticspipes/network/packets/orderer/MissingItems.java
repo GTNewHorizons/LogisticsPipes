@@ -20,7 +20,7 @@ public class MissingItems extends ModernPacket {
 
     @Getter
     @Setter
-    private Collection<IResource> items = new ArrayList<IResource>();
+    private Collection<IResource> items = new ArrayList<>();
 
     @Setter
     @Getter

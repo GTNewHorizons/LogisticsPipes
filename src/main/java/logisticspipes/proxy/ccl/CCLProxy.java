@@ -81,7 +81,7 @@ public class CCLProxy implements ICCLProxy {
 
     @Override
     public Map<String, IModel3D> parseObjModels(InputStream resourceAsStream, int i, LPScale scale) throws IOException {
-        Map<String, IModel3D> target = new HashMap<String, IModel3D>();
+        Map<String, IModel3D> target = new HashMap<>();
         Map<String, CCModel> source = CCModel.parseObjModels(resourceAsStream, i, (Transformation) scale.getOriginal());
         for (Entry<String, CCModel> entry : source.entrySet()) {
             target.put(entry.getKey(), SimpleServiceLocator.cclProxy.wrapModel(entry.getValue()));
@@ -132,7 +132,7 @@ public class CCLProxy implements ICCLProxy {
 
     @Override
     public Object getUVTransformationList(I3DOperation[] uvTranslation) {
-        List<UVTransformation> transforms = new ArrayList<UVTransformation>();
+        List<UVTransformation> transforms = new ArrayList<>();
         for (I3DOperation op : uvTranslation) {
             transforms.add((UVTransformation) op.getOriginal());
         }

@@ -57,11 +57,11 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
 
     private boolean init = false;
     private HashMap<ItemIdentifier, List<ItemRoutingInformation>> itemsOnRoute =
-            new HashMap<ItemIdentifier, List<ItemRoutingInformation>>();
+		new HashMap<>();
     public ItemIdentifierInventory inv = new ItemIdentifierInventory(1, "Freq. card", 1);
     public int resistance;
-    public Set<ItemIdentifierStack> oldList = new TreeSet<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<ItemIdentifierStack>();
+    public Set<ItemIdentifierStack> oldList = new TreeSet<>();
+    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
     private HUDInvSysConnector HUD = new HUDInvSysConnector(this);
     private UUID idbuffer = UUID.randomUUID();
@@ -135,7 +135,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
     private boolean checkOneConnectedInv(IInventoryUtil inv, ForgeDirection dir) {
         boolean contentchanged = false;
         if (!itemsOnRoute.isEmpty()) { // don't check the inventory if you don't want anything
-            List<ItemIdentifier> items = new ArrayList<ItemIdentifier>(itemsOnRoute.keySet());
+            List<ItemIdentifier> items = new ArrayList<>(itemsOnRoute.keySet());
             items.retainAll(inv.getItems());
             Map<ItemIdentifier, Integer> amounts = null;
             if (!items.isEmpty()) {
@@ -247,7 +247,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
 
     public Set<ItemIdentifierStack> getExpectedItems() {
         // got to be a TreeMap, because a TreeSet doesn't have the ability to retrieve the key.
-        Set<ItemIdentifierStack> list = new TreeSet<ItemIdentifierStack>();
+        Set<ItemIdentifierStack> list = new TreeSet<>();
         for (Entry<ItemIdentifier, List<ItemRoutingInformation>> entry : itemsOnRoute.entrySet()) {
             if (entry.getValue().isEmpty()) {
                 continue;

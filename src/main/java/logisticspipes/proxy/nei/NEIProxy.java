@@ -25,7 +25,7 @@ public class NEIProxy implements INEIProxy {
     public List<String> getInfoForPosition(World world, EntityPlayer player, MovingObjectPosition objectMouseOver) {
         List<ItemStack> items = ItemInfo.getIdentifierItems(world, player, objectMouseOver);
         if (items.isEmpty()) {
-            return new ArrayList<String>(0);
+            return new ArrayList<>(0);
         }
         items.sort((stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
         return ItemInfo.getText(items.get(0), world, player, objectMouseOver);
@@ -40,7 +40,7 @@ public class NEIProxy implements INEIProxy {
             return false;
         }
         GuiContainer window = (GuiContainer) Minecraft.getMinecraft().currentScreen;
-        List<String> tooltip = new LinkedList<String>();
+        List<String> tooltip = new LinkedList<>();
         FontRenderer font = GuiDraw.fontRenderer;
 
         if (GuiContainerManager.shouldShowTooltip(window)) {

@@ -81,8 +81,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     private int orderIdForButton;
 
     private GuiButton[] sycleButtons = new GuiButton[2];
-    private IChainAddList<GuiButton> moveWhileSmall = new ChainAddArrayList<GuiButton>();
-    private IChainAddList<GuiButton> hideWhileSmall = new ChainAddArrayList<GuiButton>();
+    private IChainAddList<GuiButton> moveWhileSmall = new ChainAddArrayList<>();
+    private IChainAddList<GuiButton> hideWhileSmall = new ChainAddArrayList<>();
     private GuiButton hideShowButton;
 
     public GuiRequestTable(EntityPlayer entityPlayer, PipeBlockRequestTable table) {
@@ -267,7 +267,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 extentionControllerLeft.addExtention(new GuiExtention() {
 
                     private Map<Pair<Integer, Integer>, IOrderInfoProvider> ordererPosition =
-                            new HashMap<Pair<Integer, Integer>, IOrderInfoProvider>();
+						new HashMap<>();
                     private int height;
                     private int width = 4;
                     private GuiButton localControlledButton;
@@ -347,7 +347,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                 // Draw number
                                 mc.fontRenderer.drawStringWithShadow(
                                         s, x + 17 - mc.fontRenderer.getStringWidth(s), y + 9, 16777215);
-                                ordererPosition.put(new Pair<Integer, Integer>(x, y), order);
+                                ordererPosition.put(new Pair<>(x, y), order);
                                 x += 18;
                                 if (x > left + getFinalWidth() - 18) {
                                     x = left + 6;
@@ -417,7 +417,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                         && yPos >= key.getValue2()
                                         && yPos < key.getValue2() + 18) {
                                     IOrderInfoProvider order = ordererPosition.get(key);
-                                    List<String> list = new ArrayList<String>();
+                                    List<String> list = new ArrayList<>();
                                     list.add(ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW
                                             + order.getType().name());
                                     list.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW
@@ -438,7 +438,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                             }
                         } else {
                             if (entry.getValue().getValue1() != null) {
-                                List<String> list = new ArrayList<String>();
+                                List<String> list = new ArrayList<>();
                                 list.add(ChatColor.BLUE + "Request ID: " + ChatColor.YELLOW + entry.getKey());
                                 GuiGraphics.displayItemToolTip(
                                         new Object[] {
@@ -589,7 +589,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     PacketHandler.getPacket(ClearCraftingGridPacket.class).setTilePos(_table.container));
             _table.cacheRecipe();
         } else if (guibutton.id == 31) {
-            ArrayList<ItemIdentifierStack> list = new ArrayList<ItemIdentifierStack>(9);
+            ArrayList<ItemIdentifierStack> list = new ArrayList<>(9);
             for (Entry<ItemIdentifier, Integer> e :
                     _table.matrix.getItemsAndCount().entrySet()) {
                 list.add(e.getKey().makeStack(e.getValue()));
@@ -616,7 +616,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     }
 
     private void requestMatrix(int multiplier) {
-        ArrayList<ItemIdentifierStack> list = new ArrayList<ItemIdentifierStack>(9);
+        ArrayList<ItemIdentifierStack> list = new ArrayList<>(9);
         for (Entry<ItemIdentifier, Integer> e : _table.matrix.getItemsAndCount().entrySet()) {
             list.add(e.getKey().makeStack(e.getValue() * multiplier));
         }

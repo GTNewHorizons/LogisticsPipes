@@ -23,7 +23,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemPipeSignCreator extends LogisticsItem {
 
-    public static final List<Class<? extends IPipeSign>> signTypes = new ArrayList<Class<? extends IPipeSign>>();
+    public static final List<Class<? extends IPipeSign>> signTypes = new ArrayList<>();
 
     private IIcon[] itemIcon = new IIcon[2];
 

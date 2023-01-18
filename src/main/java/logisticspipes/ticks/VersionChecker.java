@@ -116,7 +116,7 @@ public final class VersionChecker implements Callable<VersionChecker.VersionInfo
             @SuppressWarnings("unchecked")
             LinkedTreeMap<String, List<String>> changelog = (LinkedTreeMap<String, List<String>>) part.get("changelog");
 
-            List<String> changeLogList = new ArrayList<String>();
+            List<String> changeLogList = new ArrayList<>();
             if (changelog != null) {
                 for (String build : changelog.keySet()) {
                     changeLogList.add(build + ": ");

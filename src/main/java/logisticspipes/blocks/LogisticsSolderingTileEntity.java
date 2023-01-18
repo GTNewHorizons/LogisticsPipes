@@ -99,7 +99,7 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
     }
 
     public List<ItemIdentifierStack> getRecipeForTagetAsItemIdentifierStackList() {
-        LinkedList<ItemIdentifierStack> list = new LinkedList<ItemIdentifierStack>();
+        LinkedList<ItemIdentifierStack> list = new LinkedList<>();
         ItemStack[] array = getRecipeForTaget();
         if (array != null) {
             for (ItemStack stack : array) {

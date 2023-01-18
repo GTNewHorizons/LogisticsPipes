@@ -206,7 +206,7 @@ public class ModuleItemSink extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Default: " + (isDefaultRoute() ? "Yes" : "No"));
         list.add("Filter: ");
         list.add("<inventory>");
@@ -278,7 +278,7 @@ public class ModuleItemSink extends LogisticsGuiModule
             return null;
         }
         Map<ItemIdentifier, Integer> mapIC = _filterInventory.getItemsAndCount();
-        List<ItemIdentifier> li = new ArrayList<ItemIdentifier>(mapIC.size());
+        List<ItemIdentifier> li = new ArrayList<>(mapIC.size());
         li.addAll(mapIC.keySet());
         for (ItemIdentifier id : mapIC.keySet()) {
             li.add(id.getUndamaged());

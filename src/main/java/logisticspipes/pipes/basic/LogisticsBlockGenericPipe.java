@@ -62,7 +62,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         if (world.isRemote) {
             return null;
         }
-        ArrayList<ItemStack> list = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> list = new ArrayList<>();
         int count = quantityDropped(metadata, fortune, world.rand);
         for (int i = 0; i < count; i++) {
             CoreUnroutedPipe pipe = LogisticsBlockGenericPipe.getPipe(world, x, y, z);
@@ -517,8 +517,8 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     public static Map<Item, Class<? extends CoreUnroutedPipe>> pipes =
-            new HashMap<Item, Class<? extends CoreUnroutedPipe>>();
-    public static Map<LPPosition, CoreUnroutedPipe> pipeRemoved = new HashMap<LPPosition, CoreUnroutedPipe>();
+		new HashMap<>();
+    public static Map<LPPosition, CoreUnroutedPipe> pipeRemoved = new HashMap<>();
 
     private static long lastRemovedDate = -1;
 

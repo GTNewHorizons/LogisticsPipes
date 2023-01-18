@@ -97,13 +97,13 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
         if (worldUtil == null) {
             worldUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
         }
-        List<Pair<TileEntity, ForgeDirection>> tileList = new ArrayList<Pair<TileEntity, ForgeDirection>>();
+        List<Pair<TileEntity, ForgeDirection>> tileList = new ArrayList<>();
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tile = worldUtil.getAdjacentTileEntitie(dir);
             if (!isConnectableTank(tile, dir, flag)) {
                 continue;
             }
-            tileList.add(new Pair<TileEntity, ForgeDirection>(tile, dir));
+            tileList.add(new Pair<>(tile, dir));
         }
         return tileList;
     }
@@ -310,7 +310,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
     }
 
     public List<TileEntity> getAllTankTiles() {
-        List<TileEntity> list = new ArrayList<TileEntity>();
+        List<TileEntity> list = new ArrayList<>();
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(false)) {
             list.addAll(SimpleServiceLocator.specialTankHandler.getBaseTileFor(pair.getValue1()));
         }

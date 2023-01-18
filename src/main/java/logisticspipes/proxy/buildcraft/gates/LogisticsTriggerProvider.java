@@ -31,7 +31,7 @@ public class LogisticsTriggerProvider implements ITriggerProvider {
     public Collection<ITriggerInternal> getInternalTriggers(IStatementContainer pipe) {
         if (pipe.getTile() instanceof LPBCTileGenericPipe) {
             LogisticsTileGenericPipe lPipe = ((LPBCTileGenericPipe) pipe.getTile()).getLpPipe();
-            LinkedList<ITriggerInternal> triggers = new LinkedList<ITriggerInternal>();
+            LinkedList<ITriggerInternal> triggers = new LinkedList<>();
             if (lPipe.pipe instanceof PipeItemsSupplierLogistics || lPipe.pipe instanceof PipeItemsFluidSupplier) {
                 triggers.add(BuildCraftProxy.LogisticsFailedTrigger);
             }
@@ -52,7 +52,7 @@ public class LogisticsTriggerProvider implements ITriggerProvider {
     @Override
     public Collection<ITriggerExternal> getExternalTriggers(ForgeDirection paramForgeDirection, TileEntity tile) {
         if (tile instanceof LogisticsPowerJunctionTileEntity || tile instanceof LogisticsSolderingTileEntity) {
-            LinkedList<ITriggerExternal> triggers = new LinkedList<ITriggerExternal>();
+            LinkedList<ITriggerExternal> triggers = new LinkedList<>();
             triggers.add(BuildCraftProxy.LogisticsNeedPowerTrigger);
             return triggers;
         }

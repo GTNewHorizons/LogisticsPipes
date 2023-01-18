@@ -12,8 +12,8 @@ public class LogicController {
 
     public SimpleStackInventory diskInv = new SimpleStackInventory(1, "Disk Inv", 1);
 
-    public List<BaseLogicConnection> connections = new ArrayList<BaseLogicConnection>();
-    public List<BaseLogicTask> tasks = new ArrayList<BaseLogicTask>();
+    public List<BaseLogicConnection> connections = new ArrayList<>();
+    public List<BaseLogicTask> tasks = new ArrayList<>();
 
     private Thread oldThread = null;
 
@@ -48,7 +48,7 @@ public class LogicController {
 				}
             }
         }
-        List<BaseLogicTask> toDos = new ArrayList<BaseLogicTask>(tasks);
+        List<BaseLogicTask> toDos = new ArrayList<>(tasks);
         while (!toDos.isEmpty()) {
             boolean nothingDone = true;
             Iterator<BaseLogicTask> iter = toDos.iterator();

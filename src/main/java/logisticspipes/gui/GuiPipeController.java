@@ -46,13 +46,13 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
     private final int TAB_COUNT = 5;
     private int current_Tab;
 
-    private final List<Slot> TAB_SLOTS_1_1 = new ArrayList<Slot>();
-    private final List<Slot> TAB_SLOTS_1_2 = new ArrayList<Slot>();
-    private final List<Slot> TAB_SLOTS_2 = new ArrayList<Slot>();
-    private final List<Slot> TAB_SLOTS_4 = new ArrayList<Slot>();
+    private final List<Slot> TAB_SLOTS_1_1 = new ArrayList<>();
+    private final List<Slot> TAB_SLOTS_1_2 = new ArrayList<>();
+    private final List<Slot> TAB_SLOTS_2 = new ArrayList<>();
+    private final List<Slot> TAB_SLOTS_4 = new ArrayList<>();
 
-    private final List<GuiButton> TAB_BUTTON_4 = new ArrayList<GuiButton>();
-    private final List<GuiButton> TAB_BUTTON_5 = new ArrayList<GuiButton>();
+    private final List<GuiButton> TAB_BUTTON_4 = new ArrayList<>();
+    private final List<GuiButton> TAB_BUTTON_5 = new ArrayList<>();
 
     private ItemDisplay _itemDisplay_5;
 
@@ -389,7 +389,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
             s = StringUtils.getStringWithSpacesFromLong(pipe.server_routing_table_size);
             fontRendererObj.drawString(s, 130 - fontRendererObj.getStringWidth(s) / 2, 110, 0x303030);
         } else if (current_Tab == 4) {
-            List<ItemIdentifierStack> _allItems = new LinkedList<ItemIdentifierStack>();
+            List<ItemIdentifierStack> _allItems = new LinkedList<>();
             for (IOrderInfoProvider entry : pipe.getClientSideOrderManager()) {
                 _allItems.add(entry.getAsDisplayItem());
             }

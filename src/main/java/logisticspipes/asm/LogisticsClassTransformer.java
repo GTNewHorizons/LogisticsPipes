@@ -15,8 +15,8 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class LogisticsClassTransformer implements IClassTransformer {
 
-    public List<String> interfacesToClearA = new ArrayList<String>();
-    public List<String> interfacesToClearB = new ArrayList<String>();
+    public List<String> interfacesToClearA = new ArrayList<>();
+    public List<String> interfacesToClearB = new ArrayList<>();
     private LaunchClassLoader cl = (LaunchClassLoader) LogisticsClassTransformer.class.getClassLoader();
     private Field negativeResourceCache;
     private Field invalidClasses;

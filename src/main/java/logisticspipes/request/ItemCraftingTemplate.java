@@ -26,9 +26,9 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
     protected ICraftItems _crafter;
 
     protected ArrayList<Pair<IResource, IAdditionalTargetInformation>> _required =
-            new ArrayList<Pair<IResource, IAdditionalTargetInformation>>(9);
+            new ArrayList<>(9);
 
-    protected ArrayList<ItemIdentifierStack> _byproduct = new ArrayList<ItemIdentifierStack>(9);
+    protected ArrayList<ItemIdentifierStack> _byproduct = new ArrayList<>(9);
 
     private final int priority;
 
@@ -39,7 +39,7 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
     }
 
     public void addRequirement(IResource requirement, IAdditionalTargetInformation info) {
-        _required.add(new Pair<IResource, IAdditionalTargetInformation>(requirement, info));
+        _required.add(new Pair<>(requirement, info));
     }
 
     public void addByproduct(ItemIdentifierStack stack) {
@@ -119,7 +119,7 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
 
     @Override
     public List<IExtraPromise> getByproducts(int workSets) {
-        List<IExtraPromise> list = new ArrayList<IExtraPromise>();
+        List<IExtraPromise> list = new ArrayList<>();
         for (ItemIdentifierStack stack : _byproduct) {
             list.add(new LogisticsExtraPromise(stack.getItem(), stack.getStackSize() * workSets, getCrafter(), false));
         }
@@ -129,11 +129,11 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
     @Override
     public List<Pair<IResource, IAdditionalTargetInformation>> getComponents(int nCraftingSetsNeeded) {
         List<Pair<IResource, IAdditionalTargetInformation>> stacks =
-                new ArrayList<Pair<IResource, IAdditionalTargetInformation>>(_required.size());
+                new ArrayList<>(_required.size());
 
         // for each thing needed to satisfy this promise
         for (Pair<IResource, IAdditionalTargetInformation> stack : _required) {
-            Pair<IResource, IAdditionalTargetInformation> pair = new Pair<IResource, IAdditionalTargetInformation>(
+            Pair<IResource, IAdditionalTargetInformation> pair = new Pair<>(
                     stack.getValue1().clone(nCraftingSetsNeeded), stack.getValue2());
             stacks.add(pair);
         }

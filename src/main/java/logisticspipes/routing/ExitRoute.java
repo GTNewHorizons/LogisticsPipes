@@ -29,7 +29,7 @@ public class ExitRoute implements Comparable<ExitRoute> {
     public final EnumSet<PipeRoutingConnectionType> connectionDetails;
     public final IRouter destination;
     public IRouter root;
-    public List<IFilter> filters = Collections.unmodifiableList(new ArrayList<IFilter>(0));
+    public List<IFilter> filters = Collections.unmodifiableList(new ArrayList<>(0));
     /**
      * Used to store debug information. No use in the actual Routing table
      * calculation
@@ -137,7 +137,7 @@ public class ExitRoute implements Comparable<ExitRoute> {
             List<IFilter> filterB,
             int blockDistance) {
         this(source, destination, ForgeDirection.UNKNOWN, ForgeDirection.UNKNOWN, distance, enumSet, blockDistance);
-        List<IFilter> filter = new ArrayList<IFilter>(filterA.size() + filterB.size());
+        List<IFilter> filter = new ArrayList<>(filterA.size() + filterB.size());
         filter.addAll(filterA);
         filter.addAll(filterB);
         filters = Collections.unmodifiableList(filter);

@@ -79,7 +79,7 @@ public class ItemModule extends LogisticsItem {
     public static final int CRAFTER_MK2 = 601;
     public static final int CRAFTER_MK3 = 602;
 
-    private List<Module> modules = new ArrayList<Module>();
+    private List<Module> modules = new ArrayList<>();
 
     private class Module {
 

@@ -71,7 +71,7 @@ public class PathFinder {
         IPipeInformationProvider startProvider =
                 SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(startPipe);
         if (startProvider == null) {
-            return new HashMap<CoreRoutedPipe, ExitRoute>();
+            return new HashMap<>();
         }
         PathFinder newSearch = new PathFinder(maxVisited, maxLength, pathPainter);
         LPPosition p = new LPPosition(startProvider);
@@ -81,7 +81,7 @@ public class PathFinder {
         IPipeInformationProvider provider =
                 SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(entity);
         if (provider == null) {
-            return new HashMap<CoreRoutedPipe, ExitRoute>();
+            return new HashMap<>();
         }
         return newSearch.getConnectedRoutingPipes(provider, connectionType, startOrientation);
     }
@@ -93,7 +93,7 @@ public class PathFinder {
             ITileEntityChangeListener changeListener) {
         this(maxVisited, maxLength, null);
         if (startPipe == null) {
-            result = new HashMap<CoreRoutedPipe, ExitRoute>();
+            result = new HashMap<>();
             return;
         }
         this.changeListener = changeListener;
@@ -109,8 +109,8 @@ public class PathFinder {
     private PathFinder(int maxVisited, int maxLength, IPaintPath pathPainter) {
         this.maxVisited = maxVisited;
         this.maxLength = maxLength;
-        setVisited = new HashSet<LPPosition>();
-        distances = new HashMap<LPPosition, Double>();
+        setVisited = new HashSet<>();
+        distances = new HashMap<>();
         this.pathPainter = pathPainter;
     }
 
@@ -126,14 +126,14 @@ public class PathFinder {
     public HashMap<CoreRoutedPipe, ExitRoute> result;
 
     public ITileEntityChangeListener changeListener;
-    public Set<List<ITileEntityChangeListener>> listenedPipes = new HashSet<List<ITileEntityChangeListener>>();
-    public Set<LPTileEntityObject> touchedPipes = new HashSet<LPTileEntityObject>();
+    public Set<List<ITileEntityChangeListener>> listenedPipes = new HashSet<>();
+    public Set<LPTileEntityObject> touchedPipes = new HashSet<>();
 
     private HashMap<CoreRoutedPipe, ExitRoute> getConnectedRoutingPipes(
             IPipeInformationProvider startPipe,
             EnumSet<PipeRoutingConnectionType> connectionFlags,
             ForgeDirection side) {
-        HashMap<CoreRoutedPipe, ExitRoute> foundPipes = new HashMap<CoreRoutedPipe, ExitRoute>();
+        HashMap<CoreRoutedPipe, ExitRoute> foundPipes = new HashMap<>();
 
         boolean root = setVisited.size() == 0;
 
@@ -215,7 +215,7 @@ public class PathFinder {
             }
         }
 
-        ArrayDeque<Pair<TileEntity, ForgeDirection>> connections = new ArrayDeque<Pair<TileEntity, ForgeDirection>>();
+        ArrayDeque<Pair<TileEntity, ForgeDirection>> connections = new ArrayDeque<>();
 
         // Recurse in all directions
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
@@ -233,34 +233,34 @@ public class PathFinder {
             if (OrientationsUtil.isSide(direction)) {
                 if (root && tile instanceof ILogisticsPowerProvider) {
                     if (powerNodes == null) {
-                        powerNodes = new ArrayList<Pair<ILogisticsPowerProvider, List<IFilter>>>();
+                        powerNodes = new ArrayList<>();
                     }
                     // If we are a FireWall pipe add our filter to the pipes
                     if (startPipe.isFirewallPipe()) {
-                        powerNodes.add(new Pair<ILogisticsPowerProvider, List<IFilter>>(
-                                (ILogisticsPowerProvider) tile, new OneList<IFilter>(startPipe.getFirewallFilter())));
+                        powerNodes.add(new Pair<>(
+                                (ILogisticsPowerProvider) tile, new OneList<>(startPipe.getFirewallFilter())));
                     } else {
-                        powerNodes.add(new Pair<ILogisticsPowerProvider, List<IFilter>>(
+                        powerNodes.add(new Pair<>(
                                 (ILogisticsPowerProvider) tile,
-                                Collections.unmodifiableList(new ArrayList<IFilter>(0))));
+                                Collections.unmodifiableList(new ArrayList<>(0))));
                     }
                 }
                 if (root && tile instanceof ISubSystemPowerProvider) {
                     if (subPowerProvider == null) {
-                        subPowerProvider = new ArrayList<Pair<ISubSystemPowerProvider, List<IFilter>>>();
+                        subPowerProvider = new ArrayList<>();
                     }
                     // If we are a FireWall pipe add our filter to the pipes
                     if (startPipe.isFirewallPipe()) {
-                        subPowerProvider.add(new Pair<ISubSystemPowerProvider, List<IFilter>>(
-                                (ISubSystemPowerProvider) tile, new OneList<IFilter>(startPipe.getFirewallFilter())));
+                        subPowerProvider.add(new Pair<>(
+                                (ISubSystemPowerProvider) tile, new OneList<>(startPipe.getFirewallFilter())));
                     } else {
-                        subPowerProvider.add(new Pair<ISubSystemPowerProvider, List<IFilter>>(
+                        subPowerProvider.add(new Pair<>(
                                 (ISubSystemPowerProvider) tile,
-                                Collections.unmodifiableList(new ArrayList<IFilter>(0))));
+                                Collections.unmodifiableList(new ArrayList<>(0))));
                     }
                 }
             }
-            connections.add(new Pair<TileEntity, ForgeDirection>(tile, direction));
+            connections.add(new Pair<>(tile, direction));
         }
 
         while (!connections.isEmpty()) {
@@ -275,7 +275,7 @@ public class PathFinder {
                 Collection<TileEntity> list = SimpleServiceLocator.specialtileconnection.getConnectedPipes(tile);
                 if (!list.isEmpty()) {
                     for (TileEntity pipe : list) {
-                        connections.add(new Pair<TileEntity, ForgeDirection>(pipe, direction));
+                        connections.add(new Pair<>(pipe, direction));
                     }
                     listTileEntity(tile);
                     continue;
@@ -357,7 +357,7 @@ public class PathFinder {
                 if (currentPipe instanceof IRouteProvider) {
                     List<RouteInfo> list = ((IRouteProvider) currentPipe).getConnectedPipes(direction.getOpposite());
                     if (list != null) {
-                        result = new HashMap<CoreRoutedPipe, ExitRoute>();
+                        result = new HashMap<>();
                         LPPosition pos = new LPPosition(currentPipe);
                         for (RouteInfo info : list) {
                             if (info.getPipe() == startPipe) continue;
@@ -409,7 +409,7 @@ public class PathFinder {
         // If we are a FireWall pipe add our filter to the pipes
         if (startPipe.isFirewallPipe() && root) {
             for (ExitRoute e : foundPipes.values()) {
-                e.filters = new OneList<IFilter>(startPipe.getFirewallFilter());
+                e.filters = new OneList<>(startPipe.getFirewallFilter());
             }
         }
         return foundPipes;

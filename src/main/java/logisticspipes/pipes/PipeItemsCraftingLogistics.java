@@ -65,8 +65,8 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe
 
     protected ModuleCrafter craftingModule;
 
-    public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<>();
+    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
     private final HUDCrafting HUD = new HUDCrafting(this);
 

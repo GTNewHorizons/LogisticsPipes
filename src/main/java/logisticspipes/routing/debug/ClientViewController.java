@@ -31,18 +31,18 @@ public class ClientViewController implements IDebugHUDProvider {
 
     private LPPosition mainPipe = null;
     private int tick = 0;
-    private final List<LPPosition> canidates = new ArrayList<LPPosition>();
+    private final List<LPPosition> canidates = new ArrayList<>();
     private DebugWindow debugWindow;
 
-    private List<IHeadUpDisplayRendererProvider> listHUD = new ArrayList<IHeadUpDisplayRendererProvider>();
-    private HashMap<LPPosition, DebugInformation> HUDPositions = new HashMap<LPPosition, DebugInformation>();
+    private List<IHeadUpDisplayRendererProvider> listHUD = new ArrayList<>();
+    private HashMap<LPPosition, DebugInformation> HUDPositions = new HashMap<>();
 
     public static class DebugInformation {
 
         public boolean isNew = false;
         public int newIndex = -1;
-        public List<Integer> positions = new ArrayList<Integer>();
-        public List<ExitRoute> routes = new ArrayList<ExitRoute>();
+        public List<Integer> positions = new ArrayList<>();
+        public List<ExitRoute> routes = new ArrayList<>();
         public EnumSet<PipeRoutingConnectionType> closedSet;
         public EnumMap<PipeRoutingConnectionType, List<List<LPPosition>>> filters;
         public EnumSet<PipeRoutingConnectionType> nextFlags;

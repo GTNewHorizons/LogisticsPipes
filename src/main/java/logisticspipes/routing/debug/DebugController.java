@@ -36,8 +36,8 @@ import net.minecraft.util.ChatComponentText;
 
 public class DebugController implements IRoutingDebugAdapter {
 
-    private static HashMap<ICommandSender, DebugController> instances = new HashMap<ICommandSender, DebugController>();
-    public List<WeakReference<ExitRoute>> cachedRoutes = new LinkedList<WeakReference<ExitRoute>>();
+    private static HashMap<ICommandSender, DebugController> instances = new HashMap<>();
+    public List<WeakReference<ExitRoute>> cachedRoutes = new LinkedList<>();
 
     private final ICommandSender sender;
 
@@ -205,7 +205,7 @@ public class DebugController implements IRoutingDebugAdapter {
 
         ExitRoute[] e = candidatesCost.toArray(new ExitRoute[] {});
         if (flag) {
-            LinkedList<ExitRoute> list = new LinkedList<ExitRoute>();
+            LinkedList<ExitRoute> list = new LinkedList<>();
             list.add(nextNode);
             list.addAll(Arrays.asList(e));
             e = list.toArray(new ExitRoute[] {});
@@ -223,7 +223,7 @@ public class DebugController implements IRoutingDebugAdapter {
     @Override
     public void newCanidate(ExitRoute next) {
         next.debug.index = cachedRoutes.size();
-        cachedRoutes.add(new WeakReference<ExitRoute>(next));
+        cachedRoutes.add(new WeakReference<>(next));
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(RoutingUpdateCanidatePipe.class).setExitRoute(next), (EntityPlayer) sender);
     }

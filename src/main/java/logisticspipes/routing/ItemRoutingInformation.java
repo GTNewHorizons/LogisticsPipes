@@ -47,7 +47,7 @@ public class ItemRoutingInformation {
     public int bufferCounter = 0;
     public boolean _doNotBuffer;
     public TransportMode _transportMode = TransportMode.Unknown;
-    public List<Integer> jamlist = new ArrayList<Integer>();
+    public List<Integer> jamlist = new ArrayList<>();
     public IDistanceTracker tracker = null;
     public IAdditionalTargetInformation targetInfo;
 

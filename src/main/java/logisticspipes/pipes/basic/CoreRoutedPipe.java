@@ -164,13 +164,13 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     protected RouteLayer _routeLayer;
     protected TransportLayer _transportLayer;
     protected final PriorityBlockingQueue<ItemRoutingInformation> _inTransitToMe =
-            new PriorityBlockingQueue<ItemRoutingInformation>(10, new ItemRoutingInformation.DelayComparator());
+		new PriorityBlockingQueue<>(10, new ItemRoutingInformation.DelayComparator());
 
     protected UpgradeManager upgradeManager = new UpgradeManager(this);
     protected LogisticsItemOrderManager _orderItemManager = null;
 
     @Getter
-    private List<IOrderInfoProvider> clientSideOrderManager = new ArrayList<IOrderInfoProvider>();
+    private List<IOrderInfoProvider> clientSideOrderManager = new ArrayList<>();
 
     public int stat_session_sent;
     public int stat_session_recieved;
@@ -183,10 +183,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public int server_routing_table_size = 0;
 
     protected final LinkedList<Triplet<IRoutedItem, ForgeDirection, ItemSendMode>> _sendQueue =
-            new LinkedList<Triplet<IRoutedItem, ForgeDirection, ItemSendMode>>();
+		new LinkedList<>();
 
     protected final Map<ItemIdentifier, Queue<Pair<Integer, ItemRoutingInformation>>> queuedDataForUnroutedItems =
-            Collections.synchronizedMap(new TreeMap<ItemIdentifier, Queue<Pair<Integer, ItemRoutingInformation>>>());
+            Collections.synchronizedMap(new TreeMap<>());
 
     public final PlayerCollectionList watchers = new PlayerCollectionList();
 
@@ -253,7 +253,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             throw new NullPointerException();
         }
         _sendQueue.addLast(
-                new Triplet<IRoutedItem, ForgeDirection, ItemSendMode>(routedItem, from, ItemSendMode.Normal));
+			new Triplet<>(routedItem, from, ItemSendMode.Normal));
         sendQueueChanged(false);
     }
 
@@ -261,7 +261,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (from == null) {
             throw new NullPointerException();
         }
-        _sendQueue.addLast(new Triplet<IRoutedItem, ForgeDirection, ItemSendMode>(routedItem, from, mode));
+        _sendQueue.addLast(new Triplet<>(routedItem, from, mode));
         sendQueueChanged(false);
     }
 
@@ -342,7 +342,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return _cachedAdjacentInventories;
         }
         WorldUtil worldUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
-        LinkedList<IInventory> adjacent = new LinkedList<IInventory>();
+        LinkedList<IInventory> adjacent = new LinkedList<>();
         for (AdjacentTile tile : worldUtil.getAdjacentTileEntities(true)) {
             if (!(tile.tile instanceof IInventory)) {
                 continue;
@@ -702,7 +702,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return;
         }
         if (MainProxy.isServer(getWorld())) {
-            ArrayList<ParticleCount> tosend = new ArrayList<ParticleCount>(queuedParticles.length);
+            ArrayList<ParticleCount> tosend = new ArrayList<>(queuedParticles.length);
             for (int i = 0; i < queuedParticles.length; i++) {
                 if (queuedParticles[i] > 0) {
                     tosend.add(new ParticleCount(Particles.values()[i], queuedParticles[i]));
@@ -831,7 +831,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             LPTravelingItemServer item = new LPTravelingItemServer(tagentityitem);
             ForgeDirection from = ForgeDirection.values()[tagentry.getByte("from")];
             ItemSendMode mode = ItemSendMode.values()[tagentry.getByte("mode")];
-            _sendQueue.add(new Triplet<IRoutedItem, ForgeDirection, ItemSendMode>(item, from, mode));
+            _sendQueue.add(new Triplet<>(item, from, mode));
         }
         for (int i = 0; i < 6; i++) {
             if (nbttagcompound.getBoolean("PipeSign_" + i)) {
@@ -1208,7 +1208,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return true;
         }
         if (providersToIgnore == null) {
-            providersToIgnore = new ArrayList<Object>();
+            providersToIgnore = new ArrayList<>();
         }
         if (providersToIgnore.contains(this)) {
             return false;
@@ -1331,7 +1331,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (item != null) {
             synchronized (queuedDataForUnroutedItems) {
 				Queue<Pair<Integer, ItemRoutingInformation>> queue = queuedDataForUnroutedItems.computeIfAbsent(item.getItem(), k -> new LinkedList<Pair<Integer, ItemRoutingInformation>>());
-				queue.add(new Pair<Integer, ItemRoutingInformation>(item.getStackSize(), information));
+				queue.add(new Pair<>(item.getStackSize(), information));
             }
         }
     }
@@ -1724,7 +1724,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     public void sendSignData(EntityPlayer player) {
-        List<Integer> types = new ArrayList<Integer>();
+        List<Integer> types = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             if (signItem[i] == null) {
                 types.add(-1);
@@ -1778,10 +1778,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     public List<Pair<ForgeDirection, IPipeSign>> getPipeSigns() {
-        List<Pair<ForgeDirection, IPipeSign>> list = new ArrayList<Pair<ForgeDirection, IPipeSign>>();
+        List<Pair<ForgeDirection, IPipeSign>> list = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             if (signItem[i] != null) {
-                list.add(new Pair<ForgeDirection, IPipeSign>(ForgeDirection.getOrientation(i), signItem[i]));
+                list.add(new Pair<>(ForgeDirection.getOrientation(i), signItem[i]));
             }
         }
         return list;
@@ -1841,7 +1841,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public void addStatusInformation(List<StatusEntry> status) {
         StatusEntry entry = new StatusEntry();
         entry.name = "Send Queue";
-        entry.subEntry = new ArrayList<StatusEntry>();
+        entry.subEntry = new ArrayList<>();
         for (Triplet<IRoutedItem, ForgeDirection, ItemSendMode> part : _sendQueue) {
             StatusEntry subEntry = new StatusEntry();
             subEntry.name = part.toString();
@@ -1850,7 +1850,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         status.add(entry);
         entry = new StatusEntry();
         entry.name = "In Transit To Me";
-        entry.subEntry = new ArrayList<StatusEntry>();
+        entry.subEntry = new ArrayList<>();
         for (ItemRoutingInformation part : _inTransitToMe) {
             StatusEntry subEntry = new StatusEntry();
             subEntry.name = part.toString();

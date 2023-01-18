@@ -106,7 +106,7 @@ public class ModuleApiaristAnalyser extends LogisticsGuiModule
                 if (SimpleServiceLocator.forestryProxy.isBee(item)) {
                     if (SimpleServiceLocator.forestryProxy.isAnalysedBee(item)) {
                         Pair<Integer, SinkReply> reply =
-                                _service.hasDestination(ItemIdentifier.get(item), true, new ArrayList<Integer>());
+                                _service.hasDestination(ItemIdentifier.get(item), true, new ArrayList<>());
                         if (reply == null) {
                             continue;
                         }
@@ -179,7 +179,7 @@ public class ModuleApiaristAnalyser extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> info = new ArrayList<String>();
+        List<String> info = new ArrayList<>();
         info.add("Extract Mode:");
         info.add(" - " + (extractMode ? "on" : "off"));
         return info;

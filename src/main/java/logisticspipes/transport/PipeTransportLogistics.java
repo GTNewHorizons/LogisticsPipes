@@ -76,11 +76,7 @@ public class PipeTransportLogistics {
                             ItemIdentifierStack,
                             Pair<Integer /* Time */, Integer /* BufferCounter */>,
                             LPTravelingItemServer>>
-            _itemBuffer = new SyncList<
-                    Triplet<
-                            ItemIdentifierStack,
-                            Pair<Integer /* Time */, Integer /* BufferCounter */>,
-                            LPTravelingItemServer>>();
+            _itemBuffer = new SyncList<>();
     private Chunk chunk;
     public LPItemList items = new LPItemList(this);
     public LogisticsTileGenericPipe container;
@@ -134,7 +130,7 @@ public class PipeTransportLogistics {
         moveSolids();
         if (MainProxy.isServer(getWorld())) {
             if (!_itemBuffer.isEmpty()) {
-                List<LPTravelingItem> toAdd = new LinkedList<LPTravelingItem>();
+                List<LPTravelingItem> toAdd = new LinkedList<>();
                 Iterator<Triplet<ItemIdentifierStack, Pair<Integer, Integer>, LPTravelingItemServer>> iterator =
                         _itemBuffer.iterator();
                 while (iterator.hasNext()) {
@@ -297,7 +293,7 @@ public class PipeTransportLogistics {
     }
 
     public ForgeDirection resolveUnroutedDestination(LPTravelingItemServer data) {
-        List<ForgeDirection> dirs = new ArrayList<ForgeDirection>(Arrays.asList(ForgeDirection.VALID_DIRECTIONS));
+        List<ForgeDirection> dirs = new ArrayList<>(Arrays.asList(ForgeDirection.VALID_DIRECTIONS));
         dirs.remove(data.input.getOpposite());
         Iterator<ForgeDirection> iter = dirs.iterator();
         while (iter.hasNext()) {
@@ -346,10 +342,10 @@ public class PipeTransportLogistics {
                                 data.getTransportMode() == TransportMode.Active,
                                 data.getItemIdentifierStack().getItem())
                 && data.getBufferCounter() < MAX_DESTINATION_UNREACHABLE_BUFFER) {
-            _itemBuffer.add(new Triplet<ItemIdentifierStack, Pair<Integer, Integer>, LPTravelingItemServer>(
-                    data.getItemIdentifierStack(),
-                    new Pair<Integer, Integer>(_bufferTimeOut, data.getBufferCounter()),
-                    data));
+            _itemBuffer.add(new Triplet<>(
+				data.getItemIdentifierStack(),
+				new Pair<>(_bufferTimeOut, data.getBufferCounter()),
+				data));
             return null;
         }
 
@@ -367,10 +363,10 @@ public class PipeTransportLogistics {
             return ForgeDirection.UNKNOWN;
         }
         if (value == ForgeDirection.UNKNOWN && !data.getDoNotBuffer() && data.getBufferCounter() < 5) {
-            _itemBuffer.add(new Triplet<ItemIdentifierStack, Pair<Integer, Integer>, LPTravelingItemServer>(
-                    data.getItemIdentifierStack(),
-                    new Pair<Integer, Integer>(_bufferTimeOut, data.getBufferCounter()),
-                    null));
+            _itemBuffer.add(new Triplet<>(
+				data.getItemIdentifierStack(),
+				new Pair<>(_bufferTimeOut, data.getBufferCounter()),
+				null));
             return null;
         }
 
@@ -411,10 +407,10 @@ public class PipeTransportLogistics {
         NBTTagList nbttaglist2 = nbt.getTagList("buffercontents", 10);
         for (int i = 0; i < nbttaglist2.tagCount(); i++) {
             NBTTagCompound nbttagcompound1 = nbttaglist2.getCompoundTagAt(i);
-            _itemBuffer.add(new Triplet<ItemIdentifierStack, Pair<Integer, Integer>, LPTravelingItemServer>(
-                    ItemIdentifierStack.getFromStack(ItemStack.loadItemStackFromNBT(nbttagcompound1)),
-                    new Pair<Integer, Integer>(_bufferTimeOut, 0),
-                    null));
+            _itemBuffer.add(new Triplet<>(
+				ItemIdentifierStack.getFromStack(ItemStack.loadItemStackFromNBT(nbttagcompound1)),
+				new Pair<>(_bufferTimeOut, 0),
+				null));
         }
     }
 
@@ -805,7 +801,7 @@ public class PipeTransportLogistics {
     protected void neighborChange() {}
 
     public List<ItemStack> dropContents() {
-        List<ItemStack> list = new ArrayList<ItemStack>();
+        List<ItemStack> list = new ArrayList<>();
         if (MainProxy.isServer(getWorld())) {
             for (LPTravelingItem item : items) {
                 list.add(item.getItemIdentifierStack().makeNormalStack());
@@ -856,7 +852,7 @@ public class PipeTransportLogistics {
             sendItemContentRequest(travelId);
             item = new LPTravelingItemClient(travelId, position, input, output);
             item.setSpeed(speed);
-            LPTravelingItem.clientList.put(travelId, new WeakReference<LPTravelingItemClient>(item));
+            LPTravelingItem.clientList.put(travelId, new WeakReference<>(item));
         } else {
             if (item.getContainer() instanceof LogisticsTileGenericPipe) {
                 ((LogisticsTileGenericPipe) item.getContainer()).pipe.transport.items.scheduleRemoval(item);

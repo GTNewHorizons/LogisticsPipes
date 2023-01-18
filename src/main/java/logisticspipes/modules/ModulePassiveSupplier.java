@@ -119,7 +119,7 @@ public class ModulePassiveSupplier extends LogisticsSimpleFilterModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Supplied: ");
         list.add("<inventory>");
         list.add("<that>");
@@ -182,7 +182,7 @@ public class ModulePassiveSupplier extends LogisticsSimpleFilterModule
     @Override
     public List<ItemIdentifier> getSpecificInterests() {
         Map<ItemIdentifier, Integer> mapIC = _filterInventory.getItemsAndCount();
-        List<ItemIdentifier> li = new ArrayList<ItemIdentifier>(mapIC.size());
+        List<ItemIdentifier> li = new ArrayList<>(mapIC.size());
         li.addAll(mapIC.keySet());
         return li;
     }

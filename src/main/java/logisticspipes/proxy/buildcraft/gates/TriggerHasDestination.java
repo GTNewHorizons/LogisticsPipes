@@ -39,7 +39,7 @@ public class TriggerHasDestination extends LPTrigger implements ITriggerInternal
                                     ((CoreRoutedPipe) ((LPBCPipe) pipe).pipe.pipe)
                                             .getRouter()
                                             .getSimpleID(),
-                                    new ArrayList<Integer>())
+                            new ArrayList<>())
                             != null) {
                         return true;
                     }

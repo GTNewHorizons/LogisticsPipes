@@ -31,11 +31,11 @@ public class RequestUpdateNamesPacket extends ModernPacket {
         // XXX stubbed out. How do you enumerate every item now?
         // Item[] itemList = Item.itemsList;
         Item[] itemList = new Item[0];
-        List<ItemIdentifier> identList = new LinkedList<ItemIdentifier>();
+        List<ItemIdentifier> identList = new LinkedList<>();
         for (Item item : itemList) {
             if (item != null) {
                 for (CreativeTabs tab : item.getCreativeTabs()) {
-                    List<ItemStack> list = new ArrayList<ItemStack>();
+                    List<ItemStack> list = new ArrayList<>();
                     item.getSubItems(item, tab, list);
                     if (list.size() > 0) {
                         for (ItemStack stack : list) {

@@ -41,7 +41,7 @@ public class LogisticsHUDRenderer {
 
     public IDebugHUDProvider debugHUD = null;
 
-    private LinkedList<IHeadUpDisplayRendererProvider> list = new LinkedList<IHeadUpDisplayRendererProvider>();
+    private LinkedList<IHeadUpDisplayRendererProvider> list = new LinkedList<>();
     private double lastXPos = 0;
     private double lastYPos = 0;
     private double lastZPos = 0;
@@ -50,9 +50,9 @@ public class LogisticsHUDRenderer {
     private long last = 0;
 
     private ArrayList<IHeadUpDisplayBlockRendererProvider> providers =
-            new ArrayList<IHeadUpDisplayBlockRendererProvider>();
+		new ArrayList<>();
 
-    private List<LaserData> lasers = new ArrayList<LaserData>();
+    private List<LaserData> lasers = new ArrayList<>();
 
     private static LogisticsHUDRenderer renderer = null;
 
@@ -92,7 +92,7 @@ public class LogisticsHUDRenderer {
 
     private void refreshList(double x, double y, double z) {
         ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>> newList =
-                new ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>>();
+			new ArrayList<>();
         for (IRouter router : SimpleServiceLocator.routerManager.getRouters()) {
             if (router == null) {
                 continue;
@@ -107,8 +107,8 @@ public class LogisticsHUDRenderer {
                 double dis =
                         Math.hypot(pipe.getX() - x + 0.5, Math.hypot(pipe.getY() - y + 0.5, pipe.getZ() - z + 0.5));
                 if (dis < Configs.LOGISTICS_HUD_RENDER_DISTANCE && dis > 0.75) {
-                    newList.add(new Pair<Double, IHeadUpDisplayRendererProvider>(
-                            dis, (IHeadUpDisplayRendererProvider) pipe));
+                    newList.add(new Pair<>(
+						dis, (IHeadUpDisplayRendererProvider) pipe));
                     if (!list.contains(pipe)) {
                         ((IHeadUpDisplayRendererProvider) pipe).startWatching();
                     }
@@ -116,7 +116,7 @@ public class LogisticsHUDRenderer {
             }
         }
 
-        List<IHeadUpDisplayBlockRendererProvider> remove = new ArrayList<IHeadUpDisplayBlockRendererProvider>();
+        List<IHeadUpDisplayBlockRendererProvider> remove = new ArrayList<>();
         for (IHeadUpDisplayBlockRendererProvider provider : providers) {
             if (MainProxy.getDimensionForWorld(provider.getWorld())
                     == MainProxy.getDimensionForWorld(
@@ -127,7 +127,7 @@ public class LogisticsHUDRenderer {
                         && dis > 0.75
                         && !provider.isHUDInvalid()
                         && provider.isHUDExistent()) {
-                    newList.add(new Pair<Double, IHeadUpDisplayRendererProvider>(dis, provider));
+                    newList.add(new Pair<>(dis, provider));
                     if (!list.contains(provider)) {
                         provider.startWatching();
                     }
@@ -354,7 +354,7 @@ public class LogisticsHUDRenderer {
                         progress - (2 * Math.max(1, (int) Math.floor((System.currentTimeMillis() - last) / 50.0D))), 0);
             }
             if (progress != 0) {
-                List<String> textData = new ArrayList<String>();
+                List<String> textData = new ArrayList<>();
 
                 // TileEntity tile = new LPPosition(box.blockX, box.blockY,
                 // box.blockZ).getTileEntity(DimensionManager.getWorld(0));

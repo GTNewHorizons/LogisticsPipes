@@ -89,7 +89,7 @@ public class ModuleApiaristRefiller extends LogisticsModule {
         }
 
         Pair<Integer, SinkReply> reply =
-                _service.hasDestination(ItemIdentifier.get(stack), true, new ArrayList<Integer>());
+                _service.hasDestination(ItemIdentifier.get(stack), true, new ArrayList<>());
         if (reply == null) {
             return;
         }

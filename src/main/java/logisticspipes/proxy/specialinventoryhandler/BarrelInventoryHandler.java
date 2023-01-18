@@ -113,7 +113,7 @@ public class BarrelInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public Set<ItemIdentifier> getItems() {
-        Set<ItemIdentifier> result = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> result = new TreeSet<>();
         try {
             ItemStack itemStack = (ItemStack) BarrelInventoryHandler.item.get(_tile);
             if (itemStack != null) {
@@ -129,7 +129,7 @@ public class BarrelInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public HashMap<ItemIdentifier, Integer> getItemsAndCount() {
-        HashMap<ItemIdentifier, Integer> map = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> map = new HashMap<>();
         try {
             ItemStack itemStack = (ItemStack) BarrelInventoryHandler.item.get(_tile);
             if (itemStack != null) {

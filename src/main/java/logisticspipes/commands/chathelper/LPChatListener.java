@@ -21,8 +21,8 @@ import net.minecraftforge.event.ServerChatEvent;
 
 public class LPChatListener {
 
-    private static final Map<String, Callable<Boolean>> tasks = new HashMap<String, Callable<Boolean>>();
-    private static final Map<String, MorePageDisplay> morePageDisplays = new HashMap<String, MorePageDisplay>();
+    private static final Map<String, Callable<Boolean>> tasks = new HashMap<>();
+    private static final Map<String, MorePageDisplay> morePageDisplays = new HashMap<>();
 
     private List<String> sendChatMessages = new ArrayList<>();
 

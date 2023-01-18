@@ -65,9 +65,9 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
 
     public LinkedList<ItemIdentifierStack> getContentList(World world) {
         if (MainProxy.isClient(world) || _orders.size() == 0) {
-            return new LinkedList<ItemIdentifierStack>();
+            return new LinkedList<>();
         }
-        LinkedList<ItemIdentifierStack> list = new LinkedList<ItemIdentifierStack>();
+        LinkedList<ItemIdentifierStack> list = new LinkedList<>();
         for (LogisticsOrder request : _orders) {
             LogisticsOrderManager.addToList(request.getAsDisplayItem(), list);
         }

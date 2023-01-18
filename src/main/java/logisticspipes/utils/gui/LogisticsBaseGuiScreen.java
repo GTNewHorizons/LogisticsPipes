@@ -55,7 +55,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     protected final int yCenterOffset;
 
     private SubGuiScreen subGui;
-    protected List<IRenderSlot> slots = new ArrayList<IRenderSlot>();
+    protected List<IRenderSlot> slots = new ArrayList<>();
     protected GuiExtentionController extentionControllerLeft = new GuiExtentionController(GuiSide.LEFT);
     protected GuiExtentionController extentionControllerRight = new GuiExtentionController(GuiSide.RIGHT);
     private GuiButton selectedButton;
@@ -66,7 +66,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     private IFuzzySlot fuzzySlot;
     private boolean fuzzySlotActiveGui;
     private int fuzzySlotGuiHoverTime;
-    private Queue<Runnable> renderAtTheEnd = new LinkedList<Runnable>();
+    private Queue<Runnable> renderAtTheEnd = new LinkedList<>();
 
     public LogisticsBaseGuiScreen(int xSize, int ySize, int xCenterOffset, int yCenterOffset) {
         this(new DummyContainer(null, null), xSize, ySize, xCenterOffset, yCenterOffset);
@@ -201,7 +201,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
                     if (slot.displayToolTip()) {
                         if (slot.getToolTipText() != null
                                 && !slot.getToolTipText().equals("")) {
-                            ArrayList<String> list = new ArrayList<String>();
+                            ArrayList<String> list = new ArrayList<>();
                             list.add(slot.getToolTipText());
                             GuiGraphics.drawToolTip(par1, par2, list, EnumChatFormatting.WHITE);
                         }

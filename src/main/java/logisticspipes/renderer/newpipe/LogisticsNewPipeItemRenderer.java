@@ -69,18 +69,18 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
 
     private void generatePipeRenderList(int texture) {
         List<Pair<IModel3D, IIconTransformation>> objectsToRender =
-                new ArrayList<Pair<IModel3D, IIconTransformation>>();
+			new ArrayList<>();
 
         for (Corner corner : Corner.values()) {
             for (IModel3D model : LogisticsNewRenderPipe.corners_M.get(corner)) {
                 objectsToRender.add(
-                        new Pair<IModel3D, IIconTransformation>(model, LogisticsNewRenderPipe.basicTexture));
+					new Pair<>(model, LogisticsNewRenderPipe.basicTexture));
             }
         }
 
         for (Edge edge : Edge.values()) {
-            objectsToRender.add(new Pair<IModel3D, IIconTransformation>(
-                    LogisticsNewRenderPipe.edges.get(edge), LogisticsNewRenderPipe.basicTexture));
+            objectsToRender.add(new Pair<>(
+				LogisticsNewRenderPipe.edges.get(edge), LogisticsNewRenderPipe.basicTexture));
         }
 
         // ArrayList<Pair<CCModel, IconTransformation>> objectsToRender2 = new ArrayList<Pair<CCModel,
@@ -89,7 +89,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
             for (IModel3D model : LogisticsNewRenderPipe.texturePlate_Outer.get(dir)) {
                 IIconTransformation icon = Textures.LPnewPipeIconProvider.getIcon(texture);
                 if (icon != null) {
-                    objectsToRender.add(new Pair<IModel3D, IIconTransformation>(model, icon));
+                    objectsToRender.add(new Pair<>(model, icon));
                 }
             }
         }

@@ -67,21 +67,21 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
             router.forceLsaUpdate();
 
             List<List<ExitRoute>> exits = router.getRouteTable();
-            HashMap<ForgeDirection, ArrayList<ExitRoute>> routers = new HashMap<ForgeDirection, ArrayList<ExitRoute>>();
+            HashMap<ForgeDirection, ArrayList<ExitRoute>> routers = new HashMap<>();
             for (List<ExitRoute> exit : exits) {
                 if (exit == null) {
                     continue;
                 }
                 for (ExitRoute e : exit) {
                     if (!routers.containsKey(e.exitOrientation)) {
-                        routers.put(e.exitOrientation, new ArrayList<ExitRoute>());
+                        routers.put(e.exitOrientation, new ArrayList<>());
                     }
                     if (!routers.get(e.exitOrientation).contains(e)) {
                         routers.get(e.exitOrientation).add(e);
                     }
                 }
             }
-            ArrayList<LaserData> lasers = new ArrayList<LaserData>();
+            ArrayList<LaserData> lasers = new ArrayList<>();
             firstPipe = true;
             for (final ForgeDirection dir : routers.keySet()) {
                 if (dir == ForgeDirection.UNKNOWN) {
@@ -111,7 +111,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
             final List<LaserData> lasersIn,
             EnumSet<PipeRoutingConnectionType> connectionTypeIn,
             final Log logIn) {
-        List<DataEntry> worklist = new LinkedList<DataEntry>();
+        List<DataEntry> worklist = new LinkedList<>();
         worklist.add(new DataEntry(pipeIn, dirIn, connectedRoutersIn, lasersIn, connectionTypeIn, logIn));
         while (!worklist.isEmpty()) {
             final DataEntry entry = worklist.remove(0);
@@ -142,7 +142,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                 IRouter newRouter = connectedPipe.getRouter();
 				connectedRouters.removeIf(route -> route.destination == newRouter);
             }
-            Map<CoreRoutedPipe, ArrayList<ExitRoute>> sort = new HashMap<CoreRoutedPipe, ArrayList<ExitRoute>>();
+            Map<CoreRoutedPipe, ArrayList<ExitRoute>> sort = new HashMap<>();
             for (ExitRoute routeTo : connectedRouters) {
                 ExitRoute result = null;
                 CoreRoutedPipe resultPipe = null;
@@ -162,7 +162,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                     continue;
                 }
                 if (!sort.containsKey(resultPipe)) {
-                    sort.put(resultPipe, new ArrayList<ExitRoute>());
+                    sort.put(resultPipe, new ArrayList<>());
                 }
                 if (!sort.get(resultPipe).contains(result)) {
                     sort.get(resultPipe).add(result);
@@ -171,10 +171,10 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
 
             for (Entry<CoreRoutedPipe, ArrayList<ExitRoute>> connectedPipe : sort.entrySet()) {
                 HashMap<ForgeDirection, ArrayList<ExitRoute>> routers =
-                        new HashMap<ForgeDirection, ArrayList<ExitRoute>>();
+					new HashMap<>();
                 for (ExitRoute exit : connectedPipe.getValue()) {
                     if (!routers.containsKey(exit.exitOrientation)) {
-                        routers.put(exit.exitOrientation, new ArrayList<ExitRoute>());
+                        routers.put(exit.exitOrientation, new ArrayList<>());
                     }
                     if (!routers.get(exit.exitOrientation).contains(exit)) {
                         routers.get(exit.exitOrientation).add(exit);
@@ -205,7 +205,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
     }
 
     private ArrayList<LaserData> compressLasers(ArrayList<LaserData> lasers) {
-        ArrayList<LaserData> options = new ArrayList<LaserData>();
+        ArrayList<LaserData> options = new ArrayList<>();
         options.addAll(lasers);
         Iterator<LaserData> iLasers = lasers.iterator();
         while (iLasers.hasNext()) {

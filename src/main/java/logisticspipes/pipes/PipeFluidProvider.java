@@ -148,7 +148,7 @@ public class PipeFluidProvider extends FluidRoutedPipe implements IProvideFluids
 
     @Override
     public Map<FluidIdentifier, Integer> getAvailableFluids() {
-        Map<FluidIdentifier, Integer> map = new HashMap<FluidIdentifier, Integer>();
+        Map<FluidIdentifier, Integer> map = new HashMap<>();
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(false)) {
             boolean fallback = true;
             if (SimpleServiceLocator.specialTankHandler.hasHandlerFor(pair.getValue1())) {
@@ -203,7 +203,7 @@ public class PipeFluidProvider extends FluidRoutedPipe implements IProvideFluids
                 }
             }
         }
-        Map<FluidIdentifier, Integer> result = new HashMap<FluidIdentifier, Integer>();
+        Map<FluidIdentifier, Integer> result = new HashMap<>();
         // Reduce what has been reserved, add.
         for (Entry<FluidIdentifier, Integer> fluid : map.entrySet()) {
             int remaining = fluid.getValue() - getFluidOrderManager().totalFluidsCountInOrders(fluid.getKey());
@@ -310,7 +310,7 @@ public class PipeFluidProvider extends FluidRoutedPipe implements IProvideFluids
     @Override
     // work in progress, currently not active code.
     public Set<ItemIdentifier> getSpecificInterests() {
-        Set<ItemIdentifier> l1 = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> l1 = new TreeSet<>();
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(false)) {
             boolean fallback = true;
             if (SimpleServiceLocator.specialTankHandler.hasHandlerFor(pair.getValue1())) {

@@ -64,7 +64,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     public static LogisticsNewPipeItemBoxRenderer boxRenderer = new LogisticsNewPipeItemBoxRenderer();
     public static PlayerConfig config;
     private static ItemStackRenderer itemRenderer = new ItemStackRenderer(0, 0, 0, false, false, false);
-    private static Map<IPipeSignData, GLRenderList> pipeSignRenderListMap = new HashMap<IPipeSignData, GLRenderList>();
+    private static Map<IPipeSignData, GLRenderList> pipeSignRenderListMap = new HashMap<>();
     private static int localItemTestRenderList = -1;
 
     private final int[] angleY = {0, 0, 270, 90, 0, 180};
@@ -272,7 +272,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     }
 
     private boolean needDistance(List<Pair<ForgeDirection, IPipeSign>> list) {
-        List<Pair<ForgeDirection, IPipeSign>> copy = new ArrayList<Pair<ForgeDirection, IPipeSign>>(list);
+        List<Pair<ForgeDirection, IPipeSign>> copy = new ArrayList<>(list);
         Iterator<Pair<ForgeDirection, IPipeSign>> iter = copy.iterator();
         boolean north = false, south = false, east = false, west = false;
         while (iter.hasNext()) {

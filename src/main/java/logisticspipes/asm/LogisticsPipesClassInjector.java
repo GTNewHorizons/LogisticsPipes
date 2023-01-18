@@ -78,7 +78,7 @@ public class LogisticsPipesClassInjector implements IClassTransformer {
                 Class<?> clazz = Launch.classLoader.findClass(correctName);
                 bytes = ClassCreator.getWrappedClassAsBytes(
                         CCObjectWrapper.getWrapperInformation(clazz), clazz.getName());
-                Set<String> set = new TreeSet<String>();
+                Set<String> set = new TreeSet<>();
                 set.add(name);
                 Launch.classLoader.clearNegativeEntries(set);
                 Map<String, byte[]> map = (Map<String, byte[]>) fResourceCache.get(Launch.classLoader);

@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 
 public class LPPipeIconProvider implements IIconProvider {
 
-    public ArrayList<IIcon> icons = new ArrayList<IIcon>();
+    public ArrayList<IIcon> icons = new ArrayList<>();
 
     @Override
     public IIcon getIcon(int iconIndex) {

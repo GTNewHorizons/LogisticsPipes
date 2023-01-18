@@ -186,7 +186,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
             if (!CanExtract(item.getKey().makeNormalStack(item.getValue()))) {
                 continue;
             }
-            List<Integer> jamList = new LinkedList<Integer>();
+            List<Integer> jamList = new LinkedList<>();
             Pair<Integer, SinkReply> reply = _service.hasDestination(item.getKey(), true, jamList);
             if (reply == null) {
                 continue;
@@ -260,7 +260,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>(5);
+        List<String> list = new ArrayList<>(5);
         list.add(areItemsIncluded() ? "Included" : "Excluded");
         list.add("Extraction: " + ((_sneakyDirection == ForgeDirection.UNKNOWN) ? "DEFAULT" : _sneakyDirection.name()));
         list.add("Filter: ");

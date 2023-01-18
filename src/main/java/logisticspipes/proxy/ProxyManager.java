@@ -737,7 +737,7 @@ public class ProxyManager {
 
                     @Override
                     public List<TileEntity> getConnectedTesseracts(TileEntity tile) {
-                        return new ArrayList<TileEntity>(0);
+                        return new ArrayList<>(0);
                     }
 
                     @Override
@@ -798,7 +798,7 @@ public class ProxyManager {
                     @Override
                     public List<String> getInfoForPosition(
                             World world, EntityPlayer player, MovingObjectPosition objectMouseOver) {
-                        return new ArrayList<String>(0);
+                        return new ArrayList<>(0);
                     }
 
                     @Override
@@ -847,7 +847,7 @@ public class ProxyManager {
 
                     @Override
                     public List<TileEntity> getConnectedHyperCubes(TileEntity tile) {
-                        return new ArrayList<TileEntity>(0);
+                        return new ArrayList<>(0);
                     }
 
                     @Override
@@ -1046,7 +1046,7 @@ public class ProxyManager {
 
             @Override
             public Map<String, IModel3D> parseObjModels(InputStream resourceAsStream, int i, LPScale scale) {
-                return new HashMap<String, IModel3D>();
+                return new HashMap<>();
             }
 
             @Override

@@ -16,7 +16,7 @@ import org.lwjgl.input.Keyboard;
 public final class StringUtils {
 
     public static final String KEY_HOLDSHIFT = "misc.holdshift";
-    public static final List<String> UNTRANSLATED_STRINGS = new ArrayList<String>();
+    public static final List<String> UNTRANSLATED_STRINGS = new ArrayList<>();
 
     private StringUtils() {}
 
@@ -34,7 +34,7 @@ public final class StringUtils {
                 if (c2 == 'c') {
                     StringBuilder handled = new StringBuilder();
                     ChatColor[] values = ChatColor.values();
-                    List<ChatColor> colors = new ArrayList<ChatColor>(values.length);
+                    List<ChatColor> colors = new ArrayList<>(values.length);
                     colors.addAll(Arrays.asList(values));
                     int i = 0;
                     outer:

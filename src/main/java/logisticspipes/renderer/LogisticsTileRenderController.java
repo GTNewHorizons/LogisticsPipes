@@ -24,8 +24,8 @@ public class LogisticsTileRenderController {
 
     private final LogisticsTileGenericPipe pipe;
     private final int LASER_TIMEOUT_TICKS = 4;
-    private final Map<LaserKey, LaserBeamData> powerLasersBeam = new HashMap<LaserKey, LaserBeamData>();
-    private final Map<Integer, LaserBallData> powerLasersBall = new HashMap<Integer, LaserBallData>();
+    private final Map<LaserKey, LaserBeamData> powerLasersBeam = new HashMap<>();
+    private final Map<Integer, LaserBallData> powerLasersBall = new HashMap<>();
 
     @Data
     @AllArgsConstructor

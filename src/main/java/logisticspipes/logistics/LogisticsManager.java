@@ -61,7 +61,7 @@ public class LogisticsManager implements ILogisticsManager {
             return null;
         }
         BitSet routersIndex = ServerRouter.getRoutersInterestedIn(stack);
-        List<ExitRoute> validDestinations = new ArrayList<ExitRoute>(); // get the routing table
+        List<ExitRoute> validDestinations = new ArrayList<>(); // get the routing table
         for (int i = routersIndex.nextSetBit(0); i >= 0; i = routersIndex.nextSetBit(i + 1)) {
             IRouter r = SimpleServiceLocator.routerManager.getRouterUnsafe(i, false);
             List<ExitRoute> exits = sourceRouter.getDistanceTo(r);
@@ -115,7 +115,7 @@ public class LogisticsManager implements ILogisticsManager {
                 SimpleServiceLocator.routerManager.getRouter(sourceRouter),
                 SimpleServiceLocator.routerManager.getRouter(sourceRouter).getIRoutersByCost(),
                 excludeSource,
-                new ArrayList<Integer>(),
+			new ArrayList<>(),
                 null,
                 true);
         if (search.getValue2() == null) {
@@ -136,7 +136,7 @@ public class LogisticsManager implements ILogisticsManager {
             Triplet<Integer, SinkReply, List<IFilter>> result,
             boolean allowDefault) {
         if (result == null) {
-            result = new Triplet<Integer, SinkReply, List<IFilter>>(null, null, null);
+            result = new Triplet<>(null, null, null);
         }
 
         outer:
@@ -175,7 +175,7 @@ public class LogisticsManager implements ILogisticsManager {
             if (result.getValue1() == null) {
                 result.setValue1(candidateRouter.destination.getSimpleID());
                 result.setValue2(reply);
-                List<IFilter> list = new LinkedList<IFilter>();
+                List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
                 continue;
             }
@@ -183,7 +183,7 @@ public class LogisticsManager implements ILogisticsManager {
             if (reply.fixedPriority.ordinal() > result.getValue2().fixedPriority.ordinal()) {
                 result.setValue1(candidateRouter.destination.getSimpleID());
                 result.setValue2(reply);
-                List<IFilter> list = new LinkedList<IFilter>();
+                List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
                 continue;
             }
@@ -192,7 +192,7 @@ public class LogisticsManager implements ILogisticsManager {
                     && reply.customPriority > result.getValue2().customPriority) {
                 result.setValue1(candidateRouter.destination.getSimpleID());
                 result.setValue2(reply);
-                List<IFilter> list = new LinkedList<IFilter>();
+                List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
 			}
         }
@@ -274,7 +274,7 @@ public class LogisticsManager implements ILogisticsManager {
 
         BitSet routersIndex = ServerRouter.getRoutersInterestedIn(
                 item.getItemIdentifierStack().getItem());
-        List<ExitRoute> validDestinations = new ArrayList<ExitRoute>(); // get the routing table
+        List<ExitRoute> validDestinations = new ArrayList<>(); // get the routing table
         for (int i = routersIndex.nextSetBit(0); i >= 0; i = routersIndex.nextSetBit(i + 1)) {
             IRouter r = SimpleServiceLocator.routerManager.getRouterUnsafe(i, false);
             List<ExitRoute> exits = sourceRouter.getDistanceTo(r);
@@ -370,9 +370,9 @@ public class LogisticsManager implements ILogisticsManager {
     public HashMap<ItemIdentifier, Integer> getAvailableItems(List<ExitRoute> validDestinations) {
         // TODO: Replace this entire function wiht a fetch from the pre-built arrays (path incoming later)
         List<Map<ItemIdentifier, Integer>> items =
-                new ArrayList<Map<ItemIdentifier, Integer>>(ServerRouter.getBiggestSimpleID());
+			new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
-            items.add(new HashMap<ItemIdentifier, Integer>());
+            items.add(new HashMap<>());
         }
         BitSet used = new BitSet(ServerRouter.getBiggestSimpleID());
         outer:
@@ -396,7 +396,7 @@ public class LogisticsManager implements ILogisticsManager {
             used.set(r.destination.getSimpleID(), true);
         }
         // TODO: Fix this doubly nested list
-        HashMap<ItemIdentifier, Integer> allAvailableItems = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> allAvailableItems = new HashMap<>();
         for (Map<ItemIdentifier, Integer> allItems : items) {
             for (Entry<ItemIdentifier, Integer> item : allItems.entrySet()) {
 				allAvailableItems.merge(item.getKey(), item.getValue(), Integer::sum);
@@ -412,7 +412,7 @@ public class LogisticsManager implements ILogisticsManager {
      */
     @Override
     public LinkedList<ItemIdentifier> getCraftableItems(List<ExitRoute> validDestinations) {
-        LinkedList<ItemIdentifier> craftableItems = new LinkedList<ItemIdentifier>();
+        LinkedList<ItemIdentifier> craftableItems = new LinkedList<>();
         BitSet used = new BitSet(ServerRouter.getBiggestSimpleID());
         outer:
         for (ExitRoute r : validDestinations) {
@@ -457,9 +457,9 @@ public class LogisticsManager implements ILogisticsManager {
     public int getAmountFor(ItemIdentifier itemType, List<ExitRoute> validDestinations) {
         // TODO: Replace this entire function wiht a fetch from the pre-built arrays (path incoming later)
         List<Map<ItemIdentifier, Integer>> items =
-                new ArrayList<Map<ItemIdentifier, Integer>>(ServerRouter.getBiggestSimpleID());
+			new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
-            items.add(new HashMap<ItemIdentifier, Integer>());
+            items.add(new HashMap<>());
         }
         BitSet used = new BitSet(ServerRouter.getBiggestSimpleID());
         outer:

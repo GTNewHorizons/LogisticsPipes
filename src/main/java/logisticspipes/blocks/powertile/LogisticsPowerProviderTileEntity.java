@@ -61,7 +61,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     // true if it needs more power, turns off at full, turns on at 50%.
     public boolean needMorePowerTriggerCheck = true;
 
-    protected Map<Integer, Float> orders = new HashMap<Integer, Float>();
+    protected Map<Integer, Float> orders = new HashMap<>();
     protected BitSet reOrdered = new BitSet(ServerRouter.getBiggestSimpleID());
     protected boolean pauseRequesting = false;
 
@@ -167,8 +167,8 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
             return;
         }
         LinkedList<Triplet<IRouter, ForgeDirection, Boolean>> todo =
-                new LinkedList<Triplet<IRouter, ForgeDirection, Boolean>>();
-        todo.add(new Triplet<IRouter, ForgeDirection, Boolean>(sourceRouter, exitOrientation, addBall));
+                new LinkedList<>();
+        todo.add(new Triplet<>(sourceRouter, exitOrientation, addBall));
         while (!todo.isEmpty()) {
             Triplet<IRouter, ForgeDirection, Boolean> part = todo.pollFirst();
             List<ExitRoute> exits = part.getValue1().getRoutersOnSide(part.getValue2());
@@ -194,7 +194,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
                                     continue outerRouters;
                                 }
                             }
-                            todo.addLast(new Triplet<IRouter, ForgeDirection, Boolean>(
+                            todo.addLast(new Triplet<>(
                                     nextRouter,
                                     newExit.exitOrientation,
                                     newExit.exitOrientation != exit.exitOrientation));

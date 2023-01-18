@@ -43,7 +43,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
     public static final ICommandWrapper WRAPPER = new ICommandWrapper() {
 
         private Map<Class<?>, Class<? extends BaseWrapperClass>> map =
-                new HashMap<Class<?>, Class<? extends BaseWrapperClass>>();
+			new HashMap<>();
 
         @Override
         public Object getWrappedObject(CCWrapperInformation info, Object object) {

@@ -105,7 +105,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     private boolean convertFromMeta = false;
 
     // HUD
-    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
     private HudChassisPipe hud;
 
@@ -127,7 +127,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         if (_cachedAdjacentInventories != null) {
             return _cachedAdjacentInventories;
         }
-        List<IInventory> adjacent = new ArrayList<IInventory>(1);
+        List<IInventory> adjacent = new ArrayList<>(1);
         IInventory adjinv = getRealInventory();
         if (adjinv != null) {
             adjacent.add(adjinv);
@@ -657,7 +657,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
 
     @Override
     public Set<ItemIdentifier> getSpecificInterests() {
-        Set<ItemIdentifier> l1 = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> l1 = new TreeSet<>();
         // if we don't have a pointed inventory we can't be interested in anything
         if (getRealInventory() == null) {
             return l1;
@@ -732,7 +732,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     public abstract ResourceLocation getChassiGUITexture();
 
     /** ICraftItems */
-    public final LinkedList<LogisticsOrder> _extras = new LinkedList<LogisticsOrder>();
+    public final LinkedList<LogisticsOrder> _extras = new LinkedList<>();
 
     @Override
     public void registerExtras(IPromise promise) {
@@ -768,7 +768,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
 
             if (x != null && x instanceof ICraftItems) {
                 if (craftables == null) {
-                    craftables = new LinkedList<ItemIdentifierStack>();
+                    craftables = new LinkedList<>();
                 }
                 craftables.addAll(((ICraftItems) x).getCraftedItems());
             }

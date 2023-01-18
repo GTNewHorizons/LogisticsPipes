@@ -10,7 +10,7 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
 
     private int current_Tab;
 
-    private final List<TabSubGui> tabList = new ArrayList<TabSubGui>();
+    private final List<TabSubGui> tabList = new ArrayList<>();
 
     public LogisticsBaseTabGuiScreen(int xSize, int ySize) {
         super(xSize, ySize, 0, 0);
@@ -171,8 +171,8 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
 
     protected abstract class TabSubGui {
 
-        private final List<Slot> TAB_SLOTS = new ArrayList<Slot>();
-        private final List<GuiButton> TAB_BUTTONS = new ArrayList<GuiButton>();
+        private final List<Slot> TAB_SLOTS = new ArrayList<>();
+        private final List<GuiButton> TAB_BUTTONS = new ArrayList<>();
 
         public abstract void renderIcon(int x, int y);
 

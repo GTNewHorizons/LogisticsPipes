@@ -27,7 +27,7 @@ public class PlayerListRequest extends ModernPacket {
 
     @Override
     public void processPacket(EntityPlayer player) {
-        List<String> list = new LinkedList<String>();
+        List<String> list = new LinkedList<>();
         for (WorldServer world : DimensionManager.getWorlds()) {
             for (Object o : world.playerEntities) {
                 if (o instanceof EntityPlayer) {

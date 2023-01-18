@@ -20,11 +20,11 @@ public class ComponentList extends ModernPacket {
 
     @Getter
     @Setter
-    private Collection<IResource> used = new ArrayList<IResource>();
+    private Collection<IResource> used = new ArrayList<>();
 
     @Getter
     @Setter
-    private Collection<IResource> missing = new ArrayList<IResource>();
+    private Collection<IResource> missing = new ArrayList<>();
 
     public ComponentList(int id) {
         super(id);

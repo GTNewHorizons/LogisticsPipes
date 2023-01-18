@@ -44,7 +44,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ModuleOreDictItemSink extends LogisticsGuiModule
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
 
-    public final List<String> oreList = new LinkedList<String>();
+    public final List<String> oreList = new LinkedList<>();
     // map of Item:<set of damagevalues>, empty set if wildcard damage
     private Map<Item, Set<Integer>> oreItemIdMap;
 
@@ -112,8 +112,8 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
     }
 
     private void buildOreItemIdMap() {
-        oreItemIdMap = new HashMap<Item, Set<Integer>>();
-        oreHudList = new ArrayList<ItemIdentifierStack>(oreList.size());
+        oreItemIdMap = new HashMap<>();
+        oreHudList = new ArrayList<>(oreList.size());
         for (String orename : oreList) {
             List<ItemStack> items = OreDictionary.getOres(orename);
             ItemStack stackForHud = null;
@@ -123,11 +123,11 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
                         stackForHud = stack;
                     }
                     if (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-                        oreItemIdMap.put(stack.getItem(), new TreeSet<Integer>());
+                        oreItemIdMap.put(stack.getItem(), new TreeSet<>());
                     } else {
                         Set<Integer> damageSet = oreItemIdMap.get(stack.getItem());
                         if (damageSet == null) {
-                            damageSet = new TreeSet<Integer>();
+                            damageSet = new TreeSet<>();
                             damageSet.add(stack.getItemDamage());
                             oreItemIdMap.put(stack.getItem(), damageSet);
                         } else if (!damageSet.isEmpty()) {
@@ -175,7 +175,7 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Ores: ");
         list.addAll(oreList);
         return list;

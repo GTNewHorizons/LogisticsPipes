@@ -24,7 +24,7 @@ public class ReflectionHelper {
     }
 
     private static final Map<Triplet<Class<?>, String, List<Class<?>>>, Method> methodCache =
-            new HashMap<Triplet<Class<?>, String, List<Class<?>>>, Method>();
+            new HashMap<>();
 
     @SuppressWarnings("unchecked")
     public static <T> T invokePrivateMethod(
@@ -32,7 +32,7 @@ public class ReflectionHelper {
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
                     InvocationTargetException {
         Triplet<Class<?>, String, List<Class<?>>> key =
-                new Triplet<Class<?>, String, List<Class<?>>>(clazz, name, Arrays.asList(classes));
+                new Triplet<>(clazz, name, Arrays.asList(classes));
         Method method = ReflectionHelper.methodCache.get(key);
         if (method == null) {
             try {

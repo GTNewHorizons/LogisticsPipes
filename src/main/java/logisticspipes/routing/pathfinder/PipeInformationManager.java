@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class PipeInformationManager {
 
     private Map<Class<?> /*TileEntity*/, Class<? extends IPipeInformationProvider>> infoProvider =
-            new HashMap<Class<?>, Class<? extends IPipeInformationProvider>>();
+            new HashMap<>();
 
     public IPipeInformationProvider getInformationProviderFor(TileEntity tile) {
         if (tile == null) {

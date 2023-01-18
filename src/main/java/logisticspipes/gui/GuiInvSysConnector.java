@@ -32,7 +32,7 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
     private static final String PREFIX = "gui.invsyscon.";
 
     private int page = 0;
-    private final List<ItemIdentifierStack> _allItems = new ArrayList<ItemIdentifierStack>();
+    private final List<ItemIdentifierStack> _allItems = new ArrayList<>();
     private final PipeItemsInvSysConnector pipe;
     private int localresistance;
 

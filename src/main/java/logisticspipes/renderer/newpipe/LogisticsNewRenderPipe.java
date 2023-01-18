@@ -173,7 +173,7 @@ public class LogisticsNewRenderPipe {
         }
 
         public ForgeDirection getPointer() {
-            List<ForgeDirection> canidates = new ArrayList<ForgeDirection>();
+            List<ForgeDirection> canidates = new ArrayList<>();
             canidates.add(corner.ew.dir);
             canidates.add(corner.ns.dir);
             canidates.add(corner.ud.dir);
@@ -256,24 +256,23 @@ public class LogisticsNewRenderPipe {
         }
     }
 
-    static Map<ForgeDirection, List<IModel3D>> sideNormal = new HashMap<ForgeDirection, List<IModel3D>>();
-    static Map<ForgeDirection, List<IModel3D>> sideBC = new HashMap<ForgeDirection, List<IModel3D>>();
-    static Map<Edge, IModel3D> edges = new HashMap<Edge, IModel3D>();
-    static Map<Corner, List<IModel3D>> corners_M = new HashMap<Corner, List<IModel3D>>();
-    static Map<Corner, List<IModel3D>> corners_I3 = new HashMap<Corner, List<IModel3D>>();
-    static Map<Turn_Corner, IModel3D> corners_I = new HashMap<Turn_Corner, IModel3D>();
-    static Map<Support, IModel3D> supports = new HashMap<Support, IModel3D>();
-    static Map<Turn_Corner, IModel3D> spacers = new HashMap<Turn_Corner, IModel3D>();
-    static Map<Mount, IModel3D> mounts = new HashMap<Mount, IModel3D>();
+    static Map<ForgeDirection, List<IModel3D>> sideNormal = new HashMap<>();
+    static Map<ForgeDirection, List<IModel3D>> sideBC = new HashMap<>();
+    static Map<Edge, IModel3D> edges = new HashMap<>();
+    static Map<Corner, List<IModel3D>> corners_M = new HashMap<>();
+    static Map<Corner, List<IModel3D>> corners_I3 = new HashMap<>();
+    static Map<Turn_Corner, IModel3D> corners_I = new HashMap<>();
+    static Map<Support, IModel3D> supports = new HashMap<>();
+    static Map<Turn_Corner, IModel3D> spacers = new HashMap<>();
+    static Map<Mount, IModel3D> mounts = new HashMap<>();
 
-    static Map<ForgeDirection, List<IModel3D>> texturePlate_Inner = new HashMap<ForgeDirection, List<IModel3D>>();
-    static Map<ForgeDirection, List<IModel3D>> texturePlate_Outer = new HashMap<ForgeDirection, List<IModel3D>>();
+    static Map<ForgeDirection, List<IModel3D>> texturePlate_Inner = new HashMap<>();
+    static Map<ForgeDirection, List<IModel3D>> texturePlate_Outer = new HashMap<>();
     static Map<ForgeDirection, Quartet<List<IModel3D>, List<IModel3D>, List<IModel3D>, List<IModel3D>>>
-            sideTexturePlate = new HashMap<
-                    ForgeDirection, Quartet<List<IModel3D>, List<IModel3D>, List<IModel3D>, List<IModel3D>>>();
-    static Map<Mount, List<IModel3D>> textureConnectorPlate = new HashMap<Mount, List<IModel3D>>();
+            sideTexturePlate = new HashMap<>();
+    static Map<Mount, List<IModel3D>> textureConnectorPlate = new HashMap<>();
 
-    static Map<ScaleObject, IModel3D> scaleMap = new HashMap<ScaleObject, IModel3D>();
+    static Map<ScaleObject, IModel3D> scaleMap = new HashMap<>();
 
     @Data
     @AllArgsConstructor
@@ -307,7 +306,7 @@ public class LogisticsNewRenderPipe {
                     new LPScale(1 / 100f));
 
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                LogisticsNewRenderPipe.sideNormal.put(dir, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.sideNormal.put(dir, new ArrayList<>());
                 String grp = "Side_" + LogisticsNewRenderPipe.getDirAsString_Type1(dir);
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp + " ")
@@ -325,7 +324,7 @@ public class LogisticsNewRenderPipe {
             }
 
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                LogisticsNewRenderPipe.sideBC.put(dir, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.sideBC.put(dir, new ArrayList<>());
                 String grp = "Side_BC_" + LogisticsNewRenderPipe.getDirAsString_Type1(dir);
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp + " ")
@@ -367,7 +366,7 @@ public class LogisticsNewRenderPipe {
             }
 
             for (Corner corner : Corner.values()) {
-                LogisticsNewRenderPipe.corners_M.put(corner, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.corners_M.put(corner, new ArrayList<>());
                 String grp = "Corner_M_" + corner.ud.s + "_" + corner.ns.s + corner.ew.s;
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp + " ")
@@ -385,7 +384,7 @@ public class LogisticsNewRenderPipe {
             }
 
             for (Corner corner : Corner.values()) {
-                LogisticsNewRenderPipe.corners_I3.put(corner, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.corners_I3.put(corner, new ArrayList<>());
                 String grp = "Corner_I3_" + corner.ud.s + "_" + corner.ns.s + corner.ew.s;
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp + " ")
@@ -493,7 +492,7 @@ public class LogisticsNewRenderPipe {
             }
 
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                LogisticsNewRenderPipe.texturePlate_Inner.put(dir, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.texturePlate_Inner.put(dir, new ArrayList<>());
                 String grp = "Inner_Plate_" + LogisticsNewRenderPipe.getDirAsString_Type1(dir);
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp)) {
@@ -510,7 +509,7 @@ public class LogisticsNewRenderPipe {
             }
 
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                LogisticsNewRenderPipe.texturePlate_Outer.put(dir, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.texturePlate_Outer.put(dir, new ArrayList<>());
                 String grp = "Texture_Plate_" + LogisticsNewRenderPipe.getDirAsString_Type1(dir);
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp)) {
@@ -533,11 +532,11 @@ public class LogisticsNewRenderPipe {
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                 LogisticsNewRenderPipe.sideTexturePlate.put(
                         dir,
-                        new Quartet<List<IModel3D>, List<IModel3D>, List<IModel3D>, List<IModel3D>>(
-                                new ArrayList<IModel3D>(),
-                                new ArrayList<IModel3D>(),
-                                new ArrayList<IModel3D>(),
-                                new ArrayList<IModel3D>()));
+					new Quartet<>(
+						new ArrayList<>(),
+						new ArrayList<>(),
+						new ArrayList<>(),
+						new ArrayList<>()));
                 String grp = "Texture_Side_" + LogisticsNewRenderPipe.getDirAsString_Type1(dir);
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
                     if (entry.getKey().contains(" " + grp)) {
@@ -614,7 +613,7 @@ public class LogisticsNewRenderPipe {
             }
 
             for (Mount mount : Mount.values()) {
-                LogisticsNewRenderPipe.textureConnectorPlate.put(mount, new ArrayList<IModel3D>());
+                LogisticsNewRenderPipe.textureConnectorPlate.put(mount, new ArrayList<>());
                 String grp = "Texture_Connector_" + LogisticsNewRenderPipe.getDirAsString_Type1(mount.dir) + "_"
                         + LogisticsNewRenderPipe.getDirAsString_Type1(mount.side);
                 for (Entry<String, IModel3D> entry : pipePartModels.entrySet()) {
@@ -735,7 +734,7 @@ public class LogisticsNewRenderPipe {
             renderState.forceRenderOldPipe = false;
             boolean recalculateList = false;
             if (renderState.cachedRenderer == null) {
-                List<Pair<IModel3D, I3DOperation[]>> objectsToRender = new ArrayList<Pair<IModel3D, I3DOperation[]>>();
+                List<Pair<IModel3D, I3DOperation[]>> objectsToRender = new ArrayList<>();
                 fillObjectsToRenderList(objectsToRender, pipeTile, renderState);
                 renderState.cachedRenderer = objectsToRender;
                 recalculateList = true;
@@ -786,9 +785,9 @@ public class LogisticsNewRenderPipe {
             List<Pair<IModel3D, I3DOperation[]>> objectsToRender,
             LogisticsTileGenericPipe pipeTile,
             PipeRenderState renderState) {
-        List<Edge> edgesToRender = new ArrayList<Edge>(Arrays.asList(Edge.values()));
-        Map<Corner, Integer> connectionAtCorner = new HashMap<Corner, Integer>();
-        List<Mount> mountCanidates = new ArrayList<Mount>(Arrays.asList(Mount.values()));
+        List<Edge> edgesToRender = new ArrayList<>(Arrays.asList(Edge.values()));
+        Map<Corner, Integer> connectionAtCorner = new HashMap<>();
+        List<Mount> mountCanidates = new ArrayList<>(Arrays.asList(Mount.values()));
 
         int connectionCount = 0;
 
@@ -816,7 +815,7 @@ public class LogisticsNewRenderPipe {
                         }
                     }
                     for (IModel3D model : LogisticsNewRenderPipe.sideBC.get(dir)) {
-                        objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(model, texture));
+                        objectsToRender.add(new Pair<>(model, texture));
                     }
                 } else {
                     I3DOperation[] texture = new I3DOperation[] {LogisticsNewRenderPipe.basicTexture};
@@ -900,7 +899,7 @@ public class LogisticsNewRenderPipe {
                             model2.apply(new LPTranslation(min));
                             LogisticsNewRenderPipe.scaleMap.put(key, model2);
                         }
-                        objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(model2, texture));
+                        objectsToRender.add(new Pair<>(model2, texture));
                     }
                 }
                 for (Edge edge : Edge.values()) {
@@ -936,7 +935,7 @@ public class LogisticsNewRenderPipe {
             int count = connectionAtCorner.getOrDefault(corner, 0);
             if (count == 0) {
                 for (IModel3D model : LogisticsNewRenderPipe.corners_M.get(corner)) {
-                    objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(model, new I3DOperation[] {cornerTexture}));
+                    objectsToRender.add(new Pair<>(model, new I3DOperation[]{cornerTexture}));
                 }
             } else if (count == 1) {
                 for (Turn_Corner turn : Turn_Corner.values()) {
@@ -944,8 +943,8 @@ public class LogisticsNewRenderPipe {
                         continue;
                     }
                     if (renderState.pipeConnectionMatrix.isConnected(turn.getPointer())) {
-                        objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                LogisticsNewRenderPipe.spacers.get(turn), new I3DOperation[] {cornerTexture}));
+                        objectsToRender.add(new Pair<>(
+							LogisticsNewRenderPipe.spacers.get(turn), new I3DOperation[]{cornerTexture}));
                         break;
                     }
                 }
@@ -955,26 +954,26 @@ public class LogisticsNewRenderPipe {
                         continue;
                     }
                     if (!renderState.pipeConnectionMatrix.isConnected(turn.getPointer())) {
-                        objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                LogisticsNewRenderPipe.corners_I.get(turn), new I3DOperation[] {cornerTexture}));
+                        objectsToRender.add(new Pair<>(
+							LogisticsNewRenderPipe.corners_I.get(turn), new I3DOperation[]{cornerTexture}));
                         break;
                     }
                 }
             } else if (count == 3) {
                 for (IModel3D model : LogisticsNewRenderPipe.corners_I3.get(corner)) {
-                    objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(model, new I3DOperation[] {cornerTexture}));
+                    objectsToRender.add(new Pair<>(model, new I3DOperation[]{cornerTexture}));
                 }
             }
         }
 
         for (Edge edge : edgesToRender) {
-            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                    LogisticsNewRenderPipe.edges.get(edge), new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
+            objectsToRender.add(new Pair<>(
+				LogisticsNewRenderPipe.edges.get(edge), new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
         }
 
         for (int i = 0; i < 6; i += 2) {
             ForgeDirection dir = ForgeDirection.getOrientation(i);
-            List<ForgeDirection> list = new ArrayList<ForgeDirection>(Arrays.asList(ForgeDirection.VALID_DIRECTIONS));
+            List<ForgeDirection> list = new ArrayList<>(Arrays.asList(ForgeDirection.VALID_DIRECTIONS));
             list.remove(dir);
             list.remove(dir.getOpposite());
             if (renderState.pipeConnectionMatrix.isConnected(dir)
@@ -989,46 +988,46 @@ public class LogisticsNewRenderPipe {
                 if (!found) {
                     switch (dir) {
                         case DOWN:
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.EAST_SIDE),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.WEST_SIDE),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.NORTH_SIDE),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.SOUTH_SIDE),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.EAST_SIDE),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.WEST_SIDE),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.NORTH_SIDE),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.SOUTH_SIDE),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
                             break;
                         case NORTH:
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.EAST_UP),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.WEST_UP),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.UP_SIDE),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.DOWN_SIDE),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.EAST_UP),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.WEST_UP),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.UP_SIDE),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.DOWN_SIDE),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
                             break;
                         case WEST:
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.UP_UP),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.DOWN_UP),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.NORTH_UP),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    LogisticsNewRenderPipe.supports.get(Support.SOUTH_UP),
-                                    new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.UP_UP),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.DOWN_UP),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.NORTH_UP),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								LogisticsNewRenderPipe.supports.get(Support.SOUTH_UP),
+								new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
                             break;
                         default:
                             break;
@@ -1076,9 +1075,9 @@ public class LogisticsNewRenderPipe {
             }
 
             for (Mount mount : mountCanidates) {
-                objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                        LogisticsNewRenderPipe.mounts.get(mount),
-                        new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
+                objectsToRender.add(new Pair<>(
+					LogisticsNewRenderPipe.mounts.get(mount),
+					new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
             }
         }
 
@@ -1088,7 +1087,7 @@ public class LogisticsNewRenderPipe {
                     IIconTransformation icon =
                             Textures.LPnewPipeIconProvider.getIcon(renderState.textureMatrix.getTextureIndex());
                     if (icon != null) {
-                        objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(model, new I3DOperation[] {icon}));
+                        objectsToRender.add(new Pair<>(model, new I3DOperation[]{icon}));
                     }
                 }
             }
@@ -1097,15 +1096,15 @@ public class LogisticsNewRenderPipe {
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                 if (!renderState.pipeConnectionMatrix.isConnected(dir)) {
                     for (IModel3D model : LogisticsNewRenderPipe.texturePlate_Inner.get(dir)) {
-                        objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                model, new I3DOperation[] {LogisticsNewRenderPipe.glassCenterTexture}));
+                        objectsToRender.add(new Pair<>(
+							model, new I3DOperation[]{LogisticsNewRenderPipe.glassCenterTexture}));
                     }
                 } else {
                     if (!renderState.textureMatrix.isRoutedInDir(dir)) {
                         for (IModel3D model :
                                 LogisticsNewRenderPipe.sideTexturePlate.get(dir).getValue1()) {
-                            objectsToRender.add(new Pair<IModel3D, I3DOperation[]>(
-                                    model, new I3DOperation[] {LogisticsNewRenderPipe.basicTexture}));
+                            objectsToRender.add(new Pair<>(
+								model, new I3DOperation[]{LogisticsNewRenderPipe.basicTexture}));
                         }
                     }
                 }
@@ -1127,7 +1126,7 @@ public class LogisticsNewRenderPipe {
         if (mountCanidates.size() <= 2) {
             return;
         }
-        List<ForgeDirection> keep = new ArrayList<ForgeDirection>();
+        List<ForgeDirection> keep = new ArrayList<>();
         if (sides[2] && sides[3]) {
             keep.add(ForgeDirection.NORTH);
             keep.add(ForgeDirection.SOUTH);

@@ -76,6 +76,6 @@ public class LPTickHandler {
         private long worldTick = 0;
 
         @Getter
-        private Set<LPPosition> updateQueued = new HashSet<LPPosition>();
+        private Set<LPPosition> updateQueued = new HashSet<>();
     }
 }

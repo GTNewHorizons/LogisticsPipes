@@ -78,7 +78,7 @@ public class TeleportPipes implements ISpecialPipedConnection {
     @Override
     public List<ConnectionInformation> getConnections(
             IPipeInformationProvider tile, EnumSet<PipeRoutingConnectionType> connection, ForgeDirection side) {
-        List<ConnectionInformation> list = new ArrayList<ConnectionInformation>();
+        List<ConnectionInformation> list = new ArrayList<>();
         if (tile.getTile() instanceof TileGenericPipe && ((TileGenericPipe) tile.getTile()).pipe != null) {
             try {
                 LinkedList<? extends Pipe> pipes = getConnectedTeleportPipes(((TileGenericPipe) tile.getTile()).pipe);

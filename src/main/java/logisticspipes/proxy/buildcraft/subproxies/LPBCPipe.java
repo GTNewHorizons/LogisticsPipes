@@ -67,7 +67,7 @@ public class LPBCPipe extends Pipe<LPBCPipeTransportsItems> implements IBCPipePa
 
     @Override
     public LinkedList<IActionInternal> getActions() {
-        LinkedList<IActionInternal> result = new LinkedList<IActionInternal>();
+        LinkedList<IActionInternal> result = new LinkedList<>();
         if (pipe.pipe instanceof CoreRoutedPipe) {
             if (BuildCraftProxy.LogisticsDisableAction != null) {
                 result.add(BuildCraftProxy.LogisticsDisableAction);

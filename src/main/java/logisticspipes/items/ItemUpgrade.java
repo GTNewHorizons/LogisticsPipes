@@ -98,7 +98,7 @@ public class ItemUpgrade extends LogisticsItem {
     public static final int MAX_LIQUID_CRAFTER = 3;
     public static final int MAX_CRAFTING_CLEANUP = 4;
 
-    List<Upgrade> upgrades = new ArrayList<Upgrade>();
+    List<Upgrade> upgrades = new ArrayList<>();
     private IIcon[] icons;
 
     private static class Upgrade {

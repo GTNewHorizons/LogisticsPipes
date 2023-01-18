@@ -182,7 +182,7 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
     }
 
     public ArrayList<ItemStack> computeItemDrop() {
-        ArrayList<ItemStack> result = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> result = new ArrayList<>();
         bcPipePart.addItemDrops(result);
         return result;
     }

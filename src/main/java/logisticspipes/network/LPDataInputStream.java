@@ -165,7 +165,7 @@ public class LPDataInputStream extends DataInputStream {
 
     public <T> List<T> readList(IReadListObject<T> handler) throws IOException {
         int size = readInt();
-        List<T> list = new ArrayList<T>(size);
+        List<T> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             list.add(handler.readObject(this));
         }

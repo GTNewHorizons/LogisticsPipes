@@ -173,7 +173,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public Set<ItemIdentifier> getItems() {
-        Set<ItemIdentifier> result = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> result = new TreeSet<>();
         for (int i = 0; i < _drawer.getDrawerCount(); i++) {
             if (!_drawer.isDrawerEnabled(i)) {
                 continue;
@@ -189,7 +189,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public HashMap<ItemIdentifier, Integer> getItemsAndCount() {
-        HashMap<ItemIdentifier, Integer> result = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> result = new HashMap<>();
         for (int i = 0; i < _drawer.getDrawerCount(); i++) {
             if (!_drawer.isDrawerEnabled(i)) {
                 continue;
