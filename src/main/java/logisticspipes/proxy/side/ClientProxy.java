@@ -191,12 +191,7 @@ public class ClientProxy implements IProxy {
     /**
      * Retrieves pipe at specified coordinates if any.
      *
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
+	 */
     private static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null || !world.blockExists(x, y, z)) {
             return null;

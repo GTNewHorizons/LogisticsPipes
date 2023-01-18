@@ -112,8 +112,7 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
      *
      * @param slotnumber
      *            of the requested module
-     * @return
-     */
+	 */
     public abstract LogisticsModule getSubModule(int slot);
 
     /**
@@ -135,8 +134,7 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
      * (or is otherwise interested in) the size of the list here does not
      * influence the ongoing computational cost.
      *
-     * @return
-     */
+	 */
     public abstract Collection<ItemIdentifier> getSpecificInterests();
 
     public abstract boolean interestedInAttachedInventory();
@@ -155,8 +153,7 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
     /**
      * get The Icon for this Module Class
      *
-     * @return
-     */
+	 */
     @SideOnly(Side.CLIENT)
     public abstract IIcon getIconTexture(IIconRegister register);
 

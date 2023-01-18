@@ -214,12 +214,7 @@ public class ServerProxy implements IProxy {
     /**
      * Retrieves pipe at specified coordinates if any.
      *
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
+	 */
     protected static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null) {
             return null;

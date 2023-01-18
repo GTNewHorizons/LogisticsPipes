@@ -6,7 +6,6 @@ public interface IObjectIdentification {
 
     /**
      *
-     * @param o
      * @return null, if object isn't handled, otherwise the String value
      */
     String handleObject(Object o);

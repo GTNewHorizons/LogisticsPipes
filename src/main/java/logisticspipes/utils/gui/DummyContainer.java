@@ -79,9 +79,7 @@ public class DummyContainer extends Container {
     /***
      * Adds all slots for the player inventory and hotbar
      *
-     * @param xOffset
-     * @param yOffset
-     */
+	 */
     public void addNormalSlotsForPlayerInventory(int xOffset, int yOffset) {
         if (_playerInventory == null) {
             return;

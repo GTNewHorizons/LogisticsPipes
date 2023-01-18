@@ -73,9 +73,7 @@ public interface IRouter {
      *            router should set the bit for it's own id, then return true.
      * @param actor
      *            the visitor
-     * @return true if the bitset was cleared at some stage during the process,
-     *         resulting in a potentially incomplete bitset.
-     */
+	 */
     void act(BitSet hasBeenProcessed, IRAction actor);
 
     void flagForRoutingUpdate();

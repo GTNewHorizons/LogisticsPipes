@@ -29,8 +29,6 @@ public interface IInventoryUtil {
      * Inventory space count which terminates when space for max items are
      * found.
      *
-     * @param item
-     * @param max
      * @return spaces found. If this is less than max, then there are only
      *         spaces for that amount.
      */

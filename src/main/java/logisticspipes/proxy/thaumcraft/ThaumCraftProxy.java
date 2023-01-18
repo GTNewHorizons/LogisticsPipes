@@ -93,8 +93,6 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
      *
      * @param tag
      *            The EnumTag (aspect) to render
-     * @param x
-     * @param y
      * @param gui
      *            The gui to render on.
      */

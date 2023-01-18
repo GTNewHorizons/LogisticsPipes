@@ -322,7 +322,6 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
      * Designed to help protect against routing loops - if both pipes are on the
      * same block, and of ISided overlapps, return true
      *
-     * @param other
      * @return boolean indicating if both pull from the same inventory.
      */
     public boolean sharesInterestWith(CoreRoutedPipe other) {
@@ -1014,15 +1013,11 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         }
     }
 
-    /*** -- IAdjacentWorldAccess --
-     * @return***/
     @Override
     public List<AdjacentTile> getConnectedEntities() {
         WorldUtil world = new WorldUtil(getWorld(), getX(), getY(), getZ());
         List<AdjacentTile> adjacent = world.getAdjacentTileEntities(true);
-
         adjacent.removeIf(tile -> !MainProxy.checkPipesConnections(container, tile.tile, tile.orientation));
-
         return adjacent;
     }
 
@@ -1375,8 +1370,6 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     /**
      * used as a distance offset when deciding which pipe to use NOTE: called
      * very regularly, returning a pre-calculated int is probably appropriate.
-     *
-     * @return
      */
     public double getLoadFactor() {
         return 0.0;

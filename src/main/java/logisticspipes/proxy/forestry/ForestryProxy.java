@@ -231,7 +231,6 @@ public class ForestryProxy implements IForestryProxy {
      *
      * @param uid
      *            The uid used as a reference.
-     * @param world
      * @return String of uid before the one passed in.
      */
     @Override

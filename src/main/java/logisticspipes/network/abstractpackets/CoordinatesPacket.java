@@ -143,9 +143,7 @@ public abstract class CoordinatesPacket extends ModernPacket {
     /**
      * Retrieves pipe at packet coordinates if any.
      *
-     * @param world
-     * @return
-     */
+	 */
     public LogisticsTileGenericPipe getPipe(World world) {
         return getPipe(world, LTGPCompletionCheck.NONE);
     }

@@ -98,9 +98,7 @@ public abstract class CoordinatesGuiProvider extends GuiProvider {
     /**
      * Retrieves pipe at packet coordinates if any.
      *
-     * @param world
-     * @return
-     */
+	 */
     public LogisticsTileGenericPipe getPipe(World world) {
         return getTile(world, LogisticsTileGenericPipe.class);
     }

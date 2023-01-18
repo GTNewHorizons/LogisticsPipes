@@ -60,11 +60,8 @@ public class TransactorSimple extends Transactor {
     }
 
     /**
-     * @param slot
-     * @param stack
      * @param injected
      *            Amount not to move?
-     * @param doAdd
      * @return Return the number of items moved.
      */
     protected int addToSlot(IInvSlot slot, ItemStack stack, int injected, boolean doAdd) {

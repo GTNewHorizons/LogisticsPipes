@@ -60,8 +60,7 @@ public class PathFinder {
      * @param maxLength
      *            - The maximum recurse depth, i.e. the maximum length pipe that
      *            is supported
-     * @return
-     */
+	 */
     public static HashMap<CoreRoutedPipe, ExitRoute> paintAndgetConnectedRoutingPipes(
             TileEntity startPipe,
             ForgeDirection startOrientation,
