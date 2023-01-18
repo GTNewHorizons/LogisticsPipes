@@ -24,8 +24,6 @@ public class MainCommandHandler extends SubCommandHandler {
     @Override
     public void registerSubCommands() {
         registerSubCommand(new DummyCommand());
-        registerSubCommand(new VersionCommand());
-        registerSubCommand(new ChangelogCommand());
         registerSubCommand(new NBTDebugCommand());
         registerSubCommand(new RoutingThreadCommand());
         registerSubCommand(new TransferNamesCommand());

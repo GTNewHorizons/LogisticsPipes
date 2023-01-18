@@ -1,6 +1,5 @@
 package logisticspipes;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
@@ -10,7 +9,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import logisticspipes.config.Configs;
 import logisticspipes.config.PlayerConfig;
 import logisticspipes.interfaces.IItemAdvancedExistance;
 import logisticspipes.modules.ModuleQuickSort;
@@ -26,19 +24,16 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.LogisticsGuiOverrenderer;
 import logisticspipes.renderer.LogisticsHUDRenderer;
-import logisticspipes.ticks.VersionChecker;
 import logisticspipes.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -231,8 +226,8 @@ public class LogisticsEventListener {
     @SideOnly(Side.CLIENT)
     public void onGuiOpen(GuiOpenEvent event) {
         if (!LogisticsEventListener.getGuiPos().isEmpty()) {
+            GuiEntry part = LogisticsEventListener.getGuiPos().peek();
             if (event.gui == null) {
-                GuiEntry part = LogisticsEventListener.getGuiPos().peek();
                 if (part.isActive()) {
                     part = LogisticsEventListener.getGuiPos().poll();
                     MainProxy.sendPacketToServer(PacketHandler.getPacket(GuiReopenPacket.class)
@@ -243,7 +238,6 @@ public class LogisticsEventListener {
                     LogisticsGuiOverrenderer.getInstance().setOverlaySlotActive(false);
                 }
             } else {
-                GuiEntry part = LogisticsEventListener.getGuiPos().peek();
                 part.setActive(true);
             }
         }
@@ -268,43 +262,6 @@ public class LogisticsEventListener {
     @SubscribeEvent
     public void clientLoggedIn(ClientConnectedToServerEvent event) {
         SimpleServiceLocator.clientBufferHandler.clear();
-
-        if (Configs.CHECK_FOR_UPDATES) {
-            LogisticsPipes.singleThreadExecutor.execute(() -> {
-                // try to get player entity ten times, once a second
-                int times = 0;
-                EntityClientPlayerMP playerEntity;
-                do {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        return;
-                    }
-                    playerEntity = FMLClientHandler.instance().getClientPlayerEntity();
-                    ++times;
-                } while (playerEntity == null && times <= 10);
-
-                if (times > 10) {
-                    return;
-                }
-                assert playerEntity != null;
-
-                VersionChecker checker = LogisticsPipes.versionChecker;
-
-                // send player message
-                String versionMessage = checker.getVersionCheckerStatus();
-
-                if (checker.isVersionCheckDone()
-                        && checker.getVersionInfo().isNewVersionAvailable()
-                        && !checker.getVersionInfo().isImcMessageSent()) {
-                    playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
-                    playerEntity.addChatComponentMessage(
-                            new ChatComponentText("Use \"/logisticspipes changelog\" to see a changelog."));
-                } else if (!checker.isVersionCheckDone()) {
-                    playerEntity.addChatComponentMessage(new ChatComponentText(versionMessage));
-                }
-            });
-        }
     }
 
     public static void serverShutdown() {
