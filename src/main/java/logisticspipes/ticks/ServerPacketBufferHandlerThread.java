@@ -257,12 +257,7 @@ public class ServerPacketBufferHandlerThread {
                         }
                     }
                 }
-                for (Iterator<byte[]> it = ByteBuffer.values().iterator(); it.hasNext(); ) {
-                    byte[] ByteBufferForPlayer = it.next();
-                    if (ByteBufferForPlayer.length == 0) {
-                        it.remove();
-                    }
-                }
+				ByteBuffer.values().removeIf(ByteBufferForPlayer -> ByteBufferForPlayer.length == 0);
 
                 synchronized (queue) {
                     while (queue.size() == 0) {

@@ -1046,13 +1046,7 @@ public class LogisticsNewRenderPipe {
                     || !blockSide.isSideSolid(
                             pipeTile.getWorldObj(), pos.getX(), pos.getY(), pos.getZ(), dir.getOpposite())
                     || renderState.pipeConnectionMatrix.isConnected(dir)) {
-                Iterator<Mount> iter = mountCanidates.iterator();
-                while (iter.hasNext()) {
-                    Mount mount = iter.next();
-                    if (mount.dir == dir) {
-                        iter.remove();
-                    }
-                }
+                mountCanidates.removeIf(mount -> mount.dir == dir);
             } else {
                 solidSides[dir.ordinal()] = true;
             }
@@ -1154,13 +1148,7 @@ public class LogisticsNewRenderPipe {
     }
 
     private void removeFromSide(List<Mount> mountCanidates, ForgeDirection dir) {
-        Iterator<Mount> iter = mountCanidates.iterator();
-        while (iter.hasNext()) {
-            Mount mount = iter.next();
-            if (mount.dir == dir) {
-                iter.remove();
-            }
-        }
+        mountCanidates.removeIf(mount -> mount.dir == dir);
     }
 
     private void reduceToOnePerSide(List<Mount> mountCanidates, ForgeDirection dir, ForgeDirection pref) {

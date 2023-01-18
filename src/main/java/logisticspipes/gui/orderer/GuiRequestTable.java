@@ -605,12 +605,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     size -= toUse;
                 }
             }
-            Iterator<ItemIdentifierStack> iter = list.iterator();
-            while (iter.hasNext()) {
-                if (iter.next().getStackSize() <= 0) {
-                    iter.remove();
-                }
-            }
+			list.removeIf(itemIdentifierStack -> itemIdentifierStack.getStackSize() <= 0);
             if (!list.isEmpty()) {
                 MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSubmitListPacket.class)
                         .setIdentList(list)
