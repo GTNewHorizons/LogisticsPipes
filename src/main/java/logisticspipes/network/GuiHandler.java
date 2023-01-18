@@ -54,7 +54,7 @@ public class GuiHandler implements IGuiHandler {
         if (ID < 110 && ID > 0) {
             switch (ID) {
                 case GuiIDs.GUI_FluidSupplier_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsFluidSupplier)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsFluidSupplier)) {
                         return null;
                     }
                     dummy = new DummyContainer(
@@ -80,7 +80,7 @@ public class GuiHandler implements IGuiHandler {
                     return dummy;
 
                 case GuiIDs.GUI_FluidSupplier_MK2_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeFluidSupplierMk2)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeFluidSupplierMk2)) {
                         return null;
                     }
                     dummy = new DummyContainer(
@@ -107,7 +107,7 @@ public class GuiHandler implements IGuiHandler {
                     return dummy;
 
                 case GuiIDs.GUI_ProviderPipe_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsProviderLogistics)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsProviderLogistics)) {
                         return null;
                     }
                     dummy = new DummyContainer(
@@ -125,33 +125,33 @@ public class GuiHandler implements IGuiHandler {
                     return dummy;
 
                 case GuiIDs.GUI_SatelitePipe_ID:
-                    if (pipe != null && pipe.pipe != null && pipe.pipe instanceof PipeItemsSatelliteLogistics) {
+                    if (pipe != null && pipe.pipe instanceof PipeItemsSatelliteLogistics) {
                         return new DummyContainer(player.inventory, null);
                     }
-                    if (pipe != null && pipe.pipe != null && pipe.pipe instanceof PipeFluidSatellite) {
+                    if (pipe != null && pipe.pipe instanceof PipeFluidSatellite) {
                         return new DummyContainer(player.inventory, null);
                     }
 
                 case GuiIDs.GUI_Normal_Orderer_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof CoreRoutedPipe)) {
+                    if (pipe == null || !(pipe.pipe instanceof CoreRoutedPipe)) {
                         return null;
                     }
                     return new DummyContainer(player.inventory, null);
 
                 case GuiIDs.GUI_Normal_Mk2_Orderer_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsRequestLogisticsMk2)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsRequestLogisticsMk2)) {
                         return null;
                     }
                     return new DummyContainer(player.inventory, null);
 
                 case GuiIDs.GUI_Fluid_Orderer_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeFluidRequestLogistics)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeFluidRequestLogistics)) {
                         return null;
                     }
                     return new DummyContainer(player.inventory, null);
 
                 case GuiIDs.GUI_Inv_Sys_Connector_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsInvSysConnector)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsInvSysConnector)) {
                         return null;
                     }
                     dummy = new DummyContainer(player.inventory, ((PipeItemsInvSysConnector) pipe.pipe).inv);
@@ -214,7 +214,7 @@ public class GuiHandler implements IGuiHandler {
                     return dummy;
 
                 case GuiIDs.GUI_Fluid_Basic_ID:
-                    if (pipe == null || pipe.pipe == null || !((pipe.pipe instanceof PipeFluidBasic))) {
+                    if (pipe == null || !((pipe.pipe instanceof PipeFluidBasic))) {
                         return null;
                     }
                     dummy = new DummyContainer(player, ((PipeFluidBasic) pipe.pipe).filterInv, new IGuiOpenControler() {
@@ -234,7 +234,7 @@ public class GuiHandler implements IGuiHandler {
                     return dummy;
 
                 case GuiIDs.GUI_FIREWALL:
-                    if (pipe == null || pipe.pipe == null || !((pipe.pipe instanceof PipeItemsFirewall))) {
+                    if (pipe == null || !((pipe.pipe instanceof PipeItemsFirewall))) {
                         return null;
                     }
                     dummy = new DummyContainer(player.inventory, ((PipeItemsFirewall) pipe.pipe).inv);
@@ -296,7 +296,7 @@ public class GuiHandler implements IGuiHandler {
         if (ID < 110 && ID > 0) {
             switch (ID) {
                 case GuiIDs.GUI_FluidSupplier_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsFluidSupplier)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsFluidSupplier)) {
                         return null;
                     }
                     return new GuiFluidSupplierPipe(
@@ -305,7 +305,7 @@ public class GuiHandler implements IGuiHandler {
                             (PipeItemsFluidSupplier) pipe.pipe);
 
                 case GuiIDs.GUI_FluidSupplier_MK2_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeFluidSupplierMk2)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeFluidSupplierMk2)) {
                         return null;
                     }
                     return new GuiFluidSupplierMk2Pipe(
@@ -314,7 +314,7 @@ public class GuiHandler implements IGuiHandler {
                             (PipeFluidSupplierMk2) pipe.pipe);
 
                 case GuiIDs.GUI_ProviderPipe_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsProviderLogistics)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsProviderLogistics)) {
                         return null;
                     }
                     return new GuiProviderPipe(
@@ -323,10 +323,10 @@ public class GuiHandler implements IGuiHandler {
                             (PipeItemsProviderLogistics) pipe.pipe);
 
                 case GuiIDs.GUI_SatelitePipe_ID:
-                    if (pipe != null && pipe.pipe != null && pipe.pipe instanceof PipeItemsSatelliteLogistics) {
+                    if (pipe != null && pipe.pipe instanceof PipeItemsSatelliteLogistics) {
                         return new GuiSatellitePipe((PipeItemsSatelliteLogistics) pipe.pipe, player);
                     }
-                    if (pipe != null && pipe.pipe != null && pipe.pipe instanceof PipeFluidSatellite) {
+                    if (pipe != null && pipe.pipe instanceof PipeFluidSatellite) {
                         return new GuiSatellitePipe((PipeFluidSatellite) pipe.pipe, player);
                     }
                     return null;
@@ -335,19 +335,19 @@ public class GuiHandler implements IGuiHandler {
                     return new NormalGuiOrderer(x, y, z, MainProxy.getDimensionForWorld(world), player);
 
                 case GuiIDs.GUI_Normal_Mk2_Orderer_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsRequestLogisticsMk2)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsRequestLogisticsMk2)) {
                         return null;
                     }
                     return new NormalMk2GuiOrderer(((PipeItemsRequestLogisticsMk2) pipe.pipe), player);
 
                 case GuiIDs.GUI_Fluid_Orderer_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeFluidRequestLogistics)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeFluidRequestLogistics)) {
                         return null;
                     }
                     return new FluidGuiOrderer(((PipeFluidRequestLogistics) pipe.pipe), player);
 
                 case GuiIDs.GUI_Inv_Sys_Connector_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeItemsInvSysConnector)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeItemsInvSysConnector)) {
                         return null;
                     }
                     return new GuiInvSysConnector(player, (PipeItemsInvSysConnector) pipe.pipe);
@@ -371,19 +371,19 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiHUDSettings(player, x);
 
                 case GuiIDs.GUI_Fluid_Basic_ID:
-                    if (pipe == null || pipe.pipe == null || !((pipe.pipe instanceof PipeFluidBasic))) {
+                    if (pipe == null || !((pipe.pipe instanceof PipeFluidBasic))) {
                         return null;
                     }
                     return new GuiFluidBasic(player, ((PipeFluidBasic) pipe.pipe).filterInv);
 
                 case GuiIDs.GUI_FIREWALL:
-                    if (pipe == null || pipe.pipe == null || !((pipe.pipe instanceof PipeItemsFirewall))) {
+                    if (pipe == null || !((pipe.pipe instanceof PipeItemsFirewall))) {
                         return null;
                     }
                     return new GuiFirewall((PipeItemsFirewall) pipe.pipe, player);
 
                 case GuiIDs.GUI_Request_Table_ID:
-                    if (pipe == null || pipe.pipe == null || !(pipe.pipe instanceof PipeBlockRequestTable)) {
+                    if (pipe == null || !(pipe.pipe instanceof PipeBlockRequestTable)) {
                         return null;
                     }
                     return new GuiRequestTable(player, ((PipeBlockRequestTable) pipe.pipe));

@@ -616,12 +616,11 @@ public class DummyContainer extends Container {
                 ItemIdentifier.get(stack).debugDumpData(entityplayer.worldObj.isRemote);
             }
         }
-        if (slot == null
-                || (!(slot instanceof DummySlot)
-                        && !(slot instanceof UnmodifiableSlot)
-                        && !(slot instanceof FluidSlot)
-                        && !(slot instanceof ColorSlot)
-                        && !(slot instanceof HandelableSlot))) {
+        if ((!(slot instanceof DummySlot)
+			&& !(slot instanceof UnmodifiableSlot)
+			&& !(slot instanceof FluidSlot)
+			&& !(slot instanceof ColorSlot)
+			&& !(slot instanceof HandelableSlot))) {
             ItemStack stack1 = superSlotClick(slotId, mouseButton, isShift, entityplayer);
             ItemStack stack2 = slot.getStack();
             if (stack2 != null && stack2.getItem() == LogisticsPipes.ModuleItem) {
