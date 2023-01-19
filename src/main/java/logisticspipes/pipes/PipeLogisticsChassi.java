@@ -731,7 +731,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
 
-            if (x != null && x instanceof ICraftItems) {
+            if (x instanceof ICraftItems) {
                 if (((ICraftItems) x).canCraft(toCraft)) {
                     return ((ICraftItems) x).addCrafting(toCraft);
                 }
@@ -748,7 +748,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
 
-            if (x != null && x instanceof ICraftItems) {
+            if (x instanceof ICraftItems) {
                 if (craftables == null) {
                     craftables = new LinkedList<>();
                 }
@@ -763,7 +763,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
 
-            if (x != null && x instanceof ICraftItems) {
+            if (x instanceof ICraftItems) {
                 if (((ICraftItems) x).canCraft(toCraft)) {
                     return true;
                 }
