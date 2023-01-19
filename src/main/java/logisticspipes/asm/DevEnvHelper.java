@@ -951,8 +951,7 @@ public class DevEnvHelper {
                 ExcFile excFile,
                 SrgFile srgFile,
                 Map<String, String> fieldNames,
-                Map<String, String> methodNames)
-                throws CantLoadMCPMappingException {
+                Map<String, String> methodNames) {
 
             NameSet obfNS = new MinecraftNameSet(MinecraftNameSet.Type.OBF, side, mcVer);
             NameSet srgNS = new MinecraftNameSet(MinecraftNameSet.Type.SRG, side, mcVer);
@@ -1159,7 +1158,7 @@ public class DevEnvHelper {
 
         private ExcFile() {}
 
-        public static ExcFile read(InputStream in) throws IOException {
+        public static ExcFile read(InputStream in) {
             return ExcFile.read(new InputStreamReader(in, StandardCharsets.UTF_8));
         }
 

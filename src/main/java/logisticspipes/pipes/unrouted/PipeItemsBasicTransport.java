@@ -16,10 +16,10 @@ public class PipeItemsBasicTransport extends CoreUnroutedPipe {
     }
 
     @Override
-    public void writeData(LPDataOutputStream data) throws IOException {}
+    public void writeData(LPDataOutputStream data) {}
 
     @Override
-    public void readData(LPDataInputStream data) throws IOException {}
+    public void readData(LPDataInputStream data) {}
 
     @Override
     public int getIconIndex(ForgeDirection direction) {
