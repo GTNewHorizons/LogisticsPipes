@@ -159,9 +159,10 @@ public class ItemUpgrade extends LogisticsItem {
     public void registerUpgrade(int id, Class<? extends IPipeUpgrade> moduleClass, int textureId) {
         boolean flag = true;
         for (Upgrade upgrade : upgrades) {
-            if (upgrade.getId() == id) {
-                flag = false;
-            }
+			if (upgrade.getId() == id) {
+				flag = false;
+				break;
+			}
         }
         if (flag) {
             upgrades.add(new Upgrade(id, moduleClass, textureId));

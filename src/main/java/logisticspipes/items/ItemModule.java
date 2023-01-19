@@ -181,9 +181,10 @@ public class ItemModule extends LogisticsItem {
     public void registerModule(int id, Class<? extends LogisticsModule> moduleClass) {
         boolean flag = true;
         for (Module module : modules) {
-            if (module.getId() == id) {
-                flag = false;
-            }
+			if (module.getId() == id) {
+				flag = false;
+				break;
+			}
         }
         if (flag) {
             modules.add(new Module(id, moduleClass));
