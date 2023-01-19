@@ -718,11 +718,11 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         }
         ArrayList<Pair<ILogisticsPowerProvider, List<IFilter>>> power = null;
         if (_powerAdjacent != null) {
-			power = new ArrayList<>(_powerAdjacent);
+            power = new ArrayList<>(_powerAdjacent);
         }
         ArrayList<Pair<ISubSystemPowerProvider, List<IFilter>>> subSystemPower = null;
         if (_subSystemPowerAdjacent != null) {
-			subSystemPower = new ArrayList<>(_subSystemPowerAdjacent);
+            subSystemPower = new ArrayList<>(_subSystemPowerAdjacent);
         }
         if (Configs.MULTI_THREAD_NUMBER > 0) {
             RoutingTableUpdateThread.add(new LSARouterRunnable(neighboursWithMetric, power, subSystemPower));
@@ -1038,7 +1038,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
             List<ExitRoute> current = routeTable.get(node.destination.getSimpleID());
             if (current != null && !current.isEmpty()) {
-				List<ExitRoute> list = new ArrayList<>(current);
+                List<ExitRoute> list = new ArrayList<>(current);
                 list.add(node);
                 routeTable.set(node.destination.getSimpleID(), Collections.unmodifiableList(list));
             } else {
@@ -1548,21 +1548,21 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     @Override
     public String toString() {
-		return "ServerRouter: {ID: " + simpleID + ", UUID: "
-				+ getId()
-				+ ", AT: ("
-				+ _dimension
-				+ ", "
-				+ _xCoord
-				+ ", "
-				+ _yCoord
-				+ ", "
-				+ _zCoord
-				+ "), Version: "
-				+ _LSAVersion
-				+ "), Destroied: "
-				+ isDestroied()
-				+ "}";
+        return "ServerRouter: {ID: " + simpleID + ", UUID: "
+                + getId()
+                + ", AT: ("
+                + _dimension
+                + ", "
+                + _xCoord
+                + ", "
+                + _yCoord
+                + ", "
+                + _zCoord
+                + "), Version: "
+                + _LSAVersion
+                + "), Destroied: "
+                + isDestroied()
+                + "}";
     }
 
     @Override

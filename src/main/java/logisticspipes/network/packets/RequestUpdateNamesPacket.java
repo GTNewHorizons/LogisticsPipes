@@ -18,34 +18,34 @@ public class RequestUpdateNamesPacket extends ModernPacket {
 
     @Override
     public void processPacket(EntityPlayer player) {
-		// XXX stubbed out. How do you enumerate every item now?
-		// Item[] itemList = Item.itemsList;
-		// Why is this looping on empty list ?
-		//Item[] itemList = new Item[0];
-		//List<ItemIdentifier> identList = new LinkedList<>();
-		//for (Item item : itemList) {
-		//    if (item != null) {
-		//        for (CreativeTabs tab : item.getCreativeTabs()) {
-		//            List<ItemStack> list = new ArrayList<>();
-		//            item.getSubItems(item, tab, list);
-		//            if (list.size() > 0) {
-		//                for (ItemStack stack : list) {
-		//                    identList.add(ItemIdentifier.get(stack));
-		//                }
-		//            } else {
-		//                identList.add(ItemIdentifier.get(item, 0, null));
-		//            }
-		//        }
-		//    }
-		//}
-		SimpleServiceLocator.clientBufferHandler.setPause(true);
-		//for (ItemIdentifier item : identList) {
-		//    MainProxy.sendPacketToServer(
-		//            PacketHandler.getPacket(UpdateName.class).setIdent(item).setName(item.getFriendlyName()));
-		//}
-		SimpleServiceLocator.clientBufferHandler.setPause(false);
-		FMLClientHandler.instance().getClient().thePlayer.sendChatMessage("Names in send Queue");
-	}
+        // XXX stubbed out. How do you enumerate every item now?
+        // Item[] itemList = Item.itemsList;
+        // Why is this looping on empty list ?
+        // Item[] itemList = new Item[0];
+        // List<ItemIdentifier> identList = new LinkedList<>();
+        // for (Item item : itemList) {
+        //    if (item != null) {
+        //        for (CreativeTabs tab : item.getCreativeTabs()) {
+        //            List<ItemStack> list = new ArrayList<>();
+        //            item.getSubItems(item, tab, list);
+        //            if (list.size() > 0) {
+        //                for (ItemStack stack : list) {
+        //                    identList.add(ItemIdentifier.get(stack));
+        //                }
+        //            } else {
+        //                identList.add(ItemIdentifier.get(item, 0, null));
+        //            }
+        //        }
+        //    }
+        // }
+        SimpleServiceLocator.clientBufferHandler.setPause(true);
+        // for (ItemIdentifier item : identList) {
+        //    MainProxy.sendPacketToServer(
+        //            PacketHandler.getPacket(UpdateName.class).setIdent(item).setName(item.getFriendlyName()));
+        // }
+        SimpleServiceLocator.clientBufferHandler.setPause(false);
+        FMLClientHandler.instance().getClient().thePlayer.sendChatMessage("Names in send Queue");
+    }
 
     @Override
     public void writeData(LPDataOutputStream data) {}

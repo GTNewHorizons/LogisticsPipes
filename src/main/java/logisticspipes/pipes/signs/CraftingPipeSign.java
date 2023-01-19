@@ -109,7 +109,7 @@ public class CraftingPipeSign implements IPipeSign {
                 var17.drawString(
                         "ID: " + Item.getIdFromItem(item),
                         -var17.getStringWidth("ID: " + Item.getIdFromItem(item)) / 2,
-					-4 * 5,
+                        -4 * 5,
                         0);
                 ModuleCrafter logisticsMod = cpipe.getLogisticsModule();
                 if (logisticsMod.satelliteId != 0) {

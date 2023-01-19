@@ -171,10 +171,10 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     private boolean isSearched(String value, String search) {
         boolean flag = true;
         for (String s : search.split(" ")) {
-			if (!value.contains(s)) {
-				flag = false;
-				break;
-			}
+            if (!value.contains(s)) {
+                flag = false;
+                break;
+            }
         }
         return flag;
     }

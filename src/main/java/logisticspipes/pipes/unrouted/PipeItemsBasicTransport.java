@@ -1,6 +1,5 @@
 package logisticspipes.pipes.unrouted;
 
-import java.io.IOException;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
