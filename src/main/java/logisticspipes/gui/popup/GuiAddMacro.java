@@ -186,8 +186,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
             if (!super.hasSubGui()) {
                 if (mouseX >= x && mouseX < x + panelxSize && mouseY >= y && mouseY < y + panelySize) {
                     Gui.drawRect(x - 3, y - 1, x + panelxSize - 3, y + panelySize - 3, Color.getValue(Color.BLACK));
-                    Gui.drawRect(
-                            x - 2, y, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
+                    Gui.drawRect(x - 2, y, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
                     tooltip = new Object[] {mouseX + guiLeft, mouseY + guiTop, st, false};
                 }
 
@@ -423,10 +422,10 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     private boolean isSearched(String value, String search) {
         boolean flag = true;
         for (String s : search.split(" ")) {
-			if (!value.contains(s)) {
-				flag = false;
-				break;
-			}
+            if (!value.contains(s)) {
+                flag = false;
+                break;
+            }
         }
         return flag;
     }
