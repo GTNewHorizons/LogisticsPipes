@@ -151,7 +151,7 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
             if (guibutton.id % 10 == 1) {
                 change = -1;
             }
-            change *= Math.pow(10, guibutton.id / 10 - 1);
+            change *= Math.pow(10, (double) guibutton.id / 10 - 1);
             MainProxy.sendPacketToServer(PacketHandler.getPacket(FluidSupplierAmount.class)
                     .setInteger(change)
                     .setPosX(logic.getX())
