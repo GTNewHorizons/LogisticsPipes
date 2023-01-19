@@ -79,7 +79,7 @@ public class DebugHelper implements IContainerTooltipHandler {
 
     @SuppressWarnings("rawtypes")
     private void addNBTToTree(NBTBase nbt, DefaultMutableTreeNode node)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+            throws SecurityException, IllegalArgumentException {
         if (nbt == null) {
             return;
         }

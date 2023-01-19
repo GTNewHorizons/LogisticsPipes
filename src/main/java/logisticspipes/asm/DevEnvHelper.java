@@ -891,8 +891,7 @@ public class DevEnvHelper {
         public MappingLoader_MCP() {}
 
         @Deprecated
-        public MappingLoader_MCP(String mcVer, MinecraftNameSet.Side side, File mcpDir)
-                throws IOException, CantLoadMCPMappingException {
+        public MappingLoader_MCP(String mcVer, MinecraftNameSet.Side side, File mcpDir) throws IOException {
             File srgFile, excFile;
             int[] sideNumbers;
 
