@@ -1551,22 +1551,21 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     @Override
     public String toString() {
-        String string = "ServerRouter: {ID: " + simpleID + ", UUID: "
-                + getId()
-                + ", AT: ("
-                + _dimension
-                + ", "
-                + _xCoord
-                + ", "
-                + _yCoord
-                + ", "
-                + _zCoord
-                + "), Version: "
-                + _LSAVersion
-                + "), Destroied: "
-                + isDestroied()
-                + "}";
-        return string;
+		return "ServerRouter: {ID: " + simpleID + ", UUID: "
+				+ getId()
+				+ ", AT: ("
+				+ _dimension
+				+ ", "
+				+ _xCoord
+				+ ", "
+				+ _yCoord
+				+ ", "
+				+ _zCoord
+				+ "), Version: "
+				+ _LSAVersion
+				+ "), Destroied: "
+				+ isDestroied()
+				+ "}";
     }
 
     @Override

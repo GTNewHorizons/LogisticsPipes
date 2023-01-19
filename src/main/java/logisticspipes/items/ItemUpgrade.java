@@ -214,8 +214,7 @@ public class ItemUpgrade extends LogisticsItem {
                         return currentUpgrade;
                     }
                 }
-                IPipeUpgrade newupgrade = upgrade.getIPipeUpgrade();
-                return newupgrade;
+				return upgrade.getIPipeUpgrade();
             }
         }
         return null;

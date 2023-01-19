@@ -24,9 +24,7 @@ public class StackTraceUtil {
     }
 
     private static LinkedList<Pair<StackTraceElement, String>> getList() {
-        LinkedList<Pair<StackTraceElement, String>> list =
-                StackTraceUtil.informationMap.computeIfAbsent(Thread.currentThread(), k -> new LinkedList<>());
-        return list;
+		return StackTraceUtil.informationMap.computeIfAbsent(Thread.currentThread(), k -> new LinkedList<>());
     }
 
     public static Info addTraceInformation(final String information, Info... infos) {
