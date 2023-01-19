@@ -187,7 +187,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
                 if (mouseX >= x && mouseX < x + panelxSize && mouseY >= y && mouseY < y + panelySize) {
                     Gui.drawRect(x - 3, y - 1, x + panelxSize - 3, y + panelySize - 3, Color.getValue(Color.BLACK));
                     Gui.drawRect(
-                            x - 2, y - 0, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
+                            x - 2, y, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
                     tooltip = new Object[] {mouseX + guiLeft, mouseY + guiTop, st, false};
                 }
 

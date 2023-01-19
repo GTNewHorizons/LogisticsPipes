@@ -234,7 +234,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
             liquidGuiParts[i] = new GuiButton[10];
             extention.registerButton(extentionControllerLeft.registerControlledButton(addButton(
                     liquidGuiParts[i][0] =
-                            new SmallGuiButton(100 + 10 * i + 0, liquidLeft + 22, guiTop + 65, 10, 10, "+"))));
+                            new SmallGuiButton(100 + 10 * i, liquidLeft + 22, guiTop + 65, 10, 10, "+"))));
             extention.registerButton(extentionControllerLeft.registerControlledButton(addButton(
                     liquidGuiParts[i][1] =
                             new SmallGuiButton(100 + 10 * i + 1, liquidLeft + 22, guiTop + 85, 10, 10, "+"))));
@@ -517,7 +517,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         public void renderForground(int left, int top) {
             if (!isFullyExtended()) {
                 GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
                 RenderHelper.enableGUIStandardItemLighting();
@@ -655,7 +655,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         public void renderForground(int left, int top) {
             if (!isFullyExtended()) {
                 GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
                 RenderHelper.enableGUIStandardItemLighting();
@@ -692,7 +692,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         public void renderForground(int left, int top) {
             if (!isFullyExtended()) {
                 GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
                 RenderHelper.enableGUIStandardItemLighting();

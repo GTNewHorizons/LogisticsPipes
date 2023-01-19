@@ -328,7 +328,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         LinkedLogisticsOrderList list = _table.watchedRequests.get(orderId).getValue2();
         if (!list.isEmpty()) {
-            SimpleGraphics.drawVerticalLine(left + 8, top + 0, top + 17, Color.GREEN, zoom.line);
+            SimpleGraphics.drawVerticalLine(left + 8, top, top + 17, Color.GREEN, zoom.line);
         }
         renderLinkedOrderListLines(list, left, top + 17);
         for (Float progress : list.getProgresses()) {
