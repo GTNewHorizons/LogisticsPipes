@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.gui.modules;
 
 import logisticspipes.modules.ModuleElectricManager;
@@ -29,24 +29,21 @@ public class GuiElectricManager extends ModuleBaseGui {
         // Default item toggle:
         buttonList.clear();
         buttonList.add(new GuiStringHandlerButton(
-                0, width / 2 - 6, height / 2 - 34, 88, 20, new GuiStringHandlerButton.StringHandler() {
-
-                    @Override
-                    public String getContent() {
-                        return _module.isDischargeMode() ? "Discharge Items" : "Charge Items";
-                    }
-                }));
+                0,
+                width / 2 - 6,
+                height / 2 - 34,
+                88,
+                20,
+                () -> _module.isDischargeMode() ? "Discharge Items" : "Charge Items"));
     }
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-        switch (guibutton.id) {
-            case 0:
-                _module.setDischargeMode(!_module.isDischargeMode());
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(ElectricManagerPacket.class)
-                        .setFlag(_module.isDischargeMode())
-                        .setModulePos(_module));
-                break;
+        if (guibutton.id == 0) {
+            _module.setDischargeMode(!_module.isDischargeMode());
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(ElectricManagerPacket.class)
+                    .setFlag(_module.isDischargeMode())
+                    .setModulePos(_module));
         }
     }
 

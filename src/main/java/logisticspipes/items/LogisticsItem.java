@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.items;
 
 import cpw.mods.fml.relauncher.Side;
@@ -42,7 +42,7 @@ public class LogisticsItem extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
         if (addShiftInfo()) {

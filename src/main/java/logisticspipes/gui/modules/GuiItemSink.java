@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.gui.modules;
 
 import logisticspipes.modules.ModuleItemSink;
@@ -55,13 +55,12 @@ public class GuiItemSink extends ModuleBaseGui {
         // Default item toggle:
         buttonList.clear();
         buttonList.add(new GuiStringHandlerButton(
-                0, width / 2 + 50, height / 2 - 34, 30, 20, new GuiStringHandlerButton.StringHandler() {
-
-                    @Override
-                    public String getContent() {
-                        return StringUtils.translate(GuiItemSink.PREFIX + (_itemSink.isDefaultRoute() ? "Yes" : "No"));
-                    }
-                }));
+                0,
+                width / 2 + 50,
+                height / 2 - 34,
+                30,
+                20,
+                () -> StringUtils.translate(GuiItemSink.PREFIX + (_itemSink.isDefaultRoute() ? "Yes" : "No"))));
         buttonList.add(new SmallGuiButton(
                 1, guiLeft + 10, guiTop + 37, 40, 10, StringUtils.translate(GuiItemSink.PREFIX + "import")));
     }

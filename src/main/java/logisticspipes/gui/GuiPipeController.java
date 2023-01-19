@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import logisticspipes.LogisticsPipes;
-import logisticspipes.interfaces.ISlotCheck;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.items.LogisticsItemCard;
 import logisticspipes.network.PacketHandler;
@@ -18,11 +17,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.ItemDisplay;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SmallGuiButton;
+import logisticspipes.utils.gui.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
@@ -46,13 +41,13 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
     private final int TAB_COUNT = 5;
     private int current_Tab;
 
-    private final List<Slot> TAB_SLOTS_1_1 = new ArrayList<Slot>();
-    private final List<Slot> TAB_SLOTS_1_2 = new ArrayList<Slot>();
-    private final List<Slot> TAB_SLOTS_2 = new ArrayList<Slot>();
-    private final List<Slot> TAB_SLOTS_4 = new ArrayList<Slot>();
+    private final List<Slot> TAB_SLOTS_1_1 = new ArrayList<>();
+    private final List<Slot> TAB_SLOTS_1_2 = new ArrayList<>();
+    private final List<Slot> TAB_SLOTS_2 = new ArrayList<>();
+    private final List<Slot> TAB_SLOTS_4 = new ArrayList<>();
 
-    private final List<GuiButton> TAB_BUTTON_4 = new ArrayList<GuiButton>();
-    private final List<GuiButton> TAB_BUTTON_5 = new ArrayList<GuiButton>();
+    private final List<GuiButton> TAB_BUTTON_4 = new ArrayList<>();
+    private final List<GuiButton> TAB_BUTTON_5 = new ArrayList<>();
 
     private ItemDisplay _itemDisplay_5;
 
@@ -70,51 +65,33 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         // TAB_1 SLOTS
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
             TAB_SLOTS_1_1.add(dummy.addRestrictedSlot(
-                    pipeSlot, pipe.getOriginalUpgradeManager().getInv(), 10 + pipeSlot * 18, 42, new ISlotCheck() {
-
-                        @Override
-                        public boolean isStackAllowed(ItemStack itemStack) {
-                            if (itemStack == null) {
-                                return false;
-                            }
-                            if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                                if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                                        .isAllowedForPipe(pipe)) {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                            return true;
+                    pipeSlot, pipe.getOriginalUpgradeManager().getInv(), 10 + pipeSlot * 18, 42, itemStack -> {
+                        if (itemStack == null) {
+                            return false;
+                        }
+                        if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                            return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+                                    .isAllowedForPipe(pipe);
+                        } else {
+                            return false;
                         }
                     }));
         }
 
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
             TAB_SLOTS_1_2.add(dummy.addRestrictedSlot(
-                    pipeSlot,
-                    pipe.getOriginalUpgradeManager().getSneakyInv(),
-                    10 + pipeSlot * 18,
-                    78,
-                    new ISlotCheck() {
-
-                        @Override
-                        public boolean isStackAllowed(ItemStack itemStack) {
-                            if (itemStack == null) {
+                    pipeSlot, pipe.getOriginalUpgradeManager().getSneakyInv(), 10 + pipeSlot * 18, 78, itemStack -> {
+                        if (itemStack == null) {
+                            return false;
+                        }
+                        if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                            IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
+                            if (!(upgrade instanceof SneakyUpgrade)) {
                                 return false;
                             }
-                            if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                                IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
-                                if (!(upgrade instanceof SneakyUpgrade)) {
-                                    return false;
-                                }
-                                if (!upgrade.isAllowedForPipe(pipe)) {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                            return true;
+                            return upgrade.isAllowedForPipe(pipe);
+                        } else {
+                            return false;
                         }
                     }));
         }
@@ -125,25 +102,18 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 pipe.getOriginalUpgradeManager().getSecInv(),
                 10,
                 42,
-                new ISlotCheck() {
-
-                    @Override
-                    public boolean isStackAllowed(ItemStack itemStack) {
-                        if (itemStack == null) {
-                            return false;
-                        }
-                        if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-                            return false;
-                        }
-                        if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
-                            return false;
-                        }
-                        if (!SimpleServiceLocator.securityStationManager.isAuthorized(
-                                UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
-                            return false;
-                        }
-                        return true;
+                itemStack -> {
+                    if (itemStack == null) {
+                        return false;
                     }
+                    if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+                        return false;
+                    }
+                    if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
+                        return false;
+                    }
+                    return SimpleServiceLocator.securityStationManager.isAuthorized(
+                            UUID.fromString(itemStack.getTagCompound().getString("UUID")));
                 },
                 1));
 
@@ -222,7 +192,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
 
         // First Tab
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableGUIStandardItemLighting();
@@ -241,7 +211,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
 
         // Forth Tab
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableGUIStandardItemLighting();
@@ -297,13 +267,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                         .setTilePos(pipe.container));
             }
         } else {
-            if (current_Tab == 4) {
-                // if(!_itemDisplay_5.handleClick(par1 - guiLeft, par2 - guiTop, par3)) {
-                super.mouseClicked(par1, par2, par3);
-                // }
-            } else {
-                super.mouseClicked(par1, par2, par3);
-            }
+            super.mouseClicked(par1, par2, par3);
         }
     }
 
@@ -333,7 +297,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 GL11.glTranslated(10, 80, 0);
                 GL11.glScaled(0.75D, 0.75D, 1.0D);
                 mc.fontRenderer.drawString(
-                        ChatColor.BLUE.toString() + id.toString(), 0, 0, Color.getValue(Color.DARKER_GREY), false);
+                        ChatColor.BLUE.toString() + id, 0, 0, Color.getValue(Color.DARKER_GREY), false);
                 GL11.glScaled(1 / 0.75D, 1 / 0.75D, 1.0D);
                 GL11.glTranslated(-10, -80, 0);
                 mc.fontRenderer.drawString(
@@ -407,7 +371,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
             s = StringUtils.getStringWithSpacesFromLong(pipe.server_routing_table_size);
             fontRendererObj.drawString(s, 130 - fontRendererObj.getStringWidth(s) / 2, 110, 0x303030);
         } else if (current_Tab == 4) {
-            List<ItemIdentifierStack> _allItems = new LinkedList<ItemIdentifierStack>();
+            List<ItemIdentifierStack> _allItems = new LinkedList<>();
             for (IOrderInfoProvider entry : pipe.getClientSideOrderManager()) {
                 _allItems.add(entry.getAsDisplayItem());
             }
@@ -473,10 +437,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         if (TAB_SLOTS_2.contains(slot) && current_Tab != 1) {
             return false;
         }
-        if (TAB_SLOTS_4.contains(slot) && current_Tab != 3) {
-            return false;
-        }
-        return true;
+        return !TAB_SLOTS_4.contains(slot) || current_Tab == 3;
     }
 
     @Override

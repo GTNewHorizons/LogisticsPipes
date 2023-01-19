@@ -13,9 +13,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemInsertionAIRobot extends AIRobot {
 
-    private LogisticsTileGenericPipe pipe;
-    private LogisticsRoutingBoardRobot board;
-    private ForgeDirection insertion;
+    private final LogisticsTileGenericPipe pipe;
+    private final LogisticsRoutingBoardRobot board;
+    private final ForgeDirection insertion;
     private IInventoryUtil robotInv;
     private int tick = 0;
 

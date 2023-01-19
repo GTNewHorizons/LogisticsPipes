@@ -74,8 +74,7 @@ public abstract class SubGuiScreen extends GuiScreen implements ISubGuiControler
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         short short1 = 240;
         short short2 = 240;
-        OpenGlHelper.setLightmapTextureCoords(
-                OpenGlHelper.lightmapTexUnit, (float) short1 / 1.0F, (float) short2 / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, short1, short2);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         this.drawGuiContainerForegroundLayer(par1, par2);

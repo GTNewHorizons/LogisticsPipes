@@ -34,7 +34,7 @@ public class ItemRoutingInformation {
         that.bufferCounter = bufferCounter;
         that._doNotBuffer = _doNotBuffer;
         that._transportMode = _transportMode;
-        that.jamlist = new ArrayList(jamlist);
+        that.jamlist = new ArrayList<>(jamlist);
         that.tracker = tracker;
         that.targetInfo = targetInfo;
         that.item = getItem().clone();
@@ -47,7 +47,7 @@ public class ItemRoutingInformation {
     public int bufferCounter = 0;
     public boolean _doNotBuffer;
     public TransportMode _transportMode = TransportMode.Unknown;
-    public List<Integer> jamlist = new ArrayList<Integer>();
+    public List<Integer> jamlist = new ArrayList<>();
     public IDistanceTracker tracker = null;
     public IAdditionalTargetInformation targetInfo;
 
@@ -102,21 +102,18 @@ public class ItemRoutingInformation {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("(")
-                .append(item)
-                .append(", ")
-                .append(destinationint)
-                .append(", ")
-                .append(destinationUUID)
-                .append(", ")
-                .append(_transportMode)
-                .append(", ")
-                .append(jamlist)
-                .append(", ")
-                .append(delay)
-                .append(", ")
-                .append(tracker);
-        return builder.toString();
+        return "(" + item
+                + ", "
+                + destinationint
+                + ", "
+                + destinationUUID
+                + ", "
+                + _transportMode
+                + ", "
+                + jamlist
+                + ", "
+                + delay
+                + ", "
+                + tracker;
     }
 }

@@ -9,13 +9,13 @@ public class LinkedLogisticsOrderList extends ArrayList<IOrderInfoProvider> {
     private static final long serialVersionUID = 4328359512757178338L;
 
     @Getter
-    private List<LinkedLogisticsOrderList> subOrders = new ArrayList<LinkedLogisticsOrderList>();
+    private final List<LinkedLogisticsOrderList> subOrders = new ArrayList<>();
 
     private List<IOrderInfoProvider> cachedList = null;
     private List<Float> cachedProgress = null;
 
     private void generateCache() {
-        cachedList = new ArrayList<IOrderInfoProvider>();
+        cachedList = new ArrayList<>();
         cachedList.addAll(this);
         for (LinkedLogisticsOrderList sub : subOrders) {
             cachedList.addAll(sub.getList());
@@ -55,7 +55,7 @@ public class LinkedLogisticsOrderList extends ArrayList<IOrderInfoProvider> {
     }
 
     private void createProgressCache() {
-        cachedProgress = new ArrayList<Float>();
+        cachedProgress = new ArrayList<>();
         for (IOrderInfoProvider order : this) {
             for (Float n : order.getProgresses()) {
                 if (!cachedProgress.contains(n)) {

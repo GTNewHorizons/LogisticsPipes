@@ -38,10 +38,7 @@ public class ModuleApiaristTerminus extends LogisticsModule {
     }
 
     private boolean replyCheck(ItemStack item) {
-        if (SimpleServiceLocator.forestryProxy.isDrone(item)) {
-            return true;
-        }
-        return false;
+        return SimpleServiceLocator.forestryProxy.isDrone(item);
     }
 
     private SinkReply _sinkReply;

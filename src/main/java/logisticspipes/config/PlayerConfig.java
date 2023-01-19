@@ -1,13 +1,6 @@
 package logisticspipes.config;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -210,7 +203,6 @@ public class PlayerConfig {
             } finally {
                 fileAccesLock.unlock();
             }
-            lpUserData = null;
         }
     }
 

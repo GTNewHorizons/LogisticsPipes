@@ -1,19 +1,13 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.ISaveState;
@@ -34,7 +28,7 @@ public class ItemIdentifierInventory
         implements IInventory, ISaveState, ILPCCTypeHolder, Iterable<Pair<ItemIdentifierStack, Integer>> {
 
     private Object ccType;
-    private ItemIdentifierStack[] _contents;
+    private final ItemIdentifierStack[] _contents;
     private final String _name;
     private final int _stackLimit;
     private final HashMap<ItemIdentifier, Integer> _contentsMap;
@@ -43,16 +37,16 @@ public class ItemIdentifierInventory
     private final HashSet<ItemIdentifier> _contentsUndamagedNoNBTSet;
     private final boolean isLiquidInvnetory;
 
-    private final LinkedList<ISimpleInventoryEventHandler> _listener = new LinkedList<ISimpleInventoryEventHandler>();
+    private final LinkedList<ISimpleInventoryEventHandler> _listener = new LinkedList<>();
 
     public ItemIdentifierInventory(int size, String name, int stackLimit, boolean liquidInv) {
         _contents = new ItemIdentifierStack[size];
         _name = name;
         _stackLimit = stackLimit;
-        _contentsMap = new HashMap<ItemIdentifier, Integer>((int) (size * 1.5));
-        _contentsUndamagedSet = new HashSet<ItemIdentifier>((int) (size * 1.5));
-        _contentsNoNBTSet = new HashSet<ItemIdentifier>((int) (size * 1.5));
-        _contentsUndamagedNoNBTSet = new HashSet<ItemIdentifier>((int) (size * 1.5));
+        _contentsMap = new HashMap<>((int) (size * 1.5));
+        _contentsUndamagedSet = new HashSet<>((int) (size * 1.5));
+        _contentsNoNBTSet = new HashSet<>((int) (size * 1.5));
+        _contentsUndamagedNoNBTSet = new HashSet<>((int) (size * 1.5));
         isLiquidInvnetory = liquidInv;
     }
 
@@ -255,9 +249,7 @@ public class ItemIdentifierInventory
     }
 
     public void removeListener(ISimpleInventoryEventHandler listner) {
-        if (_listener.contains(listner)) {
-            _listener.remove(listner);
-        }
+        _listener.remove(listner);
     }
 
     @Override
@@ -364,12 +356,7 @@ public class ItemIdentifierInventory
                 continue;
             }
             ItemIdentifier itemId = _content.getItem();
-            Integer count = _contentsMap.get(itemId);
-            if (count == null) {
-                _contentsMap.put(itemId, _content.getStackSize());
-            } else {
-                _contentsMap.put(itemId, _contentsMap.get(itemId) + _content.getStackSize());
-            }
+            _contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
             _contentsUndamagedSet.add(
                     itemId.getUndamaged()); // add is cheaper than check then add; it just returns false if it is
             // already there
@@ -513,7 +500,7 @@ public class ItemIdentifierInventory
             @Override
             public Pair<ItemIdentifierStack, Integer> next() {
                 pos++;
-                return new Pair<ItemIdentifierStack, Integer>(iter.next(), pos);
+                return new Pair<>(iter.next(), pos);
             }
 
             @Override

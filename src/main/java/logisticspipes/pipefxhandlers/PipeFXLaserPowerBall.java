@@ -22,8 +22,8 @@ public class PipeFXLaserPowerBall extends EntityFX {
     private static final int ROTATIONSPEED = 5;
     private static final Random RAND = new Random();
 
-    private float random = 0;
-    private TileEntity tile;
+    private final float random;
+    private final TileEntity tile;
 
     public PipeFXLaserPowerBall(World par1World, LPPosition pos, int color, TileEntity tile) {
         super(par1World, pos.getXD() + 0.5D, pos.getYD() + 0.5D, pos.getZD() + 0.5D, 0.0D, 0.0D, 0.0D);
@@ -31,7 +31,7 @@ public class PipeFXLaserPowerBall extends EntityFX {
         setSize(0.02F, 0.02F);
         particleRed = ((float) ((color & 0xff0000) >> 16)) / 0xff;
         particleGreen = ((float) ((color & 0x00ff00) >> 8)) / 0xff;
-        particleBlue = ((float) ((color & 0x0000ff) >> 0)) / 0xff;
+        particleBlue = ((float) ((color & 0x0000ff))) / 0xff;
         noClip = true;
         motionX = 0.0D;
         motionY = 0.0D;
@@ -64,7 +64,7 @@ public class PipeFXLaserPowerBall extends EntityFX {
         tessellator.draw();
         GL11.glPushMatrix();
         float rot = (worldObj.provider.getWorldTime() + random)
-                        % (360 / PipeFXLaserPowerBall.ROTATIONSPEED)
+                        % ((float) (360 / PipeFXLaserPowerBall.ROTATIONSPEED))
                         * PipeFXLaserPowerBall.ROTATIONSPEED
                 + PipeFXLaserPowerBall.ROTATIONSPEED * f;
 

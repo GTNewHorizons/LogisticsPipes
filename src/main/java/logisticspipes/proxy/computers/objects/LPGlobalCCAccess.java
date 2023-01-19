@@ -35,7 +35,7 @@ public class LPGlobalCCAccess implements ILPCCTypeHolder {
         if (object == null) {
             return "null";
         }
-        return object.toString() + " [" + object.getClass() + "]";
+        return object + " [" + object.getClass() + "]";
     }
 
     @CCCommand(description = "Creates a new ItemIdentifier Builder")

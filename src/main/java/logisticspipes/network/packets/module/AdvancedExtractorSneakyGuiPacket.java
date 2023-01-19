@@ -59,7 +59,6 @@ public class AdvancedExtractorSneakyGuiPacket extends ModuleCoordinatesPacket {
                     .setPosY(getPosY())
                     .setPosZ(getPosZ())
                     .open(player);
-            return;
         }
     }
 }

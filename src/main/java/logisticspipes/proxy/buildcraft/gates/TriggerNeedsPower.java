@@ -39,9 +39,7 @@ public class TriggerNeedsPower extends LPTrigger implements ITriggerExternal {
         }
         if (tile instanceof LogisticsSolderingTileEntity) {
             LogisticsSolderingTileEntity LSTE = (LogisticsSolderingTileEntity) tile;
-            if (LSTE.hasWork) {
-                return true;
-            }
+            return LSTE.hasWork;
         }
         return false;
     }

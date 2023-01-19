@@ -36,7 +36,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
     protected int lastStackLookedAt = 0;
     protected int lastSuceededStack = 0;
 
-    private PlayerCollectionList _watchingPlayer = new PlayerCollectionList();
+    private final PlayerCollectionList _watchingPlayer = new PlayerCollectionList();
     private int lastPosSend = 0;
 
     public ModuleQuickSort() {}
@@ -100,7 +100,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
                     continue;
                 }
 
-                LinkedList<Integer> jamList = new LinkedList<Integer>();
+                LinkedList<Integer> jamList = new LinkedList<>();
                 Pair<Integer, SinkReply> reply = _service.hasDestination(item.getKey(), false, jamList);
                 if (reply == null) {
                     if (lastStackLookedAt == lastSuceededStack) {
@@ -186,7 +186,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
             send();
 
             // begin duplicate code
-            List<Integer> jamList = new LinkedList<Integer>();
+            List<Integer> jamList = new LinkedList<>();
             Pair<Integer, SinkReply> reply = _service.hasDestination(ItemIdentifier.get(slot), false, jamList);
             if (reply == null) {
                 if (lastStackLookedAt == lastSuceededStack) {
@@ -225,7 +225,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
                 jamList.add(reply.getValue1());
                 reply = _service.hasDestination(ItemIdentifier.get(slot), false, jamList);
             }
-            ItemStack returned = null;
+            ItemStack returned;
             int amountToExtract = sizePrev - slot.stackSize;
             if (slot.stackSize > 0) {
                 partialSend = true;

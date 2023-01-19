@@ -7,11 +7,11 @@ import logisticspipes.utils.tuples.LPPosition;
 
 public interface IOrderInfoProvider {
 
-    public enum ResourceType {
+    enum ResourceType {
         PROVIDER,
         CRAFTING,
         EXTRA
-    };
+    }
 
     boolean isFinished();
 

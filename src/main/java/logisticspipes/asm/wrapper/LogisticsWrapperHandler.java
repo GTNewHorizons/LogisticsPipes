@@ -1,19 +1,10 @@
 package logisticspipes.asm.wrapper;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.asm.IgnoreDisabledProxy;
@@ -25,20 +16,14 @@ import logisticspipes.utils.ModStatusHelper;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LogWrapper;
 import org.apache.logging.log4j.Level;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
+import org.objectweb.asm.*;
 
 public class LogisticsWrapperHandler {
 
     private static final boolean DUMP = false;
 
-    private static Map<String, Class<?>> lookupMap = new HashMap<String, Class<?>>();
-    public static List<AbstractWrapper> wrapperController = new ArrayList<AbstractWrapper>();
+    private static final Map<String, Class<?>> lookupMap = new HashMap<>();
+    public static List<AbstractWrapper> wrapperController = new ArrayList<>();
 
     private static Method m_defineClass = null;
 
@@ -67,12 +52,12 @@ public class LogisticsWrapperHandler {
             LogisticsPipes.log.info("Loaded " + modId + ", " + name + " ProgressProvider");
         } else {
             if (e != null) {
-                ((AbstractWrapper) instance).setState(WrapperState.Exception);
-                ((AbstractWrapper) instance).setReason(e);
+                instance.setState(WrapperState.Exception);
+                instance.setReason(e);
                 LogisticsPipes.log.info("Couldn't load " + modId + ", " + name + " ProgressProvider");
             } else {
                 LogisticsPipes.log.info("Didn't load " + modId + ", " + name + " ProgressProvider");
-                ((AbstractWrapper) instance).setState(WrapperState.ModMissing);
+                instance.setState(WrapperState.ModMissing);
             }
         }
         instance.setModId(modId);
@@ -103,12 +88,12 @@ public class LogisticsWrapperHandler {
             LogisticsPipes.log.info("Loaded " + name + " RecipeProvider");
         } else {
             if (e != null) {
-                ((AbstractWrapper) instance).setState(WrapperState.Exception);
-                ((AbstractWrapper) instance).setReason(e);
+                instance.setState(WrapperState.Exception);
+                instance.setReason(e);
                 LogisticsPipes.log.info("Couldn't load " + name + " RecipeProvider");
             } else {
                 LogisticsPipes.log.info("Didn't load " + name + " RecipeProvider");
-                ((AbstractWrapper) instance).setState(WrapperState.ModMissing);
+                instance.setState(WrapperState.ModMissing);
             }
         }
         instance.setModId(modId);
@@ -123,8 +108,8 @@ public class LogisticsWrapperHandler {
             Class<? extends T> proxyClazz,
             T dummyProxy,
             Class<?>... wrapperInterfaces)
-            throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException,
-                    IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+            throws SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException,
+                    InvocationTargetException, NoSuchMethodException {
         String proxyName = interfaze.getSimpleName().substring(1);
         if (!proxyName.endsWith("Proxy")) {
             throw new RuntimeException("UnuportedProxyName: " + proxyName);
@@ -137,7 +122,7 @@ public class LogisticsWrapperHandler {
             modId = modId.substring(1);
         }
         List<Class<?>> wrapperInterfacesList = Arrays.asList(wrapperInterfaces);
-        Class<?> clazz = null;
+        Class<?> clazz;
         synchronized (lookupMap) {
             clazz = LogisticsWrapperHandler.lookupMap.get(className);
             if (clazz == null) {
@@ -234,11 +219,11 @@ public class LogisticsWrapperHandler {
                                 && e.getMessage().contains("duplicate class definition")) {
                             Class<?> prev = Class.forName(className);
                             System.err.println(e.getMessage());
-                            System.err.println("Already loaded: " + String.valueOf(prev));
+                            System.err.println("Already loaded: " + prev);
                             String resourcePath = className.replace('.', '/').concat(".class");
                             URL classResource = Launch.classLoader.findResource(resourcePath);
                             if (classResource != null) {
-                                String path = classResource.getPath().toString();
+                                String path = classResource.getPath();
                                 System.err.println("Class source: " + path);
                             } else {
                                 System.err.println("Class source: Null");
@@ -294,15 +279,15 @@ public class LogisticsWrapperHandler {
 
     @SuppressWarnings("unchecked")
     public static <T> T getWrappedSubProxy(AbstractWrapper wrapper, Class<T> interfaze, T proxy, T dummyProxy)
-            throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException,
-                    IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
+            throws SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException,
+                    InvocationTargetException, NoSuchMethodException {
         if (proxy == null) {
             return null;
         }
         String proxyName = interfaze.getSimpleName().substring(1);
         String className = "logisticspipes/asm/wrapper/generated/" + proxyName + "ProxyWrapper";
 
-        Class<?> clazz = null;
+        Class<?> clazz;
         synchronized (lookupMap) {
             clazz = LogisticsWrapperHandler.lookupMap.get(className);
             if (clazz == null) {
@@ -406,11 +391,11 @@ public class LogisticsWrapperHandler {
                                 && e.getMessage().contains("duplicate class definition")) {
                             Class<?> prev = Class.forName(className);
                             System.err.println(e.getMessage());
-                            System.err.println("Already loaded: " + String.valueOf(prev));
+                            System.err.println("Already loaded: " + prev);
                             String resourcePath = className.replace('.', '/').concat(".class");
                             URL classResource = Launch.classLoader.findResource(resourcePath);
                             if (classResource != null) {
-                                String path = classResource.getPath().toString();
+                                String path = classResource.getPath();
                                 System.err.println("Class source: " + path);
                             } else {
                                 System.err.println("Class source: Null");
@@ -489,7 +474,7 @@ public class LogisticsWrapperHandler {
         desc.append(")");
         String resultClassL = null;
         String resultClass = null;
-        int returnType = 0;
+        int returnType;
         if (retclazz == null || retclazz == void.class) {
             desc.append("V");
             returnType = Opcodes.RETURN;

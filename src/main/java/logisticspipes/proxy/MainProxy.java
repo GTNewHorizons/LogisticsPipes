@@ -45,7 +45,7 @@ public class MainProxy {
 
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
 
-    private static WeakHashMap<Thread, Side> threadSideMap = new WeakHashMap<Thread, Side>();
+    private static final WeakHashMap<Thread, Side> threadSideMap = new WeakHashMap<>();
     public static final String networkChannelName = "LogisticsPipes";
 
     private static Side getEffectiveSide() {
@@ -83,11 +83,10 @@ public class MainProxy {
         return MainProxy.isClient();
     }
 
-    @Deprecated
     /**
      * isClient is slow, find a world and check isServer(world)
-     * @return
      */
+    @Deprecated
     public static boolean isClient() {
         return MainProxy.getEffectiveSide() == Side.CLIENT;
     }
@@ -102,11 +101,10 @@ public class MainProxy {
         return MainProxy.isServer();
     }
 
-    @Deprecated
     /**
      * isServer is slow, find a world and check isServer(world)
-     * @return
      */
+    @Deprecated
     public static boolean isServer() {
         return MainProxy.getEffectiveSide() == Side.SERVER;
     }
@@ -193,7 +191,6 @@ public class MainProxy {
                     MainProxy.sendPacketToPlayer(packet, player);
                 }
             }
-            return;
         }
     }
 
@@ -286,9 +283,7 @@ public class MainProxy {
             }
         }
         if (toInfo != null) {
-            if (!toInfo.canConnect(from, way.getOpposite(), ignoreSystemDisconnection)) {
-                return false;
-            }
+            return toInfo.canConnect(from, way.getOpposite(), ignoreSystemDisconnection);
         }
         return true;
     }

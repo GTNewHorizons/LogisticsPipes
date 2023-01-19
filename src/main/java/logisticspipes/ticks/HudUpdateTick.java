@@ -8,9 +8,9 @@ import logisticspipes.routing.IRouterManager;
 
 public class HudUpdateTick {
 
-    private static BitSet routersNeedingUpdate = new BitSet(4096);
+    private static final BitSet routersNeedingUpdate = new BitSet(4096);
     private static int firstRouter = -1;
-    private static int inventorySlotsToUpdatePerTick = 90;
+    private static final int inventorySlotsToUpdatePerTick = 90;
 
     public HudUpdateTick() {}
 

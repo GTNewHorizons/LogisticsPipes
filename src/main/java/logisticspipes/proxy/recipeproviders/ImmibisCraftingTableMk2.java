@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ImmibisCraftingTableMk2 implements ICraftingRecipeProvider {
 
-    private Class<?> tileAutoCraftingMk2;
+    private final Class<?> tileAutoCraftingMk2;
 
     public ImmibisCraftingTableMk2() throws ClassNotFoundException {
         tileAutoCraftingMk2 = Class.forName("mods.immibis.tubestuff.TileAutoCraftingMk2");
@@ -23,10 +23,7 @@ public class ImmibisCraftingTableMk2 implements ICraftingRecipeProvider {
 
     @Override
     public boolean canOpenGui(TileEntity tile) {
-        if (tileAutoCraftingMk2.isInstance(tile)) {
-            return true;
-        }
-        return false;
+        return tileAutoCraftingMk2.isInstance(tile);
     }
 
     @Override
@@ -95,10 +92,7 @@ public class ImmibisCraftingTableMk2 implements ICraftingRecipeProvider {
                 inventory.setInventorySlotContents(9, result);
                 return true;
             }
-        } catch (IllegalArgumentException e) {
-            LogisticsPipes.log.fatal("Error while importing recipe from Tubestuff's AutoCraftingMk2");
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalArgumentException | NoSuchFieldException e) {
             LogisticsPipes.log.fatal("Error while importing recipe from Tubestuff's AutoCraftingMk2");
             e.printStackTrace();
         } catch (Exception e) {

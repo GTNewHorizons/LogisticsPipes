@@ -5,11 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.ManagedPeripheral;
-import li.cil.oc.api.network.Message;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.SidedEnvironment;
+import li.cil.oc.api.network.*;
 import logisticspipes.LPConstants;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.PacketHandler;
@@ -85,7 +81,6 @@ public class LogisticsSolidTileEntity extends TileEntity
                         .setPosZ(zCoord));
                 init = true;
             }
-            return;
         }
     }
 
@@ -138,7 +133,7 @@ public class LogisticsSolidTileEntity extends TileEntity
 
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
-    public Object[] invoke(String s, Context context, Arguments arguments) throws Exception {
+    public Object[] invoke(String s, Context context, Arguments arguments) {
         BaseWrapperClass object = (BaseWrapperClass) CCObjectWrapper.getWrappedObject(this, BaseWrapperClass.WRAPPER);
         object.isDirectCall = true;
         return CCObjectWrapper.createArray(object);

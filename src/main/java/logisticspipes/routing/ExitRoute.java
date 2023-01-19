@@ -1,17 +1,13 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.routing.debug.ExitRouteDebug;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -29,7 +25,7 @@ public class ExitRoute implements Comparable<ExitRoute> {
     public final EnumSet<PipeRoutingConnectionType> connectionDetails;
     public final IRouter destination;
     public IRouter root;
-    public List<IFilter> filters = Collections.unmodifiableList(new ArrayList<IFilter>(0));
+    public List<IFilter> filters = Collections.unmodifiableList(new ArrayList<>(0));
     /**
      * Used to store debug information. No use in the actual Routing table
      * calculation
@@ -137,7 +133,7 @@ public class ExitRoute implements Comparable<ExitRoute> {
             List<IFilter> filterB,
             int blockDistance) {
         this(source, destination, ForgeDirection.UNKNOWN, ForgeDirection.UNKNOWN, distance, enumSet, blockDistance);
-        List<IFilter> filter = new ArrayList<IFilter>(filterA.size() + filterB.size());
+        List<IFilter> filter = new ArrayList<>(filterA.size() + filterB.size());
         filter.addAll(filterA);
         filter.addAll(filterB);
         filters = Collections.unmodifiableList(filter);

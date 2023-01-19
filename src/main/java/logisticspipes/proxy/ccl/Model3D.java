@@ -2,7 +2,6 @@ package logisticspipes.proxy.ccl;
 
 import codechicken.lib.lighting.LightModel;
 import codechicken.lib.render.CCModel;
-import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.CCRenderState.IVertexOperation;
 import codechicken.lib.render.uv.UVTransformation;
 import codechicken.lib.vec.Cuboid6;
@@ -28,11 +27,11 @@ public class Model3D implements IModel3D {
 
     @Override
     public void render(I3DOperation... i3dOperations) {
-        List<IVertexOperation> list = new ArrayList<CCRenderState.IVertexOperation>();
+        List<IVertexOperation> list = new ArrayList<>();
         for (I3DOperation op : i3dOperations) {
             list.add((IVertexOperation) op.getOriginal());
         }
-        model.render(list.toArray(new IVertexOperation[list.size()]));
+        model.render(list.toArray(new IVertexOperation[0]));
     }
 
     @Override

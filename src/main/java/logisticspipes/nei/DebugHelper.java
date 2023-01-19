@@ -1,30 +1,17 @@
 package logisticspipes.nei;
 
 import codechicken.nei.guihook.IContainerTooltipHandler;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import logisticspipes.config.Configs;
 import logisticspipes.utils.item.ItemIdentifier;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByte;
-import net.minecraft.nbt.NBTTagByteArray;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagDouble;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagInt;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagLong;
-import net.minecraft.nbt.NBTTagShort;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.*;
 import org.lwjgl.input.Keyboard;
 
 public class DebugHelper implements IContainerTooltipHandler {
@@ -51,41 +38,37 @@ public class DebugHelper implements IContainerTooltipHandler {
                     && Keyboard.isKeyDown(Keyboard.KEY_H)) {
                 if (DebugHelper.lastTime + 1000 < System.currentTimeMillis()) {
                     DebugHelper.lastTime = System.currentTimeMillis();
-                    new Thread(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    while (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
-                                            || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
-                                            || Keyboard.isKeyDown(Keyboard.KEY_H)) {
-                                        try {
-                                            Thread.sleep(50);
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
+                    new Thread(() -> {
+                                while (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
+                                        || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
+                                        || Keyboard.isKeyDown(Keyboard.KEY_H)) {
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
                                     }
-                                    DefaultMutableTreeNode node = new DefaultMutableTreeNode(
-                                            ItemIdentifier.get(itemstack).getFriendlyName());
-                                    node.add(new DefaultMutableTreeNode(
-                                            "ItemId: " + Item.getIdFromItem(itemstack.getItem())));
-                                    node.add(new DefaultMutableTreeNode("ItemDamage: " + itemstack.getItemDamage()));
-                                    if (itemstack.hasTagCompound()) {
-                                        DefaultMutableTreeNode tag = new DefaultMutableTreeNode("Tag:");
-                                        try {
-                                            addNBTToTree(itemstack.getTagCompound(), tag);
-                                        } catch (Exception e) {
-                                            tag.add(new DefaultMutableTreeNode(e));
-                                        }
-                                        node.add(tag);
-                                    }
-                                    JTree tree = new JTree(node);
-                                    JScrollPane treeView = new JScrollPane(tree);
-                                    JFrame frame = new JFrame("Item Info");
-                                    frame.getContentPane().add(treeView, BorderLayout.CENTER);
-                                    frame.setLocationRelativeTo(null);
-                                    frame.pack();
-                                    frame.setVisible(true);
                                 }
+                                DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+                                        ItemIdentifier.get(itemstack).getFriendlyName());
+                                node.add(new DefaultMutableTreeNode(
+                                        "ItemId: " + Item.getIdFromItem(itemstack.getItem())));
+                                node.add(new DefaultMutableTreeNode("ItemDamage: " + itemstack.getItemDamage()));
+                                if (itemstack.hasTagCompound()) {
+                                    DefaultMutableTreeNode tag = new DefaultMutableTreeNode("Tag:");
+                                    try {
+                                        addNBTToTree(itemstack.getTagCompound(), tag);
+                                    } catch (Exception e) {
+                                        tag.add(new DefaultMutableTreeNode(e));
+                                    }
+                                    node.add(tag);
+                                }
+                                JTree tree = new JTree(node);
+                                JScrollPane treeView = new JScrollPane(tree);
+                                JFrame frame = new JFrame("Item Info");
+                                frame.getContentPane().add(treeView, BorderLayout.CENTER);
+                                frame.setLocationRelativeTo(null);
+                                frame.pack();
+                                frame.setVisible(true);
                             })
                             .start();
                 }
@@ -109,7 +92,7 @@ public class DebugHelper implements IContainerTooltipHandler {
             DefaultMutableTreeNode content = new DefaultMutableTreeNode("Data");
             int i = 0;
             for (byte byt : ((NBTTagByteArray) nbt).func_150292_c()) {
-                content.add(new DefaultMutableTreeNode("[" + i + "]: " + Byte.toString(byt)));
+                content.add(new DefaultMutableTreeNode("[" + i + "]: " + byt));
                 i++;
             }
             node.add(content);

@@ -62,7 +62,7 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
         @Override
         public void renderIcon(int x, int y) {
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             RenderHelper.enableGUIStandardItemLighting();
@@ -112,8 +112,8 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
         public void guiClose() {
             PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
             try {
-                config.setRenderPipeDistance(Integer.valueOf(renderDistance.getContent()));
-                config.setRenderPipeContentDistance(Integer.valueOf(contentRenderDistance.getContent()));
+                config.setRenderPipeDistance(Integer.parseInt(renderDistance.getContent()));
+                config.setRenderPipeContentDistance(Integer.parseInt(contentRenderDistance.getContent()));
             } catch (Exception e) {
                 e.printStackTrace();
             }

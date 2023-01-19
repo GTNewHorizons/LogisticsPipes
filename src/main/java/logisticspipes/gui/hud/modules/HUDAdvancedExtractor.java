@@ -18,10 +18,10 @@ import org.lwjgl.opengl.GL11;
 
 public class HUDAdvancedExtractor implements IHUDModuleRenderer {
 
-    private List<IHUDButton> buttons = new ArrayList<IHUDButton>();
+    private final List<IHUDButton> buttons = new ArrayList<>();
     private int selected = 0;
 
-    private ModuleAdvancedExtractor module;
+    private final ModuleAdvancedExtractor module;
 
     public HUDAdvancedExtractor(ModuleAdvancedExtractor moduleAdvancedExtractor) {
         module = moduleAdvancedExtractor;

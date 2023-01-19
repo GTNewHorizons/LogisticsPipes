@@ -42,7 +42,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
         LEVEL_1(0.5F, 330, 465, 1, 50, -200, 100),
         LEVEL_2(0.25F, 660, 950, 2, 100, -400, -100);
 
-        private ZOOM_LEVEL(float zoom, int bottom, int right, int line, int moveY, int maxX, int maxY) {
+        ZOOM_LEVEL(float zoom, int bottom, int right, int line, int moveY, int maxX, int maxY) {
             this.zoom = zoom;
             bottomRenderBorder = bottom;
             rightRenderBorder = right;
@@ -91,7 +91,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
     private int mouseY;
     private double guiMapX;
     private double guiMapY;
-    private int minY = -230;
+    private final int minY = -230;
     private int maxY = 0;
     private int minX = -800;
     private int maxX = 800;
@@ -275,7 +275,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
     private void saveImage(BufferedImage bufferedimage) {
         File screenShotsFolder = new File(Minecraft.getMinecraft().mcDataDir, "screenshots");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
-        String s = dateFormat.format(new Date()).toString();
+        String s = dateFormat.format(new Date());
         int i = 1;
         while (true) {
             File canidate = new File(screenShotsFolder, s + (i == 1 ? "" : "_" + i) + ".png");
@@ -328,11 +328,11 @@ public class RequestMonitorPopup extends SubGuiScreen {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         LinkedLogisticsOrderList list = _table.watchedRequests.get(orderId).getValue2();
         if (!list.isEmpty()) {
-            SimpleGraphics.drawVerticalLine(left + 8, top + 0, top + 17, Color.GREEN, zoom.line);
+            SimpleGraphics.drawVerticalLine(left + 8, top, top + 17, Color.GREEN, zoom.line);
         }
         renderLinkedOrderListLines(list, left, top + 17);
         for (Float progress : list.getProgresses()) {
-            int pos = (int) (29.0F * progress.floatValue());
+            int pos = (int) (29.0F * progress);
             drawProgressPoint(left + 8, top + pos, 0xff00ff00);
         }
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -433,7 +433,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
         }
         renderLinkedOrderListLines(list, innerLeftSide - mapX + 102, innerTopSide - mapY - 180);
         for (Float progress : list.getProgresses()) {
-            int pos = (int) (29.0F * progress.floatValue());
+            int pos = (int) (29.0F * progress);
             drawProgressPoint(innerLeftSide - mapX + 110, innerTopSide - mapY - 197 + pos, 0xff00ff00);
         }
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -491,8 +491,8 @@ public class RequestMonitorPopup extends SubGuiScreen {
         int size = list.size();
         int startLeft = -(size - 1) * (30 / 2) + xPos;
         yPos += 13;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isInProgress()) {
+        for (IOrderInfoProvider iOrderInfoProvider : list) {
+            if (iOrderInfoProvider.isInProgress()) {
                 GL11.glColor4f(0.1F, 0.9F, 0.1F, 1.0F);
             } else {
                 GL11.glColor4f(0.7F, 0.7F, 0.7F, 1.0F);
@@ -501,28 +501,27 @@ public class RequestMonitorPopup extends SubGuiScreen {
             mc.getTextureManager().bindTexture(RequestMonitorPopup.achievementTextures);
             drawTexturedModalRect(startLeft - 5, yPos - 5, 0, 202, 26, 26);
             GL11.glColor4f(0.7F, 0.7F, 0.7F, 1.0F);
-            renderItemAt(list.get(i).getAsDisplayItem(), startLeft, yPos);
-            if (list.get(i).isInProgress() && list.get(i).getMachineProgress() != 0) {
+            renderItemAt(iOrderInfoProvider.getAsDisplayItem(), startLeft, yPos);
+            if (iOrderInfoProvider.isInProgress() && iOrderInfoProvider.getMachineProgress() != 0) {
                 Gui.drawRect(startLeft - 4, yPos + 20, startLeft + 20, yPos + 24, 0xff000000);
                 Gui.drawRect(startLeft - 3, yPos + 21, startLeft + 19, yPos + 23, 0xffffffff);
                 Gui.drawRect(
                         startLeft - 3,
                         yPos + 21,
-                        startLeft - 3 + (22 * list.get(i).getMachineProgress() / 100),
+                        startLeft - 3 + (22 * iOrderInfoProvider.getMachineProgress() / 100),
                         yPos + 23,
                         0xffff0000);
             }
             if (startLeft - 10 < par1 && par1 < startLeft + 20 && yPos - 6 < par2 && par2 < yPos + 20) {
                 if (guiLeft < par1 && par1 < guiLeft + xSize - 16 && guiTop < par2 && par2 < guiTop + ySize - 16) {
-                    IOrderInfoProvider order = list.get(i);
-                    List<String> tooltipList = new ArrayList<String>();
+					List<String> tooltipList = new ArrayList<>();
                     tooltipList.add(ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW
-                            + order.getType().name());
-                    tooltipList.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW + order.getRouterId());
+                            + iOrderInfoProvider.getType().name());
+                    tooltipList.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW + iOrderInfoProvider.getRouterId());
                     tooltip = new Object[] {
                         (int) (par1 * zoom.zoom - 10),
                         (int) (par2 * zoom.zoom),
-                        order.getAsDisplayItem().makeNormalStack(),
+                        iOrderInfoProvider.getAsDisplayItem().makeNormalStack(),
                         true,
                         tooltipList
                     };

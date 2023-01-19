@@ -148,7 +148,7 @@ public final class CustomBlockRenderer {
             } else {
                 light = info.light;
             }
-            int brightness = 0;
+            int brightness;
             if (info.brightness < 0) {
                 brightness = info.baseBlock.getMixedBrightnessForBlock(blockAccess, lightX, lightY, lightZ);
             } else {

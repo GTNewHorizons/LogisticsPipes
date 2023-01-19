@@ -1,11 +1,7 @@
 package logisticspipes.proxy.specialinventoryhandler;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.bs.ICrateStorageProxy;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -47,7 +43,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public Set<ItemIdentifier> getItems() {
-        Set<ItemIdentifier> result = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> result = new TreeSet<>();
         for (ItemStack stack : _tile.getContents()) {
             result.add(ItemIdentifier.get(stack));
         }
@@ -60,17 +56,11 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
     }
 
     private Map<ItemIdentifier, Integer> getItemsAndCount(boolean linked) {
-        HashMap<ItemIdentifier, Integer> map =
-                new HashMap<ItemIdentifier, Integer>((int) (_tile.getUniqueItems() * 1.5));
+        HashMap<ItemIdentifier, Integer> map = new HashMap<>((int) (_tile.getUniqueItems() * 1.5));
         for (ItemStack stack : _tile.getContents()) {
             ItemIdentifier itemId = ItemIdentifier.get(stack);
             int stackSize = stack.stackSize - (_hideOnePerStack ? 1 : 0);
-            Integer m = map.get(itemId);
-            if (m == null) {
-                map.put(itemId, stackSize);
-            } else {
-                map.put(itemId, m + stackSize);
-            }
+            map.merge(itemId, stackSize, Integer::sum);
         }
         return map;
     }
@@ -106,8 +96,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public int roomForItem(ItemIdentifier itemIdent, int count) {
-        int space = _tile.getSpaceForItem(itemIdent.unsafeMakeNormalStack(1));
-        return space;
+        return _tile.getSpaceForItem(itemIdent.unsafeMakeNormalStack(1));
     }
 
     @Override
@@ -145,10 +134,8 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
 
     public void initCache() {
         Map<ItemIdentifier, Integer> map = getItemsAndCount(true);
-        cached = new LinkedList<Map.Entry<ItemIdentifier, Integer>>();
-        for (Entry<ItemIdentifier, Integer> e : map.entrySet()) {
-            cached.add(e);
-        }
+        cached = new LinkedList<>();
+        cached.addAll(map.entrySet());
     }
 
     @Override
@@ -170,7 +157,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
         }
         Entry<ItemIdentifier, Integer> entry = cached.get(i);
         ItemStack stack = entry.getKey().makeNormalStack(j);
-        ItemStack extracted = null;
+        ItemStack extracted;
         int count = _tile.getItemCount(stack);
         if (count <= (_hideOnePerStack ? 1 : 0)) {
             return null;

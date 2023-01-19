@@ -5,9 +5,9 @@ import java.util.*;
 public class LogisticsOrderLinkedList<E extends LogisticsOrder, I> implements Iterable<E> {
 
     private final IIdentityProvider<E, I> identifyer;
-    private Map<I, Integer> extraSize = new HashMap<I, Integer>();
-    private LinkedList<E> list = new LinkedList<E>();
-    private List<E> unmodifiable = Collections.unmodifiableList(list);
+    private final Map<I, Integer> extraSize = new HashMap<>();
+    private final LinkedList<E> list = new LinkedList<>();
+    private final List<E> unmodifiable = Collections.unmodifiableList(list);
     private int globalExtraCount = 0;
 
     public LogisticsOrderLinkedList(IIdentityProvider<E, I> identifyer) {
@@ -29,7 +29,7 @@ public class LogisticsOrderLinkedList<E extends LogisticsOrder, I> implements It
             extraSize.put(ident, prev + 1);
             globalExtraCount++;
         } else if (extraSize.containsKey(ident) && extraSize.get(ident) > 0) {
-            List<E> toMove = new LinkedList<E>();
+            List<E> toMove = new LinkedList<>();
             for (E lElem : list) {
                 if (identifyer.isExtra(lElem) && ident.equals(identifyer.getIdentity(lElem))) {
                     toMove.add(lElem);
@@ -86,7 +86,7 @@ public class LogisticsOrderLinkedList<E extends LogisticsOrder, I> implements It
         return list.isEmpty();
     }
 
-    public static interface IIdentityProvider<A, B> {
+    public interface IIdentityProvider<A, B> {
         B getIdentity(A o);
 
         boolean isExtra(A o);

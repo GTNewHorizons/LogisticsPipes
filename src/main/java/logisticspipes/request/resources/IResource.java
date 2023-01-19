@@ -21,7 +21,7 @@ public interface IResource extends ILPCCTypeHolder {
      */
     enum MatchSettings {
         NORMAL,
-        WITHOUT_NBT;
+        WITHOUT_NBT
     }
 
     int getRequestedAmount();
@@ -46,6 +46,6 @@ public interface IResource extends ILPCCTypeHolder {
     enum ColorCode {
         NONE,
         MISSING,
-        SUCCESS;
+        SUCCESS
     }
 }

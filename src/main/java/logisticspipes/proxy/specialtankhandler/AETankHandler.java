@@ -40,7 +40,7 @@ public class AETankHandler implements ISpecialTankAccessHandler {
 
     @Override
     public List<TileEntity> getBaseTilesFor(TileEntity tile) {
-        List<TileEntity> tiles = new ArrayList<TileEntity>(1);
+        List<TileEntity> tiles = new ArrayList<>(1);
         if (tile instanceof IGridHost) {
             IGridHost host = (IGridHost) tile;
             IGridNode node = host.getGridNode(ForgeDirection.UNKNOWN);
@@ -59,12 +59,9 @@ public class AETankHandler implements ISpecialTankAccessHandler {
     @SuppressWarnings("unused")
     @Override
     public Map<FluidIdentifier, Long> getAvailableLiquid(TileEntity tile) {
-        Map<FluidIdentifier, Long> map = new HashMap<FluidIdentifier, Long>();
+        Map<FluidIdentifier, Long> map = new HashMap<>();
         if (tile instanceof ITileStorageMonitorable) {
             ITileStorageMonitorable mon = (ITileStorageMonitorable) tile;
-            if (mon == null) {
-                return map;
-            }
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                 MachineSource source = new MachineSource(new LPActionHost(((IGridHost) tile).getGridNode(dir)));
                 IStorageMonitorable monitor = mon.getMonitorable(dir, source);
@@ -95,9 +92,6 @@ public class AETankHandler implements ISpecialTankAccessHandler {
     public FluidStack drainFrom(TileEntity tile, FluidIdentifier ident, Integer amount, boolean drain) {
         if (tile instanceof ITileStorageMonitorable) {
             ITileStorageMonitorable mon = (ITileStorageMonitorable) tile;
-            if (mon == null) {
-                return null;
-            }
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
                 MachineSource source = new MachineSource(new LPActionHost(((IGridHost) tile).getGridNode(dir)));
                 IStorageMonitorable monitor = mon.getMonitorable(dir, source);
@@ -141,7 +135,7 @@ public class AETankHandler implements ISpecialTankAccessHandler {
         return world.getTileEntity(coord.x, coord.y, coord.z);
     }
 
-    private class LPActionHost implements IActionHost {
+    private static class LPActionHost implements IActionHost {
 
         public IGridNode node;
 

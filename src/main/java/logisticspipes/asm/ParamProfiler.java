@@ -8,7 +8,8 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodNode;
 
 public class ParamProfiler {
     private static final boolean isActive = false;
@@ -28,7 +29,7 @@ public class ParamProfiler {
             if (isConst) continue;
             final long methodId = minMethodId++;
 
-            final List<String> varList = new ArrayList<String>();
+            final List<String> varList = new ArrayList<>();
             if (!methodDesc.startsWith("(")) throw new UnsupportedOperationException(methodDesc);
             outer:
             for (int i = 1; i < methodDesc.length(); i++) {
@@ -52,7 +53,7 @@ public class ParamProfiler {
                         varList.add(String.valueOf(methodDesc.charAt(i)));
                 }
             }
-            final List<Label> catchStatement = new ArrayList<Label>();
+            final List<Label> catchStatement = new ArrayList<>();
             MethodNode mv =
                     new MethodNode(
                             Opcodes.ASM4, m.access, m.name, m.desc, m.signature, m.exceptions.toArray(new String[0])) {
@@ -63,7 +64,7 @@ public class ParamProfiler {
                             Label l0 = new Label();
                             visitLabel(l0);
 
-                            visitLdcInsn(new Long(methodId));
+                            visitLdcInsn(methodId);
                             visitLdcInsn(className + "+" + methodName + "+" + methodDesc);
                             if ((m.access & Opcodes.ACC_STATIC) != 0) {
                                 visitInsn(Opcodes.ACONST_NULL);
@@ -82,8 +83,7 @@ public class ParamProfiler {
                                 visitInsn(Opcodes.DUP);
                                 visitIntInsn(Opcodes.BIPUSH, count++);
                                 if (!varNode.startsWith("L") && !varNode.startsWith("[")) {
-                                    String primitiveType = varNode;
-                                    switch (primitiveType.charAt(0)) {
+                                    switch (varNode.charAt(0)) {
                                         case 'I':
                                             visitVarInsn(Opcodes.ILOAD, pos);
                                             pos += 1;
@@ -165,7 +165,7 @@ public class ParamProfiler {
                                                     false);
                                             break;
                                         default:
-                                            throw new UnsupportedOperationException("'" + primitiveType + "'");
+                                            throw new UnsupportedOperationException("'" + varNode + "'");
                                     }
                                 } else {
                                     visitVarInsn(Opcodes.ALOAD, pos);
@@ -189,7 +189,7 @@ public class ParamProfiler {
                                     || opcode == Opcodes.FRETURN
                                     || opcode == Opcodes.DRETURN
                                     || opcode == Opcodes.ARETURN) {
-                                visitLdcInsn(new Long(methodId));
+                                visitLdcInsn(methodId);
                                 visitMethodInsn(
                                         Opcodes.INVOKESTATIC,
                                         "logisticspipes/asm/ParamProfiler",
@@ -242,16 +242,12 @@ public class ParamProfiler {
         return writer.toByteArray();
     }
 
-    private static Map<Thread, Stack<Entry>> stack = new HashMap<Thread, Stack<Entry>>();
+    private static final Map<Thread, Stack<Entry>> stack = new HashMap<>();
 
     @SuppressWarnings("unused") // Used by ASM
     public static void methodStart(long id, String name, Object root, Object... params) {
         if (!isActive) return;
-        Stack<Entry> access = stack.get(Thread.currentThread());
-        if (access == null) {
-            access = new Stack<Entry>();
-            stack.put(Thread.currentThread(), access);
-        }
+        Stack<Entry> access = stack.computeIfAbsent(Thread.currentThread(), k -> new Stack<>());
         access.push(new Entry(id, name, root, params));
     }
 
@@ -272,12 +268,12 @@ public class ParamProfiler {
     }
 
     @Getter
-    private static WeakHashMap<Throwable, ArrayList<Entry>> infoLink = new WeakHashMap<Throwable, ArrayList<Entry>>();
+    private static final WeakHashMap<Throwable, ArrayList<Entry>> infoLink = new WeakHashMap<>();
 
     @SuppressWarnings("unused") // Used by ASM
     public static void handleException(Throwable t) {
         Stack<Entry> access = stack.get(Thread.currentThread());
-        infoLink.put(t, new ArrayList<Entry>(access));
+        infoLink.put(t, new ArrayList<>(access));
     }
 
     @Data

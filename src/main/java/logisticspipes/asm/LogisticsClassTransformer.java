@@ -1,11 +1,7 @@
 package logisticspipes.asm;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import logisticspipes.LPConstants;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.LaunchClassLoader;
@@ -15,9 +11,9 @@ import org.objectweb.asm.tree.MethodNode;
 
 public class LogisticsClassTransformer implements IClassTransformer {
 
-    public List<String> interfacesToClearA = new ArrayList<String>();
-    public List<String> interfacesToClearB = new ArrayList<String>();
-    private LaunchClassLoader cl = (LaunchClassLoader) LogisticsClassTransformer.class.getClassLoader();
+    public List<String> interfacesToClearA = new ArrayList<>();
+    public List<String> interfacesToClearB = new ArrayList<>();
+    private final LaunchClassLoader cl = (LaunchClassLoader) LogisticsClassTransformer.class.getClassLoader();
     private Field negativeResourceCache;
     private Field invalidClasses;
 

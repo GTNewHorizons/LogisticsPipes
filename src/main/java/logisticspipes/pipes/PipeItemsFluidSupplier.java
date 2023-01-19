@@ -53,10 +53,8 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
                         }
                         if (tile instanceof IFluidHandler) {
                             IFluidHandler liq = (IFluidHandler) tile;
-                            if (liq.getTankInfo(dir.getOpposite()) != null
-                                    && liq.getTankInfo(dir.getOpposite()).length > 0) {
-                                return true;
-                            }
+                            return liq.getTankInfo(dir.getOpposite()) != null
+                                    && liq.getTankInfo(dir.getOpposite()).length > 0;
                         }
                         return false;
                     }
@@ -130,9 +128,10 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
     }
 
     // from PipeItemsFluidSupplier
-    private ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(9, "Fluids to keep stocked", 127);
+    private final ItemIdentifierInventory dummyInventory =
+            new ItemIdentifierInventory(9, "Fluids to keep stocked", 127);
 
-    private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<ItemIdentifier, Integer>();
+    private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<>();
 
     private boolean _requestPartials = false;
 
@@ -160,7 +159,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
 
             // How much do I want?
             Map<ItemIdentifier, Integer> wantContainers = dummyInventory.getItemsAndCount();
-            HashMap<FluidIdentifier, Integer> wantFluids = new HashMap<FluidIdentifier, Integer>();
+            HashMap<FluidIdentifier, Integer> wantFluids = new HashMap<>();
             for (Entry<ItemIdentifier, Integer> item : wantContainers.entrySet()) {
                 ItemStack wantItem = item.getKey().unsafeMakeNormalStack(1);
                 FluidStack liquidstack = FluidContainerRegistry.getFluidForFilledItem(wantItem);
@@ -171,7 +170,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
             }
 
             // How much do I have?
-            HashMap<FluidIdentifier, Integer> haveFluids = new HashMap<FluidIdentifier, Integer>();
+            HashMap<FluidIdentifier, Integer> haveFluids = new HashMap<>();
 
             FluidTankInfo[] result = container.getTankInfo(ForgeDirection.UNKNOWN);
             for (FluidTankInfo slot : result) {
@@ -291,7 +290,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
             }
         }
         // we have no idea what this is, log it.
-        debug.log("liquid supplier got unexpected item " + item.toString());
+        debug.log("liquid supplier got unexpected item " + item);
     }
 
     @Override

@@ -1,10 +1,6 @@
 package logisticspipes.proxy.buildcraft.gates;
 
-import buildcraft.api.statements.IStatement;
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.StatementManager;
-import buildcraft.api.statements.StatementParameterItemStack;
+import buildcraft.api.statements.*;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;
 import logisticspipes.textures.Textures;

@@ -8,38 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import logisticspipes.LPConstants;
-import logisticspipes.pipes.upgrades.AdvancedSatelliteUpgrade;
-import logisticspipes.pipes.upgrades.CCRemoteControlUpgrade;
-import logisticspipes.pipes.upgrades.CombinedSneakyUpgrade;
-import logisticspipes.pipes.upgrades.CraftingByproductUpgrade;
-import logisticspipes.pipes.upgrades.CraftingCleanupUpgrade;
-import logisticspipes.pipes.upgrades.CraftingMonitoringUpgrade;
-import logisticspipes.pipes.upgrades.FluidCraftingUpgrade;
-import logisticspipes.pipes.upgrades.FuzzyUpgrade;
-import logisticspipes.pipes.upgrades.IPipeUpgrade;
-import logisticspipes.pipes.upgrades.LogicControllerUpgrade;
-import logisticspipes.pipes.upgrades.OpaqueUpgrade;
-import logisticspipes.pipes.upgrades.PatternUpgrade;
-import logisticspipes.pipes.upgrades.PowerTransportationUpgrade;
-import logisticspipes.pipes.upgrades.SpeedUpgrade;
-import logisticspipes.pipes.upgrades.UpgradeModuleUpgrade;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeDOWN;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeEAST;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeNORTH;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeSOUTH;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeUP;
-import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeWEST;
-import logisticspipes.pipes.upgrades.power.IC2EVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2HVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2LVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2MVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.RFPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeDOWN;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeEAST;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeNORTH;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeSOUTH;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeUP;
-import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeWEST;
+import logisticspipes.pipes.upgrades.*;
+import logisticspipes.pipes.upgrades.connection.*;
+import logisticspipes.pipes.upgrades.power.*;
+import logisticspipes.pipes.upgrades.sneaky.*;
 import logisticspipes.utils.string.StringUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -98,13 +70,13 @@ public class ItemUpgrade extends LogisticsItem {
     public static final int MAX_LIQUID_CRAFTER = 3;
     public static final int MAX_CRAFTING_CLEANUP = 4;
 
-    List<Upgrade> upgrades = new ArrayList<Upgrade>();
+    List<Upgrade> upgrades = new ArrayList<>();
     private IIcon[] icons;
 
-    private class Upgrade {
+    private static class Upgrade {
 
-        private int id;
-        private Class<? extends IPipeUpgrade> upgradeClass;
+        private final int id;
+        private final Class<? extends IPipeUpgrade> upgradeClass;
         private int textureIndex = -1;
 
         private Upgrade(int id, Class<? extends IPipeUpgrade> moduleClass, int textureIndex) {
@@ -118,18 +90,13 @@ public class ItemUpgrade extends LogisticsItem {
                 return null;
             }
             try {
-                return upgradeClass.getConstructor(new Class[] {}).newInstance(new Object[] {});
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+                return upgradeClass.getConstructor(new Class[] {}).newInstance();
+            } catch (IllegalArgumentException
+                    | InstantiationException
+                    | NoSuchMethodException
+                    | InvocationTargetException
+                    | IllegalAccessException
+                    | SecurityException e) {
                 e.printStackTrace();
             }
             return null;
@@ -192,9 +159,10 @@ public class ItemUpgrade extends LogisticsItem {
     public void registerUpgrade(int id, Class<? extends IPipeUpgrade> moduleClass, int textureId) {
         boolean flag = true;
         for (Upgrade upgrade : upgrades) {
-            if (upgrade.getId() == id) {
-                flag = false;
-            }
+			if (upgrade.getId() == id) {
+				flag = false;
+				break;
+			}
         }
         if (flag) {
             upgrades.add(new Upgrade(id, moduleClass, textureId));
@@ -222,7 +190,7 @@ public class ItemUpgrade extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (Upgrade upgrade : upgrades) {
@@ -247,11 +215,7 @@ public class ItemUpgrade extends LogisticsItem {
                         return currentUpgrade;
                     }
                 }
-                IPipeUpgrade newupgrade = upgrade.getIPipeUpgrade();
-                if (newupgrade == null) {
-                    return null;
-                }
-                return newupgrade;
+				return upgrade.getIPipeUpgrade();
             }
         }
         return null;
@@ -329,7 +293,7 @@ public class ItemUpgrade extends LogisticsItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean flag) {
         super.addInformation(stack, par2EntityPlayer, list, flag);
         IPipeUpgrade upgrade = getUpgradeForItem(stack, null);

@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiButton;
 
 public class GuiMessagePopup extends SubGuiScreen {
 
-    private String[] text;
+    private final String[] text;
     private int mWidth = 0;
 
     public GuiMessagePopup(Object... message) {
@@ -59,10 +59,8 @@ public class GuiMessagePopup extends SubGuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
-        switch (guibutton.id) {
-            case 0:
-                super.exitGui();
-                break;
+        if (guibutton.id == 0) {
+            super.exitGui();
         }
     }
 }

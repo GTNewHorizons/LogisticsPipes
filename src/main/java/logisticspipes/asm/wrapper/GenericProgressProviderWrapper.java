@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class GenericProgressProviderWrapper extends AbstractWrapper implements IGenericProgressProvider {
 
-    private IGenericProgressProvider provider;
+    private final IGenericProgressProvider provider;
     private final String name;
 
     GenericProgressProviderWrapper(IGenericProgressProvider provider, String name) {
@@ -18,9 +18,7 @@ public class GenericProgressProviderWrapper extends AbstractWrapper implements I
         if (isEnabled()) {
             try {
                 return provider.isType(tile);
-            } catch (Exception e) {
-                handleException(e);
-            } catch (NoClassDefFoundError e) {
+            } catch (Exception | NoClassDefFoundError e) {
                 handleException(e);
             }
         }
@@ -32,9 +30,7 @@ public class GenericProgressProviderWrapper extends AbstractWrapper implements I
         if (isEnabled()) {
             try {
                 return provider.getProgress(tile);
-            } catch (Exception e) {
-                handleException(e);
-            } catch (NoClassDefFoundError e) {
+            } catch (Exception | NoClassDefFoundError e) {
                 handleException(e);
             }
         }

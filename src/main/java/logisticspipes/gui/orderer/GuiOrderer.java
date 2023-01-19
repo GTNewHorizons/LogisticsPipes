@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.gui.orderer;
 
 import java.util.Collection;
@@ -20,15 +20,7 @@ import logisticspipes.network.packets.orderer.RequestSubmitPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiCheckBox;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.IItemSearch;
-import logisticspipes.utils.gui.ISubGuiControler;
-import logisticspipes.utils.gui.ItemDisplay;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SearchBar;
-import logisticspipes.utils.gui.SmallGuiButton;
+import logisticspipes.utils.gui.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import net.minecraft.client.gui.GuiButton;
@@ -162,8 +154,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         // Enchantment? Enchantment!
         Map<Integer, Integer> enchantIdLvlMap = EnchantmentHelper.getEnchantments(item.unsafeMakeNormalStack(1));
         for (Entry<Integer, Integer> e : enchantIdLvlMap.entrySet()) {
-            if (e.getKey().intValue() < Enchantment.enchantmentsList.length
-                    && Enchantment.enchantmentsList[e.getKey()] != null) {
+            if (e.getKey() < Enchantment.enchantmentsList.length && Enchantment.enchantmentsList[e.getKey()] != null) {
                 String enchantname = Enchantment.enchantmentsList[e.getKey()].getTranslatedName(e.getValue());
                 if (enchantname != null) {
                     if (isSearched(
@@ -180,9 +171,10 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     private boolean isSearched(String value, String search) {
         boolean flag = true;
         for (String s : search.split(" ")) {
-            if (!value.contains(s)) {
-                flag = false;
-            }
+			if (!value.contains(s)) {
+				flag = false;
+				break;
+			}
         }
         return flag;
     }

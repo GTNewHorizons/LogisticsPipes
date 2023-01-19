@@ -19,16 +19,10 @@ import org.luaj.vm2.LuaTable;
 
 public class CCCommandWrapper implements ILuaObject {
 
-    public static final ICommandWrapper WRAPPER = new ICommandWrapper() {
+    public static final ICommandWrapper WRAPPER = CCCommandWrapper::new;
 
-        @Override
-        public Object getWrappedObject(CCWrapperInformation info, Object object) {
-            return new CCCommandWrapper(info, object);
-        }
-    };
-
-    private CCWrapperInformation info;
-    private Object object;
+    private final CCWrapperInformation info;
+    private final Object object;
     public boolean isDirectCall;
 
     public LuaTable table;
@@ -40,14 +34,14 @@ public class CCCommandWrapper implements ILuaObject {
 
     @Override
     public String[] getMethodNames() {
-        LinkedList<String> list = new LinkedList<String>();
+        LinkedList<String> list = new LinkedList<>();
         list.add("help");
         list.add("commandHelp");
         list.add("getType");
         for (int i = 0; i < info.commandMap.size(); i++) {
             list.add(info.commandMap.get(i));
         }
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new String[0]);
     }
 
     @Override
@@ -127,9 +121,7 @@ public class CCCommandWrapper implements ILuaObject {
                         throw new RuntimeException(e.getTargetException());
                     }
                     throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalArgumentException e) {
+                } catch (IllegalAccessException | IllegalArgumentException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -142,27 +134,23 @@ public class CCCommandWrapper implements ILuaObject {
             final Boolean[] booleans = new Boolean[2];
             booleans[0] = false;
             booleans[1] = false;
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    try {
-                        Object result = m.invoke(object, a);
-                        if (result != null) {
-                            resultArray[0] = result;
-                        }
-                    } catch (InvocationTargetException e) {
-                        if (e.getTargetException() instanceof PermissionException) {
-                            booleans[1] = true;
-                            resultArray[0] = e.getTargetException();
-                        } else {
-                            booleans[0] = true;
-                            throw e;
-                        }
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+                try {
+                    Object result = m.invoke(object, a);
+                    if (result != null) {
+                        resultArray[0] = result;
                     }
-                    booleans[0] = true;
-                    return null;
+                } catch (InvocationTargetException e) {
+                    if (e.getTargetException() instanceof PermissionException) {
+                        booleans[1] = true;
+                        resultArray[0] = e.getTargetException();
+                    } else {
+                        booleans[0] = true;
+                        throw e;
+                    }
                 }
+                booleans[0] = true;
+                return null;
             });
             int count = 0;
             while (!booleans[0] && count < 200) {
@@ -175,7 +163,7 @@ public class CCCommandWrapper implements ILuaObject {
             }
             if (count >= 199) {
                 LogisticsPipes.log.warn("CC call " + m.getName() + " on "
-                        + object.getClass().getName() + ", (" + object.toString() + ") took too long.");
+                        + object.getClass().getName() + ", (" + object + ") took too long.");
                 throw new RuntimeException("Took too long");
             }
             if (m.getReturnType().equals(Void.class)) {
@@ -196,9 +184,7 @@ public class CCCommandWrapper implements ILuaObject {
                 throw new RuntimeException(e.getTargetException());
             }
             throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException | IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
         return CCObjectWrapper.createArray(CCObjectWrapper.getWrappedObject(result, CCCommandWrapper.WRAPPER));
@@ -218,7 +204,7 @@ public class CCCommandWrapper implements ILuaObject {
             if (help.length() != 0) {
                 command.append("\n");
             }
-            int number = num.intValue();
+            int number = num;
             if (number < 10) {
                 command.append(" ");
             }
@@ -250,8 +236,8 @@ public class CCCommandWrapper implements ILuaObject {
             if (param.toString().length() + command.length() > 36) {
                 command.append("\n      ---");
             }
-            command.append(param.toString());
-            help.append(command.toString());
+            command.append(param);
+            help.append(command);
         }
         String commands = help.toString();
         String[] lines = commands.split("\n");
@@ -266,13 +252,13 @@ public class CCCommandWrapper implements ILuaObject {
                 }
             }
             StringBuilder page = new StringBuilder();
-            page.append(head.toString());
+            page.append(head);
             page.append("Page ");
             page.append(pageNumber);
             page.append(" of ");
-            page.append((int) (Math.floor(lines.length / 10) + (lines.length % 10 == 0 ? 0 : 1)));
+            page.append(lines.length / 10 + (lines.length % 10 == 0 ? 0 : 1));
             page.append("\n");
-            page.append(head2.toString());
+            page.append(head2);
             pageNumber--;
             int from = pageNumber * 11;
             int to = pageNumber * 11 + 11;
@@ -292,9 +278,7 @@ public class CCCommandWrapper implements ILuaObject {
                 head.append("\n").append(buffer);
             }
         }
-        return new Object[] {
-            new StringBuilder().append(head).append(head2).append(help).toString()
-        };
+        return new Object[] {String.valueOf(head) + head2 + help};
     }
 
     private Object[] helpCommand(Object[] arguments) {

@@ -63,16 +63,16 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     public static LogisticsNewRenderPipe secondRenderer = new LogisticsNewRenderPipe();
     public static LogisticsNewPipeItemBoxRenderer boxRenderer = new LogisticsNewPipeItemBoxRenderer();
     public static PlayerConfig config;
-    private static ItemStackRenderer itemRenderer = new ItemStackRenderer(0, 0, 0, false, false, false);
-    private static Map<IPipeSignData, GLRenderList> pipeSignRenderListMap = new HashMap<IPipeSignData, GLRenderList>();
+    private static final ItemStackRenderer itemRenderer = new ItemStackRenderer(0, 0, 0, false, false, false);
+    private static final Map<IPipeSignData, GLRenderList> pipeSignRenderListMap = new HashMap<>();
     private static int localItemTestRenderList = -1;
 
     private final int[] angleY = {0, 0, 270, 90, 0, 180};
     private final int[] angleZ = {90, 270, 0, 0, 0, 0};
     private static final IntHashMap displayFluidLists = new IntHashMap();
-    private ModelSign modelSign;
-    private RenderBlocks renderBlocks = new RenderBlocks();
-    private IBCRenderTESR bcRenderer = SimpleServiceLocator.buildCraftProxy.getBCRenderTESR();
+    private final ModelSign modelSign;
+    private final RenderBlocks renderBlocks = new RenderBlocks();
+    private final IBCRenderTESR bcRenderer = SimpleServiceLocator.buildCraftProxy.getBCRenderTESR();
 
     public LogisticsRenderPipe() {
         super();
@@ -272,7 +272,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     }
 
     private boolean needDistance(List<Pair<ForgeDirection, IPipeSign>> list) {
-        List<Pair<ForgeDirection, IPipeSign>> copy = new ArrayList<Pair<ForgeDirection, IPipeSign>>(list);
+        List<Pair<ForgeDirection, IPipeSign>> copy = new ArrayList<>(list);
         Iterator<Pair<ForgeDirection, IPipeSign>> iter = copy.iterator();
         boolean north = false, south = false, east = false, west = false;
         while (iter.hasNext()) {
@@ -348,7 +348,6 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                         }
                         break;
                     default:
-                        ;
                 }
                 renderSign(pipe, pair.getValue2(), partialTickTime);
                 GL11.glPopMatrix();
@@ -503,10 +502,10 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        tessellator.addVertexWithUV(par1 + 0, par2 + par5, zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
+        tessellator.addVertexWithUV(par1, par2 + par5, zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
         tessellator.addVertexWithUV(par1 + par4, par2 + par5, zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
-        tessellator.addVertexWithUV(par1 + par4, par2 + 0, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
-        tessellator.addVertexWithUV(par1 + 0, par2 + 0, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
+        tessellator.addVertexWithUV(par1 + par4, par2, zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
+        tessellator.addVertexWithUV(par1, par2, zLevel, par3Icon.getMinU(), par3Icon.getMinV());
         tessellator.draw();
         GL11.glPopMatrix();
     }
@@ -520,7 +519,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             if (renderer.getStringWidth(sum.toString() + name.charAt(i) + "...") < 90) {
                 sum.append(name.charAt(i));
             } else {
-                return sum.toString() + "...";
+                return sum + "...";
             }
         }
         return sum.toString();
@@ -822,13 +821,13 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             }
             GL11.glPopMatrix();
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         GL11.glPopMatrix();
         return false;
     }
 
-    private class DisplayFluidList {
+    private static class DisplayFluidList {
 
         public int[] sideHorizontal = new int[LogisticsRenderPipe.LIQUID_STAGES];
         public int[] sideVertical = new int[LogisticsRenderPipe.LIQUID_STAGES];

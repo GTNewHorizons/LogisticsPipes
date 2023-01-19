@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils;
 
 import java.util.ArrayList;
@@ -18,11 +18,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class WorldUtil {
 
-    private int _x;
-    private int _y;
-    private int _z;
+    private final int _x;
+    private final int _y;
+    private final int _z;
 
-    private World _worldObj;
+    private final World _worldObj;
 
     public WorldUtil(World worldObj, int x, int y, int z) {
         _worldObj = worldObj;

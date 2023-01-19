@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 
 public class PipeItemsCraftingLogisticsMk3 extends PipeItemsCraftingLogisticsMk2 implements IBufferItems {
 
-    private HUDCraftingMK3 HUD = new HUDCraftingMK3(this);
+    private final HUDCraftingMK3 HUD = new HUDCraftingMK3(this);
 
     public PipeItemsCraftingLogisticsMk3(Item item) {
         super(item);

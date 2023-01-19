@@ -13,7 +13,7 @@ import logisticspipes.utils.tuples.Pair;
 public class QueuedTasks {
 
     @SuppressWarnings("rawtypes")
-    private static LinkedList<Callable> queue = new LinkedList<Callable>();
+    private static final LinkedList<Callable> queue = new LinkedList<>();
 
     // called on server shutdown only.
     public static void clearAllTasks() {
@@ -33,7 +33,7 @@ public class QueuedTasks {
         if (event.phase != Phase.END) {
             return;
         }
-        Callable call = null;
+        Callable call;
         while (!QueuedTasks.queue.isEmpty()) {
             synchronized (QueuedTasks.queue) {
                 call = QueuedTasks.queue.removeFirst();

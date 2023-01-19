@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Level;
 public class PacketInboundHandler extends SimpleChannelInboundHandler<InboundModernPacketWrapper> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, InboundModernPacketWrapper msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, InboundModernPacketWrapper msg) {
         try {
             msg.packet.processPacket(msg.player);
             if (LPConstants.DEBUG) {

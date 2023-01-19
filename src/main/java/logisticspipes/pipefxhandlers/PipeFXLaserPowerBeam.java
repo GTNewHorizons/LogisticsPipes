@@ -28,11 +28,11 @@ public class PipeFXLaserPowerBeam extends EntityFX {
     @Setter
     private boolean reverse = false;
 
-    private float length = 0.0F;
-    private float yaw = 0.0F;
-    private float pitch = 0.0F;
-    private float random = 0;
-    private TileEntity tile;
+    private final float length;
+    private final float yaw;
+    private final float pitch;
+    private final float random;
+    private final TileEntity tile;
 
     public PipeFXLaserPowerBeam(
             World par1World, LPPosition pos, float length, ForgeDirection dir, int color, TileEntity tile) {
@@ -41,7 +41,7 @@ public class PipeFXLaserPowerBeam extends EntityFX {
         this.tile = tile;
         particleRed = ((float) ((color & 0xff0000) >> 16)) / 0xff;
         particleGreen = ((float) ((color & 0x00ff00) >> 8)) / 0xff;
-        particleBlue = ((float) ((color & 0x0000ff) >> 0)) / 0xff;
+        particleBlue = ((float) ((color & 0x0000ff))) / 0xff;
         noClip = true;
         motionX = 0.0D;
         motionY = 0.0D;
@@ -81,7 +81,7 @@ public class PipeFXLaserPowerBeam extends EntityFX {
         GL11.glPushMatrix();
         float slide = worldObj.getTotalWorldTime() + random;
         float rot = worldObj.provider.getWorldTime()
-                        % (360 / PipeFXLaserPowerBeam.ROTATIONSPEED)
+                        % ((float) (360 / PipeFXLaserPowerBeam.ROTATIONSPEED))
                         * PipeFXLaserPowerBeam.ROTATIONSPEED
                 + PipeFXLaserPowerBeam.ROTATIONSPEED * f;
 

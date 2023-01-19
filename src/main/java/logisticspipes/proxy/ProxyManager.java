@@ -4,11 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.asm.wrapper.LogisticsWrapperHandler;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
@@ -20,14 +16,7 @@ import logisticspipes.proxy.binnie.BinnieProxy;
 import logisticspipes.proxy.bs.BetterStorageProxy;
 import logisticspipes.proxy.bs.ICrateStorageProxy;
 import logisticspipes.proxy.buildcraft.BuildCraftProxy;
-import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPipePart;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPluggableState;
-import logisticspipes.proxy.buildcraft.subproxies.IBCRenderState;
-import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
-import logisticspipes.proxy.buildcraft.subproxies.IBCTilePart;
-import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
+import logisticspipes.proxy.buildcraft.subproxies.*;
 import logisticspipes.proxy.cc.CCProxy;
 import logisticspipes.proxy.ccl.CCLProxy;
 import logisticspipes.proxy.cofh.CoFHPowerProxy;
@@ -41,34 +30,9 @@ import logisticspipes.proxy.factorization.FactorizationProxy;
 import logisticspipes.proxy.forestry.ForestryProxy;
 import logisticspipes.proxy.ic.IronChestProxy;
 import logisticspipes.proxy.ic2.IC2Proxy;
-import logisticspipes.proxy.interfaces.IBCProxy;
-import logisticspipes.proxy.interfaces.IBetterStorageProxy;
-import logisticspipes.proxy.interfaces.IBinnieProxy;
-import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.interfaces.ICCProxy;
-import logisticspipes.proxy.interfaces.ICoFHPowerProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.proxy.interfaces.IEnderIOProxy;
-import logisticspipes.proxy.interfaces.IEnderStorageProxy;
-import logisticspipes.proxy.interfaces.IExtraCellsProxy;
-import logisticspipes.proxy.interfaces.IFactorizationProxy;
-import logisticspipes.proxy.interfaces.IForestryProxy;
-import logisticspipes.proxy.interfaces.IIC2Proxy;
-import logisticspipes.proxy.interfaces.IIronChestProxy;
-import logisticspipes.proxy.interfaces.INEIProxy;
-import logisticspipes.proxy.interfaces.IOpenComputersProxy;
-import logisticspipes.proxy.interfaces.IThaumCraftProxy;
-import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
-import logisticspipes.proxy.interfaces.IToolWrenchProxy;
+import logisticspipes.proxy.interfaces.*;
 import logisticspipes.proxy.nei.NEIProxy;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
-import logisticspipes.proxy.object3d.interfaces.IBounds;
-import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
-import logisticspipes.proxy.object3d.interfaces.IModel3D;
-import logisticspipes.proxy.object3d.interfaces.IRenderState;
-import logisticspipes.proxy.object3d.interfaces.ITranslation;
-import logisticspipes.proxy.object3d.interfaces.IVec3;
+import logisticspipes.proxy.object3d.interfaces.*;
 import logisticspipes.proxy.object3d.operation.LPScale;
 import logisticspipes.proxy.opencomputers.IOCTile;
 import logisticspipes.proxy.opencomputers.OpenComputersProxy;
@@ -93,7 +57,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
 
 // @formatter:off
 // CHECKSTYLE:OFF
@@ -297,10 +260,10 @@ public class ProxyManager {
                             public IBCPluggableState getBCPlugableState() {
                                 return new IBCPluggableState() {
                                     @Override
-                                    public void writeData(LPDataOutputStream data) throws IOException {}
+                                    public void writeData(LPDataOutputStream data) {}
 
                                     @Override
-                                    public void readData(LPDataInputStream data) throws IOException {}
+                                    public void readData(LPDataInputStream data) {}
 
                                     @Override
                                     public boolean isDirty(boolean clean) {
@@ -737,7 +700,7 @@ public class ProxyManager {
 
                     @Override
                     public List<TileEntity> getConnectedTesseracts(TileEntity tile) {
-                        return new ArrayList<TileEntity>(0);
+                        return new ArrayList<>(0);
                     }
 
                     @Override
@@ -798,7 +761,7 @@ public class ProxyManager {
                     @Override
                     public List<String> getInfoForPosition(
                             World world, EntityPlayer player, MovingObjectPosition objectMouseOver) {
-                        return new ArrayList<String>(0);
+                        return new ArrayList<>(0);
                     }
 
                     @Override
@@ -815,6 +778,7 @@ public class ProxyManager {
                             EntityPlayer thePlayer,
                             boolean advancedItemTooltips,
                             GuiContainer screen) {
+                        //noinspection unchecked
                         return stack.getTooltip(thePlayer, advancedItemTooltips);
                     }
 
@@ -826,12 +790,7 @@ public class ProxyManager {
                 }));
 
         SimpleServiceLocator.setFactorizationProxy(ProxyManager.getWrappedProxy(
-                "factorization", IFactorizationProxy.class, FactorizationProxy.class, new IFactorizationProxy() {
-                    @Override
-                    public boolean isBarral(TileEntity tile) {
-                        return false;
-                    }
-                }));
+                "factorization", IFactorizationProxy.class, FactorizationProxy.class, tile -> false));
 
         SimpleServiceLocator.setEnderIOProxy(
                 ProxyManager.getWrappedProxy("EnderIO", IEnderIOProxy.class, EnderIOProxy.class, new IEnderIOProxy() {
@@ -852,7 +811,7 @@ public class ProxyManager {
 
                     @Override
                     public List<TileEntity> getConnectedHyperCubes(TileEntity tile) {
-                        return new ArrayList<TileEntity>(0);
+                        return new ArrayList<>(0);
                     }
 
                     @Override
@@ -939,12 +898,7 @@ public class ProxyManager {
                 }));
 
         SimpleServiceLocator.setExtraCellsProxy(ProxyManager.getWrappedProxy(
-                "extracells", IExtraCellsProxy.class, ExtraCellsProxy.class, new IExtraCellsProxy() {
-                    @Override
-                    public boolean canSeeFluidInNetwork(Fluid fluid) {
-                        return true;
-                    }
-                }));
+                "extracells", IExtraCellsProxy.class, ExtraCellsProxy.class, fluid -> true));
 
         SimpleServiceLocator.setCoFHPowerProxy(ProxyManager.getWrappedProxy(
                 "CoFHAPI|energy",
@@ -1024,12 +978,7 @@ public class ProxyManager {
                 ICoFHEnergyStorage.class));
 
         SimpleServiceLocator.setBinnieProxy(
-                ProxyManager.getWrappedProxy("Genetics", IBinnieProxy.class, BinnieProxy.class, new IBinnieProxy() {
-                    @Override
-                    public boolean isTileAnalyser(TileEntity tile) {
-                        return false;
-                    }
-                }));
+                ProxyManager.getWrappedProxy("Genetics", IBinnieProxy.class, BinnieProxy.class, tile -> false));
 
         ICCLProxy dummyCCLProxy = new ICCLProxy() {
             @Override
@@ -1061,7 +1010,7 @@ public class ProxyManager {
 
             @Override
             public Map<String, IModel3D> parseObjModels(InputStream resourceAsStream, int i, LPScale scale) {
-                return new HashMap<String, IModel3D>();
+                return new HashMap<>();
             }
 
             @Override

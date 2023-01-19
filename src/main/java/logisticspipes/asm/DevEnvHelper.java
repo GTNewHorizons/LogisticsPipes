@@ -9,14 +9,7 @@ import cpw.mods.fml.common.asm.transformers.ModAccessTransformer;
 import cpw.mods.fml.relauncher.CoreModManager;
 import cpw.mods.fml.relauncher.FMLRelaunchLog;
 import cpw.mods.fml.relauncher.FileListHelper;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,16 +17,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import logisticspipes.LPConstants;
@@ -48,20 +32,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.AnnotationNode;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.FrameNode;
-import org.objectweb.asm.tree.InnerClassNode;
-import org.objectweb.asm.tree.LdcInsnNode;
-import org.objectweb.asm.tree.LocalVariableNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.MultiANewArrayInsnNode;
-import org.objectweb.asm.tree.TryCatchBlockNode;
-import org.objectweb.asm.tree.TypeInsnNode;
+import org.objectweb.asm.tree.*;
 
 public class DevEnvHelper {
 
@@ -112,13 +83,7 @@ public class DevEnvHelper {
 
         FMLRelaunchLog.fine("Discovering coremods");
         File coreMods = (File) setupCoreModDir.invoke(null, mcDir.get(null));
-        FilenameFilter ff = new FilenameFilter() {
-
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".jar");
-            }
-        };
+        FilenameFilter ff = (dir, name) -> name.endsWith(".jar");
         File[] FMLcoreModListArray = coreMods.listFiles(ff);
         File versionedModDir = new File(coreMods, "1.7.10");
         if (versionedModDir.isDirectory()) {
@@ -126,13 +91,13 @@ public class DevEnvHelper {
             FMLcoreModListArray = ObjectArrays.concat(FMLcoreModListArray, versionedCoreMods, File.class);
         }
 
-        List<String> FMLcoreModList = new ArrayList<String>();
+        List<String> FMLcoreModList = new ArrayList<>();
 
         for (File f : FMLcoreModListArray) {
             FMLcoreModList.add(f.getName());
         }
 
-        List<File> coreModList = new ArrayList<File>();
+        List<File> coreModList = new ArrayList<>();
 
         for (URL path : classLoader.getURLs()) {
             File file = new File(URLDecoder.decode(path.getFile()));
@@ -141,7 +106,7 @@ public class DevEnvHelper {
             }
         }
 
-        coreModList = Arrays.asList(FileListHelper.sortFileList(coreModList.toArray(new File[coreModList.size()])));
+        coreModList = Arrays.asList(FileListHelper.sortFileList(coreModList.toArray(new File[0])));
 
         for (File coreMod : coreModList) {
             FMLRelaunchLog.fine("Examining for coremod candidacy %s", coreMod.getName());
@@ -219,7 +184,7 @@ public class DevEnvHelper {
                 AccessTransformer acc = new AccessTransformer("CoFH_at.cfg") {};
                 insertTransformer(acc);
             }
-        } catch (Throwable t) {
+        } catch (Throwable ignored) {
         }
     }
 
@@ -251,7 +216,7 @@ public class DevEnvHelper {
         loadersF.setAccessible(true);
         addURL.setAccessible(true);
 
-        ArrayList<File> modFileList = new ArrayList<File>();
+        ArrayList<File> modFileList = new ArrayList<>();
         File modsFolder = new File("mods");
         if (modsFolder.exists()) {
             File[] modses = modsFolder.listFiles();
@@ -328,7 +293,7 @@ public class DevEnvHelper {
      */
 
     private static Mapping m;
-    private static IClassTransformer transformer = new IClassTransformer() {
+    private static final IClassTransformer transformer = new IClassTransformer() {
 
         @Override
         public byte[] transform(String name, String transformedName, byte[] basicClass) {
@@ -341,15 +306,13 @@ public class DevEnvHelper {
         }
 
         public byte[] transform_Sub(String name, String transformedName, byte[] basicClass)
-                throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException,
-                        IllegalAccessException, NoSuchMethodException, InvocationTargetException,
-                        ClassNotFoundException {
+                throws IOException, SecurityException, IllegalArgumentException {
             if (basicClass == null) {
-                return basicClass;
+                return null;
             }
             final String resourcePath = name.replace('.', '/').concat(".class");
             URL classResource = Launch.classLoader.findResource(resourcePath);
-            String path = classResource.getPath().toString();
+            String path = classResource.getPath();
             if (path.contains("LP_DEOBF.jar!/")) {
                 final ClassNode cn = new ClassNode();
                 ClassReader reader = new ClassReader(basicClass);
@@ -451,7 +414,7 @@ public class DevEnvHelper {
                     }
 
                     {
-                        Set<String> exceptions = new HashSet<String>(mn.exceptions);
+                        Set<String> exceptions = new HashSet<>(mn.exceptions);
                         exceptions.addAll(DevEnvHelper.m.getExceptions(cn.name, mn.name, mn.desc));
                         mn.exceptions.clear();
                         for (String s : exceptions) {
@@ -643,8 +606,6 @@ public class DevEnvHelper {
                 }
             }
 
-            return null;
-
         } else {
 
             // normal method resolution; http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-5.html#jvms-5.4.3.3
@@ -700,18 +661,17 @@ public class DevEnvHelper {
 
                 owner = cn.superName;
             }
-
-            return null;
         }
+        return null;
     }
 
     public static class Mapping {
 
-        private Map<String, String> classes = new HashMap<String, String>();
-        private Map<String, String> methods = new HashMap<String, String>();
-        private Map<String, String> fields = new HashMap<String, String>();
-        private Map<String, List<String>> exceptions = new HashMap<String, List<String>>();
-        private Map<String, String> classPrefixes = new HashMap<String, String>();
+        private final Map<String, String> classes = new HashMap<>();
+        private final Map<String, String> methods = new HashMap<>();
+        private final Map<String, String> fields = new HashMap<>();
+        private final Map<String, List<String>> exceptions = new HashMap<>();
+        private final Map<String, String> classPrefixes = new HashMap<>();
         private String defaultPackage = "";
 
         public final NameSet fromNS, toNS;
@@ -786,7 +746,7 @@ public class DevEnvHelper {
 
         public List<String> getExceptions(String clazz, String method, String desc) {
             List<String> ret = exceptions.get(clazz + "/" + method + desc);
-            return ret == null ? Collections.<String>emptyList() : ret;
+            return ret == null ? Collections.emptyList() : ret;
         }
 
         public void addPrefix(String old, String new_) {
@@ -805,7 +765,7 @@ public class DevEnvHelper {
             }
 
             int pos = 0;
-            String out = "";
+            StringBuilder out = new StringBuilder();
             while (pos < desc.length()) {
                 switch (desc.charAt(pos)) {
                     case 'V':
@@ -820,7 +780,7 @@ public class DevEnvHelper {
                     case '[':
                     case '(':
                     case ')':
-                        out += desc.charAt(pos);
+                        out.append(desc.charAt(pos));
                         pos++;
                         break;
                     case 'L':
@@ -828,7 +788,7 @@ public class DevEnvHelper {
                             int end = desc.indexOf(';', pos);
                             String obf = desc.substring(pos + 1, end);
                             pos = end + 1;
-                            out += "L" + getClass(obf) + ";";
+                            out.append("L").append(getClass(obf)).append(";");
                         }
                         break;
                     default:
@@ -836,7 +796,7 @@ public class DevEnvHelper {
                                 "Unknown method descriptor character: " + desc.charAt(pos) + " (in " + desc + ")");
                 }
             }
-            return out;
+            return out.toString();
         }
 
         public String mapTypeDescriptor(String in) {
@@ -864,13 +824,13 @@ public class DevEnvHelper {
 
     public static class MinecraftNameSet extends NameSet {
 
-        public static enum Type {
+        public enum Type {
             OBF,
             SRG,
             MCP
         }
 
-        public static enum Side {
+        public enum Side {
             UNIVERSAL,
             CLIENT,
             SERVER
@@ -923,9 +883,8 @@ public class DevEnvHelper {
         // reverse: mcp -> searge -> obf
         private Mapping forwardSRG, reverseSRG, forwardCSV, reverseCSV;
 
-        private Map<String, Set<String>> srgMethodOwnersAndDescs =
-                new HashMap<String, Set<String>>(); // SRG name -> SRG owners
-        private Map<String, Set<String>> srgFieldOwners = new HashMap<String, Set<String>>(); // SRG name -> SRG owners
+        private final Map<String, Set<String>> srgMethodOwnersAndDescs = new HashMap<>(); // SRG name -> SRG owners
+        private final Map<String, Set<String>> srgFieldOwners = new HashMap<>(); // SRG name -> SRG owners
 
         private ExcFile excFileData;
 
@@ -992,8 +951,7 @@ public class DevEnvHelper {
                 ExcFile excFile,
                 SrgFile srgFile,
                 Map<String, String> fieldNames,
-                Map<String, String> methodNames)
-                throws CantLoadMCPMappingException {
+                Map<String, String> methodNames) {
 
             NameSet obfNS = new MinecraftNameSet(MinecraftNameSet.Type.OBF, side, mcVer);
             NameSet srgNS = new MinecraftNameSet(MinecraftNameSet.Type.SRG, side, mcVer);
@@ -1010,7 +968,7 @@ public class DevEnvHelper {
             loadCSVMapping(fieldNames, methodNames);
         }
 
-        private void loadSRGMapping(SrgFile srg) throws CantLoadMCPMappingException {
+        private void loadSRGMapping(SrgFile srg) {
             forwardSRG.setDefaultPackage("net/minecraft/src/");
             reverseSRG.addPrefix("net/minecraft/src/", "");
 
@@ -1038,10 +996,7 @@ public class DevEnvHelper {
                                 + srgFieldOwners.get(srgName) + " and " + srgOwner + ")");
                     }
 
-                    Set<String> owners = srgFieldOwners.get(srgName);
-                    if (owners == null) {
-                        srgFieldOwners.put(srgName, owners = new HashSet<String>());
-                    }
+                    Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<>());
                     owners.add(srgOwner);
                 }
 
@@ -1061,10 +1016,8 @@ public class DevEnvHelper {
                 String srgDesc = forwardSRG.mapMethodDescriptor(obfDesc);
                 String srgOwner = srg.classes.get(obfOwner);
 
-                Set<String> srgMethodOwnersThis = srgMethodOwnersAndDescs.get(srgName);
-                if (srgMethodOwnersThis == null) {
-                    srgMethodOwnersAndDescs.put(srgName, srgMethodOwnersThis = new HashSet<String>());
-                }
+                Set<String> srgMethodOwnersThis =
+                        srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<>());
                 srgMethodOwnersThis.add(srgOwner + srgDesc);
 
                 forwardSRG.setMethod(obfOwner, obfName, obfDesc, srgName);
@@ -1072,7 +1025,7 @@ public class DevEnvHelper {
 
                 String[] srgExceptions = excFileData.getExceptionClasses(srgOwner, srgName, srgDesc);
                 if (srgExceptions.length > 0) {
-                    List<String> obfExceptions = new ArrayList<String>();
+                    List<String> obfExceptions = new ArrayList<>();
                     for (String s : srgExceptions) {
                         obfExceptions.add(reverseSRG.getClass(s));
                     }
@@ -1081,8 +1034,7 @@ public class DevEnvHelper {
             }
         }
 
-        private void loadCSVMapping(Map<String, String> fieldNames, Map<String, String> methodNames)
-                throws CantLoadMCPMappingException {
+        private void loadCSVMapping(Map<String, String> fieldNames, Map<String, String> methodNames) {
             for (Map.Entry<String, String> entry : fieldNames.entrySet()) {
                 String srgName = entry.getKey();
                 String mcpName = entry.getValue();
@@ -1092,10 +1044,9 @@ public class DevEnvHelper {
                             "Field exists in CSV but not in SRG: " + srgName + " (CSV name: " + mcpName + ")");
                 } else {
                     for (String srgOwner : srgFieldOwners.get(srgName)) {
-                        String mcpOwner = srgOwner;
 
                         forwardCSV.setField(srgOwner, srgName, mcpName);
-                        reverseCSV.setField(mcpOwner, mcpName, srgName);
+                        reverseCSV.setField(srgOwner, mcpName, srgName);
                     }
                 }
             }
@@ -1111,11 +1062,9 @@ public class DevEnvHelper {
                     for (String srgOwnerAndDesc : srgMethodOwnersAndDescs.get(srgName)) {
                         String srgDesc = srgOwnerAndDesc.substring(srgOwnerAndDesc.indexOf('('));
                         String srgOwner = srgOwnerAndDesc.substring(0, srgOwnerAndDesc.indexOf('('));
-                        String mcpOwner = srgOwner;
-                        String mcpDesc = srgDesc;
 
                         forwardCSV.setMethod(srgOwner, srgName, srgDesc, mcpName);
-                        reverseCSV.setMethod(mcpOwner, mcpName, mcpDesc, srgName);
+                        reverseCSV.setMethod(srgOwner, mcpName, srgDesc, srgName);
                     }
                 }
             }
@@ -1138,8 +1087,7 @@ public class DevEnvHelper {
         }
 
         public static String getMCVer(File mcpDir) throws IOException {
-            Scanner in = new Scanner(new File(mcpDir, "version.cfg"));
-            try {
+            try (Scanner in = new Scanner(new File(mcpDir, "version.cfg"))) {
                 while (in.hasNextLine()) {
                     String line = in.nextLine();
                     if (line.startsWith("ClientVersion")) {
@@ -1147,10 +1095,6 @@ public class DevEnvHelper {
                     }
                 }
                 return "unknown";
-            } finally {
-                if (in != null) {
-                    in.close();
-                }
             }
         }
     }
@@ -1158,10 +1102,9 @@ public class DevEnvHelper {
     public abstract static class CsvFile {
 
         /** Does not close <var>r</var>. */
-        public static Map<String, String> read(Reader r, int[] n_sides) throws IOException {
-            Map<String, String> data = new HashMap<String, String>();
+        public static Map<String, String> read(Reader r, int[] n_sides) {
+            Map<String, String> data = new HashMap<>();
 
-            @SuppressWarnings("resource")
             Scanner in = new Scanner(r);
 
             in.useDelimiter(",");
@@ -1174,7 +1117,7 @@ public class DevEnvHelper {
                     if (CsvFile.sideIn(Integer.parseInt(side), n_sides)) {
                         data.put(searge, name);
                     }
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
             return data;
@@ -1182,13 +1125,8 @@ public class DevEnvHelper {
 
         @Deprecated
         public static Map<String, String> read(File f, int[] n_sides) throws IOException {
-            Reader r = new BufferedReader(new FileReader(f));
-            try {
+            try (Reader r = new BufferedReader(new FileReader(f))) {
                 return CsvFile.read(r, n_sides);
-            } finally {
-                if (r != null) {
-                    r.close();
-                }
             }
         }
 
@@ -1204,9 +1142,9 @@ public class DevEnvHelper {
 
     public static class ExcFile {
 
-        public Map<String, String[]> exceptions = new HashMap<String, String[]>();
+        public Map<String, String[]> exceptions = new HashMap<>();
 
-        private static String[] EMPTY_STRING_ARRAY = new String[0];
+        private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
         // returns internal names, can return null
         // input uses SRG names
@@ -1220,18 +1158,17 @@ public class DevEnvHelper {
 
         private ExcFile() {}
 
-        public static ExcFile read(InputStream in) throws IOException {
+        public static ExcFile read(InputStream in) {
             return ExcFile.read(new InputStreamReader(in, StandardCharsets.UTF_8));
         }
 
         /** Does not close <var>r</var>. */
-        public static ExcFile read(Reader r) throws IOException {
+        public static ExcFile read(Reader r) {
             // example line:
             // net/minecraft/src/NetClientHandler.<init>(Lnet/minecraft/client/Minecraft;Ljava/lang/String;I)V=java/net/UnknownHostException,java/io/IOException|p_i42_1_,p_i42_2_,p_i42_3_
 
             ExcFile rv = new ExcFile();
 
-            @SuppressWarnings("resource")
             Scanner in = new Scanner(r);
             while (in.hasNextLine()) {
                 String line = in.nextLine();
@@ -1265,7 +1202,6 @@ public class DevEnvHelper {
 
                 i = line.indexOf('|');
                 String excs = line.substring(0, i);
-                line = line.substring(i + 1);
 
                 if (excs.contains("CL_")) {
                     throw new RuntimeException(excs);
@@ -1278,22 +1214,17 @@ public class DevEnvHelper {
 
         @Deprecated
         public ExcFile(File f) throws IOException {
-            FileReader fr = new FileReader(f);
-            try {
+            try (FileReader fr = new FileReader(f)) {
                 exceptions = ExcFile.read(fr).exceptions;
-            } finally {
-                if (fr != null) {
-                    fr.close();
-                }
             }
         }
     }
 
     public static class SrgFile {
 
-        public Map<String, String> classes = new HashMap<String, String>(); // name -> name
-        public Map<String, String> fields = new HashMap<String, String>(); // owner/name -> name
-        public Map<String, String> methods = new HashMap<String, String>(); // owner/namedesc -> name
+        public Map<String, String> classes = new HashMap<>(); // name -> name
+        public Map<String, String> fields = new HashMap<>(); // owner/name -> name
+        public Map<String, String> methods = new HashMap<>(); // owner/namedesc -> name
 
         public static String getLastComponent(String s) {
             String[] parts = s.split("/");
@@ -1303,8 +1234,7 @@ public class DevEnvHelper {
         private SrgFile() {}
 
         /** Does not close <var>r</var>. */
-        public static SrgFile read(Reader r, boolean reverse) throws IOException {
-            @SuppressWarnings("resource")
+        public static SrgFile read(Reader r, boolean reverse) {
             Scanner in = new Scanner(r);
             SrgFile rv = new SrgFile();
             while (in.hasNextLine()) {
@@ -1346,16 +1276,11 @@ public class DevEnvHelper {
 
         @Deprecated
         public SrgFile(File f, boolean reverse) throws IOException {
-            FileReader fr = new FileReader(f);
-            try {
+            try (FileReader fr = new FileReader(f)) {
                 SrgFile sf = SrgFile.read(new BufferedReader(fr), reverse);
                 classes = sf.classes;
                 fields = sf.fields;
                 methods = sf.methods;
-            } finally {
-                if (fr != null) {
-                    fr.close();
-                }
             }
         }
 

@@ -65,10 +65,7 @@ public class ItemHUDArmor extends ItemArmor implements ISpecialArmor, IHUDArmor 
             float hitY,
             float hitZ) {
         useItem(player, world);
-        if (MainProxy.isClient(world)) {
-            return false;
-        }
-        return true;
+        return !MainProxy.isClient(world);
     }
 
     private void useItem(EntityPlayer player, World world) {

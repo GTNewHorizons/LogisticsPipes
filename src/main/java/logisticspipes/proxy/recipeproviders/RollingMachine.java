@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 
 public class RollingMachine implements ICraftingRecipeProvider {
 
-    private Class<?> tileRollingMachineClass;
-    private Method getCraftMatrixMethod;
+    private final Class<?> tileRollingMachineClass;
+    private final Method getCraftMatrixMethod;
 
     public RollingMachine() throws ClassNotFoundException, NoSuchMethodException, SecurityException {
         tileRollingMachineClass = Class.forName("mods.railcraft.common.blocks.machine.alpha.TileRollingMachine");

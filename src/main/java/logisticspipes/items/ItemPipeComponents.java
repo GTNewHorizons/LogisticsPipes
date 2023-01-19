@@ -77,7 +77,7 @@ public class ItemPipeComponents extends LogisticsItem {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2, @SuppressWarnings("rawtypes") List par3) {
+    public void getSubItems(Item par1, CreativeTabs par2, List par3) {
         if (Configs.ENABLE_BETA_RECIPES) {
             par3.add(new ItemStack(this, 1, 0));
             par3.add(new ItemStack(this, 1, 1));

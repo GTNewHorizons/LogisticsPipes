@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ import net.minecraft.util.ChatComponentText;
 @CCType(name = "LogisticsPipes:Request")
 public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IRequestItems, IRequestAPI {
 
-    private final LinkedList<Map<ItemIdentifier, Integer>> _history = new LinkedList<Map<ItemIdentifier, Integer>>();
+    private final LinkedList<Map<ItemIdentifier, Integer>> _history = new LinkedList<>();
 
     public PipeItemsRequestLogistics(Item item) {
         super(item);
@@ -107,11 +107,11 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     @Override
     public List<ItemStack> getProvidedItems() {
         if (stillNeedReplace()) {
-            return new ArrayList<ItemStack>();
+            return new ArrayList<>();
         }
         Map<ItemIdentifier, Integer> items = SimpleServiceLocator.logisticsManager.getAvailableItems(
                 getRouter().getIRoutersByCost());
-        List<ItemStack> list = new ArrayList<ItemStack>(items.size());
+        List<ItemStack> list = new ArrayList<>(items.size());
         for (Entry<ItemIdentifier, Integer> item : items.entrySet()) {
             ItemStack is = item.getKey().unsafeMakeNormalStack(item.getValue());
             list.add(is);
@@ -122,11 +122,11 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     @Override
     public List<ItemStack> getCraftedItems() {
         if (stillNeedReplace()) {
-            return new ArrayList<ItemStack>();
+            return new ArrayList<>();
         }
         LinkedList<ItemIdentifier> items = SimpleServiceLocator.logisticsManager.getCraftableItems(
                 getRouter().getIRoutersByCost());
-        List<ItemStack> list = new ArrayList<ItemStack>(items.size());
+        List<ItemStack> list = new ArrayList<>(items.size());
         for (ItemIdentifier item : items) {
             ItemStack is = item.unsafeMakeNormalStack(0);
             list.add(is);
@@ -136,8 +136,8 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
 
     @Override
     public SimulationResult simulateRequest(ItemStack wanted) {
-        final List<IResource> used = new ArrayList<IResource>();
-        final List<IResource> missing = new ArrayList<IResource>();
+        final List<IResource> used = new ArrayList<>();
+        final List<IResource> missing = new ArrayList<>();
         RequestTree.simulate(ItemIdentifier.get(wanted).makeStack(wanted.stackSize), this, new RequestLog() {
 
             @Override
@@ -153,8 +153,8 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
                 used.addAll(items);
             }
         });
-        List<ItemStack> usedList = new ArrayList<ItemStack>(used.size());
-        List<ItemStack> missingList = new ArrayList<ItemStack>(missing.size());
+        List<ItemStack> usedList = new ArrayList<>(used.size());
+        List<ItemStack> missingList = new ArrayList<>(missing.size());
         for (IResource e : used) {
             if (e instanceof ItemResource) {
                 usedList.add(((ItemResource) e).getItem().unsafeMakeNormalStack(e.getRequestedAmount()));
@@ -178,7 +178,7 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
 
     @Override
     public List<ItemStack> performRequest(ItemStack wanted) {
-        final List<IResource> missing = new ArrayList<IResource>();
+        final List<IResource> missing = new ArrayList<>();
         RequestTree.request(
                 ItemIdentifier.get(wanted).makeStack(wanted.stackSize),
                 this,
@@ -196,7 +196,7 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
                     public void handleSucessfullRequestOfList(List<IResource> items, LinkedLogisticsOrderList parts) {}
                 },
                 null);
-        List<ItemStack> missingList = new ArrayList<ItemStack>(missing.size());
+        List<ItemStack> missingList = new ArrayList<>(missing.size());
         for (IResource e : missing) {
             if (e instanceof ItemResource) {
                 missingList.add(((ItemResource) e).getItem().unsafeMakeNormalStack(e.getRequestedAmount()));
@@ -212,13 +212,13 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     @CCCommand(description = "Requests the given ItemIdentifierStack")
     @CCQueued
     public Object[] makeRequest(ItemIdentifierStack stack) throws Exception {
-        return makeRequest(stack.getItem(), Double.valueOf(stack.getStackSize()), false);
+        return makeRequest(stack.getItem(), (double) stack.getStackSize(), false);
     }
 
     @CCCommand(description = "Requests the given ItemIdentifierStack")
     @CCQueued
     public Object[] makeRequest(ItemIdentifierStack stack, Boolean forceCrafting) throws Exception {
-        return makeRequest(stack.getItem(), Double.valueOf(stack.getStackSize()), forceCrafting);
+        return makeRequest(stack.getItem(), (double) stack.getStackSize(), forceCrafting);
     }
 
     @CCCommand(description = "Requests the given ItemIdentifier with the given amount")
@@ -244,10 +244,10 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     public List<Pair<ItemIdentifier, Integer>> getAvailableItems() {
         Map<ItemIdentifier, Integer> items = SimpleServiceLocator.logisticsManager.getAvailableItems(
                 getRouter().getIRoutersByCost());
-        List<Pair<ItemIdentifier, Integer>> list = new LinkedList<Pair<ItemIdentifier, Integer>>();
+        List<Pair<ItemIdentifier, Integer>> list = new LinkedList<>();
         for (Entry<ItemIdentifier, Integer> item : items.entrySet()) {
             int amount = item.getValue();
-            list.add(new Pair<ItemIdentifier, Integer>(item.getKey(), amount));
+            list.add(new Pair<>(item.getKey(), amount));
         }
         return list;
     }
@@ -255,9 +255,8 @@ public class PipeItemsRequestLogistics extends CoreRoutedPipe implements IReques
     @CCCommand(description = "Asks for all craftable ItemIdentifier inside the Logistics Network")
     @CCQueued
     public List<ItemIdentifier> getCraftableItems() {
-        LinkedList<ItemIdentifier> items = SimpleServiceLocator.logisticsManager.getCraftableItems(
+        return SimpleServiceLocator.logisticsManager.getCraftableItems(
                 getRouter().getIRoutersByCost());
-        return items;
     }
 
     @CCCommand(description = "Asks for the amount of an ItemIdentifier Id inside the Logistics Network")

@@ -26,9 +26,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class IC2Proxy implements IIC2Proxy {
 
     /**
+     * @param stack The stack to check.
      * @return Boolean, true if itemstack is a ic2 electric item.
-     * @param stack
-     *            The stack to check.
      */
     @Override
     public boolean isElectricItem(ItemStack stack) {
@@ -36,12 +35,10 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack    The stack to check
+     * @param template The stack to compare to
      * @return Boolean, true if stack is the same type of ic2 electric item as
-     *         template.
-     * @param stack
-     *            The stack to check
-     * @param template
-     *            The stack to compare to
+     * template.
      */
     @Override
     public boolean isSimilarElectricItem(ItemStack stack, ItemStack template) {
@@ -51,16 +48,12 @@ public class IC2Proxy implements IIC2Proxy {
         if (((IElectricItem) template.getItem()).getEmptyItem(stack) == stack.getItem()) {
             return true;
         }
-        if (((IElectricItem) template.getItem()).getChargedItem(stack) == stack.getItem()) {
-            return true;
-        }
-        return false;
+        return ((IElectricItem) template.getItem()).getChargedItem(stack) == stack.getItem();
     }
 
     /**
+     * @param stack The stack to get charge for.
      * @return Int value of current charge on electric item.
-     * @param stack
-     *            The stack to get charge for.
      */
     private double getCharge(ItemStack stack) {
         if ((stack.getItem() instanceof IElectricItem) && stack.hasTagCompound()) {
@@ -71,9 +64,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to get max charge for.
      * @return Int value of maximum charge on electric item.
-     * @param stack
-     *            The stack to get max charge for.
      */
     private double getMaxCharge(ItemStack stack) {
         if (!(stack.getItem() instanceof IElectricItem)) {
@@ -83,9 +75,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to check if its fully charged.
      * @return Boolean, true if electric item is fully charged.
-     * @param stack
-     *            The stack to check if its fully charged.
      */
     @Override
     public boolean isFullyCharged(ItemStack stack) {
@@ -101,9 +92,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to check if its fully discharged.
      * @return Boolean, true if electric item is fully discharged.
-     * @param stack
-     *            The stack to check if its fully discharged.
      */
     @Override
     public boolean isFullyDischarged(ItemStack stack) {
@@ -118,9 +108,8 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     /**
+     * @param stack The stack to check if its partially charged.
      * @return Boolean, true if electric item contains charge but is not full.
-     * @param stack
-     *            The stack to check if its partially charged.
      */
     @Override
     public boolean isPartiallyCharged(ItemStack stack) {
@@ -142,227 +131,213 @@ public class IC2Proxy implements IIC2Proxy {
     public void addCraftingRecipes(ICraftingParts parts) {
         if (!Configs.ENABLE_BETA_RECIPES) {
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER), new Object[] {
-                        "CGC",
-                        "rBr",
-                        "CrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("advancedCircuit"),
-                        Character.valueOf('G'),
-                        parts.getGearTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER),
+                    "CGC",
+                    "rBr",
+                    "CrC",
+                    'C',
+                    IC2Items.getItem("advancedCircuit"),
+                    'G',
+                    parts.getGearTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER), new Object[] {
-                        " G ",
-                        "rBr",
-                        "CrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("advancedCircuit"),
-                        Character.valueOf('G'),
-                        parts.getChipTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER),
+                    " G ",
+                    "rBr",
+                    "CrC",
+                    'C',
+                    IC2Items.getItem("advancedCircuit"),
+                    'G',
+                    parts.getChipTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        "CGD",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("reBattery"),
-                        Character.valueOf('G'),
-                        parts.getGearTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    "CGD",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'D',
+                    IC2Items.getItem("reBattery"),
+                    'G',
+                    parts.getGearTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        "CGD",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("chargedReBattery"),
-                        Character.valueOf('G'),
-                        parts.getGearTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    "CGD",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'D',
+                    IC2Items.getItem("chargedReBattery"),
+                    'G',
+                    parts.getGearTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        "CGc",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('c'),
-                        IC2Items.getItem("reBattery"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("chargedReBattery"),
-                        Character.valueOf('G'),
-                        parts.getGearTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    "CGc",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'c',
+                    IC2Items.getItem("reBattery"),
+                    'D',
+                    IC2Items.getItem("chargedReBattery"),
+                    'G',
+                    parts.getGearTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        "CGc",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('c'),
-                        IC2Items.getItem("chargedReBattery"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("reBattery"),
-                        Character.valueOf('G'),
-                        parts.getGearTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    "CGc",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'c',
+                    IC2Items.getItem("chargedReBattery"),
+                    'D',
+                    IC2Items.getItem("reBattery"),
+                    'G',
+                    parts.getGearTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        " G ",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("reBattery"),
-                        Character.valueOf('G'),
-                        parts.getChipTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    " G ",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'D',
+                    IC2Items.getItem("reBattery"),
+                    'G',
+                    parts.getChipTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        " G ",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("chargedReBattery"),
-                        Character.valueOf('G'),
-                        parts.getChipTear2(),
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    " G ",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'D',
+                    IC2Items.getItem("chargedReBattery"),
+                    'G',
+                    parts.getChipTear2(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_LV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_TRANSPORTATION),
-                        Character.valueOf('S'),
-                        IC2Items.getItem("energyStorageUpgrade"),
-                        Character.valueOf('O'),
-                        IC2Items.getItem("overclockerUpgrade"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("transformerUpgrade"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_LV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_TRANSPORTATION),
+                    'S',
+                    IC2Items.getItem("energyStorageUpgrade"),
+                    'O',
+                    IC2Items.getItem("overclockerUpgrade"),
+                    'T',
+                    IC2Items.getItem("transformerUpgrade"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_MV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_LV_SUPPLIER),
-                        Character.valueOf('S'),
-                        IC2Items.getItem("energyStorageUpgrade"),
-                        Character.valueOf('O'),
-                        IC2Items.getItem("overclockerUpgrade"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("transformerUpgrade"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_MV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_LV_SUPPLIER),
+                    'S',
+                    IC2Items.getItem("energyStorageUpgrade"),
+                    'O',
+                    IC2Items.getItem("overclockerUpgrade"),
+                    'T',
+                    IC2Items.getItem("transformerUpgrade"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_HV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_MV_SUPPLIER),
-                        Character.valueOf('S'),
-                        IC2Items.getItem("energyStorageUpgrade"),
-                        Character.valueOf('O'),
-                        IC2Items.getItem("overclockerUpgrade"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("transformerUpgrade"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_HV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_MV_SUPPLIER),
+                    'S',
+                    IC2Items.getItem("energyStorageUpgrade"),
+                    'O',
+                    IC2Items.getItem("overclockerUpgrade"),
+                    'T',
+                    IC2Items.getItem("transformerUpgrade"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_EV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_HV_SUPPLIER),
-                        Character.valueOf('S'),
-                        IC2Items.getItem("energyStorageUpgrade"),
-                        Character.valueOf('O'),
-                        IC2Items.getItem("overclockerUpgrade"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("transformerUpgrade"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_EV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_HV_SUPPLIER),
+                    'S',
+                    IC2Items.getItem("energyStorageUpgrade"),
+                    'O',
+                    IC2Items.getItem("overclockerUpgrade"),
+                    'T',
+                    IC2Items.getItem("transformerUpgrade"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
                     new ItemStack(
                             LogisticsPipes.LogisticsSolidBlock, 1, LogisticsSolidBlock.LOGISTICS_IC2_POWERPROVIDER),
-                    new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        Blocks.redstone_block,
-                        Character.valueOf('S'),
-                        IC2Items.getItem("energyStorageUpgrade"),
-                        Character.valueOf('O'),
-                        IC2Items.getItem("overclockerUpgrade"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("transformerUpgrade"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    Blocks.redstone_block,
+                    'S',
+                    IC2Items.getItem("energyStorageUpgrade"),
+                    'O',
+                    IC2Items.getItem("overclockerUpgrade"),
+                    'T',
+                    IC2Items.getItem("transformerUpgrade"),
+                    'P',
+                    Items.paper);
         }
         if (Configs.ENABLE_BETA_RECIPES) {
             ItemStack packager =
@@ -375,131 +350,122 @@ public class IC2Proxy implements IIC2Proxy {
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_POWERACCEPT);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER), new Object[] {
-                        "CGC",
-                        "rBr",
-                        "CrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("advancedCircuit"),
-                        Character.valueOf('G'),
-                        packager,
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER),
+                    "CGC",
+                    "rBr",
+                    "CrC",
+                    'C',
+                    IC2Items.getItem("advancedCircuit"),
+                    'G',
+                    packager,
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER), new Object[] {
-                        "CGD",
-                        "rBr",
-                        "DrC",
-                        Character.valueOf('C'),
-                        IC2Items.getItem("electronicCircuit"),
-                        Character.valueOf('D'),
-                        IC2Items.getItem("reBattery"),
-                        Character.valueOf('G'),
-                        packager,
-                        Character.valueOf('r'),
-                        Items.redstone,
-                        Character.valueOf('B'),
-                        new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK)
-                    });
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICMANAGER),
+                    "CGD",
+                    "rBr",
+                    "DrC",
+                    'C',
+                    IC2Items.getItem("electronicCircuit"),
+                    'D',
+                    IC2Items.getItem("reBattery"),
+                    'G',
+                    packager,
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_LV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        expand,
-                        Character.valueOf('S'),
-                        accept,
-                        Character.valueOf('O'),
-                        IC2Items.getItem("coil"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("reBattery"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_LV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    expand,
+                    'S',
+                    accept,
+                    'O',
+                    IC2Items.getItem("coil"),
+                    'T',
+                    IC2Items.getItem("reBattery"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_MV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        expand,
-                        Character.valueOf('S'),
-                        accept,
-                        Character.valueOf('O'),
-                        IC2Items.getItem("coil"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("advBattery"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_MV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    expand,
+                    'S',
+                    accept,
+                    'O',
+                    IC2Items.getItem("coil"),
+                    'T',
+                    IC2Items.getItem("advBattery"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_HV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        expand,
-                        Character.valueOf('S'),
-                        accept,
-                        Character.valueOf('O'),
-                        IC2Items.getItem("coil"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("energyCrystal"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_HV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    expand,
+                    'S',
+                    accept,
+                    'O',
+                    IC2Items.getItem("coil"),
+                    'T',
+                    IC2Items.getItem("energyCrystal"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
-                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_EV_SUPPLIER), new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        expand,
-                        Character.valueOf('S'),
-                        accept,
-                        Character.valueOf('O'),
-                        IC2Items.getItem("coil"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("lapotronCrystal"),
-                        Character.valueOf('P'),
-                        Items.paper
-                    });
+                    new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.POWER_IC2_EV_SUPPLIER),
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    expand,
+                    'S',
+                    accept,
+                    'O',
+                    IC2Items.getItem("coil"),
+                    'T',
+                    IC2Items.getItem("lapotronCrystal"),
+                    'P',
+                    Items.paper);
 
             Recipes.advRecipes.addRecipe(
                     new ItemStack(
                             LogisticsPipes.LogisticsSolidBlock, 1, LogisticsSolidBlock.LOGISTICS_IC2_POWERPROVIDER),
-                    new Object[] {
-                        "PSP",
-                        "OBO",
-                        "PTP",
-                        Character.valueOf('B'),
-                        Blocks.glowstone,
-                        Character.valueOf('S'),
-                        lense,
-                        Character.valueOf('O'),
-                        IC2Items.getItem("coil"),
-                        Character.valueOf('T'),
-                        IC2Items.getItem("transformerUpgrade"),
-                        Character.valueOf('P'),
-                        Items.iron_ingot
-                    });
+                    "PSP",
+                    "OBO",
+                    "PTP",
+                    'B',
+                    Blocks.glowstone,
+                    'S',
+                    lense,
+                    'O',
+                    IC2Items.getItem("coil"),
+                    'T',
+                    IC2Items.getItem("transformerUpgrade"),
+                    'P',
+                    Items.iron_ingot);
         }
     }
 
     /**
      * Registers an TileEntity to the IC2 EnergyNet
      *
-     * @param has
-     *            to be an instance of IEnergyTile
+     * @param tile has to be an instance of IEnergyTile
      */
     @Override
     public void registerToEneryNet(TileEntity tile) {
@@ -511,8 +477,7 @@ public class IC2Proxy implements IIC2Proxy {
     /**
      * Removes an TileEntity from the IC2 EnergyNet
      *
-     * @param has
-     *            to be an instance of IEnergyTile
+     * @param tile has to be an instance of IEnergyTile
      */
     @Override
     public void unregisterToEneryNet(TileEntity tile) {

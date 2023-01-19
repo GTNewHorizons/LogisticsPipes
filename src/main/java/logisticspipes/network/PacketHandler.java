@@ -13,12 +13,7 @@ import io.netty.handler.codec.MessageToMessageCodec;
 import io.netty.util.AttributeKey;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -39,7 +34,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     public static Map<Class<? extends ModernPacket>, ModernPacket> packetmap;
 
     private static int packetDebugID = 1;
-    public static final Map<Integer, StackTraceElement[]> debugMap = new HashMap<Integer, StackTraceElement[]>();
+    public static final Map<Integer, StackTraceElement[]> debugMap = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     // Suppressed because this cast should never fail.
@@ -82,19 +77,13 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
         SecurityException.class
     })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
-    public static final void initialize() {
-        final List<ClassInfo> classes = new ArrayList<ClassInfo>(ClassPath.from(PacketHandler.class.getClassLoader())
+    public static void initialize() {
+        final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(PacketHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.packets"));
-        Collections.sort(classes, new Comparator<ClassInfo>() {
+        classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
 
-            @Override
-            public int compare(ClassInfo o1, ClassInfo o2) {
-                return o1.getSimpleName().compareTo(o2.getSimpleName());
-            }
-        });
-
-        PacketHandler.packetlist = new ArrayList<ModernPacket>(classes.size());
-        PacketHandler.packetmap = new HashMap<Class<? extends ModernPacket>, ModernPacket>(classes.size());
+        PacketHandler.packetlist = new ArrayList<>(classes.size());
+        PacketHandler.packetmap = new HashMap<>(classes.size());
 
         int currentid = 0;
 
@@ -110,12 +99,12 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
 
     // TODO correct to work with WeakReference (See FML original)
     protected static final AttributeKey<ThreadLocal<FMLProxyPacket>> INBOUNDPACKETTRACKER =
-            new AttributeKey<ThreadLocal<FMLProxyPacket>>("lp:inboundpacket");
+            new AttributeKey<>("lp:inboundpacket");
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         super.handlerAdded(ctx);
-        ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).set(new ThreadLocal<FMLProxyPacket>());
+        ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).set(new ThreadLocal<>());
     }
 
     // Used to provide the Description packet

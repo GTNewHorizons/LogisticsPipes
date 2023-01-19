@@ -2,18 +2,9 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.gui.hud.modules.HUDItemSink;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.NewGuiHandler;
@@ -60,7 +51,7 @@ public class ModuleItemSink extends LogisticsGuiModule
     private BitSet ignoreData = new BitSet(_filterInventory.getSizeInventory());
     private BitSet ignoreNBT = new BitSet(_filterInventory.getSizeInventory());
 
-    private IHUDModuleRenderer HUD = new HUDItemSink(this);
+    private final IHUDModuleRenderer HUD = new HUDItemSink(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -206,7 +197,7 @@ public class ModuleItemSink extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Default: " + (isDefaultRoute() ? "Yes" : "No"));
         list.add("Filter: ");
         list.add("<inventory>");
@@ -278,7 +269,7 @@ public class ModuleItemSink extends LogisticsGuiModule
             return null;
         }
         Map<ItemIdentifier, Integer> mapIC = _filterInventory.getItemsAndCount();
-        List<ItemIdentifier> li = new ArrayList<ItemIdentifier>(mapIC.size());
+        List<ItemIdentifier> li = new ArrayList<>(mapIC.size());
         li.addAll(mapIC.keySet());
         for (ItemIdentifier id : mapIC.keySet()) {
             li.add(id.getUndamaged());

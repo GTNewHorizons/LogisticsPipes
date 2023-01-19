@@ -71,7 +71,7 @@ public abstract class ModuleCoordinatesPacket extends CoordinatesPacket {
 
     @SuppressWarnings("unchecked")
     public <T> T getLogisticsModule(EntityPlayer player, Class<T> clazz) {
-        LogisticsModule module = null;
+        LogisticsModule module;
         if (type == ModulePositionType.IN_PIPE) {
             moduleBased = true;
             LogisticsTileGenericPipe pipe = this.getPipe(player.getEntityWorld());

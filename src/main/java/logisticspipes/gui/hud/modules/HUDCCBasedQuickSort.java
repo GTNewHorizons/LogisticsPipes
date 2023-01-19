@@ -21,14 +21,14 @@ public class HUDCCBasedQuickSort implements IHUDModuleRenderer {
         mc.fontRenderer.drawString("Timeout: ", -29, -30, 0);
         mc.fontRenderer.drawString(
                 module.getTimeout() + " ticks",
-                0 - (mc.fontRenderer.getStringWidth(module.getTimeout() + "ticks") / 2),
+			-(mc.fontRenderer.getStringWidth(module.getTimeout() + "ticks") / 2),
                 -20,
                 0);
         mc.fontRenderer.drawString("Sinks", -29, 0, 0);
         mc.fontRenderer.drawString("pending: ", -19, 10, 0);
         mc.fontRenderer.drawString(
                 Integer.toString(module.getSinkSize()),
-                0 - (mc.fontRenderer.getStringWidth(Integer.toString(module.getSinkSize())) / 2),
+			-(mc.fontRenderer.getStringWidth(Integer.toString(module.getSinkSize())) / 2),
                 20,
                 0);
     }

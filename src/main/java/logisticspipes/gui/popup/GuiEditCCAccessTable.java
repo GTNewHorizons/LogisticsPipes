@@ -28,7 +28,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
     private boolean editsearchb = false;
     private boolean displaycursor = true;
     private long oldSystemTime = 0;
-    private static int searchWidth = 55;
+    private static final int searchWidth = 55;
     private int lastClickedx = 0;
     private int lastClickedy = 0;
     private int lastClickedk = 0;
@@ -180,7 +180,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                     break;
                 }
                 try {
-                    int number = Integer.valueOf(searchinput1 + searchinput2);
+                    int number = Integer.parseInt(searchinput1 + searchinput2);
                     number--;
                     if (number < 0) {
                         number = 0;
@@ -199,7 +199,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                     break;
                 }
                 try {
-                    int number = Integer.valueOf(searchinput1 + searchinput2);
+                    int number = Integer.parseInt(searchinput1 + searchinput2);
                     number++;
                     if (mc.fontRenderer.getStringWidth(Integer.toString(number)) <= GuiEditCCAccessTable.searchWidth) {
                         searchinput1 = Integer.toString(number);
@@ -261,7 +261,6 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
         if (editsearch) {
             if (c == 13) {
                 editsearch = false;
-                return;
             } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 try {
                     Integer.valueOf(GuiScreen.getClipboardString());
@@ -273,13 +272,11 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                 if (searchinput1.length() > 0) {
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
                 }
-                return;
             } else if (Character.isDigit(c)) {
                 if (mc.fontRenderer.getStringWidth(searchinput1 + c + searchinput2)
                         <= GuiEditCCAccessTable.searchWidth) {
                     searchinput1 += c;
                 }
-                return;
             } else if (i == 203) { // Left
                 if (searchinput1.length() > 0) {
                     searchinput2 = searchinput1.substring(searchinput1.length() - 1) + searchinput2;

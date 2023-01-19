@@ -17,7 +17,7 @@ public abstract class SubCommandHandler implements ICommandHandler {
         registerSubCommands();
     }
 
-    private final List<ICommandHandler> subCommands = new ArrayList<ICommandHandler>();
+    private final List<ICommandHandler> subCommands = new ArrayList<>();
 
     public abstract void registerSubCommands();
 
@@ -75,7 +75,6 @@ public abstract class SubCommandHandler implements ICommandHandler {
         String command = args[0];
         if (command.equalsIgnoreCase("help")) {
             displayHelp(sender);
-            return;
         } else {
             for (ICommandHandler handler : subCommands) {
                 if (Arrays.asList(handler.getNames()).contains(command)) {

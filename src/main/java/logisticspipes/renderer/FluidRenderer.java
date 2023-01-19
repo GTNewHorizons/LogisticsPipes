@@ -18,8 +18,8 @@ public final class FluidRenderer {
 
     public static final int DISPLAY_STAGES = 100;
     private static final ResourceLocation BLOCK_TEXTURE = TextureMap.locationBlocksTexture;
-    private static Map<Fluid, int[]> flowingRenderCache = new HashMap<Fluid, int[]>();
-    private static Map<Fluid, int[]> stillRenderCache = new HashMap<Fluid, int[]>();
+    private static final Map<Fluid, int[]> flowingRenderCache = new HashMap<>();
+    private static final Map<Fluid, int[]> stillRenderCache = new HashMap<>();
     private static final RenderInfo liquidBlock = new RenderInfo();
 
     /**
@@ -92,11 +92,10 @@ public final class FluidRenderer {
 
         if (fluid.getBlock() != null) {
             FluidRenderer.liquidBlock.baseBlock = fluid.getBlock();
-            FluidRenderer.liquidBlock.texture = FluidRenderer.getFluidTexture(fluidStack, flowing);
         } else {
             FluidRenderer.liquidBlock.baseBlock = Blocks.water;
-            FluidRenderer.liquidBlock.texture = FluidRenderer.getFluidTexture(fluidStack, flowing);
         }
+        FluidRenderer.liquidBlock.texture = FluidRenderer.getFluidTexture(fluidStack, flowing);
 
         cache.put(fluid, diplayLists);
 

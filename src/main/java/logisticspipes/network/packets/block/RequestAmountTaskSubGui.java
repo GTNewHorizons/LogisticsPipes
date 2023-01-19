@@ -34,7 +34,7 @@ public class RequestAmountTaskSubGui extends CoordinatesPacket {
         LinkedList<ItemIdentifier> _craftableItems = SimpleServiceLocator.logisticsManager.getCraftableItems(
                 pipe.getRouter().getIRoutersByCost());
 
-        TreeSet<ItemIdentifierStack> _allItems = new TreeSet<ItemIdentifierStack>();
+        TreeSet<ItemIdentifierStack> _allItems = new TreeSet<>();
 
         for (Entry<ItemIdentifier, Integer> item : _availableItems.entrySet()) {
             ItemIdentifierStack newStack = item.getKey().makeStack(item.getValue());

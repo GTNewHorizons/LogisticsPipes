@@ -1,16 +1,7 @@
 package logisticspipes.pipes;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDInvSysConnector;
 import logisticspipes.interfaces.IHeadUpDisplayRenderer;
@@ -33,11 +24,7 @@ import logisticspipes.routing.ItemRoutingInformation;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
 import logisticspipes.transport.TransportInvConnection;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.InventoryHelper;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SidedInventoryMinecraftAdapter;
-import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -56,14 +43,13 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
         implements IDirectRoutingConnection, IHeadUpDisplayRendererProvider, IOrderManagerContentReceiver {
 
     private boolean init = false;
-    private HashMap<ItemIdentifier, List<ItemRoutingInformation>> itemsOnRoute =
-            new HashMap<ItemIdentifier, List<ItemRoutingInformation>>();
+    private final HashMap<ItemIdentifier, List<ItemRoutingInformation>> itemsOnRoute = new HashMap<>();
     public ItemIdentifierInventory inv = new ItemIdentifierInventory(1, "Freq. card", 1);
     public int resistance;
-    public Set<ItemIdentifierStack> oldList = new TreeSet<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<ItemIdentifierStack>();
+    public Set<ItemIdentifierStack> oldList = new TreeSet<>();
+    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
-    private HUDInvSysConnector HUD = new HUDInvSysConnector(this);
+    private final HUDInvSysConnector HUD = new HUDInvSysConnector(this);
     private UUID idbuffer = UUID.randomUUID();
 
     public PipeItemsInvSysConnector(Item item) {
@@ -135,7 +121,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
     private boolean checkOneConnectedInv(IInventoryUtil inv, ForgeDirection dir) {
         boolean contentchanged = false;
         if (!itemsOnRoute.isEmpty()) { // don't check the inventory if you don't want anything
-            List<ItemIdentifier> items = new ArrayList<ItemIdentifier>(itemsOnRoute.keySet());
+            List<ItemIdentifier> items = new ArrayList<>(itemsOnRoute.keySet());
             items.retainAll(inv.getItems());
             Map<ItemIdentifier, Integer> amounts = null;
             if (!items.isEmpty()) {
@@ -226,9 +212,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
         if (inv != null) {
             if (inv.getStackInSlot(0) != null) {
                 if (inv.getStackInSlot(0).hasTagCompound()) {
-                    if (inv.getStackInSlot(0).getTagCompound().hasKey("UUID")) {
-                        return true;
-                    }
+                    return inv.getStackInSlot(0).getTagCompound().hasKey("UUID");
                 }
             }
         }
@@ -247,7 +231,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
 
     public Set<ItemIdentifierStack> getExpectedItems() {
         // got to be a TreeMap, because a TreeSet doesn't have the ability to retrieve the key.
-        Set<ItemIdentifierStack> list = new TreeSet<ItemIdentifierStack>();
+        Set<ItemIdentifierStack> list = new TreeSet<>();
         for (Entry<ItemIdentifier, List<ItemRoutingInformation>> entry : itemsOnRoute.entrySet()) {
             if (entry.getValue().isEmpty()) {
                 continue;
@@ -370,13 +354,10 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
     public void addItem(ItemRoutingInformation info) {
         if (info.getItem() != null && info.getItem().getStackSize() > 0 && info.destinationint >= 0) {
             ItemIdentifier insertedType = info.getItem().getItem();
-            List<ItemRoutingInformation> entry = itemsOnRoute.get(insertedType);
-            if (entry == null) {
-                entry = new LinkedList<
-                        ItemRoutingInformation>(); // linked list as this is almost always very small, but experiences
-                // random removal
-                itemsOnRoute.put(insertedType, entry);
-            }
+            List<ItemRoutingInformation> entry =
+                    itemsOnRoute.computeIfAbsent(insertedType, k -> new LinkedList<>());
+            // linked list as this is almost always very small, but experiences
+            // random removal
             entry.add(info);
             updateContentListener();
         }

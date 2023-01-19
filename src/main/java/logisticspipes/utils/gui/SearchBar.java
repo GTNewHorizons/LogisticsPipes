@@ -1,6 +1,6 @@
 package logisticspipes.utils.gui;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.Locale;
@@ -12,12 +12,12 @@ public class SearchBar {
 
     public String searchinput1 = "";
     public String searchinput2 = "";
-    private boolean isActive = false;
+    private boolean isActive;
     private boolean displaycursor = true;
     private long oldSystemTime = 0;
-    private int searchWidth = 150;
-    private boolean numberOnly = false;
-    private boolean alignRight = false;
+    private int searchWidth;
+    private final boolean numberOnly;
+    private final boolean alignRight;
 
     private final FontRenderer fontRenderer;
     private final LogisticsBaseGuiScreen screen;
@@ -83,12 +83,12 @@ public class SearchBar {
 
     public void renderSearchBar() {
         if (isFocused()) {
-            screen.drawRect(left + 0, top - 2, left + width - 0, top + heigth - 0, Color.BLACK);
+            screen.drawRect(left, top - 2, left + width, top + heigth, Color.BLACK);
             screen.drawRect(left + 1, top - 1, left + width - 1, top + heigth - 1, Color.WHITE);
         } else {
             screen.drawRect(left + 1, top - 1, left + width - 1, top + heigth - 1, Color.BLACK);
         }
-        screen.drawRect(left + 2, top - 0, left + width - 2, top + heigth - 2, Color.DARKER_GREY);
+        screen.drawRect(left + 2, top, left + width - 2, top + heigth - 2, Color.DARKER_GREY);
         if (alignRight) {
             fontRenderer.drawString(
                     searchinput1 + searchinput2,
@@ -99,7 +99,7 @@ public class SearchBar {
             fontRenderer.drawString(searchinput1 + searchinput2, left + 5, top + 3, 0xFFFFFF);
         }
         if (isFocused()) {
-            int linex = 0;
+            int linex;
             if (alignRight) {
                 linex = left + 5 + searchWidth - fontRenderer.getStringWidth(searchinput2);
             } else {
@@ -139,7 +139,7 @@ public class SearchBar {
             searchinput1 += searchinput2;
             searchinput2 = "";
             try {
-                int value = Integer.valueOf(searchinput1);
+                int value = Integer.parseInt(searchinput1);
                 searchinput1 = Integer.toString(value);
             } catch (Exception e) {
                 searchinput1 = "";
@@ -233,11 +233,11 @@ public class SearchBar {
     private static String getClipboardString() {
         try {
             Transferable transferable =
-                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents((Object) null);
+                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }
-        } catch (Exception exception) {
+        } catch (Exception ignored) {
         }
         return "";
     }

@@ -37,7 +37,7 @@ public class LogisticsRoutingBoardRobotNBT extends RedstoneBoardRobotNBT {
     }
 
     @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         list.add(StringUtils.translate("robot.logisticsRouting"));
     }

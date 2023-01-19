@@ -1,12 +1,7 @@
 package logisticspipes.utils.gui;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ISpecialItemRenderer;
@@ -46,9 +41,8 @@ public class ItemDisplay {
     private static final int PANELSIZEY = 20;
 
     private ItemIdentifierStack selectedItem = null;
-    public final LinkedList<ItemIdentifierStack> _allItems = new LinkedList<ItemIdentifierStack>();
-    private final Map<Pair<Integer, Integer>, ItemIdentifierStack> map =
-            new HashMap<Pair<Integer, Integer>, ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> _allItems = new LinkedList<>();
+    private final Map<Pair<Integer, Integer>, ItemIdentifierStack> map = new HashMap<>();
 
     @Getter
     private int page = 0;
@@ -108,7 +102,7 @@ public class ItemDisplay {
         listbyserver = true;
         _allItems.clear();
         _allItems.addAll(allItems);
-        Collections.sort(_allItems, new StackComparitor());
+        _allItems.sort(new StackComparitor());
         boolean found = false;
         if (selectedItem == null) {
             return;
@@ -125,7 +119,7 @@ public class ItemDisplay {
         }
     }
 
-    private class StackComparitor implements Comparator<ItemIdentifierStack> {
+    private static class StackComparitor implements Comparator<ItemIdentifierStack> {
 
         @Override
         public int compare(ItemIdentifierStack o1, ItemIdentifierStack o2) {
@@ -198,7 +192,7 @@ public class ItemDisplay {
             i = 0;
         }
         ItemDisplay.option = DisplayOption.values()[i];
-        Collections.sort(_allItems, new StackComparitor());
+        _allItems.sort(new StackComparitor());
     }
 
     public void renderSortMode(int x, int y) {
@@ -278,7 +272,7 @@ public class ItemDisplay {
         } else {
             RenderHelper.enableGUIStandardItemLighting();
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
             GL11.glDisable(GL11.GL_DEPTH_TEST);
             GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -301,7 +295,7 @@ public class ItemDisplay {
                 int realX = x - 2;
                 int realY = y - 2;
 
-                Pair<Integer, Integer> pair = new Pair<Integer, Integer>(realX, realY);
+                Pair<Integer, Integer> pair = new Pair<>(realX, realY);
                 if (map.get(pair) != itemIdentifierStack) {
                     map.put(pair, itemIdentifierStack);
                 }
@@ -368,7 +362,7 @@ public class ItemDisplay {
                     prevPage();
                 }
             }
-        } else if (isShift && !isControl && !isShiftPageChange()) {
+        } else if (isShift && !isControl) {
             if (wheel > 0) {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
                     requestCount = Math.max(1, requestCount - (wheel * getAmountChangeMode(4)));
@@ -383,7 +377,7 @@ public class ItemDisplay {
                     if (requestCount == 1) {
                         requestCount -= 1;
                     }
-                    requestCount += -(wheel * getAmountChangeMode(4));
+                    requestCount -= (wheel * getAmountChangeMode(4));
                 } else {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(4));
                 }
@@ -397,12 +391,12 @@ public class ItemDisplay {
                 }
             } else {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
-                    requestCount += -(wheel * getAmountChangeMode(1));
+                    requestCount -= (wheel * getAmountChangeMode(1));
                 } else {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(1));
                 }
             }
-        } else if (isControl && !isShift) {
+        } else if (!isShift) {
             if (wheel > 0) {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
                     requestCount = Math.max(1, requestCount - wheel * getAmountChangeMode(2));
@@ -422,7 +416,7 @@ public class ItemDisplay {
                     requestCount = Math.max(1, requestCount + wheel * getAmountChangeMode(2));
                 }
             }
-        } else if (isControl && isShift) {
+        } else {
             if (wheel > 0) {
                 if (!Configs.LOGISTICS_ORDERER_COUNT_INVERTWHEEL) {
                     requestCount = Math.max(1, requestCount - wheel * getAmountChangeMode(3));

@@ -7,7 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IIronChestProxy {
 
-    public boolean isIronChest(TileEntity tile);
+    boolean isIronChest(TileEntity tile);
 
-    public @SideOnly(Side.CLIENT) boolean isChestGui(GuiScreen gui);
+    @SideOnly(Side.CLIENT)
+    boolean isChestGui(GuiScreen gui);
 }

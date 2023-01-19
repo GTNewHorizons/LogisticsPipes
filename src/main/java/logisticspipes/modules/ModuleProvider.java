@@ -2,20 +2,10 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import logisticspipes.gui.hud.modules.HUDProviderModule;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.ILegacyActiveModule;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.interfaces.routing.IProvideItems;
@@ -85,11 +75,11 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
     protected boolean isExcludeFilter = false;
     protected ExtractionMode _extractionMode = ExtractionMode.Normal;
 
-    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<ItemIdentifier, Integer>();
-    public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<ItemIdentifierStack>();
-    private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<ItemIdentifierStack>();
+    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<>();
+    public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<>();
+    private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<>();
 
-    private IHUDModuleRenderer HUD = new HUDProviderModule(this);
+    private final IHUDModuleRenderer HUD = new HUDProviderModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -246,7 +236,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
 
     @Override
     public void canProvide(RequestTreeNode tree, RequestTree root, List<IFilter> filters) {
-        List<ItemIdentifier> possible = new ArrayList<ItemIdentifier>();
+        List<ItemIdentifier> possible = new ArrayList<>();
         if (tree.getRequestType() instanceof ItemResource) {
             possible.add(((ItemResource) tree.getRequestType()).getItem());
         } else if (tree.getRequestType() instanceof DictResource) {
@@ -254,7 +244,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
             if (inv != null) {
                 Map<ItemIdentifier, Integer> currentInv = inv.getItemsAndCount();
                 for (ItemIdentifier item : currentInv.keySet()) {
-                    if (((DictResource) tree.getRequestType()).matches(item, IResource.MatchSettings.NORMAL)) {
+                    if (tree.getRequestType().matches(item, IResource.MatchSettings.NORMAL)) {
                         possible.add(item);
                     }
                 }
@@ -436,7 +426,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add(!isExcludeFilter ? "Included" : "Excluded");
         list.add("Mode: " + _extractionMode.getExtractionModeString());
         list.add("Filter: ");
@@ -451,7 +441,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
         }
         displayList.clear();
         displayMap.clear();
-        getAllItems(displayMap, new ArrayList<IFilter>(0));
+        getAllItems(displayMap, new ArrayList<>(0));
         displayList.ensureCapacity(displayMap.size());
         for (Entry<ItemIdentifier, Integer> item : displayMap.entrySet()) {
             displayList.add(new ItemIdentifierStack(item.getKey(), item.getValue()));
@@ -523,7 +513,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
         }
         // when items included this is only interested in items in the filter
         Map<ItemIdentifier, Integer> mapIC = _filterInventory.getItemsAndCount();
-        List<ItemIdentifier> li = new ArrayList<ItemIdentifier>(mapIC.size());
+        List<ItemIdentifier> li = new ArrayList<>(mapIC.size());
         li.addAll(mapIC.keySet());
         return li;
     }

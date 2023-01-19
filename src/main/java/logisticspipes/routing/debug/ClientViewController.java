@@ -1,21 +1,12 @@
 package logisticspipes.routing.debug;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
 import logisticspipes.interfaces.IDebugHUDProvider;
 import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateCanidatePipe;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugCanidateList;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugClosedSet;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugFilters;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateDoneDebug;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateInitDebug;
-import logisticspipes.network.packets.routingdebug.RoutingUpdateSourcePipe;
+import logisticspipes.network.packets.routingdebug.*;
 import logisticspipes.pipefxhandlers.Particles;
 import logisticspipes.pipefxhandlers.PipeFXRenderHandler;
 import logisticspipes.renderer.LogisticsHUDRenderer;
@@ -31,18 +22,18 @@ public class ClientViewController implements IDebugHUDProvider {
 
     private LPPosition mainPipe = null;
     private int tick = 0;
-    private final List<LPPosition> canidates = new ArrayList<LPPosition>();
+    private final List<LPPosition> canidates = new ArrayList<>();
     private DebugWindow debugWindow;
 
-    private List<IHeadUpDisplayRendererProvider> listHUD = new ArrayList<IHeadUpDisplayRendererProvider>();
-    private HashMap<LPPosition, DebugInformation> HUDPositions = new HashMap<LPPosition, DebugInformation>();
+    private final List<IHeadUpDisplayRendererProvider> listHUD = new ArrayList<>();
+    private final HashMap<LPPosition, DebugInformation> HUDPositions = new HashMap<>();
 
     public static class DebugInformation {
 
         public boolean isNew = false;
         public int newIndex = -1;
-        public List<Integer> positions = new ArrayList<Integer>();
-        public List<ExitRoute> routes = new ArrayList<ExitRoute>();
+        public List<Integer> positions = new ArrayList<>();
+        public List<ExitRoute> routes = new ArrayList<>();
         public EnumSet<PipeRoutingConnectionType> closedSet;
         public EnumMap<PipeRoutingConnectionType, List<List<LPPosition>>> filters;
         public EnumSet<PipeRoutingConnectionType> nextFlags;

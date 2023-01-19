@@ -24,11 +24,11 @@ public class LogisticsFluidOrderManager extends LogisticsOrderManager<LogisticsF
     }
 
     public LogisticsFluidOrderManager(ILPPositionProvider pos) {
-        super(new LogisticsOrderLinkedList<LogisticsFluidOrder, FluidIdentifier>(new IC()), pos);
+        super(new LogisticsOrderLinkedList<>(new IC()), pos);
     }
 
     public LogisticsFluidOrderManager(IChangeListener listener, ILPPositionProvider pos) {
-        super(listener, pos, new LogisticsOrderLinkedList<LogisticsFluidOrder, FluidIdentifier>(new IC()));
+        super(listener, pos, new LogisticsOrderLinkedList<>(new IC()));
     }
 
     @Override

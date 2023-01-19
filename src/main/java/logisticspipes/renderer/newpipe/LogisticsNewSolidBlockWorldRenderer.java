@@ -8,7 +8,6 @@ import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
 import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
 import logisticspipes.proxy.object3d.interfaces.IModel3D;
 import logisticspipes.proxy.object3d.operation.LPRotation;
@@ -33,10 +32,10 @@ public class LogisticsNewSolidBlockWorldRenderer {
         WEST(ForgeDirection.WEST, "W"),
         EAST(ForgeDirection.EAST, "E");
 
-        private ForgeDirection dir;
+        private final ForgeDirection dir;
 
         @Getter
-        private String letter;
+        private final String letter;
 
         CoverSides(ForgeDirection dir, String letter) {
             this.dir = dir;
@@ -65,7 +64,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         THREE(3);
 
         @Getter
-        private int integer;
+        private final int integer;
 
         BlockRotation(int rot) {
             integer = rot;
@@ -81,11 +80,9 @@ public class LogisticsNewSolidBlockWorldRenderer {
         }
     }
 
-    static Map<BlockRotation, IModel3D> block = new HashMap<BlockRotation, IModel3D>();
-    static Map<CoverSides, Map<BlockRotation, IModel3D>> texturePlate_Inner =
-            new HashMap<CoverSides, Map<BlockRotation, IModel3D>>();
-    static Map<CoverSides, Map<BlockRotation, IModel3D>> texturePlate_Outer =
-            new HashMap<CoverSides, Map<BlockRotation, IModel3D>>();
+    static Map<BlockRotation, IModel3D> block = new HashMap<>();
+    static Map<CoverSides, Map<BlockRotation, IModel3D>> texturePlate_Inner = new HashMap<>();
+    static Map<CoverSides, Map<BlockRotation, IModel3D>> texturePlate_Outer = new HashMap<>();
 
     static {
         LogisticsNewSolidBlockWorldRenderer.loadModels();
@@ -144,7 +141,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
 
     private static Map<BlockRotation, IModel3D> computeRotated(IModel3D m) {
         m.apply(new LPUVScale(1, 0.75));
-        Map<BlockRotation, IModel3D> map = new HashMap<BlockRotation, IModel3D>();
+        Map<BlockRotation, IModel3D> map = new HashMap<>();
         for (BlockRotation rot : BlockRotation.values()) {
             IModel3D model = m.copy();
             switch (rot.getInteger()) {
@@ -190,9 +187,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
                 blockTile.getWorldObj(), blockTile.xCoord, blockTile.yCoord, blockTile.zCoord));
 
         // Draw
-        LogisticsNewSolidBlockWorldRenderer.block
-                .get(rotation)
-                .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(new LPTranslation(x, y, z), icon);
         LPPosition pos = new LPPosition(blockTile);
         for (CoverSides side : CoverSides.values()) {
             boolean render = true;
@@ -210,11 +205,11 @@ public class LogisticsNewSolidBlockWorldRenderer {
                 LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                         .get(side)
                         .get(rotation)
-                        .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                        .render(new LPTranslation(x, y, z), icon);
                 LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner
                         .get(side)
                         .get(rotation)
-                        .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                        .render(new LPTranslation(x, y, z), icon);
             }
         }
     }
@@ -237,12 +232,12 @@ public class LogisticsNewSolidBlockWorldRenderer {
                 SimpleServiceLocator.cclProxy.createIconTransformer(LogisticsSolidBlock.getNewIcon(metadata));
 
         // Draw
-        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(new I3DOperation[] {icon});
+        LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
         for (CoverSides side : CoverSides.values()) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                     .get(side)
                     .get(rotation)
-                    .render(new I3DOperation[] {icon});
+                    .render(icon);
         }
         tess.draw();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

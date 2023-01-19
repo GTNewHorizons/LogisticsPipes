@@ -8,9 +8,9 @@ import logisticspipes.utils.FluidIdentifier;
 
 public interface IProvideFluids extends IProvide {
 
-    public Map<FluidIdentifier, Integer> getAvailableFluids();
+    Map<FluidIdentifier, Integer> getAvailableFluids();
 
-    public IOrderInfoProvider fullFill(
+    IOrderInfoProvider fullFill(
             FluidLogisticsPromise promise,
             IRequestFluid destination,
             ResourceType type,

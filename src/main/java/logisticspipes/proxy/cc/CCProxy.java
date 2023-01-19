@@ -24,7 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class CCProxy implements ICCProxy {
 
-    private Field target;
+    private final Field target;
 
     public CCProxy() throws NoSuchFieldException, SecurityException {
         ComputerCraftAPI.registerPeripheralProvider(new LPPeripheralProvider());
@@ -50,11 +50,7 @@ public class CCProxy implements ICCProxy {
     private Runnable getTaget(Thread thread) {
         try {
             return (Runnable) target.get(thread);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (SecurityException | IllegalAccessException | IllegalArgumentException e) {
             e.printStackTrace();
         }
         return null;
@@ -112,66 +108,60 @@ public class CCProxy implements ICCProxy {
         craftingManager.addRecipe(
                 new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.CC_REMOTE_CONTROL),
                 CraftingDependency.Upgrades,
-                new Object[] {
-                    false,
-                    "rTr",
-                    "WCM",
-                    "rKr",
-                    Character.valueOf('C'),
-                    parts.getChipTear3(),
-                    Character.valueOf('r'),
-                    Items.redstone,
-                    Character.valueOf('T'),
-                    Blocks.redstone_torch,
-                    Character.valueOf('W'),
-                    new ItemStack(ComputerCraft.Blocks.peripheral, 1, 1),
-                    Character.valueOf('M'),
-                    new ItemStack(ComputerCraft.Blocks.cable, 1, 1),
-                    Character.valueOf('K'),
-                    new ItemStack(ComputerCraft.Blocks.cable, 1, 0)
-                });
+                false,
+                "rTr",
+                "WCM",
+                "rKr",
+                'C',
+                parts.getChipTear3(),
+                'r',
+                Items.redstone,
+                'T',
+                Blocks.redstone_torch,
+                'W',
+                new ItemStack(ComputerCraft.Blocks.peripheral, 1, 1),
+                'M',
+                new ItemStack(ComputerCraft.Blocks.cable, 1, 1),
+                'K',
+                new ItemStack(ComputerCraft.Blocks.cable, 1, 0));
         craftingManager.addRecipe(
                 new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.CC_BASED_ITEMSINK),
                 CraftingDependency.Upgrades,
-                new Object[] {
-                    false,
-                    "rTr",
-                    "WCM",
-                    "rKr",
-                    Character.valueOf('C'),
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK),
-                    Character.valueOf('r'),
-                    Items.redstone,
-                    Character.valueOf('T'),
-                    Blocks.redstone_torch,
-                    Character.valueOf('W'),
-                    new ItemStack(ComputerCraft.Blocks.peripheral, 1, 1),
-                    Character.valueOf('M'),
-                    new ItemStack(ComputerCraft.Blocks.cable, 1, 1),
-                    Character.valueOf('K'),
-                    new ItemStack(ComputerCraft.Blocks.cable, 1, 0)
-                });
+                false,
+                "rTr",
+                "WCM",
+                "rKr",
+                'C',
+                new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ITEMSINK),
+                'r',
+                Items.redstone,
+                'T',
+                Blocks.redstone_torch,
+                'W',
+                new ItemStack(ComputerCraft.Blocks.peripheral, 1, 1),
+                'M',
+                new ItemStack(ComputerCraft.Blocks.cable, 1, 1),
+                'K',
+                new ItemStack(ComputerCraft.Blocks.cable, 1, 0));
         craftingManager.addRecipe(
                 new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.CC_BASED_QUICKSORT),
                 CraftingDependency.Upgrades,
-                new Object[] {
-                    false,
-                    "rTr",
-                    "WCM",
-                    "rKr",
-                    Character.valueOf('C'),
-                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.QUICKSORT),
-                    Character.valueOf('r'),
-                    Items.redstone,
-                    Character.valueOf('T'),
-                    Blocks.redstone_torch,
-                    Character.valueOf('W'),
-                    new ItemStack(ComputerCraft.Blocks.peripheral, 1, 1),
-                    Character.valueOf('M'),
-                    new ItemStack(ComputerCraft.Blocks.cable, 1, 1),
-                    Character.valueOf('K'),
-                    new ItemStack(ComputerCraft.Blocks.cable, 1, 0)
-                });
+                false,
+                "rTr",
+                "WCM",
+                "rKr",
+                'C',
+                new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.QUICKSORT),
+                'r',
+                Items.redstone,
+                'T',
+                Blocks.redstone_torch,
+                'W',
+                new ItemStack(ComputerCraft.Blocks.peripheral, 1, 1),
+                'M',
+                new ItemStack(ComputerCraft.Blocks.cable, 1, 1),
+                'K',
+                new ItemStack(ComputerCraft.Blocks.cable, 1, 0));
     }
 
     @Override

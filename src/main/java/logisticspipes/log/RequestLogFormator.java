@@ -1,9 +1,10 @@
 package logisticspipes.log;
 
-/**
- * Copied from ConsoleLogFormatter for shared use on the client
- *
- */
+/*
+ Copied from ConsoleLogFormatter for shared use on the client
+
+*/
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -14,12 +15,12 @@ import java.util.logging.LogRecord;
 public class RequestLogFormator extends Formatter {
 
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public String format(LogRecord record) {
         StringBuilder msg = new StringBuilder();
-        msg.append(dateFormat.format(Long.valueOf(record.getMillis())));
+        msg.append(dateFormat.format(record.getMillis()));
         Level lvl = record.getLevel();
 
         if (lvl == Level.FINEST) {
@@ -34,14 +35,12 @@ public class RequestLogFormator extends Formatter {
             msg.append(" [WARNING] ");
         } else if (lvl == Level.SEVERE) {
             msg.append(" [SEVERE] ");
-        } else if (lvl == Level.SEVERE) {
-            msg.append(" [" + lvl.getLocalizedName() + "] ");
         }
 
         if (record.getLoggerName() != null
                 && !record.getLoggerName().equals("LogisticsPipes|Request")
                 && !record.getLoggerName().equals("")) {
-            msg.append("[" + record.getLoggerName() + "] ");
+            msg.append("[").append(record.getLoggerName()).append("] ");
         }
 
         msg.append(record.getMessage());
@@ -51,7 +50,7 @@ public class RequestLogFormator extends Formatter {
         if (thr != null) {
             StringWriter thrDump = new StringWriter();
             thr.printStackTrace(new PrintWriter(thrDump));
-            msg.append(thrDump.toString());
+            msg.append(thrDump);
         }
 
         return msg.toString();

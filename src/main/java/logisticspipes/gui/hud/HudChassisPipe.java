@@ -240,8 +240,8 @@ public class HudChassisPipe extends BasicHUDGui {
 
     private class ItemButton extends BasicHUDButton {
 
-        private ItemIdentifierInventory inv;
-        private int position;
+        private final ItemIdentifierInventory inv;
+        private final int position;
 
         public ItemButton(ItemIdentifierInventory inv, int position, int x, int y, int width, int heigth) {
             super("item." + position, x, y, width, heigth);
@@ -315,8 +315,7 @@ public class HudChassisPipe extends BasicHUDGui {
 
         @Override
         public boolean shouldRenderButton() {
-            boolean result = inv.getStackInSlot(position) != null && shouldDisplayButton(position);
-            return result;
+            return inv.getStackInSlot(position) != null && shouldDisplayButton(position);
         }
 
         @Override

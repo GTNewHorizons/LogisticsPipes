@@ -14,8 +14,6 @@ public final class InventoryIterator {
     /**
      * Returns an Iterable object for the specified side of the inventory.
      *
-     * @param inv
-     * @param side
      * @return Iterable
      */
     public static Iterable<IInvSlot> getIterable(IInventory inv, ForgeDirection side) {

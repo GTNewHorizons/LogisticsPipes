@@ -1,6 +1,5 @@
 package logisticspipes.network.packets.routingdebug;
 
-import java.io.IOException;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -18,7 +17,7 @@ public class RoutingUpdateAskForTarget extends ModernPacket {
     }
 
     @Override
-    public void readData(LPDataInputStream data) throws IOException {}
+    public void readData(LPDataInputStream data) {}
 
     @Override
     public void processPacket(EntityPlayer player) {
@@ -39,7 +38,7 @@ public class RoutingUpdateAskForTarget extends ModernPacket {
     }
 
     @Override
-    public void writeData(LPDataOutputStream data) throws IOException {}
+    public void writeData(LPDataOutputStream data) {}
 
     @Override
     public ModernPacket template() {

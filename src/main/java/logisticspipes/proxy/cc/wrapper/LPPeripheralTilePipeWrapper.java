@@ -10,8 +10,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class LPPeripheralTilePipeWrapper implements IPeripheral {
 
     private final ForgeDirection dir;
-    private CCCommandWrapper wrapped;
-    private LogisticsTileGenericPipe pipe;
+    private final CCCommandWrapper wrapped;
+    private final LogisticsTileGenericPipe pipe;
 
     public LPPeripheralTilePipeWrapper(LogisticsTileGenericPipe pipe, ForgeDirection dir) {
         this.pipe = pipe;

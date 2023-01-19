@@ -4,5 +4,5 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IBinnieProxy {
 
-    public abstract boolean isTileAnalyser(TileEntity tile);
+    boolean isTileAnalyser(TileEntity tile);
 }

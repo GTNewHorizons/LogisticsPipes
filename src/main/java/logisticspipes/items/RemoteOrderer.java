@@ -48,7 +48,7 @@ public class RemoteOrderer extends Item {
         return RemoteOrderer._icons[par1];
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag) {
         // Add special tooltip in tribute to DireWolf
@@ -109,8 +109,8 @@ public class RemoteOrderer extends Item {
         stack.stackTagCompound.setInteger("connectedPipe-z", pipe.getZ());
         int dimension = 0;
         for (Integer dim : DimensionManager.getIDs()) {
-            if (pipe.getWorld().equals(DimensionManager.getWorld(dim.intValue()))) {
-                dimension = dim.intValue();
+            if (pipe.getWorld().equals(DimensionManager.getWorld(dim))) {
+                dimension = dim;
                 break;
             }
         }
@@ -156,7 +156,7 @@ public class RemoteOrderer extends Item {
         return CreativeTabs.tabTools;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int i = 0; i < 17; i++) {

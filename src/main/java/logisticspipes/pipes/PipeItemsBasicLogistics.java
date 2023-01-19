@@ -1,8 +1,8 @@
-/**
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
 import java.util.Collection;
@@ -30,7 +30,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsBasicLogistics extends CoreRoutedPipe {
 
-    private ModuleItemSink itemSinkModule;
+    private final ModuleItemSink itemSinkModule;
 
     public PipeItemsBasicLogistics(Item item) {
         super(
@@ -43,13 +43,10 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
                         }
                         if (tile instanceof LogisticsSecurityTileEntity) {
                             ForgeDirection ori = OrientationsUtil.getOrientationOfTilewithTile(container, tile);
-                            if (ori == null
-                                    || ori == ForgeDirection.UNKNOWN
-                                    || ori == ForgeDirection.DOWN
-                                    || ori == ForgeDirection.UP) {
-                                return false;
-                            }
-                            return true;
+                            return ori != null
+                                    && ori != ForgeDirection.UNKNOWN
+                                    && ori != ForgeDirection.DOWN
+                                    && ori != ForgeDirection.UP;
                         }
                         return false;
                     }
@@ -81,10 +78,7 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
             return false;
         }
 
-        if (tilePipe instanceof LogisticsPowerJunctionTileEntity) {
-            return true;
-        }
-        return false;
+        return tilePipe instanceof LogisticsPowerJunctionTileEntity;
     }
 
     private boolean isSecurityProvider(ForgeDirection ori) {
@@ -92,10 +86,7 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
         if (tilePipe == null || !container.canPipeConnect(tilePipe, ori)) {
             return false;
         }
-        if (tilePipe instanceof LogisticsSecurityTileEntity) {
-            return true;
-        }
-        return false;
+        return tilePipe instanceof LogisticsSecurityTileEntity;
     }
 
     @Override
@@ -143,7 +134,7 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
             return null;
         }
 
-        Set<ItemIdentifier> l1 = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> l1 = new TreeSet<>();
         Collection<ItemIdentifier> current = itemSinkModule.getSpecificInterests();
         if (current != null) {
             l1.addAll(current);

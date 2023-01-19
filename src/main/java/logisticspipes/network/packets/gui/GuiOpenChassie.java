@@ -22,7 +22,7 @@ public class GuiOpenChassie extends CoordinatesPacket {
             return;
         }
         NewGuiHandler.getGui(ChassiGuiProvider.class)
-                .setFlag(((CoreRoutedPipe) pipe.pipe).getUpgradeManager().hasUpgradeModuleUpgrade())
+                .setFlag(pipe.pipe.getUpgradeManager().hasUpgradeModuleUpgrade())
                 .setSlot(ModulePositionType.IN_PIPE)
                 .setPositionInt(0)
                 .setPosX(getPosX())

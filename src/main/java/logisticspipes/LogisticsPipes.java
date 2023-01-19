@@ -1,9 +1,9 @@
-/**
- * Copyright (c) Krapht, 2011
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -130,16 +130,7 @@ public class LogisticsPipes {
                 transformers.set(i, transformers.get(i - 1));
             }
             transformers.set(0, lpClassInjector); // So that our injector can be first
-        } catch (NoSuchFieldException e) {
-            loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
             loader.registerTransformer("logisticspipes.asm.LogisticsPipesClassInjector");
             e.printStackTrace();
         }
@@ -221,9 +212,8 @@ public class LogisticsPipes {
     public static CreativeTabLP LPCreativeTab = new CreativeTabLP();
     public static Logger log;
     public static ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
-    public static VersionChecker versionChecker;
 
-    private Queue<Runnable> postInitRun = new LinkedList<Runnable>();
+    private Queue<Runnable> postInitRun = new LinkedList<>();
     private static LPGlobalCCAccess generalAccess;
     private static PlayerConfig playerConfig;
 
@@ -355,15 +345,13 @@ public class LogisticsPipes {
 
         // init Fluids
         FluidIdentifier.initFromForge(false);
-
-        versionChecker = VersionChecker.runVersionCheck();
     }
 
     private void initItems(Side side) {
 
         boolean isClient = side == Side.CLIENT;
 
-        Object renderer = null;
+        FluidContainerRenderer renderer = null;
         if (isClient) {
             renderer = new FluidContainerRenderer();
         }
@@ -373,8 +361,7 @@ public class LogisticsPipes {
         GameRegistry.registerItem(
                 LogisticsPipes.LogisticsItemCard, LogisticsPipes.LogisticsItemCard.getUnlocalizedName());
         if (isClient) {
-            MinecraftForgeClient.registerItemRenderer(
-                    LogisticsPipes.LogisticsItemCard, (FluidContainerRenderer) renderer);
+            MinecraftForgeClient.registerItemRenderer(LogisticsPipes.LogisticsItemCard, renderer);
         }
 
         LogisticsPipes.LogisticsRemoteOrderer = new RemoteOrderer();
@@ -429,8 +416,7 @@ public class LogisticsPipes {
         LogisticsPipes.LogisticsFluidContainer = new LogisticsFluidContainer();
         LogisticsPipes.LogisticsFluidContainer.setUnlocalizedName("logisticsFluidContainer");
         if (isClient) {
-            MinecraftForgeClient.registerItemRenderer(
-                    LogisticsPipes.LogisticsFluidContainer, (FluidContainerRenderer) renderer);
+            MinecraftForgeClient.registerItemRenderer(LogisticsPipes.LogisticsFluidContainer, renderer);
         }
         GameRegistry.registerItem(
                 LogisticsPipes.LogisticsFluidContainer, LogisticsPipes.LogisticsFluidContainer.getUnlocalizedName());
@@ -591,14 +577,9 @@ public class LogisticsPipes {
         res.setUnlocalizedName(clas.getSimpleName());
         final CoreUnroutedPipe pipe = LogisticsBlockGenericPipe.createPipe(res);
         if (pipe instanceof CoreRoutedPipe) {
-            postInitRun.add(new Runnable() {
-                @Override
-                public void run() {
-                    res.setPipeIconIndex(
-                            ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).normal,
-                            ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).newTexture);
-                }
-            });
+            postInitRun.add(() -> res.setPipeIconIndex(
+                    ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).normal,
+                    ((CoreRoutedPipe) pipe).getTextureType(ForgeDirection.UNKNOWN).newTexture));
         }
 
         if (side.isClient()) {

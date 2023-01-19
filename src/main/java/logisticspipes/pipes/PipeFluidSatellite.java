@@ -1,11 +1,6 @@
 package logisticspipes.pipes;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDSatellite;
@@ -50,8 +45,8 @@ public class PipeFluidSatellite extends FluidRoutedPipe
                 IChestContentReceiver {
 
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
-    public final LinkedList<ItemIdentifierStack> itemList = new LinkedList<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> itemList = new LinkedList<>();
+    public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<>();
     private final HUDSatellite HUD = new HUDSatellite(this);
 
     public PipeFluidSatellite(Item item) {
@@ -193,14 +188,14 @@ public class PipeFluidSatellite extends FluidRoutedPipe
     }
 
     // from baseLogicLiquidSatellite
-    public static HashSet<PipeFluidSatellite> AllSatellites = new HashSet<PipeFluidSatellite>();
+    public static HashSet<PipeFluidSatellite> AllSatellites = new HashSet<>();
 
     // called only on server shutdown
     public static void cleanup() {
         PipeFluidSatellite.AllSatellites.clear();
     }
 
-    protected final Map<FluidIdentifier, Integer> _lostItems = new HashMap<FluidIdentifier, Integer>();
+    protected final Map<FluidIdentifier, Integer> _lostItems = new HashMap<>();
 
     public int satelliteId;
 
@@ -243,10 +238,10 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         if (MainProxy.isClient()) {
             return;
         }
-        if (satelliteId == 0 && PipeFluidSatellite.AllSatellites.contains(this)) {
+        if (satelliteId == 0) {
             PipeFluidSatellite.AllSatellites.remove(this);
         }
-        if (satelliteId != 0 && !PipeFluidSatellite.AllSatellites.contains(this)) {
+        if (satelliteId != 0) {
             PipeFluidSatellite.AllSatellites.add(this);
         }
     }
@@ -306,9 +301,7 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         if (MainProxy.isClient(getWorld())) {
             return;
         }
-        if (PipeFluidSatellite.AllSatellites.contains(this)) {
-            PipeFluidSatellite.AllSatellites.remove(this);
-        }
+        PipeFluidSatellite.AllSatellites.remove(this);
     }
 
     @Override

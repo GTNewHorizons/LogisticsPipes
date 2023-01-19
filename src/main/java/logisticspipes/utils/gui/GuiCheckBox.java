@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiCheckBox extends GuiButton {
 
-    private boolean state = false;
+    private boolean state;
 
     public GuiCheckBox(int par1, int par2, int par3, int par4, int par5, boolean startState) {
         super(par1, par2, par3, par4, par5, "");

@@ -6,13 +6,7 @@ import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.robotics.RobotStationPluggable;
 import buildcraft.transport.TileGenericPipe;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.routing.ISpecialPipedConnection;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
@@ -31,25 +25,21 @@ public class LPRobotConnectionControl implements ISpecialPipedConnection {
 
     public static class RobotConnection {
 
-        public final Set<Pair<LPPosition, ForgeDirection>> localConnectedRobots =
-                new HashSet<Pair<LPPosition, ForgeDirection>>();
+        public final Set<Pair<LPPosition, ForgeDirection>> localConnectedRobots = new HashSet<>();
     }
 
-    private final Map<World, Set<Pair<LPPosition, ForgeDirection>>> globalAvailableRobots =
-            new WeakHashMap<World, Set<Pair<LPPosition, ForgeDirection>>>();
+    private final Map<World, Set<Pair<LPPosition, ForgeDirection>>> globalAvailableRobots = new WeakHashMap<>();
 
     public void addRobot(World world, LPPosition pos, ForgeDirection dir) {
-        if (globalAvailableRobots.get(world) == null) {
-            globalAvailableRobots.put(world, new HashSet<Pair<LPPosition, ForgeDirection>>());
-        }
-        globalAvailableRobots.get(world).add(new Pair<LPPosition, ForgeDirection>(pos, dir));
+        globalAvailableRobots.computeIfAbsent(world, k -> new HashSet<>());
+        globalAvailableRobots.get(world).add(new Pair<>(pos, dir));
         checkAll(world);
     }
 
     // TODO: Call this somewhere...
     public void removeRobot(World world, LPPosition pos, ForgeDirection dir) {
         if (globalAvailableRobots.containsKey(world)) {
-            globalAvailableRobots.get(world).remove(new Pair<LPPosition, ForgeDirection>(pos, dir));
+            globalAvailableRobots.get(world).remove(new Pair<>(pos, dir));
         }
         checkAll(world);
     }
@@ -92,7 +82,7 @@ public class LPRobotConnectionControl implements ISpecialPipedConnection {
     }
 
     public boolean isModified(LogisticsRoutingBoardRobot board) {
-        Set<Pair<LPPosition, ForgeDirection>> localConnectedRobots = new HashSet<Pair<LPPosition, ForgeDirection>>();
+        Set<Pair<LPPosition, ForgeDirection>> localConnectedRobots = new HashSet<>();
         LPPosition sourceRobotPosition = board.getLinkedStationPosition()
                 .center()
                 .moveForward(board.robot.getLinkedStation().side(), 0.5);
@@ -138,7 +128,7 @@ public class LPRobotConnectionControl implements ISpecialPipedConnection {
     @Override
     public List<ConnectionInformation> getConnections(
             IPipeInformationProvider startPipe, EnumSet<PipeRoutingConnectionType> connection, ForgeDirection side) {
-        List<ConnectionInformation> list = new ArrayList<ConnectionInformation>();
+        List<ConnectionInformation> list = new ArrayList<>();
         LogisticsTileGenericPipe pipe = (LogisticsTileGenericPipe) startPipe;
         if (pipe == null || pipe.tilePart.getOriginal() == null) {
             return list; // Proxy got disabled

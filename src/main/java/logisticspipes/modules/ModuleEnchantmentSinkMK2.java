@@ -7,11 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import logisticspipes.gui.hud.modules.HUDSimpleFilterModule;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsSimpleFilterModule;
 import logisticspipes.network.PacketHandler;
@@ -50,7 +46,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
         _filterInventory.addListener(this);
     }
 
-    private IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
+    private final IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -110,7 +106,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Filter: ");
         list.add("<inventory>");
         list.add("<that>");
@@ -178,7 +174,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
     @Override
     public List<ItemIdentifier> getSpecificInterests() {
         Map<ItemIdentifier, Integer> mapIC = _filterInventory.getItemsAndCount();
-        List<ItemIdentifier> li = new ArrayList<ItemIdentifier>(mapIC.size());
+        List<ItemIdentifier> li = new ArrayList<>(mapIC.size());
         li.addAll(mapIC.keySet());
         for (ItemIdentifier id : mapIC.keySet()) {
             li.add(id.getUndamaged());

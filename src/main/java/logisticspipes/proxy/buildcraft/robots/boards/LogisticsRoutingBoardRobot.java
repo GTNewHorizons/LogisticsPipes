@@ -41,7 +41,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
     private boolean init = false;
 
     @Getter
-    private Set<LPTravelingItemServer> items = new HashSet<LPTravelingItemServer>();
+    private final Set<LPTravelingItemServer> items = new HashSet<>();
 
     private LPPosition targetStationPos;
     private ForgeDirection targetStationSide = ForgeDirection.UNKNOWN;
@@ -49,7 +49,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
     private int ticksWithContent = 0;
 
     @Getter
-    private RobotConnection connectionDetails = new RobotConnection();
+    private final RobotConnection connectionDetails = new RobotConnection();
 
     @Getter
     private Pair<Double, LogisticsRoutingBoardRobot> currentTarget = null;
@@ -253,7 +253,7 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
                         > 0.05) {
                     continue; // Not at station
                 }
-                Double mindis = Double.NaN;
+                double mindis = Double.NaN;
                 for (LPTravelingItemServer item : items) {
                     item.checkIDFromUUID();
                     if (item.getInfo().destinationint < 0) {
@@ -269,18 +269,17 @@ public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
                     if (route == null) {
                         continue;
                     }
-                    if (mindis.isNaN()) {
+                    if (Double.isNaN(mindis)) {
                         mindis = route.distanceToDestination;
                     }
                     mindis = Math.min(mindis, route.distanceToDestination);
                 }
-                if (mindis.isNaN()) {
+                if (Double.isNaN(mindis)) {
                     continue;
                 }
                 double distanceToItem = ((distance * 3) + 21) + mindis;
                 if (result == null || result.getValue1() > distanceToItem) {
-                    result = new Pair<Double, LogisticsRoutingBoardRobot>(
-                            distanceToItem, (LogisticsRoutingBoardRobot) connectedRobot.getBoard());
+                    result = new Pair<>(distanceToItem, (LogisticsRoutingBoardRobot) connectedRobot.getBoard());
                 }
             }
         }

@@ -9,12 +9,7 @@ import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.hud.HUDPowerLevel;
-import logisticspipes.interfaces.IBlockWatchingHandler;
-import logisticspipes.interfaces.IGuiOpenControler;
-import logisticspipes.interfaces.IGuiTileEntity;
-import logisticspipes.interfaces.IHeadUpDisplayBlockRendererProvider;
-import logisticspipes.interfaces.IHeadUpDisplayRenderer;
-import logisticspipes.interfaces.IPowerLevelDisplay;
+import logisticspipes.interfaces.*;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
@@ -70,9 +65,9 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     private boolean addedToEnergyNet = false;
 
     private boolean init = false;
-    private PlayerCollectionList guiListener = new PlayerCollectionList();
-    private PlayerCollectionList watcherList = new PlayerCollectionList();
-    private IHeadUpDisplayRenderer HUD;
+    private final PlayerCollectionList guiListener = new PlayerCollectionList();
+    private final PlayerCollectionList watcherList = new PlayerCollectionList();
+    private final IHeadUpDisplayRenderer HUD;
 
     public LogisticsPowerJunctionTileEntity() {
         HUD = new HUDPowerLevel(this);
@@ -346,7 +341,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
         }
         transferFromIC2Buffer();
         // round up so we demand enough to completely fill visible storage
-        return (freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1)
+        return (double) (freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1)
                 / LogisticsPowerJunctionTileEntity.IC2Multiplier;
     }
 
@@ -378,7 +373,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
         int RFspace = freeSpace() * LogisticsPowerJunctionTileEntity.RFDivisor - internalRFbuffer;
         int RFtotake = Math.min(maxReceive, RFspace);
         if (!simulate) {
-            addEnergy(RFtotake / LogisticsPowerJunctionTileEntity.RFDivisor);
+            addEnergy((float) RFtotake / LogisticsPowerJunctionTileEntity.RFDivisor);
             internalRFbuffer += RFtotake % LogisticsPowerJunctionTileEntity.RFDivisor;
             if (internalRFbuffer >= LogisticsPowerJunctionTileEntity.RFDivisor) {
                 addEnergy(1);

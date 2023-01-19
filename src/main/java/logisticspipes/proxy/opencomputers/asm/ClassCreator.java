@@ -7,15 +7,11 @@ import java.util.List;
 import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
 import logisticspipes.utils.tuples.Pair;
 import net.minecraft.launchwrapper.Launch;
-import org.objectweb.asm.AnnotationVisitor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.*;
 
 public class ClassCreator {
 
-    private static List<String> createdClasses = new ArrayList<String>();
+    private static final List<String> createdClasses = new ArrayList<>();
 
     public static byte[] getWrappedClassAsBytes(CCWrapperInformation info, String className) {
 
@@ -111,7 +107,7 @@ public class ClassCreator {
         if (ClassCreator.createdClasses.contains(className)) {
             try {
                 return (Class<? extends BaseWrapperClass>) Class.forName(newClassName_DOT);
-            } catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException ignored) {
             }
         }
         byte[] bytes = ClassCreator.getWrappedClassAsBytes(info, className);

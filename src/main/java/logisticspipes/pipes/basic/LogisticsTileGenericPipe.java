@@ -15,11 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.ManagedPeripheral;
-import li.cil.oc.api.network.Message;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.SidedEnvironment;
+import li.cil.oc.api.network.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
@@ -48,12 +44,8 @@ import logisticspipes.renderer.LogisticsTileRenderController;
 import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
 import logisticspipes.transport.LPTravelingItem;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.OrientationsUtil;
-import logisticspipes.utils.StackTraceUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.StackTraceUtil.Info;
-import logisticspipes.utils.TileBuffer;
-import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
@@ -97,7 +89,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public Object OPENPERIPHERAL_IGNORE; // Tell OpenPeripheral to ignore this class
 
-    public boolean turtleConnect[] = new boolean[7];
+    public boolean[] turtleConnect = new boolean[7];
 
     private LogisticsTileRenderController renderController;
 
@@ -302,7 +294,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     public void scheduleNeighborChange() {
         tilePart.scheduleNeighborChange();
         blockNeighborChange = true;
-        boolean connected[] = new boolean[6];
+        boolean[] connected = new boolean[6];
         WorldUtil world = new WorldUtil(getWorld(), xCoord, yCoord, zCoord);
         List<AdjacentTile> adjacent = world.getAdjacentTileEntities(false);
         for (AdjacentTile aTile : adjacent) {
@@ -370,8 +362,7 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (pipe != null) {
             pipe.readFromNBT(nbt);
         } else {
-            LogisticsPipes.log.log(
-                    Level.WARN, "Pipe failed to load from NBT at {0},{1},{2}", new Object[] {xCoord, yCoord, zCoord});
+            LogisticsPipes.log.log(Level.WARN, "Pipe failed to load from NBT at {},{},{}", xCoord, yCoord, zCoord);
             deletePipe = true;
         }
 
@@ -646,7 +637,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
-    public Object[] invoke(String s, Context context, Arguments arguments) throws Exception {
+    public Object[] invoke(String s, Context context, Arguments arguments) {
         BaseWrapperClass object = (BaseWrapperClass) CCObjectWrapper.getWrappedObject(pipe, BaseWrapperClass.WRAPPER);
         object.isDirectCall = true;
         return CCObjectWrapper.createArray(object);
@@ -699,7 +690,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     private boolean refreshRenderState = false;
     private boolean pipeBound = false;
 
-    public class CoreState implements IClientState {
+    public static class CoreState implements IClientState {
 
         public int pipeId = -1;
 
@@ -718,9 +709,8 @@ public class LogisticsTileGenericPipe extends TileEntity
         blockType = getBlockType();
 
         if (pipe == null) {
-            LogisticsPipes.log.log(Level.WARN, "Pipe failed to initialize at {0},{1},{2}, deleting", new Object[] {
-                xCoord, yCoord, zCoord
-            });
+            LogisticsPipes.log.log(
+                    Level.WARN, "Pipe failed to initialize at {},{},{}, deleting", xCoord, yCoord, zCoord);
             worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             return;
         }

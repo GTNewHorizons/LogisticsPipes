@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.request;
 
 import java.util.ArrayList;
@@ -25,10 +25,9 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
     protected DictResource _result;
     protected ICraftItems _crafter;
 
-    protected ArrayList<Pair<IResource, IAdditionalTargetInformation>> _required =
-            new ArrayList<Pair<IResource, IAdditionalTargetInformation>>(9);
+    protected ArrayList<Pair<IResource, IAdditionalTargetInformation>> _required = new ArrayList<>(9);
 
-    protected ArrayList<ItemIdentifierStack> _byproduct = new ArrayList<ItemIdentifierStack>(9);
+    protected ArrayList<ItemIdentifierStack> _byproduct = new ArrayList<>(9);
 
     private final int priority;
 
@@ -39,7 +38,7 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
     }
 
     public void addRequirement(IResource requirement, IAdditionalTargetInformation info) {
-        _required.add(new Pair<IResource, IAdditionalTargetInformation>(requirement, info));
+        _required.add(new Pair<>(requirement, info));
     }
 
     public void addByproduct(ItemIdentifierStack stack) {
@@ -100,7 +99,7 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
     @Override
     public boolean canCraft(IResource type) {
         if (type instanceof DictResource) {
-            return ((DictResource) type).matches(_result.getItem(), IResource.MatchSettings.NORMAL)
+            return type.matches(_result.getItem(), IResource.MatchSettings.NORMAL)
                     && _result.matches(((DictResource) type).getItem(), IResource.MatchSettings.NORMAL)
                     && _result.getBitSet().equals(((DictResource) type).getBitSet());
         }
@@ -119,7 +118,7 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
 
     @Override
     public List<IExtraPromise> getByproducts(int workSets) {
-        List<IExtraPromise> list = new ArrayList<IExtraPromise>();
+        List<IExtraPromise> list = new ArrayList<>();
         for (ItemIdentifierStack stack : _byproduct) {
             list.add(new LogisticsExtraPromise(stack.getItem(), stack.getStackSize() * workSets, getCrafter(), false));
         }
@@ -128,13 +127,12 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
 
     @Override
     public List<Pair<IResource, IAdditionalTargetInformation>> getComponents(int nCraftingSetsNeeded) {
-        List<Pair<IResource, IAdditionalTargetInformation>> stacks =
-                new ArrayList<Pair<IResource, IAdditionalTargetInformation>>(_required.size());
+        List<Pair<IResource, IAdditionalTargetInformation>> stacks = new ArrayList<>(_required.size());
 
         // for each thing needed to satisfy this promise
         for (Pair<IResource, IAdditionalTargetInformation> stack : _required) {
-            Pair<IResource, IAdditionalTargetInformation> pair = new Pair<IResource, IAdditionalTargetInformation>(
-                    stack.getValue1().clone(nCraftingSetsNeeded), stack.getValue2());
+            Pair<IResource, IAdditionalTargetInformation> pair =
+                    new Pair<>(stack.getValue1().clone(nCraftingSetsNeeded), stack.getValue2());
             stacks.add(pair);
         }
         return stacks;

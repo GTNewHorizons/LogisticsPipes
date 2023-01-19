@@ -5,7 +5,6 @@ import java.util.UUID;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IGuiOpenControler;
 import logisticspipes.interfaces.IPipeUpgradeManager;
-import logisticspipes.interfaces.ISlotCheck;
 import logisticspipes.interfaces.ISlotUpgradeManager;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.items.LogisticsItemCard;
@@ -31,22 +30,22 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgradeManager, IPipeUpgradeManager {
 
     @Getter
-    private SimpleStackInventory inv = new SimpleStackInventory(9, "UpgradeInventory", 16);
+    private final SimpleStackInventory inv = new SimpleStackInventory(9, "UpgradeInventory", 16);
 
     @Getter
-    private SimpleStackInventory sneakyInv = new SimpleStackInventory(9, "SneakyUpgradeInventory", 1);
+    private final SimpleStackInventory sneakyInv = new SimpleStackInventory(9, "SneakyUpgradeInventory", 1);
 
     @Getter
-    private SimpleStackInventory secInv = new SimpleStackInventory(1, "SecurityInventory", 16);
+    private final SimpleStackInventory secInv = new SimpleStackInventory(1, "SecurityInventory", 16);
 
-    private IPipeUpgrade[] upgrades = new IPipeUpgrade[9];
-    private IPipeUpgrade[] sneakyUpgrades = new IPipeUpgrade[9];
-    private CoreRoutedPipe pipe;
+    private final IPipeUpgrade[] upgrades = new IPipeUpgrade[9];
+    private final IPipeUpgrade[] sneakyUpgrades = new IPipeUpgrade[9];
+    private final CoreRoutedPipe pipe;
     private int securityDelay = 0;
 
     /* cached attributes */
     private ForgeDirection sneakyOrientation = ForgeDirection.UNKNOWN;
-    private ForgeDirection[] combinedSneakyOrientation = new ForgeDirection[9];
+    private final ForgeDirection[] combinedSneakyOrientation = new ForgeDirection[9];
     private int speedUpgradeCount = 0;
     private final EnumSet<ForgeDirection> disconnectedSides = EnumSet.noneOf(ForgeDirection.class);
     private boolean isAdvancedCrafter = false;
@@ -267,7 +266,7 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
     public IGuiOpenControler getGuiController() {
         return new IGuiOpenControler() {
 
-            PlayerCollectionList players = new PlayerCollectionList();
+            final PlayerCollectionList players = new PlayerCollectionList();
 
             @Override
             public void guiOpenedByPlayer(EntityPlayer player) {
@@ -290,22 +289,15 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
 
         // Pipe slots
         for (int pipeSlot = 0; pipeSlot < 8; pipeSlot++) {
-            dummy.addRestrictedSlot(pipeSlot, inv, 8 + pipeSlot * 18, 18, new ISlotCheck() {
-
-                @Override
-                public boolean isStackAllowed(ItemStack itemStack) {
-                    if (itemStack == null) {
-                        return false;
-                    }
-                    if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                        if (!LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                                .isAllowedForPipe(pipe)) {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                    return true;
+            dummy.addRestrictedSlot(pipeSlot, inv, 8 + pipeSlot * 18, 18, itemStack -> {
+                if (itemStack == null) {
+                    return false;
+                }
+                if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                    return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+                            .isAllowedForPipe(pipe);
+                } else {
+                    return false;
                 }
             });
         }
@@ -315,49 +307,35 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
                 secInv,
                 8 + 8 * 18,
                 18,
-                new ISlotCheck() {
-
-                    @Override
-                    public boolean isStackAllowed(ItemStack itemStack) {
-                        if (itemStack == null) {
-                            return false;
-                        }
-                        if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-                            return false;
-                        }
-                        if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
-                            return false;
-                        }
-                        if (!SimpleServiceLocator.securityStationManager.isAuthorized(
-                                UUID.fromString(itemStack.getTagCompound().getString("UUID")))) {
-                            return false;
-                        }
-                        return true;
+                itemStack -> {
+                    if (itemStack == null) {
+                        return false;
                     }
+                    if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+                        return false;
+                    }
+                    if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
+                        return false;
+                    }
+                    return SimpleServiceLocator.securityStationManager.isAuthorized(
+                            UUID.fromString(itemStack.getTagCompound().getString("UUID")));
                 },
                 1);
 
         int y = isCombinedSneakyUpgrade ? 58 : 100000;
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
-            dummy.addRestrictedSlot(pipeSlot, sneakyInv, 8 + pipeSlot * 18, y, new ISlotCheck() {
-
-                @Override
-                public boolean isStackAllowed(ItemStack itemStack) {
-                    if (itemStack == null) {
+            dummy.addRestrictedSlot(pipeSlot, sneakyInv, 8 + pipeSlot * 18, y, itemStack -> {
+                if (itemStack == null) {
+                    return false;
+                }
+                if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                    IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
+                    if (!(upgrade instanceof SneakyUpgrade)) {
                         return false;
                     }
-                    if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                        IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
-                        if (!(upgrade instanceof SneakyUpgrade)) {
-                            return false;
-                        }
-                        if (!upgrade.isAllowedForPipe(pipe)) {
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }
-                    return true;
+                    return upgrade.isAllowedForPipe(pipe);
+                } else {
+                    return false;
                 }
             });
         }

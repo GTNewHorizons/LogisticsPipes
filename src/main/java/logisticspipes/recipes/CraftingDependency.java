@@ -24,10 +24,10 @@ public enum CraftingDependency {
     Active_Liquid(Upgrades, Basic_Liquid),
     Power_Distribution(Upgrades);
 
-    private CraftingDependency[] dependencies;
-    private List<ItemStack> results = new ArrayList<ItemStack>();
+    private final CraftingDependency[] dependencies;
+    private final List<ItemStack> results = new ArrayList<>();
 
-    private CraftingDependency(CraftingDependency... dependencies) {
+    CraftingDependency(CraftingDependency... dependencies) {
         this.dependencies = dependencies;
     }
 

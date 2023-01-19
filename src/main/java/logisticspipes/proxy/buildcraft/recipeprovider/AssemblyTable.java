@@ -59,40 +59,39 @@ public class AssemblyTable implements ICraftingRecipeProvider {
                     break;
                 }
                 if (output != null && ItemStack.areItemStacksEqual(output, ((FlexibleRecipe<ItemStack>) r).output)) {
-                    if (((FlexibleRecipe<ItemStack>) r)
-                            .canBeCrafted(
-                                    new IFlexibleCrafter() { // Read Proxy to IInventory
+                    if (r.canBeCrafted(
+                            new IFlexibleCrafter() { // Read Proxy to IInventory
 
-                                        @Override
-                                        public int getCraftingItemStackSize() {
-                                            return inputs.getSizeInventory();
-                                        }
+                                @Override
+                                public int getCraftingItemStackSize() {
+                                    return inputs.getSizeInventory();
+                                }
 
-                                        @Override
-                                        public ItemStack getCraftingItemStack(int paramInt) {
-                                            return inputs.getStackInSlot(paramInt);
-                                        }
+                                @Override
+                                public ItemStack getCraftingItemStack(int paramInt) {
+                                    return inputs.getStackInSlot(paramInt);
+                                }
 
-                                        @Override
-                                        public int getCraftingFluidStackSize() {
-                                            return 0;
-                                        }
+                                @Override
+                                public int getCraftingFluidStackSize() {
+                                    return 0;
+                                }
 
-                                        @Override
-                                        public FluidStack getCraftingFluidStack(int paramInt) {
-                                            return null;
-                                        }
+                                @Override
+                                public FluidStack getCraftingFluidStack(int paramInt) {
+                                    return null;
+                                }
 
-                                        @Override
-                                        public ItemStack decrCraftingItemStack(int paramInt1, int paramInt2) {
-                                            return null;
-                                        }
+                                @Override
+                                public ItemStack decrCraftingItemStack(int paramInt1, int paramInt2) {
+                                    return null;
+                                }
 
-                                        @Override
-                                        public FluidStack decrCraftingFluidStack(int paramInt1, int paramInt2) {
-                                            return null;
-                                        }
-                                    })) {
+                                @Override
+                                public FluidStack decrCraftingFluidStack(int paramInt1, int paramInt2) {
+                                    return null;
+                                }
+                            })) {
                         takeNext = true;
                     }
                 }
@@ -125,8 +124,6 @@ public class AssemblyTable implements ICraftingRecipeProvider {
                     processed = new ItemStack((Item) input);
                 } else if (input instanceof Block) {
                     processed = new ItemStack((Block) input, 1, 0);
-                } else if (input instanceof Integer) {
-                    processed = null;
                 } else {
                     throw new IllegalArgumentException("Unknown Object passed to recipe!");
                 }

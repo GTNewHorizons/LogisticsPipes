@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
 import java.util.*;
@@ -49,8 +49,8 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         implements IRequestItems, IRequireReliableTransport, IHeadUpDisplayRendererProvider, IChestContentReceiver {
 
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
-    public final LinkedList<ItemIdentifierStack> itemList = new LinkedList<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> itemList = new LinkedList<>();
+    public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<>();
     private final HUDSatellite HUD = new HUDSatellite(this);
 
     public PipeItemsSatelliteLogistics(Item item) {
@@ -190,16 +190,14 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         return HUD;
     }
 
-    public static Set<PipeItemsSatelliteLogistics> AllSatellites =
-            Collections.newSetFromMap(new WeakHashMap<PipeItemsSatelliteLogistics, Boolean>());
-    ;
+    public static Set<PipeItemsSatelliteLogistics> AllSatellites = Collections.newSetFromMap(new WeakHashMap<>());
 
     // called only on server shutdown
     public static void cleanup() {
         PipeItemsSatelliteLogistics.AllSatellites.clear();
     }
 
-    protected final LinkedList<ItemIdentifierStack> _lostItems = new LinkedList<ItemIdentifierStack>();
+    protected final LinkedList<ItemIdentifierStack> _lostItems = new LinkedList<>();
 
     public int satelliteId;
 
@@ -242,10 +240,10 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         if (MainProxy.isClient()) {
             return;
         }
-        if (satelliteId == 0 && PipeItemsSatelliteLogistics.AllSatellites.contains(this)) {
+        if (satelliteId == 0) {
             PipeItemsSatelliteLogistics.AllSatellites.remove(this);
         }
-        if (satelliteId != 0 && !PipeItemsSatelliteLogistics.AllSatellites.contains(this)) {
+        if (satelliteId != 0) {
             PipeItemsSatelliteLogistics.AllSatellites.add(this);
         }
     }
@@ -305,9 +303,7 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         if (MainProxy.isClient(getWorld())) {
             return;
         }
-        if (PipeItemsSatelliteLogistics.AllSatellites.contains(this)) {
-            PipeItemsSatelliteLogistics.AllSatellites.remove(this);
-        }
+        PipeItemsSatelliteLogistics.AllSatellites.remove(this);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     private int wheeldown = 0;
     private boolean editsearch = false;
     private boolean editname = false;
-    private LinkedList<ItemIdentifierStack> macroItems = new LinkedList<ItemIdentifierStack>();
+    private final LinkedList<ItemIdentifierStack> macroItems = new LinkedList<>();
     private String name1 = "";
     private String name2 = "";
     private String Search1 = "";
@@ -49,8 +49,8 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 
     private Object[] tooltip;
 
-    private int nameWidth = 122;
-    private int searchWidth = 138;
+    private final int nameWidth = 122;
+    private final int searchWidth = 138;
 
     public GuiAddMacro(IDiskProvider diskProvider, String macroName) {
         super(200, 200, 0, 0);
@@ -187,7 +187,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
                 if (mouseX >= x && mouseX < x + panelxSize && mouseY >= y && mouseY < y + panelySize) {
                     Gui.drawRect(x - 3, y - 1, x + panelxSize - 3, y + panelySize - 3, Color.getValue(Color.BLACK));
                     Gui.drawRect(
-                            x - 2, y - 0, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
+                            x - 2, y, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
                     tooltip = new Object[] {mouseX + guiLeft, mouseY + guiTop, st, false};
                 }
 
@@ -423,9 +423,10 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     private boolean isSearched(String value, String search) {
         boolean flag = true;
         for (String s : search.split(" ")) {
-            if (!value.contains(s)) {
-                flag = false;
-            }
+			if (!value.contains(s)) {
+				flag = false;
+				break;
+			}
         }
         return flag;
     }
@@ -526,19 +527,16 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
         if (editname) {
             if (c == 13) {
                 editname = false;
-                return;
             } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 name1 = name1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (name1.length() > 0) {
                     name1 = name1.substring(0, name1.length() - 1);
                 }
-                return;
             } else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(name1 + c + name2) <= nameWidth) {
                     name1 += c;
                 }
-                return;
             } else if (i == 203) { // Left
                 if (name1.length() > 0) {
                     name2 = name1.substring(name1.length() - 1) + name2;
@@ -567,19 +565,16 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
         } else if (editsearch) {
             if (c == 13) {
                 editsearch = false;
-                return;
             } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
                 Search1 = Search1 + GuiScreen.getClipboardString();
             } else if (c == 8) {
                 if (Search1.length() > 0) {
                     Search1 = Search1.substring(0, Search1.length() - 1);
                 }
-                return;
             } else if (Character.isLetterOrDigit(c) || c == ' ') {
                 if (mc.fontRenderer.getStringWidth(Search1 + c + Search2) <= searchWidth) {
                     Search1 += c;
                 }
-                return;
             } else if (i == 203) { // Left
                 if (Search1.length() > 0) {
                     Search2 = Search1.substring(Search1.length() - 1) + Search2;

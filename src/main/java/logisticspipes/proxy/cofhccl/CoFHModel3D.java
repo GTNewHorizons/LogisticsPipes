@@ -2,7 +2,6 @@ package logisticspipes.proxy.cofhccl;
 
 import cofh.repack.codechicken.lib.lighting.LightModel;
 import cofh.repack.codechicken.lib.render.CCModel;
-import cofh.repack.codechicken.lib.render.CCRenderState;
 import cofh.repack.codechicken.lib.render.CCRenderState.IVertexOperation;
 import cofh.repack.codechicken.lib.render.uv.UVTransformation;
 import cofh.repack.codechicken.lib.vec.Cuboid6;
@@ -28,11 +27,11 @@ public class CoFHModel3D implements IModel3D {
 
     @Override
     public void render(I3DOperation... i3dOperations) {
-        List<IVertexOperation> list = new ArrayList<CCRenderState.IVertexOperation>();
+        List<IVertexOperation> list = new ArrayList<>();
         for (I3DOperation op : i3dOperations) {
             list.add((IVertexOperation) op.getOriginal());
         }
-        model.render(list.toArray(new IVertexOperation[list.size()]));
+        model.render(list.toArray(new IVertexOperation[0]));
     }
 
     @Override

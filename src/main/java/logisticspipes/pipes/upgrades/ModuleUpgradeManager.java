@@ -15,10 +15,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class ModuleUpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgradeManager {
 
     @Getter
-    private SimpleStackInventory inv = new SimpleStackInventory(2, "UpgradeInventory", 16);
+    private final SimpleStackInventory inv = new SimpleStackInventory(2, "UpgradeInventory", 16);
 
-    private IPipeUpgrade[] upgrades = new IPipeUpgrade[2];
-    private PipeLogisticsChassi pipe;
+    private final IPipeUpgrade[] upgrades = new IPipeUpgrade[2];
+    private final PipeLogisticsChassi pipe;
 
     private final UpgradeManager parent;
 
@@ -38,17 +38,17 @@ public class ModuleUpgradeManager implements ISimpleInventoryEventHandler, ISlot
 
     @Override
     public boolean hasPatternUpgrade() {
-        return hasPatternUpgrade ? true : parent.hasPatternUpgrade();
+        return hasPatternUpgrade || parent.hasPatternUpgrade();
     }
 
     @Override
     public boolean isAdvancedSatelliteCrafter() {
-        return isAdvancedCrafter ? true : parent.isAdvancedSatelliteCrafter();
+        return isAdvancedCrafter || parent.isAdvancedSatelliteCrafter();
     }
 
     @Override
     public boolean hasByproductExtractor() {
-        return hasByproductExtractor ? true : parent.hasByproductExtractor();
+        return hasByproductExtractor || parent.hasByproductExtractor();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ModuleUpgradeManager implements ISimpleInventoryEventHandler, ISlot
 
     @Override
     public boolean isFuzzyUpgrade() {
-        return isFuzzyUpgrade ? true : parent.isFuzzyUpgrade();
+        return isFuzzyUpgrade || parent.isFuzzyUpgrade();
     }
 
     @Override

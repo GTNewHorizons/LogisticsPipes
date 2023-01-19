@@ -17,7 +17,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class LogisticsStatisticsTileEntity extends LogisticsSolidTileEntity implements IGuiTileEntity {
 
-    public List<TrackingTask> tasks = new ArrayList<TrackingTask>();
+    public List<TrackingTask> tasks = new ArrayList<>();
     private int tickCount;
     private CoreRoutedPipe cachedConnectedPipe;
 

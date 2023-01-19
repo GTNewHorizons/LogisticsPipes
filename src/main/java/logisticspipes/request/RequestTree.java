@@ -1,11 +1,6 @@
 package logisticspipes.request;
 
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IProvide;
 import logisticspipes.interfaces.routing.IRequestFluid;
@@ -25,7 +20,7 @@ import net.minecraft.item.Item;
 
 public class RequestTree extends RequestTreeNode {
 
-    public static enum ActiveRequestType {
+    public enum ActiveRequestType {
         Provide,
         Craft,
         AcceptPartial,
@@ -48,7 +43,7 @@ public class RequestTree extends RequestTreeNode {
 
     private int getExistingPromisesFor(FinalPair<IProvide, ItemIdentifier> key) {
         if (_promisetotals == null) {
-            _promisetotals = new HashMap<FinalPair<IProvide, ItemIdentifier>, Integer>();
+            _promisetotals = new HashMap<>();
         }
         Integer n = _promisetotals.get(key);
         if (n == null) {
@@ -58,15 +53,15 @@ public class RequestTree extends RequestTreeNode {
     }
 
     public int getAllPromissesFor(IProvide provider, ItemIdentifier item) {
-        FinalPair<IProvide, ItemIdentifier> key = new FinalPair<IProvide, ItemIdentifier>(provider, item);
+        FinalPair<IProvide, ItemIdentifier> key = new FinalPair<>(provider, item);
         return getExistingPromisesFor(key);
     }
 
     public LinkedList<IExtraPromise> getExtrasFor(IResource item) {
-        HashMap<IProvide, List<IExtraPromise>> extraMap = new HashMap<IProvide, List<IExtraPromise>>();
+        HashMap<IProvide, List<IExtraPromise>> extraMap = new HashMap<>();
         checkForExtras(item, extraMap);
         removeUsedExtras(item, extraMap);
-        LinkedList<IExtraPromise> extras = new LinkedList<IExtraPromise>();
+        LinkedList<IExtraPromise> extras = new LinkedList<>();
         for (List<IExtraPromise> sublist : extraMap.values()) {
             extras.addAll(sublist);
         }
@@ -78,31 +73,29 @@ public class RequestTree extends RequestTreeNode {
     }
 
     public void sendMissingMessage(RequestLog log) {
-        Map<IResource, Integer> missing = new HashMap<IResource, Integer>();
+        Map<IResource, Integer> missing = new HashMap<>();
         buildMissingMap(missing);
         log.handleMissingItems(RequestTreeNode.shrinkToList(missing));
     }
 
     public void sendUsedMessage(RequestLog log) {
-        Map<IResource, Integer> used = new HashMap<IResource, Integer>();
-        Map<IResource, Integer> missing = new HashMap<IResource, Integer>();
+        Map<IResource, Integer> used = new HashMap<>();
+        Map<IResource, Integer> missing = new HashMap<>();
         buildUsedMap(used, missing);
         log.handleSucessfullRequestOfList(RequestTreeNode.shrinkToList(used), new LinkedLogisticsOrderList());
         log.handleMissingItems(RequestTreeNode.shrinkToList(missing));
     }
 
     protected void promiseAdded(IPromise promise) {
-        FinalPair<IProvide, ItemIdentifier> key =
-                new FinalPair<IProvide, ItemIdentifier>(promise.getProvider(), promise.getItemType());
+        FinalPair<IProvide, ItemIdentifier> key = new FinalPair<>(promise.getProvider(), promise.getItemType());
         if (_promisetotals == null) {
-            _promisetotals = new HashMap<FinalPair<IProvide, ItemIdentifier>, Integer>();
+            _promisetotals = new HashMap<>();
         }
         _promisetotals.put(key, getExistingPromisesFor(key) + promise.getAmount());
     }
 
     protected void promiseRemoved(IPromise promise) {
-        FinalPair<IProvide, ItemIdentifier> key =
-                new FinalPair<IProvide, ItemIdentifier>(promise.getProvider(), promise.getItemType());
+        FinalPair<IProvide, ItemIdentifier> key = new FinalPair<>(promise.getProvider(), promise.getItemType());
         int r = getExistingPromisesFor(key) - promise.getAmount();
         if (r == 0) {
             _promisetotals.remove(key);
@@ -121,7 +114,7 @@ public class RequestTree extends RequestTreeNode {
 
         @Override
         public int compare(ExitRoute o1, ExitRoute o2) {
-            int c = 0;
+            int c;
             if (o1.destination.getPipe() instanceof IHavePriority) {
                 if (o2.destination.getPipe() instanceof IHavePriority) {
                     c = ((IHavePriority) o2.destination.getCachedPipe()).getPriority()
@@ -155,7 +148,7 @@ public class RequestTree extends RequestTreeNode {
             RequestLog log,
             EnumSet<ActiveRequestType> requestFlags,
             IAdditionalTargetInformation info) {
-        Map<IResource, Integer> messages = new HashMap<IResource, Integer>();
+        Map<IResource, Integer> messages = new HashMap<>();
         RequestTree tree = new RequestTree(
                 new ItemResource(
                         new ItemIdentifierStack(ItemIdentifier.get(Item.getItemFromBlock(Blocks.stone), 0, null), 0),

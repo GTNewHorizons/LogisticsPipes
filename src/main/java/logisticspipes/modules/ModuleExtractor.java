@@ -6,11 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import logisticspipes.gui.hud.modules.HUDExtractor;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
 import logisticspipes.network.NewGuiHandler;
@@ -45,7 +41,7 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
 
     private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
-    private IHUDModuleRenderer HUD = new HUDExtractor(this);
+    private final IHUDModuleRenderer HUD = new HUDExtractor(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -163,7 +159,7 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
                 continue;
             }
             ItemIdentifier slotitem = ItemIdentifier.get(slot);
-            List<Integer> jamList = new LinkedList<Integer>();
+            List<Integer> jamList = new LinkedList<>();
             Pair<Integer, SinkReply> reply = _service.hasDestination(slotitem, true, jamList);
             if (reply == null) {
                 continue;
@@ -209,7 +205,7 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>(1);
+        List<String> list = new ArrayList<>(1);
         list.add("Extraction: " + ((_sneakyDirection == ForgeDirection.UNKNOWN) ? "DEFAULT" : _sneakyDirection.name()));
         return list;
     }

@@ -35,7 +35,7 @@ public class ShowCommand implements ICommandHandler {
             return;
         }
         String name = args[0];
-        List<AbstractWrapper> list = new ArrayList<AbstractWrapper>(LogisticsWrapperHandler.wrapperController);
+        List<AbstractWrapper> list = new ArrayList<>(LogisticsWrapperHandler.wrapperController);
         Iterator<AbstractWrapper> iter = list.iterator();
         while (iter.hasNext()) {
             AbstractWrapper item = iter.next();
@@ -62,7 +62,6 @@ public class ShowCommand implements ICommandHandler {
             Throwable t = wrapper.getReason();
             if (t == null) {
                 sender.addChatMessage(new ChatComponentText("null"));
-                return;
             } else {
                 sender.addChatMessage(new ChatComponentText("-----------------------------------------------------"));
                 sender.addChatMessage(new ChatComponentText(t.toString()));
