@@ -1,6 +1,6 @@
 package logisticspipes.gui.popup;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import logisticspipes.interfaces.IDiskProvider;
@@ -39,7 +39,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     private int wheeldown = 0;
     private boolean editsearch = false;
     private boolean editname = false;
-    private final LinkedList<ItemIdentifierStack> macroItems = new LinkedList<>();
+    private final ArrayList<ItemIdentifierStack> macroItems = new ArrayList<>();
     private String name1 = "";
     private String name2 = "";
     private String Search1 = "";
@@ -238,9 +238,9 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
                             }
                             if (!handled) {
                                 if (mousebutton == 0 || wheelup != 0) {
-                                    macroItems.addLast(item.makeStack(1 + (wheelup != 0 ? wheelup - 1 : 0)));
+                                    macroItems.add(item.makeStack(1 + (wheelup != 0 ? wheelup - 1 : 0)));
                                 } else if (mousebutton == 2) {
-                                    macroItems.addLast(item.makeStack(64));
+                                    macroItems.add(item.makeStack(64));
                                 }
                             }
                         }

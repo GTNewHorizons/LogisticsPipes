@@ -29,7 +29,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
     private final MachineSource source;
     private final ForgeDirection dir;
     public boolean init = false;
-    LinkedList<Entry<ItemIdentifier, Integer>> cached;
+    ArrayList<Entry<ItemIdentifier, Integer>> cached;
 
     private AEInterfaceInventoryHandler(
             TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
@@ -209,7 +209,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
 
     public void initCache() {
         Map<ItemIdentifier, Integer> map = getItemsAndCount(true);
-        cached = new LinkedList<>();
+        cached = new ArrayList<>();
         cached.addAll(map.entrySet());
     }
 

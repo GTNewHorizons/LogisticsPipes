@@ -122,7 +122,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
         return true;
     }
 
-    LinkedList<Entry<ItemIdentifier, Integer>> cached;
+    ArrayList<Entry<ItemIdentifier, Integer>> cached;
 
     @Override
     public int getSizeInventory() {
@@ -134,7 +134,7 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
 
     public void initCache() {
         Map<ItemIdentifier, Integer> map = getItemsAndCount(true);
-        cached = new LinkedList<>();
+        cached = new ArrayList<>();
         cached.addAll(map.entrySet());
     }
 
