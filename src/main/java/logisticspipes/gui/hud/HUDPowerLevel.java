@@ -60,10 +60,10 @@ public class HUDPowerLevel extends BasicHUDGui implements IHeadUpDisplayRenderer
         float var8 = 0.00390625F;
         Tessellator var9 = Tessellator.instance;
         var9.startDrawingQuads();
-        var9.addVertexWithUV(par1, par2 + par6, 0, (par3) * var7, (par4 + par6) * var8);
+        var9.addVertexWithUV(par1 + 0, par2 + par6, 0, (par3 + 0) * var7, (par4 + par6) * var8);
         var9.addVertexWithUV(par1 + par5, par2 + par6, 0, (par3 + par5) * var7, (par4 + par6) * var8);
-        var9.addVertexWithUV(par1 + par5, par2, 0, (par3 + par5) * var7, (par4) * var8);
-        var9.addVertexWithUV(par1, par2, 0, (par3) * var7, (par4) * var8);
+        var9.addVertexWithUV(par1 + par5, par2 + 0, 0, (par3 + par5) * var7, (par4 + 0) * var8);
+        var9.addVertexWithUV(par1 + 0, par2 + 0, 0, (par3 + 0) * var7, (par4 + 0) * var8);
         var9.draw();
     }
 

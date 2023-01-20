@@ -229,7 +229,7 @@ public class ServerPacketBufferHandlerThread {
                         int size = ((ByteBufferForPlayer[0] & 255) << 24)
                                 + ((ByteBufferForPlayer[1] & 255) << 16)
                                 + ((ByteBufferForPlayer[2] & 255) << 8)
-                                + ((ByteBufferForPlayer[3] & 255));
+                                + ((ByteBufferForPlayer[3] & 255) << 0);
                         if (size + 4 > ByteBufferForPlayer.length) {
                             break;
                         }

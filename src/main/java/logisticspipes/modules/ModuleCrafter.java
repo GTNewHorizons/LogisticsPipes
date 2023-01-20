@@ -530,7 +530,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             }
             for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                 if (satellite.satelliteId == satelliteId) {
-                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     IRouter satRouter = satellite.getRouter();
@@ -550,7 +550,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 }
                 for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                     if (satellite.satelliteId == advancedSatelliteIdArray[i]) {
-                        if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                        if (satellite.stillNeedReplace() || satellite.getRouter() == null) {
                             continue;
                         }
                         IRouter satRouter = satellite.getRouter();
@@ -747,7 +747,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         if (x == -1) {
             for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                 if (satellite.satelliteId == satelliteId) {
-                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -756,7 +756,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         } else {
             for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
                 if (satellite.satelliteId == advancedSatelliteIdArray[x]) {
-                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -973,7 +973,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         if (MainProxy.isClient(player.worldObj)) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(CraftingPipePriorityUpPacket.class).setModulePos(this));
-        } else if (player != null && MainProxy.isServer(player.worldObj)) {
+        } else if (MainProxy.isServer(player.worldObj)) {
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(CraftingPriority.class)
                             .setInteger(priority)
@@ -987,7 +987,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         if (MainProxy.isClient(player.worldObj)) {
             MainProxy.sendPacketToServer(PacketHandler.getPacket(CraftingPipePriorityDownPacket.class)
                     .setModulePos(this));
-        } else if (player != null && MainProxy.isServer(player.worldObj)) {
+        } else if (MainProxy.isServer(player.worldObj)) {
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(CraftingPriority.class)
                             .setInteger(priority)
@@ -1148,7 +1148,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         if (x == -1) {
             for (final PipeFluidSatellite satellite : PipeFluidSatellite.AllSatellites) {
                 if (satellite.satelliteId == liquidSatelliteId) {
-                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -1157,7 +1157,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         } else {
             for (final PipeFluidSatellite satellite : PipeFluidSatellite.AllSatellites) {
                 if (satellite.satelliteId == liquidSatelliteIdArray[x]) {
-                    if (satellite == null || satellite.stillNeedReplace() || satellite.getRouter() == null) {
+                    if (satellite.stillNeedReplace() || satellite.getRouter() == null) {
                         continue;
                     }
                     return satellite.getRouter();
@@ -1261,11 +1261,9 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             if (getUpgradeManager().getCrafterCleanup() > 0) {
                 List<AdjacentTile> crafters = locateCrafters();
                 ItemStack extracted = null;
-                AdjacentTile tile;
                 for (AdjacentTile crafter : crafters) {
-                    tile = crafter;
                     extracted = extractFiltered(
-                            tile,
+                            crafter,
                             _cleanupInventory,
                             cleanupModeIsExclude,
                             getUpgradeManager().getCrafterCleanup() * 3);

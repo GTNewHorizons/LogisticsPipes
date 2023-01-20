@@ -171,29 +171,29 @@ public class GuiExtentionController {
         }
     }
 
-    public void mouseOver(int i, int j) {
+    public void mouseOver(int x, int y) {
         if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
-                if (i > extention.getCurrentXPos()
-                        && i
+                if (x > extention.getCurrentXPos()
+                        && x
                                 < extention.getCurrentXPos()
                                         + extention.getCurrentWidth()
                                         + (side == GuiSide.RIGHT ? 15 : 0)
-                        && j > extention.getCurrentYPos()
-                        && j < extention.getCurrentYPos() + extention.getCurrentHeight()) {
-                    extention.handleMouseOverAt(i, j);
+                        && y > extention.getCurrentYPos()
+                        && y < extention.getCurrentYPos() + extention.getCurrentHeight()) {
+                    extention.handleMouseOverAt(x, y);
                     return;
                 }
             }
         } else {
-            if (i > currentlyExtended.getCurrentXPos()
-                    && i
+            if (x > currentlyExtended.getCurrentXPos()
+                    && x
                             < currentlyExtended.getCurrentXPos()
                                     + currentlyExtended.getCurrentWidth()
                                     + (side == GuiSide.RIGHT ? 15 : 0)
-                    && j > currentlyExtended.getCurrentYPos()
-                    && j < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
-                currentlyExtended.handleMouseOverAt(i, j);
+                    && y > currentlyExtended.getCurrentYPos()
+                    && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
+                currentlyExtended.handleMouseOverAt(x, y);
             }
         }
     }
