@@ -24,12 +24,12 @@ public class LogisticsTileRenderController {
 
     private final LogisticsTileGenericPipe pipe;
     private final int LASER_TIMEOUT_TICKS = 4;
-    private final Map<LaserKey, LaserBeamData> powerLasersBeam = new HashMap<LaserKey, LaserBeamData>();
-    private final Map<Integer, LaserBallData> powerLasersBall = new HashMap<Integer, LaserBallData>();
+    private final Map<LaserKey, LaserBeamData> powerLasersBeam = new HashMap<>();
+    private final Map<Integer, LaserBallData> powerLasersBall = new HashMap<>();
 
     @Data
     @AllArgsConstructor
-    private class LaserKey {
+    private static class LaserKey {
 
         final ForgeDirection dir;
         final int color;
@@ -37,7 +37,7 @@ public class LogisticsTileRenderController {
 
     @Data
     @AllArgsConstructor
-    private class LaserBeamData {
+    private static class LaserBeamData {
 
         final float length;
         int timeout;
@@ -95,7 +95,7 @@ public class LogisticsTileRenderController {
 
     @Data
     @AllArgsConstructor
-    private class LaserBallData {
+    private static class LaserBallData {
 
         final float length;
         int timeout;
@@ -274,9 +274,7 @@ public class LogisticsTileRenderController {
     }
 
     public void sendInit() {
-        Iterator<LaserKey> iter = powerLasersBeam.keySet().iterator();
-        while (iter.hasNext()) {
-            LaserKey key = iter.next();
+        for (LaserKey key : powerLasersBeam.keySet()) {
             LaserBeamData data = powerLasersBeam.get(key);
             boolean isBall = powerLasersBall.containsKey(key.color);
             MainProxy.sendPacketToAllWatchingChunk(

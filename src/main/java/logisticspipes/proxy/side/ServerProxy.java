@@ -40,7 +40,7 @@ import net.minecraftforge.common.config.Configuration;
 
 public class ServerProxy implements IProxy {
 
-    private Configuration langDatabase;
+    private final Configuration langDatabase;
     private long saveThreadTime = 0;
 
     public ServerProxy() {
@@ -114,15 +114,14 @@ public class ServerProxy implements IProxy {
 
     @Override
     public String getName(ItemIdentifier item) {
-        String category = "";
+        String category;
         if (item.isDamageable()) {
-            category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+            category = "itemNames." + Item.getIdFromItem(item.item);
         } else {
             if (item.itemDamage == 0) {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+                category = "itemNames." + Item.getIdFromItem(item.item);
             } else {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item)) + "."
-                        + Integer.toString(item.itemDamage);
+                category = "itemNames." + Item.getIdFromItem(item.item) + "." + item.itemDamage;
             }
         }
         String name = getNameForCategory(category, item);
@@ -130,7 +129,7 @@ public class ServerProxy implements IProxy {
             if (item.itemDamage == 0) {
                 return item.getFriendlyName();
             } else {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+                category = "itemNames." + Item.getIdFromItem(item.item);
                 name = getNameForCategory(category, item);
                 if (name.equals("LP|UNDEFINED")) {
                     return item.getFriendlyName();
@@ -142,15 +141,14 @@ public class ServerProxy implements IProxy {
 
     @Override
     public void updateNames(ItemIdentifier item, String name) {
-        String category = "";
+        String category;
         if (item.isDamageable()) {
-            category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+            category = "itemNames." + Item.getIdFromItem(item.item);
         } else {
             if (item.itemDamage == 0) {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item));
+                category = "itemNames." + Item.getIdFromItem(item.item);
             } else {
-                category = "itemNames." + Integer.toString(Item.getIdFromItem(item.item)) + "."
-                        + Integer.toString(item.itemDamage);
+                category = "itemNames." + Item.getIdFromItem(item.item) + "." + item.itemDamage;
             }
         }
         setNameForCategory(category, item, name);
@@ -183,8 +181,8 @@ public class ServerProxy implements IProxy {
                     itemPart = itemPartSplit[0];
                     metaPart = itemPartSplit[1];
                 }
-                int id = Integer.valueOf(itemPart);
-                int meta = Integer.valueOf(metaPart);
+                int id = Integer.parseInt(itemPart);
+                int meta = Integer.parseInt(metaPart);
                 SimpleServiceLocator.serverBufferHandler.addPacketToCompressor(
                         PacketHandler.getPacket(UpdateName.class)
                                 .setIdent(ItemIdentifier.get(Item.getItemById(id), meta, null))
@@ -197,10 +195,10 @@ public class ServerProxy implements IProxy {
     @Override
     public int getDimensionForWorld(World world) {
         if (world instanceof WorldServer) {
-            return ((WorldServer) world).provider.dimensionId;
+            return world.provider.dimensionId;
         }
         if (world instanceof WorldClient) {
-            return ((WorldClient) world).provider.dimensionId;
+            return world.provider.dimensionId;
         }
         return world.getWorldInfo().getVanillaDimension();
     }
@@ -211,14 +209,9 @@ public class ServerProxy implements IProxy {
     }
 
     // BuildCraft method
+
     /**
      * Retrieves pipe at specified coordinates if any.
-     *
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return
      */
     protected static LogisticsTileGenericPipe getPipe(World world, int x, int y, int z) {
         if (world == null) {

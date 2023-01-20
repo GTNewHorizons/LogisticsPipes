@@ -22,8 +22,8 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
 
     public static int renderPass = -1;
 
-    private PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
-    private LogisticsNewPipeWorldRenderer newRenderer = new LogisticsNewPipeWorldRenderer();
+    private final PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
+    private final LogisticsNewPipeWorldRenderer newRenderer = new LogisticsNewPipeWorldRenderer();
 
     public static boolean renderPipe(
             RenderBlocks renderblocks,

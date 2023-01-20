@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.proxy.buildcraft.gates;
 
 import buildcraft.api.statements.IStatementContainer;
@@ -31,7 +31,7 @@ public class LogisticsTriggerProvider implements ITriggerProvider {
     public Collection<ITriggerInternal> getInternalTriggers(IStatementContainer pipe) {
         if (pipe.getTile() instanceof LPBCTileGenericPipe) {
             LogisticsTileGenericPipe lPipe = ((LPBCTileGenericPipe) pipe.getTile()).getLpPipe();
-            LinkedList<ITriggerInternal> triggers = new LinkedList<ITriggerInternal>();
+            LinkedList<ITriggerInternal> triggers = new LinkedList<>();
             if (lPipe.pipe instanceof PipeItemsSupplierLogistics || lPipe.pipe instanceof PipeItemsFluidSupplier) {
                 triggers.add(BuildCraftProxy.LogisticsFailedTrigger);
             }
@@ -52,7 +52,7 @@ public class LogisticsTriggerProvider implements ITriggerProvider {
     @Override
     public Collection<ITriggerExternal> getExternalTriggers(ForgeDirection paramForgeDirection, TileEntity tile) {
         if (tile instanceof LogisticsPowerJunctionTileEntity || tile instanceof LogisticsSolderingTileEntity) {
-            LinkedList<ITriggerExternal> triggers = new LinkedList<ITriggerExternal>();
+            LinkedList<ITriggerExternal> triggers = new LinkedList<>();
             triggers.add(BuildCraftProxy.LogisticsNeedPowerTrigger);
             return triggers;
         }

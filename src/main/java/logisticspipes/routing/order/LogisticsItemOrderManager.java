@@ -38,11 +38,11 @@ public class LogisticsItemOrderManager extends LogisticsOrderManager<LogisticsIt
     }
 
     public LogisticsItemOrderManager(ILPPositionProvider pos) {
-        super(new LogisticsOrderLinkedList<LogisticsItemOrder, DictResource.Identifier>(new IC()), pos);
+        super(new LogisticsOrderLinkedList<>(new IC()), pos);
     }
 
     public LogisticsItemOrderManager(IChangeListener listener, ILPPositionProvider pos) {
-        super(listener, pos, new LogisticsOrderLinkedList<LogisticsItemOrder, DictResource.Identifier>(new IC()));
+        super(listener, pos, new LogisticsOrderLinkedList<>(new IC()));
     }
 
     @Override
@@ -78,7 +78,7 @@ public class LogisticsItemOrderManager extends LogisticsOrderManager<LogisticsIt
         int itemsToRemove = resource.getRequestedAmount();
         DictResource.Identifier ident = resource.getIdentifier();
         Iterator<LogisticsItemOrder> iter = _orders.iterator();
-        List<LogisticsItemOrder> toRemove = new LinkedList<LogisticsItemOrder>();
+        List<LogisticsItemOrder> toRemove = new LinkedList<>();
         while (iter.hasNext()) {
             LogisticsItemOrder order = iter.next();
             if (order.getType() != ResourceType.EXTRA) continue;

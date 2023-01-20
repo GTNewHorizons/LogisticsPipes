@@ -4,5 +4,5 @@ import net.minecraftforge.fluids.FluidStack;
 
 public interface IFluidSink {
 
-    public int sinkAmount(FluidStack stack);
+    int sinkAmount(FluidStack stack);
 }

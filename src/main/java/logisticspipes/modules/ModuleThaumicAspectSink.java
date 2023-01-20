@@ -32,7 +32,7 @@ import net.minecraft.util.IIcon;
 public class ModuleThaumicAspectSink extends LogisticsGuiModule
         implements IClientInformationProvider, IModuleWatchReciver {
 
-    public final List<String> aspectList = new LinkedList<String>();
+    public final List<String> aspectList = new LinkedList<>();
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -72,8 +72,8 @@ public class ModuleThaumicAspectSink extends LogisticsGuiModule
         if (itemAspectList == null || itemAspectList.size() == 0) {
             return false;
         }
-        for (int i = 0; i < itemAspectList.size(); i++) {
-            if (aspectList.contains(itemAspectList.get(i))) {
+        for (String s : itemAspectList) {
+            if (aspectList.contains(s)) {
                 return true;
             }
         }
@@ -148,14 +148,14 @@ public class ModuleThaumicAspectSink extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> info = new ArrayList<String>();
+        List<String> info = new ArrayList<>();
         info.add("Aspects: ");
         if (aspectList.size() == 0) {
             info.add("none");
         }
-        for (int i = 0; i < aspectList.size(); i++) {
+        for (String s : aspectList) {
             // info.add(" - " + SimpleServiceLocator.thaumCraftProxy.getNameForTagID(aspectList.get(i)));
-            info.add(" - " + aspectList.get(i));
+            info.add(" - " + s);
         }
         return info;
     }

@@ -41,7 +41,7 @@ public abstract class LogisticsOrder implements IOrderInfoProvider {
     @Setter
     private byte machineProgress = 0;
 
-    private List<IDistanceTracker> trackers = new CopyOnWriteArrayList<IDistanceTracker>();
+    private final List<IDistanceTracker> trackers = new CopyOnWriteArrayList<>();
 
     public LogisticsOrder(ResourceType type, IAdditionalTargetInformation info) {
         if (type == null) {
@@ -72,7 +72,7 @@ public abstract class LogisticsOrder implements IOrderInfoProvider {
 
     @Override
     public List<Float> getProgresses() {
-        List<Float> progresses = new ArrayList<Float>();
+        List<Float> progresses = new ArrayList<>();
         for (IDistanceTracker tracker : trackers) {
             if (!tracker.hasReachedDestination() && !tracker.isTimeout()) {
                 float f;

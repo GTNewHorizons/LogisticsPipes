@@ -9,10 +9,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ISpecialPipedConnection {
 
-    public boolean init();
+    boolean init();
 
-    public boolean isType(IPipeInformationProvider startPipe);
+    boolean isType(IPipeInformationProvider startPipe);
 
-    public List<ConnectionInformation> getConnections(
+    List<ConnectionInformation> getConnections(
             IPipeInformationProvider startPipe, EnumSet<PipeRoutingConnectionType> connection, ForgeDirection side);
 }

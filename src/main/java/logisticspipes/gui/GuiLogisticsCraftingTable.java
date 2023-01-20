@@ -21,11 +21,11 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
 
     public LogisticsCraftingTableTileEntity _crafter;
 
-    private int fuzzyPanelSelection = -1;
-    private int fuzzyPanelHover = -1;
-    private int fuzzyPanelHoverTime = 0;
+    private final int fuzzyPanelSelection = -1;
+    private final int fuzzyPanelHover = -1;
+    private final int fuzzyPanelHoverTime = 0;
 
-    private GuiButton[] sycleButtons = new GuiButton[2];
+    private final GuiButton[] sycleButtons = new GuiButton[2];
 
     public GuiLogisticsCraftingTable(EntityPlayer player, LogisticsCraftingTableTileEntity crafter) {
         super(176, 218, 0, 0);
@@ -65,8 +65,8 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float fA, int iA, int jA) {
-        for (int i = 0; i < sycleButtons.length; i++) {
-            sycleButtons[i].visible = _crafter.targetType != null;
+        for (GuiButton sycleButton : sycleButtons) {
+            sycleButton.visible = _crafter.targetType != null;
         }
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);

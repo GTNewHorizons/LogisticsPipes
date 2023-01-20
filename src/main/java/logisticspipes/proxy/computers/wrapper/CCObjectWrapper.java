@@ -5,21 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
-import logisticspipes.proxy.computers.interfaces.CCCommand;
-import logisticspipes.proxy.computers.interfaces.CCQueued;
-import logisticspipes.proxy.computers.interfaces.CCSecurtiyCheck;
-import logisticspipes.proxy.computers.interfaces.CCType;
-import logisticspipes.proxy.computers.interfaces.ILPCCTypeDefinition;
-import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
-import logisticspipes.proxy.computers.objects.CCFilterInventory;
-import logisticspipes.proxy.computers.objects.CCFluidIdentifier;
-import logisticspipes.proxy.computers.objects.CCItemIdentifier;
-import logisticspipes.proxy.computers.objects.CCItemIdentifierInventory;
-import logisticspipes.proxy.computers.objects.CCItemIdentifierStack;
-import logisticspipes.proxy.computers.objects.CCPair;
-import logisticspipes.proxy.computers.objects.CCQuartet;
-import logisticspipes.proxy.computers.objects.CCResource;
-import logisticspipes.proxy.computers.objects.CCTriplet;
+import logisticspipes.proxy.computers.interfaces.*;
+import logisticspipes.proxy.computers.objects.*;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -32,10 +19,9 @@ import net.minecraft.nbt.NBTBase;
 
 public class CCObjectWrapper {
 
-    private static Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<Class<?>, CCWrapperInformation>();
-    private static Map<Object, Object> wrappedObjects = new WeakHashMap<Object, Object>();
-    private static Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings =
-            new HashMap<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition>();
+    private static final Map<Class<?>, CCWrapperInformation> ccMapings = new HashMap<>();
+    private static final Map<Object, Object> wrappedObjects = new WeakHashMap<>();
+    private static final Map<Class<? extends ILPCCTypeHolder>, ILPCCTypeDefinition> specialMappings = new HashMap<>();
 
     static {
         CCObjectWrapper.specialMappings.put(ItemIdentifier.class, new CCItemIdentifier());
@@ -159,7 +145,7 @@ public class CCObjectWrapper {
                         info.commands.put(i, method);
                         if (info.commandTypes.containsKey(method.getName())) {
                             Pair<Boolean, String> pair = info.commandTypes.get(method.getName());
-                            if (pair.getValue1().booleanValue() ^ method.isAnnotationPresent(CCQueued.class)) {
+                            if (pair.getValue1() ^ method.isAnnotationPresent(CCQueued.class)) {
                                 throw new InternalError("Internal Excption (Code: 5, " + method + ")");
                             }
                             if (!pair.getValue2()
@@ -170,7 +156,7 @@ public class CCObjectWrapper {
                         } else {
                             info.commandTypes.put(
                                     method.getName(),
-                                    new Pair<Boolean, String>(
+                                    new Pair<>(
                                             method.isAnnotationPresent(CCQueued.class),
                                             method.getAnnotation(CCCommand.class)
                                                     .description()));

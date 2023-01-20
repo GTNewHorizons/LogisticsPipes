@@ -7,12 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.packets.gui.GUIPacket;
@@ -42,19 +37,13 @@ public class NewGuiHandler {
         InstantiationException.class
     })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
-    public static final void initialize() {
-        final List<ClassInfo> classes = new ArrayList<ClassInfo>(ClassPath.from(NewGuiHandler.class.getClassLoader())
+    public static void initialize() {
+        final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(NewGuiHandler.class.getClassLoader())
                 .getTopLevelClassesRecursive("logisticspipes.network.guis"));
-        Collections.sort(classes, new Comparator<ClassInfo>() {
+        classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
 
-            @Override
-            public int compare(ClassInfo o1, ClassInfo o2) {
-                return o1.getSimpleName().compareTo(o2.getSimpleName());
-            }
-        });
-
-        NewGuiHandler.guilist = new ArrayList<GuiProvider>(classes.size());
-        NewGuiHandler.guimap = new HashMap<Class<? extends GuiProvider>, GuiProvider>(classes.size());
+        NewGuiHandler.guilist = new ArrayList<>(classes.size());
+        NewGuiHandler.guimap = new HashMap<>(classes.size());
 
         int currentid = 0;
 

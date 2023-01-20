@@ -6,12 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import logisticspipes.gui.hud.modules.HUDElectricManager;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -55,10 +50,10 @@ public class ModuleElectricManager extends LogisticsGuiModule
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Electric Items", 1);
     private boolean _dischargeMode;
 
-    private int ticksToAction = 100;
+    private final int ticksToAction = 100;
     private int currentTick = 0;
 
-    private IHUDModuleRenderer HUD = new HUDElectricManager(this);
+    private final IHUDModuleRenderer HUD = new HUDElectricManager(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -227,7 +222,7 @@ public class ModuleElectricManager extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Mode: " + (isDischargeMode() ? "Discharge Items" : "Charge Items"));
         list.add("Supplied: ");
         list.add("<inventory>");

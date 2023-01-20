@@ -1,15 +1,14 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.gui;
 
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Iterator;
 import java.util.List;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
@@ -46,13 +45,13 @@ public class DummyContainer extends Container {
     protected IInventory _playerInventory;
     protected IInventory _dummyInventory;
     protected IGuiOpenControler[] _controler;
-    private List<Slot> transferTop = new ArrayList<Slot>();
-    private List<Slot> transferBottom = new ArrayList<Slot>();
+    private final List<Slot> transferTop = new ArrayList<>();
+    private final List<Slot> transferBottom = new ArrayList<>();
     private long lastClicked;
     private long lastDragnDropLockup;
     boolean wasDummyLookup;
     boolean overrideMCAntiSend;
-    public List<BitSet> inventoryFuzzySlotsContent = new ArrayList<BitSet>();
+    public List<BitSet> inventoryFuzzySlotsContent = new ArrayList<>();
 
     public DummyContainer(IInventory playerInventory, IInventory dummyInventory) {
         _playerInventory = playerInventory;
@@ -79,8 +78,6 @@ public class DummyContainer extends Container {
     /***
      * Adds all slots for the player inventory and hotbar
      *
-     * @param xOffset
-     * @param yOffset
      */
     public void addNormalSlotsForPlayerInventory(int xOffset, int yOffset) {
         if (_playerInventory == null) {
@@ -106,12 +103,9 @@ public class DummyContainer extends Container {
     /**
      * Add a dummy slot that will not consume players items
      *
-     * @param slotId
-     *            The slot number in the dummy IInventory this slot should map
-     * @param xCoord
-     *            xCoord of TopLeft corner of where the slot should be rendered
-     * @param yCoord
-     *            yCoord of TopLeft corner of where the slot should be rendered
+     * @param slotId The slot number in the dummy IInventory this slot should map
+     * @param xCoord xCoord of TopLeft corner of where the slot should be rendered
+     * @param yCoord yCoord of TopLeft corner of where the slot should be rendered
      */
     public Slot addDummySlot(int slotId, int xCoord, int yCoord) {
         return addSlotToContainer(new DummySlot(_dummyInventory, slotId, xCoord, yCoord));
@@ -252,7 +246,7 @@ public class DummyContainer extends Container {
         return false;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     public ItemStack superSlotClick(int par1, int par2, int par3, EntityPlayer par4EntityPlayer) {
         ItemStack itemstack = null;
         InventoryPlayer inventoryplayer = par4EntityPlayer.inventory;
@@ -290,10 +284,9 @@ public class DummyContainer extends Container {
                 if (!field_94537_h.isEmpty()) {
                     itemstack3 = inventoryplayer.getItemStack().copy();
                     i1 = inventoryplayer.getItemStack().stackSize;
-                    Iterator iterator = field_94537_h.iterator();
 
-                    while (iterator.hasNext()) {
-                        Slot slot1 = (Slot) iterator.next();
+                    for (Object o : field_94537_h) {
+                        Slot slot1 = (Slot) o;
 
                         if (slot1 != null
                                 && Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
@@ -339,10 +332,10 @@ public class DummyContainer extends Container {
 
             if ((par3 == 0 || par3 == 1) && (par2 == 0 || par2 == 1)) {
                 if (par1 == -999) {
-                    if (inventoryplayer.getItemStack() != null && par1 == -999) {
+                    if (inventoryplayer.getItemStack() != null) {
                         if (par2 == 0) {
                             par4EntityPlayer.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), true);
-                            inventoryplayer.setItemStack((ItemStack) null);
+                            inventoryplayer.setItemStack(null);
                         }
 
                         if (par2 == 1) {
@@ -350,7 +343,7 @@ public class DummyContainer extends Container {
                                     inventoryplayer.getItemStack().splitStack(1), true);
 
                             if (inventoryplayer.getItemStack().stackSize == 0) {
-                                inventoryplayer.setItemStack((ItemStack) null);
+                                inventoryplayer.setItemStack(null);
                             }
                         }
                     }
@@ -401,7 +394,7 @@ public class DummyContainer extends Container {
                                 }
 
                                 if (itemstack4.stackSize == 0) {
-                                    inventoryplayer.setItemStack((ItemStack) null);
+                                    inventoryplayer.setItemStack(null);
                                 }
                             }
                         } else if (slot2.canTakeStack(par4EntityPlayer)) {
@@ -411,7 +404,7 @@ public class DummyContainer extends Container {
                                 inventoryplayer.setItemStack(itemstack5);
 
                                 if (itemstack3.stackSize == 0) {
-                                    slot2.putStack((ItemStack) null);
+                                    slot2.putStack(null);
                                 }
 
                                 slot2.onPickupFromSlot(par4EntityPlayer, inventoryplayer.getItemStack());
@@ -436,7 +429,7 @@ public class DummyContainer extends Container {
                                     itemstack4.splitStack(l1);
 
                                     if (itemstack4.stackSize == 0) {
-                                        inventoryplayer.setItemStack((ItemStack) null);
+                                        inventoryplayer.setItemStack(null);
                                     }
 
                                     itemstack3.stackSize += l1;
@@ -469,7 +462,7 @@ public class DummyContainer extends Container {
                                     itemstack3 = slot2.decrStackSize(l1);
 
                                     if (itemstack3.stackSize == 0) {
-                                        slot2.putStack((ItemStack) null);
+                                        slot2.putStack(null);
                                     }
 
                                     slot2.onPickupFromSlot(par4EntityPlayer, inventoryplayer.getItemStack());
@@ -491,7 +484,7 @@ public class DummyContainer extends Container {
 
                     if (!flag) {
                         l1 = inventoryplayer.getFirstEmptyStack();
-                        flag |= l1 > -1;
+                        flag = l1 > -1;
                     }
 
                     if (slot2.getHasStack() && flag) {
@@ -503,7 +496,7 @@ public class DummyContainer extends Container {
                             if (l1 > -1) {
                                 inventoryplayer.addItemStackToInventory(itemstack3);
                                 slot2.decrStackSize(itemstack5.stackSize);
-                                slot2.putStack((ItemStack) null);
+                                slot2.putStack(null);
                                 slot2.onPickupFromSlot(par4EntityPlayer, itemstack5);
                             }
                         } else {
@@ -512,7 +505,7 @@ public class DummyContainer extends Container {
                             slot2.onPickupFromSlot(par4EntityPlayer, itemstack5);
                         }
                     } else if (!slot2.getHasStack() && itemstack3 != null && slot2.isItemValid(itemstack3)) {
-                        inventoryplayer.setInventorySlotContents(par2, (ItemStack) null);
+                        inventoryplayer.setInventorySlotContents(par2, null);
                         slot2.putStack(itemstack3);
                     }
                 }
@@ -566,7 +559,7 @@ public class DummyContainer extends Container {
                                 itemstack3.stackSize += k1;
 
                                 if (itemstack2.stackSize <= 0) {
-                                    slot3.putStack((ItemStack) null);
+                                    slot3.putStack(null);
                                 }
 
                                 slot3.onPickupFromSlot(par4EntityPlayer, itemstack2);
@@ -620,12 +613,11 @@ public class DummyContainer extends Container {
                 ItemIdentifier.get(stack).debugDumpData(entityplayer.worldObj.isRemote);
             }
         }
-        if (slot == null
-                || (!(slot instanceof DummySlot)
-                        && !(slot instanceof UnmodifiableSlot)
-                        && !(slot instanceof FluidSlot)
-                        && !(slot instanceof ColorSlot)
-                        && !(slot instanceof HandelableSlot))) {
+        if ((!(slot instanceof DummySlot)
+                && !(slot instanceof UnmodifiableSlot)
+                && !(slot instanceof FluidSlot)
+                && !(slot instanceof ColorSlot)
+                && !(slot instanceof HandelableSlot))) {
             ItemStack stack1 = superSlotClick(slotId, mouseButton, isShift, entityplayer);
             ItemStack stack2 = slot.getStack();
             if (stack2 != null && stack2.getItem() == LogisticsPipes.ModuleItem) {
@@ -643,7 +635,7 @@ public class DummyContainer extends Container {
         // we get a leftclick *and* a doubleclick message if there's a doubleclick with no item on the pointer, filter
         // it out
         if (currentlyEquippedStack == null && isShift == 6) {
-            return currentlyEquippedStack;
+            return null;
         }
 
         if (slot instanceof HandelableSlot) {
@@ -812,7 +804,6 @@ public class DummyContainer extends Container {
         if (slot instanceof DummySlot) {
             ((DummySlot) slot).setRedirectCall(false);
         }
-        return;
     }
 
     @Override
@@ -934,17 +925,17 @@ public class DummyContainer extends Container {
                 itemstack1 = itemstack == null ? null : itemstack.copy();
                 inventoryItemStacks.set(i, itemstack1);
 
-                for (int j = 0; j < crafters.size(); ++j) {
+                for (Object crafter : crafters) {
                     boolean revert = false;
                     if (overrideMCAntiSend
-                            && crafters.get(j) instanceof EntityPlayerMP
-                            && ((EntityPlayerMP) crafters.get(j)).isChangingQuantityOnly) {
-                        ((EntityPlayerMP) crafters.get(j)).isChangingQuantityOnly = false;
+                            && crafter instanceof EntityPlayerMP
+                            && ((EntityPlayerMP) crafter).isChangingQuantityOnly) {
+                        ((EntityPlayerMP) crafter).isChangingQuantityOnly = false;
                         revert = true;
                     }
-                    ((ICrafting) crafters.get(j)).sendSlotContents(this, i, itemstack1);
+                    ((ICrafting) crafter).sendSlotContents(this, i, itemstack1);
                     if (revert) {
-                        ((EntityPlayerMP) crafters.get(j)).isChangingQuantityOnly = true;
+                        ((EntityPlayerMP) crafter).isChangingQuantityOnly = true;
                     }
                 }
             }

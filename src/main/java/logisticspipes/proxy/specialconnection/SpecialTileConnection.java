@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class SpecialTileConnection {
 
-    private List<ISpecialTileConnection> handler = new ArrayList<ISpecialTileConnection>();
+    private final List<ISpecialTileConnection> handler = new ArrayList<>();
 
     public void registerHandler(ISpecialTileConnection connectionHandler) {
         if (connectionHandler.init()) {
@@ -23,7 +23,7 @@ public class SpecialTileConnection {
                 return connectionHandler.getConnections(tile);
             }
         }
-        return new ArrayList<TileEntity>();
+        return new ArrayList<>();
     }
 
     public boolean needsInformationTransition(TileEntity tile) {

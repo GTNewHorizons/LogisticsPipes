@@ -1,13 +1,6 @@
 package logisticspipes.network.packets.debuggui;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.util.concurrent.Callable;
+import java.io.*;
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.commands.commands.debug.DebugGuiController;
 import logisticspipes.network.LPDataInputStream;
@@ -36,7 +29,7 @@ public class DebugTargetResponse extends ModernPacket {
     public enum TargetMode {
         Block,
         Entity,
-        None;
+        None
     }
 
     @Getter
@@ -57,7 +50,7 @@ public class DebugTargetResponse extends ModernPacket {
             byte[] bytes = new byte[arraySize];
             data.read(bytes);
             ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in = null;
+            ObjectInput in;
             in = new ObjectInputStream(bis);
             try {
                 Object o = in.readObject();
@@ -84,17 +77,13 @@ public class DebugTargetResponse extends ModernPacket {
                 player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No TileEntity found"));
             } else {
                 LPChatListener.addTask(
-                        new Callable<Boolean>() {
-
-                            @Override
-                            public Boolean call() throws Exception {
-                                player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
-                                        + "Starting debuging of TileEntity: " + ChatColor.BLUE + ChatColor.UNDERLINE
-                                        + tile.getClass().getSimpleName()));
-                                DebugGuiController.instance().startWatchingOf(tile, player);
-                                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
-                                return true;
-                            }
+                        () -> {
+                            player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
+                                    + "Starting debuging of TileEntity: " + ChatColor.BLUE + ChatColor.UNDERLINE
+                                    + tile.getClass().getSimpleName()));
+                            DebugGuiController.instance().startWatchingOf(tile, player);
+                            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
+                            return true;
                         },
                         player);
                 player.addChatComponentMessage(new ChatComponentText(ChatColor.AQUA + "Start debuging of TileEntity: "
@@ -110,17 +99,13 @@ public class DebugTargetResponse extends ModernPacket {
                 player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No Entity found"));
             } else {
                 LPChatListener.addTask(
-                        new Callable<Boolean>() {
-
-                            @Override
-                            public Boolean call() throws Exception {
-                                player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
-                                        + "Starting debuging of Entity: " + ChatColor.BLUE + ChatColor.UNDERLINE
-                                        + entity.getClass().getSimpleName()));
-                                DebugGuiController.instance().startWatchingOf(entity, player);
-                                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
-                                return true;
-                            }
+                        () -> {
+                            player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN
+                                    + "Starting debuging of Entity: " + ChatColor.BLUE + ChatColor.UNDERLINE
+                                    + entity.getClass().getSimpleName()));
+                            DebugGuiController.instance().startWatchingOf(entity, player);
+                            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
+                            return true;
                         },
                         player);
                 player.addChatComponentMessage(
@@ -139,7 +124,7 @@ public class DebugTargetResponse extends ModernPacket {
         data.writeInt(additions.length);
         for (Object addition : additions) {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutput out = null;
+            ObjectOutput out;
             out = new ObjectOutputStream(bos);
             out.writeObject(addition);
             byte[] bytes = bos.toByteArray();

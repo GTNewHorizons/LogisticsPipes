@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils;
 
 import java.util.LinkedHashMap;
@@ -54,7 +54,7 @@ public class InventoryUtil implements IInventoryUtil, ISpecialInsertion {
 
     @Override
     public Map<ItemIdentifier, Integer> getItemsAndCount() {
-        Map<ItemIdentifier, Integer> items = new LinkedHashMap<ItemIdentifier, Integer>();
+        Map<ItemIdentifier, Integer> items = new LinkedHashMap<>();
         for (int i = _cropStart; i < _inventory.getSizeInventory() - _cropEnd; i++) {
             ItemStack stack = _inventory.getStackInSlot(i);
             if (stack == null) {
@@ -74,7 +74,7 @@ public class InventoryUtil implements IInventoryUtil, ISpecialInsertion {
 
     @Override
     public Set<ItemIdentifier> getItems() {
-        Set<ItemIdentifier> items = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> items = new TreeSet<>();
         for (int i = _cropStart; i < _inventory.getSizeInventory() - _cropEnd; i++) {
             ItemStack stack = _inventory.getStackInSlot(i);
             if (stack == null) {
@@ -110,7 +110,7 @@ public class InventoryUtil implements IInventoryUtil, ISpecialInsertion {
             if (itemsToSplit == 0) {
                 continue;
             }
-            ItemStack removed = null;
+            ItemStack removed;
             if (stack.stackSize > itemsToSplit) { // then we only want part of the stack
                 removed = stack.splitStack(itemsToSplit);
                 _inventory.setInventorySlotContents(i, stack);

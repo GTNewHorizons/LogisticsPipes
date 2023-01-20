@@ -6,7 +6,9 @@ import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.guihook.IContainerTooltipHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import logisticspipes.proxy.interfaces.INEIProxy;
 import logisticspipes.utils.ReflectionHelper;
 import lombok.SneakyThrows;
@@ -25,15 +27,9 @@ public class NEIProxy implements INEIProxy {
     public List<String> getInfoForPosition(World world, EntityPlayer player, MovingObjectPosition objectMouseOver) {
         List<ItemStack> items = ItemInfo.getIdentifierItems(world, player, objectMouseOver);
         if (items.isEmpty()) {
-            return new ArrayList<String>(0);
+            return new ArrayList<>(0);
         }
-        Collections.sort(items, new Comparator<ItemStack>() {
-
-            @Override
-            public int compare(ItemStack stack0, ItemStack stack1) {
-                return stack1.getItemDamage() - stack0.getItemDamage();
-            }
-        });
+        items.sort((stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
         return ItemInfo.getText(items.get(0), world, player, objectMouseOver);
     }
 
@@ -46,7 +42,7 @@ public class NEIProxy implements INEIProxy {
             return false;
         }
         GuiContainer window = (GuiContainer) Minecraft.getMinecraft().currentScreen;
-        List<String> tooltip = new LinkedList<String>();
+        List<String> tooltip = new LinkedList<>();
         FontRenderer font = GuiDraw.fontRenderer;
 
         if (GuiContainerManager.shouldShowTooltip(window)) {
@@ -63,7 +59,7 @@ public class NEIProxy implements INEIProxy {
             }
         }
         if (tooltip.size() > 0) {
-            tooltip.set(0, (String) tooltip.get(0) + "§h");
+            tooltip.set(0, tooltip.get(0) + "§h");
         }
         GuiDraw.drawMultilineTip(font, mousex + 12, mousey - 12, tooltip);
         return true;
@@ -82,13 +78,7 @@ public class NEIProxy implements INEIProxy {
         if (items.isEmpty()) {
             return null;
         }
-        Collections.sort(items, new Comparator<ItemStack>() {
-
-            @Override
-            public int compare(ItemStack stack0, ItemStack stack1) {
-                return stack1.getItemDamage() - stack0.getItemDamage();
-            }
-        });
+        items.sort((stack0, stack1) -> stack1.getItemDamage() - stack0.getItemDamage());
         return items.get(0);
     }
 }

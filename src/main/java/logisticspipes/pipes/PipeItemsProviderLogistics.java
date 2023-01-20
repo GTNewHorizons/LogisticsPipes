@@ -1,29 +1,17 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDProvider;
-import logisticspipes.interfaces.IChangeListener;
-import logisticspipes.interfaces.IChestContentReceiver;
-import logisticspipes.interfaces.IHeadUpDisplayRenderer;
-import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IOrderManagerContentReceiver;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.interfaces.routing.IProvideItems;
@@ -59,11 +47,7 @@ import logisticspipes.routing.order.LogisticsItemOrderManager;
 import logisticspipes.routing.order.LogisticsOrder;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SidedInventoryMinecraftAdapter;
-import logisticspipes.utils.SinkReply;
-import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -82,12 +66,12 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
 
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
-    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<ItemIdentifier, Integer>();
-    public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<ItemIdentifierStack>();
-    private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<ItemIdentifierStack>();
+    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<>();
+    public final ArrayList<ItemIdentifierStack> displayList = new ArrayList<>();
+    private final ArrayList<ItemIdentifierStack> oldList = new ArrayList<>();
 
-    public final LinkedList<ItemIdentifierStack> oldManagerList = new LinkedList<ItemIdentifierStack>();
-    public final LinkedList<ItemIdentifierStack> itemListOrderer = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> oldManagerList = new LinkedList<>();
+    public final LinkedList<ItemIdentifierStack> itemListOrderer = new LinkedList<>();
     private final HUDProvider HUD = new HUDProvider(this);
 
     protected LogisticsItemOrderManager _orderManager = new LogisticsItemOrderManager(this, this);
@@ -318,7 +302,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
             tree.addPromise(promise);
         } else if (tree.getRequestType() instanceof DictResource) {
             DictResource dict = (DictResource) tree.getRequestType();
-            HashMap<ItemIdentifier, Integer> available = new HashMap<ItemIdentifier, Integer>();
+            HashMap<ItemIdentifier, Integer> available = new HashMap<>();
             getAllItems(available, filters);
             for (Entry<ItemIdentifier, Integer> item : available.entrySet()) {
                 if (!dict.matches(item.getKey(), IResource.MatchSettings.NORMAL)) {
@@ -352,7 +336,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
         if (!isEnabled()) {
             return;
         }
-        HashMap<ItemIdentifier, Integer> addedItems = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> addedItems = new HashMap<>();
 
         WorldUtil wUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
         for (AdjacentTile tile : wUtil.getAdjacentTileEntities(true)) {
@@ -385,12 +369,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
                     }
                 }
 
-                Integer addedAmount = addedItems.get(currItem.getKey());
-                if (addedAmount == null) {
-                    addedItems.put(currItem.getKey(), currItem.getValue());
-                } else {
-                    addedItems.put(currItem.getKey(), addedAmount + currItem.getValue());
-                }
+                addedItems.merge(currItem.getKey(), currItem.getValue(), Integer::sum);
             }
         }
 
@@ -439,7 +418,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
         }
         displayList.clear();
         displayMap.clear();
-        getAllItems(displayMap, new ArrayList<IFilter>(0));
+        getAllItems(displayMap, new ArrayList<>(0));
         displayList.ensureCapacity(displayMap.size());
         for (Entry<ItemIdentifier, Integer> item : displayMap.entrySet()) {
             displayList.add(new ItemIdentifierStack(item.getKey(), item.getValue()));
@@ -560,7 +539,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
     }
 
     // import from logic
-    private ItemIdentifierInventory providingInventory = new ItemIdentifierInventory(9, "", 1);
+    private final ItemIdentifierInventory providingInventory = new ItemIdentifierInventory(9, "", 1);
     private boolean _filterIsExclude;
     private ExtractionMode _extractionMode = ExtractionMode.Normal;
 

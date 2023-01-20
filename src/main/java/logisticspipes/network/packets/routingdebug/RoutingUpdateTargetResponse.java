@@ -1,13 +1,6 @@
 package logisticspipes.network.packets.routingdebug;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.util.concurrent.Callable;
+import java.io.*;
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -38,7 +31,7 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
     public enum TargetMode {
         Block,
         Entity,
-        None;
+        None
     }
 
     @Getter
@@ -59,7 +52,7 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
             byte[] bytes = new byte[arraySize];
             data.read(bytes);
             ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in = null;
+            ObjectInput in;
             in = new ObjectInputStream(bis);
             try {
                 Object o = in.readObject();
@@ -90,17 +83,13 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
                 player.addChatMessage(new ChatComponentText(ChatColor.RED + "No CoreRoutedPipe found"));
             } else {
                 LPChatListener.addTask(
-                        new Callable<Boolean>() {
-
-                            @Override
-                            public Boolean call() throws Exception {
-                                player.addChatMessage(
-                                        new ChatComponentText(ChatColor.GREEN + "Starting RoutingTable debug update."));
-                                DebugController.instance(player).debug(((ServerRouter)
-                                        ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).getRouter()));
-                                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
-                                return true;
-                            }
+                        () -> {
+                            player.addChatMessage(
+                                    new ChatComponentText(ChatColor.GREEN + "Starting RoutingTable debug update."));
+                            DebugController.instance(player).debug(((ServerRouter)
+                                    ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).getRouter()));
+                            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
+                            return true;
                         },
                         player);
                 player.addChatMessage(new ChatComponentText(
@@ -119,7 +108,7 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
         data.writeInt(additions.length);
         for (Object addition : additions) {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutput out = null;
+            ObjectOutput out;
             out = new ObjectOutputStream(bos);
             out.writeObject(addition);
             byte[] bytes = bos.toByteArray();

@@ -31,7 +31,7 @@ public class SolderingStationRecipes {
         }
     }
 
-    private static final ArrayList<SolderingStationRecipe> recipes = new ArrayList<SolderingStationRecipe>();
+    private static final ArrayList<SolderingStationRecipe> recipes = new ArrayList<>();
 
     public static void loadRecipe(ICraftingParts parts) {
         if (!Configs.ENABLE_BETA_RECIPES) {
@@ -153,7 +153,6 @@ public class SolderingStationRecipes {
         if (Configs.ENABLE_BETA_RECIPES) {
             ItemStack logproc =
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_ROUTEPROCESSOR);
-            ;
             ItemStack expand =
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER);
 
@@ -170,13 +169,10 @@ public class SolderingStationRecipes {
                         null
                     },
                     new ItemStack(LogisticsPipes.LogisticsItemCard, 2, 0),
-                    new ICraftingResultHandler() {
-                        @Override
-                        public void handleCrafting(ItemStack stack) {
-                            stack.stackTagCompound = new NBTTagCompound();
-                            stack.stackTagCompound.setString(
-                                    "UUID", UUID.randomUUID().toString());
-                        }
+                    stack -> {
+                        stack.stackTagCompound = new NBTTagCompound();
+                        stack.stackTagCompound.setString(
+                                "UUID", UUID.randomUUID().toString());
                     }));
 
             SolderingStationRecipes.recipes.add(new SolderingStationRecipe(

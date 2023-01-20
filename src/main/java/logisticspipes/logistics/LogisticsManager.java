@@ -1,19 +1,13 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.logistics;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.interfaces.routing.IFilter;
@@ -45,18 +39,11 @@ public class LogisticsManager implements ILogisticsManager {
     /**
      * Method used to check if a given stack has a destination.
      *
+     * @param stack        The stack to check if it has destination.
+     * @param allowDefault Boolean, if true then a default route will be considered a
+     *                     valid destination.
      * @return Triplet of destinationSimpleID, sinkreply, relays; null if
-     *         nothing found
-     * @param stack
-     *            The stack to check if it has destination.
-     * @param allowDefault
-     *            Boolean, if true then a default route will be considered a
-     *            valid destination.
-     * @param sourceRouter
-     *            The UUID of the router pipe that wants to send the stack.
-     * @param excludeSource
-     *            Boolean, true means it will not consider the pipe itself as a
-     *            valid destination.
+     * nothing found
      */
     @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
@@ -66,7 +53,7 @@ public class LogisticsManager implements ILogisticsManager {
             return null;
         }
         BitSet routersIndex = ServerRouter.getRoutersInterestedIn(stack);
-        List<ExitRoute> validDestinations = new ArrayList<ExitRoute>(); // get the routing table
+        List<ExitRoute> validDestinations = new ArrayList<>(); // get the routing table
         for (int i = routersIndex.nextSetBit(0); i >= 0; i = routersIndex.nextSetBit(i + 1)) {
             IRouter r = SimpleServiceLocator.routerManager.getRouterUnsafe(i, false);
             List<ExitRoute> exits = sourceRouter.getDistanceTo(r);
@@ -97,17 +84,13 @@ public class LogisticsManager implements ILogisticsManager {
      * Method used to check if a given stack has a passive sink destination at a
      * priority.
      *
+     * @param stack         The stack to check if it has destination.
+     * @param sourceRouter  The UUID of the router pipe that wants to send the stack.
+     * @param excludeSource Boolean, true means it will not consider the pipe itself as a
+     *                      valid destination.
+     * @param priority      The priority that the stack must have.
      * @return Triplet of destinationSimpleID, sinkreply, relays; null if
-     *         nothing found
-     * @param stack
-     *            The stack to check if it has destination.
-     * @param sourceRouter
-     *            The UUID of the router pipe that wants to send the stack.
-     * @param excludeSource
-     *            Boolean, true means it will not consider the pipe itself as a
-     *            valid destination.
-     * @param priority
-     *            The priority that the stack must have.
+     * nothing found
      */
     @Override
     public Triplet<Integer, SinkReply, List<IFilter>> hasDestinationWithMinPriority(
@@ -120,7 +103,7 @@ public class LogisticsManager implements ILogisticsManager {
                 SimpleServiceLocator.routerManager.getRouter(sourceRouter),
                 SimpleServiceLocator.routerManager.getRouter(sourceRouter).getIRoutersByCost(),
                 excludeSource,
-                new ArrayList<Integer>(),
+                new ArrayList<>(),
                 null,
                 true);
         if (search.getValue2() == null) {
@@ -141,7 +124,7 @@ public class LogisticsManager implements ILogisticsManager {
             Triplet<Integer, SinkReply, List<IFilter>> result,
             boolean allowDefault) {
         if (result == null) {
-            result = new Triplet<Integer, SinkReply, List<IFilter>>(null, null, null);
+            result = new Triplet<>(null, null, null);
         }
 
         outer:
@@ -180,7 +163,7 @@ public class LogisticsManager implements ILogisticsManager {
             if (result.getValue1() == null) {
                 result.setValue1(candidateRouter.destination.getSimpleID());
                 result.setValue2(reply);
-                List<IFilter> list = new LinkedList<IFilter>();
+                List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
                 continue;
             }
@@ -188,7 +171,7 @@ public class LogisticsManager implements ILogisticsManager {
             if (reply.fixedPriority.ordinal() > result.getValue2().fixedPriority.ordinal()) {
                 result.setValue1(candidateRouter.destination.getSimpleID());
                 result.setValue2(reply);
-                List<IFilter> list = new LinkedList<IFilter>();
+                List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
                 continue;
             }
@@ -197,9 +180,8 @@ public class LogisticsManager implements ILogisticsManager {
                     && reply.customPriority > result.getValue2().customPriority) {
                 result.setValue1(candidateRouter.destination.getSimpleID());
                 result.setValue2(reply);
-                List<IFilter> list = new LinkedList<IFilter>();
+                List<IFilter> list = new LinkedList<>();
                 result.setValue3(list);
-                continue;
             }
         }
         if (result.getValue1() != null) {
@@ -221,7 +203,7 @@ public class LogisticsManager implements ILogisticsManager {
             boolean activeRequest,
             boolean allowDefault) {
 
-        SinkReply reply = null;
+        SinkReply reply;
         LogisticsModule module = destination.getLogisticsModule();
         CoreRoutedPipe crp = destination.getPipe();
         if (module == null) {
@@ -253,15 +235,12 @@ public class LogisticsManager implements ILogisticsManager {
      * Will assign a destination for a IRoutedItem based on a best sink reply
      * recieved from other pipes.
      *
-     * @param item
-     *            The item that needs to be routed.
-     * @param sourceRouterID
-     *            The SimpleID of the pipe that is sending the item. (the
-     *            routedItem will cache the UUID, and that the SimpleID belongs
-     *            to the UUID will be checked when appropriate)
-     * @param excludeSource
-     *            Boolean, true means that it wont set the source as the
-     *            destination.
+     * @param item           The item that needs to be routed.
+     * @param sourceRouterID The SimpleID of the pipe that is sending the item. (the
+     *                       routedItem will cache the UUID, and that the SimpleID belongs
+     *                       to the UUID will be checked when appropriate)
+     * @param excludeSource  Boolean, true means that it wont set the source as the
+     *                       destination.
      * @return IRoutedItem with a newly assigned destination
      */
     @Override
@@ -280,7 +259,7 @@ public class LogisticsManager implements ILogisticsManager {
 
         BitSet routersIndex = ServerRouter.getRoutersInterestedIn(
                 item.getItemIdentifierStack().getItem());
-        List<ExitRoute> validDestinations = new ArrayList<ExitRoute>(); // get the routing table
+        List<ExitRoute> validDestinations = new ArrayList<>(); // get the routing table
         for (int i = routersIndex.nextSetBit(0); i >= 0; i = routersIndex.nextSetBit(i + 1)) {
             IRouter r = SimpleServiceLocator.routerManager.getRouterUnsafe(i, false);
             List<ExitRoute> exits = sourceRouter.getDistanceTo(r);
@@ -333,10 +312,9 @@ public class LogisticsManager implements ILogisticsManager {
      * If there is a better router name available, it will return it. Else, it
      * will return the UUID as a string.
      *
-     * @param r
-     *            The IRouter that you want the name for.
+     * @param r The IRouter that you want the name for.
      * @return String with value of a better name if available, else just the
-     *         UUID as a string.
+     * UUID as a string.
      */
     @Override
     public String getBetterRouterName(IRouter r) {
@@ -367,18 +345,16 @@ public class LogisticsManager implements ILogisticsManager {
     }
 
     /**
-     * @param validDestinations
-     *            a list of ExitRoute of valid destinations.
+     * @param validDestinations a list of ExitRoute of valid destinations.
      * @return HashMap with ItemIdentifier and Integer item count of available
-     *         items.
+     * items.
      */
     @Override
     public HashMap<ItemIdentifier, Integer> getAvailableItems(List<ExitRoute> validDestinations) {
         // TODO: Replace this entire function wiht a fetch from the pre-built arrays (path incoming later)
-        List<Map<ItemIdentifier, Integer>> items =
-                new ArrayList<Map<ItemIdentifier, Integer>>(ServerRouter.getBiggestSimpleID());
+        List<Map<ItemIdentifier, Integer>> items = new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
-            items.add(new HashMap<ItemIdentifier, Integer>());
+            items.add(new HashMap<>());
         }
         BitSet used = new BitSet(ServerRouter.getBiggestSimpleID());
         outer:
@@ -402,28 +378,22 @@ public class LogisticsManager implements ILogisticsManager {
             used.set(r.destination.getSimpleID(), true);
         }
         // TODO: Fix this doubly nested list
-        HashMap<ItemIdentifier, Integer> allAvailableItems = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> allAvailableItems = new HashMap<>();
         for (Map<ItemIdentifier, Integer> allItems : items) {
             for (Entry<ItemIdentifier, Integer> item : allItems.entrySet()) {
-                Integer currentItem = allAvailableItems.get(item.getKey());
-                if (currentItem == null) {
-                    allAvailableItems.put(item.getKey(), item.getValue());
-                } else {
-                    allAvailableItems.put(item.getKey(), currentItem + item.getValue());
-                }
+                allAvailableItems.merge(item.getKey(), item.getValue(), Integer::sum);
             }
         }
         return allAvailableItems;
     }
 
     /**
-     * @param validDestinations
-     *            a List of ExitRoute of valid destinations.
+     * @param validDestinations a List of ExitRoute of valid destinations.
      * @return LinkedList with ItemIdentifier
      */
     @Override
     public LinkedList<ItemIdentifier> getCraftableItems(List<ExitRoute> validDestinations) {
-        LinkedList<ItemIdentifier> craftableItems = new LinkedList<ItemIdentifier>();
+        LinkedList<ItemIdentifier> craftableItems = new LinkedList<>();
         BitSet used = new BitSet(ServerRouter.getBiggestSimpleID());
         outer:
         for (ExitRoute r : validDestinations) {
@@ -467,10 +437,9 @@ public class LogisticsManager implements ILogisticsManager {
     @Override
     public int getAmountFor(ItemIdentifier itemType, List<ExitRoute> validDestinations) {
         // TODO: Replace this entire function wiht a fetch from the pre-built arrays (path incoming later)
-        List<Map<ItemIdentifier, Integer>> items =
-                new ArrayList<Map<ItemIdentifier, Integer>>(ServerRouter.getBiggestSimpleID());
+        List<Map<ItemIdentifier, Integer>> items = new ArrayList<>(ServerRouter.getBiggestSimpleID());
         for (int i = 0; i < ServerRouter.getBiggestSimpleID(); i++) {
-            items.add(new HashMap<ItemIdentifier, Integer>());
+            items.add(new HashMap<>());
         }
         BitSet used = new BitSet(ServerRouter.getBiggestSimpleID());
         outer:

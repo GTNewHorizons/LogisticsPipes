@@ -15,13 +15,13 @@ import net.minecraft.util.ChatComponentText;
 
 public class GuiRequestPopup extends SubGuiScreen {
 
-    private String[] text;
+    private final String[] text;
     private int mWidth = 0;
-    private EntityPlayer player;
+    private final EntityPlayer player;
 
     public GuiRequestPopup(EntityPlayer player, Object... message) {
         super(200, (message.length * 10) + 40, 0, 0);
-        List<String> textArray = new ArrayList<String>();
+        List<String> textArray = new ArrayList<>();
         for (Object o : message) {
             if (o instanceof String) {
                 textArray.add((String) o);

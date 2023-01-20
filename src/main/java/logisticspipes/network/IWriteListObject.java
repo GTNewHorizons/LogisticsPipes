@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface IWriteListObject<T> {
 
-    public void writeObject(LPDataOutputStream data, T object) throws IOException;
+    void writeObject(LPDataOutputStream data, T object) throws IOException;
 }

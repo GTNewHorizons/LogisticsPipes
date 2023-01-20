@@ -1,9 +1,7 @@
 package logisticspipes.routing.debug;
 
-import java.awt.Color;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
@@ -13,8 +11,8 @@ public class DebugWindow extends JFrame {
 
     private int width;
     private int height;
-    private JTextPane textArea = null;
-    private JScrollPane pane = null;
+    private final JTextPane textArea;
+    private final JScrollPane pane;
 
     public DebugWindow(String title, int width, int height) {
         super(title);
@@ -34,7 +32,7 @@ public class DebugWindow extends JFrame {
         if (document != null) {
             try {
                 document.insertString(document.getLength(), data, attr);
-            } catch (BadLocationException badlocationexception) {
+            } catch (BadLocationException ignored) {
             }
         }
         getContentPane().validate();

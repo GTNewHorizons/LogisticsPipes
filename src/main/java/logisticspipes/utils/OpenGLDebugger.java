@@ -1,12 +1,7 @@
 package logisticspipes.utils;
 
+import java.awt.*;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,19 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -44,11 +27,11 @@ public class OpenGLDebugger {
 
     private static HashMap<Integer, String> niceToHave = null;
     private static int probeID = 0;
-    private Thread probeGUIThread;
+    private final Thread probeGUIThread;
     private int cycleCount;
     private boolean started;
-    private ExtendedHashMap glStuff;
-    private ConcurrentHashMap<Integer, GLTypes> glVariablesToCheck;
+    private final ExtendedHashMap glStuff;
+    private final ConcurrentHashMap<Integer, GLTypes> glVariablesToCheck;
     private final Lock debuggerLock;
     private final Condition glVariablesCondition;
     private boolean glVariablesUpdated;
@@ -64,9 +47,9 @@ public class OpenGLDebugger {
         INTEGER(Integer.class, "int", "GL11.glGetInteger"),
         INTEGER64(Long.class, "long", "GL32.glGetInteger64");
 
-        private Class javaClass;
-        private String getterFunction;
-        private String niceName;
+        private final Class javaClass;
+        private final String getterFunction;
+        private final String niceName;
 
         GLTypes(Class javaClass, String niceName, String getterFunction) {
             this.javaClass = javaClass;
@@ -87,9 +70,9 @@ public class OpenGLDebugger {
         }
     }
 
-    public class ExtendedHashMap extends HashMap<Integer, Object> {
+    public static class ExtendedHashMap extends HashMap<Integer, Object> {
 
-        private ArrayList<Integer> orderedKeys;
+        private final ArrayList<Integer> orderedKeys;
         private ArrayList<Integer> newKeys;
         private ArrayList<Integer> updatedKeys;
         private boolean sessionStarted;
@@ -107,7 +90,7 @@ public class OpenGLDebugger {
 
         public ExtendedHashMap() {
             sessionStarted = false;
-            orderedKeys = new ArrayList<Integer>();
+            orderedKeys = new ArrayList<>();
         }
 
         @Override
@@ -116,8 +99,8 @@ public class OpenGLDebugger {
         }
 
         public void startSession() {
-            newKeys = new ArrayList<Integer>();
-            updatedKeys = new ArrayList<Integer>();
+            newKeys = new ArrayList<>();
+            updatedKeys = new ArrayList<>();
             sessionStarted = true;
         }
 
@@ -241,9 +224,7 @@ public class OpenGLDebugger {
                 if ("Windows".equals(info.getName())) {
                     try {
                         UIManager.setLookAndFeel(info.getClassName());
-                    } catch (ReflectiveOperationException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedLookAndFeelException e) {
+                    } catch (ReflectiveOperationException | UnsupportedLookAndFeelException e) {
                         e.printStackTrace();
                     }
                     break;
@@ -271,13 +252,7 @@ public class OpenGLDebugger {
             });
 
             mainPanel.registerKeyboardAction(
-                    new ActionListener() {
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            stop();
-                        }
-                    },
+                    e -> stop(),
                     KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                     JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         }
@@ -372,7 +347,7 @@ public class OpenGLDebugger {
 
         this.printOnCycle = printOnCycle;
         glStuff = new ExtendedHashMap();
-        glVariablesToCheck = new ConcurrentHashMap<Integer, GLTypes>();
+        glVariablesToCheck = new ConcurrentHashMap<>();
 
         probeGUIThread = new Thread(new ProbeGUI(), "LogisticsPipes GLDebug Probe #" + OpenGLDebugger.probeID);
         OpenGLDebugger.probeID++;
@@ -432,7 +407,7 @@ public class OpenGLDebugger {
     }
 
     private static void updateNiceToHave() {
-        OpenGLDebugger.niceToHave = new HashMap<Integer, String>();
+        OpenGLDebugger.niceToHave = new HashMap<>();
         int crawlerVersion = 11;
         boolean almostEnd = false;
         boolean end = false;

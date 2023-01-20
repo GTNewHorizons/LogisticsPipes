@@ -41,8 +41,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
     @Override
     public boolean init() {
         List<ModContainer> modList = Loader.instance().getModList();
-        for (int i = 0, n = modList.size(); i < n; i++) {
-            ModContainer mod = modList.get(i);
+        for (ModContainer mod : modList) {
             if (mod.getModId().equals("StorageDrawers")) {
                 try {
                     VersionRange validVersions = VersionRange.createFromVersionSpec("[1.7.8,)");
@@ -174,7 +173,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public Set<ItemIdentifier> getItems() {
-        Set<ItemIdentifier> result = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> result = new TreeSet<>();
         for (int i = 0; i < _drawer.getDrawerCount(); i++) {
             if (!_drawer.isDrawerEnabled(i)) {
                 continue;
@@ -190,7 +189,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 
     @Override
     public HashMap<ItemIdentifier, Integer> getItemsAndCount() {
-        HashMap<ItemIdentifier, Integer> result = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> result = new HashMap<>();
         for (int i = 0; i < _drawer.getDrawerCount(); i++) {
             if (!_drawer.isDrawerEnabled(i)) {
                 continue;
@@ -343,7 +342,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
             int slot = -1;
             while ((slot = set.nextSetBit(slot + 1)) != -1) {
                 IDrawer drawer = _drawer.getDrawer(slot);
-                int avail = 0;
+                int avail;
                 if (!drawer.isEmpty()) {
                     avail = Math.min(stack.stackSize, drawer.getRemainingCapacity());
                     if (doAdd) {
@@ -382,7 +381,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
             }
 
             if (drawer.canItemBeStored(stack)) {
-                int avail = 0;
+                int avail;
                 if (drawer.isEmpty()) {
                     avail = Math.min(stack.stackSize, drawer.getMaxCapacity(stack));
                     if (doAdd) {

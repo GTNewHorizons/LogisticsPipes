@@ -3,8 +3,6 @@ package logisticspipes.network.packets.orderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import logisticspipes.network.IReadListObject;
-import logisticspipes.network.IWriteListObject;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -20,11 +18,11 @@ public class ComponentList extends ModernPacket {
 
     @Getter
     @Setter
-    private Collection<IResource> used = new ArrayList<IResource>();
+    private Collection<IResource> used = new ArrayList<>();
 
     @Getter
     @Setter
-    private Collection<IResource> missing = new ArrayList<IResource>();
+    private Collection<IResource> missing = new ArrayList<>();
 
     public ComponentList(int id) {
         super(id);
@@ -42,38 +40,14 @@ public class ComponentList extends ModernPacket {
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
-        data.writeCollection(used, new IWriteListObject<IResource>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, IResource object) throws IOException {
-                data.writeIResource(object);
-            }
-        });
-        data.writeCollection(missing, new IWriteListObject<IResource>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, IResource object) throws IOException {
-                data.writeIResource(object);
-            }
-        });
+        data.writeCollection(used, LPDataOutputStream::writeIResource);
+        data.writeCollection(missing, LPDataOutputStream::writeIResource);
         data.write(0);
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
-        used = data.readList(new IReadListObject<IResource>() {
-
-            @Override
-            public IResource readObject(LPDataInputStream data) throws IOException {
-                return data.readIResource();
-            }
-        });
-        missing = data.readList(new IReadListObject<IResource>() {
-
-            @Override
-            public IResource readObject(LPDataInputStream data) throws IOException {
-                return data.readIResource();
-            }
-        });
+        used = data.readList(LPDataInputStream::readIResource);
+        missing = data.readList(LPDataInputStream::readIResource);
     }
 }

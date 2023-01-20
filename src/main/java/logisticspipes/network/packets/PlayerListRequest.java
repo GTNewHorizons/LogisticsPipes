@@ -1,6 +1,5 @@
 package logisticspipes.network.packets;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import logisticspipes.network.LPDataInputStream;
@@ -27,7 +26,7 @@ public class PlayerListRequest extends ModernPacket {
 
     @Override
     public void processPacket(EntityPlayer player) {
-        List<String> list = new LinkedList<String>();
+        List<String> list = new LinkedList<>();
         for (WorldServer world : DimensionManager.getWorlds()) {
             for (Object o : world.playerEntities) {
                 if (o instanceof EntityPlayer) {
@@ -39,8 +38,8 @@ public class PlayerListRequest extends ModernPacket {
     }
 
     @Override
-    public void readData(LPDataInputStream data) throws IOException {}
+    public void readData(LPDataInputStream data) {}
 
     @Override
-    public void writeData(LPDataOutputStream data) throws IOException {}
+    public void writeData(LPDataOutputStream data) {}
 }

@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils;
 
 import com.google.common.primitives.Ints;
@@ -39,9 +39,9 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
             if (_side == ForgeDirection.UNKNOWN.ordinal()) {
                 _slotMapCache = buildAllSidedMap();
             } else {
-                ArrayList<Integer> list = new ArrayList<Integer>();
+                ArrayList<Integer> list = new ArrayList<>();
 
-                int allSlots[] = _sidedInventory.getAccessibleSlotsFromSide(_side);
+                int[] allSlots = _sidedInventory.getAccessibleSlotsFromSide(_side);
                 for (int number : allSlots) {
                     ItemStack item = _sidedInventory.getStackInSlot(number);
                     if (!list.contains(number)
@@ -58,10 +58,10 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
     }
 
     private int[] buildAllSidedMap() {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
-            int slots[] = _sidedInventory.getAccessibleSlotsFromSide(i);
+            int[] slots = _sidedInventory.getAccessibleSlotsFromSide(i);
             for (int number : slots) {
                 ItemStack item = _sidedInventory.getStackInSlot(number);
                 if (!list.contains(number)
@@ -72,7 +72,7 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
                 }
             }
         }
-        int slotmap[] = new int[list.size()];
+        int[] slotmap = new int[list.size()];
         int count = 0;
         for (int i : list) {
             slotmap[count++] = i;

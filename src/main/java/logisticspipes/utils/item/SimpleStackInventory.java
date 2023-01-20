@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
 import java.util.Arrays;
@@ -25,11 +25,11 @@ import net.minecraft.world.World;
 
 public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pair<ItemStack, Integer>> {
 
-    private ItemStack[] _contents;
+    private final ItemStack[] _contents;
     private final String _name;
     private final int _stackLimit;
 
-    private final LinkedList<ISimpleInventoryEventHandler> _listener = new LinkedList<ISimpleInventoryEventHandler>();
+    private final LinkedList<ISimpleInventoryEventHandler> _listener = new LinkedList<>();
 
     public SimpleStackInventory(int size, String name, int stackLimit) {
         _contents = new ItemStack[size];
@@ -170,9 +170,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
     }
 
     public void removeListener(ISimpleInventoryEventHandler listner) {
-        if (_listener.contains(listner)) {
-            _listener.remove(listner);
-        }
+        _listener.remove(listner);
     }
 
     @Override
@@ -270,7 +268,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
             @Override
             public Pair<ItemStack, Integer> next() {
                 pos++;
-                return new Pair<ItemStack, Integer>(iter.next(), pos);
+                return new Pair<>(iter.next(), pos);
             }
 
             @Override

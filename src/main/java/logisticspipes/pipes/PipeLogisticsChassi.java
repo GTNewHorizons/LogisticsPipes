@@ -1,39 +1,21 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.pipes;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.GuiChassiPipe;
 import logisticspipes.gui.hud.HudChassisPipe;
-import logisticspipes.interfaces.IBufferItems;
-import logisticspipes.interfaces.IHeadUpDisplayRenderer;
-import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.ILegacyActiveModule;
-import logisticspipes.interfaces.ISendQueueContentRecieiver;
-import logisticspipes.interfaces.ISendRoutedItem;
-import logisticspipes.interfaces.ISlotUpgradeManager;
-import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
-import logisticspipes.interfaces.routing.ICraftItems;
-import logisticspipes.interfaces.routing.IFilter;
-import logisticspipes.interfaces.routing.IProvideItems;
-import logisticspipes.interfaces.routing.IRequestItems;
-import logisticspipes.interfaces.routing.IRequireReliableTransport;
+import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.routing.*;
 import logisticspipes.items.ItemModule;
 import logisticspipes.logisticspipes.ChassiTransportLayer;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
@@ -105,9 +87,9 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     private boolean convertFromMeta = false;
 
     // HUD
-    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<ItemIdentifierStack>();
+    public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
-    private HudChassisPipe hud;
+    private final HudChassisPipe hud;
 
     public PipeLogisticsChassi(Item item) {
         super(item);
@@ -127,7 +109,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         if (_cachedAdjacentInventories != null) {
             return _cachedAdjacentInventories;
         }
-        List<IInventory> adjacent = new ArrayList<IInventory>(1);
+        List<IInventory> adjacent = new ArrayList<>(1);
         IInventory adjinv = getRealInventory();
         if (adjinv != null) {
             adjacent.add(adjinv);
@@ -230,7 +212,6 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
             }
         }
     }
-    ;
 
     @Override
     public void onBlockPlaced() {
@@ -658,7 +639,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
 
     @Override
     public Set<ItemIdentifier> getSpecificInterests() {
-        Set<ItemIdentifier> l1 = new TreeSet<ItemIdentifier>();
+        Set<ItemIdentifier> l1 = new TreeSet<>();
         // if we don't have a pointed inventory we can't be interested in anything
         if (getRealInventory() == null) {
             return l1;
@@ -733,7 +714,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     public abstract ResourceLocation getChassiGUITexture();
 
     /** ICraftItems */
-    public final LinkedList<LogisticsOrder> _extras = new LinkedList<LogisticsOrder>();
+    public final LinkedList<LogisticsOrder> _extras = new LinkedList<>();
 
     @Override
     public void registerExtras(IPromise promise) {
@@ -750,7 +731,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
 
-            if (x != null && x instanceof ICraftItems) {
+            if (x instanceof ICraftItems) {
                 if (((ICraftItems) x).canCraft(toCraft)) {
                     return ((ICraftItems) x).addCrafting(toCraft);
                 }
@@ -767,9 +748,9 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
 
-            if (x != null && x instanceof ICraftItems) {
+            if (x instanceof ICraftItems) {
                 if (craftables == null) {
-                    craftables = new LinkedList<ItemIdentifierStack>();
+                    craftables = new LinkedList<>();
                 }
                 craftables.addAll(((ICraftItems) x).getCraftedItems());
             }
@@ -782,7 +763,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
 
-            if (x != null && x instanceof ICraftItems) {
+            if (x instanceof ICraftItems) {
                 if (((ICraftItems) x).canCraft(toCraft)) {
                     return true;
                 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import org.jetbrains.annotations.NotNull;
 
 public class OneList<E> implements List<E> {
 
@@ -27,12 +28,12 @@ public class OneList<E> implements List<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(@NotNull Collection<? extends E> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(int index, @NotNull Collection<? extends E> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
@@ -162,12 +163,12 @@ public class OneList<E> implements List<E> {
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@NotNull Collection<?> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(@NotNull Collection<?> c) {
         throw new UnsupportedOperationException("Cannot modify OneList");
     }
 
@@ -192,7 +193,7 @@ public class OneList<E> implements List<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(T @NotNull [] a) {
         throw new UnsupportedOperationException();
     }
 
@@ -203,7 +204,7 @@ public class OneList<E> implements List<E> {
 
     @Override
     public String toString() {
-        return "[" + content.toString() + "]";
+        return "[" + content + "]";
     }
 
     private boolean checkRange(int index) {

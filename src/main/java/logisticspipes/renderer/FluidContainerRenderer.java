@@ -37,7 +37,6 @@ public class FluidContainerRenderer implements IItemRenderer {
             if (item.getItem() instanceof LogisticsFluidContainer) {
                 switch (type) {
                     case ENTITY:
-                        return true;
                     case INVENTORY:
                         return true;
                     default:
@@ -45,12 +44,10 @@ public class FluidContainerRenderer implements IItemRenderer {
                 }
             }
             if (item.getItem() instanceof LogisticsItemCard) {
-                switch (type) {
-                    case INVENTORY:
-                        return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-                    default:
-                        return false;
+                if (type == ItemRenderType.INVENTORY) {
+                    return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
                 }
+                return false;
             }
         }
         return false;
@@ -165,7 +162,7 @@ public class FluidContainerRenderer implements IItemRenderer {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(
-                x + 0, y + height, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y + height));
+                x, y + height, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y + height));
         tessellator.addVertexWithUV(
                 x + width,
                 y + height,
@@ -173,8 +170,8 @@ public class FluidContainerRenderer implements IItemRenderer {
                 par3Icon.getInterpolatedU(x + width),
                 par3Icon.getInterpolatedV(y + height));
         tessellator.addVertexWithUV(
-                x + width, y + 0, zLevel, par3Icon.getInterpolatedU(x + width), par3Icon.getInterpolatedV(y));
-        tessellator.addVertexWithUV(x + 0, y + 0, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y));
+                x + width, y, zLevel, par3Icon.getInterpolatedU(x + width), par3Icon.getInterpolatedV(y));
+        tessellator.addVertexWithUV(x, y, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y));
         tessellator.draw();
     }
 
@@ -187,13 +184,11 @@ public class FluidContainerRenderer implements IItemRenderer {
                 public boolean shouldBob() {
                     return false;
                 }
-                ;
 
                 @Override
                 public boolean shouldSpreadItems() {
                     return false;
                 }
-                ;
             };
             renderItem.setRenderManager(RenderManager.instance);
         }

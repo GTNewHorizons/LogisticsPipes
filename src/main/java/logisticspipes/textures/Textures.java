@@ -101,7 +101,7 @@ public class Textures {
 
     public static SmallTextureType LOGISTICSPIPE_BASIC_TRANSPORT_TEXTURE = Textures.smallEmpty;
 
-    public static IIcon LOGISTICS_REQUEST_TABLE[] = new IIcon[0];
+    public static IIcon[] LOGISTICS_REQUEST_TABLE = new IIcon[0];
     public static IIcon LOGISTICS_REQUEST_TABLE_NEW = null;
     public static IIcon LOGISTICS_REQUEST_TABLE_NEW_ROUTED = null;
     public static IIcon LOGISTICS_REQUEST_TABLE_NEW_UNROUTED = null;
@@ -332,13 +332,10 @@ public class Textures {
     }
 
     /**
-     * @param par1IIconRegister
-     *            - IconRegister
-     * @param fileName
-     *            - name of texture
-     * @param flag
-     *            - 2 - register single texture without overlay, 1/0 register
-     *            with overlay
+     * @param par1IIconRegister - IconRegister
+     * @param fileName          - name of texture
+     * @param flag              - 2 - register single texture without overlay, 1/0 register
+     *                          with overlay
      */
     private TextureType registerTexture(IIconRegister par1IIconRegister, String fileName, int flag) {
         TextureType texture = new TextureType();

@@ -52,11 +52,11 @@ public class DebugGuiController {
         }
     }
 
-    private HashMap<EntityPlayer, IDebugGuiEntry> serverDebugger = new HashMap<EntityPlayer, IDebugGuiEntry>();
-    private List<IDataConnection> serverList = new LinkedList<IDataConnection>();
+    private final HashMap<EntityPlayer, IDebugGuiEntry> serverDebugger = new HashMap<>();
+    private final List<IDataConnection> serverList = new LinkedList<>();
 
     private IDebugGuiEntry clientController = null;
-    private List<Future<IDataConnection>> clientList = new LinkedList<Future<IDataConnection>>();
+    private final List<Future<IDataConnection>> clientList = new LinkedList<>();
 
     public void startWatchingOf(Object object, EntityPlayer player) {
         if (object == null) {
@@ -67,20 +67,10 @@ public class DebugGuiController {
             try {
                 entry = IDebugGuiEntry.create();
                 serverDebugger.put(player, entry);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return;
-            } catch (InstantiationException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
                 return;
             }
-        }
-        if (entry == null) {
-            System.out.println("DebugGui could not be loaded");
-            return;
         }
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(DebugPanelOpen.class)
@@ -98,13 +88,7 @@ public class DebugGuiController {
         if (clientController == null) {
             try {
                 clientController = IDebugGuiEntry.create();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return;
-            } catch (InstantiationException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
                 return;
             }
@@ -140,9 +124,7 @@ public class DebugGuiController {
                 IDataConnection connection = null;
                 try {
                     connection = connectionFuture.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
                 if (connection != null) {
@@ -193,7 +175,7 @@ public class DebugGuiController {
         }
     }
 
-    private class ObjectIdentification implements IObjectIdentification {
+    private static class ObjectIdentification implements IObjectIdentification {
         @Override
         public boolean toStringObject(Object o) {
             return o.getClass() == ForgeDirection.class

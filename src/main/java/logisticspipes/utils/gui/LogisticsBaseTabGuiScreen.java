@@ -10,7 +10,7 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
 
     private int current_Tab;
 
-    private final List<TabSubGui> tabList = new ArrayList<TabSubGui>();
+    private final List<TabSubGui> tabList = new ArrayList<>();
 
     public LogisticsBaseTabGuiScreen(int xSize, int ySize) {
         super(xSize, ySize, 0, 0);
@@ -20,16 +20,16 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        for (int i = 0; i < tabList.size(); i++) {
-            tabList.get(i).initTab();
+        for (TabSubGui tabSubGui : tabList) {
+            tabSubGui.initTab();
         }
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        for (int i = 0; i < tabList.size(); i++) {
-            if (tabList.get(i).isButtonFromGui(button)) {
-                tabList.get(i).buttonClicked(button);
+        for (TabSubGui tabSubGui : tabList) {
+            if (tabSubGui.isButtonFromGui(button)) {
+                tabSubGui.buttonClicked(button);
             }
         }
     }
@@ -67,8 +67,8 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
         GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 10, guiTop + 135);
 
         int x = 6;
-        for (int i = 0; i < tabList.size(); i++) {
-            tabList.get(i).renderIcon(guiLeft + x, guiTop + 3);
+        for (TabSubGui tabSubGui : tabList) {
+            tabSubGui.renderIcon(guiLeft + x, guiTop + 3);
             x += 25;
         }
 
@@ -85,8 +85,7 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
     protected void mouseClicked(int par1, int par2, int par3) {
         if (par3 == 0 && par1 > guiLeft && par1 < guiLeft + 220 && par2 > guiTop && par2 < guiTop + 20) {
             par1 -= guiLeft + 3;
-            int select = Math.max(0, Math.min(par1 / 25, tabList.size() - 1));
-            current_Tab = select;
+            current_Tab = Math.max(0, Math.min(par1 / 25, tabList.size() - 1));
         } else {
             for (int i = 0; i < tabList.size(); i++) {
                 if (current_Tab == i) {
@@ -109,8 +108,8 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
             }
         }
         if (p_73869_2_ == 1 || p_73869_2_ == mc.gameSettings.keyBindInventory.getKeyCode()) {
-            for (int i = 0; i < tabList.size(); i++) {
-                tabList.get(i).guiClose();
+            for (TabSubGui tabSubGui : tabList) {
+                tabSubGui.guiClose();
             }
         }
         super.keyTyped(p_73869_1_, p_73869_2_);
@@ -172,8 +171,8 @@ public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {
 
     protected abstract class TabSubGui {
 
-        private final List<Slot> TAB_SLOTS = new ArrayList<Slot>();
-        private final List<GuiButton> TAB_BUTTONS = new ArrayList<GuiButton>();
+        private final List<Slot> TAB_SLOTS = new ArrayList<>();
+        private final List<GuiButton> TAB_BUTTONS = new ArrayList<>();
 
         public abstract void renderIcon(int x, int y);
 

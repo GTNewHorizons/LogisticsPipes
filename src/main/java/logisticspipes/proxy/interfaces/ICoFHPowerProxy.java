@@ -6,13 +6,13 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface ICoFHPowerProxy {
 
-    public boolean isEnergyReceiver(TileEntity tile);
+    boolean isEnergyReceiver(TileEntity tile);
 
-    public ICoFHEnergyReceiver getEnergyReceiver(TileEntity tile);
+    ICoFHEnergyReceiver getEnergyReceiver(TileEntity tile);
 
-    public void addCraftingRecipes(ICraftingParts parts);
+    void addCraftingRecipes(ICraftingParts parts);
 
-    public ICoFHEnergyStorage getEnergyStorage(int i);
+    ICoFHEnergyStorage getEnergyStorage(int i);
 
-    public boolean isAvailable();
+    boolean isAvailable();
 }

@@ -2,19 +2,9 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -37,11 +27,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.request.RequestTree;
 import logisticspipes.routing.IRouter;
-import logisticspipes.utils.AdjacentTile;
-import logisticspipes.utils.ISimpleInventoryEventHandler;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SinkReply;
-import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -89,7 +75,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Supplied: ");
         list.add("<inventory>");
         list.add("<that>");
@@ -152,7 +138,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
 
     @Override
     public List<ItemIdentifier> getSpecificInterests() {
-        return new ArrayList<ItemIdentifier>(0);
+        return new ArrayList<>(0);
     }
 
     @Override
@@ -185,9 +171,9 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         _lastRequestFailed = value;
     }
 
-    private ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(9, "", 127);
+    private final ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(9, "", 127);
 
-    private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<ItemIdentifier, Integer>();
+    private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<>();
 
     public enum SupplyMode {
         Partial,
@@ -201,7 +187,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         Partial,
         Full,
         Bulk50,
-        Bulk100;
+        Bulk100
     }
 
     private SupplyMode _requestMode = SupplyMode.Bulk50;
@@ -341,8 +327,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
     private void createSupplyRequest(IInventoryUtil invUtil) {
         _service.getDebug().log("Supplier: Start calculating supply request");
         // How many do I want?
-        HashMap<ItemIdentifier, Integer> needed =
-                new HashMap<ItemIdentifier, Integer>(dummyInventory.getItemsAndCount());
+        HashMap<ItemIdentifier, Integer> needed = new HashMap<>(dummyInventory.getItemsAndCount());
         _service.getDebug().log("Supplier: Needed: " + needed);
 
         // How many do I have?
@@ -350,14 +335,9 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         _service.getDebug().log("Supplier: Have:   " + have);
 
         // How many do I have?
-        HashMap<ItemIdentifier, Integer> haveUndamaged = new HashMap<ItemIdentifier, Integer>();
+        HashMap<ItemIdentifier, Integer> haveUndamaged = new HashMap<>();
         for (Entry<ItemIdentifier, Integer> item : have.entrySet()) {
-            Integer n = haveUndamaged.get(item.getKey().getUndamaged());
-            if (n == null) {
-                haveUndamaged.put(item.getKey().getUndamaged(), item.getValue());
-            } else {
-                haveUndamaged.put(item.getKey().getUndamaged(), item.getValue() + n);
-            }
+            haveUndamaged.merge(item.getKey().getUndamaged(), item.getValue(), Integer::sum);
         }
 
         // Reduce what I have and what have been requested already
@@ -519,7 +499,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             }
         }
         // we have no idea what this is, log it.
-        _service.getDebug().log("Supplier: supplier got unexpected item " + item.toString());
+        _service.getDebug().log("Supplier: supplier got unexpected item " + item);
     }
 
     @Override
@@ -580,7 +560,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
     public void addStatusInformation(List<StatusEntry> status) {
         StatusEntry entry = new StatusEntry();
         entry.name = "Requested Items";
-        entry.subEntry = new ArrayList<StatusEntry>();
+        entry.subEntry = new ArrayList<>();
         for (Entry<ItemIdentifier, Integer> part : _requestedItems.entrySet()) {
             StatusEntry subEntry = new StatusEntry();
             subEntry.name = part.toString();

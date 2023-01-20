@@ -79,12 +79,12 @@ public class ItemModule extends LogisticsItem {
     public static final int CRAFTER_MK2 = 601;
     public static final int CRAFTER_MK3 = 602;
 
-    private List<Module> modules = new ArrayList<Module>();
+    private final List<Module> modules = new ArrayList<>();
 
     private class Module {
 
-        private int id;
-        private Class<? extends LogisticsModule> moduleClass;
+        private final int id;
+        private final Class<? extends LogisticsModule> moduleClass;
         private IIcon moduleIcon = null;
 
         private Module(int id, Class<? extends LogisticsModule> moduleClass) {
@@ -97,18 +97,13 @@ public class ItemModule extends LogisticsItem {
                 return null;
             }
             try {
-                return moduleClass.getConstructor(new Class[] {}).newInstance(new Object[] {});
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+                return moduleClass.getConstructor(new Class[] {}).newInstance();
+            } catch (IllegalArgumentException
+                    | InstantiationException
+                    | NoSuchMethodException
+                    | InvocationTargetException
+                    | IllegalAccessException
+                    | SecurityException e) {
                 e.printStackTrace();
             }
             return null;
@@ -135,9 +130,7 @@ public class ItemModule extends LogisticsItem {
                 try {
                     LogisticsModule instance = moduleClass.newInstance();
                     moduleIcon = instance.getIconTexture(par1IIconRegister);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
@@ -190,6 +183,7 @@ public class ItemModule extends LogisticsItem {
         for (Module module : modules) {
             if (module.getId() == id) {
                 flag = false;
+                break;
             }
         }
         if (flag) {
@@ -218,7 +212,7 @@ public class ItemModule extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (Module module : modules) {
@@ -353,7 +347,7 @@ public class ItemModule extends LogisticsItem {
         return null;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
         if (itemStack.hasTagCompound()) {

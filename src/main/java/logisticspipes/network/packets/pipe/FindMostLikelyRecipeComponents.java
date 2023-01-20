@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.TreeSet;
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.gui.popup.GuiRecipeImport;
-import logisticspipes.network.*;
+import logisticspipes.network.LPDataInputStream;
+import logisticspipes.network.LPDataOutputStream;
+import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.PipeBlockRequestTable;
@@ -17,7 +19,6 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -58,7 +59,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                 pipe = (CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe;
             }
         }
-        List<Integer> list = new ArrayList<Integer>(content.size());
+        List<Integer> list = new ArrayList<>(content.size());
         while (list.size() < content.size()) {
             list.add(-1);
         }
@@ -74,7 +75,6 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                 int newAmount = SimpleServiceLocator.logisticsManager.getAmountFor(
                         ident, pipe.getRouter().getIRoutersByCost());
                 if (newAmount > max) {
-                    maxItem = ident;
                     max = newAmount;
                     maxItemPos = i;
                 }
@@ -88,7 +88,6 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
                     for (int i = 0; i < canidates.order.size(); i++) {
                         ItemIdentifier ident = canidates.order.get(i).getItem();
                         if (craft == ident) {
-                            maxItem = ident;
                             maxItemPos = i;
                             break;
                         }
@@ -106,35 +105,19 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
     @Override
     public void readData(LPDataInputStream data) throws IOException {
         super.readData(data);
-        content = data.readList(new IReadListObject<GuiRecipeImport.Canidates>() {
-            @Override
-            public GuiRecipeImport.Canidates readObject(LPDataInputStream data) throws IOException {
-                GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<ItemIdentifierStack>());
-                can.order = data.readList(new IReadListObject<ItemIdentifierStack>() {
-                    @Override
-                    public ItemIdentifierStack readObject(LPDataInputStream data) throws IOException {
-                        return data.readItemIdentifierStack();
-                    }
-                });
-                return can;
-            }
+        content = data.readList(data12 -> {
+            GuiRecipeImport.Canidates can = new GuiRecipeImport.Canidates(new TreeSet<>());
+            can.order = data12.readList(LPDataInputStream::readItemIdentifierStack);
+            return can;
         });
     }
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
         super.writeData(data);
-        data.writeList(content, new IWriteListObject<GuiRecipeImport.Canidates>() {
-            @Override
-            public void writeObject(LPDataOutputStream data, GuiRecipeImport.Canidates object) throws IOException {
-                data.writeList(object.order, new IWriteListObject<ItemIdentifierStack>() {
-                    @Override
-                    public void writeObject(LPDataOutputStream data, ItemIdentifierStack object) throws IOException {
-                        data.writeItemIdentifierStack(object);
-                    }
-                });
-            }
-        });
+        data.writeList(
+                content,
+                (data12, object) -> data12.writeList(object.order, LPDataOutputStream::writeItemIdentifierStack));
     }
 
     @Override

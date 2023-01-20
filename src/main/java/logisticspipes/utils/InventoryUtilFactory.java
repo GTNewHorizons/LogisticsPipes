@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils;
 
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class InventoryUtilFactory {
 
-    private final LinkedList<SpecialInventoryHandler> handler = new LinkedList<SpecialInventoryHandler>();
+    private final LinkedList<SpecialInventoryHandler> handler = new LinkedList<>();
 
     public void registerHandler(SpecialInventoryHandler invHandler) {
         if (invHandler.init()) {
@@ -69,7 +69,6 @@ public class InventoryUtilFactory {
         IInventoryUtil util = getUtilForInv(inv, dir, hideOnePerStack, hideOne, cropStart, cropEnd);
         if (util == null) {
             util = new InventoryUtil(InventoryHelper.getInventory(inv), hideOnePerStack, hideOne, cropStart, cropEnd);
-            ;
         }
         return util;
     }

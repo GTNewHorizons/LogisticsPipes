@@ -1,6 +1,5 @@
 package logisticspipes.network.packets;
 
-import java.io.IOException;
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.nei.LoadingHelper;
@@ -16,7 +15,7 @@ public class ActivateNBTDebug extends ModernPacket {
     }
 
     @Override
-    public void readData(LPDataInputStream data) throws IOException {}
+    public void readData(LPDataInputStream data) {}
 
     @Override
     public void processPacket(EntityPlayer player) {
@@ -24,7 +23,7 @@ public class ActivateNBTDebug extends ModernPacket {
             Class.forName("codechicken.nei.forge.GuiContainerManager");
             Configs.TOOLTIP_INFO = true;
             LoadingHelper.LoadNeiNBTDebugHelper();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ignored) {
 
         } catch (Exception e1) {
             if (LPConstants.DEBUG) {
@@ -34,7 +33,7 @@ public class ActivateNBTDebug extends ModernPacket {
     }
 
     @Override
-    public void writeData(LPDataOutputStream data) throws IOException {}
+    public void writeData(LPDataOutputStream data) {}
 
     @Override
     public ModernPacket template() {

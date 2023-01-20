@@ -2,19 +2,10 @@ package logisticspipes.modules;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.gui.hud.modules.HUDAdvancedExtractor;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
 import logisticspipes.network.NewGuiHandler;
@@ -63,7 +54,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
 
     private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
-    private IHUDModuleRenderer HUD = new HUDAdvancedExtractor(this);
+    private final IHUDModuleRenderer HUD = new HUDAdvancedExtractor(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -186,7 +177,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
             if (!CanExtract(item.getKey().makeNormalStack(item.getValue()))) {
                 continue;
             }
-            List<Integer> jamList = new LinkedList<Integer>();
+            List<Integer> jamList = new LinkedList<>();
             Pair<Integer, SinkReply> reply = _service.hasDestination(item.getKey(), true, jamList);
             if (reply == null) {
                 continue;
@@ -260,7 +251,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>(5);
+        List<String> list = new ArrayList<>(5);
         list.add(areItemsIncluded() ? "Included" : "Excluded");
         list.add("Extraction: " + ((_sneakyDirection == ForgeDirection.UNKNOWN) ? "DEFAULT" : _sneakyDirection.name()));
         list.add("Filter: ");

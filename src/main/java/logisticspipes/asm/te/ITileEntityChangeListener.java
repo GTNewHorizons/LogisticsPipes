@@ -5,9 +5,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ITileEntityChangeListener {
 
-    public void pipeRemoved(LPPosition pos);
+    void pipeRemoved(LPPosition pos);
 
-    public void pipeAdded(LPPosition pos, ForgeDirection side);
+    void pipeAdded(LPPosition pos, ForgeDirection side);
 
-    public void pipeModified(LPPosition pos);
+    void pipeModified(LPPosition pos);
 }

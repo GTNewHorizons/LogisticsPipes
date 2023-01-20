@@ -41,7 +41,7 @@ public class GLRenderList {
         if (!isValid) {
             return true;
         }
-        if (lastUsed + 1000 * 60 * 1 < System.currentTimeMillis()) {
+        if (lastUsed + 1000 * 60 < System.currentTimeMillis()) {
             isValid = false;
             return false;
         }

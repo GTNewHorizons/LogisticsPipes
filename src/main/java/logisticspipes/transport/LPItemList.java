@@ -10,9 +10,9 @@ import java.util.Set;
 public class LPItemList implements Iterable<LPTravelingItem> {
 
     private final BiMap<Integer, LPTravelingItem> items = HashBiMap.create();
-    private final Set<LPTravelingItem> toLoad = new HashSet<LPTravelingItem>();
-    private final Set<LPTravelingItem> toAdd = new HashSet<LPTravelingItem>();
-    private final Set<LPTravelingItem> toRemove = new HashSet<LPTravelingItem>();
+    private final Set<LPTravelingItem> toLoad = new HashSet<>();
+    private final Set<LPTravelingItem> toAdd = new HashSet<>();
+    private final Set<LPTravelingItem> toRemove = new HashSet<>();
     private int delay = 0;
     private final PipeTransportLogistics pipe;
     private boolean iterating = false;
@@ -91,7 +91,6 @@ public class LPItemList implements Iterable<LPTravelingItem> {
 
             if (item.getContainer() != pipe.container) {
                 it.remove();
-                continue;
             }
         }
     }

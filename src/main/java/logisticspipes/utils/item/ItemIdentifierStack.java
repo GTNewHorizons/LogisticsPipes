@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
 import java.util.LinkedList;
@@ -45,8 +45,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
     }
 
     /**
-     * @param stackSize
-     *            the stackSize to set
+     * @param stackSize the stackSize to set
      */
     public void setStackSize(int stackSize) {
         this.stackSize = stackSize;
@@ -89,10 +88,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
 
     @Override
     public String toString() {
-        return new StringBuilder(Integer.toString(getStackSize()))
-                .append("x ")
-                .append(_item.toString())
-                .toString();
+        return getStackSize() + "x " + _item.toString();
     }
 
     @Override
@@ -109,7 +105,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
     }
 
     public static LinkedList<ItemIdentifierStack> getListFromInventory(IInventory inv, boolean removeNull) {
-        LinkedList<ItemIdentifierStack> list = new LinkedList<ItemIdentifierStack>();
+        LinkedList<ItemIdentifierStack> list = new LinkedList<>();
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             if (inv.getStackInSlot(i) == null) {
                 if (!removeNull) {
@@ -124,7 +120,7 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
 
     public static LinkedList<ItemIdentifierStack> getListSendQueue(
             LinkedList<Triplet<IRoutedItem, ForgeDirection, ItemSendMode>> _sendQueue) {
-        LinkedList<ItemIdentifierStack> list = new LinkedList<ItemIdentifierStack>();
+        LinkedList<ItemIdentifierStack> list = new LinkedList<>();
         for (Triplet<IRoutedItem, ForgeDirection, ItemSendMode> part : _sendQueue) {
             if (part == null) {
                 list.add(null);

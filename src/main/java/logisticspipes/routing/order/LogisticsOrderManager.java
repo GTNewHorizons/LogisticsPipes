@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing.order;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
 
     protected PlayerCollectionList watchingPlayers = new PlayerCollectionList();
 
-    private ILPPositionProvider pos = null;
+    private final ILPPositionProvider pos;
 
     protected void listen() {
         changed();
@@ -53,22 +53,23 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
     public void dump() {
         StringBuilder sb = new StringBuilder(" ############################################# ")
                 .append(System.getProperty("line.separator"));
-        ;
         for (T s : _orders) {
-            sb.append(s.getAsDisplayItem() + " / " + s.getAmount() + " / "
-                            + s.getType().name())
+            sb.append(s.getAsDisplayItem())
+                    .append(" / ")
+                    .append(s.getAmount())
+                    .append(" / ")
+                    .append(s.getType().name())
                     .append(System.getProperty("line.separator"));
         }
-        System.out.print(
-                sb.append(" ############################################# ").toString());
+        System.out.print(sb.append(" ############################################# "));
         System.out.println();
     }
 
     public LinkedList<ItemIdentifierStack> getContentList(World world) {
         if (MainProxy.isClient(world) || _orders.size() == 0) {
-            return new LinkedList<ItemIdentifierStack>();
+            return new LinkedList<>();
         }
-        LinkedList<ItemIdentifierStack> list = new LinkedList<ItemIdentifierStack>();
+        LinkedList<ItemIdentifierStack> list = new LinkedList<>();
         for (LogisticsOrder request : _orders) {
             LogisticsOrderManager.addToList(request.getAsDisplayItem(), list);
         }

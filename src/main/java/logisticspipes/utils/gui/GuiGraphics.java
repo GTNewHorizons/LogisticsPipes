@@ -49,16 +49,12 @@ public final class GuiGraphics {
     /**
      * Draws the durability bar for GUI items.
      *
-     * @param itemstack
-     *            the itemstack, from which the durability bar should be drawn
-     * @param x
-     *            the x-coordinate for the bar
-     * @param y
-     *            the y-coordinate for the bar
-     * @param zLevel
-     *            the z-level for the bar
+     * @param itemstack the itemstack, from which the durability bar should be drawn
+     * @param x         the x-coordinate for the bar
+     * @param y         the y-coordinate for the bar
+     * @param zLevel    the z-level for the bar
      * @see net.minecraft.client.renderer.entity.RenderItem#renderItemOverlayIntoGUI(FontRenderer,
-     *      TextureManager, ItemStack, int, int, String)
+     * TextureManager, ItemStack, int, int, String)
      */
     public static void drawDurabilityBar(ItemStack itemstack, int x, int y, double zLevel) {
         if (itemstack.getItem().showDurabilityBar(itemstack)) {

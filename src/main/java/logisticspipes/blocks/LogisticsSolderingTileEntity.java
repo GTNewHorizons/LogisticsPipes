@@ -35,12 +35,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
         implements IGuiTileEntity, ISidedInventory, IGuiOpenControler {
 
-    private ItemIdentifierInventory inv = new ItemIdentifierInventory(12, "Soldering Inventory", 64);
+    private final ItemIdentifierInventory inv = new ItemIdentifierInventory(12, "Soldering Inventory", 64);
     public int heat = 0;
     public int progress = 0;
     public boolean hasWork = false;
 
-    private PlayerCollectionList listener = new PlayerCollectionList();
+    private final PlayerCollectionList listener = new PlayerCollectionList();
 
     public LogisticsSolderingTileEntity() {}
 
@@ -99,7 +99,7 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
     }
 
     public List<ItemIdentifierStack> getRecipeForTagetAsItemIdentifierStackList() {
-        LinkedList<ItemIdentifierStack> list = new LinkedList<ItemIdentifierStack>();
+        LinkedList<ItemIdentifierStack> list = new LinkedList<>();
         ItemStack[] array = getRecipeForTaget();
         if (array != null) {
             for (ItemStack stack : array) {
@@ -128,10 +128,8 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
                     if (inputStack != null) {
                         match = false;
                     }
-                    continue;
                 } else if (inputStack == null) {
                     match = false;
-                    continue;
                 } else {
                     if (!itemEquals(recipestack, inputStack)) {
                         match = false;
@@ -167,10 +165,8 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
                     if (inputStack != null) {
                         match = false;
                     }
-                    continue;
                 } else if (inputStack == null) {
                     match = false;
-                    continue;
                 } else {
                     if (!itemEquals(recipestack, inputStack)) {
                         match = false;

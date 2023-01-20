@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.utils.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -40,11 +40,11 @@ import net.minecraft.world.World;
 
 /**
  * @author Krapht I have no bloody clue what different mods use to differate
- *         between items except for itemID, there is metadata, damage, and
- *         whatnot. so..... to avoid having to change all my bloody code every
- *         time I need to support a new item flag that would make it a
- *         "different" item, I made this cache here A ItemIdentifier is
- *         immutable, singleton and most importantly UNIQUE!
+ * between items except for itemID, there is metadata, damage, and
+ * whatnot. so..... to avoid having to change all my bloody code every
+ * time I need to support a new item flag that would make it a
+ * "different" item, I made this cache here A ItemIdentifier is
+ * immutable, singleton and most importantly UNIQUE!
  */
 public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTypeHolder {
 
@@ -89,7 +89,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         }
     }
 
-    private static interface IDamagedIdentifierHolder {
+    private interface IDamagedIdentifierHolder {
 
         ItemIdentifier get(int damage);
 
@@ -100,10 +100,10 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     private static class MapDamagedItentifierHolder implements IDamagedIdentifierHolder {
 
-        private ConcurrentHashMap<Integer, ItemIdentifier> holder;
+        private final ConcurrentHashMap<Integer, ItemIdentifier> holder;
 
         public MapDamagedItentifierHolder() {
-            holder = new ConcurrentHashMap<Integer, ItemIdentifier>(4096, 0.5f, 1);
+            holder = new ConcurrentHashMap<>(4096, 0.5f, 1);
         }
 
         @Override
@@ -146,8 +146,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         @Override
         public void ensureCapacity(int damage) {
             if (holder.length() <= damage) {
-                AtomicReferenceArray<ItemIdentifier> newdamages =
-                        new AtomicReferenceArray<ItemIdentifier>(getArrayLength(damage));
+                AtomicReferenceArray<ItemIdentifier> newdamages = new AtomicReferenceArray<>(getArrayLength(damage));
                 for (int i = 0; i < holder.length(); i++) {
                     newdamages.set(i, holder.get(i));
                 }
@@ -158,18 +157,18 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     // array of ItemIdentifiers for damage=0,tag=null items
     private static final ConcurrentHashMap<Item, ItemIdentifier> simpleIdentifiers =
-            new ConcurrentHashMap<Item, ItemIdentifier>(4096, 0.5f, 1);
+            new ConcurrentHashMap<>(4096, 0.5f, 1);
 
     // array of arrays for items with damage>0 and tag==null
     private static final ConcurrentHashMap<Item, IDamagedIdentifierHolder> damageIdentifiers =
-            new ConcurrentHashMap<Item, IDamagedIdentifierHolder>(4096, 0.5f, 1);
+            new ConcurrentHashMap<>(4096, 0.5f, 1);
 
     // map for id+damage+tag -> ItemIdentifier lookup
-    private static final HashMap<ItemKey, IDReference> keyRefMap = new HashMap<ItemKey, IDReference>(1024, 0.5f);
+    private static final HashMap<ItemKey, IDReference> keyRefMap = new HashMap<>(1024, 0.5f);
     // for tracking the tagUniqueIDs in use for a given Item
-    private static final HashMap<Item, BitSet> tagIDsets = new HashMap<Item, BitSet>(1024, 0.5f);
+    private static final HashMap<Item, BitSet> tagIDsets = new HashMap<>(1024, 0.5f);
     // a referenceQueue to collect GCed identifier refs
-    private static final ReferenceQueue<ItemIdentifier> keyRefQueue = new ReferenceQueue<ItemIdentifier>();
+    private static final ReferenceQueue<ItemIdentifier> keyRefQueue = new ReferenceQueue<>();
     // and locks to protect these
     private static final ReadWriteLock keyRefLock = new ReentrantReadWriteLock();
     private static final Lock keyRefRlock = ItemIdentifier.keyRefLock.readLock();
@@ -372,7 +371,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     public static List<ItemIdentifier> getMatchingNBTIdentifier(Item item, int itemData) {
         // inefficient, we'll have to add another map if this becomes a bottleneck
-        ArrayList<ItemIdentifier> resultlist = new ArrayList<ItemIdentifier>(16);
+        ArrayList<ItemIdentifier> resultlist = new ArrayList<>(16);
         ItemIdentifier.keyRefRlock.lock();
         for (IDReference r : ItemIdentifier.keyRefMap.values()) {
             ItemIdentifier t = r.get();
@@ -426,7 +425,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     private String getName(ItemStack stack) {
-        String name = "???";
+        String name;
         try {
             name = item.getItemStackDisplayName(stack);
             if (name == null) {
@@ -475,7 +474,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     public String getCreativeTabName() {
         if (creativeTabName == null) {
             try {
-                CreativeTabs tab = null;
+                CreativeTabs tab;
                 try {
                     tab = ReflectionHelper.getPrivateField(CreativeTabs.class, Item.class, "tabToDisplayOn", item);
                 } catch (NoSuchFieldException e1) {
@@ -515,10 +514,10 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                         }
                     }
                 }
-            } catch (NoSuchFieldException e) {
-            } catch (SecurityException e) {
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
+            } catch (NoSuchFieldException
+                    | IllegalAccessException
+                    | IllegalArgumentException
+                    | SecurityException ignored) {
             }
             if (creativeTabName == null) {
                 creativeTabName = "UNKNOWN";
@@ -567,7 +566,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     private static Map<Integer, Object> getArrayAsMap(int[] array) {
-        HashMap<Integer, Object> map = new HashMap<Integer, Object>();
+        HashMap<Integer, Object> map = new HashMap<>();
         int i = 0;
         for (int object : array) {
             map.put(i, object);
@@ -577,7 +576,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     private static Map<Integer, Object> getArrayAsMap(byte[] array) {
-        HashMap<Integer, Object> map = new HashMap<Integer, Object>();
+        HashMap<Integer, Object> map = new HashMap<>();
         int i = 1;
         for (byte object : array) {
             map.put(i, object);
@@ -587,44 +586,43 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     @SuppressWarnings("rawtypes")
-    public static Map<Object, Object> getNBTBaseAsMap(NBTBase nbt)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public static Map<Object, Object> getNBTBaseAsMap(NBTBase nbt) throws SecurityException, IllegalArgumentException {
         if (nbt == null) {
             return null;
         }
         if (nbt instanceof NBTTagByte) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagByte");
             map.put("value", ((NBTTagByte) nbt).func_150290_f());
             return map;
         } else if (nbt instanceof NBTTagByteArray) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagByteArray");
             map.put("value", ItemIdentifier.getArrayAsMap(((NBTTagByteArray) nbt).func_150292_c()));
             return map;
         } else if (nbt instanceof NBTTagDouble) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagDouble");
             map.put("value", ((NBTTagDouble) nbt).func_150286_g());
             return map;
         } else if (nbt instanceof NBTTagFloat) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagFloat");
             map.put("value", ((NBTTagFloat) nbt).func_150288_h());
             return map;
         } else if (nbt instanceof NBTTagInt) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagInt");
             map.put("value", ((NBTTagInt) nbt).func_150287_d());
             return map;
         } else if (nbt instanceof NBTTagIntArray) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagIntArray");
             map.put("value", ItemIdentifier.getArrayAsMap(((NBTTagIntArray) nbt).func_150302_c()));
             return map;
         } else if (nbt instanceof NBTTagList) {
             List internal = ((NBTTagList) nbt).tagList;
-            HashMap<Integer, Object> content = new HashMap<Integer, Object>();
+            HashMap<Integer, Object> content = new HashMap<>();
             int i = 1;
             for (Object object : internal) {
                 if (object instanceof NBTBase) {
@@ -632,14 +630,14 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                 }
                 i++;
             }
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagList");
             map.put("value", content);
             return map;
         } else if (nbt instanceof NBTTagCompound) {
             Map internal = ((NBTTagCompound) nbt).tagMap;
-            HashMap<Object, Object> content = new HashMap<Object, Object>();
-            HashMap<Integer, Object> keys = new HashMap<Integer, Object>();
+            HashMap<Object, Object> content = new HashMap<>();
+            HashMap<Integer, Object> keys = new HashMap<>();
             int i = 1;
             for (Object object : internal.entrySet()) {
                 Entry e = (Entry) object;
@@ -649,23 +647,23 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                 }
                 i++;
             }
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagCompound");
             map.put("value", content);
             map.put("keys", keys);
             return map;
         } else if (nbt instanceof NBTTagLong) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagLong");
             map.put("value", ((NBTTagLong) nbt).func_150291_c());
             return map;
         } else if (nbt instanceof NBTTagShort) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagShort");
             map.put("value", ((NBTTagShort) nbt).func_150287_d());
             return map;
         } else if (nbt instanceof NBTTagString) {
-            HashMap<Object, Object> map = new HashMap<Object, Object>();
+            HashMap<Object, Object> map = new HashMap<>();
             map.put("type", "NBTTagString");
             map.put("value", ((NBTTagString) nbt).func_150285_a_());
             return map;
@@ -763,7 +761,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         StringBuilder sb = new StringBuilder();
         sb.append("Tag: ");
         debugDumpTag(tag, sb);
-        System.out.println(sb.toString());
+        System.out.println(sb);
         System.out.println("Damageable: " + isDamageable());
         System.out.println("MaxStackSize: " + getMaxStackSize());
         if (getUndamaged() == this) {
@@ -785,19 +783,31 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             return;
         }
         if (nbt instanceof NBTTagByte) {
-            sb.append("TagByte(data=" + ((NBTTagByte) nbt).func_150290_f() + ")");
+            sb.append("TagByte(data=")
+                    .append(((NBTTagByte) nbt).func_150290_f())
+                    .append(")");
         } else if (nbt instanceof NBTTagShort) {
-            sb.append("TagShort(data=" + ((NBTTagShort) nbt).func_150289_e() + ")");
+            sb.append("TagShort(data=")
+                    .append(((NBTTagShort) nbt).func_150289_e())
+                    .append(")");
         } else if (nbt instanceof NBTTagInt) {
-            sb.append("TagInt(data=" + ((NBTTagInt) nbt).func_150287_d() + ")");
+            sb.append("TagInt(data=").append(((NBTTagInt) nbt).func_150287_d()).append(")");
         } else if (nbt instanceof NBTTagLong) {
-            sb.append("TagLong(data=" + ((NBTTagLong) nbt).func_150291_c() + ")");
+            sb.append("TagLong(data=")
+                    .append(((NBTTagLong) nbt).func_150291_c())
+                    .append(")");
         } else if (nbt instanceof NBTTagFloat) {
-            sb.append("TagFloat(data=" + ((NBTTagFloat) nbt).func_150288_h() + ")");
+            sb.append("TagFloat(data=")
+                    .append(((NBTTagFloat) nbt).func_150288_h())
+                    .append(")");
         } else if (nbt instanceof NBTTagDouble) {
-            sb.append("TagDouble(data=" + ((NBTTagDouble) nbt).func_150286_g() + ")");
+            sb.append("TagDouble(data=")
+                    .append(((NBTTagDouble) nbt).func_150286_g())
+                    .append(")");
         } else if (nbt instanceof NBTTagString) {
-            sb.append("TagString(data=\"" + ((NBTTagString) nbt).func_150285_a_() + "\")");
+            sb.append("TagString(data=\"")
+                    .append(((NBTTagString) nbt).func_150285_a_())
+                    .append("\")");
         } else if (nbt instanceof NBTTagByteArray) {
             sb.append("TagByteArray(data=");
             for (int i = 0; i < ((NBTTagByteArray) nbt).func_150292_c().length; i++) {
@@ -829,8 +839,9 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             sb.append("TagCompound(data=");
             Object[] oe = ((NBTTagCompound) nbt).tagMap.entrySet().toArray();
             for (int i = 0; i < oe.length; i++) {
+                @SuppressWarnings("unchecked")
                 Entry<String, NBTBase> e = (Entry<String, NBTBase>) (oe[i]);
-                sb.append("\"" + e.getKey() + "\"=");
+                sb.append("\"").append(e.getKey()).append("\"=");
                 debugDumpTag((e.getValue()), sb);
                 if (i < oe.length - 1) {
                     sb.append(",");
@@ -838,7 +849,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             }
             sb.append(")");
         } else {
-            sb.append(nbt.getClass().getName() + "(?)");
+            sb.append(nbt.getClass().getName()).append("(?)");
         }
     }
 

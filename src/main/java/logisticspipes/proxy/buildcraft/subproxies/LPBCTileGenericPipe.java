@@ -14,11 +14,7 @@ import buildcraft.transport.pluggable.LensPluggable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+import java.util.*;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
 import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
@@ -45,7 +41,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
     @Getter
     private final LogisticsTileGenericPipe lpPipe;
 
-    public Map<ForgeDirection, List<StatementSlot>> activeActions = new HashMap<ForgeDirection, List<StatementSlot>>();
+    public Map<ForgeDirection, List<StatementSlot>> activeActions = new HashMap<>();
 
     public LPBCTileGenericPipe(LPBCPipe pipe, LogisticsTileGenericPipe lpPipe)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
@@ -176,7 +172,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
                 // Check Gate for ActionChanges
                 if (p instanceof GatePluggable && lpPipe.isRoutingPipe()) {
                     if (!activeActions.containsKey(direction)) {
-                        activeActions.put(direction, new ArrayList<StatementSlot>());
+                        activeActions.put(direction, new ArrayList<>());
                     }
                     if (!listEquals(activeActions.get(direction), pipe.gates[direction.ordinal()].activeActions)) {
                         activeActions.get(direction).clear();
@@ -184,9 +180,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
                         lpPipe.getRoutingPipe().triggerConnectionCheck();
                         recheckThisPipe = true;
                     }
-                } else if (activeActions.containsKey(direction)) {
-                    activeActions.remove(direction);
-                }
+                } else activeActions.remove(direction);
 
                 if (p instanceof RobotStationPluggable) {
                     if (((RobotStationPluggable) p).getStation() != null
@@ -331,10 +325,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
 
             @Override
             public boolean isAcceptingItems(LPTravelingItemServer arrivingItem) {
-                if (plug instanceof RobotStationPluggable) {
-                    return true;
-                }
-                return false;
+                return plug instanceof RobotStationPluggable;
             }
 
             @Override

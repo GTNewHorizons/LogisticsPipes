@@ -52,7 +52,7 @@ public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvan
         return super.getUnlocalizedName(par1ItemStack);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
@@ -68,7 +68,6 @@ public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvan
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public void getSubItems(Item par1, CreativeTabs ct, List list) {
         // Don't add to creative in any way
     }

@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.gui.modules;
 
 import logisticspipes.modules.ModuleAdvancedExtractor;
@@ -30,13 +30,12 @@ public class GuiAdvancedExtractor extends ModuleBaseGui {
         // Default item toggle:
         buttonList.clear();
         buttonList.add(new GuiStringHandlerButton(
-                0, width / 2 + 20, height / 2 - 34, 60, 20, new GuiStringHandlerButton.StringHandler() {
-
-                    @Override
-                    public String getContent() {
-                        return _advancedExtractor.areItemsIncluded() ? "Included" : "Excluded";
-                    }
-                }));
+                0,
+                width / 2 + 20,
+                height / 2 - 34,
+                60,
+                20,
+                () -> _advancedExtractor.areItemsIncluded() ? "Included" : "Excluded"));
 
         buttonList.add(new GuiButton(1, width / 2 - 25, height / 2 - 34, 40, 20, "Sneaky"));
     }

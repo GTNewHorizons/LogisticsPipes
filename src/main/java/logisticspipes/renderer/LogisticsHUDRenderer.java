@@ -1,12 +1,7 @@
 package logisticspipes.renderer;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import logisticspipes.api.IHUDArmor;
 import logisticspipes.config.Configs;
 import logisticspipes.hud.HUDConfig;
@@ -41,7 +36,7 @@ public class LogisticsHUDRenderer {
 
     public IDebugHUDProvider debugHUD = null;
 
-    private LinkedList<IHeadUpDisplayRendererProvider> list = new LinkedList<IHeadUpDisplayRendererProvider>();
+    private final LinkedList<IHeadUpDisplayRendererProvider> list = new LinkedList<>();
     private double lastXPos = 0;
     private double lastYPos = 0;
     private double lastZPos = 0;
@@ -49,10 +44,9 @@ public class LogisticsHUDRenderer {
     private int progress = 0;
     private long last = 0;
 
-    private ArrayList<IHeadUpDisplayBlockRendererProvider> providers =
-            new ArrayList<IHeadUpDisplayBlockRendererProvider>();
+    private final ArrayList<IHeadUpDisplayBlockRendererProvider> providers = new ArrayList<>();
 
-    private List<LaserData> lasers = new ArrayList<LaserData>();
+    private final List<LaserData> lasers = new ArrayList<>();
 
     private static LogisticsHUDRenderer renderer = null;
 
@@ -91,8 +85,7 @@ public class LogisticsHUDRenderer {
     }
 
     private void refreshList(double x, double y, double z) {
-        ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>> newList =
-                new ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>>();
+        ArrayList<Pair<Double, IHeadUpDisplayRendererProvider>> newList = new ArrayList<>();
         for (IRouter router : SimpleServiceLocator.routerManager.getRouters()) {
             if (router == null) {
                 continue;
@@ -107,8 +100,7 @@ public class LogisticsHUDRenderer {
                 double dis =
                         Math.hypot(pipe.getX() - x + 0.5, Math.hypot(pipe.getY() - y + 0.5, pipe.getZ() - z + 0.5));
                 if (dis < Configs.LOGISTICS_HUD_RENDER_DISTANCE && dis > 0.75) {
-                    newList.add(new Pair<Double, IHeadUpDisplayRendererProvider>(
-                            dis, (IHeadUpDisplayRendererProvider) pipe));
+                    newList.add(new Pair<>(dis, (IHeadUpDisplayRendererProvider) pipe));
                     if (!list.contains(pipe)) {
                         ((IHeadUpDisplayRendererProvider) pipe).startWatching();
                     }
@@ -116,7 +108,7 @@ public class LogisticsHUDRenderer {
             }
         }
 
-        List<IHeadUpDisplayBlockRendererProvider> remove = new ArrayList<IHeadUpDisplayBlockRendererProvider>();
+        List<IHeadUpDisplayBlockRendererProvider> remove = new ArrayList<>();
         for (IHeadUpDisplayBlockRendererProvider provider : providers) {
             if (MainProxy.getDimensionForWorld(provider.getWorld())
                     == MainProxy.getDimensionForWorld(
@@ -127,7 +119,7 @@ public class LogisticsHUDRenderer {
                         && dis > 0.75
                         && !provider.isHUDInvalid()
                         && provider.isHUDExistent()) {
-                    newList.add(new Pair<Double, IHeadUpDisplayRendererProvider>(dis, provider));
+                    newList.add(new Pair<>(dis, provider));
                     if (!list.contains(provider)) {
                         provider.startWatching();
                     }
@@ -144,20 +136,7 @@ public class LogisticsHUDRenderer {
             clearList(true);
             return;
         }
-        Collections.sort(newList, new Comparator<Pair<Double, IHeadUpDisplayRendererProvider>>() {
-
-            @Override
-            public int compare(
-                    Pair<Double, IHeadUpDisplayRendererProvider> o1, Pair<Double, IHeadUpDisplayRendererProvider> o2) {
-                if (o1.getValue1() < o2.getValue1()) {
-                    return -1;
-                } else if (o1.getValue1() > o2.getValue1()) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        });
+        newList.sort(Comparator.comparing(Pair::getValue1));
         for (IHeadUpDisplayRendererProvider part : list) {
             boolean contains = false;
             for (Pair<Double, IHeadUpDisplayRendererProvider> inpart : newList) {
@@ -367,15 +346,13 @@ public class LogisticsHUDRenderer {
                         progress - (2 * Math.max(1, (int) Math.floor((System.currentTimeMillis() - last) / 50.0D))), 0);
             }
             if (progress != 0) {
-                List<String> textData = new ArrayList<String>();
+                List<String> textData = new ArrayList<>();
 
                 // TileEntity tile = new LPPosition(box.blockX, box.blockY,
                 // box.blockZ).getTileEntity(DimensionManager.getWorld(0));
                 // Insert debug code here
 
-                if (textData.isEmpty()) {
-                    textData = SimpleServiceLocator.neiProxy.getInfoForPosition(player.worldObj, player, box);
-                }
+                textData = SimpleServiceLocator.neiProxy.getInfoForPosition(player.worldObj, player, box);
                 if (!textData.isEmpty()) {
                     double xCoord = box.blockX + 0.5D;
                     double yCoord = box.blockY + 0.5D;
@@ -474,8 +451,6 @@ public class LogisticsHUDRenderer {
                 case SOUTH:
                     GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                     break;
-                case EAST:
-                    break;
                 case WEST:
                     GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
                     break;
@@ -485,6 +460,7 @@ public class LogisticsHUDRenderer {
                 case DOWN:
                     GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
                     break;
+                case EAST:
                 default:
                     break;
             }
@@ -613,7 +589,7 @@ public class LogisticsHUDRenderer {
 
     public double up(double input) {
         input %= 360.0D;
-        while (input < 0 && !Double.isNaN(input) && !Double.isInfinite(input)) {
+        while (input < 0 && !Double.isInfinite(input)) {
             input += 360;
         }
         return input;

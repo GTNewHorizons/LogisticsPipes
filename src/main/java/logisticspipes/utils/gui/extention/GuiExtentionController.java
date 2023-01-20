@@ -14,18 +14,18 @@ public class GuiExtentionController {
 
     public enum GuiSide {
         LEFT,
-        RIGHT;
+        RIGHT
     }
 
-    private final List<GuiExtention> extentions = new ArrayList<GuiExtention>();
-    private final List<GuiExtention> extentionsToRemove = new ArrayList<GuiExtention>();
+    private final List<GuiExtention> extentions = new ArrayList<>();
+    private final List<GuiExtention> extentionsToRemove = new ArrayList<>();
 
     @Setter
     private int maxBottom;
 
     private GuiExtention currentlyExtended = null;
-    private Map<Slot, Integer> slotMap = new HashMap<Slot, Integer>();
-    private Map<GuiButton, Integer> buttonMap = new HashMap<GuiButton, Integer>();
+    private final Map<Slot, Integer> slotMap = new HashMap<>();
+    private final Map<GuiButton, Integer> buttonMap = new HashMap<>();
 
     private final GuiSide side;
 
@@ -97,8 +97,7 @@ public class GuiExtentionController {
                         break;
                     }
                     extention.setExtending(false);
-                    int bottom = yPos + extention.getCurrentHeight();
-                    yPos = bottom;
+                    yPos = yPos + extention.getCurrentHeight();
                 }
                 int left;
                 int right;
@@ -172,9 +171,7 @@ public class GuiExtentionController {
         }
     }
 
-    public void mouseOver(int i, int j) {
-        int x = i;
-        int y = j;
+    public void mouseOver(int x, int y) {
         if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
                 if (x > extention.getCurrentXPos()
@@ -197,7 +194,6 @@ public class GuiExtentionController {
                     && y > currentlyExtended.getCurrentYPos()
                     && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
                 currentlyExtended.handleMouseOverAt(x, y);
-                return;
             }
         }
     }
@@ -286,15 +282,13 @@ public class GuiExtentionController {
                 }
             }
         } else {
-            if (x + w > currentlyExtended.getCurrentXPos()
+            return x + w > currentlyExtended.getCurrentXPos()
                     && x
                             < currentlyExtended.getCurrentXPos()
                                     + currentlyExtended.getCurrentWidth()
                                     + (side == GuiSide.RIGHT ? 15 : 0)
                     && y + h > currentlyExtended.getCurrentYPos()
-                    && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
-                return true;
-            }
+                    && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight();
         }
         return false;
     }

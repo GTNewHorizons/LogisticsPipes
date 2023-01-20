@@ -1,10 +1,6 @@
 package logisticspipes.proxy.specialconnection;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import logisticspipes.interfaces.routing.ISpecialTileConnection;
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
@@ -45,10 +41,10 @@ public class EnderIOTransceiverConnection implements ISpecialTileConnection {
             }
         }
         if (!onlyOnePipe || !SimpleServiceLocator.enderIOProxy.isSendAndReceive(tile)) {
-            return new ArrayList<TileEntity>(0);
+            return new ArrayList<>(0);
         }
         List<? extends TileEntity> connections = SimpleServiceLocator.enderIOProxy.getConnectedTransceivers(tile);
-        Set<TileEntity> set = new HashSet<TileEntity>();
+        Set<TileEntity> set = new HashSet<>();
         for (TileEntity connected : connections) {
             if (!SimpleServiceLocator.enderIOProxy.isSendAndReceive(connected)) {
                 continue;
@@ -75,7 +71,7 @@ public class EnderIOTransceiverConnection implements ISpecialTileConnection {
         if (set.size() == 1) {
             return set;
         } else {
-            return new ArrayList<TileEntity>(0);
+            return new ArrayList<>(0);
         }
     }
 

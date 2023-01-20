@@ -76,10 +76,8 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
         if (tile instanceof IFluidHandler) {
             IFluidHandler liq = (IFluidHandler) tile;
 
-            if (liq.getTankInfo(connection.getOpposite()) != null
-                    && liq.getTankInfo(connection.getOpposite()).length > 0) {
-                return true;
-            }
+            return liq.getTankInfo(connection.getOpposite()) != null
+                    && liq.getTankInfo(connection.getOpposite()).length > 0;
         }
         return false;
     }
@@ -97,13 +95,13 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
         if (worldUtil == null) {
             worldUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
         }
-        List<Pair<TileEntity, ForgeDirection>> tileList = new ArrayList<Pair<TileEntity, ForgeDirection>>();
+        List<Pair<TileEntity, ForgeDirection>> tileList = new ArrayList<>();
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tile = worldUtil.getAdjacentTileEntitie(dir);
             if (!isConnectableTank(tile, dir, flag)) {
                 continue;
             }
-            tileList.add(new Pair<TileEntity, ForgeDirection>(tile, dir));
+            tileList.add(new Pair<>(tile, dir));
         }
         return tileList;
     }
@@ -134,10 +132,8 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
             if (!flag) {
                 return false;
             }
-            if (((LogisticsTileGenericPipe) tile).pipe == null
-                    || !(((LogisticsTileGenericPipe) tile).pipe.transport instanceof IFluidHandler)) {
-                return false;
-            }
+            return ((LogisticsTileGenericPipe) tile).pipe != null
+                    && ((LogisticsTileGenericPipe) tile).pipe.transport instanceof IFluidHandler;
         }
         return true;
     }
@@ -243,8 +239,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
             if (isConnectableTank(tile, arrivingItem.output, false)) {
                 List<Pair<TileEntity, ForgeDirection>> adjTanks = getAdjacentTanks(false);
                 // Try to put liquid into all adjacent tanks.
-                for (int i = 0; i < adjTanks.size(); i++) {
-                    Pair<TileEntity, ForgeDirection> pair = adjTanks.get(i);
+                for (Pair<TileEntity, ForgeDirection> pair : adjTanks) {
                     IFluidHandler tank = (IFluidHandler) pair.getValue1();
                     ForgeDirection dir = pair.getValue2();
                     fillSide(liquid, dir, tank);
@@ -311,7 +306,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
     }
 
     public List<TileEntity> getAllTankTiles() {
-        List<TileEntity> list = new ArrayList<TileEntity>();
+        List<TileEntity> list = new ArrayList<>();
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(false)) {
             list.addAll(SimpleServiceLocator.specialTankHandler.getBaseTileFor(pair.getValue1()));
         }

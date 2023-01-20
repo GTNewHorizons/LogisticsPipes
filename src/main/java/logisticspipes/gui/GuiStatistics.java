@@ -34,9 +34,9 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
     private final int TAB_COUNT = 2;
     private int current_Tab;
 
-    private final List<GuiButton> TAB_BUTTON_1 = new ArrayList<GuiButton>();
-    private final List<GuiButton> TAB_BUTTON_1_2 = new ArrayList<GuiButton>();
-    private final List<GuiButton> TAB_BUTTON_2 = new ArrayList<GuiButton>();
+    private final List<GuiButton> TAB_BUTTON_1 = new ArrayList<>();
+    private final List<GuiButton> TAB_BUTTON_1_2 = new ArrayList<>();
+    private final List<GuiButton> TAB_BUTTON_2 = new ArrayList<>();
     private final LogisticsStatisticsTileEntity tile;
 
     private ItemDisplay itemDisplay_1;
@@ -91,7 +91,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     ySize - 100,
                     new int[] {1, 10, 64, 64},
                     true);
-            itemDisplay_2.setItemList(new ArrayList<ItemIdentifierStack>());
+            itemDisplay_2.setItemList(new ArrayList<>());
         }
         itemDisplay_2.reposition(guiLeft + 10, guiTop + 80, xSize - 20, 125);
 
@@ -105,7 +105,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
     }
 
     public void updateItemList() {
-        List<ItemIdentifierStack> allItems = new ArrayList<ItemIdentifierStack>();
+        List<ItemIdentifierStack> allItems = new ArrayList<>();
         for (TrackingTask task : tile.tasks) {
             allItems.add(task.item.makeStack(1));
         }
@@ -190,7 +190,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
         // Second Tab
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableGUIStandardItemLighting();
@@ -215,7 +215,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                 if (task != null) {
                     GuiGraphics.drawSlotBackground(mc, guiLeft + 10, guiTop + 99);
                     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240 / 1.0F, 240 / 1.0F);
+                    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
                     GL11.glEnable(GL11.GL_LIGHTING);
                     GL11.glEnable(GL11.GL_DEPTH_TEST);
                     RenderHelper.enableGUIStandardItemLighting();

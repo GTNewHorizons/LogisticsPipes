@@ -9,11 +9,7 @@ import logisticspipes.utils.SafeTimeTracker;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 
 public class PipeFluidTransportLogistics extends PipeTransportLogistics implements IFluidHandler {
 
@@ -180,10 +176,8 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     /**
      * Computes the PacketFluidUpdate packet for transmission to a client
      *
-     * @param initPacket
-     *            everything is sent, no delta stuff ( first packet )
-     * @param persistChange
-     *            The render cache change is persisted
+     * @param initPacket    everything is sent, no delta stuff ( first packet )
+     * @param persistChange The render cache change is persisted
      * @return PacketFluidUpdate liquid update packet
      */
     private ModernPacket computeFluidUpdate(boolean initPacket, boolean persistChange) {

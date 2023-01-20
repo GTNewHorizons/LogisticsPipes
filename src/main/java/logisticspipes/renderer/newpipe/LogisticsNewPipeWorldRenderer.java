@@ -9,7 +9,6 @@ import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
 import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
 import logisticspipes.proxy.object3d.interfaces.IModel3D;
 import logisticspipes.proxy.object3d.operation.LPScale;
@@ -51,17 +50,15 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             if (icons == null) {
                 return false;
             }
-            if (requestBlock == null || true) {
-                requestBlock = new HashMap<BlockRotation, IModel3D>();
-                for (BlockRotation rot : BlockRotation.values()) {
-                    requestBlock.put(
-                            rot,
-                            LogisticsNewSolidBlockWorldRenderer.block
-                                    .get(rot)
-                                    .copy()
-                                    .apply(new LPScale(0.999))
-                                    .apply(new LPTranslation(0.0005, 0.0005, 0.0005)));
-                }
+            requestBlock = new HashMap<>();
+            for (BlockRotation rot : BlockRotation.values()) {
+                requestBlock.put(
+                        rot,
+                        LogisticsNewSolidBlockWorldRenderer.block
+                                .get(rot)
+                                .copy()
+                                .apply(new LPScale(0.999))
+                                .apply(new LPTranslation(0.0005, 0.0005, 0.0005)));
             }
 
             SimpleServiceLocator.cclProxy.getRenderState().reset();
@@ -78,18 +75,18 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             IIconTransformation icon =
                     SimpleServiceLocator.cclProxy.createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
 
-            requestBlock.get(rotation).render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+            requestBlock.get(rotation).render(new LPTranslation(x, y, z), icon);
 
             for (CoverSides side : CoverSides.values()) {
                 if (!pipeTile.renderState.pipeConnectionMatrix.isConnected(side.getDir(rotation))) {
                     LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
                             .get(side)
                             .get(rotation)
-                            .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                            .render(new LPTranslation(x, y, z), icon);
                     LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner
                             .get(side)
                             .get(rotation)
-                            .render(new I3DOperation[] {new LPTranslation(x, y, z), icon});
+                            .render(new LPTranslation(x, y, z), icon);
                 }
             }
 
@@ -110,7 +107,7 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
         }
         tess.addTranslation(-0.00002F, -0.00002F, -0.00002F);
 
-        boolean solidSides[] = new boolean[6];
+        boolean[] solidSides = new boolean[6];
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             LPPosition pos = new LPPosition((TileEntity) pipeTile);
             pos.moveForward(dir);

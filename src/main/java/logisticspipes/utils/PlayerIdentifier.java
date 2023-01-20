@@ -11,8 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 @Accessors(chain = true)
 public class PlayerIdentifier {
 
-    private static Map<UUID, PlayerIdentifier> idBased = new HashMap<UUID, PlayerIdentifier>();
-    private static Map<String, PlayerIdentifier> nameBased = new HashMap<String, PlayerIdentifier>();
+    private static final Map<UUID, PlayerIdentifier> idBased = new HashMap<>();
+    private static final Map<String, PlayerIdentifier> nameBased = new HashMap<>();
 
     private PlayerIdentifier(String username, UUID id) {
         this.username = username;
@@ -63,7 +63,7 @@ public class PlayerIdentifier {
             String tmp = nbt.getString(prefix + "_id");
             try {
                 id = UUID.fromString(tmp);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         String username = nbt.getString(prefix + "_name");

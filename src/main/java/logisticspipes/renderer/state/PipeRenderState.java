@@ -23,7 +23,7 @@ public class PipeRenderState implements IClientState {
 
     public List<Pair<IModel3D, I3DOperation[]>> cachedRenderer = null;
     public boolean forceRenderOldPipe = false;
-    public boolean solidSidesCache[] = new boolean[6];
+    public boolean[] solidSidesCache = new boolean[6];
 
     public int[] buffer = null;
     public GLRenderList renderList;

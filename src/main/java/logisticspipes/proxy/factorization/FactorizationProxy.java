@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 public class FactorizationProxy implements IFactorizationProxy {
 
     public static final String barelClassPath = "factorization.weird.TileEntityDayBarrel";
-    private Class<?> barrelClass;
+    private final Class<?> barrelClass;
 
     public FactorizationProxy() throws ClassNotFoundException {
         barrelClass = Class.forName(FactorizationProxy.barelClassPath);

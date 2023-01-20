@@ -1,10 +1,6 @@
 package logisticspipes.routing;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.interfaces.ISubSystemPowerProvider;
@@ -72,7 +68,7 @@ public class ClientRouter implements IRouter {
         if (LPConstants.DEBUG) {
             throw new UnsupportedOperationException("noClientRouting");
         }
-        return new ArrayList<List<ExitRoute>>();
+        return new ArrayList<>();
     }
 
     @Override
@@ -80,7 +76,7 @@ public class ClientRouter implements IRouter {
         if (LPConstants.DEBUG) {
             throw new UnsupportedOperationException("noClientRouting");
         }
-        return new LinkedList<ExitRoute>();
+        return new LinkedList<>();
     }
 
     @Override
@@ -192,15 +188,7 @@ public class ClientRouter implements IRouter {
 
     @Override
     public String toString() {
-        StringBuilder string = new StringBuilder("ServerRouter: {UUID: ");
-        string.append(getId());
-        string.append(", AT: (");
-        string.append(_xCoord);
-        string.append(", ");
-        string.append(_yCoord);
-        string.append(", ");
-        string.append(_zCoord);
-        return string.append(")").toString();
+        return "ServerRouter: {UUID: " + getId() + ", AT: (" + _xCoord + ", " + _yCoord + ", " + _zCoord + ")";
     }
 
     @Override

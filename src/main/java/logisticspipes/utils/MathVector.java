@@ -82,18 +82,7 @@ public class MathVector {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("[")
-                .append(X)
-                .append(",")
-                .append(Y)
-                .append(",")
-                .append(Z)
-                .append("]")
-                .append("(")
-                .append(abs())
-                .append(")")
-                .toString();
+        return "[" + X + "," + Y + "," + Z + "]" + "(" + abs() + ")";
     }
 
     @Override

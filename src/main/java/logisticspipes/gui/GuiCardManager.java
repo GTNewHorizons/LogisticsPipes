@@ -2,14 +2,12 @@ package logisticspipes.gui;
 
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IGuiOpenControler;
-import logisticspipes.interfaces.ISlotCheck;
 import logisticspipes.utils.CardManagmentInventory;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 public class GuiCardManager extends LogisticsBaseGuiScreen {
 
@@ -28,13 +26,7 @@ public class GuiCardManager extends LogisticsBaseGuiScreen {
         });
         dummy.addRestrictedSlot(0, Cinv, 21, 21, LogisticsPipes.ModuleItem);
         dummy.addRestrictedSlot(1, Cinv, 61, 21, LogisticsPipes.ModuleItem);
-        dummy.addRestrictedSlot(2, Cinv, 41, 58, new ISlotCheck() {
-
-            @Override
-            public boolean isStackAllowed(ItemStack itemStack) {
-                return false;
-            }
-        });
+        dummy.addRestrictedSlot(2, Cinv, 41, 58, itemStack -> false);
         dummy.addRestrictedSlot(3, Cinv, 121, 39, LogisticsPipes.LogisticsItemCard);
         for (int i = 4; i < 7; i++) {
             dummy.addColorSlot(i, Cinv, 101, 21 + (i - 4) * 18);

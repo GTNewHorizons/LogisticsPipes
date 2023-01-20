@@ -94,9 +94,9 @@ public class HUDSatellite extends BasicHUDGui {
             GL11.glScalef(1.5F, 1.5F, 0.0001F);
             String message;
             if (pipe1 != null) {
-                message = "ID: " + Integer.toString(pipe1.satelliteId);
+                message = "ID: " + pipe1.satelliteId;
             } else {
-                message = "ID: " + Integer.toString(pipe2.satelliteId);
+                message = "ID: " + pipe2.satelliteId;
             }
             mc.fontRenderer.drawString(message, -28, -28, 0);
             GL11.glScalef(0.8F, 0.8F, -1F);
@@ -116,7 +116,7 @@ public class HUDSatellite extends BasicHUDGui {
                     false,
                     shifted);
             GL11.glScalef(0.8F, 0.8F, -1F);
-            message = "(" + Integer.toString(page + 1) + "/" + Integer.toString(getMaxPage()) + ")";
+            message = "(" + (page + 1) + "/" + getMaxPage() + ")";
             mc.fontRenderer.drawString(message, 9, -41, 0);
         } else {
             if (day) {
@@ -146,19 +146,19 @@ public class HUDSatellite extends BasicHUDGui {
     }
 
     public int getMaxPage() {
+        int ret;
         if (pipe1 != null) {
-            int ret = pipe1.itemList.size() / 12;
+            ret = pipe1.itemList.size() / 12;
             if (pipe1.itemList.size() % 12 != 0 || ret == 0) {
                 ret++;
             }
-            return ret;
         } else {
-            int ret = pipe2.itemList.size() / 12;
+            ret = pipe2.itemList.size() / 12;
             if (pipe2.itemList.size() % 12 != 0 || ret == 0) {
                 ret++;
             }
-            return ret;
         }
+        return ret;
     }
 
     @Override

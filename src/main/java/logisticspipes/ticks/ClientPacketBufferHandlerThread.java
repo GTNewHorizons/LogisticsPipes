@@ -24,10 +24,10 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ClientPacketBufferHandlerThread {
 
-    private class ClientCompressorThread extends Thread {
+    private static class ClientCompressorThread extends Thread {
 
         // list of C->S packets to be serialized and compressed
-        private final LinkedList<ModernPacket> clientList = new LinkedList<ModernPacket>();
+        private final LinkedList<ModernPacket> clientList = new LinkedList<>();
         // serialized but still uncompressed C->S data
         private byte[] clientBuffer = new byte[] {};
         // used to cork the compressor so we can queue up a whole bunch of packets at once
@@ -35,7 +35,7 @@ public class ClientPacketBufferHandlerThread {
         // Clear content on next tick
         private boolean clear = false;
 
-        private Lock clearLock = new ReentrantLock();
+        private final Lock clearLock = new ReentrantLock();
 
         public ClientCompressorThread() {
             super("LogisticsPipes Packet Compressor Client");
@@ -96,7 +96,7 @@ public class ClientPacketBufferHandlerThread {
                     while (pause || clientList.size() == 0) {
                         try {
                             clientList.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }
@@ -127,32 +127,27 @@ public class ClientPacketBufferHandlerThread {
 
         public void clear() {
             clear = true;
-            new Thread() {
-
-                @Override
-                public void run() {
-                    clearLock.lock();
-                    clientList.clear();
-                    clearLock.unlock();
-                }
-            }.start();
+            new Thread(() -> {
+                        clearLock.lock();
+                        clientList.clear();
+                        clearLock.unlock();
+                    })
+                    .start();
         }
     }
 
     private final ClientCompressorThread clientCompressorThread = new ClientCompressorThread();
 
-    private class ClientDecompressorThread extends Thread {
+    private static class ClientDecompressorThread extends Thread {
 
         // Received compressed S->C data
-        private final LinkedList<byte[]> queue = new LinkedList<byte[]>();
+        private final LinkedList<byte[]> queue = new LinkedList<>();
         // decompressed serialized S->C data
         private byte[] ByteBuffer = new byte[] {};
         // FIFO for deserialized S->C packets, decompressor adds, tickEnd removes
-        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer =
-                new LinkedList<Pair<EntityPlayer, byte[]>>();
+        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer = new LinkedList<>();
         // List of packets that that should be reattempted to apply in the next tick
-        private final LinkedList<Pair<EntityPlayer, ModernPacket>> retryPackets =
-                new LinkedList<Pair<EntityPlayer, ModernPacket>>();
+        private final LinkedList<Pair<EntityPlayer, ModernPacket>> retryPackets = new LinkedList<>();
         // Clear content on next tick
         private boolean clear = false;
 
@@ -210,21 +205,21 @@ public class ClientPacketBufferHandlerThread {
                     int size = ((ByteBuffer[0] & 255) << 24)
                             + ((ByteBuffer[1] & 255) << 16)
                             + ((ByteBuffer[2] & 255) << 8)
-                            + ((ByteBuffer[3] & 255) << 0);
+                            + ((ByteBuffer[3] & 255));
                     if (size + 4 > ByteBuffer.length) {
                         break;
                     }
                     byte[] packet = Arrays.copyOfRange(ByteBuffer, 4, size + 4);
                     ByteBuffer = Arrays.copyOfRange(ByteBuffer, size + 4, ByteBuffer.length);
                     synchronized (PacketBuffer) {
-                        PacketBuffer.add(new Pair<EntityPlayer, byte[]>(MainProxy.proxy.getClientPlayer(), packet));
+                        PacketBuffer.add(new Pair<>(MainProxy.proxy.getClientPlayer(), packet));
                     }
                 }
                 synchronized (queue) {
                     while (queue.size() == 0) {
                         try {
                             queue.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }
@@ -249,7 +244,7 @@ public class ClientPacketBufferHandlerThread {
         }
 
         public void queueFailedPacket(ModernPacket packet, EntityPlayer player) {
-            retryPackets.add(new Pair<EntityPlayer, ModernPacket>(player, packet));
+            retryPackets.add(new Pair<>(player, packet));
         }
     }
 

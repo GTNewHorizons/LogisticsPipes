@@ -16,7 +16,7 @@ import org.lwjgl.input.Keyboard;
 public final class StringUtils {
 
     public static final String KEY_HOLDSHIFT = "misc.holdshift";
-    public static final List<String> UNTRANSLATED_STRINGS = new ArrayList<String>();
+    public static final List<String> UNTRANSLATED_STRINGS = new ArrayList<>();
 
     private StringUtils() {}
 
@@ -29,12 +29,12 @@ public final class StringUtils {
         UnmodifiableListIterator<Character> iter = chars.listIterator();
         while (iter.hasNext()) {
             Character c = iter.next();
-            if (c.charValue() == '%' && iter.hasNext()) {
+            if (c == '%' && iter.hasNext()) {
                 Character c2 = iter.next();
-                if (c2.charValue() == 'c') {
+                if (c2 == 'c') {
                     StringBuilder handled = new StringBuilder();
                     ChatColor[] values = ChatColor.values();
-                    List<ChatColor> colors = new ArrayList<ChatColor>(values.length);
+                    List<ChatColor> colors = new ArrayList<>(values.length);
                     colors.addAll(Arrays.asList(values));
                     int i = 0;
                     outer:
@@ -47,7 +47,7 @@ public final class StringUtils {
                             if (color.name().length() <= i) {
                                 break outer;
                             }
-                            if (c3.charValue() != color.name().charAt(i)) {
+                            if (c3 != color.name().charAt(i)) {
                                 colorIter.remove();
                             }
                         }
@@ -125,7 +125,7 @@ public final class StringUtils {
         }
         value *= 100;
         int percent = (int) value;
-        return Integer.toString(percent) + "%";
+        return percent + "%";
     }
 
     public static String getWithMaxWidth(String name, int width, FontRenderer fontRenderer) {

@@ -1,12 +1,7 @@
 package logisticspipes.proxy;
 
 import cpw.mods.fml.common.Loader;
-import logisticspipes.proxy.specialinventoryhandler.AEInterfaceInventoryHandler;
-import logisticspipes.proxy.specialinventoryhandler.BarrelInventoryHandler;
-import logisticspipes.proxy.specialinventoryhandler.CrateInventoryHandler;
-import logisticspipes.proxy.specialinventoryhandler.DSUInventoryHandler;
-import logisticspipes.proxy.specialinventoryhandler.JABBAInventoryHandler;
-import logisticspipes.proxy.specialinventoryhandler.StorageDrawersInventoryHandler;
+import logisticspipes.proxy.specialinventoryhandler.*;
 
 public class SpecialInventoryHandlerManager {
 
@@ -34,7 +29,7 @@ public class SpecialInventoryHandlerManager {
         try {
             Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit");
             SimpleServiceLocator.inventoryUtilFactory.registerHandler(new DSUInventoryHandler());
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ignored) {
         }
     }
 }

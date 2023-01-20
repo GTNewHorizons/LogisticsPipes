@@ -36,15 +36,14 @@ public class RoutingUpdateDebugFilters extends ModernPacket {
     @Override
     public void readData(LPDataInputStream data) throws IOException {
         pos = data.readLPPosition();
-        filterPositions =
-                new EnumMap<PipeRoutingConnectionType, List<List<LPPosition>>>(PipeRoutingConnectionType.class);
+        filterPositions = new EnumMap<>(PipeRoutingConnectionType.class);
         short id;
         while ((id = data.readShort()) != -1) {
             PipeRoutingConnectionType type = PipeRoutingConnectionType.values[id];
-            List<List<LPPosition>> typeFilters = new ArrayList<List<LPPosition>>();
+            List<List<LPPosition>> typeFilters = new ArrayList<>();
             int length;
             while ((length = data.readShort()) != -1) {
-                List<LPPosition> linkedFilter = new ArrayList<LPPosition>();
+                List<LPPosition> linkedFilter = new ArrayList<>();
                 for (int i = 0; i < length; i++) {
                     linkedFilter.add(data.readLPPosition());
                 }

@@ -20,7 +20,7 @@ public abstract class CoordinatesPacket extends ModernPacket {
     public enum LTGPCompletionCheck {
         NONE,
         PIPE,
-        TRANSPORT;
+        TRANSPORT
     }
 
     public CoordinatesPacket(int id) {
@@ -76,14 +76,12 @@ public abstract class CoordinatesPacket extends ModernPacket {
         return this;
     }
 
-    @SuppressWarnings("unchecked")
     /**
      * Retrieves tileEntity at packet coordinates if any.
      *
-     * @param world
-     * @param clazz
      * @return TileEntity
      */
+    @SuppressWarnings("unchecked")
     public <T> T getTile(World world, Class<T> clazz) {
         if (world == null) {
             targetNotFound("World was null");
@@ -106,14 +104,12 @@ public abstract class CoordinatesPacket extends ModernPacket {
         return (T) tile;
     }
 
-    @SuppressWarnings("unchecked")
     /**
      * Retrieves tileEntity or CoreUnroutedPipe at packet coordinates if any.
      *
-     * @param world
-     * @param clazz
      * @return TileEntity
      */
+    @SuppressWarnings("unchecked")
     public <T> T getTileOrPipe(World world, Class<T> clazz) {
         if (world == null) {
             targetNotFound("World was null");
@@ -147,9 +143,6 @@ public abstract class CoordinatesPacket extends ModernPacket {
 
     /**
      * Retrieves pipe at packet coordinates if any.
-     *
-     * @param world
-     * @return
      */
     public LogisticsTileGenericPipe getPipe(World world) {
         return getPipe(world, LTGPCompletionCheck.NONE);

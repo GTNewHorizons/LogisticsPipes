@@ -28,7 +28,7 @@ public enum Color {
     LIGHT_YELLOW(0xFFFFFFA0),
     ;
 
-    private int colorValue;
+    private final int colorValue;
 
     Color(int value) {
         colorValue = value;

@@ -7,12 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import logisticspipes.gui.hud.modules.HUDSimpleFilterModule;
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleInventoryReceive;
-import logisticspipes.interfaces.IModuleWatchReciver;
+import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsSimpleFilterModule;
 import logisticspipes.network.PacketHandler;
@@ -43,7 +38,7 @@ public class ModulePassiveSupplier extends LogisticsSimpleFilterModule
 
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Requested items", 64);
 
-    private IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
+    private final IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -119,7 +114,7 @@ public class ModulePassiveSupplier extends LogisticsSimpleFilterModule
 
     @Override
     public List<String> getClientInformation() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Supplied: ");
         list.add("<inventory>");
         list.add("<that>");
@@ -182,7 +177,7 @@ public class ModulePassiveSupplier extends LogisticsSimpleFilterModule
     @Override
     public List<ItemIdentifier> getSpecificInterests() {
         Map<ItemIdentifier, Integer> mapIC = _filterInventory.getItemsAndCount();
-        List<ItemIdentifier> li = new ArrayList<ItemIdentifier>(mapIC.size());
+        List<ItemIdentifier> li = new ArrayList<>(mapIC.size());
         li.addAll(mapIC.keySet());
         return li;
     }

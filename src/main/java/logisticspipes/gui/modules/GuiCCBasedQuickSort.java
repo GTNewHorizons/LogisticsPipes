@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 
 public class GuiCCBasedQuickSort extends ModuleBaseGui {
 
-    private ModuleCCBasedQuickSort _sortModule;
+    private final ModuleCCBasedQuickSort _sortModule;
 
     public GuiCCBasedQuickSort(IInventory playerInventory, ModuleCCBasedQuickSort sortModule) {
         super(new DummyContainer(playerInventory, null), sortModule);
@@ -80,7 +80,7 @@ public class GuiCCBasedQuickSort extends ModuleBaseGui {
         super.drawGuiContainerForegroundLayer(par1, par2);
         mc.fontRenderer.drawString(
                 "Timeout Timer", xSize / 2 - mc.fontRenderer.getStringWidth("Timeout Timer") / 2, 10, 0x404040);
-        String timeoutString = Integer.toString(_sortModule.getTimeout()) + " ticks";
+        String timeoutString = _sortModule.getTimeout() + " ticks";
         mc.fontRenderer.drawString(
                 timeoutString, xSize / 2 - mc.fontRenderer.getStringWidth(timeoutString) / 2, 30, 0x404040);
     }

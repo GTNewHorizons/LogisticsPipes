@@ -1,10 +1,6 @@
 package logisticspipes.pipes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.crafting.AutoCraftingInventory;
@@ -63,9 +59,8 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
     private int rotation;
     private boolean init = false;
 
-    private PlayerCollectionList localGuiWatcher = new PlayerCollectionList();
-    public Map<Integer, Pair<IResource, LinkedLogisticsOrderList>> watchedRequests =
-            new HashMap<Integer, Pair<IResource, LinkedLogisticsOrderList>>();
+    private final PlayerCollectionList localGuiWatcher = new PlayerCollectionList();
+    public Map<Integer, Pair<IResource, LinkedLogisticsOrderList>> watchedRequests = new HashMap<>();
     private int localLastUsedWatcherId = 0;
 
     public ItemIdentifier targetType = null;
@@ -274,7 +269,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         for (int i = 0; i < 9; i++) {
             craftInv.setInventorySlotContents(i, matrix.getStackInSlot(i));
         }
-        List<IRecipe> list = new ArrayList<IRecipe>();
+        List<IRecipe> list = new ArrayList<>();
         for (IRecipe r : CraftingUtil.getRecipeList()) {
             if (r.matches(craftInv, getWorld())) {
                 list.add(r);
@@ -330,7 +325,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         for (int i = 0; i < 9; i++) {
             craftInv.setInventorySlotContents(i, matrix.getStackInSlot(i));
         }
-        List<IRecipe> list = new ArrayList<IRecipe>();
+        List<IRecipe> list = new ArrayList<>();
         for (IRecipe r : CraftingUtil.getRecipeList()) {
             if (r.matches(craftInv, getWorld())) {
                 list.add(r);
@@ -574,7 +569,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
             return;
         }
         orders.setWatched();
-        watchedRequests.put(++localLastUsedWatcherId, new Pair<IResource, LinkedLogisticsOrderList>(stack, orders));
+        watchedRequests.put(++localLastUsedWatcherId, new Pair<>(stack, orders));
         MainProxy.sendToPlayerList(
                 PacketHandler.getPacket(OrdererWatchPacket.class)
                         .setOrders(orders)
@@ -616,7 +611,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
     @Override
     public void handleClientSideListInfo(int id, IResource stack, LinkedLogisticsOrderList orders) {
         if (MainProxy.isClient(getWorld())) {
-            watchedRequests.put(id, new Pair<IResource, LinkedLogisticsOrderList>(stack, orders));
+            watchedRequests.put(id, new Pair<>(stack, orders));
         }
     }
 

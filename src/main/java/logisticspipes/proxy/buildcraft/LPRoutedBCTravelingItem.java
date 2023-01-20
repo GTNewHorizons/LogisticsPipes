@@ -11,17 +11,14 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class LPRoutedBCTravelingItem extends TravelingItem {
 
-    private static InsertionHandler LP_INSERTIONHANDLER = new InsertionHandler() {
+    private static final InsertionHandler LP_INSERTIONHANDLER = new InsertionHandler() {
 
         @Override
         public boolean canInsertItem(TravelingItem item, IInventory inv) {
-            if (item.getItemStack() != null
-                    && item.getItemStack().getItem() instanceof IItemAdvancedExistance
-                    && !((IItemAdvancedExistance) item.getItemStack().getItem())
-                            .canExistInNormalInventory(item.getItemStack())) {
-                return false;
-            }
-            return true;
+            return item.getItemStack() == null
+                    || !(item.getItemStack().getItem() instanceof IItemAdvancedExistance)
+                    || ((IItemAdvancedExistance) item.getItemStack().getItem())
+                            .canExistInNormalInventory(item.getItemStack());
         }
     };
 
@@ -31,7 +28,7 @@ public class LPRoutedBCTravelingItem extends TravelingItem {
         setInsertionHandler(LPRoutedBCTravelingItem.LP_INSERTIONHANDLER);
     }
 
-    private SecurityManager hackToGetCaller = new SecurityManager() {
+    private final SecurityManager hackToGetCaller = new SecurityManager() {
 
         @Override
         public Object getSecurityContext() {

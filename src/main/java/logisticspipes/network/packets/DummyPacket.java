@@ -1,6 +1,5 @@
 package logisticspipes.network.packets;
 
-import java.io.IOException;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -13,7 +12,7 @@ public class DummyPacket extends ModernPacket {
     }
 
     @Override
-    public void readData(LPDataInputStream data) throws IOException {
+    public void readData(LPDataInputStream data) {
         throw new RuntimeException("This packet should never be used");
     }
 
@@ -23,7 +22,7 @@ public class DummyPacket extends ModernPacket {
     }
 
     @Override
-    public void writeData(LPDataOutputStream data) throws IOException {
+    public void writeData(LPDataOutputStream data) {
         throw new RuntimeException("This packet should never be used");
     }
 

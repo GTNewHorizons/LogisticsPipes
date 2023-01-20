@@ -1,14 +1,7 @@
 package logisticspipes.request;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.TreeSet;
 import logisticspipes.interfaces.IRequestWatcher;
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.network.PacketHandler;
@@ -35,7 +28,7 @@ public class RequestHandler {
     public enum DisplayOptions {
         Both,
         SupplyOnly,
-        CraftOnly;
+        CraftOnly
     }
 
     public static void request(final EntityPlayer player, final ItemIdentifierStack stack, final CoreRoutedPipe pipe) {
@@ -59,7 +52,7 @@ public class RequestHandler {
 
                     @Override
                     public void handleSucessfullRequestOf(IResource item, LinkedLogisticsOrderList parts) {
-                        Collection<IResource> coll = new ArrayList<IResource>(1);
+                        Collection<IResource> coll = new ArrayList<>(1);
                         coll.add(item);
                         MainProxy.sendPacketToPlayer(
                                 PacketHandler.getPacket(MissingItems.class)
@@ -79,8 +72,8 @@ public class RequestHandler {
     }
 
     public static void simulate(final EntityPlayer player, final ItemIdentifierStack stack, CoreRoutedPipe pipe) {
-        final List<IResource> usedList = new ArrayList<IResource>();
-        final List<IResource> missingList = new ArrayList<IResource>();
+        final List<IResource> usedList = new ArrayList<>();
+        final List<IResource> missingList = new ArrayList<>();
         RequestTree.simulate(stack.clone(), pipe, new RequestLog() {
 
             @Override
@@ -108,15 +101,15 @@ public class RequestHandler {
             _availableItems = SimpleServiceLocator.logisticsManager.getAvailableItems(
                     pipe.getRouter().getIRoutersByCost());
         } else {
-            _availableItems = new HashMap<ItemIdentifier, Integer>();
+            _availableItems = new HashMap<>();
         }
         if (option == DisplayOptions.CraftOnly || option == DisplayOptions.Both) {
             _craftableItems = SimpleServiceLocator.logisticsManager.getCraftableItems(
                     pipe.getRouter().getIRoutersByCost());
         } else {
-            _craftableItems = new LinkedList<ItemIdentifier>();
+            _craftableItems = new LinkedList<>();
         }
-        TreeSet<ItemIdentifierStack> _allItems = new TreeSet<ItemIdentifierStack>();
+        TreeSet<ItemIdentifierStack> _allItems = new TreeSet<>();
 
         for (Entry<ItemIdentifier, Integer> item : _availableItems.entrySet()) {
             ItemIdentifierStack newStack = item.getKey().makeStack(item.getValue());
@@ -180,7 +173,7 @@ public class RequestHandler {
             return;
         }
         NBTTagList list = itemlist.getTagList("inventar", 10);
-        final List<ItemIdentifierStack> transaction = new ArrayList<ItemIdentifierStack>(list.tagCount());
+        final List<ItemIdentifierStack> transaction = new ArrayList<>(list.tagCount());
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound itemnbt = list.getCompoundTagAt(i);
             NBTTagCompound itemNBTContent = itemnbt.getCompoundTag("nbt");
@@ -253,7 +246,7 @@ public class RequestHandler {
                     @Override
                     public void handleSucessfullRequestOf(IResource item, LinkedLogisticsOrderList parts) {
                         status[0] = "DONE";
-                        List<IResource> itemList = new LinkedList<IResource>();
+                        List<IResource> itemList = new LinkedList<>();
                         itemList.add(item);
                         status[1] = itemList;
                     }
@@ -299,7 +292,7 @@ public class RequestHandler {
 
                     @Override
                     public void handleSucessfullRequestOf(IResource item, LinkedLogisticsOrderList parts) {
-                        Collection<IResource> coll = new ArrayList<IResource>(1);
+                        Collection<IResource> coll = new ArrayList<>(1);
                         coll.add(item);
                         MainProxy.sendPacketToPlayer(
                                 PacketHandler.getPacket(MissingItems.class)

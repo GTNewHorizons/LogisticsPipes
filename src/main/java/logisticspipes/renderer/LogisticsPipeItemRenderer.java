@@ -17,8 +17,8 @@ import org.lwjgl.opengl.GL11;
 
 public class LogisticsPipeItemRenderer implements IItemRenderer {
 
-    private PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
-    private LogisticsNewPipeItemRenderer newRenderer;
+    private final PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
+    private final LogisticsNewPipeItemRenderer newRenderer;
 
     private final boolean renderAsBlock;
 
@@ -146,12 +146,9 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         }
         switch (type) {
             case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
-            case EQUIPPED_FIRST_PERSON:
-                return true;
             case INVENTORY:
+            case EQUIPPED_FIRST_PERSON:
+            case EQUIPPED:
                 return true;
             default:
                 return false;
@@ -160,7 +157,7 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
 
     @Override
     public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
-        return config.isUseNewRenderer() ? newRenderer.shouldUseRenderHelper(type, item, helper) : true;
+        return !config.isUseNewRenderer() || newRenderer.shouldUseRenderHelper(type, item, helper);
     }
 
     @Override
@@ -171,16 +168,12 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         }
         switch (type) {
             case ENTITY:
+            case INVENTORY:
                 renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
                 break;
             case EQUIPPED:
-                renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
-                break;
             case EQUIPPED_FIRST_PERSON:
                 renderItem((RenderBlocks) data[0], item, -0.4f, 0.50f, 0.35f);
-                break;
-            case INVENTORY:
-                renderItem((RenderBlocks) data[0], item, -0.5f, -0.5f, -0.5f);
                 break;
             default:
         }

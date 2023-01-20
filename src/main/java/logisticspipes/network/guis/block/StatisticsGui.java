@@ -5,8 +5,6 @@ import java.util.List;
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.blocks.stats.TrackingTask;
 import logisticspipes.gui.GuiStatistics;
-import logisticspipes.network.IReadListObject;
-import logisticspipes.network.IWriteListObject;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
@@ -38,8 +36,7 @@ public class StatisticsGui extends CoordinatesGuiProvider {
         tile.tasks = trackingList;
         GuiStatistics gui = new GuiStatistics(tile);
 
-        DummyContainer dummy = new DummyContainer(player.inventory, null);
-        gui.inventorySlots = dummy;
+        gui.inventorySlots = new DummyContainer(player.inventory, null);
 
         return gui;
     }
@@ -51,8 +48,7 @@ public class StatisticsGui extends CoordinatesGuiProvider {
             return null;
         }
 
-        DummyContainer dummy = new DummyContainer(player, null);
-        return dummy;
+        return new DummyContainer(player, null);
     }
 
     @Override
@@ -63,26 +59,16 @@ public class StatisticsGui extends CoordinatesGuiProvider {
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
         super.writeData(data);
-        data.writeList(trackingList, new IWriteListObject<TrackingTask>() {
-
-            @Override
-            public void writeObject(LPDataOutputStream data, TrackingTask object) throws IOException {
-                object.writeToLPData(data);
-            }
-        });
+        data.writeList(trackingList, (data1, object) -> object.writeToLPData(data1));
     }
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
         super.readData(data);
-        trackingList = data.readList(new IReadListObject<TrackingTask>() {
-
-            @Override
-            public TrackingTask readObject(LPDataInputStream data) throws IOException {
-                TrackingTask object = new TrackingTask();
-                object.readFromLPData(data);
-                return object;
-            }
+        trackingList = data.readList(data1 -> {
+            TrackingTask object = new TrackingTask();
+            object.readFromLPData(data1);
+            return object;
         });
     }
 }

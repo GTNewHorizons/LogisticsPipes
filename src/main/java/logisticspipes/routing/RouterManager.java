@@ -1,20 +1,13 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.routing;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.WeakHashMap;
+import java.util.*;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.interfaces.ISecurityStationManager;
 import logisticspipes.interfaces.routing.IDirectConnectionManager;
@@ -26,15 +19,14 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class RouterManager implements IRouterManager, IDirectConnectionManager, ISecurityStationManager {
 
-    private final ArrayList<IRouter> _routersClient = new ArrayList<IRouter>();
-    private final ArrayList<IRouter> _routersServer = new ArrayList<IRouter>();
-    private final Map<UUID, Integer> _uuidMap = new HashMap<UUID, Integer>();
+    private final ArrayList<IRouter> _routersClient = new ArrayList<>();
+    private final ArrayList<IRouter> _routersServer = new ArrayList<>();
+    private final Map<UUID, Integer> _uuidMap = new HashMap<>();
 
-    private final WeakHashMap<LogisticsSecurityTileEntity, Void> _security =
-            new WeakHashMap<LogisticsSecurityTileEntity, Void>();
-    private List<String> _authorized = new LinkedList<String>();
+    private final WeakHashMap<LogisticsSecurityTileEntity, Void> _security = new WeakHashMap<>();
+    private List<String> _authorized = new LinkedList<>();
 
-    private final ArrayList<DirectConnection> connectedPipes = new ArrayList<DirectConnection>();
+    private final ArrayList<DirectConnection> connectedPipes = new ArrayList<>();
 
     @Override
     public IRouter getRouter(int id) {
@@ -106,15 +98,13 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
                     r = new ServerRouter(UUid, dimension, xCoord, yCoord, zCoord);
 
                     int rId = r.getSimpleID();
-                    if (_routersServer.size() > rId) {
-                        _routersServer.set(rId, r);
-                    } else {
+                    if (_routersServer.size() <= rId) {
                         _routersServer.ensureCapacity(rId + 1);
                         while (_routersServer.size() <= rId) {
                             _routersServer.add(null);
                         }
-                        _routersServer.set(rId, r);
                     }
+                    _routersServer.set(rId, r);
                     _uuidMap.put(r.getId(), r.getSimpleID());
                 }
             }
@@ -135,9 +125,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
      * This assumes you know what you are doing. expect exceptions to be thrown
      * if you pass the wrong side.
      *
-     * @param id
-     * @param side
-     *            false for server, true for client.
+     * @param side false for server, true for client.
      * @return is this a router for the side.
      */
     @Override
@@ -300,9 +288,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
 
     @Override
     public void deauthorizeUUID(UUID id) {
-        if (_authorized.contains(id.toString())) {
-            _authorized.remove(id.toString());
-        }
+        _authorized.remove(id.toString());
         sendClientAuthorizationList();
     }
 
@@ -351,7 +337,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
     public void printAllRouters() {
         for (IRouter router : _routersServer) {
             if (router != null) {
-                System.out.println(router.toString());
+                System.out.println(router);
             }
         }
     }

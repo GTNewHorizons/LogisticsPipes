@@ -5,7 +5,7 @@ import logisticspipes.config.Configs;
 
 public class RoutingTableUpdateThread extends Thread {
 
-    private static PriorityBlockingQueue<Runnable> updateCalls = new PriorityBlockingQueue<Runnable>();
+    private static final PriorityBlockingQueue<Runnable> updateCalls = new PriorityBlockingQueue<>();
 
     private static Long average = 0L;
 
@@ -36,7 +36,7 @@ public class RoutingTableUpdateThread extends Thread {
 
     @Override
     public void run() {
-        Runnable item = null;
+        Runnable item;
         // take blocks until things are available, no need to check
         try {
             while ((item = RoutingTableUpdateThread.updateCalls.take()) != null) {
@@ -51,7 +51,7 @@ public class RoutingTableUpdateThread extends Thread {
                     }
                 }
             }
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
 
         }
     }

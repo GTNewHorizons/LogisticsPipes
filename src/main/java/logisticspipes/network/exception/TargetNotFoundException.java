@@ -18,7 +18,7 @@ public class TargetNotFoundException extends DelayPacketException {
         }
         StackTraceElement[] astacktraceelement = PacketHandler.debugMap.get(packet.getDebugId());
         if (astacktraceelement != null) {
-            List<StackTraceElement> list = new ArrayList<StackTraceElement>();
+            List<StackTraceElement> list = new ArrayList<>();
             for (StackTraceElement element : getStackTrace()) {
                 list.add(element);
                 if (element.getClassName().equals("logisticspipes.network.PacketHandler")) {
@@ -26,14 +26,14 @@ public class TargetNotFoundException extends DelayPacketException {
                 }
             }
             list.remove(0);
-            setStackTrace(list.toArray(new StackTraceElement[list.size()]));
-            list = new ArrayList<StackTraceElement>(Arrays.asList(astacktraceelement));
+            setStackTrace(list.toArray(new StackTraceElement[0]));
+            list = new ArrayList<>(Arrays.asList(astacktraceelement));
             if (list.size() > 2) {
                 list.remove(0);
                 list.remove(0);
             }
             RuntimeException runtime = new RuntimeException("Packet was send from: ");
-            runtime.setStackTrace(list.toArray(new StackTraceElement[list.size()]));
+            runtime.setStackTrace(list.toArray(new StackTraceElement[0]));
             initCause(runtime);
         }
     }

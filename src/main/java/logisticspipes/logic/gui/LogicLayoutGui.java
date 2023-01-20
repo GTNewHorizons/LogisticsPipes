@@ -34,7 +34,7 @@ public class LogicLayoutGui extends LogisticsBaseGuiScreen {
         LEVEL_1(0.5F, 330, 465, 1, 50),
         LEVEL_2(0.25F, 660, 950, 2, 100);
 
-        private ZOOM_LEVEL(float zoom, int bottom, int right, int line, int moveY) {
+        ZOOM_LEVEL(float zoom, int bottom, int right, int line, int moveY) {
             this.zoom = zoom;
             bottomRenderBorder = bottom;
             rightRenderBorder = right;
@@ -93,7 +93,6 @@ public class LogicLayoutGui extends LogisticsBaseGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         /*
@@ -269,8 +268,8 @@ public class LogicLayoutGui extends LogisticsBaseGuiScreen {
         int size = list.size();
         int startLeft = -(size - 1) * (30 / 2) + xPos;
         yPos += 13;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isInProgress()) {
+        for (IOrderInfoProvider iOrderInfoProvider : list) {
+            if (iOrderInfoProvider.isInProgress()) {
                 GL11.glColor4f(0.1F, 0.9F, 0.1F, 1.0F);
             } else {
                 GL11.glColor4f(0.7F, 0.7F, 0.7F, 1.0F);
@@ -279,28 +278,28 @@ public class LogicLayoutGui extends LogisticsBaseGuiScreen {
             mc.getTextureManager().bindTexture(LogicLayoutGui.achievementTextures);
             drawTexturedModalRect(startLeft - 5, yPos - 5, 0, 202, 26, 26);
             GL11.glColor4f(0.7F, 0.7F, 0.7F, 1.0F);
-            renderItemAt(list.get(i).getAsDisplayItem(), startLeft, yPos);
-            if (list.get(i).isInProgress() && list.get(i).getMachineProgress() != 0) {
+            renderItemAt(iOrderInfoProvider.getAsDisplayItem(), startLeft, yPos);
+            if (iOrderInfoProvider.isInProgress() && iOrderInfoProvider.getMachineProgress() != 0) {
                 Gui.drawRect(startLeft - 4, yPos + 20, startLeft + 20, yPos + 24, 0xff000000);
                 Gui.drawRect(startLeft - 3, yPos + 21, startLeft + 19, yPos + 23, 0xffffffff);
                 Gui.drawRect(
                         startLeft - 3,
                         yPos + 21,
-                        startLeft - 3 + (22 * list.get(i).getMachineProgress() / 100),
+                        startLeft - 3 + (22 * iOrderInfoProvider.getMachineProgress() / 100),
                         yPos + 23,
                         0xffff0000);
             }
             if (startLeft - 10 < par1 && par1 < startLeft + 20 && yPos - 6 < par2 && par2 < yPos + 20) {
                 if (guiLeft < par1 && par1 < guiLeft + xSize - 16 && guiTop < par2 && par2 < guiTop + ySize - 16) {
-                    IOrderInfoProvider order = list.get(i);
-                    List<String> tooltipList = new ArrayList<String>();
+                    List<String> tooltipList = new ArrayList<>();
                     tooltipList.add(ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW
-                            + order.getType().name());
-                    tooltipList.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW + order.getRouterId());
+                            + iOrderInfoProvider.getType().name());
+                    tooltipList.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW
+                            + iOrderInfoProvider.getRouterId());
                     tooltip = new Object[] {
                         (int) (par1 * zoom.zoom - 10),
                         (int) (par2 * zoom.zoom),
-                        order.getAsDisplayItem().makeNormalStack(),
+                        iOrderInfoProvider.getAsDisplayItem().makeNormalStack(),
                         true,
                         tooltipList
                     };

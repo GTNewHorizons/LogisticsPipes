@@ -4,5 +4,5 @@ import net.minecraftforge.fluids.Fluid;
 
 public interface IExtraCellsProxy {
 
-    public boolean canSeeFluidInNetwork(Fluid fluid);
+    boolean canSeeFluidInNetwork(Fluid fluid);
 }

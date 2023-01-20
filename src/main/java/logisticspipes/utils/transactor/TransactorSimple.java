@@ -16,8 +16,8 @@ public class TransactorSimple extends Transactor {
 
     @Override
     public int inject(ItemStack stack, ForgeDirection orientation, boolean doAdd) {
-        List<IInvSlot> filledSlots = new ArrayList<IInvSlot>(inventory.getSizeInventory());
-        List<IInvSlot> emptySlots = new ArrayList<IInvSlot>(inventory.getSizeInventory());
+        List<IInvSlot> filledSlots = new ArrayList<>(inventory.getSizeInventory());
+        List<IInvSlot> emptySlots = new ArrayList<>(inventory.getSizeInventory());
         for (IInvSlot slot : InventoryIterator.getIterable(inventory, orientation)) {
             if (slot.canPutStackInSlot(stack)) {
                 if (slot.getStackInSlot() == null) {
@@ -60,11 +60,7 @@ public class TransactorSimple extends Transactor {
     }
 
     /**
-     * @param slot
-     * @param stack
-     * @param injected
-     *            Amount not to move?
-     * @param doAdd
+     * @param injected Amount not to move?
      * @return Return the number of items moved.
      */
     protected int addToSlot(IInvSlot slot, ItemStack stack, int injected, boolean doAdd) {
@@ -109,9 +105,6 @@ public class TransactorSimple extends Transactor {
         if (!stack1.isItemEqual(stack2)) {
             return false;
         }
-        if (!ItemStack.areItemStackTagsEqual(stack1, stack2)) {
-            return false;
-        }
-        return true;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 }

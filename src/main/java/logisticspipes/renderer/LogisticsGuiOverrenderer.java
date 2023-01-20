@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL11;
 public class LogisticsGuiOverrenderer {
 
     @Getter
-    private static LogisticsGuiOverrenderer instance = new LogisticsGuiOverrenderer();
+    private static final LogisticsGuiOverrenderer instance = new LogisticsGuiOverrenderer();
 
     private int oldX;
     private int oldY;
@@ -78,10 +78,7 @@ public class LogisticsGuiOverrenderer {
         if (FMLClientHandler.instance().getClient() == null) {
             return false;
         }
-        if (!(FMLClientHandler.instance().getClient().currentScreen instanceof GuiContainer)) {
-            return false;
-        }
-        return true;
+        return FMLClientHandler.instance().getClient().currentScreen instanceof GuiContainer;
     }
 
     public void preRender() {

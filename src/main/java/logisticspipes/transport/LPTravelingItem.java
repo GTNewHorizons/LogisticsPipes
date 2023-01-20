@@ -1,12 +1,7 @@
 package logisticspipes.transport;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -36,11 +31,9 @@ import net.minecraftforge.fluids.FluidStack;
 
 public abstract class LPTravelingItem {
 
-    public static final Map<Integer, WeakReference<LPTravelingItemServer>> serverList =
-            new HashMap<Integer, WeakReference<LPTravelingItemServer>>();
-    public static final Map<Integer, WeakReference<LPTravelingItemClient>> clientList =
-            new HashMap<Integer, WeakReference<LPTravelingItemClient>>();
-    public static final List<Pair<Integer, Object>> forceKeep = new ArrayList<Pair<Integer, Object>>();
+    public static final Map<Integer, WeakReference<LPTravelingItemServer>> serverList = new HashMap<>();
+    public static final Map<Integer, WeakReference<LPTravelingItemClient>> clientList = new HashMap<>();
+    public static final List<Pair<Integer, Object>> forceKeep = new ArrayList<>();
     public static final SlidingWindowBitSet clientSideKnownIDs = new SlidingWindowBitSet(20); // 20
 
     private static int nextFreeId = 0;
@@ -124,7 +117,7 @@ public abstract class LPTravelingItem {
         private ItemIdentifierStack item;
 
         private int age;
-        private float hoverStart = (float) (Math.random() * Math.PI * 2.0D);
+        private final float hoverStart = (float) (Math.random() * Math.PI * 2.0D);
 
         public LPTravelingItemClient(int id, float position, ForgeDirection input, ForgeDirection output) {
             super(id, position, input, output);

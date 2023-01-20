@@ -10,8 +10,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public class LPPeripheralTileSolidWrapper implements IPeripheral {
 
     private final ForgeDirection dir;
-    private CCCommandWrapper wrapped;
-    private LogisticsSolidTileEntity tile;
+    private final CCCommandWrapper wrapped;
+    private final LogisticsSolidTileEntity tile;
 
     public LPPeripheralTileSolidWrapper(LogisticsSolidTileEntity tile, ForgeDirection dir) {
         this.tile = tile;

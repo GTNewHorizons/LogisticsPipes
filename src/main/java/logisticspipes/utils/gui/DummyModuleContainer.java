@@ -12,9 +12,9 @@ import net.minecraft.item.ItemStack;
 
 public class DummyModuleContainer extends DummyContainer {
 
-    private ItemStack moduleStack;
-    private LogisticsModule module;
-    private int slot;
+    private final ItemStack moduleStack;
+    private final LogisticsModule module;
+    private final int slot;
 
     public DummyModuleContainer(EntityPlayer player, int slot) {
         super(player.inventory, null);

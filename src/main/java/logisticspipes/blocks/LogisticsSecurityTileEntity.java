@@ -1,12 +1,7 @@
 package logisticspipes.blocks;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.UUID;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.IRoutedPowerProvider;
@@ -18,11 +13,7 @@ import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.guis.block.SecurityStationGui;
-import logisticspipes.network.packets.block.SecurityStationAutoDestroy;
-import logisticspipes.network.packets.block.SecurityStationCC;
-import logisticspipes.network.packets.block.SecurityStationCCIDs;
-import logisticspipes.network.packets.block.SecurityStationId;
-import logisticspipes.network.packets.block.SecurityStationOpenPlayer;
+import logisticspipes.network.packets.block.*;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -46,10 +37,10 @@ public class LogisticsSecurityTileEntity extends LogisticsSolidTileEntity
         implements IGuiOpenControler, ISecurityProvider, IGuiTileEntity {
 
     public ItemIdentifierInventory inv = new ItemIdentifierInventory(1, "ID Slots", 64);
-    private PlayerCollectionList listener = new PlayerCollectionList();
+    private final PlayerCollectionList listener = new PlayerCollectionList();
     private UUID secId = null;
-    private Map<String, SecuritySettings> settingsList = new HashMap<String, SecuritySettings>();
-    public List<Integer> excludedCC = new ArrayList<Integer>();
+    private final Map<String, SecuritySettings> settingsList = new HashMap<>();
+    public List<Integer> excludedCC = new ArrayList<>();
     public boolean allowCC = false;
     public boolean allowAutoDestroy = false;
 

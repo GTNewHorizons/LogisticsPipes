@@ -10,7 +10,7 @@ import logisticspipes.asm.te.LPTileEntityObject;
  */
 public class CacheHolder {
 
-    public static enum CacheTypes {
+    public enum CacheTypes {
         /**
          * <p>
          * Cleared when pipes [every supported type] are added to the network.

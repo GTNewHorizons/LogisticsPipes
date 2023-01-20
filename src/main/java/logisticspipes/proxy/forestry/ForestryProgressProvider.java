@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ForestryProgressProvider implements IGenericProgressProvider {
 
-    private Field workCounter;
+    private final Field workCounter;
 
     public ForestryProgressProvider() throws NoSuchFieldException, SecurityException {
         workCounter = TilePowered.class.getDeclaredField("workCounter");
@@ -22,10 +22,8 @@ public class ForestryProgressProvider implements IGenericProgressProvider {
     @Override
     public byte getProgress(TileEntity tile) {
         try {
-            return (byte) Math.max(0, Math.min(((Integer) workCounter.get(tile)).intValue() * 4, 100));
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+            return (byte) Math.max(0, Math.min((Integer) workCounter.get(tile) * 4, 100));
+        } catch (IllegalArgumentException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

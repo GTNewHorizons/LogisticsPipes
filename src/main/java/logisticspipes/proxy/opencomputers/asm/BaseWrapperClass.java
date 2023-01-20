@@ -42,8 +42,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
 
     public static final ICommandWrapper WRAPPER = new ICommandWrapper() {
 
-        private Map<Class<?>, Class<? extends BaseWrapperClass>> map =
-                new HashMap<Class<?>, Class<? extends BaseWrapperClass>>();
+        private final Map<Class<?>, Class<? extends BaseWrapperClass>> map = new HashMap<>();
 
         @Override
         public Object getWrappedObject(CCWrapperInformation info, Object object) {
@@ -94,7 +93,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
             if (help.length() != 0) {
                 command.append("\n");
             }
-            int number = num.intValue();
+            int number = num;
             if (number < 10) {
                 command.append(" ");
             }
@@ -126,8 +125,8 @@ public abstract class BaseWrapperClass extends AbstractValue {
             if (param.toString().length() + command.length() > 50) {
                 command.append("\n      ---");
             }
-            command.append(param.toString());
-            help.append(command.toString());
+            command.append(param);
+            help.append(command);
         }
         String commands = help.toString();
         String[] lines = commands.split("\n");
@@ -142,13 +141,13 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 }
             }
             StringBuilder page = new StringBuilder();
-            page.append(head.toString());
+            page.append(head);
             page.append("Page ");
             page.append(pageNumber);
             page.append(" of ");
-            page.append((int) (Math.floor(lines.length / 10) + (lines.length % 10 == 0 ? 0 : 1)));
+            page.append(lines.length / 10 + (lines.length % 10 == 0 ? 0 : 1));
             page.append("\n");
-            page.append(head2.toString());
+            page.append(head2);
             pageNumber--;
             int from = pageNumber * 11;
             int to = pageNumber * 11 + 11;
@@ -168,9 +167,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 head.append("\n").append(buffer);
             }
         }
-        return new Object[] {
-            new StringBuilder().append(head).append(head2).append(help).toString()
-        };
+        return new Object[] {String.valueOf(head) + head2 + help};
     }
 
     @Callback(direct = true)
@@ -235,11 +232,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                                 + ((ICCTypeWrapped) object).getObject().toString();
                     }
                 }
-            } catch (NoSuchMethodException e) {
-                if (LPConstants.DEBUG) {
-                    e.printStackTrace();
-                }
-            } catch (SecurityException e) {
+            } catch (NoSuchMethodException | SecurityException e) {
                 if (LPConstants.DEBUG) {
                     e.printStackTrace();
                 }
@@ -377,72 +370,64 @@ public abstract class BaseWrapperClass extends AbstractValue {
         if (type.equals("")) {
             return;
         }
-        if (type.equals("LPGlobalCCAccess")) {
+        if ("LPGlobalCCAccess".equals(type)) {
             object = LogisticsPipes.getComputerLP();
             checkType();
-        } else if (type.equals("CoreRoutedPipe")) {
+        } else if ("CoreRoutedPipe".equals(type)) {
             int x = nbt.getInteger("X");
             int y = nbt.getInteger("Y");
             int z = nbt.getInteger("Z");
             final LPPosition pos = new LPPosition(x, y, z);
             final int dim = nbt.getInteger("Dim");
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    World world = DimensionManager.getWorld(dim);
-                    if (world != null) {
-                        TileEntity tile = pos.getTileEntity(world);
-                        if (tile instanceof LogisticsTileGenericPipe
-                                && ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
-                            object = ((LogisticsTileGenericPipe) tile).pipe;
-                            checkType();
-                        }
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+                World world = DimensionManager.getWorld(dim);
+                if (world != null) {
+                    TileEntity tile = pos.getTileEntity(world);
+                    if (tile instanceof LogisticsTileGenericPipe
+                            && ((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe) {
+                        object = ((LogisticsTileGenericPipe) tile).pipe;
+                        checkType();
                     }
-                    return null;
                 }
+                return null;
             });
-        } else if (type.equals("CCItemIdentifierImplementation")) {
+        } else if ("CCItemIdentifierImplementation".equals(type)) {
             ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
             if (stack != null) {
                 object = new CCItemIdentifierImplementation(ItemIdentifier.get(stack));
                 checkType();
             }
-        } else if (type.equals("CCItemIdentifierStackImplementation")) {
+        } else if ("CCItemIdentifierStackImplementation".equals(type)) {
             ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
             if (stack != null) {
                 object = new CCItemIdentifierStackImplementation(ItemIdentifierStack.getFromStack(stack));
                 checkType();
             }
-        } else if (type.equals("CCItemIdentifierBuilder")) {
+        } else if ("CCItemIdentifierBuilder".equals(type)) {
             ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
             if (stack != null) {
                 CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
                 builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
-                builder.setItemData(Double.valueOf(stack.getItemDamage()));
+                builder.setItemData((double) stack.getItemDamage());
                 object = builder;
                 checkType();
             }
-        } else if (type.equals("LogisticsSolidTileEntity")) {
+        } else if ("LogisticsSolidTileEntity".equals(type)) {
             int x = nbt.getInteger("X");
             int y = nbt.getInteger("Y");
             int z = nbt.getInteger("Z");
             final LPPosition pos = new LPPosition(x, y, z);
             final int dim = nbt.getInteger("Dim");
-            QueuedTasks.queueTask(new Callable<Object>() {
-
-                @Override
-                public Object call() throws Exception {
-                    World world = DimensionManager.getWorld(dim);
-                    if (world != null) {
-                        TileEntity tile = pos.getTileEntity(world);
-                        if (tile instanceof LogisticsSolidTileEntity) {
-                            object = tile;
-                            checkType();
-                        }
+            QueuedTasks.queueTask((Callable<Object>) () -> {
+                World world = DimensionManager.getWorld(dim);
+                if (world != null) {
+                    TileEntity tile = pos.getTileEntity(world);
+                    if (tile instanceof LogisticsSolidTileEntity) {
+                        object = tile;
+                        checkType();
                     }
-                    return null;
                 }
+                return null;
             });
         } else {
             System.out.println("Unknown type to load");

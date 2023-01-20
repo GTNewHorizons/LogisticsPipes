@@ -1,8 +1,8 @@
-/**
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.gui;
 
 import logisticspipes.network.PacketHandler;
@@ -24,7 +24,7 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
 
     private static final String PREFIX = "gui.fluidsuppliermk2.";
 
-    private PipeFluidSupplierMk2 logic;
+    private final PipeFluidSupplierMk2 logic;
 
     public GuiFluidSupplierMk2Pipe(IInventory playerInventory, IInventory dummyInventory, PipeFluidSupplierMk2 logic) {
         super(null);
@@ -151,7 +151,7 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
             if (guibutton.id % 10 == 1) {
                 change = -1;
             }
-            change *= Math.pow(10, guibutton.id / 10 - 1);
+            change *= Math.pow(10, (double) guibutton.id / 10 - 1);
             MainProxy.sendPacketToServer(PacketHandler.getPacket(FluidSupplierAmount.class)
                     .setInteger(change)
                     .setPosX(logic.getX())

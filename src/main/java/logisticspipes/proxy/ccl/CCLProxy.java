@@ -2,16 +2,8 @@ package logisticspipes.proxy.ccl;
 
 import codechicken.lib.render.CCModel;
 import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.uv.IconTransformation;
-import codechicken.lib.render.uv.UVScale;
-import codechicken.lib.render.uv.UVTransformation;
-import codechicken.lib.render.uv.UVTransformationList;
-import codechicken.lib.render.uv.UVTranslation;
-import codechicken.lib.vec.Rotation;
-import codechicken.lib.vec.Scale;
-import codechicken.lib.vec.Transformation;
-import codechicken.lib.vec.Translation;
-import codechicken.lib.vec.Vector3;
+import codechicken.lib.render.uv.*;
+import codechicken.lib.vec.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,12 +14,7 @@ import java.util.Map.Entry;
 import logisticspipes.proxy.DontLoadProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
-import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
-import logisticspipes.proxy.object3d.interfaces.IModel3D;
-import logisticspipes.proxy.object3d.interfaces.IRenderState;
-import logisticspipes.proxy.object3d.interfaces.ITranslation;
-import logisticspipes.proxy.object3d.interfaces.IVec3;
+import logisticspipes.proxy.object3d.interfaces.*;
 import logisticspipes.proxy.object3d.operation.LPScale;
 import net.minecraft.util.IIcon;
 
@@ -81,7 +68,7 @@ public class CCLProxy implements ICCLProxy {
 
     @Override
     public Map<String, IModel3D> parseObjModels(InputStream resourceAsStream, int i, LPScale scale) throws IOException {
-        Map<String, IModel3D> target = new HashMap<String, IModel3D>();
+        Map<String, IModel3D> target = new HashMap<>();
         Map<String, CCModel> source = CCModel.parseObjModels(resourceAsStream, i, (Transformation) scale.getOriginal());
         for (Entry<String, CCModel> entry : source.entrySet()) {
             target.put(entry.getKey(), SimpleServiceLocator.cclProxy.wrapModel(entry.getValue()));
@@ -132,11 +119,11 @@ public class CCLProxy implements ICCLProxy {
 
     @Override
     public Object getUVTransformationList(I3DOperation[] uvTranslation) {
-        List<UVTransformation> transforms = new ArrayList<UVTransformation>();
+        List<UVTransformation> transforms = new ArrayList<>();
         for (I3DOperation op : uvTranslation) {
             transforms.add((UVTransformation) op.getOriginal());
         }
-        return new UVTransformationList(transforms.toArray(new UVTransformation[transforms.size()]));
+        return new UVTransformationList(transforms.toArray(new UVTransformation[0]));
     }
 
     @Override

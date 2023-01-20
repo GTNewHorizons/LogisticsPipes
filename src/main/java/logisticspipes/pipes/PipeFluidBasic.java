@@ -23,7 +23,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
 
     public ItemIdentifierInventory filterInv = new ItemIdentifierInventory(1, "Dummy", 1, true);
-    private PlayerCollectionList guiOpenedBy = new PlayerCollectionList();
+    private final PlayerCollectionList guiOpenedBy = new PlayerCollectionList();
 
     public PipeFluidBasic(Item item) {
         super(item);

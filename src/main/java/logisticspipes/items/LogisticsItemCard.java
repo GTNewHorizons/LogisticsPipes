@@ -20,7 +20,7 @@ public class LogisticsItemCard extends LogisticsItem implements IItemAdvancedExi
         hasSubtypes = true;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked"})
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
@@ -65,9 +65,6 @@ public class LogisticsItemCard extends LogisticsItem implements IItemAdvancedExi
 
     @Override
     public boolean canExistInWorld(ItemStack stack) {
-        if (stack.getItemDamage() == LogisticsItemCard.SEC_CARD) {
-            return false;
-        }
-        return true;
+        return stack.getItemDamage() != LogisticsItemCard.SEC_CARD;
     }
 }

@@ -1,13 +1,12 @@
-/**
- * Copyright (c) Krapht, 2011
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
- * http://www.mod-buildcraft.com/MMPL-1.0.txt
- */
+/*
+ Copyright (c) Krapht, 2011
+
+ "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
+ License 1.0, or MMPL. Please check the contents of the license located in
+ http://www.mod-buildcraft.com/MMPL-1.0.txt
+*/
 package logisticspipes.gui;
 
-import logisticspipes.interfaces.ISlotCheck;
 import logisticspipes.items.ItemModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.PacketHandler;
@@ -38,7 +37,7 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
     private int left;
     private int top;
 
-    private boolean hasUpgradeModuleUpgarde;
+    private final boolean hasUpgradeModuleUpgarde;
 
     public GuiChassiPipe(
             EntityPlayer player,
@@ -80,20 +79,18 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
             for (int i = 0; i < _chassiPipe.getChassiSize(); i++) {
                 final int fI = i;
                 ModuleUpgradeManager upgradeManager = _chassiPipe.getModuleUpgradeManager(i);
-                dummy.addRestrictedSlot(0, upgradeManager.getInv(), 145, 9 + i * 20, new ISlotCheck() {
-
-                    @Override
-                    public boolean isStackAllowed(ItemStack itemStack) {
-                        return ChassiGuiProvider.checkStack(itemStack, _chassiPipe, fI);
-                    }
-                });
-                dummy.addRestrictedSlot(1, upgradeManager.getInv(), 165, 9 + i * 20, new ISlotCheck() {
-
-                    @Override
-                    public boolean isStackAllowed(ItemStack itemStack) {
-                        return ChassiGuiProvider.checkStack(itemStack, _chassiPipe, fI);
-                    }
-                });
+                dummy.addRestrictedSlot(
+                        0,
+                        upgradeManager.getInv(),
+                        145,
+                        9 + i * 20,
+                        itemStack -> ChassiGuiProvider.checkStack(itemStack, _chassiPipe, fI));
+                dummy.addRestrictedSlot(
+                        1,
+                        upgradeManager.getInv(),
+                        165,
+                        9 + i * 20,
+                        itemStack -> ChassiGuiProvider.checkStack(itemStack, _chassiPipe, fI));
             }
         }
 
@@ -189,7 +186,9 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
         if (!(_moduleInventory.getStackInSlot(slot).getItem() instanceof ItemModule)) {
             return "";
         }
-        String name = ((ItemModule) _moduleInventory.getStackInSlot(slot).getItem())
+        String name = _moduleInventory
+                .getStackInSlot(slot)
+                .getItem()
                 .getItemStackDisplayName(_moduleInventory.getStackInSlot(slot));
         if (!hasUpgradeModuleUpgarde) {
             return name;

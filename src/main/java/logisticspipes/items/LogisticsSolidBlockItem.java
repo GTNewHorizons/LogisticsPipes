@@ -58,7 +58,7 @@ public class LogisticsSolidBlockItem extends ItemBlock {
         return par1;
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(this, 1, LogisticsSolidBlock.SOLDERING_STATION));
