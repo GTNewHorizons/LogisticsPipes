@@ -2,6 +2,7 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 import java.util.List;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
@@ -11,6 +12,7 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.routing.ExitRoute;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)

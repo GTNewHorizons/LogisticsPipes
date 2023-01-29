@@ -1,6 +1,7 @@
 package logisticspipes.utils.gui;
 
 import logisticspipes.interfaces.ISlotClick;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

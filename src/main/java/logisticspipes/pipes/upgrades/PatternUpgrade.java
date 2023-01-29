@@ -24,7 +24,7 @@ public class PatternUpgrade implements IPipeUpgrade {
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] {"supplier"};
+        return new String[] { "supplier" };
     }
 
     @Override

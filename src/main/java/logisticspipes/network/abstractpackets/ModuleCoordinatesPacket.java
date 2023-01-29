@@ -1,6 +1,7 @@
 package logisticspipes.network.abstractpackets;
 
 import java.io.IOException;
+
 import logisticspipes.LPConstants;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
@@ -14,6 +15,7 @@ import logisticspipes.utils.gui.DummyModuleContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 

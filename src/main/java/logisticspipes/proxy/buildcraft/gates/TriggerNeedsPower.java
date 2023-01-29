@@ -1,13 +1,15 @@
 package logisticspipes.proxy.buildcraft.gates;
 
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerExternal;
 import logisticspipes.blocks.LogisticsSolderingTileEntity;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.textures.provider.LPActionTriggerIconProvider;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerExternal;
 
 public class TriggerNeedsPower extends LPTrigger implements ITriggerExternal {
 
@@ -26,10 +28,7 @@ public class TriggerNeedsPower extends LPTrigger implements ITriggerExternal {
     }
 
     @Override
-    public boolean isTriggerActive(
-            TileEntity tile,
-            ForgeDirection dir,
-            IStatementContainer paramIStatementContainer,
+    public boolean isTriggerActive(TileEntity tile, ForgeDirection dir, IStatementContainer paramIStatementContainer,
             IStatementParameter[] paramArrayOfIStatementParameter) {
         if (tile instanceof LogisticsPowerJunctionTileEntity) {
             LogisticsPowerJunctionTileEntity LPJTE = (LogisticsPowerJunctionTileEntity) tile;

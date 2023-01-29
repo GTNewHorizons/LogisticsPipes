@@ -1,9 +1,11 @@
 package logisticspipes.utils;
 
+import java.util.Set;
+
+import logisticspipes.asm.te.LPTileEntityObject;
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import java.util.Set;
-import logisticspipes.asm.te.LPTileEntityObject;
 
 /**
  * Cache is cleared every 200 ticks when used on Routed Pipes.
@@ -19,10 +21,8 @@ public class CacheHolder {
         Routing,
         /**
          * <p>
-         * Cleared when an item is inserted or extracted from an adjacent
-         * inventory<br>
-         * The Extraction trigger needs to be implemented separately for every
-         * use case.
+         * Cleared when an item is inserted or extracted from an adjacent inventory<br>
+         * The Extraction trigger needs to be implemented separately for every use case.
          * </p>
          */
         Inventory

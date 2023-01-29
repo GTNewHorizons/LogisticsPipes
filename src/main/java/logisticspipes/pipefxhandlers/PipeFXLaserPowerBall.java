@@ -1,9 +1,10 @@
 package logisticspipes.pipefxhandlers;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.Random;
+
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.experimental.Accessors;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -11,13 +12,17 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 @Accessors(chain = true)
 public class PipeFXLaserPowerBall extends EntityFX {
 
-    private static final ResourceLocation ball =
-            new ResourceLocation("logisticspipes", "textures/particles/laserBall.png");
+    private static final ResourceLocation ball = new ResourceLocation(
+            "logisticspipes",
+            "textures/particles/laserBall.png");
     private static final ResourceLocation field_110737_b = new ResourceLocation("textures/particle/particles.png");
     private static final int ROTATIONSPEED = 5;
     private static final Random RAND = new Random();
@@ -63,10 +68,8 @@ public class PipeFXLaserPowerBall extends EntityFX {
     public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5) {
         tessellator.draw();
         GL11.glPushMatrix();
-        float rot = (worldObj.provider.getWorldTime() + random)
-                        % ((float) (360 / PipeFXLaserPowerBall.ROTATIONSPEED))
-                        * PipeFXLaserPowerBall.ROTATIONSPEED
-                + PipeFXLaserPowerBall.ROTATIONSPEED * f;
+        float rot = (worldObj.provider.getWorldTime() + random) % ((float) (360 / PipeFXLaserPowerBall.ROTATIONSPEED))
+                * PipeFXLaserPowerBall.ROTATIONSPEED + PipeFXLaserPowerBall.ROTATIONSPEED * f;
 
         GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
         GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);

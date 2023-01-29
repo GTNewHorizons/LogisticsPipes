@@ -1,10 +1,9 @@
 package logisticspipes.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IWorldProvider;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
@@ -19,6 +18,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +30,11 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemModule extends LogisticsItem {
 
@@ -98,12 +102,8 @@ public class ItemModule extends LogisticsItem {
             }
             try {
                 return moduleClass.getConstructor(new Class[] {}).newInstance();
-            } catch (IllegalArgumentException
-                    | InstantiationException
-                    | NoSuchMethodException
-                    | InvocationTargetException
-                    | IllegalAccessException
-                    | SecurityException e) {
+            } catch (IllegalArgumentException | InstantiationException | NoSuchMethodException
+                    | InvocationTargetException | IllegalAccessException | SecurityException e) {
                 e.printStackTrace();
             }
             return null;
@@ -124,8 +124,8 @@ public class ItemModule extends LogisticsItem {
         @SideOnly(Side.CLIENT)
         private void registerModuleIcon(IIconRegister par1IIconRegister) {
             if (moduleClass == null) {
-                moduleIcon = par1IIconRegister.registerIcon(
-                        "logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/blank");
+                moduleIcon = par1IIconRegister
+                        .registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/blank");
             } else {
                 try {
                     LogisticsModule instance = moduleClass.newInstance();
@@ -212,7 +212,7 @@ public class ItemModule extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (Module module : modules) {
@@ -243,8 +243,8 @@ public class ItemModule extends LogisticsItem {
     }
 
     @Override
-    public ItemStack onItemRightClick(
-            final ItemStack par1ItemStack, final World par2World, final EntityPlayer par3EntityPlayer) {
+    public ItemStack onItemRightClick(final ItemStack par1ItemStack, final World par2World,
+            final EntityPlayer par3EntityPlayer) {
         if (MainProxy.isServer(par3EntityPlayer.worldObj)) {
             openConfigGui(par1ItemStack, par3EntityPlayer, par2World);
         }
@@ -252,23 +252,13 @@ public class ItemModule extends LogisticsItem {
     }
 
     @Override
-    public boolean onItemUse(
-            final ItemStack par1ItemStack,
-            final EntityPlayer par2EntityPlayer,
-            final World par3World,
-            int par4,
-            int par5,
-            int par6,
-            int par7,
-            float par8,
-            float par9,
-            float par10) {
+    public boolean onItemUse(final ItemStack par1ItemStack, final EntityPlayer par2EntityPlayer, final World par3World,
+            int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
         if (MainProxy.isServer(par2EntityPlayer.worldObj)) {
             TileEntity tile = par3World.getTileEntity(par4, par5, par6);
             if (tile instanceof LogisticsTileGenericPipe) {
-                if (par2EntityPlayer
-                        .getDisplayName()
-                        .equals("ComputerCraft")) { // Allow turtle to place modules in pipes.
+                if (par2EntityPlayer.getDisplayName().equals("ComputerCraft")) { // Allow turtle to place modules in
+                                                                                 // pipes.
                     CoreUnroutedPipe pipe = LogisticsBlockGenericPipe.getPipe(par3World, par4, par5, par6);
                     if (LogisticsBlockGenericPipe.isValid(pipe)) {
                         pipe.blockActivated(par2EntityPlayer);
@@ -281,8 +271,8 @@ public class ItemModule extends LogisticsItem {
         return true;
     }
 
-    public LogisticsModule getModuleForItem(
-            ItemStack itemStack, LogisticsModule currentModule, IWorldProvider world, IPipeServiceProvider service) {
+    public LogisticsModule getModuleForItem(ItemStack itemStack, LogisticsModule currentModule, IWorldProvider world,
+            IPipeServiceProvider service) {
         if (itemStack == null) {
             return null;
         }
@@ -347,7 +337,7 @@ public class ItemModule extends LogisticsItem {
         return null;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
         if (itemStack.hasTagCompound()) {
@@ -364,13 +354,14 @@ public class ItemModule extends LogisticsItem {
                             if (data.startsWith("<that>")) {
                                 String prefix = data.substring(6);
                                 NBTTagCompound module = nbt.getCompoundTag("moduleInformation");
-                                int size = module.getTagList(prefix + "items", module.getId())
-                                        .tagCount();
+                                int size = module.getTagList(prefix + "items", module.getId()).tagCount();
                                 if (module.hasKey(prefix + "itemsCount")) {
                                     size = module.getInteger(prefix + "itemsCount");
                                 }
                                 ItemIdentifierInventory inv = new ItemIdentifierInventory(
-                                        size, "InformationTempInventory", Integer.MAX_VALUE);
+                                        size,
+                                        "InformationTempInventory",
+                                        Integer.MAX_VALUE);
                                 inv.readFromNBT(module, prefix);
                                 for (int pos = 0; pos < inv.getSizeInventory(); pos++) {
                                     ItemIdentifierStack stack = inv.getIDStackInSlot(pos);

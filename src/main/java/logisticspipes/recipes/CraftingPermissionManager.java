@@ -4,12 +4,14 @@ import java.io.*;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+
 import logisticspipes.blocks.crafting.AutoCraftingInventory;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.CraftingPermissionPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.PlayerIdentifier;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.InventoryCrafting;
@@ -106,7 +108,6 @@ public class CraftingPermissionManager {
 
     public void sendCraftingPermissionsToPlayer(EntityPlayer player) {
         EnumSet<CraftingDependency> set = getEnumSet(PlayerIdentifier.get(player));
-        MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(CraftingPermissionPacket.class).setEnumSet(set), player);
+        MainProxy.sendPacketToPlayer(PacketHandler.getPacket(CraftingPermissionPacket.class).setEnumSet(set), player);
     }
 }

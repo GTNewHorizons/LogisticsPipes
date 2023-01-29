@@ -1,6 +1,7 @@
 package logisticspipes.network.abstractguis;
 
 import java.io.IOException;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.LPDataInputStream;
@@ -10,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

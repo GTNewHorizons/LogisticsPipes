@@ -2,6 +2,7 @@ package logisticspipes.gui;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.gui.popup.GuiEditCCAccessTable;
@@ -16,11 +17,13 @@ import logisticspipes.security.SecuritySettings;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.*;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+
 import org.lwjgl.input.Keyboard;
 
 public class GuiSecurityStation extends LogisticsBaseGuiScreen implements PlayerListReciver {
@@ -68,24 +71,43 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
         buttonList.add(new GuiButton(2, guiLeft + 45, guiTop + 139, 30, 20, "+"));
         buttonList.add(new GuiButton(3, guiLeft + 140, guiTop + 179, 30, 20, "++"));
         ((GuiButton) buttonList.get(3)).visible = false;
-        buttonList.add(new SmallGuiButton(
-                4, guiLeft + 241, guiTop + 217, 30, 10, StringUtils.translate(GuiSecurityStation.PREFIX + "Open")));
+        buttonList.add(
+                new SmallGuiButton(
+                        4,
+                        guiLeft + 241,
+                        guiTop + 217,
+                        30,
+                        10,
+                        StringUtils.translate(GuiSecurityStation.PREFIX + "Open")));
         buttonList.add(new GuiCheckBox(5, guiLeft + 160, guiTop + 42, 16, 16, _tile.allowCC));
-        buttonList.add(new SmallGuiButton(
-                6, guiLeft + 162, guiTop + 60, 60, 10, StringUtils.translate(GuiSecurityStation.PREFIX + "EditTable")));
+        buttonList.add(
+                new SmallGuiButton(
+                        6,
+                        guiLeft + 162,
+                        guiTop + 60,
+                        60,
+                        10,
+                        StringUtils.translate(GuiSecurityStation.PREFIX + "EditTable")));
         if (!SimpleServiceLocator.ccProxy.isCC() && !LPConstants.DEBUG) {
             ((GuiButton) buttonList.get(5)).visible = false;
             ((GuiButton) buttonList.get(6)).visible = false;
         }
-        buttonList.add(new GuiButton(
-                7, guiLeft + 55, guiTop + 95, 70, 20, StringUtils.translate(GuiSecurityStation.PREFIX + "Authorize")));
-        buttonList.add(new GuiButton(
-                8,
-                guiLeft + 175,
-                guiTop + 95,
-                70,
-                20,
-                StringUtils.translate(GuiSecurityStation.PREFIX + "Deauthorize")));
+        buttonList.add(
+                new GuiButton(
+                        7,
+                        guiLeft + 55,
+                        guiTop + 95,
+                        70,
+                        20,
+                        StringUtils.translate(GuiSecurityStation.PREFIX + "Authorize")));
+        buttonList.add(
+                new GuiButton(
+                        8,
+                        guiLeft + 175,
+                        guiTop + 95,
+                        70,
+                        20,
+                        StringUtils.translate(GuiSecurityStation.PREFIX + "Deauthorize")));
         buttonList.add(new GuiCheckBox(9, guiLeft + 160, guiTop + 74, 16, 16, _tile.allowAutoDestroy));
         MainProxy.sendPacketToServer(PacketHandler.getPacket(PlayerListRequest.class));
     }
@@ -93,55 +115,43 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
     @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id < 4) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityCardPacket.class)
-                    .setInteger(button.id)
-                    .setPosX(_tile.xCoord)
-                    .setPosY(_tile.yCoord)
-                    .setPosZ(_tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(SecurityCardPacket.class).setInteger(button.id).setPosX(_tile.xCoord)
+                            .setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
         } else if (button.id == 4) {
             if (searchinput1 + searchinput2 != null && ((searchinput1 + searchinput2).length() != 0)) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityStationOpenPlayerRequest.class)
-                        .setString(searchinput1 + searchinput2)
-                        .setPosX(_tile.xCoord)
-                        .setPosY(_tile.yCoord)
-                        .setPosZ(_tile.zCoord));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(SecurityStationOpenPlayerRequest.class)
+                                .setString(searchinput1 + searchinput2).setPosX(_tile.xCoord).setPosY(_tile.yCoord)
+                                .setPosZ(_tile.zCoord));
             }
         } else if (button.id == 5) {
             _tile.allowCC = !_tile.allowCC;
             refreshCheckBoxes();
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityStationCC.class)
-                    .setInteger(_tile.allowCC ? 1 : 0)
-                    .setPosX(_tile.xCoord)
-                    .setPosY(_tile.yCoord)
-                    .setPosZ(_tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(SecurityStationCC.class).setInteger(_tile.allowCC ? 1 : 0)
+                            .setPosX(_tile.xCoord).setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
         } else if (button.id == 6) {
             setSubGui(new GuiEditCCAccessTable(_tile));
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityRequestCCIdsPacket.class)
-                    .setPosX(_tile.xCoord)
-                    .setPosY(_tile.yCoord)
-                    .setPosZ(_tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(SecurityRequestCCIdsPacket.class).setPosX(_tile.xCoord)
+                            .setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
         } else if (button.id == 7) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityAuthorizationPacket.class)
-                    .setInteger(1)
-                    .setPosX(_tile.xCoord)
-                    .setPosY(_tile.yCoord)
-                    .setPosZ(_tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(SecurityAuthorizationPacket.class).setInteger(1).setPosX(_tile.xCoord)
+                            .setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
             authorized = true;
         } else if (button.id == 8) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityAuthorizationPacket.class)
-                    .setInteger(0)
-                    .setPosX(_tile.xCoord)
-                    .setPosY(_tile.yCoord)
-                    .setPosZ(_tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(SecurityAuthorizationPacket.class).setInteger(0).setPosX(_tile.xCoord)
+                            .setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
             authorized = false;
         } else if (button.id == 9) {
             _tile.allowAutoDestroy = !_tile.allowAutoDestroy;
             refreshCheckBoxes();
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityStationAutoDestroy.class)
-                    .setInteger(_tile.allowAutoDestroy ? 1 : 0)
-                    .setPosX(_tile.xCoord)
-                    .setPosY(_tile.yCoord)
-                    .setPosZ(_tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(SecurityStationAutoDestroy.class).setInteger(_tile.allowAutoDestroy ? 1 : 0)
+                            .setPosX(_tile.xCoord).setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
         } else {
             super.actionPerformed(button);
         }
@@ -158,7 +168,10 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
                 guiTop + 10,
                 0x404040);
         mc.fontRenderer.drawString(
-                _tile.getSecId() == null ? "null" : _tile.getSecId().toString(), guiLeft + 32, guiTop + 25, 0x404040);
+                _tile.getSecId() == null ? "null" : _tile.getSecId().toString(),
+                guiLeft + 32,
+                guiTop + 25,
+                0x404040);
         if (SimpleServiceLocator.ccProxy.isCC() || LPConstants.DEBUG) {
             mc.fontRenderer.drawString(
                     StringUtils.translate(GuiSecurityStation.PREFIX + "allowCCAccess") + ":",
@@ -223,8 +236,7 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
 
         // Click into search
         if (lastClickedx != -10000000 && lastClickedy != -10000000) {
-            if (lastClickedx >= guiLeft + 182
-                    && lastClickedx < right - 8 + addition
+            if (lastClickedx >= guiLeft + 182 && lastClickedx < right - 8 + addition
                     && lastClickedy >= bottom - 120
                     && lastClickedy < bottom - 102) {
                 editsearch = true;
@@ -246,8 +258,7 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
                 pos += 11;
             }
             // Check mouse click
-            if (guiLeft + 180 < lastClickedx
-                    && lastClickedx < guiLeft + 280
+            if (guiLeft + 180 < lastClickedx && lastClickedx < guiLeft + 280
                     && pos - 11 < lastClickedy
                     && lastClickedy < pos) {
                 lastClickedx = -10000000;

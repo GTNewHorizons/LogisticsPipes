@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
 import org.jetbrains.annotations.NotNull;
 
 public class OneList<E> implements List<E> {
@@ -189,7 +190,7 @@ public class OneList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        return new Object[] {content};
+        return new Object[] { content };
     }
 
     @Override

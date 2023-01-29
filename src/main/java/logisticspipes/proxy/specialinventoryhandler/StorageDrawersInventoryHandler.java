@@ -1,20 +1,24 @@
 package logisticspipes.proxy.specialinventoryhandler;
 
+import java.util.*;
+
+import logisticspipes.utils.item.ItemIdentifier;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawer;
 import com.jaquadro.minecraft.storagedrawers.api.storage.IDrawerGroup;
 import com.jaquadro.minecraft.storagedrawers.api.storage.ISmartGroup;
 import com.jaquadro.minecraft.storagedrawers.api.storage.attribute.IVoidable;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.versioning.ArtifactVersion;
 import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
 import cpw.mods.fml.common.versioning.InvalidVersionSpecificationException;
 import cpw.mods.fml.common.versioning.VersionRange;
-import java.util.*;
-import logisticspipes.utils.item.ItemIdentifier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 
@@ -23,8 +27,8 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
     private final boolean _hideOnePerStack;
     private final boolean _hideOnePerType;
 
-    private StorageDrawersInventoryHandler(
-            TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    private StorageDrawersInventoryHandler(TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart,
+            int cropEnd) {
         _drawer = (IDrawerGroup) tile;
         _smartGroup = (_drawer instanceof ISmartGroup) ? (ISmartGroup) _drawer : null;
         _hideOnePerStack = hideOnePerStack;
@@ -62,8 +66,8 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
     }
 
     @Override
-    public SpecialInventoryHandler getUtilForTile(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         return new StorageDrawersInventoryHandler(tile, hideOnePerStack, hideOne, cropStart, cropEnd);
     }
 
@@ -76,8 +80,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
             ItemStack protoStack = itemIdent.makeNormalStack(1);
             for (int slot : _smartGroup.enumerateDrawersForExtraction(protoStack, true)) {
                 IDrawer drawer = _drawer.getDrawer(slot);
-                if (drawer.isEmpty()
-                        || !ItemIdentifier.get(drawer.getStoredItemPrototype()).equals(itemIdent)) {
+                if (drawer.isEmpty() || !ItemIdentifier.get(drawer.getStoredItemPrototype()).equals(itemIdent)) {
                     continue;
                 }
 
@@ -98,8 +101,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
                 continue;
             }
 
-            if (!drawer.isEmpty()
-                    && ItemIdentifier.get(drawer.getStoredItemPrototype()).equals(itemIdent)) {
+            if (!drawer.isEmpty() && ItemIdentifier.get(drawer.getStoredItemPrototype()).equals(itemIdent)) {
                 count += drawer.getStoredItemCount() - ((_hideOnePerStack || (_hideOnePerType && first)) ? 1 : 0);
                 first = false;
             }
@@ -116,8 +118,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
             ItemStack protoStack = itemIdent.makeNormalStack(1);
             for (int slot : _smartGroup.enumerateDrawersForExtraction(protoStack, true)) {
                 IDrawer drawer = _drawer.getDrawer(slot);
-                if (drawer.isEmpty()
-                        || !ItemIdentifier.get(drawer.getStoredItemPrototype()).equals(itemIdent)) {
+                if (drawer.isEmpty() || !ItemIdentifier.get(drawer.getStoredItemPrototype()).equals(itemIdent)) {
                     continue;
                 }
 
@@ -231,9 +232,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
             while ((slot = set.nextSetBit(slot + 1)) != -1) {
                 IDrawer drawer = _drawer.getDrawer(slot);
                 if (!drawer.isEmpty()
-                        && ItemIdentifier.get(drawer.getStoredItemPrototype())
-                                .getUndamaged()
-                                .equals(itemIdent)) {
+                        && ItemIdentifier.get(drawer.getStoredItemPrototype()).getUndamaged().equals(itemIdent)) {
                     return true;
                 }
             }
@@ -247,9 +246,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 
             IDrawer drawer = _drawer.getDrawer(i);
             if (drawer != null && !drawer.isEmpty()) {
-                if (ItemIdentifier.get(drawer.getStoredItemPrototype())
-                        .getUndamaged()
-                        .equals(itemIdent)) {
+                if (ItemIdentifier.get(drawer.getStoredItemPrototype()).getUndamaged().equals(itemIdent)) {
                     return true;
                 }
             }

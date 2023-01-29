@@ -3,6 +3,7 @@ package logisticspipes.network.packets.cpipe;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class CPipeSatelliteImport extends ModuleCoordinatesPacket {

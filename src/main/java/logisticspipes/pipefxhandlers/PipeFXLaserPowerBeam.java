@@ -1,10 +1,11 @@
 package logisticspipes.pipefxhandlers;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.Random;
+
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,13 +15,17 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 @Accessors(chain = true)
 public class PipeFXLaserPowerBeam extends EntityFX {
 
-    private static final ResourceLocation beam =
-            new ResourceLocation("logisticspipes", "textures/particles/laserBeam.png");
+    private static final ResourceLocation beam = new ResourceLocation(
+            "logisticspipes",
+            "textures/particles/laserBeam.png");
     private static final ResourceLocation field_110737_b = new ResourceLocation("textures/particle/particles.png");
     private static final int ROTATIONSPEED = 5;
     private static final Random RAND = new Random();
@@ -34,8 +39,8 @@ public class PipeFXLaserPowerBeam extends EntityFX {
     private final float random;
     private final TileEntity tile;
 
-    public PipeFXLaserPowerBeam(
-            World par1World, LPPosition pos, float length, ForgeDirection dir, int color, TileEntity tile) {
+    public PipeFXLaserPowerBeam(World par1World, LPPosition pos, float length, ForgeDirection dir, int color,
+            TileEntity tile) {
         super(par1World, pos.getXD() + 0.5D, pos.getYD() + 0.5D, pos.getZD() + 0.5D, 0.0D, 0.0D, 0.0D);
         setSize(0.02F, 0.02F);
         this.tile = tile;
@@ -53,10 +58,10 @@ public class PipeFXLaserPowerBeam extends EntityFX {
         random = PipeFXLaserPowerBeam.RAND.nextFloat() * PipeFXLaserPowerBeam.RAND.nextInt(10);
         dir = dir.getOpposite();
         yaw = ((float) (Math.atan2(dir.offsetX, dir.offsetZ) * 180.0D / Math.PI));
-        pitch = ((float)
-                (Math.atan2(dir.offsetY, MathHelper.sqrt_double(dir.offsetX * dir.offsetX + dir.offsetZ * dir.offsetZ))
-                        * 180.0D
-                        / Math.PI));
+        pitch = ((float) (Math
+                .atan2(dir.offsetY, MathHelper.sqrt_double(dir.offsetX * dir.offsetX + dir.offsetZ * dir.offsetZ))
+                * 180.0D
+                / Math.PI));
         particleMaxAge = 0;
         EntityLivingBase renderentity = FMLClientHandler.instance().getClient().renderViewEntity;
         int visibleDistance = 50;
@@ -80,10 +85,8 @@ public class PipeFXLaserPowerBeam extends EntityFX {
         tessellator.draw();
         GL11.glPushMatrix();
         float slide = worldObj.getTotalWorldTime() + random;
-        float rot = worldObj.provider.getWorldTime()
-                        % ((float) (360 / PipeFXLaserPowerBeam.ROTATIONSPEED))
-                        * PipeFXLaserPowerBeam.ROTATIONSPEED
-                + PipeFXLaserPowerBeam.ROTATIONSPEED * f;
+        float rot = worldObj.provider.getWorldTime() % ((float) (360 / PipeFXLaserPowerBeam.ROTATIONSPEED))
+                * PipeFXLaserPowerBeam.ROTATIONSPEED + PipeFXLaserPowerBeam.ROTATIONSPEED * f;
 
         GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
         GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);

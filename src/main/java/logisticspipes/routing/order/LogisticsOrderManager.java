@@ -1,16 +1,14 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.routing.order;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.interfaces.IChangeListener;
 import logisticspipes.interfaces.ILPPositionProvider;
 import logisticspipes.logisticspipes.IRoutedItem;
@@ -20,6 +18,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.routing.order.IOrderInfoProvider.ResourceType;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -30,8 +29,8 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
         this.pos = pos;
     }
 
-    public LogisticsOrderManager(
-            IChangeListener listener, ILPPositionProvider pos, LogisticsOrderLinkedList<T, I> orders) {
+    public LogisticsOrderManager(IChangeListener listener, ILPPositionProvider pos,
+            LogisticsOrderLinkedList<T, I> orders) {
         this(orders, pos);
         this.listener = listener;
     }
@@ -54,11 +53,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
         StringBuilder sb = new StringBuilder(" ############################################# ")
                 .append(System.getProperty("line.separator"));
         for (T s : _orders) {
-            sb.append(s.getAsDisplayItem())
-                    .append(" / ")
-                    .append(s.getAmount())
-                    .append(" / ")
-                    .append(s.getType().name())
+            sb.append(s.getAsDisplayItem()).append(" / ").append(s.getAmount()).append(" / ").append(s.getType().name())
                     .append(System.getProperty("line.separator"));
         }
         System.out.print(sb.append(" ############################################# "));
@@ -90,7 +85,10 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
         return peekAtTopRequest(type) != null;
     }
 
-    /* only multi-access SAFE when type is null; all other access patterns may change the state of the stack so the returned element is on top*/
+    /*
+     * only multi-access SAFE when type is null; all other access patterns may change the state of the stack so the
+     * returned element is on top
+     */
     @SuppressWarnings("unchecked")
     public T peekAtTopRequest(ResourceType... type) {
         List<ResourceType> typeList = Arrays.asList(type);
@@ -128,8 +126,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
             LogisticsOrder start = _orders.getFirst();
             if (defersend && destination == start.getRouterId()) {
                 _orders.addLast((T) _orders.removeFirst().setInProgress(false));
-                while (start != _orders.getFirst()
-                        && destination == _orders.getFirst().getRouterId()) {
+                while (start != _orders.getFirst() && destination == _orders.getFirst().getRouterId()) {
                     _orders.addLast(_orders.removeFirst());
                 }
                 if (start == _orders.getFirst()) {
@@ -186,9 +183,7 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
     public void startWatching(EntityPlayer player) {
         watchingPlayers.add(player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(PipeManagerContentPacket.class)
-                        .setManager(this)
-                        .setLPPos(pos.getLPPosition()),
+                PacketHandler.getPacket(PipeManagerContentPacket.class).setManager(this).setLPPos(pos.getLPPosition()),
                 player);
     }
 
@@ -205,12 +200,10 @@ public abstract class LogisticsOrderManager<T extends LogisticsOrder, I> impleme
             return;
         }
         // if(!oldOrders.equals(_orders)) {
-        //	oldOrders.clear();
-        //	oldOrders.addAll(_orders);
+        // oldOrders.clear();
+        // oldOrders.addAll(_orders);
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(PipeManagerContentPacket.class)
-                        .setManager(this)
-                        .setLPPos(pos.getLPPosition()),
+                PacketHandler.getPacket(PipeManagerContentPacket.class).setManager(this).setLPPos(pos.getLPPosition()),
                 watchingPlayers);
         // }
     }

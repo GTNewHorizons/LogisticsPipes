@@ -5,6 +5,7 @@ import logisticspipes.config.PlayerConfig;
 import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.newpipe.LogisticsNewPipeItemRenderer;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -13,6 +14,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
 public class LogisticsPipeItemRenderer implements IItemRenderer {
@@ -30,8 +32,8 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         renderAsBlock = flag;
     }
 
-    private void renderPipeItem(
-            RenderBlocks render, ItemStack item, float translateX, float translateY, float translateZ) {
+    private void renderPipeItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
+            float translateZ) {
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT); // don't break other mods' guis when holding a pipe
         // force transparency
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -44,9 +46,8 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         IIcon icon = item.getItem().getIconFromDamage(0);
 
         if (icon == null) {
-            icon = ((TextureMap)
-                            Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture))
-                    .getAtlasSprite("missingno");
+            icon = ((TextureMap) Minecraft.getMinecraft().getTextureManager()
+                    .getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
         }
 
         block.setBlockBounds(
@@ -91,8 +92,8 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         GL11.glPopAttrib(); // nicely leave the rendering how it was
     }
 
-    private void renderBlockItem(
-            RenderBlocks render, ItemStack item, float translateX, float translateY, float translateZ) {
+    private void renderBlockItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
+            float translateZ) {
         Tessellator tessellator = Tessellator.instance;
 
         Block block = LogisticsPipes.LogisticsPipeBlock;

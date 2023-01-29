@@ -1,11 +1,10 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import logisticspipes.interfaces.IBufferItems;
 import logisticspipes.interfaces.IModuleInventoryReceive;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
@@ -25,6 +24,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Triplet;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -32,6 +32,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleCrafterMK3 extends ModuleCrafter
         implements IBufferItems, ISimpleInventoryEventHandler, IModuleInventoryReceive {
@@ -56,22 +59,16 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
         return new SinkReply(
                 _sinkReply,
                 spaceFor(item, includeInTransit, true),
-                isForBuffer(item, includeInTransit)
-                        ? BufferMode.BUFFERED
+                isForBuffer(item, includeInTransit) ? BufferMode.BUFFERED
                         : areAllOrderesToBuffer() ? BufferMode.DESTINATION_BUFFERED : BufferMode.NONE);
     }
 
@@ -88,8 +85,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
                 if (inv.getIDStackInSlot(i) == null) {
                     modify += inv.getInventoryStackLimit();
                 } else if (inv.getIDStackInSlot(i).getItem().equals(item)) {
-                    modify += (inv.getInventoryStackLimit()
-                            - inv.getIDStackInSlot(i).getStackSize());
+                    modify += (inv.getInventoryStackLimit() - inv.getIDStackInSlot(i).getStackSize());
                 }
             }
         } else {
@@ -150,8 +146,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
                     insertion = getUpgradeManager().getSneakyOrientation();
                 }
                 ItemIdentifierStack toadd = slot.clone();
-                toadd.setStackSize(
-                        Math.min(toadd.getStackSize(), toadd.getItem().getMaxStackSize()));
+                toadd.setStackSize(Math.min(toadd.getStackSize(), toadd.getItem().getMaxStackSize()));
                 if (_service.getItemOrderManager().hasOrders(ResourceType.CRAFTING)) {
                     toadd.setStackSize(
                             Math.min(toadd.getStackSize(), ((IInventory) tile.tile).getInventoryStackLimit()));
@@ -186,8 +181,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -202,8 +196,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     public void startWatching(EntityPlayer player) {
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
                 player);
         super.startWatching(player);
     }

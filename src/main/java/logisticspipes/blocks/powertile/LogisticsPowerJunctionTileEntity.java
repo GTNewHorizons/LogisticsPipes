@@ -1,9 +1,7 @@
 package logisticspipes.blocks.powertile;
 
-import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.common.Optional;
-import ic2.api.energy.tile.IEnergySink;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
@@ -23,6 +21,7 @@ import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.utils.PlayerCollectionList;
+
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,21 +29,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-@Optional.InterfaceList({
-    @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink"),
-    @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler"),
-    @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.power.IPowerReceptor"),
-})
+import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Optional;
+import ic2.api.energy.tile.IEnergySink;
+
+@Optional.InterfaceList({ @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink"),
+        @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler"),
+        @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.power.IPowerReceptor"), })
 @CCType(name = "LogisticsPowerJunction")
 public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
-        implements IGuiTileEntity,
-                ILogisticsPowerProvider,
-                IPowerLevelDisplay,
-                IGuiOpenControler,
-                IHeadUpDisplayBlockRendererProvider,
-                IBlockWatchingHandler,
-                IEnergySink,
-                IEnergyHandler {
+        implements IGuiTileEntity, ILogisticsPowerProvider, IPowerLevelDisplay, IGuiOpenControler,
+        IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler, IEnergySink, IEnergyHandler {
 
     public Object OPENPERIPHERAL_IGNORE; // Tell OpenPeripheral to ignore this class
 
@@ -107,18 +102,12 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
 
     public void updateClients() {
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(PowerJunctionLevel.class)
-                        .setInteger(internalStorage)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(PowerJunctionLevel.class).setInteger(internalStorage).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord),
                 guiListener);
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(PowerJunctionLevel.class)
-                        .setInteger(internalStorage)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(PowerJunctionLevel.class).setInteger(internalStorage).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord),
                 watcherList);
         lastUpdateStorage = internalStorage;
     }
@@ -283,18 +272,16 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartBlockWatchingPacket.class)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartBlockWatchingPacket.class).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopBlockWatchingPacket.class)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopBlockWatchingPacket.class).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override

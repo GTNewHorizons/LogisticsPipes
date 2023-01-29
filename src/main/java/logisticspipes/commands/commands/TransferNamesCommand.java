@@ -5,6 +5,7 @@ import logisticspipes.commands.abstracts.ICommandHandler;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.RequestUpdateNamesPacket;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
@@ -13,7 +14,7 @@ public class TransferNamesCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"transfernames", "tn"};
+        return new String[] { "transfernames", "tn" };
     }
 
     @Override
@@ -23,7 +24,7 @@ public class TransferNamesCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Sends all item names form the client", "to the server to update the Language Database"};
+        return new String[] { "Sends all item names form the client", "to the server to update the Language Database" };
     }
 
     @Override

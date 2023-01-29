@@ -1,15 +1,12 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.proxy.buildcraft.gates;
 
+import logisticspipes.textures.provider.LPActionTriggerIconProvider;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
-import logisticspipes.textures.provider.LPActionTriggerIconProvider;
 
 public class ActionDisableLogistics extends LPAction {
 
@@ -28,6 +25,6 @@ public class ActionDisableLogistics extends LPAction {
     }
 
     @Override
-    public void actionActivate(
-            IStatementContainer paramIStatementContainer, IStatementParameter[] paramArrayOfIStatementParameter) {}
+    public void actionActivate(IStatementContainer paramIStatementContainer,
+            IStatementParameter[] paramArrayOfIStatementParameter) {}
 }

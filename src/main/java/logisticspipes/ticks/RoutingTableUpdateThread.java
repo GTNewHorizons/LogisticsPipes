@@ -1,6 +1,7 @@
 package logisticspipes.ticks;
 
 import java.util.concurrent.PriorityBlockingQueue;
+
 import logisticspipes.config.Configs;
 
 public class RoutingTableUpdateThread extends Thread {

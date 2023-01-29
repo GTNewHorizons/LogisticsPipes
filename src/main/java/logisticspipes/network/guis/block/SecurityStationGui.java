@@ -5,6 +5,7 @@ import logisticspipes.gui.GuiSecurityStation;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 

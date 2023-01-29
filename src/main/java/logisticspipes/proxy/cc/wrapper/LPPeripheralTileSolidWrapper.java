@@ -1,11 +1,13 @@
 package logisticspipes.proxy.cc.wrapper;
 
+import logisticspipes.blocks.LogisticsSolidTileEntity;
+import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
+
+import net.minecraftforge.common.util.ForgeDirection;
+
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import logisticspipes.blocks.LogisticsSolidTileEntity;
-import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LPPeripheralTileSolidWrapper implements IPeripheral {
 

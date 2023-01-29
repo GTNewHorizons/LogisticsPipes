@@ -1,14 +1,9 @@
 package logisticspipes.proxy;
 
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.network.FMLEmbeddedChannel;
-import cpw.mods.fml.common.network.FMLOutboundHandler;
-import cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.relauncher.Side;
 import java.io.File;
 import java.util.EnumMap;
 import java.util.WeakHashMap;
+
 import logisticspipes.LogisticsEventListener;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.crafting.FakePlayer;
@@ -22,6 +17,7 @@ import logisticspipes.ticks.RoutingTableUpdateThread;
 import logisticspipes.utils.OrientationsUtil;
 import logisticspipes.utils.PlayerCollectionList;
 import lombok.Getter;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -30,6 +26,13 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.network.FMLEmbeddedChannel;
+import cpw.mods.fml.common.network.FMLOutboundHandler;
+import cpw.mods.fml.common.network.FMLOutboundHandler.OutboundTarget;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class MainProxy {
 
@@ -62,8 +65,7 @@ public class MainProxy {
     }
 
     private static Side getEffectiveSide(Thread thr) {
-        if (thr.getName().equals("Server thread")
-                || (thr instanceof RoutingTableUpdateThread)
+        if (thr.getName().equals("Server thread") || (thr instanceof RoutingTableUpdateThread)
                 || (thr instanceof RoutingTableDebugUpdateThread)) {
             return Side.SERVER;
         }
@@ -135,10 +137,7 @@ public class MainProxy {
         if (packet.isCompressable()) {
             SimpleServiceLocator.clientBufferHandler.addPacketToCompressor(packet);
         } else {
-            MainProxy.channels
-                    .get(Side.CLIENT)
-                    .attr(FMLOutboundHandler.FML_MESSAGETARGET)
-                    .set(OutboundTarget.TOSERVER);
+            MainProxy.channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(OutboundTarget.TOSERVER);
             MainProxy.channels.get(Side.CLIENT).writeOutbound(packet);
         }
     }
@@ -155,14 +154,9 @@ public class MainProxy {
         if (packet.isCompressable()) {
             SimpleServiceLocator.serverBufferHandler.addPacketToCompressor(packet, player);
         } else {
-            MainProxy.channels
-                    .get(Side.SERVER)
-                    .attr(FMLOutboundHandler.FML_MESSAGETARGET)
+            MainProxy.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET)
                     .set(FMLOutboundHandler.OutboundTarget.PLAYER);
-            MainProxy.channels
-                    .get(Side.SERVER)
-                    .attr(FMLOutboundHandler.FML_MESSAGETARGETARGS)
-                    .set(player);
+            MainProxy.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(player);
             MainProxy.channels.get(Side.SERVER).writeOutbound(packet);
         }
     }
@@ -233,9 +227,7 @@ public class MainProxy {
                 }
             }
         } else {
-            MainProxy.channels
-                    .get(Side.SERVER)
-                    .attr(FMLOutboundHandler.FML_MESSAGETARGET)
+            MainProxy.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET)
                     .set(FMLOutboundHandler.OutboundTarget.ALL);
             MainProxy.channels.get(Side.SERVER).writeOutbound(packet);
         }
@@ -267,8 +259,8 @@ public class MainProxy {
         return MainProxy.checkPipesConnections(from, to, way, false);
     }
 
-    public static boolean checkPipesConnections(
-            TileEntity from, TileEntity to, ForgeDirection way, boolean ignoreSystemDisconnection) {
+    public static boolean checkPipesConnections(TileEntity from, TileEntity to, ForgeDirection way,
+            boolean ignoreSystemDisconnection) {
         if (from == null || to == null) {
             return false;
         }
@@ -289,8 +281,7 @@ public class MainProxy {
     }
 
     public static boolean isPipeControllerEquipped(EntityPlayer entityplayer) {
-        return entityplayer != null
-                && entityplayer.getCurrentEquippedItem() != null
+        return entityplayer != null && entityplayer.getCurrentEquippedItem() != null
                 && entityplayer.getCurrentEquippedItem().getItem() == LogisticsPipes.LogisticsPipeControllerItem;
     }
 }

@@ -1,8 +1,8 @@
 package logisticspipes.network.packets.block;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
 import java.util.List;
+
 import logisticspipes.gui.GuiStatistics;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -11,7 +11,10 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 @Accessors(chain = true)
 public class RunningCraftingTasks extends ModernPacket {

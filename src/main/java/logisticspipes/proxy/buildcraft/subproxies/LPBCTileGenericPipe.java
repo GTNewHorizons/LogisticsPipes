@@ -1,5 +1,26 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
+import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+import logisticspipes.utils.ReflectionHelper;
+import logisticspipes.utils.tuples.LPPosition;
+import lombok.Getter;
+import lombok.SneakyThrows;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.robots.DockingStation;
 import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.api.statements.IStatementParameter;
@@ -13,24 +34,6 @@ import buildcraft.transport.gates.GatePluggable;
 import buildcraft.transport.pluggable.LensPluggable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-import logisticspipes.utils.ReflectionHelper;
-import logisticspipes.utils.tuples.LPPosition;
-import lombok.Getter;
-import lombok.SneakyThrows;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart {
 
@@ -129,14 +132,8 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
     }
 
     @Override
-    @SneakyThrows({
-        NoSuchFieldException.class,
-        SecurityException.class,
-        IllegalArgumentException.class,
-        IllegalAccessException.class,
-        NoSuchMethodException.class,
-        InvocationTargetException.class
-    })
+    @SneakyThrows({ NoSuchFieldException.class, SecurityException.class, IllegalArgumentException.class,
+            IllegalAccessException.class, NoSuchMethodException.class, InvocationTargetException.class })
     public void updateEntity_LP() {
         // Make sure we still have the same TE values
         xCoord = lpPipe.xCoord;
@@ -146,8 +143,8 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
         if (attachPluggables) {
             attachPluggables = false;
             // Attach callback
-            PipePluggable[] pluggables = ReflectionHelper.getPrivateField(
-                    PipePluggable[].class, SideProperties.class, "pluggables", sideProperties);
+            PipePluggable[] pluggables = ReflectionHelper
+                    .getPrivateField(PipePluggable[].class, SideProperties.class, "pluggables", sideProperties);
             for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++) {
                 if (pluggables[i] != null) {
                     pipe.eventBus.registerHandler(pluggables[i]);
@@ -185,16 +182,9 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
                 if (p instanceof RobotStationPluggable) {
                     if (((RobotStationPluggable) p).getStation() != null
                             && ((RobotStationPluggable) p).getStation().robotTaking() != null
-                            && ((RobotStationPluggable) p)
-                                            .getStation()
-                                            .robotTaking()
-                                            .getBoard()
-                                    instanceof LogisticsRoutingBoardRobot) {
-                        ((RobotStationPluggable) p)
-                                .getStation()
-                                .robotTaking()
-                                .getBoard()
-                                .cycle();
+                            && ((RobotStationPluggable) p).getStation().robotTaking()
+                                    .getBoard() instanceof LogisticsRoutingBoardRobot) {
+                        ((RobotStationPluggable) p).getStation().robotTaking().getBoard().cycle();
                     }
                 }
             }
@@ -219,7 +209,12 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
 
         if (blockNeighborChange) {
             ReflectionHelper.invokePrivateMethod(
-                    Object.class, TileGenericPipe.class, this, "computeConnections", new Class[] {}, new Object[] {});
+                    Object.class,
+                    TileGenericPipe.class,
+                    this,
+                    "computeConnections",
+                    new Class[] {},
+                    new Object[] {});
             pipe.onNeighborBlockChange(0);
             blockNeighborChange = false;
             refreshRenderState = true;
@@ -314,8 +309,8 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
 
             @Override
             @SideOnly(Side.CLIENT)
-            public void renderPluggable(
-                    RenderBlocks renderblocks, ForgeDirection dir, int renderPass, int x, int y, int z) {
+            public void renderPluggable(RenderBlocks renderblocks, ForgeDirection dir, int renderPass, int x, int y,
+                    int z) {
                 if (plug.getRenderer() == null) {
                     return;
                 }
@@ -342,10 +337,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
                     return arrivingItem;
                 }
                 LPPosition robotPos = new LPPosition(robot);
-                if (new LPPosition(LPBCTileGenericPipe.this)
-                                .center()
-                                .moveForward(sideHit, 0.5)
-                                .distanceTo(robotPos)
+                if (new LPPosition(LPBCTileGenericPipe.this).center().moveForward(sideHit, 0.5).distanceTo(robotPos)
                         > 0.05) {
                     return arrivingItem; // Not at station
                 }

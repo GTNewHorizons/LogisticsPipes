@@ -3,12 +3,14 @@ package logisticspipes.commands.abstracts;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import logisticspipes.commands.chathelper.MorePageDisplay;
 import logisticspipes.commands.exception.CommandNotFoundException;
 import logisticspipes.commands.exception.DublicatedCommandException;
 import logisticspipes.commands.exception.MissingArgumentException;
 import logisticspipes.commands.exception.PermissionDeniedException;
 import logisticspipes.utils.string.ChatColor;
+
 import net.minecraft.command.ICommandSender;
 
 public abstract class SubCommandHandler implements ICommandHandler {
@@ -34,13 +36,16 @@ public abstract class SubCommandHandler implements ICommandHandler {
     }
 
     public final void displayHelp(ICommandSender sender) {
-        MorePageDisplay display =
-                new MorePageDisplay(new String[] {"|< Help - " + getNames()[0] + " - Page: %/$ >|"}, sender);
+        MorePageDisplay display = new MorePageDisplay(
+                new String[] { "|< Help - " + getNames()[0] + " - Page: %/$ >|" },
+                sender);
         for (ICommandHandler command : subCommands) {
             if (!command.getDescription()[0].startsWith("#")) {
                 boolean first = true;
                 String prefix = (command instanceof SubCommandHandler ? ChatColor.BLUE : ChatColor.YELLOW)
-                        + command.getNames()[0] + ChatColor.RESET + ": ";
+                        + command.getNames()[0]
+                        + ChatColor.RESET
+                        + ": ";
                 for (int d = 0; d < command.getDescription().length; d++) {
                     display.append(prefix + command.getDescription()[d], !first);
                     prefix = "    ";
@@ -48,7 +53,11 @@ public abstract class SubCommandHandler implements ICommandHandler {
                 }
                 if (command instanceof SubCommandHandler) {
                     display.append(
-                            "      " + ChatColor.GRAY + "- add " + ChatColor.YELLOW + "help" + ChatColor.GRAY
+                            "      " + ChatColor.GRAY
+                                    + "- add "
+                                    + ChatColor.YELLOW
+                                    + "help"
+                                    + ChatColor.GRAY
                                     + " to see the subcommands",
                             true);
                 }

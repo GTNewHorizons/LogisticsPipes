@@ -8,6 +8,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
 import logisticspipes.network.packets.modules.SupplierPipeMode;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class SupplierPipeModePacket extends ModuleCoordinatesPacket {
@@ -42,10 +43,8 @@ public class SupplierPipeModePacket extends ModuleCoordinatesPacket {
             module.setSupplyMode(SupplyMode.values()[mode]);
         }
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SupplierPipeMode.class)
-                        .setHasPatternUpgrade(module.hasPatternUpgrade())
-                        .setInteger(mode)
-                        .setPacketPos(this),
+                PacketHandler.getPacket(SupplierPipeMode.class).setHasPatternUpgrade(module.hasPatternUpgrade())
+                        .setInteger(mode).setPacketPos(this),
                 player);
     }
 }

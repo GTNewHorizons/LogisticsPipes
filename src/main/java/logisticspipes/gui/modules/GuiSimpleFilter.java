@@ -1,16 +1,15 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui.modules;
 
 import logisticspipes.modules.abstractmodules.LogisticsSimpleFilterModule;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiSimpleFilter extends ModuleBaseGui {

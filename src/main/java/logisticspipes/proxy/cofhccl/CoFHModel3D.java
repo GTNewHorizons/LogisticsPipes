@@ -1,18 +1,19 @@
 package logisticspipes.proxy.cofhccl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.object3d.interfaces.I3DOperation;
+import logisticspipes.proxy.object3d.interfaces.IBounds;
+import logisticspipes.proxy.object3d.interfaces.IModel3D;
+import logisticspipes.proxy.object3d.interfaces.IVec3;
 import cofh.repack.codechicken.lib.lighting.LightModel;
 import cofh.repack.codechicken.lib.render.CCModel;
 import cofh.repack.codechicken.lib.render.CCRenderState.IVertexOperation;
 import cofh.repack.codechicken.lib.render.uv.UVTransformation;
 import cofh.repack.codechicken.lib.vec.Cuboid6;
 import cofh.repack.codechicken.lib.vec.Transformation;
-import java.util.ArrayList;
-import java.util.List;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
-import logisticspipes.proxy.object3d.interfaces.IBounds;
-import logisticspipes.proxy.object3d.interfaces.IModel3D;
-import logisticspipes.proxy.object3d.interfaces.IVec3;
 
 public class CoFHModel3D implements IModel3D {
 
@@ -120,8 +121,7 @@ public class CoFHModel3D implements IModel3D {
         } else if (translation.getOriginal() instanceof Transformation) {
             return SimpleServiceLocator.cclProxy.wrapModel(model.apply((Transformation) translation.getOriginal()));
         } else {
-            throw new UnsupportedOperationException(
-                    translation.getOriginal().getClass().toString());
+            throw new UnsupportedOperationException(translation.getOriginal().getClass().toString());
         }
     }
 

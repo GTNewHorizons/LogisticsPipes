@@ -6,9 +6,11 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiUpgradeManager extends LogisticsBaseGuiScreen {
@@ -31,16 +33,17 @@ public class GuiUpgradeManager extends LogisticsBaseGuiScreen {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(StringUtils.translate(GuiUpgradeManager.PREFIX + "Upgrades"), 8, 6, 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiUpgradeManager.PREFIX + "Inventory"), 8, ySize - 92, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiUpgradeManager.PREFIX + "Inventory"), 8, ySize - 92, 0x404040);
         if (upgrade.hasCombinedSneakyUpgrade()) {
-            mc.fontRenderer.drawString(
-                    StringUtils.translate(GuiUpgradeManager.PREFIX + "SneakyUpgrades"), 8, 47, 0x404040);
+            mc.fontRenderer
+                    .drawString(StringUtils.translate(GuiUpgradeManager.PREFIX + "SneakyUpgrades"), 8, 47, 0x404040);
         }
     }
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/upgrade_manager.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/upgrade_manager.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
@@ -67,7 +70,17 @@ public class GuiUpgradeManager extends LogisticsBaseGuiScreen {
             drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, 55);
             drawTexturedModalRect(guiLeft, guiTop + 85, 0, 55, xSize, ySize);
             GuiGraphics.drawGuiBackGround(
-                    mc, guiLeft, guiTop + 40, right + 2, guiTop + 100, zLevel, true, false, true, false, true);
+                    mc,
+                    guiLeft,
+                    guiTop + 40,
+                    right + 2,
+                    guiTop + 100,
+                    zLevel,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true);
             for (int i = 0; i < 9; i++) {
                 GuiGraphics.drawSlotBackground(mc, guiLeft + i * 18 + 7, guiTop + 57);
             }

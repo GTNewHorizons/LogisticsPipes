@@ -87,6 +87,7 @@ public class LogisticsOrderLinkedList<E extends LogisticsOrder, I> implements It
     }
 
     public interface IIdentityProvider<A, B> {
+
         B getIdentity(A o);
 
         boolean isExtra(A o);

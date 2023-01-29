@@ -2,6 +2,7 @@ package logisticspipes.pipes;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDInvSysConnector;
 import logisticspipes.interfaces.IHeadUpDisplayRenderer;
@@ -30,6 +31,7 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.transactor.ITransactor;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -105,10 +107,12 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
                     IInventory inv = InventoryHelper.getInventory((IInventory) tile.tile);
                     if (inv instanceof net.minecraft.inventory.ISidedInventory) {
                         inv = new SidedInventoryMinecraftAdapter(
-                                (net.minecraft.inventory.ISidedInventory) inv, tile.orientation.getOpposite(), false);
+                                (net.minecraft.inventory.ISidedInventory) inv,
+                                tile.orientation.getOpposite(),
+                                false);
                     }
-                    IInventoryUtil access = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(
-                            inv, tile.orientation.getOpposite());
+                    IInventoryUtil access = SimpleServiceLocator.inventoryUtilFactory
+                            .getInventoryUtil(inv, tile.orientation.getOpposite());
                     if (checkOneConnectedInv(access, tile.orientation)) {
                         updateContentListener();
                         break;
@@ -133,14 +137,13 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
                 }
                 int itemAmount = amounts.get(ident);
                 List<ItemRoutingInformation> needs = itemsOnRoute.get(ident);
-                for (Iterator<ItemRoutingInformation> iterator = needs.iterator(); iterator.hasNext(); ) {
+                for (Iterator<ItemRoutingInformation> iterator = needs.iterator(); iterator.hasNext();) {
                     ItemRoutingInformation need = iterator.next();
                     if (need.getItem().getStackSize() <= itemAmount) {
                         if (!useEnergy(6)) {
                             return contentchanged;
                         }
-                        ItemStack toSend =
-                                inv.getMultipleItems(ident, need.getItem().getStackSize());
+                        ItemStack toSend = inv.getMultipleItems(ident, need.getItem().getStackSize());
                         if (toSend == null) {
                             return contentchanged;
                         }
@@ -148,18 +151,16 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
                             if (inv instanceof ITransactor) {
                                 ((ITransactor) inv).add(toSend, dir.getOpposite(), true);
                             } else {
-                                container
-                                        .getWorldObj()
-                                        .spawnEntityInWorld(ItemIdentifierStack.getFromStack(toSend)
-                                                .makeEntityItem(
-                                                        getWorld(),
-                                                        container.xCoord,
-                                                        container.yCoord,
-                                                        container.zCoord));
+                                container.getWorldObj().spawnEntityInWorld(
+                                        ItemIdentifierStack.getFromStack(toSend).makeEntityItem(
+                                                getWorld(),
+                                                container.xCoord,
+                                                container.yCoord,
+                                                container.zCoord));
                             }
                             new UnsupportedOperationException(
-                                            "The extracted amount didn't match the requested one. (" + inv + ")")
-                                    .printStackTrace();
+                                    "The extracted amount didn't match the requested one. (" + inv + ")")
+                                            .printStackTrace();
                             return contentchanged;
                         }
                         sendStack(need, dir);
@@ -198,8 +199,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
             if (inv.getStackInSlot(0) != null) {
                 if (inv.getStackInSlot(0).hasTagCompound()) {
                     if (inv.getStackInSlot(0).getTagCompound().hasKey("UUID")) {
-                        return UUID.fromString(
-                                inv.getStackInSlot(0).getTagCompound().getString("UUID"));
+                        return UUID.fromString(inv.getStackInSlot(0).getTagCompound().getString("UUID"));
                     }
                 }
             }
@@ -238,8 +238,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
             }
             ItemIdentifierStack currentStack = new ItemIdentifierStack(entry.getKey(), 0);
             for (ItemRoutingInformation e : entry.getValue()) {
-                currentStack.setStackSize(
-                        currentStack.getStackSize() + e.getItem().getStackSize());
+                currentStack.setStackSize(currentStack.getStackSize() + e.getItem().getStackSize());
             }
             list.add(currentStack);
         }
@@ -248,8 +247,8 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
 
     @Override
     public void onWrenchClicked(EntityPlayer entityplayer) {
-        entityplayer.openGui(
-                LogisticsPipes.instance, GuiIDs.GUI_Inv_Sys_Connector_ID, getWorld(), getX(), getY(), getZ());
+        entityplayer
+                .openGui(LogisticsPipes.instance, GuiIDs.GUI_Inv_Sys_Connector_ID, getWorld(), getX(), getY(), getZ());
     }
 
     @Override
@@ -305,8 +304,7 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
     }
 
     private boolean hasRemoteConnection() {
-        return hasConnectionUUID()
-                && getWorld() != null
+        return hasConnectionUUID() && getWorld() != null
                 && SimpleServiceLocator.connectionManager.hasDirectConnection(getRouter());
     }
 
@@ -395,20 +393,16 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
@@ -422,11 +416,8 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
             if (!newList.equals(oldList)) {
                 oldList = newList;
                 MainProxy.sendToPlayerList(
-                        PacketHandler.getPacket(OrdererManagerContent.class)
-                                .setIdentSet(newList)
-                                .setPosX(getX())
-                                .setPosY(getY())
-                                .setPosZ(getZ()),
+                        PacketHandler.getPacket(OrdererManagerContent.class).setIdentSet(newList).setPosX(getX())
+                                .setPosY(getY()).setPosZ(getZ()),
                         localModeWatchers);
             }
         }
@@ -437,11 +428,8 @@ public class PipeItemsInvSysConnector extends CoreRoutedPipe
         if (mode == 1) {
             localModeWatchers.add(player);
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(OrdererManagerContent.class)
-                            .setIdentSet(getExpectedItems())
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentSet(getExpectedItems()).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     player);
         } else {
             super.playerStartWatching(player, mode);

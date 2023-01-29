@@ -2,6 +2,7 @@ package logisticspipes.renderer.newpipe;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import logisticspipes.items.LogisticsFluidContainer;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.CustomBlockRenderer;
@@ -9,12 +10,14 @@ import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
 import logisticspipes.renderer.FluidContainerRenderer;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
 
 public class LogisticsNewPipeItemBoxRenderer {
@@ -49,8 +52,8 @@ public class LogisticsNewPipeItemBoxRenderer {
         GL11.glTranslated(-0.5, -0.5, -0.5);
 
         if (itemstack != null && itemstack.getItem() instanceof LogisticsFluidContainer) {
-            FluidStack f = SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(
-                    ItemIdentifierStack.getFromStack(itemstack));
+            FluidStack f = SimpleServiceLocator.logisticsFluidManager
+                    .getFluidFromContainer(ItemIdentifierStack.getFromStack(itemstack));
             if (f != null) {
                 FluidContainerRenderer.skipNext = true;
                 int list = getRenderListFor(f);

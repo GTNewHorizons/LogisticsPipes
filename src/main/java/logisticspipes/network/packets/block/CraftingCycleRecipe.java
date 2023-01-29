@@ -1,6 +1,7 @@
 package logisticspipes.network.packets.block;
 
 import java.io.IOException;
+
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -11,6 +12,7 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -32,8 +34,8 @@ public class CraftingCycleRecipe extends CoordinatesPacket {
             ((LogisticsCraftingTableTileEntity) table).cycleRecipe(down);
         } else if (table instanceof LogisticsTileGenericPipe
                 && ((LogisticsTileGenericPipe) table).pipe instanceof PipeBlockRequestTable) {
-            ((PipeBlockRequestTable) ((LogisticsTileGenericPipe) table).pipe).cycleRecipe(down);
-        }
+                    ((PipeBlockRequestTable) ((LogisticsTileGenericPipe) table).pipe).cycleRecipe(down);
+                }
     }
 
     @Override

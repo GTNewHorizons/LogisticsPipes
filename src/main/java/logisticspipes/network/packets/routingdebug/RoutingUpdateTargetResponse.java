@@ -1,6 +1,7 @@
 package logisticspipes.network.packets.routingdebug;
 
 import java.io.*;
+
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -16,6 +17,7 @@ import logisticspipes.utils.string.ChatColor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -82,19 +84,27 @@ public class RoutingUpdateTargetResponse extends ModernPacket {
             } else if (!(((LogisticsTileGenericPipe) tile).pipe instanceof CoreRoutedPipe)) {
                 player.addChatMessage(new ChatComponentText(ChatColor.RED + "No CoreRoutedPipe found"));
             } else {
-                LPChatListener.addTask(
-                        () -> {
-                            player.addChatMessage(
-                                    new ChatComponentText(ChatColor.GREEN + "Starting RoutingTable debug update."));
-                            DebugController.instance(player).debug(((ServerRouter)
-                                    ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).getRouter()));
-                            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
-                            return true;
-                        },
-                        player);
-                player.addChatMessage(new ChatComponentText(
-                        ChatColor.AQUA + "Start RoutingTable debug update ? " + ChatColor.RESET + "<" + ChatColor.GREEN
-                                + "yes" + ChatColor.RESET + "/" + ChatColor.RED + "no" + ChatColor.RESET + ">"));
+                LPChatListener.addTask(() -> {
+                    player.addChatMessage(
+                            new ChatComponentText(ChatColor.GREEN + "Starting RoutingTable debug update."));
+                    DebugController.instance(player).debug(
+                            ((ServerRouter) ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).getRouter()));
+                    MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
+                    return true;
+                }, player);
+                player.addChatMessage(
+                        new ChatComponentText(
+                                ChatColor.AQUA + "Start RoutingTable debug update ? "
+                                        + ChatColor.RESET
+                                        + "<"
+                                        + ChatColor.GREEN
+                                        + "yes"
+                                        + ChatColor.RESET
+                                        + "/"
+                                        + ChatColor.RED
+                                        + "no"
+                                        + ChatColor.RESET
+                                        + ">"));
                 MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
             }
         } else if (mode == TargetMode.Entity) {

@@ -1,16 +1,19 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Collection;
+
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.PipeLogisticsChassi.ChassiTargetInformation;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleEnchantmentSink extends LogisticsModule {
 
@@ -53,21 +56,22 @@ public class ModuleEnchantmentSink extends LogisticsModule {
     public void registerPosition(ModulePositionType slot, int positionInt) {
         super.registerPosition(slot, positionInt);
         _sinkReply = new SinkReply(
-                FixedPriority.EnchantmentItemSink, 0, true, false, 1, 0, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.EnchantmentItemSink,
+                0,
+                true,
+                false,
+                1,
+                0,
+                new ChassiTargetInformation(getPositionInt()));
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         // check to see if a better route is already found
         // Note: Higher MKs are higher priority
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
 

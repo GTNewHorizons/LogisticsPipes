@@ -1,6 +1,5 @@
 package logisticspipes.network;
 
-import cpw.mods.fml.common.network.IGuiHandler;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.*;
 import logisticspipes.gui.hud.GuiHUDSettings;
@@ -18,10 +17,13 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -58,7 +60,8 @@ public class GuiHandler implements IGuiHandler {
                         return null;
                     }
                     dummy = new DummyContainer(
-                            player.inventory, ((PipeItemsFluidSupplier) pipe.pipe).getDummyInventory());
+                            player.inventory,
+                            ((PipeItemsFluidSupplier) pipe.pipe).getDummyInventory());
                     dummy.addNormalSlotsForPlayerInventory(18, 97);
 
                     xOffset = 72;
@@ -73,9 +76,7 @@ public class GuiHandler implements IGuiHandler {
                     MainProxy.sendPacketToPlayer(
                             PacketHandler.getPacket(FluidSupplierMode.class)
                                     .setInteger((((PipeItemsFluidSupplier) pipe.pipe).isRequestingPartials() ? 1 : 0))
-                                    .setPosX(pipe.xCoord)
-                                    .setPosY(pipe.yCoord)
-                                    .setPosZ(pipe.zCoord),
+                                    .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
                             player);
                     return dummy;
 
@@ -84,25 +85,22 @@ public class GuiHandler implements IGuiHandler {
                         return null;
                     }
                     dummy = new DummyContainer(
-                            player.inventory, ((PipeFluidSupplierMk2) pipe.pipe).getDummyInventory());
+                            player.inventory,
+                            ((PipeFluidSupplierMk2) pipe.pipe).getDummyInventory());
                     dummy.addNormalSlotsForPlayerInventory(18, 97);
                     dummy.addFluidSlot(0, ((PipeFluidSupplierMk2) pipe.pipe).getDummyInventory(), 0, 0);
 
-                    MainProxy.sendPacketToPlayer(
-                            PacketHandler.getPacket(FluidSupplierMode.class)
-                                    .setInteger((((PipeFluidSupplierMk2) pipe.pipe).isRequestingPartials() ? 1 : 0))
-                                    .setPosX(pipe.xCoord)
-                                    .setPosY(pipe.yCoord)
-                                    .setPosZ(pipe.zCoord),
-                            player);
+                    MainProxy
+                            .sendPacketToPlayer(
+                                    PacketHandler.getPacket(FluidSupplierMode.class)
+                                            .setInteger(
+                                                    (((PipeFluidSupplierMk2) pipe.pipe).isRequestingPartials() ? 1 : 0))
+                                            .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
+                                    player);
                     MainProxy.sendPacketToPlayer(
                             PacketHandler.getPacket(FluidSupplierMinMode.class)
-                                    .setInteger(((PipeFluidSupplierMk2) pipe.pipe)
-                                            .getMinMode()
-                                            .ordinal())
-                                    .setPosX(pipe.xCoord)
-                                    .setPosY(pipe.yCoord)
-                                    .setPosZ(pipe.zCoord),
+                                    .setInteger(((PipeFluidSupplierMk2) pipe.pipe).getMinMode().ordinal())
+                                    .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
                             player);
                     return dummy;
 
@@ -111,7 +109,8 @@ public class GuiHandler implements IGuiHandler {
                         return null;
                     }
                     dummy = new DummyContainer(
-                            player.inventory, ((PipeItemsProviderLogistics) pipe.pipe).getprovidingInventory());
+                            player.inventory,
+                            ((PipeItemsProviderLogistics) pipe.pipe).getprovidingInventory());
                     dummy.addNormalSlotsForPlayerInventory(18, 97);
 
                     xOffset = 72;
@@ -170,17 +169,14 @@ public class GuiHandler implements IGuiHandler {
 
                     MainProxy.sendPacketToPlayer(
                             PacketHandler.getPacket(InvSysConResistance.class)
-                                    .setInteger(((PipeItemsInvSysConnector) pipe.pipe).resistance)
-                                    .setPosX(pipe.xCoord)
-                                    .setPosY(pipe.yCoord)
-                                    .setPosZ(pipe.zCoord),
+                                    .setInteger(((PipeItemsInvSysConnector) pipe.pipe).resistance).setPosX(pipe.xCoord)
+                                    .setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
                             player);
 
                     return dummy;
 
                 case GuiIDs.GUI_Freq_Card_ID:
-                    if (pipe == null
-                            || pipe.pipe == null
+                    if (pipe == null || pipe.pipe == null
                             || !((pipe.pipe instanceof PipeItemsSystemEntranceLogistics)
                                     || (pipe.pipe instanceof PipeItemsSystemDestinationLogistics))) {
                         return null;
@@ -251,7 +247,9 @@ public class GuiHandler implements IGuiHandler {
                         return null;
                     }
                     dummy = new DummyContainer(
-                            player, ((PipeBlockRequestTable) pipe.pipe).matrix, (PipeBlockRequestTable) pipe.pipe);
+                            player,
+                            ((PipeBlockRequestTable) pipe.pipe).matrix,
+                            (PipeBlockRequestTable) pipe.pipe);
                     int i = 0;
                     for (int Y = 0; Y < 3; Y++) {
                         for (int X = 0; X < 9; X++) {
@@ -265,9 +263,11 @@ public class GuiHandler implements IGuiHandler {
                         }
                     }
                     dummy.addCallableSlotHandler(
-                            0, ((PipeBlockRequestTable) pipe.pipe).resultInv, 0, 0, () -> ((PipeBlockRequestTable)
-                                            fpipe.pipe)
-                                    .getResultForClick());
+                            0,
+                            ((PipeBlockRequestTable) pipe.pipe).resultInv,
+                            0,
+                            0,
+                            () -> ((PipeBlockRequestTable) fpipe.pipe).getResultForClick());
                     dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).toSortInv, 0, 0);
                     dummy.addNormalSlot(0, ((PipeBlockRequestTable) pipe.pipe).diskInv, 0, 0);
                     dummy.addNormalSlotsForPlayerInventory(0, 0);
@@ -353,8 +353,7 @@ public class GuiHandler implements IGuiHandler {
                     return new GuiInvSysConnector(player, (PipeItemsInvSysConnector) pipe.pipe);
 
                 case GuiIDs.GUI_Freq_Card_ID:
-                    if (pipe == null
-                            || pipe.pipe == null
+                    if (pipe == null || pipe.pipe == null
                             || !((pipe.pipe instanceof PipeItemsSystemEntranceLogistics)
                                     || (pipe.pipe instanceof PipeItemsSystemDestinationLogistics))) {
                         return null;

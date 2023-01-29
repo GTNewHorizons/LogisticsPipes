@@ -1,20 +1,19 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui;
 
 import logisticspipes.pipes.PipeFluidSatellite;
 import logisticspipes.pipes.PipeItemsSatelliteLogistics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiSatellitePipe extends LogisticsBaseGuiScreen {
@@ -103,8 +102,9 @@ public class GuiSatellitePipe extends LogisticsBaseGuiScreen {
         }
     }
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/satellite.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/satellite.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {

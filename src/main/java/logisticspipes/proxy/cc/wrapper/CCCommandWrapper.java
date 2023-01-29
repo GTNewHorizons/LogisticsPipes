@@ -1,11 +1,10 @@
 package logisticspipes.proxy.cc.wrapper;
 
-import dan200.computercraft.api.lua.ILuaContext;
-import dan200.computercraft.api.lua.ILuaObject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCDirectCall;
@@ -15,7 +14,11 @@ import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
 import logisticspipes.proxy.computers.wrapper.ICommandWrapper;
 import logisticspipes.security.PermissionException;
 import logisticspipes.ticks.QueuedTasks;
+
 import org.luaj.vm2.LuaTable;
+
+import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.ILuaObject;
 
 public class CCCommandWrapper implements ILuaObject {
 
@@ -162,8 +165,13 @@ public class CCCommandWrapper implements ILuaObject {
                 count++;
             }
             if (count >= 199) {
-                LogisticsPipes.log.warn("CC call " + m.getName() + " on "
-                        + object.getClass().getName() + ", (" + object + ") took too long.");
+                LogisticsPipes.log.warn(
+                        "CC call " + m.getName()
+                                + " on "
+                                + object.getClass().getName()
+                                + ", ("
+                                + object
+                                + ") took too long.");
                 throw new RuntimeException("Took too long");
             }
             if (m.getReturnType().equals(Void.class)) {
@@ -173,8 +181,8 @@ public class CCCommandWrapper implements ILuaObject {
                 // PermissionException
                 throw ((RuntimeException) resultArray[0]);
             }
-            return CCObjectWrapper.createArray(
-                    CCObjectWrapper.getWrappedObject(resultArray[0], CCCommandWrapper.WRAPPER));
+            return CCObjectWrapper
+                    .createArray(CCObjectWrapper.getWrappedObject(resultArray[0], CCCommandWrapper.WRAPPER));
         }
         Object result;
         try {
@@ -270,7 +278,7 @@ public class CCCommandWrapper implements ILuaObject {
                     page.append("\n");
                 }
             }
-            return new Object[] {page.toString()};
+            return new Object[] { page.toString() };
         } else {
             for (int i = 0; i < 16 - lines.length; i++) {
                 String buffer = head.toString();
@@ -278,19 +286,19 @@ public class CCCommandWrapper implements ILuaObject {
                 head.append("\n").append(buffer);
             }
         }
-        return new Object[] {String.valueOf(head) + head2 + help};
+        return new Object[] { String.valueOf(head) + head2 + help };
     }
 
     private Object[] helpCommand(Object[] arguments) {
         if (arguments.length != 1) {
-            return new Object[] {"Wrong Argument Count"};
+            return new Object[] { "Wrong Argument Count" };
         }
         if (!(arguments[0] instanceof Double)) {
-            return new Object[] {"Wrong Argument Type"};
+            return new Object[] { "Wrong Argument Type" };
         }
         Integer number = (int) Math.floor(((Double) arguments[0]));
         if (!info.commands.containsKey(number)) {
-            return new Object[] {"No command with that index"};
+            return new Object[] { "No command with that index" };
         }
         Method method = info.commands.get(number);
         StringBuilder help = new StringBuilder();
@@ -318,7 +326,7 @@ public class CCCommandWrapper implements ILuaObject {
         help.append("\n");
         help.append("Description: \n");
         help.append(method.getAnnotation(CCCommand.class).description());
-        return new Object[] {help.toString()};
+        return new Object[] { help.toString() };
     }
 
     private boolean argumentsMatch(Method method, Object[] arguments) {

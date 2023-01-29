@@ -1,5 +1,14 @@
 package logisticspipes.proxy.specialinventoryhandler;
 
+import java.util.*;
+import java.util.Map.Entry;
+
+import logisticspipes.utils.item.ItemIdentifier;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
 import appeng.api.implementations.tiles.ITileStorageMonitorable;
@@ -10,12 +19,6 @@ import appeng.api.networking.security.MachineSource;
 import appeng.api.storage.IStorageMonitorable;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.AECableType;
-import java.util.*;
-import java.util.Map.Entry;
-import logisticspipes.utils.item.ItemIdentifier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /*
  * Compatibility for Applied Energistics
@@ -31,8 +34,8 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
     public boolean init = false;
     ArrayList<Entry<ItemIdentifier, Integer>> cached;
 
-    private AEInterfaceInventoryHandler(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    private AEInterfaceInventoryHandler(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne,
+            int cropStart, int cropEnd) {
         if (dir.equals(ForgeDirection.UNKNOWN)) {
             throw new IllegalArgumentException("The direction must not be unknown");
         }
@@ -61,8 +64,8 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
     }
 
     @Override
-    public SpecialInventoryHandler getUtilForTile(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         return new AEInterfaceInventoryHandler(tile, dir, hideOnePerStack, hideOne, cropStart, cropEnd);
     }
 
@@ -79,9 +82,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
             result = new HashMap<>();
         }
         IStorageMonitorable tmp = tile.getMonitorable(dir, source);
-        if (tmp == null
-                || tmp.getItemInventory() == null
-                || tmp.getItemInventory().getStorageList() == null) {
+        if (tmp == null || tmp.getItemInventory() == null || tmp.getItemInventory().getStorageList() == null) {
             return result;
         }
         for (IAEItemStack items : tmp.getItemInventory().getStorageList()) {
@@ -100,9 +101,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
     public Set<ItemIdentifier> getItems() {
         Set<ItemIdentifier> result = new TreeSet<>();
         IStorageMonitorable tmp = tile.getMonitorable(dir, source);
-        if (tmp == null
-                || tmp.getItemInventory() == null
-                || tmp.getItemInventory().getStorageList() == null) {
+        if (tmp == null || tmp.getItemInventory() == null || tmp.getItemInventory().getStorageList() == null) {
             return result;
         }
         for (IAEItemStack items : tmp.getItemInventory().getStorageList()) {
@@ -143,9 +142,7 @@ public class AEInterfaceInventoryHandler extends SpecialInventoryHandler {
     @Override
     public boolean containsUndamagedItem(ItemIdentifier item) {
         IStorageMonitorable tmp = tile.getMonitorable(dir, source);
-        if (tmp == null
-                || tmp.getItemInventory() == null
-                || tmp.getItemInventory().getStorageList() == null) {
+        if (tmp == null || tmp.getItemInventory() == null || tmp.getItemInventory().getStorageList() == null) {
             return false;
         }
         for (IAEItemStack items : tmp.getItemInventory().getStorageList()) {

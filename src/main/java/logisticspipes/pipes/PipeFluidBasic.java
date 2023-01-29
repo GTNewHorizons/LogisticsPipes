@@ -11,6 +11,7 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -59,10 +60,8 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
         int onTheWay = this.countOnRoute(ident);
         int freeSpace = -onTheWay;
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(true)) {
-            FluidTank tank = ((PipeFluidTransportLogistics) transport)
-                    .sideTanks[pair.getValue2().ordinal()];
-            freeSpace += ident.getFreeSpaceInsideTank(
-                    (IFluidHandler) pair.getValue1(), pair.getValue2().getOpposite());
+            FluidTank tank = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
+            freeSpace += ident.getFreeSpaceInsideTank((IFluidHandler) pair.getValue1(), pair.getValue2().getOpposite());
             freeSpace += ident.getFreeSpaceInsideTank(tank);
             if (freeSpace >= stack.amount) {
                 return stack.amount;

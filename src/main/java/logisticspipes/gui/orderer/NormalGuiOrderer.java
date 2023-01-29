@@ -5,6 +5,7 @@ import logisticspipes.network.packets.orderer.OrdererRefreshRequestPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -49,11 +50,9 @@ public class NormalGuiOrderer extends GuiOrderer {
                 integer = 3;
         }
         integer += (dimension * 10);
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(OrdererRefreshRequestPacket.class)
-                .setInteger(integer)
-                .setPosX(xCoord)
-                .setPosY(yCoord)
-                .setPosZ(zCoord));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(OrdererRefreshRequestPacket.class).setInteger(integer).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord));
     }
 
     @Override

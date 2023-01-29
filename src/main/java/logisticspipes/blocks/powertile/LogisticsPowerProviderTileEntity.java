@@ -2,6 +2,7 @@ package logisticspipes.blocks.powertile;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.gui.hud.HUDPowerLevel;
@@ -29,6 +30,7 @@ import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.Triplet;
+
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,12 +39,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 @CCType(name = "LogisticsPowerProvider")
 public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTileEntity
-        implements IGuiTileEntity,
-                ISubSystemPowerProvider,
-                IPowerLevelDisplay,
-                IGuiOpenControler,
-                IHeadUpDisplayBlockRendererProvider,
-                IBlockWatchingHandler {
+        implements IGuiTileEntity, ISubSystemPowerProvider, IPowerLevelDisplay, IGuiOpenControler,
+        IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler {
 
     public static final int BC_COLOR = 0x00ffff;
     public static final int RF_COLOR = 0xff0000;
@@ -93,20 +91,18 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
                     IRouter destinationRouter = SimpleServiceLocator.routerManager.getRouter(order.getKey());
                     if (destinationRouter != null && destinationRouter.getPipe() != null) {
                         WorldUtil util = new WorldUtil(getWorldObj(), xCoord, yCoord, zCoord);
-                        outerTiles:
-                        for (AdjacentTile adjacent : util.getAdjacentTileEntities(false)) {
+                        outerTiles: for (AdjacentTile adjacent : util.getAdjacentTileEntities(false)) {
                             if (adjacent.tile instanceof LogisticsTileGenericPipe) {
                                 if (((LogisticsTileGenericPipe) adjacent.tile).pipe instanceof CoreRoutedPipe) {
                                     if (((CoreRoutedPipe) ((LogisticsTileGenericPipe) adjacent.tile).pipe)
                                             .stillNeedReplace()) {
                                         continue;
                                     }
-                                    IRouter sourceRouter = ((CoreRoutedPipe)
-                                                    ((LogisticsTileGenericPipe) adjacent.tile).pipe)
+                                    IRouter sourceRouter = ((CoreRoutedPipe) ((LogisticsTileGenericPipe) adjacent.tile).pipe)
                                             .getRouter();
                                     if (sourceRouter != null) {
-                                        outerRouters:
-                                        for (ExitRoute exit : sourceRouter.getDistanceTo(destinationRouter)) {
+                                        outerRouters: for (ExitRoute exit : sourceRouter
+                                                .getDistanceTo(destinationRouter)) {
                                             if (exit.containsFlag(PipeRoutingConnectionType.canPowerSubSystemFrom)) {
                                                 for (IFilter filter : exit.filters) {
                                                     if (filter.blockPower()) {
@@ -151,8 +147,8 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
 
     protected abstract void handlePower(CoreRoutedPipe pipe, float toSend);
 
-    private void sendPowerLaserPackets(
-            IRouter sourceRouter, IRouter destinationRouter, ForgeDirection exitOrientation, boolean addBall) {
+    private void sendPowerLaserPackets(IRouter sourceRouter, IRouter destinationRouter, ForgeDirection exitOrientation,
+            boolean addBall) {
         if (sourceRouter == destinationRouter) {
             return;
         }
@@ -162,31 +158,30 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
             Triplet<IRouter, ForgeDirection, Boolean> part = todo.pollFirst();
             List<ExitRoute> exits = part.getValue1().getRoutersOnSide(part.getValue2());
             for (ExitRoute exit : exits) {
-                if (exit.containsFlag(
-                        PipeRoutingConnectionType
-                                .canPowerSubSystemFrom)) { // Find only result (caused by only straight connections)
+                if (exit.containsFlag(PipeRoutingConnectionType.canPowerSubSystemFrom)) { // Find only result (caused by
+                                                                                          // only straight connections)
                     int distance = part.getValue1().getDistanceToNextPowerPipe(exit.exitOrientation);
                     CoreRoutedPipe pipe = part.getValue1().getPipe();
                     if (pipe != null && pipe.isInitialized()) {
-                        pipe.container.addLaser(
-                                exit.exitOrientation, distance, getLaserColor(), false, part.getValue3());
+                        pipe.container
+                                .addLaser(exit.exitOrientation, distance, getLaserColor(), false, part.getValue3());
                     }
                     IRouter nextRouter = exit.destination; // Use new sourceRouter
                     if (nextRouter == destinationRouter) {
                         return;
                     }
-                    outerRouters:
-                    for (ExitRoute newExit : nextRouter.getDistanceTo(destinationRouter)) {
+                    outerRouters: for (ExitRoute newExit : nextRouter.getDistanceTo(destinationRouter)) {
                         if (newExit.containsFlag(PipeRoutingConnectionType.canPowerSubSystemFrom)) {
                             for (IFilter filter : newExit.filters) {
                                 if (filter.blockPower()) {
                                     continue outerRouters;
                                 }
                             }
-                            todo.addLast(new Triplet<>(
-                                    nextRouter,
-                                    newExit.exitOrientation,
-                                    newExit.exitOrientation != exit.exitOrientation));
+                            todo.addLast(
+                                    new Triplet<>(
+                                            nextRouter,
+                                            newExit.exitOrientation,
+                                            newExit.exitOrientation != exit.exitOrientation));
                         }
                     }
                 }
@@ -304,18 +299,16 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartBlockWatchingPacket.class)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartBlockWatchingPacket.class).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopBlockWatchingPacket.class)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopBlockWatchingPacket.class).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
@@ -347,14 +340,10 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
 
     public void updateClients() {
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(PowerProviderLevel.class)
-                        .setFloat(internalStorage)
-                        .setTilePos(this),
+                PacketHandler.getPacket(PowerProviderLevel.class).setFloat(internalStorage).setTilePos(this),
                 guiListener);
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(PowerProviderLevel.class)
-                        .setFloat(internalStorage)
-                        .setTilePos(this),
+                PacketHandler.getPacket(PowerProviderLevel.class).setFloat(internalStorage).setTilePos(this),
                 watcherList);
     }
 

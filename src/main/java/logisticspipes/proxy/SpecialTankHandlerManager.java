@@ -1,8 +1,8 @@
 package logisticspipes.proxy;
 
-import cpw.mods.fml.common.Loader;
 import logisticspipes.proxy.specialtankhandler.AETankHandler;
 import logisticspipes.proxy.specialtankhandler.BuildCraftTankHandler;
+import cpw.mods.fml.common.Loader;
 
 public class SpecialTankHandlerManager {
 

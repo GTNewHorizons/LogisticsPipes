@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import logisticspipes.utils.gui.GuiGraphics;
 import lombok.Setter;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Slot;
@@ -89,8 +91,8 @@ public class GuiExtentionController {
                         side != GuiSide.RIGHT,
                         true,
                         side != GuiSide.LEFT);
-                currentlyExtended.renderForground(
-                        left + (side == GuiSide.RIGHT ? 20 : 0), currentlyExtended.getCurrentYPos());
+                currentlyExtended
+                        .renderForground(left + (side == GuiSide.RIGHT ? 20 : 0), currentlyExtended.getCurrentYPos());
             } else {
                 for (GuiExtention extention : extentions) {
                     if (extention == currentlyExtended) {
@@ -122,8 +124,8 @@ public class GuiExtentionController {
                         side != GuiSide.RIGHT,
                         true,
                         side != GuiSide.LEFT);
-                currentlyExtended.renderForground(
-                        left + (side == GuiSide.RIGHT ? 20 : 0), currentlyExtended.getCurrentYPos());
+                currentlyExtended
+                        .renderForground(left + (side == GuiSide.RIGHT ? 20 : 0), currentlyExtended.getCurrentYPos());
                 if (currentlyExtended.isFullyRetracted()) {
                     currentlyExtended = null;
                 }
@@ -148,10 +150,8 @@ public class GuiExtentionController {
         if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
                 if (x > extention.getCurrentXPos()
-                        && x
-                                < extention.getCurrentXPos()
-                                        + extention.getCurrentWidth()
-                                        + (side == GuiSide.RIGHT ? 15 : 0)
+                        && x < extention.getCurrentXPos() + extention.getCurrentWidth()
+                                + (side == GuiSide.RIGHT ? 15 : 0)
                         && y > extention.getCurrentYPos()
                         && y < extention.getCurrentYPos() + extention.getCurrentHeight()) {
                     currentlyExtended = extention;
@@ -160,10 +160,8 @@ public class GuiExtentionController {
             }
         } else {
             if (x > currentlyExtended.getCurrentXPos()
-                    && x
-                            < currentlyExtended.getCurrentXPos()
-                                    + currentlyExtended.getCurrentWidth()
-                                    + (side == GuiSide.RIGHT ? 15 : 0)
+                    && x < currentlyExtended.getCurrentXPos() + currentlyExtended.getCurrentWidth()
+                            + (side == GuiSide.RIGHT ? 15 : 0)
                     && y > currentlyExtended.getCurrentYPos()
                     && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
                 currentlyExtended.setExtending(false);
@@ -175,10 +173,8 @@ public class GuiExtentionController {
         if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
                 if (x > extention.getCurrentXPos()
-                        && x
-                                < extention.getCurrentXPos()
-                                        + extention.getCurrentWidth()
-                                        + (side == GuiSide.RIGHT ? 15 : 0)
+                        && x < extention.getCurrentXPos() + extention.getCurrentWidth()
+                                + (side == GuiSide.RIGHT ? 15 : 0)
                         && y > extention.getCurrentYPos()
                         && y < extention.getCurrentYPos() + extention.getCurrentHeight()) {
                     extention.handleMouseOverAt(x, y);
@@ -187,10 +183,8 @@ public class GuiExtentionController {
             }
         } else {
             if (x > currentlyExtended.getCurrentXPos()
-                    && x
-                            < currentlyExtended.getCurrentXPos()
-                                    + currentlyExtended.getCurrentWidth()
-                                    + (side == GuiSide.RIGHT ? 15 : 0)
+                    && x < currentlyExtended.getCurrentXPos() + currentlyExtended.getCurrentWidth()
+                            + (side == GuiSide.RIGHT ? 15 : 0)
                     && y > currentlyExtended.getCurrentYPos()
                     && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight()) {
                 currentlyExtended.handleMouseOverAt(x, y);
@@ -272,10 +266,8 @@ public class GuiExtentionController {
         if (currentlyExtended == null) {
             for (GuiExtention extention : extentions) {
                 if (x + w > extention.getCurrentXPos()
-                        && x
-                                < extention.getCurrentXPos()
-                                        + extention.getCurrentWidth()
-                                        + (side == GuiSide.RIGHT ? 15 : 0)
+                        && x < extention.getCurrentXPos() + extention.getCurrentWidth()
+                                + (side == GuiSide.RIGHT ? 15 : 0)
                         && y + h > extention.getCurrentYPos()
                         && y < extention.getCurrentYPos() + extention.getCurrentHeight()) {
                     return true;
@@ -283,10 +275,8 @@ public class GuiExtentionController {
             }
         } else {
             return x + w > currentlyExtended.getCurrentXPos()
-                    && x
-                            < currentlyExtended.getCurrentXPos()
-                                    + currentlyExtended.getCurrentWidth()
-                                    + (side == GuiSide.RIGHT ? 15 : 0)
+                    && x < currentlyExtended.getCurrentXPos() + currentlyExtended.getCurrentWidth()
+                            + (side == GuiSide.RIGHT ? 15 : 0)
                     && y + h > currentlyExtended.getCurrentYPos()
                     && y < currentlyExtended.getCurrentYPos() + currentlyExtended.getCurrentHeight();
         }

@@ -1,22 +1,26 @@
 package logisticspipes.network;
 
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ClassInfo;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.packets.gui.GUIPacket;
 import logisticspipes.proxy.MainProxy;
 import lombok.SneakyThrows;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
+
+import com.google.common.reflect.ClassPath;
+import com.google.common.reflect.ClassPath.ClassInfo;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class NewGuiHandler {
 
@@ -30,16 +34,13 @@ public class NewGuiHandler {
     }
 
     @SuppressWarnings("unchecked")
-    @SneakyThrows({
-        IOException.class,
-        InvocationTargetException.class,
-        IllegalAccessException.class,
-        InstantiationException.class
-    })
+    @SneakyThrows({ IOException.class, InvocationTargetException.class, IllegalAccessException.class,
+            InstantiationException.class })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
     public static void initialize() {
-        final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(NewGuiHandler.class.getClassLoader())
-                .getTopLevelClassesRecursive("logisticspipes.network.guis"));
+        final List<ClassInfo> classes = new ArrayList<>(
+                ClassPath.from(NewGuiHandler.class.getClassLoader())
+                        .getTopLevelClassesRecursive("logisticspipes.network.guis"));
         classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
 
         NewGuiHandler.guilist = new ArrayList<>(classes.size());

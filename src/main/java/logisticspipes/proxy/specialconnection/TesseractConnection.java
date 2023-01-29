@@ -2,6 +2,7 @@ package logisticspipes.proxy.specialconnection;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.routing.ISpecialTileConnection;
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
@@ -9,6 +10,7 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -44,8 +46,8 @@ public class TesseractConnection implements ISpecialTileConnection {
         if (!onlyOnePipe) {
             return new ArrayList<>(0);
         }
-        List<? extends TileEntity> connections =
-                SimpleServiceLocator.thermalExpansionProxy.getConnectedTesseracts(tile);
+        List<? extends TileEntity> connections = SimpleServiceLocator.thermalExpansionProxy
+                .getConnectedTesseracts(tile);
         connections.remove(tile);
         List<TileEntity> list = new ArrayList<>();
         for (TileEntity connected : connections) {

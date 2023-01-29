@@ -2,7 +2,9 @@ package logisticspipes.renderer;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -12,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
 
 public final class FluidRenderer {
@@ -40,9 +43,8 @@ public final class FluidRenderer {
         }
         IIcon icon = flowing ? fluid.getFlowingIcon() : fluid.getStillIcon();
         if (icon == null) {
-            icon = ((TextureMap)
-                            Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture))
-                    .getAtlasSprite("missingno");
+            icon = ((TextureMap) Minecraft.getMinecraft().getTextureManager()
+                    .getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
         }
         return icon;
     }
@@ -105,7 +107,7 @@ public final class FluidRenderer {
 
         for (int s = 0; s < FluidRenderer.DISPLAY_STAGES; ++s) {
             diplayLists[s] = GLAllocation.generateDisplayLists(1);
-            GL11.glNewList(diplayLists[s], 4864 /*GL_COMPILE*/);
+            GL11.glNewList(diplayLists[s], 4864 /* GL_COMPILE */);
 
             FluidRenderer.liquidBlock.minX = 0.01f;
             FluidRenderer.liquidBlock.minY = 0;

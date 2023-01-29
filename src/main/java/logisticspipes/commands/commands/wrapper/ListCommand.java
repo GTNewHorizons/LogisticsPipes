@@ -6,13 +6,14 @@ import logisticspipes.asm.wrapper.WrapperState;
 import logisticspipes.commands.abstracts.ICommandHandler;
 import logisticspipes.commands.chathelper.MorePageDisplay;
 import logisticspipes.utils.string.ChatColor;
+
 import net.minecraft.command.ICommandSender;
 
 public class ListCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"list"};
+        return new String[] { "list" };
     }
 
     @Override
@@ -22,12 +23,12 @@ public class ListCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Lists all wrapper and their status."};
+        return new String[] { "Lists all wrapper and their status." };
     }
 
     @Override
     public void executeCommand(ICommandSender sender, String[] args) {
-        MorePageDisplay display = new MorePageDisplay(new String[] {"|< Wrapper status - Page: %/$ >|"}, sender);
+        MorePageDisplay display = new MorePageDisplay(new String[] { "|< Wrapper status - Page: %/$ >|" }, sender);
         for (AbstractWrapper controller : LogisticsWrapperHandler.wrapperController) {
             StringBuilder builder = new StringBuilder();
             builder.append(ChatColor.AQUA);

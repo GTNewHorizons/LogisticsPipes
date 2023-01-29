@@ -1,14 +1,13 @@
 /*
- * Copyright (c) 2015  RS485
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
+ * Copyright (c) 2015 RS485 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0, or
+ * MMPL. Please check the contents of the license located in
  * https://github.com/RS485/LogisticsPipes/blob/mc16/LICENSE.md
  */
 
 package logisticspipes.utils.item;
 
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
@@ -17,6 +16,7 @@ import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.string.StringUtils;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
@@ -33,6 +33,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
+
 import org.lwjgl.opengl.GL11;
 
 @Data
@@ -60,8 +61,8 @@ public class ItemStackRenderer {
     private World worldObj;
     private float partialTickTime;
 
-    public ItemStackRenderer(
-            int posX, int posY, float zLevel, boolean renderEffects, boolean ignoreDepth, boolean renderInColor) {
+    public ItemStackRenderer(int posX, int posY, float zLevel, boolean renderEffects, boolean ignoreDepth,
+            boolean renderInColor) {
         this.posX = posX;
         this.posY = posY;
         this.zLevel = zLevel;
@@ -85,18 +86,9 @@ public class ItemStackRenderer {
         scaleZ = 1.0F;
     }
 
-    public static void renderItemIdentifierStackListIntoGui(
-            List<ItemIdentifierStack> _allItems,
-            IItemSearch IItemSearch,
-            int page,
-            int left,
-            int top,
-            int columns,
-            int items,
-            int xSize,
-            int ySize,
-            float zLevel,
-            DisplayAmount displayAmount) {
+    public static void renderItemIdentifierStackListIntoGui(List<ItemIdentifierStack> _allItems,
+            IItemSearch IItemSearch, int page, int left, int top, int columns, int items, int xSize, int ySize,
+            float zLevel, DisplayAmount displayAmount) {
         ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                 _allItems,
                 IItemSearch,
@@ -114,38 +106,33 @@ public class ItemStackRenderer {
                 false);
     }
 
-    public static void renderItemIdentifierStackListIntoGui(
-            List<ItemIdentifierStack> _allItems,
-            IItemSearch IItemSearch,
-            int page,
-            int left,
-            int top,
-            int columns,
-            int items,
-            int xSize,
-            int ySize,
-            float zLevel,
-            DisplayAmount displayAmount,
-            boolean renderInColor,
-            boolean renderEffect,
+    public static void renderItemIdentifierStackListIntoGui(List<ItemIdentifierStack> _allItems,
+            IItemSearch IItemSearch, int page, int left, int top, int columns, int items, int xSize, int ySize,
+            float zLevel, DisplayAmount displayAmount, boolean renderInColor, boolean renderEffect,
             boolean ignoreDepth) {
-        ItemStackRenderer itemStackRenderer =
-                new ItemStackRenderer(0, 0, zLevel, renderEffect, ignoreDepth, renderInColor);
+        ItemStackRenderer itemStackRenderer = new ItemStackRenderer(
+                0,
+                0,
+                zLevel,
+                renderEffect,
+                ignoreDepth,
+                renderInColor);
         itemStackRenderer.setDisplayAmount(displayAmount);
         ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                _allItems, IItemSearch, page, left, top, columns, items, xSize, ySize, itemStackRenderer);
+                _allItems,
+                IItemSearch,
+                page,
+                left,
+                top,
+                columns,
+                items,
+                xSize,
+                ySize,
+                itemStackRenderer);
     }
 
-    public static void renderItemIdentifierStackListIntoGui(
-            List<ItemIdentifierStack> _allItems,
-            IItemSearch IItemSearch,
-            int page,
-            int left,
-            int top,
-            int columns,
-            int items,
-            int xSize,
-            int ySize,
+    public static void renderItemIdentifierStackListIntoGui(List<ItemIdentifierStack> _allItems,
+            IItemSearch IItemSearch, int page, int left, int top, int columns, int items, int xSize, int ySize,
             ItemStackRenderer itemStackRenderer) {
         int ppi = 0;
         int column = 0;
@@ -219,8 +206,8 @@ public class ItemStackRenderer {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
 
-        if (!ForgeHooksClient.renderInventoryItem(
-                renderBlocks, texManager, itemstack, renderInColor, zLevel, posX, posY)) {
+        if (!ForgeHooksClient
+                .renderInventoryItem(renderBlocks, texManager, itemstack, renderInColor, zLevel, posX, posY)) {
             renderItem.zLevel += zLevel;
             renderItem.renderItemIntoGUI(fontRenderer, texManager, itemstack, posX, posY, renderEffects);
             renderItem.zLevel -= zLevel;
@@ -252,8 +239,8 @@ public class ItemStackRenderer {
             }
 
             GL11.glDisable(GL11.GL_LIGHTING);
-            String amountString =
-                    StringUtils.getFormatedStackSize(itemstack.stackSize, displayAmount == DisplayAmount.ALWAYS);
+            String amountString = StringUtils
+                    .getFormatedStackSize(itemstack.stackSize, displayAmount == DisplayAmount.ALWAYS);
 
             // 20 should be about the size of a block + 20 for the effect and overlay
             GL11.glTranslatef(0.0F, 0.0F, zLevel + 40.0F);

@@ -1,6 +1,7 @@
 package logisticspipes.network.abstractpackets;
 
 import java.io.IOException;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import lombok.Getter;

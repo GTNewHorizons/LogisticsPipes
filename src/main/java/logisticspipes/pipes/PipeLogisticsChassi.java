@@ -1,14 +1,11 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.pipes;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
@@ -58,6 +55,7 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -68,15 +66,12 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.client.FMLClientHandler;
+
 @CCType(name = "LogisticsChassiePipe")
 public abstract class PipeLogisticsChassi extends CoreRoutedPipe
-        implements ICraftItems,
-                IBufferItems,
-                ISimpleInventoryEventHandler,
-                ISendRoutedItem,
-                IProvideItems,
-                IHeadUpDisplayRendererProvider,
-                ISendQueueContentRecieiver {
+        implements ICraftItems, IBufferItems, ISimpleInventoryEventHandler, ISendRoutedItem, IProvideItems,
+        IHeadUpDisplayRendererProvider, ISendQueueContentRecieiver {
 
     private final ChassiModule _module;
     private final ItemIdentifierInventory _moduleInventory;
@@ -137,11 +132,8 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
                     getX(),
                     getZ(),
                     MainProxy.getDimensionForWorld(getWorld()),
-                    PacketHandler.getPacket(ChassiOrientationPacket.class)
-                            .setDir(pointedDirection)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()));
+                    PacketHandler.getPacket(ChassiOrientationPacket.class).setDir(pointedDirection).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()));
             refreshRender(true);
         }
     }
@@ -268,8 +260,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
                 ItemIdentifierStack ms = _moduleInventory.getIDStackInSlot(i);
                 if (ms != null) {
                     ItemStack s = ms.makeNormalStack();
-                    ItemModuleInformationManager.saveInfotmation(
-                            s, getLogisticsModule().getSubModule(i));
+                    ItemModuleInformationManager.saveInfotmation(s, getLogisticsModule().getSubModule(i));
                     _moduleInventory.setInventorySlotContents(i, s);
                 }
             }
@@ -347,8 +338,8 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
 
             if (stack.getItem() instanceof ItemModule) {
                 LogisticsModule current = _module.getModule(i);
-                LogisticsModule next =
-                        ((ItemModule) stack.getItem()).getModuleForItem(stack, _module.getModule(i), this, this);
+                LogisticsModule next = ((ItemModule) stack.getItem())
+                        .getModuleForItem(stack, _module.getModule(i), this, this);
                 next.registerPosition(ModulePositionType.SLOT, i);
                 next.registerCCEventQueuer(this);
                 if (current != next) {
@@ -373,9 +364,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
                 MainProxy.sendToPlayerList(
                         PacketHandler.getPacket(ChassiePipeModuleContent.class)
                                 .setIdentList(ItemIdentifierStack.getListFromInventory(_moduleInventory))
-                                .setPosX(getX())
-                                .setPosY(getY())
-                                .setPosZ(getZ()),
+                                .setPosX(getX()).setPosY(getY()).setPosZ(getZ()),
                         localModeWatchers);
             }
         }
@@ -397,10 +386,9 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         if (!init) {
             init = true;
             if (MainProxy.isClient(getWorld())) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestChassiOrientationPacket.class)
-                        .setPosX(getX())
-                        .setPosY(getY())
-                        .setPosZ(getZ()));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(RequestChassiOrientationPacket.class).setPosX(getX()).setPosY(getY())
+                                .setPosZ(getZ()));
             }
         }
     }
@@ -424,8 +412,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         for (int i = 0; i < _moduleInventory.getSizeInventory(); i++) {
             ItemStack item = _moduleInventory.getStackInSlot(i);
             if (item == null) {
-                _moduleInventory.setInventorySlotContents(
-                        i, entityplayer.getCurrentEquippedItem().splitStack(1));
+                _moduleInventory.setInventorySlotContents(i, entityplayer.getCurrentEquippedItem().splitStack(1));
                 InventoryChanged(_moduleInventory);
                 return true;
             }
@@ -439,8 +426,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
             return false;
         }
 
-        if (SimpleServiceLocator.toolWrenchHandler.isWrenchEquipped(entityplayer)
-                && entityplayer.isSneaking()
+        if (SimpleServiceLocator.toolWrenchHandler.isWrenchEquipped(entityplayer) && entityplayer.isSneaking()
                 && SimpleServiceLocator.toolWrenchHandler.canWrench(entityplayer, getX(), getY(), getZ())) {
             if (MainProxy.isServer(getWorld())) {
                 if (settings == null || settings.openGui) {
@@ -453,8 +439,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
             return true;
         }
 
-        if (!entityplayer.isSneaking()
-                && entityplayer.getCurrentEquippedItem().getItem() == LogisticsPipes.ModuleItem
+        if (!entityplayer.isSneaking() && entityplayer.getCurrentEquippedItem().getItem() == LogisticsPipes.ModuleItem
                 && entityplayer.getCurrentEquippedItem().getItemDamage() != ItemModule.BLANK) {
             if (MainProxy.isServer(getWorld())) {
                 if (settings == null || settings.openGui) {
@@ -490,8 +475,8 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     }
 
     @Override
-    public LogisticsOrder fullFill(
-            LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info) {
+    public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination,
+            IAdditionalTargetInformation info) {
         if (!isEnabled()) {
             return null;
         }
@@ -535,20 +520,16 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
         hud.stopWatching();
     }
 
@@ -558,17 +539,13 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
             localModeWatchers.add(player);
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(ChassiePipeModuleContent.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(_moduleInventory))
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(_moduleInventory)).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     player);
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(SendQueueContent.class)
-                            .setIdentList(ItemIdentifierStack.getListSendQueue(_sendQueue))
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                            .setIdentList(ItemIdentifierStack.getListSendQueue(_sendQueue)).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     player);
         } else {
             super.playerStartWatching(player, mode);
@@ -598,11 +575,8 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
                 if (localModeWatchers != null && localModeWatchers.size() > 0) {
                     LinkedList<ItemIdentifierStack> items = ItemIdentifierStack.getListSendQueue(_sendQueue);
                     MainProxy.sendToPlayerList(
-                            PacketHandler.getPacket(SendQueueContent.class)
-                                    .setIdentList(items)
-                                    .setPosX(getX())
-                                    .setPosY(getY())
-                                    .setPosZ(getZ()),
+                            PacketHandler.getPacket(SendQueueContent.class).setIdentList(items).setPosX(getX())
+                                    .setPosY(getY()).setPosZ(getZ()),
                             localModeWatchers);
                     return items.size();
                 }
@@ -721,8 +695,9 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         if (!(promise instanceof LogisticsPromise)) {
             throw new UnsupportedOperationException("Extra has to be an item for a chassis pipe");
         }
-        ItemIdentifierStack stack =
-                new ItemIdentifierStack(((LogisticsPromise) promise).item, ((LogisticsPromise) promise).numberOfItems);
+        ItemIdentifierStack stack = new ItemIdentifierStack(
+                ((LogisticsPromise) promise).item,
+                ((LogisticsPromise) promise).numberOfItems);
         _extras.add(new LogisticsItemOrder(new DictResource(stack, null), null, ResourceType.EXTRA, null));
     }
 
@@ -777,8 +752,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
         if (slot != ModulePositionType.SLOT || positionInt >= _upgradeManagers.length) {
             if (LPConstants.DEBUG) {
                 new UnsupportedOperationException(
-                                "Position info arn't for a chassi pipe. (" + slot + "/" + positionInt + ")")
-                        .printStackTrace();
+                        "Position info arn't for a chassi pipe. (" + slot + "/" + positionInt + ")").printStackTrace();
             }
             return super.getUpgradeManager(slot, positionInt);
         }

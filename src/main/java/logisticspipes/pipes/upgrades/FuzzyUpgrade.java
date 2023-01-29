@@ -26,11 +26,11 @@ public class FuzzyUpgrade implements IPipeUpgrade {
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] {"crafting", "basic"};
+        return new String[] { "crafting", "basic" };
     }
 
     @Override
     public String[] getAllowedModules() {
-        return new String[] {"crafting", "itemsink"};
+        return new String[] { "crafting", "itemsink" };
     }
 }

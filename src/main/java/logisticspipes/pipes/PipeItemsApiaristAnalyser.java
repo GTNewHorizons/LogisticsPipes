@@ -1,6 +1,7 @@
 package logisticspipes.pipes;
 
 import java.util.List;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.ISendRoutedItem;
 import logisticspipes.interfaces.routing.IFilter;
@@ -21,6 +22,7 @@ import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Triplet;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -78,10 +80,10 @@ public class PipeItemsApiaristAnalyser extends CoreRoutedPipe implements ISendRo
     }
 
     @Override
-    public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
-            ItemIdentifier stack, boolean allowDefault, List<Integer> routerIDsToExclude) {
-        return SimpleServiceLocator.logisticsManager.hasDestination(
-                stack, allowDefault, getRouter().getSimpleID(), routerIDsToExclude);
+    public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(ItemIdentifier stack, boolean allowDefault,
+            List<Integer> routerIDsToExclude) {
+        return SimpleServiceLocator.logisticsManager
+                .hasDestination(stack, allowDefault, getRouter().getSimpleID(), routerIDsToExclude);
     }
 
     @Override

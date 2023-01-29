@@ -8,6 +8,7 @@ import logisticspipes.network.abstractguis.ModuleInHandGuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.DummyModuleContainer;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ThaumicAspectSinkModuleInHand extends ModuleInHandGuiProvider {

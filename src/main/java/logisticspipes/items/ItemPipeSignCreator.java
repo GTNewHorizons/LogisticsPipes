@@ -1,9 +1,8 @@
 package logisticspipes.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.pipes.signs.CraftingPipeSign;
@@ -11,6 +10,7 @@ import logisticspipes.pipes.signs.IPipeSign;
 import logisticspipes.pipes.signs.ItemAmountPipeSign;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +20,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemPipeSignCreator extends LogisticsItem {
 
@@ -34,17 +37,8 @@ public class ItemPipeSignCreator extends LogisticsItem {
     }
 
     @Override
-    public boolean onItemUseFirst(
-            ItemStack itemStack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int sideinput,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z,
+            int sideinput, float hitX, float hitY, float hitZ) {
         if (MainProxy.isClient(world)) {
             return false;
         }
@@ -111,8 +105,8 @@ public class ItemPipeSignCreator extends LogisticsItem {
     public void registerIcons(IIconRegister par1IconRegister) {
         super.registerIcons(par1IconRegister); // Fallback
         for (int i = 0; i < ItemPipeSignCreator.signTypes.size(); i++) {
-            itemIcon[i] = par1IconRegister.registerIcon(
-                    "logisticspipes:" + getUnlocalizedName().replace("item.", "") + "." + i);
+            itemIcon[i] = par1IconRegister
+                    .registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "." + i);
         }
     }
 

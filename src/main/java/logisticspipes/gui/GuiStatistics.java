@@ -3,6 +3,7 @@ package logisticspipes.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.blocks.stats.TrackingTask;
 import logisticspipes.gui.popup.GuiAddTracking;
@@ -18,12 +19,14 @@ import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -59,8 +62,15 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
         TAB_BUTTON_1.add(addButton(new GuiButton(3, guiLeft + 83, guiTop + 70, 60, 20, "Remove")));
         TAB_BUTTON_1_2.add(addButton(new SmallGuiButton(4, guiLeft + 84, guiTop + 205, 10, 10, "<")));
         TAB_BUTTON_1_2.add(addButton(new SmallGuiButton(5, guiLeft + 96, guiTop + 205, 10, 10, ">")));
-        TAB_BUTTON_2.add(addButton(
-                new GuiButton(6, guiLeft + 10, guiTop + 40, 160, 20, StringUtils.translate(PREFIX + "gettasks"))));
+        TAB_BUTTON_2.add(
+                addButton(
+                        new GuiButton(
+                                6,
+                                guiLeft + 10,
+                                guiTop + 40,
+                                160,
+                                20,
+                                StringUtils.translate(PREFIX + "gettasks"))));
         TAB_BUTTON_2.add(addButton(new SmallGuiButton(7, guiLeft + 90, guiTop + 65, 10, 10, "<")));
         TAB_BUTTON_2.add(addButton(new SmallGuiButton(8, guiLeft + 160, guiTop + 65, 10, 10, ">")));
 
@@ -74,7 +84,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     guiTop + 18,
                     xSize - 20,
                     ySize - 100,
-                    new int[] {1, 10, 64, 64},
+                    new int[] { 1, 10, 64, 64 },
                     true);
         }
         itemDisplay_1.reposition(guiLeft + 10, guiTop + 40, xSize - 20, 20);
@@ -89,7 +99,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     guiTop + 18,
                     xSize - 20,
                     ySize - 100,
-                    new int[] {1, 10, 64, 64},
+                    new int[] { 1, 10, 64, 64 },
                     true);
             itemDisplay_2.setItemList(new ArrayList<>());
         }
@@ -119,12 +129,11 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
         } else if (p_146284_1_.id == 1) {
             itemDisplay_1.prevPage();
         } else if (p_146284_1_.id == 2) {
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(RequestAmountTaskSubGui.class).setTilePos(tile));
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestAmountTaskSubGui.class).setTilePos(tile));
         } else if (p_146284_1_.id == 3 && itemDisplay_1.getSelectedItem() != null) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(RemoveAmoundTask.class)
-                    .setItem(itemDisplay_1.getSelectedItem().getItem())
-                    .setTilePos(tile));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(RemoveAmoundTask.class).setItem(itemDisplay_1.getSelectedItem().getItem())
+                            .setTilePos(tile));
             Iterator<TrackingTask> iter = tile.tasks.iterator();
             while (iter.hasNext()) {
                 TrackingTask task = iter.next();
@@ -145,8 +154,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                 move_left = 0;
             }
         } else if (p_146284_1_.id == 6) {
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(RequestRunningCraftingTasks.class).setTilePos(tile));
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestRunningCraftingTasks.class).setTilePos(tile));
         } else if (p_146284_1_.id == 7) {
             itemDisplay_2.prevPage();
         } else if (p_146284_1_.id == 8) {
@@ -195,8 +203,8 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableGUIStandardItemLighting();
         ItemStack stack = new ItemStack(Blocks.crafting_table, 0);
-        GuiScreen.itemRender.renderItemAndEffectIntoGUI(
-                fontRendererObj, getMC().renderEngine, stack, guiLeft + 31, guiTop + 3);
+        GuiScreen.itemRender
+                .renderItemAndEffectIntoGUI(fontRendererObj, getMC().renderEngine, stack, guiLeft + 31, guiTop + 3);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GuiScreen.itemRender.zLevel = 0.0F;
@@ -285,7 +293,10 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
                     fontRendererObj.drawString(left, xOrigo - 12, yOrigo + 6, 0x404040);
                     fontRendererObj.drawString(
-                            right, xOrigo + 153 - fontRendererObj.getStringWidth(right), yOrigo + 6, 0x404040);
+                            right,
+                            xOrigo + 153 - fontRendererObj.getStringWidth(right),
+                            yOrigo + 6,
+                            0x404040);
 
                     long[] data = new long[task.amountRecorded.length];
                     int pos = 0;
@@ -314,23 +325,20 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
                     fontRendererObj.drawString(
                             StringUtils.getFormatedStackSize(highest, false),
-                            xOrigo
-                                    - 1
+                            xOrigo - 1
                                     - fontRendererObj.getStringWidth(StringUtils.getFormatedStackSize(highest, false)),
                             guiTop + 117,
                             0x404040);
                     fontRendererObj.drawString(
                             StringUtils.getFormatedStackSize((long) averagey, false),
-                            xOrigo
-                                    - 1
-                                    - fontRendererObj.getStringWidth(
-                                            StringUtils.getFormatedStackSize((long) averagey, false)),
+                            xOrigo - 1
+                                    - fontRendererObj
+                                            .getStringWidth(StringUtils.getFormatedStackSize((long) averagey, false)),
                             yCenter + 46,
                             0x404040);
                     fontRendererObj.drawString(
                             StringUtils.getFormatedStackSize(lowest, false),
-                            xOrigo
-                                    - 1
+                            xOrigo - 1
                                     - fontRendererObj.getStringWidth(StringUtils.getFormatedStackSize(lowest, false)),
                             bottom - 23,
                             0x404040);
@@ -409,10 +417,18 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
         super.drawGuiContainerForegroundLayer(par1, par2);
         if (current_Tab == 0) {
             mc.fontRenderer.drawString(
-                    StringUtils.translate(PREFIX + "amount"), 10, 28, Color.getValue(Color.DARKER_GREY), false);
+                    StringUtils.translate(PREFIX + "amount"),
+                    10,
+                    28,
+                    Color.getValue(Color.DARKER_GREY),
+                    false);
         } else if (current_Tab == 1) {
             mc.fontRenderer.drawString(
-                    StringUtils.translate(PREFIX + "crafting"), 10, 28, Color.getValue(Color.DARKER_GREY), false);
+                    StringUtils.translate(PREFIX + "crafting"),
+                    10,
+                    28,
+                    Color.getValue(Color.DARKER_GREY),
+                    false);
             GuiGraphics.displayItemToolTip(itemDisplay_2.getToolTip(), this, zLevel, guiLeft, guiTop);
         }
     }

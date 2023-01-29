@@ -3,6 +3,7 @@ package logisticspipes.routing.debug;
 import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.Callable;
+
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.interfaces.IRoutingDebugAdapter;
 import logisticspipes.interfaces.routing.IFilter;
@@ -16,6 +17,7 @@ import logisticspipes.routing.IRouter;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.routing.ServerRouter;
 import logisticspipes.ticks.QueuedTasks;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
@@ -97,13 +99,11 @@ public class DebugController implements IRoutingDebugAdapter {
         state = DebugWaitState.LOOP;
         QueuedTasks.queueTask((Callable<Object>) () -> {
             sender.addChatMessage(new ChatComponentText(reson));
-            LPChatListener.addTask(
-                    () -> {
-                        state = DebugWaitState.CONTINUE;
-                        MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-                        return true;
-                    },
-                    sender);
+            LPChatListener.addTask(() -> {
+                state = DebugWaitState.CONTINUE;
+                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                return true;
+            }, sender);
             return null;
         });
         boolean exist = false;
@@ -124,16 +124,15 @@ public class DebugController implements IRoutingDebugAdapter {
     }
 
     @Override
-    public void start(
-            PriorityQueue<ExitRoute> candidatesCost,
-            ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet,
+    public void start(PriorityQueue<ExitRoute> candidatesCost, ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet,
             ArrayList<EnumMap<PipeRoutingConnectionType, List<List<IFilter>>>> filterList) {
         this.candidatesCost = candidatesCost;
         this.closedSet = closedSet;
         this.filterList = filterList;
         ExitRoute[] e = candidatesCost.toArray(new ExitRoute[] {});
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(RoutingUpdateDebugCanidateList.class).setMsg(e), (EntityPlayer) sender);
+                PacketHandler.getPacket(RoutingUpdateDebugCanidateList.class).setMsg(e),
+                (EntityPlayer) sender);
         wait("Start?", true);
     }
 
@@ -163,8 +162,7 @@ public class DebugController implements IRoutingDebugAdapter {
                 IRouter router = SimpleServiceLocator.routerManager.getRouter(i);
                 if (router != null) {
                     MainProxy.sendPacketToPlayer(
-                            PacketHandler.getPacket(RoutingUpdateDebugClosedSet.class)
-                                    .setPos(router.getLPPosition())
+                            PacketHandler.getPacket(RoutingUpdateDebugClosedSet.class).setPos(router.getLPPosition())
                                     .setSet(set),
                             (EntityPlayer) sender);
                 }
@@ -176,8 +174,7 @@ public class DebugController implements IRoutingDebugAdapter {
                 IRouter router = SimpleServiceLocator.routerManager.getRouter(i);
                 if (router != null) {
                     MainProxy.sendPacketToPlayer(
-                            PacketHandler.getPacket(RoutingUpdateDebugFilters.class)
-                                    .setPos(router.getLPPosition())
+                            PacketHandler.getPacket(RoutingUpdateDebugFilters.class).setPos(router.getLPPosition())
                                     .setFilters(filters),
                             (EntityPlayer) sender);
                 }
@@ -192,7 +189,8 @@ public class DebugController implements IRoutingDebugAdapter {
             e = list.toArray(new ExitRoute[] {});
         }
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(RoutingUpdateDebugCanidateList.class).setMsg(e), (EntityPlayer) sender);
+                PacketHandler.getPacket(RoutingUpdateDebugCanidateList.class).setMsg(e),
+                (EntityPlayer) sender);
         if (prevNode == null || prevNode.debug.isTraced) {
             // Display Information On Client Side
 
@@ -206,7 +204,8 @@ public class DebugController implements IRoutingDebugAdapter {
         next.debug.index = cachedRoutes.size();
         cachedRoutes.add(new WeakReference<>(next));
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(RoutingUpdateCanidatePipe.class).setExitRoute(next), (EntityPlayer) sender);
+                PacketHandler.getPacket(RoutingUpdateCanidatePipe.class).setExitRoute(next),
+                (EntityPlayer) sender);
     }
 
     @Override

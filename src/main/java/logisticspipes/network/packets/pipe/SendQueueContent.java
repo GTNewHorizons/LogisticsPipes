@@ -4,6 +4,7 @@ import logisticspipes.interfaces.ISendQueueContentRecieiver;
 import logisticspipes.network.abstractpackets.InventoryModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class SendQueueContent extends InventoryModuleCoordinatesPacket {

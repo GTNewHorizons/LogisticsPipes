@@ -10,6 +10,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -49,10 +50,9 @@ public class GuiHUDSettings extends LogisticsBaseGuiScreen {
     protected void actionPerformed(GuiButton button) {
         if (buttonList.get(button.id) instanceof GuiCheckBox) {
             ((GuiCheckBox) buttonList.get(button.id)).change();
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDSettingsPacket.class)
-                    .setButtonId(button.id)
-                    .setState(((GuiCheckBox) buttonList.get(button.id)).getState())
-                    .setSlot(slot));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(HUDSettingsPacket.class).setButtonId(button.id)
+                            .setState(((GuiCheckBox) buttonList.get(button.id)).getState()).setSlot(slot));
         }
     }
 

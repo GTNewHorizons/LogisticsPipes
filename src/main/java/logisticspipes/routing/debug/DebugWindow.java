@@ -1,6 +1,7 @@
 package logisticspipes.routing.debug;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -32,8 +33,7 @@ public class DebugWindow extends JFrame {
         if (document != null) {
             try {
                 document.insertString(document.getLength(), data, attr);
-            } catch (BadLocationException ignored) {
-            }
+            } catch (BadLocationException ignored) {}
         }
         getContentPane().validate();
     }

@@ -2,6 +2,7 @@ package logisticspipes.pipes.basic.fluid;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.logisticspipes.IRoutedItem;
@@ -23,6 +24,7 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -88,8 +90,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
     }
 
     /***
-     * @param flag
-     *            Weather to list a Nearby Pipe or not
+     * @param flag Weather to list a Nearby Pipe or not
      */
     public final List<Pair<TileEntity, ForgeDirection>> getAdjacentTanks(boolean flag) {
         if (worldUtil == null) {
@@ -107,13 +108,9 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
     }
 
     /***
-     * @param tile
-     *            The connected TileEntity
-     * @param dir
-     *            The direction the TileEntity is in relative to the currect
-     *            pipe
-     * @param flag
-     *            Weather to list a Nearby Pipe or not
+     * @param tile The connected TileEntity
+     * @param dir  The direction the TileEntity is in relative to the currect pipe
+     * @param flag Weather to list a Nearby Pipe or not
      */
     public final boolean isConnectableTank(TileEntity tile, ForgeDirection dir, boolean flag) {
         if (SimpleServiceLocator.specialTankHandler.hasHandlerFor(tile)) {
@@ -150,8 +147,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                         continue;
                     }
                 }
-                FluidTank tank = ((PipeFluidTransportLogistics) transport)
-                        .sideTanks[pair.getValue2().ordinal()];
+                FluidTank tank = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
                 validDirections++;
                 if (tank.getFluid() == null) {
                     continue;
@@ -182,8 +178,7 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                         continue;
                     }
                 }
-                FluidTank tankSide = ((PipeFluidTransportLogistics) transport)
-                        .sideTanks[pair.getValue2().ordinal()];
+                FluidTank tankSide = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
                 stack = tank.getFluid();
                 if (stack == null) {
                     continue;
@@ -234,8 +229,8 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                 return false;
             }
             int filled = 0;
-            FluidStack liquid = SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(
-                    arrivingItem.getItemIdentifierStack());
+            FluidStack liquid = SimpleServiceLocator.logisticsFluidManager
+                    .getFluidFromContainer(arrivingItem.getItemIdentifierStack());
             if (isConnectableTank(tile, arrivingItem.output, false)) {
                 List<Pair<TileEntity, ForgeDirection>> adjTanks = getAdjacentTanks(false);
                 // Try to put liquid into all adjacent tanks.
@@ -249,8 +244,8 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                     return true;
                 }
                 // Try inserting the liquid into the pipe side tank
-                filled = ((PipeFluidTransportLogistics) transport)
-                        .sideTanks[arrivingItem.output.ordinal()].fill(liquid, true);
+                filled = ((PipeFluidTransportLogistics) transport).sideTanks[arrivingItem.output.ordinal()]
+                        .fill(liquid, true);
                 if (filled == liquid.amount) {
                     return true;
                 }
@@ -269,10 +264,10 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                 ((IRequireReliableFluidTransport) this).liquidNotInserted(FluidIdentifier.get(liquid), liquid.amount);
             }
 
-            IRoutedItem routedItem = SimpleServiceLocator.routedItemHelper.createNewTravelItem(
-                    SimpleServiceLocator.logisticsFluidManager.getFluidContainer(liquid));
-            Pair<Integer, Integer> replies = SimpleServiceLocator.logisticsFluidManager.getBestReply(
-                    liquid, getRouter(), routedItem.getJamList());
+            IRoutedItem routedItem = SimpleServiceLocator.routedItemHelper
+                    .createNewTravelItem(SimpleServiceLocator.logisticsFluidManager.getFluidContainer(liquid));
+            Pair<Integer, Integer> replies = SimpleServiceLocator.logisticsFluidManager
+                    .getBestReply(liquid, getRouter(), routedItem.getJamList());
             int dest = replies.getValue1();
             routedItem.setDestination(dest);
             routedItem.setTransportMode(TransportMode.Passive);

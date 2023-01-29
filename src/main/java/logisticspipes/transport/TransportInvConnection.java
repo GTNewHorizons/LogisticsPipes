@@ -3,6 +3,7 @@ package logisticspipes.transport;
 import logisticspipes.pipes.PipeItemsInvSysConnector;
 import logisticspipes.routing.ItemRoutingInformation;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 

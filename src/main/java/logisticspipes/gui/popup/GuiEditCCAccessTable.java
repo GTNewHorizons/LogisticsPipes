@@ -1,6 +1,7 @@
 package logisticspipes.gui.popup;
 
 import java.util.Collections;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.SecurityAddCCIdPacket;
@@ -11,9 +12,11 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+
 import org.lwjgl.input.Keyboard;
 
 public class GuiEditCCAccessTable extends SubGuiScreen {
@@ -47,10 +50,22 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
         buttonList.clear();
         buttonList.add(new GuiButton(0, guiLeft + 10, guiTop + 119, 30, 20, "-"));
         buttonList.add(new GuiButton(1, guiLeft + 110, guiTop + 119, 30, 20, "+"));
-        buttonList.add(new SmallGuiButton(
-                2, guiLeft + 30, guiTop + 107, 40, 10, StringUtils.translate(GuiEditCCAccessTable.PREFIX + "Remove")));
-        buttonList.add(new SmallGuiButton(
-                3, guiLeft + 80, guiTop + 107, 40, 10, StringUtils.translate(GuiEditCCAccessTable.PREFIX + "Add")));
+        buttonList.add(
+                new SmallGuiButton(
+                        2,
+                        guiLeft + 30,
+                        guiTop + 107,
+                        40,
+                        10,
+                        StringUtils.translate(GuiEditCCAccessTable.PREFIX + "Remove")));
+        buttonList.add(
+                new SmallGuiButton(
+                        3,
+                        guiLeft + 80,
+                        guiTop + 107,
+                        40,
+                        10,
+                        StringUtils.translate(GuiEditCCAccessTable.PREFIX + "Add")));
         buttonList.add(new SmallGuiButton(4, guiLeft + 87, guiTop + 4, 10, 10, "<"));
         buttonList.add(new SmallGuiButton(5, guiLeft + 130, guiTop + 4, 10, 10, ">"));
     }
@@ -59,9 +74,9 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
     protected void renderGuiBackground(int par1, int par2) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
         mc.fontRenderer.drawString(
-                "(" + (page + 1) + "/"
-                        + ((int) ((_tile.excludedCC.size() / 9D)
-                                + 1
+                "(" + (page + 1)
+                        + "/"
+                        + ((int) ((_tile.excludedCC.size() / 9D) + 1
                                 - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0)))
                         + ")",
                 guiLeft + 100,
@@ -87,8 +102,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                     guiTop + 16 + (i * 10),
                     dark ? 0xFFFFFF : 0x000000);
             dark = !dark;
-            if (lastClickedx >= guiLeft + 10
-                    && lastClickedx < right - 10
+            if (lastClickedx >= guiLeft + 10 && lastClickedx < right - 10
                     && lastClickedy >= guiTop + 15 + (i * 10)
                     && lastClickedy < guiTop + 25 + (i * 10)) {
                 lastClickedx = -10000000;
@@ -113,8 +127,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                 bottom - 25,
                 0xFFFFFF);
         if (editsearch) {
-            int linex = guiLeft
-                    + 75
+            int linex = guiLeft + 75
                     + mc.fontRenderer.getStringWidth(searchinput1)
                     - (mc.fontRenderer.getStringWidth(searchinput1 + searchinput2) / 2);
             if (System.currentTimeMillis() - oldSystemTime > 500) {
@@ -128,8 +141,7 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
 
         // Click into search
         if (lastClickedx != -10000000 && lastClickedy != -10000000) {
-            if (lastClickedx >= guiLeft + 42
-                    && lastClickedx < right - 42
+            if (lastClickedx >= guiLeft + 42 && lastClickedx < right - 42
                     && lastClickedy >= bottom - 30
                     && lastClickedy < bottom - 13) {
                 editsearch = true;
@@ -211,30 +223,24 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                     searchinput2 = "";
                 }
                 break;
-            case 2:
-                {
-                    Integer id = Integer.valueOf(searchinput1 + searchinput2);
-                    _tile.excludedCC.remove(id);
-                    MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityRemoveCCIdPacket.class)
-                            .setInteger(id)
-                            .setPosX(_tile.xCoord)
-                            .setPosY(_tile.yCoord)
-                            .setPosZ(_tile.zCoord));
-                }
+            case 2: {
+                Integer id = Integer.valueOf(searchinput1 + searchinput2);
+                _tile.excludedCC.remove(id);
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(SecurityRemoveCCIdPacket.class).setInteger(id).setPosX(_tile.xCoord)
+                                .setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
+            }
                 break;
-            case 3:
-                {
-                    Integer id = Integer.valueOf(searchinput1 + searchinput2);
-                    if (!_tile.excludedCC.contains(id)) {
-                        _tile.excludedCC.add(id);
-                        Collections.sort(_tile.excludedCC);
-                    }
-                    MainProxy.sendPacketToServer(PacketHandler.getPacket(SecurityAddCCIdPacket.class)
-                            .setInteger(id)
-                            .setPosX(_tile.xCoord)
-                            .setPosY(_tile.yCoord)
-                            .setPosZ(_tile.zCoord));
+            case 3: {
+                Integer id = Integer.valueOf(searchinput1 + searchinput2);
+                if (!_tile.excludedCC.contains(id)) {
+                    _tile.excludedCC.add(id);
+                    Collections.sort(_tile.excludedCC);
                 }
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(SecurityAddCCIdPacket.class).setInteger(id).setPosX(_tile.xCoord)
+                                .setPosY(_tile.yCoord).setPosZ(_tile.zCoord));
+            }
                 break;
             case 4:
                 page--;
@@ -244,9 +250,8 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
                 break;
             case 5:
                 page++;
-                if (page
-                        > (_tile.excludedCC.size() / 9)
-                                - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0)) {
+                if (page > (_tile.excludedCC.size() / 9)
+                        - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0)) {
                     page = (_tile.excludedCC.size() / 9)
                             - (_tile.excludedCC.size() % 9 == 0 && _tile.excludedCC.size() != 0 ? 1 : 0);
                 }

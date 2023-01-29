@@ -1,13 +1,10 @@
 package logisticspipes.nei;
 
-import codechicken.nei.PositionedStack;
-import codechicken.nei.api.IOverlayHandler;
-import codechicken.nei.recipe.IRecipeHandler;
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
 import logisticspipes.gui.GuiLogisticsCraftingTable;
 import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.gui.popup.GuiRecipeImport;
@@ -15,10 +12,16 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.NEISetCraftingRecipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
+
+import codechicken.nei.PositionedStack;
+import codechicken.nei.api.IOverlayHandler;
+import codechicken.nei.recipe.IRecipeHandler;
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class LogisticsCraftingOverlayHandler implements IOverlayHandler {
 
@@ -46,9 +49,7 @@ public class LogisticsCraftingOverlayHandler implements IOverlayHandler {
             int y = (ps.rely - 6) / 18;
             int slot = x + y * 3;
             if (x < 0 || x > 2 || y < 0 || y > 2 || slot < 0 || slot > 8) {
-                FMLClientHandler.instance()
-                        .getClient()
-                        .thePlayer
+                FMLClientHandler.instance().getClient().thePlayer
                         .sendChatMessage("Internal Error. This button is broken.");
                 return;
             }
@@ -60,12 +61,10 @@ public class LogisticsCraftingOverlayHandler implements IOverlayHandler {
                     ItemStack wildCardCheckStack = iter.next();
                     if (wildCardCheckStack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
                         iter.remove();
-                        wildCardCheckStack
-                                .getItem()
-                                .getSubItems(
-                                        wildCardCheckStack.getItem(),
-                                        wildCardCheckStack.getItem().getCreativeTab(),
-                                        list);
+                        wildCardCheckStack.getItem().getSubItems(
+                                wildCardCheckStack.getItem(),
+                                wildCardCheckStack.getItem().getCreativeTab(),
+                                list);
                         iter = list.iterator();
                     }
                 }
@@ -80,10 +79,8 @@ public class LogisticsCraftingOverlayHandler implements IOverlayHandler {
         if (hasCanidates) {
             gui.setSubGui(new GuiRecipeImport(tile, stacks));
         } else {
-            MainProxy.sendPacketToServer(packet.setContent(stack)
-                    .setPosX(tile.xCoord)
-                    .setPosY(tile.yCoord)
-                    .setPosZ(tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    packet.setContent(stack).setPosX(tile.xCoord).setPosY(tile.yCoord).setPosZ(tile.zCoord));
         }
     }
 }

@@ -4,6 +4,7 @@ import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.routing.debug.ClientViewController;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class RoutingUpdateInitDebug extends ModernPacket {

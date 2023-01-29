@@ -1,5 +1,30 @@
 package logisticspipes.proxy.forestry;
 
+import java.lang.reflect.Method;
+import java.util.Locale;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.Configs;
+import logisticspipes.items.ItemModule;
+import logisticspipes.items.ItemPipeComponents;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.IForestryProxy;
+import logisticspipes.recipes.CraftingDependency;
+import logisticspipes.recipes.RecipeManager;
+import logisticspipes.recipes.RecipeManager.LocalCraftingManager;
+import logisticspipes.utils.item.ItemIdentifier;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,28 +37,6 @@ import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.recipes.RecipeManagers;
-import java.lang.reflect.Method;
-import java.util.Locale;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.Configs;
-import logisticspipes.items.ItemModule;
-import logisticspipes.items.ItemPipeComponents;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.IForestryProxy;
-import logisticspipes.recipes.CraftingDependency;
-import logisticspipes.recipes.RecipeManager;
-import logisticspipes.recipes.RecipeManager.LocalCraftingManager;
-import logisticspipes.utils.item.ItemIdentifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class ForestryProxy implements IForestryProxy {
 
@@ -78,8 +81,7 @@ public class ForestryProxy implements IForestryProxy {
     }
 
     /**
-     * First checks if item is bee, then returns boolean if its analyzed. Then
-     * it will check if its analyzed.
+     * First checks if item is bee, then returns boolean if its analyzed. Then it will check if its analyzed.
      *
      * @param item ItemIdentifier to check if is analyzed bee.
      * @return Boolean, true if item is analyzed bee.
@@ -122,8 +124,7 @@ public class ForestryProxy implements IForestryProxy {
     }
 
     /**
-     * Checks if passed string allele was discovered by the player in passed
-     * world.
+     * Checks if passed string allele was discovered by the player in passed world.
      *
      * @param allele The allele as a String.
      * @param world  The world to check in.
@@ -162,8 +163,7 @@ public class ForestryProxy implements IForestryProxy {
      * @return The first valid allele as uid.
      */
     private String getFirstValidAllele(World world) {
-        for (IAllele allele :
-                AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
+        for (IAllele allele : AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
             if (allele instanceof IAlleleBeeSpecies && isKnownAlleleId(allele.getUID(), world)) {
                 return allele.getUID();
             }
@@ -179,8 +179,7 @@ public class ForestryProxy implements IForestryProxy {
      */
     private String getLastValidAllele(World world) {
         String uid = "";
-        for (IAllele allele :
-                AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
+        for (IAllele allele : AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
             if (allele instanceof IAlleleBeeSpecies && isKnownAlleleId(allele.getUID(), world)) {
                 uid = allele.getUID();
             }
@@ -201,8 +200,7 @@ public class ForestryProxy implements IForestryProxy {
             return getFirstValidAllele(world);
         }
         boolean next = false;
-        for (IAllele allele :
-                AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
+        for (IAllele allele : AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
             if (allele instanceof IAlleleBeeSpecies) {
                 if (next && isKnownAlleleId(allele.getUID(), world)) {
                     return allele.getUID();
@@ -226,8 +224,7 @@ public class ForestryProxy implements IForestryProxy {
             return getLastValidAllele(world);
         }
         IAllele lastAllele = null;
-        for (IAllele allele :
-                AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
+        for (IAllele allele : AlleleManager.alleleRegistry.getRegisteredAlleles().values()) {
             if (allele instanceof IAlleleBeeSpecies) {
                 if (allele.getUID().equals(uid)) {
                     if (lastAllele == null) {
@@ -344,8 +341,7 @@ public class ForestryProxy implements IForestryProxy {
     }
 
     /**
-     * Checks if passed ItemStack is bee, then checks if its a purebred
-     * nocturnal.
+     * Checks if passed ItemStack is bee, then checks if its a purebred nocturnal.
      *
      * @param bee The ItemStack to check.
      * @return Boolean, true if passed ItemStack is a purebred nocturnal bee.
@@ -374,12 +370,10 @@ public class ForestryProxy implements IForestryProxy {
     }
 
     /**
-     * Checks if passed ItemStack is bee, then checks if its a purebred tolerant
-     * flyer.
+     * Checks if passed ItemStack is bee, then checks if its a purebred tolerant flyer.
      *
      * @param bee The ItemStack to check.
-     * @return Boolean, true if passed ItemStack is a purebred tolerant flyer
-     * bee.
+     * @return Boolean, true if passed ItemStack is a purebred tolerant flyer bee.
      */
     @Override
     public boolean isPureFlyer(ItemStack bee) {
@@ -405,8 +399,7 @@ public class ForestryProxy implements IForestryProxy {
     }
 
     /**
-     * Checks if passed ItemStack is bee, then checks if its a purebred cave
-     * dweller.
+     * Checks if passed ItemStack is bee, then checks if its a purebred cave dweller.
      *
      * @param bee The ItemStack to check.
      * @return Boolean, true if passed ItemStack is a purebred cave dweller bee.
@@ -446,10 +439,14 @@ public class ForestryProxy implements IForestryProxy {
         if (Configs.ENABLE_BETA_RECIPES) {
             // Enable Carpenter-based Recipes
             if (Configs.MANDATORY_CARPENTER_RECIPES) {
-                ItemStack packager =
-                        new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER);
-                ItemStack expand =
-                        new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER);
+                ItemStack packager = new ItemStack(
+                        LogisticsPipes.LogisticsPipeComponents,
+                        1,
+                        ItemPipeComponents.ITEM_MICROPACKAGER);
+                ItemStack expand = new ItemStack(
+                        LogisticsPipes.LogisticsPipeComponents,
+                        1,
+                        ItemPipeComponents.ITEM_LOGICEXPANDER);
 
                 RecipeManagers.carpenterManager.addRecipe(
                         25,
@@ -493,7 +490,9 @@ public class ForestryProxy implements IForestryProxy {
                         propolis,
                         'w',
                         new ItemStack(
-                                LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROCAPSULATOR),
+                                LogisticsPipes.LogisticsPipeComponents,
+                                1,
+                                ItemPipeComponents.ITEM_MICROCAPSULATOR),
                         'r',
                         Items.redstone);
 
@@ -547,10 +546,14 @@ public class ForestryProxy implements IForestryProxy {
             // Disable Carpenter-based Recipes
             if (!Configs.MANDATORY_CARPENTER_RECIPES) {
                 LocalCraftingManager manager = RecipeManager.craftingManager;
-                ItemStack packager =
-                        new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER);
-                ItemStack expand =
-                        new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER);
+                ItemStack packager = new ItemStack(
+                        LogisticsPipes.LogisticsPipeComponents,
+                        1,
+                        ItemPipeComponents.ITEM_MICROPACKAGER);
+                ItemStack expand = new ItemStack(
+                        LogisticsPipes.LogisticsPipeComponents,
+                        1,
+                        ItemPipeComponents.ITEM_LOGICEXPANDER);
 
                 manager.addRecipe(
                         new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BEEANALYZER),
@@ -639,7 +642,9 @@ public class ForestryProxy implements IForestryProxy {
                         propolis,
                         'G',
                         new ItemStack(
-                                LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_ROUTEPROCESSOR),
+                                LogisticsPipes.LogisticsPipeComponents,
+                                1,
+                                ItemPipeComponents.ITEM_ROUTEPROCESSOR),
                         'r',
                         Items.redstone,
                         'B',
@@ -940,8 +945,8 @@ public class ForestryProxy implements IForestryProxy {
         if (!(forestry.api.genetics.AlleleManager.alleleRegistry.getAllele(uid) instanceof IAlleleBeeSpecies)) {
             return 16777215;
         }
-        IAlleleBeeSpecies species =
-                (IAlleleBeeSpecies) forestry.api.genetics.AlleleManager.alleleRegistry.getAllele(uid);
+        IAlleleBeeSpecies species = (IAlleleBeeSpecies) forestry.api.genetics.AlleleManager.alleleRegistry
+                .getAllele(uid);
         return species.getIconColour(phase);
     }
 

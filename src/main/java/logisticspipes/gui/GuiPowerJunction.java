@@ -8,9 +8,11 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiPowerJunction extends LogisticsBaseGuiScreen {
@@ -32,8 +34,9 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
         super.drawGuiContainerForegroundLayer(par1, par2);
     }
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/power_junction.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/power_junction.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
@@ -82,10 +85,9 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
     protected void actionPerformed(GuiButton par1GuiButton) {
         if (par1GuiButton.id == 0) {
             junction.addEnergy(100000);
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(PowerJunctionCheatPacket.class)
-                    .setPosX(junction.getX())
-                    .setPosY(junction.getY())
-                    .setPosZ(junction.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(PowerJunctionCheatPacket.class).setPosX(junction.getX())
+                            .setPosY(junction.getY()).setPosZ(junction.getZ()));
         } else {
             super.actionPerformed(par1GuiButton);
         }

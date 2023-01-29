@@ -1,8 +1,7 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
+
 import logisticspipes.gui.hud.modules.HUDOreDictItemSink;
 import logisticspipes.interfaces.IClientInformationProvider;
 import logisticspipes.interfaces.IHUDModuleHandler;
@@ -26,6 +25,7 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -34,6 +34,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.OreDictionary;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleOreDictItemSink extends LogisticsGuiModule
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
@@ -53,19 +56,20 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
     public void registerPosition(ModulePositionType slot, int positionInt) {
         super.registerPosition(slot, positionInt);
         _sinkReply = new SinkReply(
-                FixedPriority.OreDictItemSink, 0, true, false, 5, 0, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.OreDictItemSink,
+                0,
+                true,
+                false,
+                5,
+                0,
+                new ChassiTargetInformation(getPositionInt()));
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
         if (oreItemIdMap == null) {
@@ -177,14 +181,12 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -193,7 +195,8 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(OreDictItemSinkList.class).setTag(nbt).setModulePos(this), player);
+                PacketHandler.getPacket(OreDictItemSinkList.class).setTag(nbt).setModulePos(this),
+                player);
     }
 
     @Override
@@ -206,16 +209,13 @@ public class ModuleOreDictItemSink extends LogisticsGuiModule
             NBTTagCompound nbt = new NBTTagCompound();
             writeToNBT(nbt);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(OreDictItemSinkList.class)
-                            .setTag(nbt)
-                            .setModulePos(this),
+                    PacketHandler.getPacket(OreDictItemSinkList.class).setTag(nbt).setModulePos(this),
                     localModeWatchers);
         } else {
             NBTTagCompound nbt = new NBTTagCompound();
             writeToNBT(nbt);
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(OreDictItemSinkList.class)
-                    .setTag(nbt)
-                    .setModulePos(this));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(OreDictItemSinkList.class).setTag(nbt).setModulePos(this));
         }
     }
 

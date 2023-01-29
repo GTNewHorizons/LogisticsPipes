@@ -2,6 +2,7 @@ package logisticspipes.renderer.newpipe;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -13,12 +14,14 @@ import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer.Block
 import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer.CoverSides;
 import logisticspipes.textures.Textures;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
 
 public class LogisticsNewPipeItemRenderer implements IItemRenderer {
@@ -29,8 +32,8 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         renderAsBlock = flag;
     }
 
-    private void renderPipeItem(
-            RenderBlocks render, ItemStack item, float translateX, float translateY, float translateZ) {
+    private void renderPipeItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
+            float translateZ) {
         GL11.glPushMatrix();
 
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT); // don't break other mods' guis when holding a pipe
@@ -76,8 +79,8 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         }
 
         for (Edge edge : Edge.values()) {
-            objectsToRender.add(
-                    new Pair<>(LogisticsNewRenderPipe.edges.get(edge), LogisticsNewRenderPipe.basicTexture));
+            objectsToRender
+                    .add(new Pair<>(LogisticsNewRenderPipe.edges.get(edge), LogisticsNewRenderPipe.basicTexture));
         }
 
         // ArrayList<Pair<CCModel, IconTransformation>> objectsToRender2 = new ArrayList<Pair<CCModel,
@@ -96,8 +99,8 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         }
     }
 
-    private void renderBlockItem(
-            RenderBlocks render, ItemStack item, float translateX, float translateY, float translateZ) {
+    private void renderBlockItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
+            float translateZ) {
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT); // don't break other mods' guis when holding a pipe
         // force transparency
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -111,16 +114,13 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
 
         tess.startDrawingQuads();
 
-        IIconTransformation icon =
-                SimpleServiceLocator.cclProxy.createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
+        IIconTransformation icon = SimpleServiceLocator.cclProxy
+                .createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
 
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
         for (CoverSides side : CoverSides.values()) {
-            LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
-                    .get(side)
-                    .get(rotation)
-                    .render(icon);
+            LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation).render(icon);
         }
         tess.draw();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

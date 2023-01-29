@@ -6,6 +6,7 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.routingdebug.RoutingUpdateTargetResponse.TargetMode;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -27,13 +28,13 @@ public class RoutingUpdateAskForTarget extends ModernPacket {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RoutingUpdateTargetResponse.class).setMode(TargetMode.None));
         } else if (box.typeOfHit == MovingObjectType.BLOCK) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(RoutingUpdateTargetResponse.class)
-                    .setMode(TargetMode.Block)
-                    .setAdditions(new Object[] {box.blockX, box.blockY, box.blockZ}));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(RoutingUpdateTargetResponse.class).setMode(TargetMode.Block)
+                            .setAdditions(new Object[] { box.blockX, box.blockY, box.blockZ }));
         } else if (box.typeOfHit == MovingObjectType.ENTITY) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(RoutingUpdateTargetResponse.class)
-                    .setMode(TargetMode.Entity)
-                    .setAdditions(new Object[] {box.entityHit.getEntityId()}));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(RoutingUpdateTargetResponse.class).setMode(TargetMode.Entity)
+                            .setAdditions(new Object[] { box.entityHit.getEntityId() }));
         }
     }
 

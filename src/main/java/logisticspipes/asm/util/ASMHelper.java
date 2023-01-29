@@ -3,6 +3,7 @@ package logisticspipes.asm.util;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import org.objectweb.asm.*;
 import org.objectweb.asm.util.Printer;
 import org.objectweb.asm.util.Textifier;
@@ -118,13 +119,8 @@ public class ASMHelper {
         }
 
         @Override
-        public void visit(
-                final int version,
-                final int access,
-                final String name,
-                final String signature,
-                final String superName,
-                final String[] interfaces) {}
+        public void visit(final int version, final int access, final String name, final String signature,
+                final String superName, final String[] interfaces) {}
 
         @Override
         public void visitSource(final String file, final String debug) {}
@@ -141,21 +137,17 @@ public class ASMHelper {
         public void visitClassAttribute(final Attribute attr) {}
 
         @Override
-        public void visitInnerClass(
-                final String name, final String outerName, final String innerName, final int access) {}
+        public void visitInnerClass(final String name, final String outerName, final String innerName,
+                final int access) {}
 
         @Override
-        public Textifier visitField(
-                final int access, final String name, final String desc, final String signature, final Object value) {
+        public Textifier visitField(final int access, final String name, final String desc, final String signature,
+                final Object value) {
             return new Textifier();
         }
 
         @Override
-        public Textifier visitMethod(
-                final int access,
-                final String name,
-                final String desc,
-                final String signature,
+        public Textifier visitMethod(final int access, final String name, final String desc, final String signature,
                 final String[] exceptions) {
             Textifier t = new Textifier();
             text.add(t.getText());
@@ -219,8 +211,8 @@ public class ASMHelper {
         public void visitCode() {}
 
         @Override
-        public void visitFrame(
-                final int type, final int nLocal, final Object[] local, final int nStack, final Object[] stack) {}
+        public void visitFrame(final int type, final int nLocal, final Object[] local, final int nStack,
+                final Object[] stack) {}
 
         @Override
         public void visitInsn(final int opcode) {}
@@ -268,13 +260,8 @@ public class ASMHelper {
         public void visitTryCatchBlock(final Label start, final Label end, final Label handler, final String type) {}
 
         @Override
-        public void visitLocalVariable(
-                final String name,
-                final String desc,
-                final String signature,
-                final Label start,
-                final Label end,
-                final int index) {}
+        public void visitLocalVariable(final String name, final String desc, final String signature, final Label start,
+                final Label end, final int index) {}
 
         @Override
         public void visitLineNumber(final int line, final Label start) {}

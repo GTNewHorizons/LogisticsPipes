@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
+
 import logisticspipes.interfaces.IDebugHUDProvider;
 import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
 import logisticspipes.network.packets.routingdebug.*;
@@ -61,7 +62,11 @@ public class ClientViewController implements IDebugHUDProvider {
         }
         if (mainPipe != null) {
             PipeFXRenderHandler.spawnGenericParticle(
-                    Particles.WhiteParticle, mainPipe.getX(), mainPipe.getY(), mainPipe.getZ(), 1);
+                    Particles.WhiteParticle,
+                    mainPipe.getX(),
+                    mainPipe.getY(),
+                    mainPipe.getZ(),
+                    1);
         }
         for (LPPosition pos : canidates) {
             PipeFXRenderHandler.spawnGenericParticle(Particles.OrangeParticle, pos.getX(), pos.getY(), pos.getZ(), 1);
@@ -77,8 +82,7 @@ public class ClientViewController implements IDebugHUDProvider {
 
     public void handlePacket(RoutingUpdateSourcePipe routingUpdateSourcePipe) {
         mainPipe = routingUpdateSourcePipe.getExitRoute().destination.getLPPosition();
-        getDebugInformation(mainPipe).nextFlags =
-                routingUpdateSourcePipe.getExitRoute().getFlags();
+        getDebugInformation(mainPipe).nextFlags = routingUpdateSourcePipe.getExitRoute().getFlags();
     }
 
     public void handlePacket(RoutingUpdateCanidatePipe routingUpdateCanidatePipe) {
@@ -110,8 +114,8 @@ public class ClientViewController implements IDebugHUDProvider {
     }
 
     public void handlePacket(RoutingUpdateDebugFilters routingUpdateDebugFilters) {
-        getDebugInformation(routingUpdateDebugFilters.getPos()).filters =
-                routingUpdateDebugFilters.getFilterPositions();
+        getDebugInformation(routingUpdateDebugFilters.getPos()).filters = routingUpdateDebugFilters
+                .getFilterPositions();
     }
 
     public void updateList(RoutingUpdateDebugCanidateList routingUpdateDebugCanidateList) {

@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -15,6 +16,7 @@ import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.PlayerIdentifier;
 import lombok.Getter;
 import lombok.SneakyThrows;
+
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -66,8 +68,7 @@ public class PlayerConfig {
     }
 
     public void sendUpdate() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(PlayerConfigToServerPacket.class).setConfig(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(PlayerConfigToServerPacket.class).setConfig(this));
     }
 
     public void writeData(LPDataOutputStream data) throws IOException {
@@ -85,7 +86,7 @@ public class PlayerConfig {
         isUninitialised = false;
     }
 
-    @SneakyThrows(value = {FileNotFoundException.class, IOException.class})
+    @SneakyThrows(value = { FileNotFoundException.class, IOException.class })
     public void readFromFile() {
         World world = DimensionManager.getWorld(0);
         if (world == null) {
@@ -101,8 +102,8 @@ public class PlayerConfig {
         if (playerIdent.getId() == null) {
             File lookup = new File(lpNameLookup, playerIdent.getUsername() + ".info");
             if (lookup.exists()) {
-                BufferedReader reader =
-                        new BufferedReader(new InputStreamReader(new GZIPInputStream(new FileInputStream(lookup))));
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(new GZIPInputStream(new FileInputStream(lookup))));
                 String uid = reader.readLine();
                 reader.close();
                 UUID uuid = UUID.fromString(uid);
@@ -148,7 +149,7 @@ public class PlayerConfig {
         isUninitialised = false;
     }
 
-    @SneakyThrows(value = {FileNotFoundException.class, IOException.class})
+    @SneakyThrows(value = { FileNotFoundException.class, IOException.class })
     public void writeToFile() {
         World world = DimensionManager.getWorld(0);
         if (world == null) {
@@ -164,9 +165,7 @@ public class PlayerConfig {
         lpUserData.setBoolean("useFallbackRenderer", useFallbackRenderer);
         lpUserData.setInteger("renderPipeDistance", renderPipeDistance);
         lpUserData.setInteger("renderPipeContentDistance", renderPipeContentDistance);
-        if (playerIdent.getId() != null
-                && playerIdent.getUsername() != null
-                && !playerIdent.getUsername().isEmpty()) {
+        if (playerIdent.getId() != null && playerIdent.getUsername() != null && !playerIdent.getUsername().isEmpty()) {
             File lookup = new File(lpNameLookup, playerIdent.getUsername() + ".info");
             if (lookup.exists()) {
                 lookup.delete();

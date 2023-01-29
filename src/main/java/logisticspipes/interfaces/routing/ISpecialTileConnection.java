@@ -1,7 +1,9 @@
 package logisticspipes.interfaces.routing;
 
 import java.util.Collection;
+
 import logisticspipes.logisticspipes.IRoutedItem;
+
 import net.minecraft.tileentity.TileEntity;
 
 public interface ISpecialTileConnection {

@@ -4,6 +4,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.StringListPacket;
 import logisticspipes.proxy.SimpleServiceLocator;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)

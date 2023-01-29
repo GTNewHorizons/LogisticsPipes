@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+
 import logisticspipes.proxy.computers.interfaces.*;
 import logisticspipes.proxy.computers.objects.*;
 import logisticspipes.request.resources.IResource;
@@ -15,6 +16,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Quartet;
 import logisticspipes.utils.tuples.Triplet;
+
 import net.minecraft.nbt.NBTBase;
 
 public class CCObjectWrapper {
@@ -80,7 +82,7 @@ public class CCObjectWrapper {
         }
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Object getWrappedObject(Object input, final ICommandWrapper wrapper) {
         if (input instanceof Object[]) {
             Object[] array = (Object[]) input;
@@ -148,9 +150,7 @@ public class CCObjectWrapper {
                             if (pair.getValue1() ^ method.isAnnotationPresent(CCQueued.class)) {
                                 throw new InternalError("Internal Excption (Code: 5, " + method + ")");
                             }
-                            if (!pair.getValue2()
-                                    .equals(method.getAnnotation(CCCommand.class)
-                                            .description())) {
+                            if (!pair.getValue2().equals(method.getAnnotation(CCCommand.class).description())) {
                                 pair.setValue2("Multipurpose method. Use help() for more information");
                             }
                         } else {
@@ -158,8 +158,7 @@ public class CCObjectWrapper {
                                     method.getName(),
                                     new Pair<>(
                                             method.isAnnotationPresent(CCQueued.class),
-                                            method.getAnnotation(CCCommand.class)
-                                                    .description()));
+                                            method.getAnnotation(CCCommand.class).description()));
                         }
                         i++;
                     }
@@ -178,6 +177,6 @@ public class CCObjectWrapper {
         if (input == null) {
             return null;
         }
-        return new Object[] {input};
+        return new Object[] { input };
     }
 }

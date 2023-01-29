@@ -1,6 +1,7 @@
 package logisticspipes.proxy.factorization;
 
 import logisticspipes.proxy.interfaces.IFactorizationProxy;
+
 import net.minecraft.tileentity.TileEntity;
 
 public class FactorizationProxy implements IFactorizationProxy {

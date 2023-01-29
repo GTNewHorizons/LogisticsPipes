@@ -1,10 +1,13 @@
 package logisticspipes.config;
 
-import cpw.mods.fml.common.Loader;
 import java.io.File;
+
 import logisticspipes.LPConstants;
+
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+
+import cpw.mods.fml.common.Loader;
 
 // @formatter:off
 // CHECKSTYLE:OFF

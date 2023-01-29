@@ -1,8 +1,5 @@
 package logisticspipes.blocks;
 
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
@@ -21,15 +18,21 @@ import logisticspipes.proxy.opencomputers.IOCTile;
 import logisticspipes.proxy.opencomputers.asm.BaseWrapperClass;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @Optional.InterfaceList({
-    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
-    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
-    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.SidedEnvironment"),
-})
+        @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
+        @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
+        @Optional.Interface(
+                modid = LPConstants.openComputersModID,
+                iface = "li.cil.oc.api.network.SidedEnvironment"), })
 @CCType(name = "LogisticsSolidBlock")
 public class LogisticsSolidTileEntity extends TileEntity
         implements ILPCCTypeHolder, IRotationProvider, ManagedPeripheral, Environment, SidedEnvironment, IOCTile {
@@ -75,10 +78,9 @@ public class LogisticsSolidTileEntity extends TileEntity
         }
         if (MainProxy.isClient(getWorldObj())) {
             if (!init) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestRotationPacket.class)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(RequestRotationPacket.class).setPosX(xCoord).setPosY(yCoord)
+                                .setPosZ(zCoord));
                 init = true;
             }
         }
@@ -142,7 +144,7 @@ public class LogisticsSolidTileEntity extends TileEntity
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
     public String[] methods() {
-        return new String[] {"getBlock"};
+        return new String[] { "getBlock" };
     }
 
     @Override

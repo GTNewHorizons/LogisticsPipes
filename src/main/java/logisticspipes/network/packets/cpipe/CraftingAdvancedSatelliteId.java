@@ -3,6 +3,7 @@ package logisticspipes.network.packets.cpipe;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.network.abstractpackets.Integer2ModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class CraftingAdvancedSatelliteId extends Integer2ModuleCoordinatesPacket {

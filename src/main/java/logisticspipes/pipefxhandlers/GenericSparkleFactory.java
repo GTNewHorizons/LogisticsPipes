@@ -4,8 +4,8 @@ import net.minecraft.world.World;
 
 public class GenericSparkleFactory {
 
-    public static EntitySparkleFX getSparkleInstance(
-            World world, double x, double y, double z, float red, float green, float blue, int amount) {
+    public static EntitySparkleFX getSparkleInstance(World world, double x, double y, double z, float red, float green,
+            float blue, int amount) {
 
         EntitySparkleFX effect;
 
@@ -19,7 +19,15 @@ public class GenericSparkleFactory {
         float scalemult = 1f + (float) Math.log10(amount);
 
         effect = new EntitySparkleFX(
-                world, x + length, y + height, z + width, scalemult, red, green, blue, 6 + world.rand.nextInt(3));
+                world,
+                x + length,
+                y + height,
+                z + width,
+                scalemult,
+                red,
+                green,
+                blue,
+                6 + world.rand.nextInt(3));
 
         return effect;
     }

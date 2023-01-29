@@ -3,6 +3,7 @@ package logisticspipes.pipes;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
@@ -24,6 +25,7 @@ import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,26 +42,23 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
     private boolean _lastRequestFailed = false;
 
     public PipeItemsFluidSupplier(Item item) {
-        super(
-                new PipeTransportLogistics(true) {
+        super(new PipeTransportLogistics(true) {
 
-                    @Override
-                    public boolean canPipeConnect(TileEntity tile, ForgeDirection dir) {
-                        if (super.canPipeConnect(tile, dir)) {
-                            return true;
-                        }
-                        if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
-                            return false;
-                        }
-                        if (tile instanceof IFluidHandler) {
-                            IFluidHandler liq = (IFluidHandler) tile;
-                            return liq.getTankInfo(dir.getOpposite()) != null
-                                    && liq.getTankInfo(dir.getOpposite()).length > 0;
-                        }
-                        return false;
-                    }
-                },
-                item);
+            @Override
+            public boolean canPipeConnect(TileEntity tile, ForgeDirection dir) {
+                if (super.canPipeConnect(tile, dir)) {
+                    return true;
+                }
+                if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
+                    return false;
+                }
+                if (tile instanceof IFluidHandler) {
+                    IFluidHandler liq = (IFluidHandler) tile;
+                    return liq.getTankInfo(dir.getOpposite()) != null && liq.getTankInfo(dir.getOpposite()).length > 0;
+                }
+                return false;
+            }
+        }, item);
 
         throttleTime = 100;
     }
@@ -128,8 +127,10 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
     }
 
     // from PipeItemsFluidSupplier
-    private final ItemIdentifierInventory dummyInventory =
-            new ItemIdentifierInventory(9, "Fluids to keep stocked", 127);
+    private final ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(
+            9,
+            "Fluids to keep stocked",
+            127);
 
     private final HashMap<ItemIdentifier, Integer> _requestedItems = new HashMap<>();
 
@@ -174,8 +175,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
 
             FluidTankInfo[] result = container.getTankInfo(ForgeDirection.UNKNOWN);
             for (FluidTankInfo slot : result) {
-                if (slot == null
-                        || slot.fluid == null
+                if (slot == null || slot.fluid == null
                         || slot.fluid.getFluidID() == 0
                         || !wantFluids.containsKey(FluidIdentifier.get(slot.fluid))) {
                     continue;
@@ -209,8 +209,8 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
             // Make request
 
             for (ItemIdentifier need : wantContainers.keySet()) {
-                FluidStack requestedFluidId =
-                        FluidContainerRegistry.getFluidForFilledItem(need.unsafeMakeNormalStack(1));
+                FluidStack requestedFluidId = FluidContainerRegistry
+                        .getFluidForFilledItem(need.unsafeMakeNormalStack(1));
                 if (requestedFluidId == null) {
                     continue;
                 }
@@ -229,14 +229,14 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
                 boolean success = false;
 
                 if (_requestPartials) {
-                    countToRequest = RequestTree.requestPartial(
-                            need.makeStack(countToRequest), (IRequestItems) this.container.pipe, null);
+                    countToRequest = RequestTree
+                            .requestPartial(need.makeStack(countToRequest), (IRequestItems) this.container.pipe, null);
                     if (countToRequest > 0) {
                         success = true;
                     }
                 } else {
-                    success = RequestTree.request(
-                            need.makeStack(countToRequest), (IRequestItems) this.container.pipe, null, null);
+                    success = RequestTree
+                            .request(need.makeStack(countToRequest), (IRequestItems) this.container.pipe, null, null);
                 }
 
                 if (success) {

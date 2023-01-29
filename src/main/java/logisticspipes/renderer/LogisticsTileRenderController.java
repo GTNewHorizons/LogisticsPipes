@@ -1,10 +1,9 @@
 package logisticspipes.renderer;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 import logisticspipes.config.Configs;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.PowerPacketLaser;
@@ -16,9 +15,13 @@ import logisticspipes.utils.tuples.LPPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LogisticsTileRenderController {
 
@@ -63,8 +66,12 @@ public class LogisticsTileRenderController {
         public LaserBeamDataClient(float length, int timeout, boolean reverse, ForgeDirection dir, int color) {
             super(length, timeout, reverse);
             entity = new PipeFXLaserPowerBeam(
-                            pipe.getWorldObj(), new LPPosition((TileEntity) pipe), length, dir, color, pipe)
-                    .setReverse(reverse);
+                    pipe.getWorldObj(),
+                    new LPPosition((TileEntity) pipe),
+                    length,
+                    dir,
+                    color,
+                    pipe).setReverse(reverse);
             Minecraft.getMinecraft().effectRenderer.addEffect(entity);
         }
 
@@ -166,12 +173,8 @@ public class LogisticsTileRenderController {
                                 pipe.getX(),
                                 pipe.getZ(),
                                 MainProxy.getDimensionForWorld(pipe.getWorld()),
-                                PacketHandler.getPacket(PowerPacketLaser.class)
-                                        .setColor(key.color)
-                                        .setRenderBall(false)
-                                        .setDir(key.dir)
-                                        .setRemove(true)
-                                        .setTilePos(pipe));
+                                PacketHandler.getPacket(PowerPacketLaser.class).setColor(key.color).setRenderBall(false)
+                                        .setDir(key.dir).setRemove(true).setTilePos(pipe));
                     }
                     iter.remove();
                 }
@@ -190,12 +193,8 @@ public class LogisticsTileRenderController {
                                 pipe.getX(),
                                 pipe.getZ(),
                                 MainProxy.getDimensionForWorld(pipe.getWorld()),
-                                PacketHandler.getPacket(PowerPacketLaser.class)
-                                        .setColor(key)
-                                        .setRenderBall(true)
-                                        .setDir(ForgeDirection.UNKNOWN)
-                                        .setRemove(true)
-                                        .setTilePos(pipe));
+                                PacketHandler.getPacket(PowerPacketLaser.class).setColor(key).setRenderBall(true)
+                                        .setDir(ForgeDirection.UNKNOWN).setRemove(true).setTilePos(pipe));
                     }
                     iter.remove();
                 }
@@ -237,13 +236,8 @@ public class LogisticsTileRenderController {
                     pipe.getX(),
                     pipe.getZ(),
                     MainProxy.getDimensionForWorld(pipe.getWorld()),
-                    PacketHandler.getPacket(PowerPacketLaser.class)
-                            .setColor(color)
-                            .setRenderBall(renderBall)
-                            .setDir(dir)
-                            .setLength(length)
-                            .setReverse(reverse)
-                            .setTilePos(pipe));
+                    PacketHandler.getPacket(PowerPacketLaser.class).setColor(color).setRenderBall(renderBall)
+                            .setDir(dir).setLength(length).setReverse(reverse).setTilePos(pipe));
         }
     }
 
@@ -281,13 +275,8 @@ public class LogisticsTileRenderController {
                     pipe.getX(),
                     pipe.getZ(),
                     MainProxy.getDimensionForWorld(pipe.getWorld()),
-                    PacketHandler.getPacket(PowerPacketLaser.class)
-                            .setColor(key.color)
-                            .setRenderBall(isBall)
-                            .setDir(key.dir)
-                            .setLength(data.length)
-                            .setReverse(data.reverse)
-                            .setTilePos(pipe));
+                    PacketHandler.getPacket(PowerPacketLaser.class).setColor(key.color).setRenderBall(isBall)
+                            .setDir(key.dir).setLength(data.length).setReverse(data.reverse).setTilePos(pipe));
         }
     }
 }

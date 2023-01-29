@@ -1,13 +1,11 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.pipes;
 
 import java.util.*;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDSatellite;
 import logisticspipes.interfaces.IChestContentReceiver;
@@ -38,6 +36,7 @@ import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.SidedInventoryMinecraftAdapter;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -83,20 +82,16 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     private IInventory getRawInventory(ForgeDirection ori) {
@@ -116,7 +111,9 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         IInventory rawInventory = getRawInventory(ori);
         if (rawInventory instanceof net.minecraft.inventory.ISidedInventory) {
             return new SidedInventoryMinecraftAdapter(
-                    (net.minecraft.inventory.ISidedInventory) rawInventory, ori.getOpposite(), false);
+                    (net.minecraft.inventory.ISidedInventory) rawInventory,
+                    ori.getOpposite(),
+                    false);
         }
         return rawInventory;
     }
@@ -148,10 +145,7 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
             oldList.clear();
             oldList.addAll(itemList);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ChestContent.class)
-                            .setIdentList(itemList)
-                            .setPosX(getX())
-                            .setPosY(getY())
+                    PacketHandler.getPacket(ChestContent.class).setIdentList(itemList).setPosX(getX()).setPosY(getY())
                             .setPosZ(getZ()),
                     localModeWatchers);
         }
@@ -161,11 +155,8 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
     public void playerStartWatching(EntityPlayer player, int mode) {
         if (mode == 1) {
             localModeWatchers.add(player);
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                    .setSatID(satelliteId)
-                    .setPosX(getX())
-                    .setPosY(getY())
-                    .setPosZ(getZ());
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
             updateInv(true);
         } else {
@@ -252,17 +243,12 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         satelliteId = findId(1);
         ensureAllSatelliteStatus();
         if (MainProxy.isClient(player.worldObj)) {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeNext.class)
-                    .setPosX(getX())
-                    .setPosY(getY())
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeNext.class).setPosX(getX()).setPosY(getY())
                     .setPosZ(getZ());
             MainProxy.sendPacketToServer(packet);
         } else {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                    .setSatID(satelliteId)
-                    .setPosX(getX())
-                    .setPosY(getY())
-                    .setPosZ(getZ());
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
         }
         updateWatchers();
@@ -272,17 +258,12 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
         satelliteId = findId(-1);
         ensureAllSatelliteStatus();
         if (MainProxy.isClient(player.worldObj)) {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipePrev.class)
-                    .setPosX(getX())
-                    .setPosY(getY())
+            final ModernPacket packet = PacketHandler.getPacket(SatPipePrev.class).setPosX(getX()).setPosY(getY())
                     .setPosZ(getZ());
             MainProxy.sendPacketToServer(packet);
         } else {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                    .setSatID(satelliteId)
-                    .setPosX(getX())
-                    .setPosY(getY())
-                    .setPosZ(getZ());
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
         }
         updateWatchers();
@@ -290,10 +271,7 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
 
     private void updateWatchers() {
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SatPipeSetID.class)
-                        .setSatID(satelliteId)
-                        .setPosX(getX())
-                        .setPosY(getY())
+                PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId).setPosX(getX()).setPosY(getY())
                         .setPosZ(getZ()),
                 ((PipeItemsSatelliteLogistics) container.pipe).localModeWatchers);
     }
@@ -309,11 +287,8 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
     @Override
     public void onWrenchClicked(EntityPlayer entityplayer) {
         // Send the satellite id when opening gui
-        final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                .setSatID(satelliteId)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ());
+        final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId).setPosX(getX())
+                .setPosY(getY()).setPosZ(getZ());
         MainProxy.sendPacketToPlayer(packet, entityplayer);
         entityplayer.openGui(LogisticsPipes.instance, GuiIDs.GUI_SatelitePipe_ID, getWorld(), getX(), getY(), getZ());
     }

@@ -1,6 +1,7 @@
 package logisticspipes.network.abstractguis;
 
 import java.io.IOException;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -13,6 +14,7 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.world.World;
 
 @Accessors(chain = true)

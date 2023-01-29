@@ -1,13 +1,11 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.pipes;
 
 import java.util.*;
+
 import logisticspipes.gui.hud.HUDCrafting;
 import logisticspipes.interfaces.IChangeListener;
 import logisticspipes.interfaces.IHeadUpDisplayRenderer;
@@ -41,19 +39,15 @@ import logisticspipes.utils.IHavePriority;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 
 @CCType(name = "LogisticsPipes:Crafting")
-public class PipeItemsCraftingLogistics extends CoreRoutedPipe
-        implements ICraftItems,
-                IRequireReliableTransport,
-                IHeadUpDisplayRendererProvider,
-                IChangeListener,
-                IOrderManagerContentReceiver,
-                IHavePriority {
+public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraftItems, IRequireReliableTransport,
+        IHeadUpDisplayRendererProvider, IChangeListener, IOrderManagerContentReceiver, IHavePriority {
 
     protected ModuleCrafter craftingModule;
 
@@ -119,8 +113,8 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe
     }
 
     @Override
-    public LogisticsOrder fullFill(
-            LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info) {
+    public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination,
+            IAdditionalTargetInformation info) {
         return craftingModule.fullFill(promise, destination, info);
     }
 
@@ -161,20 +155,16 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
@@ -182,11 +172,8 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe
         if (mode == 1) {
             localModeWatchers.add(player);
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(OrdererManagerContent.class)
-                            .setIdentList(oldList)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(oldList).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     player);
             craftingModule.startWatching(player);
         } else {
@@ -213,11 +200,8 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe
             oldList.clear();
             oldList.addAll(all);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(OrdererManagerContent.class)
-                            .setIdentList(all)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     localModeWatchers);
         }
     }

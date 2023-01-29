@@ -7,9 +7,11 @@ import logisticspipes.network.packets.module.ProviderModuleNextModePacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiProvider extends ModuleBaseGui {
@@ -44,15 +46,18 @@ public class GuiProvider extends ModuleBaseGui {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        buttonList.add(new GuiStringHandlerButton(
-                0, width / 2 + 40, height / 2 - 59, 45, 20, () -> _provider.isExcludeFilter() ? "Exclude" : "Include"));
+        buttonList.add(
+                new GuiStringHandlerButton(
+                        0,
+                        width / 2 + 40,
+                        height / 2 - 59,
+                        45,
+                        20,
+                        () -> _provider.isExcludeFilter() ? "Exclude" : "Include"));
         /*
-        buttonList.add(new GuiStringHandlerButton(2, width / 2 + 50, height / 2 - 38, 45, 20, new GuiStringHandlerButton.StringHandler() {
-        @Override
-        public String getContent() {
-        	return _provider.isActive() ? "Send" : "Hold";
-        }
-        }));
+         * buttonList.add(new GuiStringHandlerButton(2, width / 2 + 50, height / 2 - 38, 45, 20, new
+         * GuiStringHandlerButton.StringHandler() {
+         * @Override public String getContent() { return _provider.isActive() ? "Send" : "Hold"; } }));
          */
         buttonList.add(new GuiButton(1, width / 2 - 90, height / 2 - 41, 38, 20, "Switch"));
     }
@@ -91,10 +96,7 @@ public class GuiProvider extends ModuleBaseGui {
         super.drawGuiContainerForegroundLayer(par1, par2);
         mc.fontRenderer.drawString(
                 _provider.getFilterInventory().getInventoryName(),
-                xSize / 2
-                        - mc.fontRenderer.getStringWidth(
-                                        _provider.getFilterInventory().getInventoryName())
-                                / 2,
+                xSize / 2 - mc.fontRenderer.getStringWidth(_provider.getFilterInventory().getInventoryName()) / 2,
                 6,
                 0x404040);
         mc.fontRenderer.drawString("Inventory", 18, ySize - 102, 0x404040);

@@ -1,13 +1,11 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils.item;
 
 import java.util.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.ISaveState;
@@ -16,6 +14,7 @@ import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.ISimpleInventoryEventHandler;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -191,8 +190,10 @@ public class ItemIdentifierInventory
                     }
                 }
             } else {
-                LogisticsPipes.log.fatal("SimpleInventory: java.lang.ArrayIndexOutOfBoundsException: " + index + " of "
-                        + _contents.length);
+                LogisticsPipes.log.fatal(
+                        "SimpleInventory: java.lang.ArrayIndexOutOfBoundsException: " + index
+                                + " of "
+                                + _contents.length);
             }
         }
         updateContents();
@@ -357,14 +358,15 @@ public class ItemIdentifierInventory
             }
             ItemIdentifier itemId = _content.getItem();
             _contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
-            _contentsUndamagedSet.add(
-                    itemId.getUndamaged()); // add is cheaper than check then add; it just returns false if it is
+            _contentsUndamagedSet.add(itemId.getUndamaged()); // add is cheaper than check then add; it just returns
+                                                              // false if it is
             // already there
-            _contentsNoNBTSet.add(
-                    itemId.getIgnoringNBT()); // add is cheaper than check then add; it just returns false if it is
+            _contentsNoNBTSet.add(itemId.getIgnoringNBT()); // add is cheaper than check then add; it just returns false
+                                                            // if it is
             // already there
-            _contentsUndamagedNoNBTSet.add(itemId.getIgnoringNBT()
-                    .getUndamaged()); // add is cheaper than check then add; it just returns false if it is already
+            _contentsUndamagedNoNBTSet.add(itemId.getIgnoringNBT().getUndamaged()); // add is cheaper than check then
+                                                                                    // add; it just returns false if it
+                                                                                    // is already
             // there
         }
     }

@@ -4,6 +4,7 @@ import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class RequestSignPacket extends CoordinatesPacket {

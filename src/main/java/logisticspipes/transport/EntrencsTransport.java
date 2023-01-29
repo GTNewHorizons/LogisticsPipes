@@ -6,6 +6,7 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class EntrencsTransport extends PipeTransportLogistics {

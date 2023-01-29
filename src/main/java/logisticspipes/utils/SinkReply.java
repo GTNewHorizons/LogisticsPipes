@@ -34,14 +34,8 @@ public final class SinkReply {
     public final BufferMode bufferMode;
     public final IAdditionalTargetInformation addInfo;
 
-    public SinkReply(
-            FixedPriority fixedPriority,
-            int customPriority,
-            boolean isPassive,
-            boolean isDefault,
-            int energyUse,
-            int maxNumberOfItems,
-            IAdditionalTargetInformation addInfo) {
+    public SinkReply(FixedPriority fixedPriority, int customPriority, boolean isPassive, boolean isDefault,
+            int energyUse, int maxNumberOfItems, IAdditionalTargetInformation addInfo) {
         this.fixedPriority = fixedPriority;
         this.customPriority = customPriority;
         this.isPassive = isPassive;

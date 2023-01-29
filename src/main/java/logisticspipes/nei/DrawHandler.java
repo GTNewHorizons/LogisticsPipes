@@ -1,12 +1,15 @@
 package logisticspipes.nei;
 
-import codechicken.nei.guihook.IContainerDrawHandler;
 import java.util.List;
+
 import logisticspipes.utils.QuickSortChestMarkerStorage;
 import logisticspipes.utils.gui.GuiGraphics;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
+
+import codechicken.nei.guihook.IContainerDrawHandler;
 
 public class DrawHandler implements IContainerDrawHandler {
 

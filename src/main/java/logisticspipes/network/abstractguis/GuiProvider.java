@@ -1,11 +1,13 @@
 package logisticspipes.network.abstractguis;
 
 import java.io.IOException;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.NewGuiHandler;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraftforge.common.util.FakePlayer;

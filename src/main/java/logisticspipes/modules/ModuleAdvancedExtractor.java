@@ -1,9 +1,8 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.gui.hud.modules.HUDAdvancedExtractor;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -31,6 +30,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -39,13 +39,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @CCType(name = "Advanced Extractor Module")
-public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
-        implements IClientInformationProvider,
-                IHUDModuleHandler,
-                IModuleWatchReciver,
-                IModuleInventoryReceive,
-                ISimpleInventoryEventHandler {
+public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule implements IClientInformationProvider,
+        IHUDModuleHandler, IModuleWatchReciver, IModuleInventoryReceive, ISimpleInventoryEventHandler {
 
     protected int currentTick = 0;
 
@@ -122,11 +121,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         return null;
     }
@@ -242,8 +237,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
         _itemsIncluded = flag;
         if (!localModeWatchers.isEmpty()) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(AdvancedExtractorInclude.class)
-                            .setFlag(areItemsIncluded())
+                    PacketHandler.getPacket(AdvancedExtractorInclude.class).setFlag(areItemsIncluded())
                             .setModulePos(this),
                     localModeWatchers);
         }
@@ -265,8 +259,7 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -278,14 +271,12 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -293,18 +284,13 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory)).setModulePos(this),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ExtractorModuleMode.class)
-                        .setDirection(_sneakyDirection)
-                        .setModulePos(this),
+                PacketHandler.getPacket(ExtractorModuleMode.class).setDirection(_sneakyDirection).setModulePos(this),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(AdvancedExtractorInclude.class)
-                        .setFlag(areItemsIncluded())
-                        .setModulePos(this),
+                PacketHandler.getPacket(AdvancedExtractorInclude.class).setFlag(areItemsIncluded()).setModulePos(this),
                 player);
     }
 

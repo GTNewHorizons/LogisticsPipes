@@ -1,7 +1,5 @@
 package logisticspipes.ticks;
 
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -10,6 +8,7 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -17,7 +16,11 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.BufferTransfer;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 
 public class ServerPacketBufferHandlerThread {
 
@@ -76,19 +79,19 @@ public class ServerPacketBufferHandlerThread {
                     for (Entry<EntityPlayer, byte[]> player : serverBuffer.entrySet()) {
                         while (player.getValue().length > 32 * 1024) {
                             byte[] sendbuffer = Arrays.copyOf(player.getValue(), 1024 * 32);
-                            byte[] newbuffer =
-                                    Arrays.copyOfRange(player.getValue(), 1024 * 32, player.getValue().length);
+                            byte[] newbuffer = Arrays
+                                    .copyOfRange(player.getValue(), 1024 * 32, player.getValue().length);
                             player.setValue(newbuffer);
                             byte[] compressed = ServerPacketBufferHandlerThread.compress(sendbuffer);
                             MainProxy.sendPacketToPlayer(
-                                    PacketHandler.getPacket(BufferTransfer.class)
-                                            .setContent(compressed),
+                                    PacketHandler.getPacket(BufferTransfer.class).setContent(compressed),
                                     player.getKey());
                         }
                         byte[] sendbuffer = player.getValue();
                         byte[] compressed = ServerPacketBufferHandlerThread.compress(sendbuffer);
                         MainProxy.sendPacketToPlayer(
-                                PacketHandler.getPacket(BufferTransfer.class).setContent(compressed), player.getKey());
+                                PacketHandler.getPacket(BufferTransfer.class).setContent(compressed),
+                                player.getKey());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -98,8 +101,7 @@ public class ServerPacketBufferHandlerThread {
                     while (pause || serverList.size() == 0) {
                         try {
                             serverList.wait();
-                        } catch (InterruptedException ignored) {
-                        }
+                        } catch (InterruptedException ignored) {}
                     }
                 }
                 synchronized (playersToClear) {
@@ -193,9 +195,8 @@ public class ServerPacketBufferHandlerThread {
                     EntityPlayer player = null;
                     synchronized (queue) {
                         if (queue.size() > 0) {
-                            for (Iterator<Entry<EntityPlayer, LinkedList<byte[]>>> it =
-                                            queue.entrySet().iterator();
-                                    it.hasNext(); ) {
+                            for (Iterator<Entry<EntityPlayer, LinkedList<byte[]>>> it = queue.entrySet().iterator(); it
+                                    .hasNext();) {
                                 Entry<EntityPlayer, LinkedList<byte[]>> lPlayer = it.next();
                                 if (lPlayer.getValue().size() > 0) {
                                     flag = true;
@@ -226,16 +227,15 @@ public class ServerPacketBufferHandlerThread {
                 for (Entry<EntityPlayer, byte[]> player : ByteBuffer.entrySet()) {
                     while (player.getValue().length >= 4) {
                         byte[] ByteBufferForPlayer = player.getValue();
-                        int size = ((ByteBufferForPlayer[0] & 255) << 24)
-                                + ((ByteBufferForPlayer[1] & 255) << 16)
+                        int size = ((ByteBufferForPlayer[0] & 255) << 24) + ((ByteBufferForPlayer[1] & 255) << 16)
                                 + ((ByteBufferForPlayer[2] & 255) << 8)
                                 + ((ByteBufferForPlayer[3] & 255) << 0);
                         if (size + 4 > ByteBufferForPlayer.length) {
                             break;
                         }
                         byte[] packet = Arrays.copyOfRange(ByteBufferForPlayer, 4, size + 4);
-                        ByteBufferForPlayer =
-                                Arrays.copyOfRange(ByteBufferForPlayer, size + 4, ByteBufferForPlayer.length);
+                        ByteBufferForPlayer = Arrays
+                                .copyOfRange(ByteBufferForPlayer, size + 4, ByteBufferForPlayer.length);
                         player.setValue(ByteBufferForPlayer);
                         synchronized (PacketBuffer) {
                             PacketBuffer.add(new Pair<>(player.getKey(), packet));
@@ -248,8 +248,7 @@ public class ServerPacketBufferHandlerThread {
                     while (queue.size() == 0) {
                         try {
                             queue.wait();
-                        } catch (InterruptedException ignored) {
-                        }
+                        } catch (InterruptedException ignored) {}
                     }
                 }
                 synchronized (playersToClear) {
@@ -333,9 +332,8 @@ public class ServerPacketBufferHandlerThread {
 
     public void clear(final EntityPlayer player) {
         new Thread(() -> {
-                    serverCompressorThread.clear(player);
-                    serverDecompressorThread.clear(player);
-                })
-                .start();
+            serverCompressorThread.clear(player);
+            serverDecompressorThread.clear(player);
+        }).start();
     }
 }

@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.asm.IgnoreDisabledProxy;
@@ -13,8 +14,10 @@ import logisticspipes.proxy.VersionNotSupportedException;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
 import logisticspipes.proxy.interfaces.IGenericProgressProvider;
 import logisticspipes.utils.ModStatusHelper;
+
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LogWrapper;
+
 import org.apache.logging.log4j.Level;
 import org.objectweb.asm.*;
 
@@ -29,8 +32,8 @@ public class LogisticsWrapperHandler {
 
     private LogisticsWrapperHandler() {}
 
-    public static IGenericProgressProvider getWrappedProgressProvider(
-            String modId, String name, Class<? extends IGenericProgressProvider> providerClass) {
+    public static IGenericProgressProvider getWrappedProgressProvider(String modId, String name,
+            Class<? extends IGenericProgressProvider> providerClass) {
         IGenericProgressProvider provider = null;
         Throwable e = null;
         if (ModStatusHelper.isModLoaded(modId)) {
@@ -65,8 +68,8 @@ public class LogisticsWrapperHandler {
         return instance;
     }
 
-    public static ICraftingRecipeProvider getWrappedRecipeProvider(
-            String modId, String name, Class<? extends ICraftingRecipeProvider> providerClass) {
+    public static ICraftingRecipeProvider getWrappedRecipeProvider(String modId, String name,
+            Class<? extends ICraftingRecipeProvider> providerClass) {
         ICraftingRecipeProvider provider = null;
         Throwable e = null;
         if (ModStatusHelper.isModLoaded(modId)) {
@@ -102,14 +105,9 @@ public class LogisticsWrapperHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getWrappedProxy(
-            String modId,
-            Class<T> interfaze,
-            Class<? extends T> proxyClazz,
-            T dummyProxy,
-            Class<?>... wrapperInterfaces)
-            throws SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException,
-                    InvocationTargetException, NoSuchMethodException {
+    public static <T> T getWrappedProxy(String modId, Class<T> interfaze, Class<? extends T> proxyClazz, T dummyProxy,
+            Class<?>... wrapperInterfaces) throws SecurityException, IllegalArgumentException, IllegalAccessException,
+            InstantiationException, InvocationTargetException, NoSuchMethodException {
         String proxyName = interfaze.getSimpleName().substring(1);
         if (!proxyName.endsWith("Proxy")) {
             throw new RuntimeException("UnuportedProxyName: " + proxyName);
@@ -136,7 +134,7 @@ public class LogisticsWrapperHandler {
                         className,
                         null,
                         "logisticspipes/asm/wrapper/AbstractWrapper",
-                        new String[] {fieldName});
+                        new String[] { fieldName });
 
                 cw.visitSource(".LP|ASM.dynamic", null);
 
@@ -146,19 +144,30 @@ public class LogisticsWrapperHandler {
                 }
                 {
                     FieldVisitor fv = cw.visitField(
-                            Opcodes.ACC_PRIVATE + Opcodes.ACC_FINAL, "dummyProxy", "L" + fieldName + ";", null, null);
+                            Opcodes.ACC_PRIVATE + Opcodes.ACC_FINAL,
+                            "dummyProxy",
+                            "L" + fieldName + ";",
+                            null,
+                            null);
                     fv.visitEnd();
                 }
                 {
                     MethodVisitor mv = cw.visitMethod(
-                            Opcodes.ACC_PUBLIC, "<init>", "(L" + fieldName + ";L" + fieldName + ";)V", null, null);
+                            Opcodes.ACC_PUBLIC,
+                            "<init>",
+                            "(L" + fieldName + ";L" + fieldName + ";)V",
+                            null,
+                            null);
                     mv.visitCode();
                     Label l0 = new Label();
                     mv.visitLabel(l0);
                     mv.visitLineNumber(11, l0);
                     mv.visitVarInsn(Opcodes.ALOAD, 0);
                     mv.visitMethodInsn(
-                            Opcodes.INVOKESPECIAL, "logisticspipes/asm/wrapper/AbstractWrapper", "<init>", "()V");
+                            Opcodes.INVOKESPECIAL,
+                            "logisticspipes/asm/wrapper/AbstractWrapper",
+                            "<init>",
+                            "()V");
                     Label l1 = new Label();
                     mv.visitLabel(l1);
                     mv.visitLineNumber(12, l1);
@@ -207,8 +216,8 @@ public class LogisticsWrapperHandler {
                         LogisticsWrapperHandler.saveGeneratedClass(bytes, lookfor, "LP_WRAPPER_CLASSES");
                     }
                     ClassReader cr = new ClassReader(bytes);
-                    org.objectweb.asm.util.CheckClassAdapter.verify(
-                            cr, Launch.classLoader, false, new PrintWriter(System.err));
+                    org.objectweb.asm.util.CheckClassAdapter
+                            .verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
                 }
 
                 try {
@@ -258,8 +267,7 @@ public class LogisticsWrapperHandler {
                 }
             }
         }
-        T instance =
-                (T) clazz.getConstructor(new Class<?>[] {interfaze, interfaze}).newInstance(dummyProxy, proxy);
+        T instance = (T) clazz.getConstructor(new Class<?>[] { interfaze, interfaze }).newInstance(dummyProxy, proxy);
         if (proxy != null) {
             LogisticsPipes.log.info("Loaded " + proxyName + "Proxy");
         } else {
@@ -280,7 +288,7 @@ public class LogisticsWrapperHandler {
     @SuppressWarnings("unchecked")
     public static <T> T getWrappedSubProxy(AbstractWrapper wrapper, Class<T> interfaze, T proxy, T dummyProxy)
             throws SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException,
-                    InvocationTargetException, NoSuchMethodException {
+            InvocationTargetException, NoSuchMethodException {
         if (proxy == null) {
             return null;
         }
@@ -301,7 +309,7 @@ public class LogisticsWrapperHandler {
                         className,
                         null,
                         "logisticspipes/asm/wrapper/AbstractSubWrapper",
-                        new String[] {fieldName});
+                        new String[] { fieldName });
 
                 cw.visitSource(".LP|ASM.dynamic", null);
 
@@ -311,7 +319,11 @@ public class LogisticsWrapperHandler {
                 }
                 {
                     FieldVisitor fv = cw.visitField(
-                            Opcodes.ACC_PRIVATE + Opcodes.ACC_FINAL, "dummyProxy", "L" + fieldName + ";", null, null);
+                            Opcodes.ACC_PRIVATE + Opcodes.ACC_FINAL,
+                            "dummyProxy",
+                            "L" + fieldName + ";",
+                            null,
+                            null);
                     fv.visitEnd();
                 }
                 {
@@ -379,8 +391,8 @@ public class LogisticsWrapperHandler {
                         LogisticsWrapperHandler.saveGeneratedClass(bytes, lookfor, "LP_WRAPPER_CLASSES");
                     }
                     ClassReader cr = new ClassReader(bytes);
-                    org.objectweb.asm.util.CheckClassAdapter.verify(
-                            cr, Launch.classLoader, false, new PrintWriter(System.err));
+                    org.objectweb.asm.util.CheckClassAdapter
+                            .verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
                 }
 
                 try {
@@ -410,18 +422,17 @@ public class LogisticsWrapperHandler {
             }
         }
 
-        T instance = (T) clazz.getConstructor(new Class<?>[] {AbstractWrapper.class, interfaze, interfaze})
+        T instance = (T) clazz.getConstructor(new Class<?>[] { AbstractWrapper.class, interfaze, interfaze })
                 .newInstance(wrapper, dummyProxy, proxy);
         ((AbstractWrapper) instance).setWrapperInterfaces(wrapper.getWrapperInterfaces());
         return instance;
     }
 
-    private static Class<?> loadClass(byte[] data, String lookfor)
-            throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
-                    InvocationTargetException {
+    private static Class<?> loadClass(byte[] data, String lookfor) throws NoSuchMethodException, SecurityException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (LogisticsWrapperHandler.m_defineClass == null) {
-            LogisticsWrapperHandler.m_defineClass =
-                    ClassLoader.class.getDeclaredMethod("defineClass", byte[].class, int.class, int.class);
+            LogisticsWrapperHandler.m_defineClass = ClassLoader.class
+                    .getDeclaredMethod("defineClass", byte[].class, int.class, int.class);
             LogisticsWrapperHandler.m_defineClass.setAccessible(true);
         }
         return (Class<?>) LogisticsWrapperHandler.m_defineClass.invoke(Launch.classLoader, data, 0, data.length);
@@ -457,8 +468,8 @@ public class LogisticsWrapperHandler {
         mv.visitEnd();
     }
 
-    private static void addProxyMethod(
-            ClassWriter cw, Method method, String fieldName, String className, int lineAddition, boolean normalResult) {
+    private static void addProxyMethod(ClassWriter cw, Method method, String fieldName, String className,
+            int lineAddition, boolean normalResult) {
         Class<?> retclazz = method.getReturnType();
         int eIndex = 1;
         StringBuilder desc = new StringBuilder("(");
@@ -544,7 +555,7 @@ public class LogisticsWrapperHandler {
         }
         mv.visitLabel(l2);
         mv.visitLineNumber(lineAddition + 3, l2);
-        mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/Exception"});
+        mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { "java/lang/Exception" });
         mv.visitVarInsn(Opcodes.ASTORE, eIndex);
         Label l6 = new Label();
         mv.visitLabel(l6);
@@ -557,7 +568,7 @@ public class LogisticsWrapperHandler {
         mv.visitJumpInsn(Opcodes.GOTO, l5);
         mv.visitLabel(l3);
         mv.visitLineNumber(lineAddition + 5, l3);
-        mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {"java/lang/NoClassDefFoundError"});
+        mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] { "java/lang/NoClassDefFoundError" });
         mv.visitVarInsn(Opcodes.ASTORE, eIndex);
         Label l8 = new Label();
         mv.visitLabel(l8);
@@ -674,7 +685,8 @@ public class LogisticsWrapperHandler {
         }
 
         final File outFile = new File(
-                LogisticsWrapperHandler.tempFolder, transformedName.replace('.', File.separatorChar) + ".class");
+                LogisticsWrapperHandler.tempFolder,
+                transformedName.replace('.', File.separatorChar) + ".class");
         final File outDir = outFile.getParentFile();
 
         if (!outDir.exists()) {
@@ -688,7 +700,8 @@ public class LogisticsWrapperHandler {
         try {
             LogWrapper.fine(
                     "Saving transformed class \"%s\" to \"%s\"",
-                    transformedName, outFile.getAbsolutePath().replace('\\', '/'));
+                    transformedName,
+                    outFile.getAbsolutePath().replace('\\', '/'));
 
             final OutputStream output = new FileOutputStream(outFile);
             output.write(data);

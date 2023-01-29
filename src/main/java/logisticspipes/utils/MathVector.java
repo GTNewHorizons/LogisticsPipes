@@ -48,8 +48,7 @@ public class MathVector {
     }
 
     public MathVector getOrtogonal(Double pX, Double pY, Double pZ) {
-        if ((pX != null && pY != null && pZ != null)
-                || (pX == null && pY == null)
+        if ((pX != null && pY != null && pZ != null) || (pX == null && pY == null)
                 || (pY == null && pZ == null)
                 || (pX == null && pZ == null)) {
             throw new UnsupportedOperationException("One, only one parameter needs to be null");

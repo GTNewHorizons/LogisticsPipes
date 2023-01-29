@@ -1,12 +1,5 @@
 package logisticspipes.proxy.ic2;
 
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
-import ic2.api.energy.tile.IEnergySink;
-import ic2.api.energy.tile.IEnergyTile;
-import ic2.api.item.IC2Items;
-import ic2.api.item.IElectricItem;
-import ic2.api.recipe.Recipes;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.config.Configs;
@@ -16,12 +9,21 @@ import logisticspipes.items.ItemUpgrade;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.interfaces.ICraftingParts;
 import logisticspipes.proxy.interfaces.IIC2Proxy;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+import ic2.api.energy.tile.IEnergySink;
+import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.item.IC2Items;
+import ic2.api.item.IElectricItem;
+import ic2.api.recipe.Recipes;
 
 public class IC2Proxy implements IIC2Proxy {
 
@@ -37,8 +39,7 @@ public class IC2Proxy implements IIC2Proxy {
     /**
      * @param stack    The stack to check
      * @param template The stack to compare to
-     * @return Boolean, true if stack is the same type of ic2 electric item as
-     * template.
+     * @return Boolean, true if stack is the same type of ic2 electric item as template.
      */
     @Override
     public boolean isSimilarElectricItem(ItemStack stack, ItemStack template) {
@@ -324,7 +325,9 @@ public class IC2Proxy implements IIC2Proxy {
 
             Recipes.advRecipes.addRecipe(
                     new ItemStack(
-                            LogisticsPipes.LogisticsSolidBlock, 1, LogisticsSolidBlock.LOGISTICS_IC2_POWERPROVIDER),
+                            LogisticsPipes.LogisticsSolidBlock,
+                            1,
+                            LogisticsSolidBlock.LOGISTICS_IC2_POWERPROVIDER),
                     "PSP",
                     "OBO",
                     "PTP",
@@ -340,14 +343,22 @@ public class IC2Proxy implements IIC2Proxy {
                     Items.paper);
         }
         if (Configs.ENABLE_BETA_RECIPES) {
-            ItemStack packager =
-                    new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER);
-            ItemStack expand =
-                    new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER);
-            ItemStack lense =
-                    new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_FOCUSLENSE);
-            ItemStack accept =
-                    new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_POWERACCEPT);
+            ItemStack packager = new ItemStack(
+                    LogisticsPipes.LogisticsPipeComponents,
+                    1,
+                    ItemPipeComponents.ITEM_MICROPACKAGER);
+            ItemStack expand = new ItemStack(
+                    LogisticsPipes.LogisticsPipeComponents,
+                    1,
+                    ItemPipeComponents.ITEM_LOGICEXPANDER);
+            ItemStack lense = new ItemStack(
+                    LogisticsPipes.LogisticsPipeComponents,
+                    1,
+                    ItemPipeComponents.ITEM_FOCUSLENSE);
+            ItemStack accept = new ItemStack(
+                    LogisticsPipes.LogisticsPipeComponents,
+                    1,
+                    ItemPipeComponents.ITEM_POWERACCEPT);
 
             Recipes.advRecipes.addRecipe(
                     new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER),
@@ -445,7 +456,9 @@ public class IC2Proxy implements IIC2Proxy {
 
             Recipes.advRecipes.addRecipe(
                     new ItemStack(
-                            LogisticsPipes.LogisticsSolidBlock, 1, LogisticsSolidBlock.LOGISTICS_IC2_POWERPROVIDER),
+                            LogisticsPipes.LogisticsSolidBlock,
+                            1,
+                            LogisticsSolidBlock.LOGISTICS_IC2_POWERPROVIDER),
                     "PSP",
                     "OBO",
                     "PTP",

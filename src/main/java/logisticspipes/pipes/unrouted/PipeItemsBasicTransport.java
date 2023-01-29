@@ -5,6 +5,7 @@ import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.textures.Textures;
 import logisticspipes.transport.PipeTransportLogistics;
+
 import net.minecraft.item.Item;
 import net.minecraftforge.common.util.ForgeDirection;
 

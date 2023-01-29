@@ -7,6 +7,7 @@ import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.PipeItemsRequestLogisticsMk2;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class DiscContent extends ItemPacket {
@@ -29,13 +30,10 @@ public class DiscContent extends ItemPacket {
         if (tile.pipe instanceof PipeItemsRequestLogisticsMk2) {
             if (MainProxy.isServer(tile.getWorld())) {
                 if (((PipeItemsRequestLogisticsMk2) tile.pipe).getDisk() != null
-                        && ((PipeItemsRequestLogisticsMk2) tile.pipe)
-                                .getDisk()
-                                .getItem()
+                        && ((PipeItemsRequestLogisticsMk2) tile.pipe).getDisk().getItem()
                                 .equals(LogisticsPipes.LogisticsItemDisk)) {
                     if (getStack() != null && getStack().getItem().equals(LogisticsPipes.LogisticsItemDisk)) {
-                        ((PipeItemsRequestLogisticsMk2) tile.pipe)
-                                .getDisk()
+                        ((PipeItemsRequestLogisticsMk2) tile.pipe).getDisk()
                                 .setTagCompound(getStack().getTagCompound());
                     }
                 }
@@ -46,15 +44,10 @@ public class DiscContent extends ItemPacket {
         if (tile.pipe instanceof PipeBlockRequestTable) {
             if (MainProxy.isServer(tile.getWorld())) {
                 if (((PipeBlockRequestTable) tile.pipe).diskInv.getStackInSlot(0) != null
-                        && ((PipeBlockRequestTable) tile.pipe)
-                                .diskInv
-                                .getStackInSlot(0)
-                                .getItem()
+                        && ((PipeBlockRequestTable) tile.pipe).diskInv.getStackInSlot(0).getItem()
                                 .equals(LogisticsPipes.LogisticsItemDisk)) {
                     if (getStack() != null && getStack().getItem().equals(LogisticsPipes.LogisticsItemDisk)) {
-                        ((PipeBlockRequestTable) tile.pipe)
-                                .diskInv
-                                .getStackInSlot(0)
+                        ((PipeBlockRequestTable) tile.pipe).diskInv.getStackInSlot(0)
                                 .setTagCompound(getStack().getTagCompound());
                     }
                 }

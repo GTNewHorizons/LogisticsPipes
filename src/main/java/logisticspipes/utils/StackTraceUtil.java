@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+
 import logisticspipes.LPConstants;
 import logisticspipes.utils.tuples.Pair;
 import scala.actors.threadpool.Arrays;
@@ -45,8 +46,8 @@ public class StackTraceUtil {
         return StackTraceUtil.addTraceInformationFor(calledFrom, information, infos);
     }
 
-    private static Info addTraceInformationFor(
-            final StackTraceElement calledFrom, final String information, final Info... infos) {
+    private static Info addTraceInformationFor(final StackTraceElement calledFrom, final String information,
+            final Info... infos) {
         synchronized (StackTraceUtil.informationMap) {
             StackTraceUtil.getList().addLast(new Pair<>(calledFrom, information));
             return new Info() {
@@ -57,8 +58,7 @@ public class StackTraceUtil {
                         if (StackTraceUtil.getList().isEmpty()) {
                             throw new RuntimeException("There are to many end() calls");
                         } else {
-                            Pair<StackTraceElement, String> pair =
-                                    StackTraceUtil.getList().getLast();
+                            Pair<StackTraceElement, String> pair = StackTraceUtil.getList().getLast();
                             if (!pair.getValue1().equals(calledFrom)) {
                                 System.out.println("Found: " + pair.getValue1());
                                 System.out.println("Looking for: " + calledFrom);
@@ -90,8 +90,7 @@ public class StackTraceUtil {
                 Pair<StackTraceElement, String> lastFound = null;
                 StackTraceElement current = traceList.removeLast();
                 while (current != null) {
-                    Iterator<Pair<StackTraceElement, String>> iter =
-                            StackTraceUtil.getList().iterator();
+                    Iterator<Pair<StackTraceElement, String>> iter = StackTraceUtil.getList().iterator();
                     if (lastFound != null) {
                         while (iter.hasNext()) {
                             Pair<StackTraceElement, String> pair = iter.next();

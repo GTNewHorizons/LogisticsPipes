@@ -1,14 +1,12 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.request;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.request.resources.DictResource;
@@ -54,7 +52,10 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
     @Override
     public LogisticsPromise generatePromise(int nResultSets) {
         return new LogisticsDictPromise(
-                _result, _result.stack.getStackSize() * nResultSets, _crafter, ResourceType.CRAFTING);
+                _result,
+                _result.stack.getStackSize() * nResultSets,
+                _crafter,
+                ResourceType.CRAFTING);
     }
 
     // TODO: refactor so that other classes don't reach through the template to the crafter.
@@ -131,8 +132,9 @@ public class DictCraftingTemplate implements IReqCraftingTemplate {
 
         // for each thing needed to satisfy this promise
         for (Pair<IResource, IAdditionalTargetInformation> stack : _required) {
-            Pair<IResource, IAdditionalTargetInformation> pair =
-                    new Pair<>(stack.getValue1().clone(nCraftingSetsNeeded), stack.getValue2());
+            Pair<IResource, IAdditionalTargetInformation> pair = new Pair<>(
+                    stack.getValue1().clone(nCraftingSetsNeeded),
+                    stack.getValue2());
             stacks.add(pair);
         }
         return stacks;

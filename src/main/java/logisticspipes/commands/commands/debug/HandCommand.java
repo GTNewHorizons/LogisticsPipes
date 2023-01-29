@@ -1,6 +1,7 @@
 package logisticspipes.commands.commands.debug;
 
 import logisticspipes.commands.abstracts.ICommandHandler;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,7 +11,7 @@ public class HandCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"hand"};
+        return new String[] { "hand" };
     }
 
     @Override
@@ -20,7 +21,7 @@ public class HandCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Start debugging the selected ItemStack"};
+        return new String[] { "Start debugging the selected ItemStack" };
     }
 
     @Override

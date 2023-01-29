@@ -1,6 +1,7 @@
 package logisticspipes.asm.wrapper;
 
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.proxy.MainProxy;
@@ -42,7 +43,9 @@ public abstract class AbstractWrapper {
         e.printStackTrace();
         state = WrapperState.Exception;
         reason = e;
-        String message = "Disabled " + getName() + getTypeName() + (modId != null ? (" for Mod: " + modId) : "")
+        String message = "Disabled " + getName()
+                + getTypeName()
+                + (modId != null ? (" for Mod: " + modId) : "")
                 + ". Cause was an Exception";
         LogisticsPipes.log.fatal(message);
         MainProxy.proxy.sendBroadCast(ChatColor.RED + message);

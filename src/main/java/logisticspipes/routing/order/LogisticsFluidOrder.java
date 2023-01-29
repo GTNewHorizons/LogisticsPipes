@@ -9,11 +9,7 @@ import lombok.Getter;
 
 public class LogisticsFluidOrder extends LogisticsOrder {
 
-    public LogisticsFluidOrder(
-            FluidIdentifier fuild,
-            Integer amount,
-            IRequestFluid destination,
-            ResourceType type,
+    public LogisticsFluidOrder(FluidIdentifier fuild, Integer amount, IRequestFluid destination, ResourceType type,
             IAdditionalTargetInformation info) {
         super(type, info);
         if (destination == null) {

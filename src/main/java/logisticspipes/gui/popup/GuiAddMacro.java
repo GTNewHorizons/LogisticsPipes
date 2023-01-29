@@ -3,6 +3,7 @@ package logisticspipes.gui.popup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import logisticspipes.interfaces.IDiskProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.orderer.DiscContent;
@@ -16,6 +17,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -23,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
 import org.lwjgl.input.Keyboard;
 
 public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
@@ -187,13 +190,12 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
                 if (mouseX >= x && mouseX < x + panelxSize && mouseY >= y && mouseY < y + panelySize) {
                     Gui.drawRect(x - 3, y - 1, x + panelxSize - 3, y + panelySize - 3, Color.getValue(Color.BLACK));
                     Gui.drawRect(x - 2, y, x + panelxSize - 4, y + panelySize - 4, Color.getValue(Color.DARKER_GREY));
-                    tooltip = new Object[] {mouseX + guiLeft, mouseY + guiTop, st, false};
+                    tooltip = new Object[] { mouseX + guiLeft, mouseY + guiTop, st, false };
                 }
 
                 if (mousePosX != 0 && mousePosY != 0) {
                     if ((mousePosX >= x && mousePosX < x + panelxSize && mousePosY >= y && mousePosY < y + panelySize)
-                            || (mouseX >= x
-                                    && mouseX < x + panelxSize
+                            || (mouseX >= x && mouseX < x + panelxSize
                                     && mouseY >= y
                                     && mouseY < y + panelySize
                                     && (wheeldown != 0 || wheelup != 0))) {
@@ -292,7 +294,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 
             if (!super.hasSubGui()) {
                 if (mouseX >= x && mouseX < x + panelxSize && mouseY >= y && mouseY < y + panelySize) {
-                    tooltip = new Object[] {mouseX + guiLeft, mouseY + guiTop, st};
+                    tooltip = new Object[] { mouseX + guiLeft, mouseY + guiTop, st };
                 }
             }
             column++;
@@ -319,7 +321,10 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     protected void renderGuiBackground(int par1, int par2) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, false);
         mc.fontRenderer.drawString(
-                "Add Macro", guiLeft + mc.fontRenderer.getStringWidth("Add Macro") / 2, guiTop + 6, 0x404040);
+                "Add Macro",
+                guiLeft + mc.fontRenderer.getStringWidth("Add Macro") / 2,
+                guiTop + 6,
+                0x404040);
 
         maxPageAll = (int) Math.floor((getSearchedItemNumber(diskProvider.getItemDisplay()._allItems) - 1) / 45F);
         if (maxPageAll == -1) {
@@ -331,10 +336,16 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 
         String pageString1 = "Page " + (pageAll + 1) + " / " + (maxPageAll + 1);
         mc.fontRenderer.drawString(
-                pageString1, right - 47 - mc.fontRenderer.getStringWidth(pageString1) / 2, guiTop + 6, 0x404040);
+                pageString1,
+                right - 47 - mc.fontRenderer.getStringWidth(pageString1) / 2,
+                guiTop + 6,
+                0x404040);
 
         mc.fontRenderer.drawString(
-                "Macro Items", guiLeft + mc.fontRenderer.getStringWidth("Add Macro") / 2, guiTop + 136, 0x404040);
+                "Macro Items",
+                guiLeft + mc.fontRenderer.getStringWidth("Add Macro") / 2,
+                guiTop + 136,
+                0x404040);
 
         maxPageMacro = (int) Math.floor((getSearchedItemNumber(macroItems) - 1) / 9F);
         if (maxPageMacro == -1) {
@@ -346,7 +357,10 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 
         String pageString2 = "Page " + (pageMacro + 1) + " / " + (maxPageMacro + 1);
         mc.fontRenderer.drawString(
-                pageString2, right - 47 - mc.fontRenderer.getStringWidth(pageString2) / 2, guiTop + 136, 0x404040);
+                pageString2,
+                right - 47 - mc.fontRenderer.getStringWidth(pageString2) / 2,
+                guiTop + 136,
+                0x404040);
 
         mc.fontRenderer.drawString("Search:", guiLeft + 8, guiTop + 122, 0x404040);
 
@@ -505,11 +519,10 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
                     list.appendTag(nbt);
                 }
                 diskProvider.getDisk().getTagCompound().setTag("macroList", list);
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(DiscContent.class)
-                        .setStack(diskProvider.getDisk())
-                        .setPosX(diskProvider.getX())
-                        .setPosY(diskProvider.getY())
-                        .setPosZ(diskProvider.getZ()));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(DiscContent.class).setStack(diskProvider.getDisk())
+                                .setPosX(diskProvider.getX()).setPosY(diskProvider.getY())
+                                .setPosZ(diskProvider.getZ()));
                 exitGui();
             } else if (macroItems.size() != 0) {
                 setSubGui(new GuiMessagePopup("Please enter a name"));

@@ -1,11 +1,10 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import logisticspipes.gui.hud.modules.HUDSimpleFilterModule;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -25,22 +24,24 @@ import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
-@CCType(name = "EnchantmentSink Module MK2")
-public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
-        implements IClientInformationProvider,
-                IHUDModuleHandler,
-                IModuleWatchReciver,
-                ISimpleInventoryEventHandler,
-                IModuleInventoryReceive {
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-    private final ItemIdentifierInventory _filterInventory =
-            new ItemIdentifierInventory(9, "Requested Enchanted items", 1);
+@CCType(name = "EnchantmentSink Module MK2")
+public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule implements IClientInformationProvider,
+        IHUDModuleHandler, IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
+
+    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
+            9,
+            "Requested Enchanted items",
+            1);
 
     public ModuleEnchantmentSinkMK2() {
         _filterInventory.addListener(this);
@@ -62,19 +63,20 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
     public void registerPosition(ModulePositionType slot, int positionInt) {
         super.registerPosition(slot, positionInt);
         _sinkReply = new SinkReply(
-                FixedPriority.EnchantmentItemSink, 1, true, false, 1, 0, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.EnchantmentItemSink,
+                1,
+                true,
+                false,
+                1,
+                0,
+                new ChassiTargetInformation(getPositionInt()));
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
         if (_filterInventory.containsExcludeNBTItem(item.getUndamaged().getIgnoringNBT())) {
@@ -115,14 +117,12 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -130,8 +130,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory)).setModulePos(this),
                 player);
     }
 
@@ -145,8 +144,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -164,8 +162,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule
     @Override
     /*
      * (non-Javadoc)
-     * @see logisticspipes.modules.LogisticsModule#hasGenericInterests()
-     * Only looking for items in filter
+     * @see logisticspipes.modules.LogisticsModule#hasGenericInterests() Only looking for items in filter
      */
     public boolean hasGenericInterests() {
         return false;

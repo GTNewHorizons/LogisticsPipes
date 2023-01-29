@@ -6,6 +6,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
 import logisticspipes.network.packets.modules.ProviderModuleInclude;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ProviderModuleIncludePacket extends ModuleCoordinatesPacket {
@@ -27,8 +28,7 @@ public class ProviderModuleIncludePacket extends ModuleCoordinatesPacket {
         }
         module.setFilterExcluded(!module.isExcludeFilter());
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ProviderModuleInclude.class)
-                        .setFlag(module.isExcludeFilter())
+                PacketHandler.getPacket(ProviderModuleInclude.class).setFlag(module.isExcludeFilter())
                         .setModulePos(module),
                 player);
     }

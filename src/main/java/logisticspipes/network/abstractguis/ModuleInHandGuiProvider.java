@@ -1,6 +1,7 @@
 package logisticspipes.network.abstractguis;
 
 import java.io.IOException;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -11,6 +12,7 @@ import logisticspipes.utils.DummyWorldProvider;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -42,8 +44,8 @@ public abstract class ModuleInHandGuiProvider extends GuiProvider {
         if (item == null) {
             return null;
         }
-        LogisticsModule module = LogisticsPipes.ModuleItem.getModuleForItem(
-                item, null, new DummyWorldProvider(player.getEntityWorld()), null);
+        LogisticsModule module = LogisticsPipes.ModuleItem
+                .getModuleForItem(item, null, new DummyWorldProvider(player.getEntityWorld()), null);
         module.registerPosition(ModulePositionType.IN_HAND, invSlot);
         ItemModuleInformationManager.readInformation(item, module);
         return module;

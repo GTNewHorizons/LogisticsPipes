@@ -10,11 +10,13 @@ import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
 import org.lwjgl.input.Keyboard;
 
 public class GuiDiskPopup extends SubGuiScreen {
@@ -64,22 +66,18 @@ public class GuiDiskPopup extends SubGuiScreen {
 
     private void writeDiskName() {
         editname = false;
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(DiskSetNamePacket.class)
-                .setString(name1 + name2)
-                .setPosX(diskProvider.getX())
-                .setPosY(diskProvider.getY())
-                .setPosZ(diskProvider.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(DiskSetNamePacket.class).setString(name1 + name2).setPosX(diskProvider.getX())
+                        .setPosY(diskProvider.getY()).setPosZ(diskProvider.getZ()));
         NBTTagCompound nbt = new NBTTagCompound();
         if (diskProvider.getDisk().hasTagCompound()) {
             nbt = diskProvider.getDisk().getTagCompound();
         }
         nbt.setString("name", name1 + name2);
         diskProvider.getDisk().setTagCompound(nbt);
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(DiscContent.class)
-                .setStack(diskProvider.getDisk())
-                .setPosX(diskProvider.getX())
-                .setPosY(diskProvider.getY())
-                .setPosZ(diskProvider.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(DiscContent.class).setStack(diskProvider.getDisk()).setPosX(diskProvider.getX())
+                        .setPosY(diskProvider.getY()).setPosZ(diskProvider.getZ()));
     }
 
     @SuppressWarnings("unchecked")
@@ -99,7 +97,10 @@ public class GuiDiskPopup extends SubGuiScreen {
     protected void renderGuiBackground(int par1, int par2) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
         mc.fontRenderer.drawStringWithShadow(
-                "Disk", xCenter - (mc.fontRenderer.getStringWidth("Disk") / 2), guiTop + 10, 0xFFFFFF);
+                "Disk",
+                xCenter - (mc.fontRenderer.getStringWidth("Disk") / 2),
+                guiTop + 10,
+                0xFFFFFF);
 
         // NameInput
         if (editname) {
@@ -187,11 +188,9 @@ public class GuiDiskPopup extends SubGuiScreen {
     }
 
     private void handleRequest() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(DiskMacroRequestPacket.class)
-                .setInteger(selected)
-                .setPosX(diskProvider.getX())
-                .setPosY(diskProvider.getY())
-                .setPosZ(diskProvider.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(DiskMacroRequestPacket.class).setInteger(selected).setPosX(diskProvider.getX())
+                        .setPosY(diskProvider.getY()).setPosZ(diskProvider.getZ()));
     }
 
     private void handleDelete() {
@@ -216,11 +215,9 @@ public class GuiDiskPopup extends SubGuiScreen {
         }
         selected = -1;
         nbt.setTag("macroList", listnew);
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(DiscContent.class)
-                .setStack(diskProvider.getDisk())
-                .setPosX(diskProvider.getX())
-                .setPosY(diskProvider.getY())
-                .setPosZ(diskProvider.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(DiscContent.class).setStack(diskProvider.getDisk()).setPosX(diskProvider.getX())
+                        .setPosY(diskProvider.getY()).setPosZ(diskProvider.getZ()));
     }
 
     private void handleAddEdit() {
@@ -299,10 +296,10 @@ public class GuiDiskPopup extends SubGuiScreen {
                     name2 = name2.substring(1);
                 }
             }
-            //		} else if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)){
-            //			super.keyTyped(c, i);
-            //		} else if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)){
-            //			super.keyTyped(c, i);
+            // } else if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)){
+            // super.keyTyped(c, i);
+            // } else if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)){
+            // super.keyTyped(c, i);
         } else {
             super.keyTyped(c, i);
         }

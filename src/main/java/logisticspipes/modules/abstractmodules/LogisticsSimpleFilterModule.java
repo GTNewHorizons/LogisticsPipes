@@ -5,6 +5,7 @@ import logisticspipes.network.abstractguis.ModuleCoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.ModuleInHandGuiProvider;
 import logisticspipes.network.guis.module.inhand.SimpleFilterInventoryInHand;
 import logisticspipes.network.guis.module.inpipe.SimpleFilterInventorySlot;
+
 import net.minecraft.inventory.IInventory;
 
 public abstract class LogisticsSimpleFilterModule extends LogisticsGuiModule {

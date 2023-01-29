@@ -2,6 +2,7 @@ package logisticspipes.routing.order;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 
 public class LinkedLogisticsOrderList extends ArrayList<IOrderInfoProvider> {

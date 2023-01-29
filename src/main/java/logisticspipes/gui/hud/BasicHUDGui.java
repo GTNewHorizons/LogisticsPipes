@@ -2,10 +2,13 @@ package logisticspipes.gui.hud;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.IHUDButton;
 import logisticspipes.interfaces.IHUDConfig;
 import logisticspipes.interfaces.IHeadUpDisplayRenderer;
+
 import net.minecraft.client.Minecraft;
+
 import org.lwjgl.opengl.GL11;
 
 public abstract class BasicHUDGui implements IHeadUpDisplayRenderer {

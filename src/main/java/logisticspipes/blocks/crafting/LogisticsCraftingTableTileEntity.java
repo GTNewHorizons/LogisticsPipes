@@ -2,6 +2,7 @@ package logisticspipes.blocks.crafting;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.api.IRoutedPowerProvider;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
@@ -23,6 +24,7 @@ import logisticspipes.utils.PlayerIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -110,9 +112,7 @@ public class LogisticsCraftingTableTileEntity extends LogisticsSolidTileEntity
                 && getWorldObj() != null
                 && MainProxy.isServer(getWorldObj())) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(CraftingSetType.class)
-                            .setTargetType(targetType)
-                            .setTilePos(this),
+                    PacketHandler.getPacket(CraftingSetType.class).setTargetType(targetType).setTilePos(this),
                     guiWatcher);
         }
     }
@@ -170,9 +170,7 @@ public class LogisticsCraftingTableTileEntity extends LogisticsSolidTileEntity
         }
         if (!guiWatcher.isEmpty() && getWorldObj() != null && MainProxy.isServer(getWorldObj())) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(CraftingSetType.class)
-                            .setTargetType(targetType)
-                            .setTilePos(this),
+                    PacketHandler.getPacket(CraftingSetType.class).setTargetType(targetType).setTilePos(this),
                     guiWatcher);
         }
         cacheRecipe();
@@ -193,8 +191,7 @@ public class LogisticsCraftingTableTileEntity extends LogisticsSolidTileEntity
         }
         int[] toUse = new int[9];
         int[] used = new int[inv.getSizeInventory()];
-        outer:
-        for (int i = 0; i < 9; i++) {
+        outer: for (int i = 0; i < 9; i++) {
             ItemIdentifierStack item = matrix.getIDStackInSlot(i);
             if (item == null) {
                 toUse[i] = -1;
@@ -230,9 +227,8 @@ public class LogisticsCraftingTableTileEntity extends LogisticsSolidTileEntity
             if (isFuzzy && outputFuzzyFlags.getBitSet().nextSetBit(0) != -1) {
                 recipe = null;
                 for (IRecipe r : CraftingUtil.getRecipeList()) {
-                    if (r.matches(crafter, getWorldObj())
-                            && outputFuzzyFlags.matches(
-                                    ItemIdentifier.get(r.getRecipeOutput()), IResource.MatchSettings.NORMAL)) {
+                    if (r.matches(crafter, getWorldObj()) && outputFuzzyFlags
+                            .matches(ItemIdentifier.get(r.getRecipeOutput()), IResource.MatchSettings.NORMAL)) {
                         recipe = r;
                         break;
                     }
@@ -350,8 +346,8 @@ public class LogisticsCraftingTableTileEntity extends LogisticsSolidTileEntity
             outputFuzzyFlags.use_category = comp.getBoolean("use_category");
         }
         if (par1nbtTagCompound.hasKey("targetType")) {
-            targetType =
-                    ItemIdentifier.get(ItemStack.loadItemStackFromNBT(par1nbtTagCompound.getCompoundTag("targetType")));
+            targetType = ItemIdentifier
+                    .get(ItemStack.loadItemStackFromNBT(par1nbtTagCompound.getCompoundTag("targetType")));
         }
         cacheRecipe();
     }

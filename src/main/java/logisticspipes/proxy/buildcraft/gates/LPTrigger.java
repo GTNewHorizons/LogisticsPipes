@@ -1,11 +1,13 @@
 package logisticspipes.proxy.buildcraft.gates;
 
+import logisticspipes.textures.Textures;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
+
 import buildcraft.api.statements.*;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.TileGenericPipe;
-import logisticspipes.textures.Textures;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
 
 public abstract class LPTrigger implements IStatement {
 

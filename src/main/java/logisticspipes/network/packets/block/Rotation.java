@@ -1,10 +1,12 @@
 package logisticspipes.network.packets.block;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.network.abstractpackets.IntegerCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class Rotation extends IntegerCoordinatesPacket {
 

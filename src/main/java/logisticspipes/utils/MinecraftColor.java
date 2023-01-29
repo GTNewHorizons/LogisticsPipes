@@ -4,6 +4,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public enum MinecraftColor {
+
     BLACK(0xff000000),
     RED(0xffff0000),
     GREEN(0xff00ff00),

@@ -22,7 +22,7 @@ public class PowerTransportationUpgrade implements IPipeUpgrade {
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] {"all"};
+        return new String[] { "all" };
     }
 
     @Override

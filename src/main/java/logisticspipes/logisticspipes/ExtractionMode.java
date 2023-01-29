@@ -3,6 +3,7 @@ package logisticspipes.logisticspipes;
 import logisticspipes.utils.string.StringUtils;
 
 public enum ExtractionMode {
+
     Normal,
     LeaveFirst,
     LeaveLast,

@@ -1,14 +1,5 @@
 package logisticspipes.asm;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ObjectArrays;
-import com.google.common.io.Resources;
-import com.google.common.primitives.Ints;
-import cpw.mods.fml.common.asm.transformers.AccessTransformer;
-import cpw.mods.fml.common.asm.transformers.ModAccessTransformer;
-import cpw.mods.fml.relauncher.CoreModManager;
-import cpw.mods.fml.relauncher.FMLRelaunchLog;
-import cpw.mods.fml.relauncher.FileListHelper;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -20,19 +11,33 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+
 import logisticspipes.LPConstants;
 import logisticspipes.asm.DevEnvHelper.MappingLoader_MCP.CantLoadMCPMappingException;
 import logisticspipes.asm.DevEnvHelper.MinecraftNameSet.Side;
 import lombok.SneakyThrows;
+
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+
 import org.apache.logging.log4j.Level;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.*;
+
+import com.google.common.base.Strings;
+import com.google.common.collect.ObjectArrays;
+import com.google.common.io.Resources;
+import com.google.common.primitives.Ints;
+
+import cpw.mods.fml.common.asm.transformers.AccessTransformer;
+import cpw.mods.fml.common.asm.transformers.ModAccessTransformer;
+import cpw.mods.fml.relauncher.CoreModManager;
+import cpw.mods.fml.relauncher.FMLRelaunchLog;
+import cpw.mods.fml.relauncher.FileListHelper;
 
 public class DevEnvHelper {
 
@@ -50,9 +55,8 @@ public class DevEnvHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public static void detectCoreModInDevEnv()
-            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException,
-                    IOException {
+    public static void detectCoreModInDevEnv() throws IllegalAccessException, InvocationTargetException,
+            NoSuchMethodException, NoSuchFieldException, IOException {
         if (!isDevelopmentEnvironment()) {
             return;
         }
@@ -65,8 +69,8 @@ public class DevEnvHelper {
                 LaunchClassLoader.class,
                 Integer.class);
         handleCascadingTweak.setAccessible(true);
-        Method loadCoreMod = CoreModManager.class.getDeclaredMethod(
-                "loadCoreMod", LaunchClassLoader.class, String.class, File.class);
+        Method loadCoreMod = CoreModManager.class
+                .getDeclaredMethod("loadCoreMod", LaunchClassLoader.class, String.class, File.class);
         loadCoreMod.setAccessible(true);
         Method setupCoreModDir = CoreModManager.class.getDeclaredMethod("setupCoreModDir", File.class);
         setupCoreModDir.setAccessible(true);
@@ -163,7 +167,8 @@ public class DevEnvHelper {
             // classLoader.addURL(coreMod.toURI().toURL());
             if (!mfAttributes.containsKey(DevEnvHelper.COREMODCONTAINSFMLMOD)) {
                 FMLRelaunchLog.finer(
-                        "Adding %s to the list of known coremods, it will not be examined again", coreMod.getName());
+                        "Adding %s to the list of known coremods, it will not be examined again",
+                        coreMod.getName());
                 ((List<String>) loadedCoremods.get(null)).add(coreMod.getName());
             } else {
                 FMLRelaunchLog.finer(
@@ -172,8 +177,8 @@ public class DevEnvHelper {
                 // ((List<String>)reparsedCoremods.get(null)).add(coreMod.getName());
             }
             // } catch(MalformedURLException e) {
-            //	FMLRelaunchLog.log(Level.ERROR, e, "Unable to convert file into a URL. weird");
-            //	continue;
+            // FMLRelaunchLog.log(Level.ERROR, e, "Unable to convert file into a URL. weird");
+            // continue;
             // }
             loadCoreMod.invoke(null, classLoader, fmlCorePlugin, coreMod);
         }
@@ -184,8 +189,7 @@ public class DevEnvHelper {
                 AccessTransformer acc = new AccessTransformer("CoFH_at.cfg") {};
                 insertTransformer(acc);
             }
-        } catch (Throwable ignored) {
-        }
+        } catch (Throwable ignored) {}
     }
 
     @SneakyThrows
@@ -197,10 +201,9 @@ public class DevEnvHelper {
         transformerList.add(transformer);
     }
 
-    public static void handleSpecialClassTransformer()
-            throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException,
-                    IOException, CantLoadMCPMappingException, ClassNotFoundException, NoSuchMethodException,
-                    InvocationTargetException {
+    public static void handleSpecialClassTransformer() throws IllegalArgumentException, IllegalAccessException,
+            NoSuchFieldException, SecurityException, IOException, CantLoadMCPMappingException, ClassNotFoundException,
+            NoSuchMethodException, InvocationTargetException {
         if (!isDevelopmentEnvironment() || !new File(".mcpMappings").exists()) {
             return;
         }
@@ -279,17 +282,17 @@ public class DevEnvHelper {
     }
 
     /*
-     * Everything Below this point is based in immibis BON. Thus it is licensed under his license:
-     * LICENSE:
-     * Copyright (C) 2013 Alex "immibis" Campbell
-     *
-     * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-     * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-     *
-     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-     *
-     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-     * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     * Everything Below this point is based in immibis BON. Thus it is licensed under his license: LICENSE: Copyright
+     * (C) 2013 Alex "immibis" Campbell Permission is hereby granted, free of charge, to any person obtaining a copy of
+     * this software and associated documentation files (the "Software"), to deal in the Software without restriction,
+     * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     * copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the
+     * following conditions: The above copyright notice and this permission notice shall be included in all copies or
+     * substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+     * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      */
 
     private static Mapping m;
@@ -337,8 +340,8 @@ public class DevEnvHelper {
                             if (ain instanceof FieldInsnNode) {
                                 FieldInsnNode fin = (FieldInsnNode) ain;
 
-                                String realOwner =
-                                        DevEnvHelper.resolveField(fin.owner, fin.name, fin.desc, DevEnvHelper.m);
+                                String realOwner = DevEnvHelper
+                                        .resolveField(fin.owner, fin.name, fin.desc, DevEnvHelper.m);
 
                                 if (realOwner == null) {
                                     realOwner = fin.owner;
@@ -370,15 +373,15 @@ public class DevEnvHelper {
                             } else if (ain instanceof MethodInsnNode) {
                                 MethodInsnNode min = (MethodInsnNode) ain;
 
-                                String[] realOwnerAndDesc =
-                                        DevEnvHelper.resolveMethod(min.owner, min.name, min.desc, DevEnvHelper.m);
+                                String[] realOwnerAndDesc = DevEnvHelper
+                                        .resolveMethod(min.owner, min.name, min.desc, DevEnvHelper.m);
 
                                 String realOwner = realOwnerAndDesc == null ? min.owner : realOwnerAndDesc[0];
                                 String realDesc = realOwnerAndDesc == null ? min.desc : realOwnerAndDesc[1];
 
                                 min.name = DevEnvHelper.m.getMethod(realOwner, min.name, realDesc);
-                                min.owner = DevEnvHelper.m.getClass(
-                                        min.owner); // note: not realOwner which could be an interface
+                                min.owner = DevEnvHelper.m.getClass(min.owner); // note: not realOwner which could be an
+                                                                                // interface
                                 min.desc = DevEnvHelper.m.mapMethodDescriptor(realDesc);
 
                             } else if (ain instanceof LdcInsnNode) {
@@ -460,8 +463,8 @@ public class DevEnvHelper {
                 }
 
                 if (cn.outerMethod != null) {
-                    String[] resolved = DevEnvHelper.resolveMethod(
-                            cn.outerClass, cn.outerMethod, cn.outerMethodDesc, DevEnvHelper.m);
+                    String[] resolved = DevEnvHelper
+                            .resolveMethod(cn.outerClass, cn.outerMethod, cn.outerMethodDesc, DevEnvHelper.m);
                     if (resolved != null) {
                         cn.outerMethod = DevEnvHelper.m.getMethod(resolved[0], cn.outerMethod, resolved[1]);
                         cn.outerMethodDesc = DevEnvHelper.m.mapMethodDescriptor(resolved[1]);
@@ -519,7 +522,7 @@ public class DevEnvHelper {
             if (!desc.startsWith("L") || !desc.endsWith(";")) {
                 throw new AssertionError("Not a class type descriptor: " + desc);
             }
-            return new String[] {m.getClass(desc), m.getField(desc.substring(1, desc.length() - 1), enumvalue)};
+            return new String[] { m.getClass(desc), m.getField(desc.substring(1, desc.length() - 1), enumvalue) };
         }
 
         if (value instanceof List) {
@@ -592,10 +595,8 @@ public class DevEnvHelper {
             // interface method resolution; http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-5.html#jvms-5.4.3.4
 
             for (MethodNode mn : cn.methods) {
-                if (mn.name.equals(name)
-                        && mn.desc.equals(desc)
-                        && !m.getMethod(owner, name, desc).equals(name)) {
-                    return new String[] {owner, desc};
+                if (mn.name.equals(name) && mn.desc.equals(desc) && !m.getMethod(owner, name, desc).equals(name)) {
+                    return new String[] { owner, desc };
                 }
             }
 
@@ -628,10 +629,8 @@ public class DevEnvHelper {
                 reader.accept(cn, 0);
 
                 for (MethodNode mn : cn.methods) {
-                    if (mn.name.equals(name)
-                            && mn.desc.equals(desc)
-                            && !m.getMethod(owner, name, desc).equals(name)) {
-                        return new String[] {owner, desc};
+                    if (mn.name.equals(name) && mn.desc.equals(desc) && !m.getMethod(owner, name, desc).equals(name)) {
+                        return new String[] { owner, desc };
                     }
                 }
 
@@ -708,8 +707,7 @@ public class DevEnvHelper {
                 return "[" + getClass(in.substring(1));
             }
 
-            if (in.equals("B")
-                    || in.equals("C")
+            if (in.equals("B") || in.equals("C")
                     || in.equals("D")
                     || in.equals("F")
                     || in.equals("I")
@@ -783,13 +781,12 @@ public class DevEnvHelper {
                         out.append(desc.charAt(pos));
                         pos++;
                         break;
-                    case 'L':
-                        {
-                            int end = desc.indexOf(';', pos);
-                            String obf = desc.substring(pos + 1, end);
-                            pos = end + 1;
-                            out.append("L").append(getClass(obf)).append(";");
-                        }
+                    case 'L': {
+                        int end = desc.indexOf(';', pos);
+                        String obf = desc.substring(pos + 1, end);
+                        pos = end + 1;
+                        out.append("L").append(getClass(obf)).append(";");
+                    }
                         break;
                     default:
                         throw new RuntimeException(
@@ -897,7 +894,7 @@ public class DevEnvHelper {
 
             switch (side) {
                 case UNIVERSAL:
-                    sideNumbers = new int[] {2, 1, 0};
+                    sideNumbers = new int[] { 2, 1, 0 };
                     if (new File(mcpDir, "packaged.srg").exists()) {
                         srgFile = new File(mcpDir, "packaged.srg");
                         excFile = new File(mcpDir, "packaged.exc");
@@ -908,7 +905,7 @@ public class DevEnvHelper {
                     break;
 
                 case CLIENT:
-                    sideNumbers = new int[] {0};
+                    sideNumbers = new int[] { 0 };
                     srgFile = new File(mcpDir, "client.srg");
 
                     if (new File(mcpDir, "joined.exc").exists()) {
@@ -920,7 +917,7 @@ public class DevEnvHelper {
                     break;
 
                 case SERVER:
-                    sideNumbers = new int[] {1};
+                    sideNumbers = new int[] { 1 };
                     srgFile = new File(mcpDir, "server.srg");
 
                     if (new File(mcpDir, "joined.exc").exists()) {
@@ -944,13 +941,8 @@ public class DevEnvHelper {
                     CsvFile.read(new File(mcpDir, "methods.csv"), sideNumbers));
         }
 
-        public void load(
-                MinecraftNameSet.Side side,
-                String mcVer,
-                ExcFile excFile,
-                SrgFile srgFile,
-                Map<String, String> fieldNames,
-                Map<String, String> methodNames) {
+        public void load(MinecraftNameSet.Side side, String mcVer, ExcFile excFile, SrgFile srgFile,
+                Map<String, String> fieldNames, Map<String, String> methodNames) {
 
             NameSet obfNS = new MinecraftNameSet(MinecraftNameSet.Type.OBF, side, mcVer);
             NameSet srgNS = new MinecraftNameSet(MinecraftNameSet.Type.SRG, side, mcVer);
@@ -991,8 +983,13 @@ public class DevEnvHelper {
                 // Enum values don't use the CSV and don't start with field_
                 if (srgName.startsWith("field_")) {
                     if (srgFieldOwners.containsKey(srgName)) {
-                        System.out.println("SRG field " + srgName + " appears in multiple classes (at least "
-                                + srgFieldOwners.get(srgName) + " and " + srgOwner + ")");
+                        System.out.println(
+                                "SRG field " + srgName
+                                        + " appears in multiple classes (at least "
+                                        + srgFieldOwners.get(srgName)
+                                        + " and "
+                                        + srgOwner
+                                        + ")");
                     }
 
                     Set<String> owners = srgFieldOwners.computeIfAbsent(srgName, k -> new HashSet<>());
@@ -1015,8 +1012,8 @@ public class DevEnvHelper {
                 String srgDesc = forwardSRG.mapMethodDescriptor(obfDesc);
                 String srgOwner = srg.classes.get(obfOwner);
 
-                Set<String> srgMethodOwnersThis =
-                        srgMethodOwnersAndDescs.computeIfAbsent(srgName, k -> new HashSet<>());
+                Set<String> srgMethodOwnersThis = srgMethodOwnersAndDescs
+                        .computeIfAbsent(srgName, k -> new HashSet<>());
                 srgMethodOwnersThis.add(srgOwner + srgDesc);
 
                 forwardSRG.setMethod(obfOwner, obfName, obfDesc, srgName);
@@ -1039,8 +1036,8 @@ public class DevEnvHelper {
                 String mcpName = entry.getValue();
 
                 if (srgFieldOwners.get(srgName) == null) {
-                    System.out.println(
-                            "Field exists in CSV but not in SRG: " + srgName + " (CSV name: " + mcpName + ")");
+                    System.out
+                            .println("Field exists in CSV but not in SRG: " + srgName + " (CSV name: " + mcpName + ")");
                 } else {
                     for (String srgOwner : srgFieldOwners.get(srgName)) {
 
@@ -1111,13 +1108,12 @@ public class DevEnvHelper {
                 String searge = in.next();
                 String name = in.next();
                 String side = in.next();
-                /*String desc =*/ in.nextLine();
+                /* String desc = */ in.nextLine();
                 try {
                     if (CsvFile.sideIn(Integer.parseInt(side), n_sides)) {
                         data.put(searge, name);
                     }
-                } catch (NumberFormatException ignored) {
-                }
+                } catch (NumberFormatException ignored) {}
             }
             return data;
         }

@@ -1,10 +1,7 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui.modules;
 
 import logisticspipes.modules.ModuleElectricManager;
@@ -13,9 +10,11 @@ import logisticspipes.network.packets.module.ElectricManagerPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiElectricManager extends ModuleBaseGui {
@@ -28,22 +27,23 @@ public class GuiElectricManager extends ModuleBaseGui {
         super.initGui();
         // Default item toggle:
         buttonList.clear();
-        buttonList.add(new GuiStringHandlerButton(
-                0,
-                width / 2 - 6,
-                height / 2 - 34,
-                88,
-                20,
-                () -> _module.isDischargeMode() ? "Discharge Items" : "Charge Items"));
+        buttonList.add(
+                new GuiStringHandlerButton(
+                        0,
+                        width / 2 - 6,
+                        height / 2 - 34,
+                        88,
+                        20,
+                        () -> _module.isDischargeMode() ? "Discharge Items" : "Charge Items"));
     }
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0) {
             _module.setDischargeMode(!_module.isDischargeMode());
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(ElectricManagerPacket.class)
-                    .setFlag(_module.isDischargeMode())
-                    .setModulePos(_module));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(ElectricManagerPacket.class).setFlag(_module.isDischargeMode())
+                            .setModulePos(_module));
         }
     }
 

@@ -2,6 +2,7 @@ package logisticspipes.network.guis.module.inpipe;
 
 import java.io.IOException;
 import java.util.BitSet;
+
 import logisticspipes.gui.modules.GuiItemSink;
 import logisticspipes.modules.ModuleItemSink;
 import logisticspipes.network.LPDataInputStream;
@@ -12,6 +13,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)

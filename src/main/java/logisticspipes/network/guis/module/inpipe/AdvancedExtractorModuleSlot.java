@@ -1,6 +1,7 @@
 package logisticspipes.network.guis.module.inpipe;
 
 import java.io.IOException;
+
 import logisticspipes.gui.modules.GuiAdvancedExtractor;
 import logisticspipes.modules.ModuleAdvancedExtractor;
 import logisticspipes.network.LPDataInputStream;
@@ -11,6 +12,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
@@ -26,8 +28,8 @@ public class AdvancedExtractorModuleSlot extends ModuleCoordinatesGuiProvider {
 
     @Override
     public Object getClientGui(EntityPlayer player) {
-        ModuleAdvancedExtractor module =
-                this.getLogisticsModule(player.getEntityWorld(), ModuleAdvancedExtractor.class);
+        ModuleAdvancedExtractor module = this
+                .getLogisticsModule(player.getEntityWorld(), ModuleAdvancedExtractor.class);
         if (module == null) {
             return null;
         }
@@ -37,8 +39,8 @@ public class AdvancedExtractorModuleSlot extends ModuleCoordinatesGuiProvider {
 
     @Override
     public DummyContainer getContainer(EntityPlayer player) {
-        ModuleAdvancedExtractor module =
-                this.getLogisticsModule(player.getEntityWorld(), ModuleAdvancedExtractor.class);
+        ModuleAdvancedExtractor module = this
+                .getLogisticsModule(player.getEntityWorld(), ModuleAdvancedExtractor.class);
         if (module == null) {
             return null;
         }

@@ -2,10 +2,12 @@ package logisticspipes.commands.chathelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.string.ChatColor;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
@@ -151,8 +153,7 @@ public class MorePageDisplay {
         if (terminated) {
             return false;
         }
-        if (input.equalsIgnoreCase("exit")
-                || input.equalsIgnoreCase("quit")
+        if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("quit")
                 || input.equalsIgnoreCase("q")
                 || input.equalsIgnoreCase("e")) {
             terminated = true;
@@ -176,52 +177,63 @@ public class MorePageDisplay {
             if (sender instanceof EntityPlayer) {
                 MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
             }
-        } else if (input.equalsIgnoreCase("previous")
-                || input.equalsIgnoreCase("prev")
+        } else if (input.equalsIgnoreCase("previous") || input.equalsIgnoreCase("prev")
                 || input.equalsIgnoreCase("pre")
                 || input.equalsIgnoreCase("p")) {
-            if (currentpage < 2) {
-                display(sender, currentpagecount);
-            } else {
-                currentpage--;
+                    if (currentpage < 2) {
+                        display(sender, currentpagecount);
+                    } else {
+                        currentpage--;
+                        display(sender, currentpage);
+                    }
+                } else
+            if (MorePageDisplay.isNumber(input)) {
+                if (MorePageDisplay.toNumber(input) <= currentpagecount && MorePageDisplay.toNumber(input) > 0) {
+                    display(sender, MorePageDisplay.toNumber(input));
+                } else {
+                    display(sender, currentpage, true);
+                    sender.addChatMessage(
+                            new ChatComponentText(
+                                    ChatColor.AQUA + "Pageview:" + ChatColor.RED + " Not a valid number."));
+                }
+            } else if (input.equalsIgnoreCase("reprint")) {
                 display(sender, currentpage);
-            }
-        } else if (MorePageDisplay.isNumber(input)) {
-            if (MorePageDisplay.toNumber(input) <= currentpagecount && MorePageDisplay.toNumber(input) > 0) {
-                display(sender, MorePageDisplay.toNumber(input));
-            } else {
-                display(sender, currentpage, true);
+            } else if (input.equalsIgnoreCase("all")) {
+                display(sender, currentpage, false, true, 0);
+            } else if (input.startsWith("save ")) {
+                sender.addChatMessage(new ChatComponentText("%LPADDTOSENDMESSAGE%" + input.substring(5)));
+                display(sender, currentpage, true, false, 1);
                 sender.addChatMessage(
-                        new ChatComponentText(ChatColor.AQUA + "Pageview:" + ChatColor.RED + " Not a valid number."));
+                        new ChatComponentText(
+                                ChatColor.AQUA + "Added '"
+                                        + ChatColor.YELLOW
+                                        + input.substring(5)
+                                        + ChatColor.AQUA
+                                        + "' to your chat history."));
+                printLastLine(sender, false);
+                if (sender instanceof EntityPlayer) {
+                    MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                }
+            } else if (input.equals("save")) {
+                display(sender, currentpage, true, false, 2);
+                sender.addChatMessage(
+                        new ChatComponentText(
+                                ChatColor.AQUA + "Add an command after the '"
+                                        + ChatColor.YELLOW
+                                        + "save "
+                                        + ChatColor.AQUA
+                                        + "' and it will be added to your chat history."));
+                printLastLine(sender, false);
+                if (sender instanceof EntityPlayer) {
+                    MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                }
+            } else {
+                // display(sender,currentpage,true);
+                printLastLine(sender, true);
+                if (sender instanceof EntityPlayer) {
+                    MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
+                }
             }
-        } else if (input.equalsIgnoreCase("reprint")) {
-            display(sender, currentpage);
-        } else if (input.equalsIgnoreCase("all")) {
-            display(sender, currentpage, false, true, 0);
-        } else if (input.startsWith("save ")) {
-            sender.addChatMessage(new ChatComponentText("%LPADDTOSENDMESSAGE%" + input.substring(5)));
-            display(sender, currentpage, true, false, 1);
-            sender.addChatMessage(new ChatComponentText(ChatColor.AQUA + "Added '" + ChatColor.YELLOW
-                    + input.substring(5) + ChatColor.AQUA + "' to your chat history."));
-            printLastLine(sender, false);
-            if (sender instanceof EntityPlayer) {
-                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-            }
-        } else if (input.equals("save")) {
-            display(sender, currentpage, true, false, 2);
-            sender.addChatMessage(new ChatComponentText(ChatColor.AQUA + "Add an command after the '" + ChatColor.YELLOW
-                    + "save " + ChatColor.AQUA + "' and it will be added to your chat history."));
-            printLastLine(sender, false);
-            if (sender instanceof EntityPlayer) {
-                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-            }
-        } else {
-            // display(sender,currentpage,true);
-            printLastLine(sender, true);
-            if (sender instanceof EntityPlayer) {
-                MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), (EntityPlayer) sender);
-            }
-        }
         return true;
     }
 
@@ -232,16 +244,14 @@ public class MorePageDisplay {
             if (numstring.equalsIgnoreCase(input)) {
                 return true;
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         return false;
     }
 
     public static int toNumber(String input) {
         try {
             return Integer.parseInt(input);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         return -1;
     }
 
@@ -260,11 +270,40 @@ public class MorePageDisplay {
     }
 
     public void printLastLine(ICommandSender sender, boolean flag) {
-        sender.addChatMessage(new ChatComponentText((flag ? "! " : "") + ChatColor.AQUA + "Pageview:" + ChatColor.WHITE
-                + " Enter " + ChatColor.RED + "Pre" + ChatColor.WHITE + "/" + ChatColor.GREEN + "Next" + ChatColor.WHITE
-                + ", a " + ChatColor.AQUA + "number" + ChatColor.WHITE + ", " + ChatColor.AQUA + "all" + ChatColor.WHITE
-                + ", " + ChatColor.AQUA + "reprint" + ChatColor.WHITE + ", " + ChatColor.AQUA + "save" + ChatColor.WHITE
-                + " or " + ChatColor.RED + "exit" + ChatColor.WHITE + (flag ? " !" : ".")));
+        sender.addChatMessage(
+                new ChatComponentText(
+                        (flag ? "! " : "") + ChatColor.AQUA
+                                + "Pageview:"
+                                + ChatColor.WHITE
+                                + " Enter "
+                                + ChatColor.RED
+                                + "Pre"
+                                + ChatColor.WHITE
+                                + "/"
+                                + ChatColor.GREEN
+                                + "Next"
+                                + ChatColor.WHITE
+                                + ", a "
+                                + ChatColor.AQUA
+                                + "number"
+                                + ChatColor.WHITE
+                                + ", "
+                                + ChatColor.AQUA
+                                + "all"
+                                + ChatColor.WHITE
+                                + ", "
+                                + ChatColor.AQUA
+                                + "reprint"
+                                + ChatColor.WHITE
+                                + ", "
+                                + ChatColor.AQUA
+                                + "save"
+                                + ChatColor.WHITE
+                                + " or "
+                                + ChatColor.RED
+                                + "exit"
+                                + ChatColor.WHITE
+                                + (flag ? " !" : ".")));
     }
 
     public int getPageCount(int count) {

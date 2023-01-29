@@ -6,6 +6,7 @@ import logisticspipes.interfaces.ISlotUpgradeManager;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.routing.order.LogisticsItemOrderManager;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.common.util.ForgeDirection;
 

@@ -1,35 +1,30 @@
 package logisticspipes.asm;
 
+import java.util.Map;
+
+import net.minecraft.launchwrapper.Launch;
+
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
-import java.util.Map;
-import net.minecraft.launchwrapper.Launch;
 
 @MCVersion("1.7.10")
 public class LogisticsPipesCoreLoader implements IFMLLoadingPlugin {
 
     public LogisticsPipesCoreLoader() throws Exception {
         Launch.classLoader.addTransformerExclusion("logisticspipes.asm.");
-        Launch.classLoader
-                .findClass("logisticspipes.LPConstants")
-                .getMethod("loadedCoremod")
-                .invoke(null);
+        Launch.classLoader.findClass("logisticspipes.LPConstants").getMethod("loadedCoremod").invoke(null);
         byte[] bs = Launch.classLoader.getClassBytes("net.minecraft.world.World");
         if (bs != null) {
-            Launch.classLoader
-                    .findClass("logisticspipes.asm.DevEnvHelper")
-                    .getMethod("detectCoreModInDevEnv")
+            Launch.classLoader.findClass("logisticspipes.asm.DevEnvHelper").getMethod("detectCoreModInDevEnv")
                     .invoke(null);
-            Launch.classLoader
-                    .findClass("logisticspipes.asm.DevEnvHelper")
-                    .getMethod("handleSpecialClassTransformer")
+            Launch.classLoader.findClass("logisticspipes.asm.DevEnvHelper").getMethod("handleSpecialClassTransformer")
                     .invoke(null);
         }
     }
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] {"logisticspipes.asm.LogisticsClassTransformer"};
+        return new String[] { "logisticspipes.asm.LogisticsClassTransformer" };
     }
 
     @Override

@@ -1,8 +1,7 @@
 /*
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the
+ * contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui;
 
 import logisticspipes.network.PacketHandler;
@@ -17,6 +16,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 
@@ -39,27 +39,26 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
         this.logic = logic;
         xSize = 184;
         ySize = 176;
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(FluidSupplierAmount.class)
-                .setInteger(0)
-                .setPosX(this.logic.getX())
-                .setPosY(this.logic.getY())
-                .setPosZ(this.logic.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(FluidSupplierAmount.class).setInteger(0).setPosX(this.logic.getX())
+                        .setPosY(this.logic.getY()).setPosZ(this.logic.getZ()));
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "TargetInv"),
-                xSize / 2
-                        - mc.fontRenderer.getStringWidth(
-                                        StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "TargetInv"))
-                                / 2,
+                xSize / 2 - mc.fontRenderer
+                        .getStringWidth(StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "TargetInv")) / 2,
                 6,
                 0x404040);
         mc.fontRenderer.drawString(
-                StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Inventory"), 15, ySize - 95, 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Fluid") + ":", 25, 22, 0x404040);
+                StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Inventory"),
+                15,
+                ySize - 95,
+                0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Fluid") + ":", 25, 22, 0x404040);
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Partial") + ":",
                 xSize - 176,
@@ -92,23 +91,23 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        buttonList.add(new GuiButton(
-                0,
-                width / 2 - 48,
-                guiTop + ySize - 115,
-                30,
-                20,
-                logic.isRequestingPartials()
-                        ? StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Yes")
-                        : StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "No")));
-        buttonList.add(new GuiButton(
-                1,
-                width / 2 + 30,
-                guiTop + ySize - 115,
-                55,
-                20,
-                StringUtils.translate(
-                        GuiFluidSupplierMk2Pipe.PREFIX + logic.getMinMode().name())));
+        buttonList.add(
+                new GuiButton(
+                        0,
+                        width / 2 - 48,
+                        guiTop + ySize - 115,
+                        30,
+                        20,
+                        logic.isRequestingPartials() ? StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Yes")
+                                : StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "No")));
+        buttonList.add(
+                new GuiButton(
+                        1,
+                        width / 2 + 30,
+                        guiTop + ySize - 115,
+                        55,
+                        20,
+                        StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + logic.getMinMode().name())));
         buttonList.add(new SmallGuiButton(10, guiLeft + 40, guiTop + 37, 10, 10, "1"));
         buttonList.add(new SmallGuiButton(11, guiLeft + 40, guiTop + 48, 10, 10, "1"));
         buttonList.add(new SmallGuiButton(20, guiLeft + 51, guiTop + 37, 20, 10, "10"));
@@ -126,40 +125,33 @@ public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
             ((GuiButton) buttonList.get(0)).displayString = logic.isRequestingPartials()
                     ? StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "Yes")
                     : StringUtils.translate(GuiFluidSupplierMk2Pipe.PREFIX + "No");
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(FluidSupplierMode.class)
-                    .setInteger((logic.isRequestingPartials() ? 1 : 0))
-                    .setPosX(logic.getX())
-                    .setPosY(logic.getY())
-                    .setPosZ(logic.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(FluidSupplierMode.class).setInteger((logic.isRequestingPartials() ? 1 : 0))
+                            .setPosX(logic.getX()).setPosY(logic.getY()).setPosZ(logic.getZ()));
         } else if (guibutton.id == 1) {
             int index = logic.getMinMode().ordinal() + 1;
             if (index >= MinMode.values().length) {
                 index = 0;
             }
             logic.setMinMode(MinMode.values()[index]);
-            ((GuiButton) buttonList.get(1)).displayString = StringUtils.translate(
-                    GuiFluidSupplierMk2Pipe.PREFIX + logic.getMinMode().name());
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(FluidSupplierMinMode.class)
-                    .setInteger(logic.getMinMode().ordinal())
-                    .setPosX(logic.getX())
-                    .setPosY(logic.getY())
-                    .setPosZ(logic.getZ()));
-        } else if ((guibutton.id % 10 == 0 || guibutton.id % 10 == 1)
-                && guibutton.id / 10 < 5
-                && guibutton.id / 10 > 0) {
-            int change = 1;
-            if (guibutton.id % 10 == 1) {
-                change = -1;
+            ((GuiButton) buttonList.get(1)).displayString = StringUtils
+                    .translate(GuiFluidSupplierMk2Pipe.PREFIX + logic.getMinMode().name());
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(FluidSupplierMinMode.class).setInteger(logic.getMinMode().ordinal())
+                            .setPosX(logic.getX()).setPosY(logic.getY()).setPosZ(logic.getZ()));
+        } else
+            if ((guibutton.id % 10 == 0 || guibutton.id % 10 == 1) && guibutton.id / 10 < 5 && guibutton.id / 10 > 0) {
+                int change = 1;
+                if (guibutton.id % 10 == 1) {
+                    change = -1;
+                }
+                change *= Math.pow(10, (double) guibutton.id / 10 - 1);
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(FluidSupplierAmount.class).setInteger(change).setPosX(logic.getX())
+                                .setPosY(logic.getY()).setPosZ(logic.getZ()));
+            } else {
+                super.actionPerformed(guibutton);
             }
-            change *= Math.pow(10, (double) guibutton.id / 10 - 1);
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(FluidSupplierAmount.class)
-                    .setInteger(change)
-                    .setPosX(logic.getX())
-                    .setPosY(logic.getY())
-                    .setPosZ(logic.getZ()));
-        } else {
-            super.actionPerformed(guibutton);
-        }
     }
 
     @Override

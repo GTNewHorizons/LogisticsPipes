@@ -3,6 +3,7 @@ package logisticspipes.network.packets.pipe;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import logisticspipes.interfaces.ISpawnParticles.ParticleCount;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -14,6 +15,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeSet;
+
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
@@ -13,6 +14,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class RequestAmountTaskSubGui extends CoordinatesPacket {
@@ -29,10 +31,10 @@ public class RequestAmountTaskSubGui extends CoordinatesPacket {
             return;
         }
 
-        Map<ItemIdentifier, Integer> _availableItems = SimpleServiceLocator.logisticsManager.getAvailableItems(
-                pipe.getRouter().getIRoutersByCost());
-        LinkedList<ItemIdentifier> _craftableItems = SimpleServiceLocator.logisticsManager.getCraftableItems(
-                pipe.getRouter().getIRoutersByCost());
+        Map<ItemIdentifier, Integer> _availableItems = SimpleServiceLocator.logisticsManager
+                .getAvailableItems(pipe.getRouter().getIRoutersByCost());
+        LinkedList<ItemIdentifier> _craftableItems = SimpleServiceLocator.logisticsManager
+                .getCraftableItems(pipe.getRouter().getIRoutersByCost());
 
         TreeSet<ItemIdentifierStack> _allItems = new TreeSet<>();
 
@@ -48,8 +50,7 @@ public class RequestAmountTaskSubGui extends CoordinatesPacket {
             _allItems.add(item.makeStack(0));
         }
 
-        MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(AmountTaskSubGui.class).setIdentSet(_allItems), player);
+        MainProxy.sendPacketToPlayer(PacketHandler.getPacket(AmountTaskSubGui.class).setIdentSet(_allItems), player);
     }
 
     @Override

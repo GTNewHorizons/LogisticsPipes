@@ -1,6 +1,7 @@
 package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
+
 import logisticspipes.interfaces.ISpecialInsertion;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -15,6 +16,7 @@ import logisticspipes.utils.WorldUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -64,9 +66,8 @@ public class SlotFinderOpenGuiPacket extends ModuleCoordinatesPacket {
         final WorldUtil worldUtil = new WorldUtil(player.worldObj, getPosX(), getPosY(), getPosZ());
         boolean found = false;
         for (final AdjacentTile tile : worldUtil.getAdjacentTileEntities(true)) {
-            if (tile instanceof IInventory
-                    && !(SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil((IInventory) tile)
-                            instanceof ISpecialInsertion)) {
+            if (tile instanceof IInventory && !(SimpleServiceLocator.inventoryUtilFactory
+                    .getInventoryUtil((IInventory) tile) instanceof ISpecialInsertion)) {
                 continue;
             }
             for (ICraftingRecipeProvider provider : SimpleServiceLocator.craftingRecipeProviders) {
@@ -84,13 +85,14 @@ public class SlotFinderOpenGuiPacket extends ModuleCoordinatesPacket {
                 Block block = player.worldObj.getBlock(tile.tile.xCoord, tile.tile.yCoord, tile.tile.zCoord);
                 if (SimpleServiceLocator.enderStorageProxy.isEnderChestBlock(block)) {
                     SimpleServiceLocator.enderStorageProxy.openEnderChest(
-                            player.worldObj, tile.tile.xCoord, tile.tile.yCoord, tile.tile.zCoord, player);
+                            player.worldObj,
+                            tile.tile.xCoord,
+                            tile.tile.yCoord,
+                            tile.tile.zCoord,
+                            player);
                     MainProxy.sendPacketToPlayer(
-                            PacketHandler.getPacket(SlotFinderActivatePacket.class)
-                                    .setTagetPosX(tile.tile.xCoord)
-                                    .setTagetPosY(tile.tile.yCoord)
-                                    .setTagetPosZ(tile.tile.zCoord)
-                                    .setSlot(getSlot())
+                            PacketHandler.getPacket(SlotFinderActivatePacket.class).setTagetPosX(tile.tile.xCoord)
+                                    .setTagetPosY(tile.tile.yCoord).setTagetPosZ(tile.tile.zCoord).setSlot(getSlot())
                                     .setPacketPos(this),
                             player);
                 }
@@ -106,12 +108,9 @@ public class SlotFinderOpenGuiPacket extends ModuleCoordinatesPacket {
                             0,
                             0)) {
                         MainProxy.sendPacketToPlayer(
-                                PacketHandler.getPacket(SlotFinderActivatePacket.class)
-                                        .setTagetPosX(tile.tile.xCoord)
-                                        .setTagetPosY(tile.tile.yCoord)
-                                        .setTagetPosZ(tile.tile.zCoord)
-                                        .setSlot(getSlot())
-                                        .setPacketPos(this),
+                                PacketHandler.getPacket(SlotFinderActivatePacket.class).setTagetPosX(tile.tile.xCoord)
+                                        .setTagetPosY(tile.tile.yCoord).setTagetPosZ(tile.tile.zCoord)
+                                        .setSlot(getSlot()).setPacketPos(this),
                                 player);
                         break;
                     }

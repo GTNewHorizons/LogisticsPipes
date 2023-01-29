@@ -3,13 +3,13 @@ package logisticspipes.routing.pathfinder;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeInformationManager {
 
-    private final Map<Class<?> /*TileEntity*/, Class<? extends IPipeInformationProvider>> infoProvider =
-            new HashMap<>();
+    private final Map<Class<?> /* TileEntity */, Class<? extends IPipeInformationProvider>> infoProvider = new HashMap<>();
 
     public IPipeInformationProvider getInformationProviderFor(TileEntity tile) {
         if (tile == null) {
@@ -21,19 +21,13 @@ public class PipeInformationManager {
             for (Class<?> type : infoProvider.keySet()) {
                 if (type.isAssignableFrom(tile.getClass())) {
                     try {
-                        IPipeInformationProvider provider = infoProvider
-                                .get(type)
-                                .getDeclaredConstructor(type)
+                        IPipeInformationProvider provider = infoProvider.get(type).getDeclaredConstructor(type)
                                 .newInstance(type.cast(tile));
                         if (provider.isCorrect()) {
                             return provider;
                         }
-                    } catch (InstantiationException
-                            | SecurityException
-                            | NoSuchMethodException
-                            | InvocationTargetException
-                            | IllegalArgumentException
-                            | IllegalAccessException e) {
+                    } catch (InstantiationException | SecurityException | NoSuchMethodException
+                            | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
@@ -51,11 +45,8 @@ public class PipeInformationManager {
         infoProvider.put(source, provider);
     }
 
-    public boolean canConnect(
-            IPipeInformationProvider startPipe,
-            IPipeInformationProvider provider,
-            ForgeDirection direction,
-            boolean flag) {
+    public boolean canConnect(IPipeInformationProvider startPipe, IPipeInformationProvider provider,
+            ForgeDirection direction, boolean flag) {
         return startPipe.canConnect(provider.getTile(), direction, flag)
                 && provider.canConnect(startPipe.getTile(), direction.getOpposite(), flag);
     }
@@ -70,19 +61,13 @@ public class PipeInformationManager {
             for (Class<?> type : infoProvider.keySet()) {
                 if (type.isAssignableFrom(tile.getClass())) {
                     try {
-                        IPipeInformationProvider provider = infoProvider
-                                .get(type)
-                                .getDeclaredConstructor(type)
+                        IPipeInformationProvider provider = infoProvider.get(type).getDeclaredConstructor(type)
                                 .newInstance(type.cast(tile));
                         if (provider.isCorrect() && provider.isItemPipe()) {
                             return true;
                         }
-                    } catch (InstantiationException
-                            | SecurityException
-                            | NoSuchMethodException
-                            | InvocationTargetException
-                            | IllegalArgumentException
-                            | IllegalAccessException e) {
+                    } catch (InstantiationException | SecurityException | NoSuchMethodException
+                            | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
@@ -101,19 +86,13 @@ public class PipeInformationManager {
             for (Class<?> type : infoProvider.keySet()) {
                 if (type.isAssignableFrom(tile.getClass())) {
                     try {
-                        IPipeInformationProvider provider = infoProvider
-                                .get(type)
-                                .getDeclaredConstructor(type)
+                        IPipeInformationProvider provider = infoProvider.get(type).getDeclaredConstructor(type)
                                 .newInstance(type.cast(tile));
                         if (!check || provider.isCorrect()) {
                             return true;
                         }
-                    } catch (InstantiationException
-                            | SecurityException
-                            | NoSuchMethodException
-                            | InvocationTargetException
-                            | IllegalArgumentException
-                            | IllegalAccessException e) {
+                    } catch (InstantiationException | SecurityException | NoSuchMethodException
+                            | InvocationTargetException | IllegalArgumentException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }

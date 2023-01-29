@@ -1,19 +1,22 @@
 package logisticspipes.proxy.buildcraft.recipeprovider;
 
-import buildcraft.api.recipes.IFlexibleCrafter;
-import buildcraft.api.recipes.IFlexibleRecipe;
-import buildcraft.core.recipes.AssemblyRecipeManager;
-import buildcraft.core.recipes.FlexibleRecipe;
-import buildcraft.silicon.TileAssemblyTable;
 import java.util.List;
+
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import buildcraft.api.recipes.IFlexibleCrafter;
+import buildcraft.api.recipes.IFlexibleRecipe;
+import buildcraft.core.recipes.AssemblyRecipeManager;
+import buildcraft.core.recipes.FlexibleRecipe;
+import buildcraft.silicon.TileAssemblyTable;
 
 public class AssemblyTable implements ICraftingRecipeProvider {
 
@@ -31,8 +34,11 @@ public class AssemblyTable implements ICraftingRecipeProvider {
         TileAssemblyTable table = (TileAssemblyTable) tile;
 
         // current pipe inputs/outputs
-        final ItemIdentifierInventory inputs =
-                new ItemIdentifierInventory(inventory.getSizeInventory() - 2, "AssemblyTableDummyInv", 64, false);
+        final ItemIdentifierInventory inputs = new ItemIdentifierInventory(
+                inventory.getSizeInventory() - 2,
+                "AssemblyTableDummyInv",
+                64,
+                false);
         for (int i = 0; i < inventory.getSizeInventory() - 2; i++) {
             inputs.setInventorySlotContents(i, inventory.getIDStackInSlot(i));
         }
@@ -59,39 +65,38 @@ public class AssemblyTable implements ICraftingRecipeProvider {
                     break;
                 }
                 if (output != null && ItemStack.areItemStacksEqual(output, ((FlexibleRecipe<ItemStack>) r).output)) {
-                    if (r.canBeCrafted(
-                            new IFlexibleCrafter() { // Read Proxy to IInventory
+                    if (r.canBeCrafted(new IFlexibleCrafter() { // Read Proxy to IInventory
 
-                                @Override
-                                public int getCraftingItemStackSize() {
-                                    return inputs.getSizeInventory();
-                                }
+                        @Override
+                        public int getCraftingItemStackSize() {
+                            return inputs.getSizeInventory();
+                        }
 
-                                @Override
-                                public ItemStack getCraftingItemStack(int paramInt) {
-                                    return inputs.getStackInSlot(paramInt);
-                                }
+                        @Override
+                        public ItemStack getCraftingItemStack(int paramInt) {
+                            return inputs.getStackInSlot(paramInt);
+                        }
 
-                                @Override
-                                public int getCraftingFluidStackSize() {
-                                    return 0;
-                                }
+                        @Override
+                        public int getCraftingFluidStackSize() {
+                            return 0;
+                        }
 
-                                @Override
-                                public FluidStack getCraftingFluidStack(int paramInt) {
-                                    return null;
-                                }
+                        @Override
+                        public FluidStack getCraftingFluidStack(int paramInt) {
+                            return null;
+                        }
 
-                                @Override
-                                public ItemStack decrCraftingItemStack(int paramInt1, int paramInt2) {
-                                    return null;
-                                }
+                        @Override
+                        public ItemStack decrCraftingItemStack(int paramInt1, int paramInt2) {
+                            return null;
+                        }
 
-                                @Override
-                                public FluidStack decrCraftingFluidStack(int paramInt1, int paramInt2) {
-                                    return null;
-                                }
-                            })) {
+                        @Override
+                        public FluidStack decrCraftingFluidStack(int paramInt1, int paramInt2) {
+                            return null;
+                        }
+                    })) {
                         takeNext = true;
                     }
                 }

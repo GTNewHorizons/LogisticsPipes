@@ -1,16 +1,19 @@
 package logisticspipes.ticks;
 
+import logisticspipes.renderer.LogisticsGuiOverrenderer;
+import logisticspipes.renderer.LogisticsHUDRenderer;
+import logisticspipes.routing.debug.ClientViewController;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
-import logisticspipes.renderer.LogisticsGuiOverrenderer;
-import logisticspipes.renderer.LogisticsHUDRenderer;
-import logisticspipes.routing.debug.ClientViewController;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import org.lwjgl.opengl.GL11;
 
 public class RenderTickHandler {
 

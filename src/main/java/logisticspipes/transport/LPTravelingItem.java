@@ -2,6 +2,7 @@ package logisticspipes.transport;
 
 import java.lang.ref.WeakReference;
 import java.util.*;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -22,6 +23,7 @@ import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -224,8 +226,10 @@ public abstract class LPTravelingItem {
                     exitdirection = input;
                 }
 
-                LPPosition position =
-                        new LPPosition(container.xCoord + 0.5, container.yCoord + 0.375, container.zCoord + 0.5);
+                LPPosition position = new LPPosition(
+                        container.xCoord + 0.5,
+                        container.yCoord + 0.375,
+                        container.zCoord + 0.5);
 
                 switch (exitdirection) {
                     case DOWN:
@@ -298,8 +302,8 @@ public abstract class LPTravelingItem {
                     }
                     if (destinationRouter.getPipe() instanceof IRequireReliableFluidTransport) {
                         if (info.getItem().getItem().isFluidContainer()) {
-                            FluidStack liquid =
-                                    SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(info.getItem());
+                            FluidStack liquid = SimpleServiceLocator.logisticsFluidManager
+                                    .getFluidFromContainer(info.getItem());
                             ((IRequireReliableFluidTransport) destinationRouter.getPipe())
                                     .liquidLost(FluidIdentifier.get(liquid), liquid.amount);
                         }
@@ -365,8 +369,8 @@ public abstract class LPTravelingItem {
 
             if (container instanceof LogisticsTileGenericPipe
                     && ((LogisticsTileGenericPipe) container).pipe.transport instanceof PipeTransportLogistics) {
-                ((LogisticsTileGenericPipe) container)
-                        .pipe.transport.injectItem((LPTravelingItem) newItem, orientation);
+                ((LogisticsTileGenericPipe) container).pipe.transport
+                        .injectItem((LPTravelingItem) newItem, orientation);
             }
         }
 

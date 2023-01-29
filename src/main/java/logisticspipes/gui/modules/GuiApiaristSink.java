@@ -1,7 +1,5 @@
 package logisticspipes.gui.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.modules.ModuleApiaristSink;
 import logisticspipes.modules.ModuleApiaristSink.FilterType;
 import logisticspipes.modules.ModuleApiaristSink.SinkSetting;
@@ -13,12 +11,17 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemTextureRenderSlot;
 import logisticspipes.utils.gui.ISmallColorRenderSlot;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GuiApiaristSink extends ModuleBaseGui {
 
@@ -105,11 +108,9 @@ public class GuiApiaristSink extends ModuleBaseGui {
             if (button == 1) {
                 setting.FilterTypeDown();
             }
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(BeeModuleSetBeePacket.class)
-                    .setInteger2(row)
-                    .setInteger3(3)
-                    .setInteger4(setting.filterType.ordinal())
-                    .setModulePos(module));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(BeeModuleSetBeePacket.class).setInteger2(row).setInteger3(3)
+                            .setInteger4(setting.filterType.ordinal()).setModulePos(module));
         }
 
         @Override
@@ -176,11 +177,9 @@ public class GuiApiaristSink extends ModuleBaseGui {
             if (button == 1) {
                 setting.filterGroupDown();
             }
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(BeeModuleSetBeePacket.class)
-                    .setInteger2(row)
-                    .setInteger3(2)
-                    .setInteger4(setting.filterGroup)
-                    .setModulePos(module));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(BeeModuleSetBeePacket.class).setInteger2(row).setInteger3(2)
+                            .setInteger4(setting.filterGroup).setModulePos(module));
         }
 
         @Override
@@ -288,11 +287,9 @@ public class GuiApiaristSink extends ModuleBaseGui {
                     setting.secondBeeDown();
                 }
             }
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(BeeModuleSetBeePacket.class)
-                    .setInteger2(row)
-                    .setInteger3(slotNumber)
-                    .setString1(slotNumber == 0 ? setting.firstBee : setting.secondBee)
-                    .setModulePos(module));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(BeeModuleSetBeePacket.class).setInteger2(row).setInteger3(slotNumber)
+                            .setString1(slotNumber == 0 ? setting.firstBee : setting.secondBee).setModulePos(module));
         }
 
         @Override
@@ -317,8 +314,8 @@ public class GuiApiaristSink extends ModuleBaseGui {
 
         @Override
         public String getToolTipText() {
-            return SimpleServiceLocator.forestryProxy.getAlleleName(
-                    slotNumber == 0 ? setting.firstBee : setting.secondBee);
+            return SimpleServiceLocator.forestryProxy
+                    .getAlleleName(slotNumber == 0 ? setting.firstBee : setting.secondBee);
         }
 
         @Override

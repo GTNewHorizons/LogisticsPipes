@@ -1,6 +1,7 @@
 package logisticspipes.renderer;
 
 import java.util.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.PlayerConfig;
@@ -22,6 +23,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -51,6 +53,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -67,8 +70,8 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     private static final Map<IPipeSignData, GLRenderList> pipeSignRenderListMap = new HashMap<>();
     private static int localItemTestRenderList = -1;
 
-    private final int[] angleY = {0, 0, 270, 90, 0, 180};
-    private final int[] angleZ = {90, 270, 0, 0, 0, 0};
+    private final int[] angleY = { 0, 0, 270, 90, 0, 180 };
+    private final int[] angleZ = { 90, 270, 0, 0, 0, 0 };
     private static final IntHashMap displayFluidLists = new IntHashMap();
     private final ModelSign modelSign;
     private final RenderBlocks renderBlocks = new RenderBlocks();
@@ -114,12 +117,11 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                 + Math.pow(Minecraft.getMinecraft().thePlayer.lastTickPosY - tileentity.yCoord, 2)
                 + Math.pow(Minecraft.getMinecraft().thePlayer.lastTickPosZ - tileentity.zCoord, 2);
         if (LogisticsRenderPipe.config.isUseNewRenderer()) {
-            LogisticsRenderPipe.secondRenderer.renderTileEntityAt(
-                    (LogisticsTileGenericPipe) tileentity, x, y, z, partialTickTime, distance);
+            LogisticsRenderPipe.secondRenderer
+                    .renderTileEntityAt((LogisticsTileGenericPipe) tileentity, x, y, z, partialTickTime, distance);
         }
         if (LogisticsRenderPipe.config.getRenderPipeContentDistance()
-                        * LogisticsRenderPipe.config.getRenderPipeContentDistance()
-                < distance) {
+                * LogisticsRenderPipe.config.getRenderPipeContentDistance() < distance) {
             return;
         }
 
@@ -141,8 +143,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     private void renderSolids(CoreUnroutedPipe pipe, double x, double y, double z, float partialTickTime) {
         GL11.glPushMatrix();
 
-        float light = pipe.container
-                .getWorldObj()
+        float light = pipe.container.getWorldObj()
                 .getLightBrightness(pipe.container.xCoord, pipe.container.yCoord, pipe.container.zCoord);
 
         int count = 0;
@@ -248,16 +249,8 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    public void doRenderItem(
-            ItemStack itemstack,
-            World worldObj,
-            double x,
-            double y,
-            double z,
-            float light,
-            float renderScale,
-            double boxScale,
-            float partialTickTime) {
+    public void doRenderItem(ItemStack itemstack, World worldObj, double x, double y, double z, float light,
+            float renderScale, double boxScale, float partialTickTime) {
         if (LogisticsRenderPipe.config.isUseNewRenderer() && boxScale != 0) {
             LogisticsRenderPipe.boxRenderer.doRenderItem(itemstack, light, x, y, z, boxScale);
         }
@@ -277,8 +270,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         boolean north = false, south = false, east = false, west = false;
         while (iter.hasNext()) {
             Pair<ForgeDirection, IPipeSign> pair = iter.next();
-            if (pair.getValue1() == ForgeDirection.UP
-                    || pair.getValue1() == ForgeDirection.DOWN
+            if (pair.getValue1() == ForgeDirection.UP || pair.getValue1() == ForgeDirection.DOWN
                     || pair.getValue1() == ForgeDirection.UNKNOWN) {
                 iter.remove();
             }
@@ -397,18 +389,15 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
 
         IItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(itemstack, ItemRenderType.INVENTORY);
 
-        Minecraft.getMinecraft()
-                .renderEngine
-                .bindTexture(
-                        itemstack.getItemSpriteNumber() == 0
-                                ? TextureMap.locationBlocksTexture
-                                : TextureMap.locationItemsTexture);
+        Minecraft.getMinecraft().renderEngine.bindTexture(
+                itemstack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture
+                        : TextureMap.locationItemsTexture);
 
         GL11.glPushMatrix();
 
         if (customRenderer != null) {
-            if (customRenderer.shouldUseRenderHelper(
-                    ItemRenderType.INVENTORY, itemstack, ItemRendererHelper.INVENTORY_BLOCK)) {
+            if (customRenderer
+                    .shouldUseRenderHelper(ItemRenderType.INVENTORY, itemstack, ItemRendererHelper.INVENTORY_BLOCK)) {
                 GL11.glScalef(0.20F, -0.20F, -0.01F);
 
                 GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
@@ -443,48 +432,48 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             }
         } else if (item instanceof ItemBlock
                 && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(item).getRenderType())) {
-            GL11.glScalef(0.20F, -0.20F, -0.01F);
+                    GL11.glScalef(0.20F, -0.20F, -0.01F);
 
-            GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(-45.0F, 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
+                    GL11.glRotatef(-45.0F, 0.0F, 1.0F, 0.0F);
 
-            renderBlocks.useInventoryTint = false;
+                    renderBlocks.useInventoryTint = false;
 
-            GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glDisable(GL11.GL_LIGHT0);
-            GL11.glDisable(GL11.GL_LIGHT1);
-            GL11.glDisable(GL11.GL_COLOR_MATERIAL);
+                    GL11.glDisable(GL11.GL_LIGHTING);
+                    GL11.glDisable(GL11.GL_LIGHT0);
+                    GL11.glDisable(GL11.GL_LIGHT1);
+                    GL11.glDisable(GL11.GL_COLOR_MATERIAL);
 
-            renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item), itemstack.getItemDamage(), 1.0F);
+                    renderBlocks.renderBlockAsItem(Block.getBlockFromItem(item), itemstack.getItemDamage(), 1.0F);
 
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_LIGHT0);
-            GL11.glEnable(GL11.GL_LIGHT1);
-            GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-        } else {
-            GL11.glScalef(0.02F, -0.02F, -0.01F);
+                    GL11.glEnable(GL11.GL_LIGHTING);
+                    GL11.glEnable(GL11.GL_LIGHT0);
+                    GL11.glEnable(GL11.GL_LIGHT1);
+                    GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+                } else {
+                    GL11.glScalef(0.02F, -0.02F, -0.01F);
 
-            GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glDisable(GL11.GL_LIGHT0);
-            GL11.glDisable(GL11.GL_LIGHT1);
-            GL11.glDisable(GL11.GL_COLOR_MATERIAL);
+                    GL11.glDisable(GL11.GL_LIGHTING);
+                    GL11.glDisable(GL11.GL_LIGHT0);
+                    GL11.glDisable(GL11.GL_LIGHT1);
+                    GL11.glDisable(GL11.GL_COLOR_MATERIAL);
 
-            GL11.glTranslatef(-8F, -8F, 0.0F);
+                    GL11.glTranslatef(-8F, -8F, 0.0F);
 
-            if (item.requiresMultipleRenderPasses()) {
-                for (int var14 = 0; var14 < item.getRenderPasses(itemstack.getItemDamage()); ++var14) {
-                    IIcon var15 = item.getIconFromDamageForRenderPass(itemstack.getItemDamage(), var14);
-                    renderItem(var15);
+                    if (item.requiresMultipleRenderPasses()) {
+                        for (int var14 = 0; var14 < item.getRenderPasses(itemstack.getItemDamage()); ++var14) {
+                            IIcon var15 = item.getIconFromDamageForRenderPass(itemstack.getItemDamage(), var14);
+                            renderItem(var15);
+                        }
+                    } else {
+                        renderItem(item.getIconIndex(itemstack));
+                    }
+
+                    GL11.glEnable(GL11.GL_LIGHTING);
+                    GL11.glEnable(GL11.GL_LIGHT0);
+                    GL11.glEnable(GL11.GL_LIGHT1);
+                    GL11.glEnable(GL11.GL_COLOR_MATERIAL);
                 }
-            } else {
-                renderItem(item.getIconIndex(itemstack));
-            }
-
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_LIGHT0);
-            GL11.glEnable(GL11.GL_LIGHT1);
-            GL11.glEnable(GL11.GL_COLOR_MATERIAL);
-        }
 
         GL11.glPopMatrix();
     }
@@ -552,11 +541,9 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
 
         GL11.glTranslatef((float) x, (float) y, (float) z);
 
-        int skylight = pipe.container
-                .getWorld()
+        int skylight = pipe.container.getWorld()
                 .getSkyBlockTypeBrightness(EnumSkyBlock.Sky, pipe.getX(), pipe.getY(), pipe.getZ());
-        int blocklight = pipe.container
-                .getWorld()
+        int blocklight = pipe.container.getWorld()
                 .getSkyBlockTypeBrightness(EnumSkyBlock.Block, pipe.getX(), pipe.getY(), pipe.getZ());
 
         // sides
@@ -580,8 +567,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
 
                 // XXX int stage = (int) ((float) fluidStack.amount / (float) (trans.getCapacity()) * (LIQUID_STAGES -
                 // 1));
-                int stage = (int) ((float) fluidStack.amount
-                        / (float) (trans.getSideCapacity())
+                int stage = (int) ((float) fluidStack.amount / (float) (trans.getSideCapacity())
                         * (LogisticsRenderPipe.LIQUID_STAGES - 1));
 
                 if (stage >= LogisticsRenderPipe.LIQUID_STAGES) {
@@ -637,8 +623,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             if (d != null) {
                 // XXX int stage = (int) ((float) fluidStack.amount / (float) (trans.getCapacity()) * (LIQUID_STAGES -
                 // 1));
-                int stage = (int) ((float) fluidStack.amount
-                        / (float) (trans.getInnerCapacity())
+                int stage = (int) ((float) fluidStack.amount / (float) (trans.getInnerCapacity())
                         * (LogisticsRenderPipe.LIQUID_STAGES - 1));
 
                 bindTexture(TextureMap.locationBlocksTexture);
@@ -821,8 +806,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             }
             GL11.glPopMatrix();
             return true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         GL11.glPopMatrix();
         return false;
     }

@@ -3,6 +3,7 @@ package logisticspipes.network.exception;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;

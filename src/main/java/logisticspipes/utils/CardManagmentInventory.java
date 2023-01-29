@@ -3,6 +3,7 @@ package logisticspipes.utils;
 import logisticspipes.items.ItemModule;
 import logisticspipes.items.LogisticsItemCard;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -73,8 +74,7 @@ public class CardManagmentInventory implements IInventory {
     @Override
     public void setInventorySlotContents(int i, ItemStack itemstack) {
         if (i > -1 && i < 4) {
-            if (i == 0
-                    && itemstack != null
+            if (i == 0 && itemstack != null
                     && inv.getStackInSlot(1) != null
                     && inv.getStackInSlot(2) == null
                     && inv.getStackInSlot(1).getItemDamage() == itemstack.getItemDamage()) {
@@ -82,8 +82,7 @@ public class CardManagmentInventory implements IInventory {
                 inv.setInventorySlotContents(2, itemstack);
                 return;
             }
-            if (i == 1
-                    && itemstack != null
+            if (i == 1 && itemstack != null
                     && inv.getStackInSlot(0) != null
                     && inv.getStackInSlot(2) == null
                     && inv.getStackInSlot(0).getItemDamage() == itemstack.getItemDamage()) {
@@ -105,8 +104,7 @@ public class CardManagmentInventory implements IInventory {
                 colors = new NBTTagCompound();
             }
             int slot = i - 4;
-            colors.setInteger(
-                    "color:" + slot, MinecraftColor.getColor(itemstack).ordinal());
+            colors.setInteger("color:" + slot, MinecraftColor.getColor(itemstack).ordinal());
             nbt.setTag("colors", colors);
             card.setTagCompound(nbt);
             inv.setInventorySlotContents(3, card);

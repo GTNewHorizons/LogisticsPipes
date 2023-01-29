@@ -1,8 +1,7 @@
 /*
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the
+ * contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.logisticspipes;
 
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
@@ -10,11 +9,11 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.IRouter;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
- * @author Krapht This class is responsible for resolving where incoming items
- * should go.
+ * @author Krapht This class is responsible for resolving where incoming items should go.
  */
 public class RouteLayer {
 
@@ -38,12 +37,10 @@ public class RouteLayer {
         }
 
         // If the destination is unknown / unroutable or it already arrived at its destination and somehow looped back
-        if (item.getDestination() >= 0
-                && (!_router.hasRoute(
-                                item.getDestination(),
-                                item.getTransportMode() == TransportMode.Active,
-                                item.getItemIdentifierStack().getItem())
-                        || item.getArrived())) {
+        if (item.getDestination() >= 0 && (!_router.hasRoute(
+                item.getDestination(),
+                item.getTransportMode() == TransportMode.Active,
+                item.getItemIdentifierStack().getItem()) || item.getArrived())) {
             item = SimpleServiceLocator.logisticsManager.assignDestinationFor(item, _router.getSimpleID(), false);
             _pipe.debug.log("Unreachable Destination, sssigned new destination: (" + item.getInfo());
         }

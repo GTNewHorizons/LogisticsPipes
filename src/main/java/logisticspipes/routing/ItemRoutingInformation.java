@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
 import logisticspipes.proxy.MainProxy;
@@ -11,6 +12,7 @@ import logisticspipes.routing.order.IDistanceTracker;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -20,8 +22,8 @@ public class ItemRoutingInformation {
 
         @Override
         public int compare(ItemRoutingInformation o1, ItemRoutingInformation o2) {
-            return (int) (o2.getTimeOut()
-                    - o1.getTimeOut()); // cast will never overflow because the delta is in 1/20ths of a second.
+            return (int) (o2.getTimeOut() - o1.getTimeOut()); // cast will never overflow because the delta is in
+                                                              // 1/20ths of a second.
         }
     }
 

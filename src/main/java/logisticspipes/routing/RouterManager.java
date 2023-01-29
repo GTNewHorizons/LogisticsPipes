@@ -1,13 +1,11 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.routing;
 
 import java.util.*;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.interfaces.ISecurityStationManager;
 import logisticspipes.interfaces.routing.IDirectConnectionManager;
@@ -15,6 +13,7 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.SecurityStationAuthorizedList;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class RouterManager implements IRouterManager, IDirectConnectionManager, ISecurityStationManager {
@@ -68,8 +67,8 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
     }
 
     @Override
-    public IRouter getOrCreateRouter(
-            UUID UUid, int dimension, int xCoord, int yCoord, int zCoord, boolean forceCreateDuplicate) {
+    public IRouter getOrCreateRouter(UUID UUid, int dimension, int xCoord, int yCoord, int zCoord,
+            boolean forceCreateDuplicate) {
         IRouter r = null;
         int id = getIDforUUID(UUid);
         if (id > 0) {
@@ -122,8 +121,7 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
     }
 
     /**
-     * This assumes you know what you are doing. expect exceptions to be thrown
-     * if you pass the wrong side.
+     * This assumes you know what you are doing. expect exceptions to be thrown if you pass the wrong side.
      *
      * @param side false for server, true for client.
      * @return is this a router for the side.
@@ -330,7 +328,8 @@ public class RouterManager implements IRouterManager, IDirectConnectionManager, 
     @Override
     public void sendClientAuthorizationList(EntityPlayer player) {
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SecurityStationAuthorizedList.class).setStringList(_authorized), player);
+                PacketHandler.getPacket(SecurityStationAuthorizedList.class).setStringList(_authorized),
+                player);
     }
 
     @Override

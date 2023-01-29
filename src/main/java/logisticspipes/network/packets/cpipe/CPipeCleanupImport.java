@@ -5,6 +5,7 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class CPipeCleanupImport extends ModuleCoordinatesPacket {
@@ -26,8 +27,7 @@ public class CPipeCleanupImport extends ModuleCoordinatesPacket {
         }
         module.importCleanup();
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(CPipeCleanupStatus.class)
-                        .setMode(module.cleanupModeIsExclude)
+                PacketHandler.getPacket(CPipeCleanupStatus.class).setMode(module.cleanupModeIsExclude)
                         .setPacketPos(this),
                 player);
     }

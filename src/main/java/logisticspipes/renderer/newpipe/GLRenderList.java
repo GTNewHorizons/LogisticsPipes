@@ -1,6 +1,7 @@
 package logisticspipes.renderer.newpipe;
 
 import net.minecraft.client.renderer.GLAllocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GLRenderList {

@@ -11,6 +11,7 @@ import logisticspipes.items.ItemPipeComponents;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.items.RemoteOrderer;
 import logisticspipes.proxy.interfaces.ICraftingParts;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;

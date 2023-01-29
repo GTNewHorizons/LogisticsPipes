@@ -1,25 +1,29 @@
 package logisticspipes.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.pipes.upgrades.*;
 import logisticspipes.pipes.upgrades.connection.*;
 import logisticspipes.pipes.upgrades.power.*;
 import logisticspipes.pipes.upgrades.sneaky.*;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
 import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemUpgrade extends LogisticsItem {
 
@@ -91,12 +95,8 @@ public class ItemUpgrade extends LogisticsItem {
             }
             try {
                 return upgradeClass.getConstructor(new Class[] {}).newInstance();
-            } catch (IllegalArgumentException
-                    | InstantiationException
-                    | NoSuchMethodException
-                    | InvocationTargetException
-                    | IllegalAccessException
-                    | SecurityException e) {
+            } catch (IllegalArgumentException | InstantiationException | NoSuchMethodException
+                    | InvocationTargetException | IllegalAccessException | SecurityException e) {
                 e.printStackTrace();
             }
             return null;
@@ -190,7 +190,7 @@ public class ItemUpgrade extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (Upgrade upgrade : upgrades) {
@@ -293,7 +293,7 @@ public class ItemUpgrade extends LogisticsItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean flag) {
         super.addInformation(stack, par2EntityPlayer, list, flag);
         IPipeUpgrade upgrade = getUpgradeForItem(stack, null);

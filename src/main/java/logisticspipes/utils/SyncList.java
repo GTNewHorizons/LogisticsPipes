@@ -1,9 +1,12 @@
 package logisticspipes.utils;
 
 import java.util.*;
+
 import logisticspipes.network.abstractpackets.ListSyncPacket;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
+
 import org.jetbrains.annotations.NotNull;
 
 public class SyncList<E> implements List<E> {
@@ -46,8 +49,7 @@ public class SyncList<E> implements List<E> {
             if (watcherList != null) {
                 MainProxy.sendToPlayerList(packetType.template().setList(list), watcherList);
             } else {
-                MainProxy.sendPacketToAllWatchingChunk(
-                        x, z, dim, packetType.template().setList(list));
+                MainProxy.sendPacketToAllWatchingChunk(x, z, dim, packetType.template().setList(list));
             }
         }
     }
@@ -60,8 +62,7 @@ public class SyncList<E> implements List<E> {
         if (watcherList != null) {
             MainProxy.sendToPlayerList(packetType.template().setList(list), watcherList);
         } else {
-            MainProxy.sendPacketToAllWatchingChunk(
-                    x, z, dim, packetType.template().setList(list));
+            MainProxy.sendPacketToAllWatchingChunk(x, z, dim, packetType.template().setList(list));
         }
     }
 

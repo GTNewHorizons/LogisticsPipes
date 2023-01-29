@@ -2,9 +2,11 @@ package logisticspipes.recipes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.item.ItemStack;
 
 public enum CraftingDependency {
+
     Basic,
     DistanceRequest(Basic),
     Passthrough(DistanceRequest),

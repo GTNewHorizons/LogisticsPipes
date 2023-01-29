@@ -3,6 +3,7 @@ package logisticspipes.routing.order;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.interfaces.IChangeListener;
 import logisticspipes.interfaces.ILPPositionProvider;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
@@ -16,6 +17,7 @@ public class LogisticsItemOrderManager extends LogisticsOrderManager<LogisticsIt
 
     private static class IC
             implements LogisticsOrderLinkedList.IIdentityProvider<LogisticsItemOrder, DictResource.Identifier> {
+
         @Override
         public DictResource.Identifier getIdentity(LogisticsItemOrder o) {
             if (o == null || o.getResource() == null) {
@@ -31,8 +33,9 @@ public class LogisticsItemOrderManager extends LogisticsOrderManager<LogisticsIt
     }
 
     private static class LogisticsItemOrderExtra extends LogisticsItemOrder {
-        public LogisticsItemOrderExtra(
-                DictResource item, IRequestItems destination, ResourceType type, IAdditionalTargetInformation info) {
+
+        public LogisticsItemOrderExtra(DictResource item, IRequestItems destination, ResourceType type,
+                IAdditionalTargetInformation info) {
             super(item, destination, type, info);
         }
     }
@@ -51,16 +54,16 @@ public class LogisticsItemOrderManager extends LogisticsOrderManager<LogisticsIt
         super.sendFailed();
     }
 
-    public LogisticsItemOrder addOrder(
-            ItemIdentifierStack stack, IRequestItems requester, ResourceType type, IAdditionalTargetInformation info) {
+    public LogisticsItemOrder addOrder(ItemIdentifierStack stack, IRequestItems requester, ResourceType type,
+            IAdditionalTargetInformation info) {
         LogisticsItemOrder order = new LogisticsItemOrder(new DictResource(stack, null), requester, type, info);
         _orders.addLast(order);
         listen();
         return order;
     }
 
-    public LogisticsItemOrder addOrder(
-            DictResource stack, IRequestItems requester, ResourceType type, IAdditionalTargetInformation info) {
+    public LogisticsItemOrder addOrder(DictResource stack, IRequestItems requester, ResourceType type,
+            IAdditionalTargetInformation info) {
         LogisticsItemOrder order = new LogisticsItemOrder(stack, requester, type, info);
         _orders.addLast(order);
         listen();

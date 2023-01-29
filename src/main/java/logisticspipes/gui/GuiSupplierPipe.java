@@ -1,10 +1,7 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui;
 
 import logisticspipes.modules.ModuleActiveSupplier;
@@ -21,10 +18,12 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiSupplierPipe extends LogisticsBaseGuiScreen {
@@ -34,12 +33,8 @@ public class GuiSupplierPipe extends LogisticsBaseGuiScreen {
     private final ModuleActiveSupplier module;
     private final boolean hasPatternUpgrade;
 
-    public GuiSupplierPipe(
-            IInventory playerInventory,
-            IInventory dummyInventory,
-            ModuleActiveSupplier module,
-            Boolean flag,
-            int[] slots) {
+    public GuiSupplierPipe(IInventory playerInventory, IInventory dummyInventory, ModuleActiveSupplier module,
+            Boolean flag, int[] slots) {
         super(null);
         hasPatternUpgrade = flag;
 
@@ -75,10 +70,13 @@ public class GuiSupplierPipe extends LogisticsBaseGuiScreen {
             name = StringUtils.translate(GuiSupplierPipe.PREFIX + "TargetInv");
         }
         mc.fontRenderer.drawString(name, xSize / 2 - mc.fontRenderer.getStringWidth(name) / 2, 6, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiSupplierPipe.PREFIX + "Inventory"), 18, ySize - 102, 0x404040);
         mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSupplierPipe.PREFIX + "Inventory"), 18, ySize - 102, 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSupplierPipe.PREFIX + "RequestMode"), xSize - 140, ySize - 112, 0x404040);
+                StringUtils.translate(GuiSupplierPipe.PREFIX + "RequestMode"),
+                xSize - 140,
+                ySize - 112,
+                0x404040);
         if (hasPatternUpgrade) {
             for (int i = 0; i < 9; i++) {
                 mc.fontRenderer.drawString(Integer.toString(module.slotArray[i]), 22 + i * 18, 55, 0x404040);
@@ -116,16 +114,23 @@ public class GuiSupplierPipe extends LogisticsBaseGuiScreen {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        buttonList.add(new GuiButton(
-                0,
-                width / 2 + 35,
-                height / 2 - 25,
-                50,
-                20,
-                (hasPatternUpgrade ? module.getPatternMode() : module.getSupplyMode()).toString()));
+        buttonList.add(
+                new GuiButton(
+                        0,
+                        width / 2 + 35,
+                        height / 2 - 25,
+                        50,
+                        20,
+                        (hasPatternUpgrade ? module.getPatternMode() : module.getSupplyMode()).toString()));
         if (hasPatternUpgrade) {
-            buttonList.add(new SmallGuiButton(
-                    1, guiLeft + 5, guiTop + 68, 45, 10, module.isLimited() ? "Limited" : "Unlimited"));
+            buttonList.add(
+                    new SmallGuiButton(
+                            1,
+                            guiLeft + 5,
+                            guiTop + 68,
+                            45,
+                            10,
+                            module.isLimited() ? "Limited" : "Unlimited"));
             for (int i = 0; i < 9; i++) {
                 buttonList.add(new SmallGuiButton(i + 2, guiLeft + 18 + i * 18, guiTop + 40, 17, 10, "Set"));
             }
@@ -141,38 +146,35 @@ public class GuiSupplierPipe extends LogisticsBaseGuiScreen {
                     currentMode = 0;
                 }
                 module.setPatternMode(PatternMode.values()[currentMode]);
-                ((GuiButton) buttonList.get(0)).displayString =
-                        module.getPatternMode().toString();
+                ((GuiButton) buttonList.get(0)).displayString = module.getPatternMode().toString();
             } else {
                 int currentMode = module.getSupplyMode().ordinal() + 1;
                 if (currentMode >= SupplyMode.values().length) {
                     currentMode = 0;
                 }
                 module.setSupplyMode(SupplyMode.values()[currentMode]);
-                ((GuiButton) buttonList.get(0)).displayString =
-                        module.getSupplyMode().toString();
+                ((GuiButton) buttonList.get(0)).displayString = module.getSupplyMode().toString();
             }
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(SupplierPipeModePacket.class).setModulePos(module));
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(SupplierPipeModePacket.class).setModulePos(module));
         } else if (hasPatternUpgrade) {
             if (guibutton.id == 1) {
                 module.setLimited(!module.isLimited());
                 ((GuiButton) buttonList.get(1)).displayString = module.isLimited() ? "Limited" : "Unlimited";
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(SupplierPipeLimitedPacket.class)
-                        .setLimited(module.isLimited())
-                        .setModulePos(module));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(SupplierPipeLimitedPacket.class).setLimited(module.isLimited())
+                                .setModulePos(module));
             } else if (guibutton.id >= 2 && guibutton.id <= 10) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(SlotFinderOpenGuiPacket.class)
-                        .setSlot(guibutton.id - 2)
-                        .setModulePos(module));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(SlotFinderOpenGuiPacket.class).setSlot(guibutton.id - 2)
+                                .setModulePos(module));
             }
         }
         super.actionPerformed(guibutton);
     }
 
     public void refreshMode() {
-        ((GuiButton) buttonList.get(0)).displayString =
-                (hasPatternUpgrade ? module.getPatternMode() : module.getSupplyMode()).toString();
+        ((GuiButton) buttonList.get(0)).displayString = (hasPatternUpgrade ? module.getPatternMode()
+                : module.getSupplyMode()).toString();
         if (hasPatternUpgrade) {
             ((GuiButton) buttonList.get(1)).displayString = module.isLimited() ? "Limited" : "Unlimited";
         }

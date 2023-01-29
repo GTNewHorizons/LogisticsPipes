@@ -2,6 +2,7 @@ package logisticspipes.pipes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
 import logisticspipes.pipes.basic.fluid.FluidRoutedPipe;
@@ -11,6 +12,7 @@ import logisticspipes.textures.Textures.TextureType;
 import logisticspipes.transport.PipeFluidTransportLogistics;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -61,8 +63,8 @@ public class PipeFluidInsertion extends FluidRoutedPipe {
                 continue;
             }
 
-            Pair<Integer, Integer> result =
-                    SimpleServiceLocator.logisticsFluidManager.getBestReply(stack, getRouter(), tempJamList);
+            Pair<Integer, Integer> result = SimpleServiceLocator.logisticsFluidManager
+                    .getBestReply(stack, getRouter(), tempJamList);
             if (result == null || result.getValue1() == null || result.getValue1() == 0 || result.getValue2() == 0) {
                 nextSendMax[dir.ordinal()] = 100;
                 nextSendMin[dir.ordinal()] = 10;

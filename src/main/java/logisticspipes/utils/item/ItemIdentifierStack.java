@@ -1,17 +1,16 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils.item;
 
 import java.util.LinkedList;
+
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.pipes.basic.CoreRoutedPipe.ItemSendMode;
 import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
 import logisticspipes.utils.tuples.Triplet;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -127,10 +126,8 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
             } else {
                 boolean added = false;
                 for (ItemIdentifierStack stack : list) {
-                    if (stack.getItem()
-                            .equals(part.getValue1().getItemIdentifierStack().getItem())) {
-                        stack.setStackSize(
-                                stack.getStackSize() + part.getValue1().getItemIdentifierStack().stackSize);
+                    if (stack.getItem().equals(part.getValue1().getItemIdentifierStack().getItem())) {
+                        stack.setStackSize(stack.getStackSize() + part.getValue1().getItemIdentifierStack().stackSize);
                         added = true;
                         break;
                     }

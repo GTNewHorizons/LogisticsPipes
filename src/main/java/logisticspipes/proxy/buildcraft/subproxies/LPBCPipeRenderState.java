@@ -1,11 +1,12 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
+import java.io.IOException;
+
+import logisticspipes.network.LPDataInputStream;
+import logisticspipes.network.LPDataOutputStream;
 import buildcraft.transport.PipeRenderState;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import java.io.IOException;
-import logisticspipes.network.LPDataInputStream;
-import logisticspipes.network.LPDataOutputStream;
 
 public class LPBCPipeRenderState extends PipeRenderState implements IBCRenderState {
 

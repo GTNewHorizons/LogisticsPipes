@@ -1,15 +1,17 @@
 package logisticspipes.renderer;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.PlayerConfig;
 import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class LogisticsSolidBlockWorldRenderer implements ISimpleBlockRenderingHandler {
 
@@ -33,8 +35,8 @@ public class LogisticsSolidBlockWorldRenderer implements ISimpleBlockRenderingHa
     }
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof LogisticsSolidTileEntity) {
             if (config.isUseNewRenderer()) {

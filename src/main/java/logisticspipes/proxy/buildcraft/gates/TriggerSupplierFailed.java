@@ -1,19 +1,16 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.proxy.buildcraft.gates;
 
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerInternal;
-import buildcraft.transport.Pipe;
 import logisticspipes.pipes.PipeItemsFluidSupplier;
 import logisticspipes.pipes.PipeItemsSupplierLogistics;
 import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
 import logisticspipes.textures.provider.LPActionTriggerIconProvider;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerInternal;
+import buildcraft.transport.Pipe;
 
 public class TriggerSupplierFailed extends LPTrigger implements ITriggerInternal {
 

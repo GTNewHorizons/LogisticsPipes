@@ -3,6 +3,7 @@ package logisticspipes.network.packets.block;
 import logisticspipes.blocks.LogisticsSolderingTileEntity;
 import logisticspipes.network.abstractpackets.InventoryModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

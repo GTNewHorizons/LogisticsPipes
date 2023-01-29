@@ -1,6 +1,5 @@
 package logisticspipes.renderer;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.PlayerConfig;
@@ -11,12 +10,15 @@ import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
 import logisticspipes.renderer.newpipe.LogisticsNewPipeWorldRenderer;
 import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.textures.Textures;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler {
 
@@ -25,14 +27,8 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
     private final PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
     private final LogisticsNewPipeWorldRenderer newRenderer = new LogisticsNewPipeWorldRenderer();
 
-    public static boolean renderPipe(
-            RenderBlocks renderblocks,
-            IBlockAccess iblockaccess,
-            LogisticsBlockGenericPipe block,
-            LogisticsTileGenericPipe pipe,
-            int x,
-            int y,
-            int z) {
+    public static boolean renderPipe(RenderBlocks renderblocks, IBlockAccess iblockaccess,
+            LogisticsBlockGenericPipe block, LogisticsTileGenericPipe pipe, int x, int y, int z) {
         if (pipe.pipe instanceof PipeBlockRequestTable) {
             if (LogisticsPipeWorldRenderer.renderPass != 0) {
                 return false;
@@ -72,8 +68,8 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
                 if (connectivity != 0x3f) { // note: 0x3f = 0x111111 = all sides
                     LogisticsPipeWorldRenderer.resetToCenterDimensions(dim);
                     state.currentTexture = icons.getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.UNKNOWN));
-                    LogisticsPipeWorldRenderer.renderTwoWayBlock(
-                            renderblocks, block, x, y, z, dim, connectivity ^ 0x3f);
+                    LogisticsPipeWorldRenderer
+                            .renderTwoWayBlock(renderblocks, block, x, y, z, dim, connectivity ^ 0x3f);
                 }
 
                 // render the connecting pipe faces
@@ -95,16 +91,15 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
                     int renderMask = (3 << (dir / 2 * 2)) ^ 0x3f;
 
                     // workaround for 1.6 texture weirdness, rotate texture for N/S/E/W connections
-                    renderblocks.uvRotateEast = renderblocks.uvRotateNorth =
-                            renderblocks.uvRotateWest = renderblocks.uvRotateSouth = (dir < 2) ? 0 : 1;
+                    renderblocks.uvRotateEast = renderblocks.uvRotateNorth = renderblocks.uvRotateWest = renderblocks.uvRotateSouth = (dir
+                            < 2) ? 0 : 1;
 
                     // render sub block
-                    state.currentTexture =
-                            icons.getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.VALID_DIRECTIONS[dir]));
+                    state.currentTexture = icons
+                            .getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.VALID_DIRECTIONS[dir]));
 
                     LogisticsPipeWorldRenderer.renderTwoWayBlock(renderblocks, block, x, y, z, dim, renderMask);
-                    renderblocks.uvRotateEast =
-                            renderblocks.uvRotateNorth = renderblocks.uvRotateWest = renderblocks.uvRotateSouth = 0;
+                    renderblocks.uvRotateEast = renderblocks.uvRotateNorth = renderblocks.uvRotateWest = renderblocks.uvRotateSouth = 0;
                 }
             } else {
                 // render the unconnected pipe faces of the center block (if any)
@@ -113,13 +108,13 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
 
                     // Render opaque Layer
                     state.currentTexture = icons.getIcon(Textures.LOGISTICSPIPE_OPAQUE_TEXTURE.normal);
-                    LogisticsPipeWorldRenderer.renderOneWayBlock(
-                            renderblocks, block, x, y, z, dim, connectivity ^ 0x3f);
+                    LogisticsPipeWorldRenderer
+                            .renderOneWayBlock(renderblocks, block, x, y, z, dim, connectivity ^ 0x3f);
 
                     // Render Pipe Texture
                     state.currentTexture = icons.getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.UNKNOWN));
-                    LogisticsPipeWorldRenderer.renderOneWayBlock(
-                            renderblocks, block, x, y, z, dim, connectivity ^ 0x3f);
+                    LogisticsPipeWorldRenderer
+                            .renderOneWayBlock(renderblocks, block, x, y, z, dim, connectivity ^ 0x3f);
                 }
 
                 // render the connecting pipe faces
@@ -141,19 +136,18 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
                     int renderMask = (3 << (dir / 2 * 2)) ^ 0x3f;
 
                     // workaround for 1.6 texture weirdness, rotate texture for N/S/E/W connections
-                    renderblocks.uvRotateEast = renderblocks.uvRotateNorth =
-                            renderblocks.uvRotateWest = renderblocks.uvRotateSouth = (dir < 2) ? 0 : 1;
+                    renderblocks.uvRotateEast = renderblocks.uvRotateNorth = renderblocks.uvRotateWest = renderblocks.uvRotateSouth = (dir
+                            < 2) ? 0 : 1;
 
                     // Render opaque Layer
                     state.currentTexture = icons.getIcon(Textures.LOGISTICSPIPE_OPAQUE_TEXTURE.normal);
                     LogisticsPipeWorldRenderer.renderOneWayBlock(renderblocks, block, x, y, z, dim, 0x3f);
 
                     // render sub block
-                    state.currentTexture =
-                            icons.getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.VALID_DIRECTIONS[dir]));
+                    state.currentTexture = icons
+                            .getIcon(state.textureMatrix.getTextureIndex(ForgeDirection.VALID_DIRECTIONS[dir]));
                     LogisticsPipeWorldRenderer.renderOneWayBlock(renderblocks, block, x, y, z, dim, renderMask);
-                    renderblocks.uvRotateEast =
-                            renderblocks.uvRotateNorth = renderblocks.uvRotateWest = renderblocks.uvRotateSouth = 0;
+                    renderblocks.uvRotateEast = renderblocks.uvRotateNorth = renderblocks.uvRotateWest = renderblocks.uvRotateSouth = 0;
                 }
             }
         }
@@ -179,11 +173,10 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
     }
 
     /**
-     * Render a block with normal and inverted vertex order so back face culling
-     * doesn't have any effect.
+     * Render a block with normal and inverted vertex order so back face culling doesn't have any effect.
      */
-    private static void renderOneWayBlock(
-            RenderBlocks renderblocks, LogisticsBlockGenericPipe block, int x, int y, int z, float[] dim, int mask) {
+    private static void renderOneWayBlock(RenderBlocks renderblocks, LogisticsBlockGenericPipe block, int x, int y,
+            int z, float[] dim, int mask) {
         assert mask != 0;
 
         block.setRenderMask(mask);
@@ -192,11 +185,10 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
     }
 
     /**
-     * Render a block with normal and inverted vertex order so back face culling
-     * doesn't have any effect.
+     * Render a block with normal and inverted vertex order so back face culling doesn't have any effect.
      */
-    private static void renderTwoWayBlock(
-            RenderBlocks renderblocks, LogisticsBlockGenericPipe block, int x, int y, int z, float[] dim, int mask) {
+    private static void renderTwoWayBlock(RenderBlocks renderblocks, LogisticsBlockGenericPipe block, int x, int y,
+            int z, float[] dim, int mask) {
         assert mask != 0;
 
         block.setRenderMask(mask);
@@ -214,15 +206,15 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {}
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         TileEntity tile = world.getTileEntity(x, y, z);
         LogisticsTileGenericPipe pipeTile = (LogisticsTileGenericPipe) tile;
         if (config.isUseNewRenderer() && !pipeTile.renderState.forceRenderOldPipe) {
             return newRenderer.renderWorldBlock(world, x, y, z, block, modelId, renderer);
         }
-        return LogisticsPipeWorldRenderer.renderPipe(
-                renderer, world, (LogisticsBlockGenericPipe) block, pipeTile, x, y, z);
+        return LogisticsPipeWorldRenderer
+                .renderPipe(renderer, world, (LogisticsBlockGenericPipe) block, pipeTile, x, y, z);
     }
 
     @Override

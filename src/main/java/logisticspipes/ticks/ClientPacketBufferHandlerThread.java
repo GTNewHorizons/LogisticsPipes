@@ -1,7 +1,5 @@
 package logisticspipes.ticks;
 
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -13,6 +11,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -20,7 +19,11 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.BufferTransfer;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 
 public class ClientPacketBufferHandlerThread {
 
@@ -80,8 +83,8 @@ public class ClientPacketBufferHandlerThread {
                             byte[] sendbuffer = Arrays.copyOf(clientBuffer, 1024 * 32);
                             clientBuffer = Arrays.copyOfRange(clientBuffer, 1024 * 32, clientBuffer.length);
                             byte[] compressed = ClientPacketBufferHandlerThread.compress(sendbuffer);
-                            MainProxy.sendPacketToServer(PacketHandler.getPacket(BufferTransfer.class)
-                                    .setContent(compressed));
+                            MainProxy.sendPacketToServer(
+                                    PacketHandler.getPacket(BufferTransfer.class).setContent(compressed));
                         }
                         byte[] sendbuffer = clientBuffer;
                         clientBuffer = new byte[] {};
@@ -96,8 +99,7 @@ public class ClientPacketBufferHandlerThread {
                     while (pause || clientList.size() == 0) {
                         try {
                             clientList.wait();
-                        } catch (InterruptedException ignored) {
-                        }
+                        } catch (InterruptedException ignored) {}
                     }
                 }
                 if (clear) {
@@ -128,11 +130,10 @@ public class ClientPacketBufferHandlerThread {
         public void clear() {
             clear = true;
             new Thread(() -> {
-                        clearLock.lock();
-                        clientList.clear();
-                        clearLock.unlock();
-                    })
-                    .start();
+                clearLock.lock();
+                clientList.clear();
+                clearLock.unlock();
+            }).start();
         }
     }
 
@@ -202,8 +203,7 @@ public class ClientPacketBufferHandlerThread {
                 } while (flag);
 
                 while (ByteBuffer.length >= 4) {
-                    int size = ((ByteBuffer[0] & 255) << 24)
-                            + ((ByteBuffer[1] & 255) << 16)
+                    int size = ((ByteBuffer[0] & 255) << 24) + ((ByteBuffer[1] & 255) << 16)
                             + ((ByteBuffer[2] & 255) << 8)
                             + ((ByteBuffer[3] & 255));
                     if (size + 4 > ByteBuffer.length) {
@@ -219,8 +219,7 @@ public class ClientPacketBufferHandlerThread {
                     while (queue.size() == 0) {
                         try {
                             queue.wait();
-                        } catch (InterruptedException ignored) {
-                        }
+                        } catch (InterruptedException ignored) {}
                     }
                 }
                 if (clear) {

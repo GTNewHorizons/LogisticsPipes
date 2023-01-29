@@ -1,10 +1,7 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui.modules;
 
 import logisticspipes.modules.ModuleItemSink;
@@ -17,9 +14,11 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiItemSink extends ModuleBaseGui {
@@ -54,15 +53,22 @@ public class GuiItemSink extends ModuleBaseGui {
         super.initGui();
         // Default item toggle:
         buttonList.clear();
-        buttonList.add(new GuiStringHandlerButton(
-                0,
-                width / 2 + 50,
-                height / 2 - 34,
-                30,
-                20,
-                () -> StringUtils.translate(GuiItemSink.PREFIX + (_itemSink.isDefaultRoute() ? "Yes" : "No"))));
-        buttonList.add(new SmallGuiButton(
-                1, guiLeft + 10, guiTop + 37, 40, 10, StringUtils.translate(GuiItemSink.PREFIX + "import")));
+        buttonList.add(
+                new GuiStringHandlerButton(
+                        0,
+                        width / 2 + 50,
+                        height / 2 - 34,
+                        30,
+                        20,
+                        () -> StringUtils.translate(GuiItemSink.PREFIX + (_itemSink.isDefaultRoute() ? "Yes" : "No"))));
+        buttonList.add(
+                new SmallGuiButton(
+                        1,
+                        guiLeft + 10,
+                        guiTop + 37,
+                        40,
+                        10,
+                        StringUtils.translate(GuiItemSink.PREFIX + "import")));
     }
 
     @Override
@@ -70,9 +76,9 @@ public class GuiItemSink extends ModuleBaseGui {
         switch (guibutton.id) {
             case 0:
                 _itemSink.setDefaultRoute(!_itemSink.isDefaultRoute());
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(ItemSinkDefaultPacket.class)
-                        .setDefault(_itemSink.isDefaultRoute())
-                        .setModulePos(_itemSink));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(ItemSinkDefaultPacket.class).setDefault(_itemSink.isDefaultRoute())
+                                .setModulePos(_itemSink));
                 break;
             case 1:
                 MainProxy.sendPacketToServer(

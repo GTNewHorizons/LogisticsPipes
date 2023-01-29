@@ -1,6 +1,7 @@
 package logisticspipes.network.guis.module.inpipe;
 
 import java.io.IOException;
+
 import logisticspipes.gui.modules.GuiExtractor;
 import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
 import logisticspipes.network.LPDataInputStream;
@@ -11,6 +12,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -39,8 +41,8 @@ public class ExtractorModuleSlot extends ModuleCoordinatesGuiProvider {
 
     @Override
     public Object getClientGui(EntityPlayer player) {
-        LogisticsSneakyDirectionModule module =
-                this.getLogisticsModule(player.getEntityWorld(), LogisticsSneakyDirectionModule.class);
+        LogisticsSneakyDirectionModule module = this
+                .getLogisticsModule(player.getEntityWorld(), LogisticsSneakyDirectionModule.class);
         if (module == null) {
             return null;
         }
@@ -50,8 +52,8 @@ public class ExtractorModuleSlot extends ModuleCoordinatesGuiProvider {
 
     @Override
     public DummyContainer getContainer(EntityPlayer player) {
-        LogisticsSneakyDirectionModule module =
-                this.getLogisticsModule(player.getEntityWorld(), LogisticsSneakyDirectionModule.class);
+        LogisticsSneakyDirectionModule module = this
+                .getLogisticsModule(player.getEntityWorld(), LogisticsSneakyDirectionModule.class);
         if (module == null) {
             return null;
         }

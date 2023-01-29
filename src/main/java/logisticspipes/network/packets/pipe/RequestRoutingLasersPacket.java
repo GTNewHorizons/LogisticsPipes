@@ -2,6 +2,7 @@ package logisticspipes.network.packets.pipe;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.network.PacketHandler;
@@ -18,6 +19,7 @@ import logisticspipes.routing.pathfinder.PathFinder;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -80,7 +82,12 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                     continue;
                 }
                 handleRouteInDirection(
-                        tile, dir, routers.get(dir), lasers, EnumSet.allOf(PipeRoutingConnectionType.class), new Log() {
+                        tile,
+                        dir,
+                        routers.get(dir),
+                        lasers,
+                        EnumSet.allOf(PipeRoutingConnectionType.class),
+                        new Log() {
 
                             @Override
                             void log(String log) {
@@ -91,18 +98,13 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                         });
             }
             lasers = compressLasers(lasers);
-            MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(RoutingLaserPacket.class).setLasers(lasers), player);
+            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(RoutingLaserPacket.class).setLasers(lasers), player);
         }
     }
 
-    private void handleRouteInDirection(
-            final LogisticsTileGenericPipe pipeIn,
-            ForgeDirection dirIn,
-            ArrayList<ExitRoute> connectedRoutersIn,
-            final List<LaserData> lasersIn,
-            EnumSet<PipeRoutingConnectionType> connectionTypeIn,
-            final Log logIn) {
+    private void handleRouteInDirection(final LogisticsTileGenericPipe pipeIn, ForgeDirection dirIn,
+            ArrayList<ExitRoute> connectedRoutersIn, final List<LaserData> lasersIn,
+            EnumSet<PipeRoutingConnectionType> connectionTypeIn, final Log logIn) {
         List<DataEntry> worklist = new LinkedList<>();
         worklist.add(new DataEntry(pipeIn, dirIn, connectedRoutersIn, lasersIn, connectionTypeIn, logIn));
         while (!worklist.isEmpty()) {
@@ -139,8 +141,7 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                 ExitRoute result = null;
                 CoreRoutedPipe resultPipe = null;
                 for (Entry<CoreRoutedPipe, ExitRoute> routeCanidate : map.entrySet()) {
-                    List<ExitRoute> distances =
-                            routeCanidate.getValue().destination.getDistanceTo(routeTo.destination);
+                    List<ExitRoute> distances = routeCanidate.getValue().destination.getDistanceTo(routeTo.destination);
                     for (ExitRoute distance : distances) {
                         if (distance.isSameWay(routeTo)) {
                             if (result == null || result.distanceToDestination > distance.distanceToDestination) {
@@ -175,21 +176,22 @@ public class RequestRoutingLasersPacket extends CoordinatesPacket {
                     if (exitDir == ForgeDirection.UNKNOWN) {
                         continue;
                     }
-                    worklist.add(new DataEntry(
-                            connectedPipe.getKey().container,
-                            exitDir,
-                            routers.get(exitDir),
-                            lasers,
-                            map.get(connectedPipe.getKey()).connectionDetails,
-                            new Log() {
+                    worklist.add(
+                            new DataEntry(
+                                    connectedPipe.getKey().container,
+                                    exitDir,
+                                    routers.get(exitDir),
+                                    lasers,
+                                    map.get(connectedPipe.getKey()).connectionDetails,
+                                    new Log() {
 
-                                @Override
-                                void log(String logString) {
-                                    if (LPConstants.DEBUG) {
-                                        log.log(exitDir.name() + ": " + logString);
-                                    }
-                                }
-                            }));
+                                        @Override
+                                        void log(String logString) {
+                                            if (LPConstants.DEBUG) {
+                                                log.log(exitDir.name() + ": " + logString);
+                                            }
+                                        }
+                                    }));
                 }
             }
         }

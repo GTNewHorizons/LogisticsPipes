@@ -2,6 +2,7 @@ package logisticspipes.blocks;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.IRoutedPowerProvider;
@@ -21,6 +22,7 @@ import logisticspipes.security.SecuritySettings;
 import logisticspipes.utils.OrientationsUtil;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -90,24 +92,15 @@ public class LogisticsSecurityTileEntity extends LogisticsSolidTileEntity
     @Override
     public void guiOpenedByPlayer(EntityPlayer player) {
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SecurityStationCC.class)
-                        .setInteger(allowCC ? 1 : 0)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(SecurityStationCC.class).setInteger(allowCC ? 1 : 0).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SecurityStationAutoDestroy.class)
-                        .setInteger(allowAutoDestroy ? 1 : 0)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(SecurityStationAutoDestroy.class).setInteger(allowAutoDestroy ? 1 : 0)
+                        .setPosX(xCoord).setPosY(yCoord).setPosZ(zCoord),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SecurityStationId.class)
-                        .setUuid(getSecId())
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
+                PacketHandler.getPacket(SecurityStationId.class).setUuid(getSecId()).setPosX(xCoord).setPosY(yCoord)
                         .setPosZ(zCoord),
                 player);
         SimpleServiceLocator.securityStationManager.sendClientAuthorizationList();
@@ -246,8 +239,7 @@ public class LogisticsSecurityTileEntity extends LogisticsSolidTileEntity
         }
         NBTTagCompound nbt = new NBTTagCompound();
         setting.writeToNBT(nbt);
-        MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SecurityStationOpenPlayer.class).setTag(nbt), player);
+        MainProxy.sendPacketToPlayer(PacketHandler.getPacket(SecurityStationOpenPlayer.class).setTag(nbt), player);
     }
 
     public void saveNewSecuritySettings(NBTTagCompound tag) {
@@ -279,22 +271,16 @@ public class LogisticsSecurityTileEntity extends LogisticsSolidTileEntity
     public void changeCC() {
         allowCC = !allowCC;
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SecurityStationCC.class)
-                        .setInteger(allowCC ? 1 : 0)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(SecurityStationCC.class).setInteger(allowCC ? 1 : 0).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord),
                 listener);
     }
 
     public void changeDestroy() {
         allowAutoDestroy = !allowAutoDestroy;
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SecurityStationAutoDestroy.class)
-                        .setInteger(allowAutoDestroy ? 1 : 0)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(SecurityStationAutoDestroy.class).setInteger(allowAutoDestroy ? 1 : 0)
+                        .setPosX(xCoord).setPosY(yCoord).setPosZ(zCoord),
                 listener);
     }
 
@@ -317,10 +303,7 @@ public class LogisticsSecurityTileEntity extends LogisticsSolidTileEntity
         }
         tag.setTag("list", list);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(SecurityStationCCIDs.class)
-                        .setTag(tag)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
+                PacketHandler.getPacket(SecurityStationCCIDs.class).setTag(tag).setPosX(xCoord).setPosY(yCoord)
                         .setPosZ(zCoord),
                 player);
     }

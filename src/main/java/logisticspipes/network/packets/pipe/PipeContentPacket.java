@@ -2,6 +2,7 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -12,6 +13,7 @@ import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)

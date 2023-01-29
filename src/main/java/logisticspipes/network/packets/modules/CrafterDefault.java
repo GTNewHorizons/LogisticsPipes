@@ -6,6 +6,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.PipeLogisticsChassi;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class CrafterDefault extends Integer2CoordinatesPacket {
@@ -43,8 +44,8 @@ public class CrafterDefault extends Integer2CoordinatesPacket {
             return;
         }
         if (((PipeLogisticsChassi) pipe.pipe).getModules().getSubModule(getInteger2()) instanceof ModuleCrafter) {
-            ModuleCrafter module = (ModuleCrafter)
-                    ((PipeLogisticsChassi) pipe.pipe).getModules().getSubModule(getInteger2());
+            ModuleCrafter module = (ModuleCrafter) ((PipeLogisticsChassi) pipe.pipe).getModules()
+                    .getSubModule(getInteger2());
             // module.setDefaultRoute(getInteger() == 1);
         }
     }

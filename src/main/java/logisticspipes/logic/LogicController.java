@@ -3,8 +3,10 @@ package logisticspipes.logic;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import logisticspipes.utils.item.SimpleStackInventory;
 import lombok.Getter;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -61,11 +63,9 @@ public class LogicController {
             }
             for (BaseLogicConnection connection : connections) {
                 if (!connection.isInvalidConnection() && connection.getSource().isCalculated()) {
-                    connection
-                            .getTarget()
-                            .setInputParameter(
-                                    connection.getTargetIndex(),
-                                    connection.getSource().getResult(connection.getSourceIndex()));
+                    connection.getTarget().setInputParameter(
+                            connection.getTargetIndex(),
+                            connection.getSource().getResult(connection.getSourceIndex()));
                     nothingDone = false;
                 }
             }
@@ -75,10 +75,9 @@ public class LogicController {
             }
         }
         unresolvedTasks = false;
-        /*}};
-        oldThread.setDaemon(true);
-        oldThread.start();
-        //*/
+        /*
+         * }}; oldThread.setDaemon(true); oldThread.start(); //
+         */
     }
 
     public void writeToNBT(NBTTagCompound nbt) {

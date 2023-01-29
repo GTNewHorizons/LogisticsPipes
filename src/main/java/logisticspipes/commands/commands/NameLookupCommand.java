@@ -3,6 +3,7 @@ package logisticspipes.commands.commands;
 import logisticspipes.commands.abstracts.ICommandHandler;
 import logisticspipes.commands.exception.MissingArgumentException;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.Item;
 import net.minecraft.util.ChatComponentText;
@@ -11,7 +12,7 @@ public class NameLookupCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"name"};
+        return new String[] { "name" };
     }
 
     @Override
@@ -21,7 +22,7 @@ public class NameLookupCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Displays the serverside stored name for", "the <item id> and <meta data>"};
+        return new String[] { "Displays the serverside stored name for", "the <item id> and <meta data>" };
     }
 
     @Override

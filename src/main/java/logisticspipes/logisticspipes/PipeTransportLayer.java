@@ -2,10 +2,12 @@ package logisticspipes.logisticspipes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.IRouter;
 import logisticspipes.utils.AdjacentTile;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**

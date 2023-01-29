@@ -1,9 +1,9 @@
 package logisticspipes.renderer.newpipe;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 import logisticspipes.LPConstants;
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
@@ -20,12 +20,15 @@ import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer.Cover
 import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.textures.Textures;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandler {
 
@@ -35,8 +38,8 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {}
 
     @Override
-    public boolean renderWorldBlock(
-            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
+            RenderBlocks renderer) {
         Tessellator tess = Tessellator.instance;
         TileEntity tile = world.getTileEntity(x, y, z);
         LogisticsTileGenericPipe pipeTile = (LogisticsTileGenericPipe) tile;
@@ -54,10 +57,7 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             for (BlockRotation rot : BlockRotation.values()) {
                 requestBlock.put(
                         rot,
-                        LogisticsNewSolidBlockWorldRenderer.block
-                                .get(rot)
-                                .copy()
-                                .apply(new LPScale(0.999))
+                        LogisticsNewSolidBlockWorldRenderer.block.get(rot).copy().apply(new LPScale(0.999))
                                 .apply(new LPTranslation(0.0005, 0.0005, 0.0005)));
             }
 
@@ -72,20 +72,16 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             tess.setColorOpaque_F(1F, 1F, 1F);
             tess.setBrightness(brightness);
 
-            IIconTransformation icon =
-                    SimpleServiceLocator.cclProxy.createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
+            IIconTransformation icon = SimpleServiceLocator.cclProxy
+                    .createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
 
             requestBlock.get(rotation).render(new LPTranslation(x, y, z), icon);
 
             for (CoverSides side : CoverSides.values()) {
                 if (!pipeTile.renderState.pipeConnectionMatrix.isConnected(side.getDir(rotation))) {
-                    LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer
-                            .get(side)
-                            .get(rotation)
+                    LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation)
                             .render(new LPTranslation(x, y, z), icon);
-                    LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner
-                            .get(side)
-                            .get(rotation)
+                    LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner.get(side).get(rotation)
                             .render(new LPTranslation(x, y, z), icon);
                 }
             }
@@ -113,10 +109,9 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
             pos.moveForward(dir);
             Block blockSide = pos.getBlock(pipeTile.getWorldObj());
             if (blockSide == null
-                    || !blockSide.isSideSolid(
-                            pipeTile.getWorldObj(), pos.getX(), pos.getY(), pos.getZ(), dir.getOpposite())
-                    || renderState.pipeConnectionMatrix.isConnected(dir)) {
-            } else {
+                    || !blockSide
+                            .isSideSolid(pipeTile.getWorldObj(), pos.getX(), pos.getY(), pos.getZ(), dir.getOpposite())
+                    || renderState.pipeConnectionMatrix.isConnected(dir)) {} else {
                 solidSides[dir.ordinal()] = true;
             }
         }

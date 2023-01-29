@@ -1,10 +1,9 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.gui.hud.modules.HUDExtractor;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -25,6 +24,7 @@ import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -32,6 +32,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleExtractor extends LogisticsSneakyDirectionModule
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
@@ -72,18 +75,12 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
     public void setSneakyDirection(ForgeDirection sneakyDirection) {
         _sneakyDirection = sneakyDirection;
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(ExtractorModuleMode.class)
-                        .setDirection(_sneakyDirection)
-                        .setModulePos(this),
+                PacketHandler.getPacket(ExtractorModuleMode.class).setDirection(_sneakyDirection).setModulePos(this),
                 localModeWatchers);
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         return null;
     }
@@ -212,23 +209,19 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void startWatching(EntityPlayer player) {
         localModeWatchers.add(player);
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(ExtractorModuleMode.class)
-                        .setDirection(_sneakyDirection)
-                        .setModulePos(this),
+                PacketHandler.getPacket(ExtractorModuleMode.class).setDirection(_sneakyDirection).setModulePos(this),
                 localModeWatchers);
     }
 

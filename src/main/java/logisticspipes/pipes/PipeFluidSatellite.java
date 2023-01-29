@@ -2,6 +2,7 @@ package logisticspipes.pipes;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDSatellite;
 import logisticspipes.interfaces.IChestContentReceiver;
@@ -29,6 +30,7 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,11 +40,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class PipeFluidSatellite extends FluidRoutedPipe
-        implements IRequestFluid,
-                IRequireReliableFluidTransport,
-                IHeadUpDisplayRendererProvider,
-                IChestContentReceiver {
+public class PipeFluidSatellite extends FluidRoutedPipe implements IRequestFluid, IRequireReliableFluidTransport,
+        IHeadUpDisplayRendererProvider, IChestContentReceiver {
 
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
     public final LinkedList<ItemIdentifierStack> itemList = new LinkedList<>();
@@ -127,10 +126,7 @@ public class PipeFluidSatellite extends FluidRoutedPipe
             oldList.clear();
             oldList.addAll(itemList);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ChestContent.class)
-                            .setIdentList(itemList)
-                            .setPosX(getX())
-                            .setPosY(getY())
+                    PacketHandler.getPacket(ChestContent.class).setIdentList(itemList).setPosX(getX()).setPosY(getY())
                             .setPosZ(getZ()),
                     localModeWatchers);
         }
@@ -149,31 +145,24 @@ public class PipeFluidSatellite extends FluidRoutedPipe
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopWatchingPacket.class)
-                .setInteger(1)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void playerStartWatching(EntityPlayer player, int mode) {
         if (mode == 1) {
             localModeWatchers.add(player);
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                    .setSatID((this).satelliteId)
-                    .setPosX(getX())
-                    .setPosY(getY())
-                    .setPosZ(getZ());
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID((this).satelliteId)
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
             updateInv(true);
         } else {
@@ -250,17 +239,12 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         satelliteId = findId(1);
         ensureAllSatelliteStatus();
         if (MainProxy.isClient(player.worldObj)) {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeNext.class)
-                    .setPosX(getX())
-                    .setPosY(getY())
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeNext.class).setPosX(getX()).setPosY(getY())
                     .setPosZ(getZ());
             MainProxy.sendPacketToServer(packet);
         } else {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                    .setSatID(satelliteId)
-                    .setPosX(getX())
-                    .setPosY(getY())
-                    .setPosZ(getZ());
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
         }
         updateWatchers();
@@ -270,17 +254,12 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         satelliteId = findId(-1);
         ensureAllSatelliteStatus();
         if (MainProxy.isClient(player.worldObj)) {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipePrev.class)
-                    .setPosX(getX())
-                    .setPosY(getY())
+            final ModernPacket packet = PacketHandler.getPacket(SatPipePrev.class).setPosX(getX()).setPosY(getY())
                     .setPosZ(getZ());
             MainProxy.sendPacketToServer(packet);
         } else {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                    .setSatID(satelliteId)
-                    .setPosX(getX())
-                    .setPosY(getY())
-                    .setPosZ(getZ());
+            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
         }
         updateWatchers();
@@ -288,10 +267,7 @@ public class PipeFluidSatellite extends FluidRoutedPipe
 
     private void updateWatchers() {
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SatPipeSetID.class)
-                        .setSatID(satelliteId)
-                        .setPosX(getX())
-                        .setPosY(getY())
+                PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId).setPosX(getX()).setPosY(getY())
                         .setPosZ(getZ()),
                 ((PipeFluidSatellite) container.pipe).localModeWatchers);
     }
@@ -307,11 +283,8 @@ public class PipeFluidSatellite extends FluidRoutedPipe
     @Override
     public void onWrenchClicked(EntityPlayer entityplayer) {
         // Send the satellite id when opening gui
-        final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class)
-                .setSatID(satelliteId)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ());
+        final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId).setPosX(getX())
+                .setPosY(getY()).setPosZ(getZ());
         MainProxy.sendPacketToPlayer(packet, entityplayer);
         entityplayer.openGui(LogisticsPipes.instance, GuiIDs.GUI_SatelitePipe_ID, getWorld(), getX(), getY(), getZ());
     }
@@ -322,8 +295,7 @@ public class PipeFluidSatellite extends FluidRoutedPipe
         if (_lostItems.isEmpty()) {
             return;
         }
-        final Iterator<Entry<FluidIdentifier, Integer>> iterator =
-                _lostItems.entrySet().iterator();
+        final Iterator<Entry<FluidIdentifier, Integer>> iterator = _lostItems.entrySet().iterator();
         while (iterator.hasNext()) {
             Entry<FluidIdentifier, Integer> stack = iterator.next();
             int received = RequestTree.requestFluidPartial(stack.getKey(), stack.getValue(), this, null);

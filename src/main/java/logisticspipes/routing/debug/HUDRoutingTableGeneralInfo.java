@@ -11,7 +11,9 @@ import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.routing.debug.ClientViewController.DebugInformation;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.hud.BasicHUDButton;
+
 import net.minecraft.client.Minecraft;
+
 import org.lwjgl.opengl.GL11;
 
 public class HUDRoutingTableGeneralInfo extends BasicHUDGui implements IHeadUpDisplayRenderer {
@@ -56,8 +58,7 @@ public class HUDRoutingTableGeneralInfo extends BasicHUDGui implements IHeadUpDi
 
             @Override
             public void clicked() {
-                MainProxy.sendPacketToServer(
-                        PacketHandler.getPacket(RoutingUpdateUntrace.class).setInteger(index));
+                MainProxy.sendPacketToServer(PacketHandler.getPacket(RoutingUpdateUntrace.class).setInteger(index));
                 display = false;
             }
 

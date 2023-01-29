@@ -5,6 +5,7 @@ import logisticspipes.api.IHUDArmor;
 import logisticspipes.network.GuiIDs;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -23,8 +24,8 @@ public class ItemHUDArmor extends ItemArmor implements ISpecialArmor, IHUDArmor 
     }
 
     @Override
-    public ArmorProperties getProperties(
-            EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+    public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage,
+            int slot) {
         return new ArmorProperties(0, 0, 0);
     }
 
@@ -53,17 +54,8 @@ public class ItemHUDArmor extends ItemArmor implements ISpecialArmor, IHUDArmor 
     }
 
     @Override
-    public boolean onItemUseFirst(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         useItem(player, world);
         return !MainProxy.isClient(world);
     }
@@ -74,13 +66,12 @@ public class ItemHUDArmor extends ItemArmor implements ISpecialArmor, IHUDArmor 
 
     @Override
     public CreativeTabs[] getCreativeTabs() {
-        return new CreativeTabs[] {getCreativeTab(), LogisticsPipes.LPCreativeTab};
+        return new CreativeTabs[] { getCreativeTab(), LogisticsPipes.LPCreativeTab };
     }
 
     @Override
     public void registerIcons(IIconRegister par1IIconRegister) {
-        itemIcon = par1IIconRegister.registerIcon(
-                "logisticspipes:" + getUnlocalizedName().replace("item.", ""));
+        itemIcon = par1IIconRegister.registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", ""));
     }
 
     @Override

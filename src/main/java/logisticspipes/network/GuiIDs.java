@@ -13,23 +13,16 @@ public class GuiIDs {
     public static final int GUI_FIREWALL = 17;
     public static final int GUI_FluidSupplier_MK2_ID = 18;
 
-    /*	//Modules
-    //public static final int GUI_Module_Extractor_ID = 20;
-    //public static final int GUI_Module_ItemSink_ID = 21;
-    public static final int GUI_Module_FluidSupplier_ID = 22;
-    public static final int GUI_Module_CC_Based_QuickSort_ID = 23;
-    public static final int GUI_Module_Provider_ID = 24;
-    public static final int GUI_Module_Simple_Filter_ID = 25;
-    public static final int GUI_ChassiModule_ID = 26;
-    public static final int GUI_Module_Advanced_Extractor_ID = 27;
-    public static final int GUI_Module_Apiarist_Sink_ID = 28;
-    public static final int GUI_Module_ModBased_ItemSink_ID = 29;
-
-    public static final int GUI_Module_ElectricManager_ID = 40;
-    public static final int GUI_Module_Thaumic_AspectSink_ID = 41;
-    public static final int GUI_Module_Apiarist_Analyzer = 42;
-    public static final int GUI_Module_OreDict_ItemSink_ID = 43;
-    */
+    /*
+     * //Modules //public static final int GUI_Module_Extractor_ID = 20; //public static final int
+     * GUI_Module_ItemSink_ID = 21; public static final int GUI_Module_FluidSupplier_ID = 22; public static final int
+     * GUI_Module_CC_Based_QuickSort_ID = 23; public static final int GUI_Module_Provider_ID = 24; public static final
+     * int GUI_Module_Simple_Filter_ID = 25; public static final int GUI_ChassiModule_ID = 26; public static final int
+     * GUI_Module_Advanced_Extractor_ID = 27; public static final int GUI_Module_Apiarist_Sink_ID = 28; public static
+     * final int GUI_Module_ModBased_ItemSink_ID = 29; public static final int GUI_Module_ElectricManager_ID = 40;
+     * public static final int GUI_Module_Thaumic_AspectSink_ID = 41; public static final int
+     * GUI_Module_Apiarist_Analyzer = 42; public static final int GUI_Module_OreDict_ItemSink_ID = 43;
+     */
 
     // Devices
     public static final int GUI_Normal_Orderer_ID = 31;

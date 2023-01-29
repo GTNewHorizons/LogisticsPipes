@@ -1,16 +1,18 @@
 package logisticspipes.nei;
 
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
-import codechicken.nei.guihook.GuiContainerManager;
-import cpw.mods.fml.common.Mod;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.GuiLogisticsCraftingTable;
 import logisticspipes.gui.GuiSolderingStation;
 import logisticspipes.gui.orderer.GuiRequestTable;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import codechicken.nei.api.API;
+import codechicken.nei.api.IConfigureNEI;
+import codechicken.nei.guihook.GuiContainerManager;
+import cpw.mods.fml.common.Mod;
 
 public class NEILogisticsPipesConfig implements IConfigureNEI {
 
@@ -27,32 +29,25 @@ public class NEILogisticsPipesConfig implements IConfigureNEI {
         GuiContainerManager.addDrawHandler(new DrawHandler());
 
         /*
-        MultiItemRange main = new MultiItemRange();
-        main.add(LogisticsPipes.LogisticsNetworkMonitior);
-        main.add(LogisticsPipes.LogisticsRemoteOrderer);
-        main.add(LogisticsPipes.LogisticsCraftingSignCreator);
-
-        MultiItemRange pipesChassi = new MultiItemRange();
-        pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk1);
-        pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk2);
-        pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk3);
-        pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk4);
-        pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk5);
-
-        MultiItemRange modules = new MultiItemRange();
-        modules.add(LogisticsPipes.ModuleItem, 0, 1000);
-
-        addSetRange("LogisticsPipes", main);
-        addSetRange("LogisticsPipes.Modules", modules);
-        //addSetRange("LogisticsPipes.Pipes", pipes);
-        addSetRange("LogisticsPipes.Pipes.Chassi", pipesChassi);
+         * MultiItemRange main = new MultiItemRange(); main.add(LogisticsPipes.LogisticsNetworkMonitior);
+         * main.add(LogisticsPipes.LogisticsRemoteOrderer); main.add(LogisticsPipes.LogisticsCraftingSignCreator);
+         * MultiItemRange pipesChassi = new MultiItemRange(); pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk1);
+         * pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk2);
+         * pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk3);
+         * pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk4);
+         * pipesChassi.add(LogisticsPipes.LogisticsChassisPipeMk5); MultiItemRange modules = new MultiItemRange();
+         * modules.add(LogisticsPipes.ModuleItem, 0, 1000); addSetRange("LogisticsPipes", main);
+         * addSetRange("LogisticsPipes.Modules", modules); //addSetRange("LogisticsPipes.Pipes", pipes);
+         * addSetRange("LogisticsPipes.Pipes.Chassi", pipesChassi);
          */
 
         API.registerRecipeHandler(new NEISolderingStationRecipeManager());
         API.registerUsageHandler(new NEISolderingStationRecipeManager());
         API.registerGuiOverlay(GuiSolderingStation.class, "solderingstation");
         API.registerGuiOverlayHandler(
-                GuiLogisticsCraftingTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
+                GuiLogisticsCraftingTable.class,
+                new LogisticsCraftingOverlayHandler(),
+                "crafting");
         API.registerGuiOverlayHandler(GuiRequestTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
 
         // unused stuff

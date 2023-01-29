@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
@@ -31,6 +32,7 @@ import logisticspipes.ticks.QueuedTasks;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,8 +54,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                     clazz = ClassCreator.getWrapperClass(info, object.getClass().getName());
                     map.put(object.getClass(), clazz);
                 }
-                return clazz.getConstructor(CCWrapperInformation.class, Object.class)
-                        .newInstance(info, object);
+                return clazz.getConstructor(CCWrapperInformation.class, Object.class).newInstance(info, object);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
@@ -159,7 +160,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                     page.append("\n");
                 }
             }
-            return new Object[] {page.toString()};
+            return new Object[] { page.toString() };
         } else {
             for (int i = 0; i < 16 - lines.length; i++) {
                 String buffer = head.toString();
@@ -167,7 +168,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 head.append("\n").append(buffer);
             }
         }
-        return new Object[] {String.valueOf(head) + head2 + help};
+        return new Object[] { String.valueOf(head) + head2 + help };
     }
 
     @Callback(direct = true)
@@ -176,14 +177,14 @@ public abstract class BaseWrapperClass extends AbstractValue {
             throw new Exception("This LP object is not persistable");
         }
         if (args.count() != 1) {
-            return new Object[] {"Wrong Argument Count"};
+            return new Object[] { "Wrong Argument Count" };
         }
         if (!args.isInteger(0)) {
-            return new Object[] {"Wrong Argument Type"};
+            return new Object[] { "Wrong Argument Type" };
         }
         Integer number = args.checkInteger(0);
         if (!info.commands.containsKey(number)) {
-            return new Object[] {"No command with that index"};
+            return new Object[] { "No command with that index" };
         }
         Method method = info.commands.get(number);
         StringBuilder help = new StringBuilder();
@@ -211,7 +212,7 @@ public abstract class BaseWrapperClass extends AbstractValue {
         help.append("\n");
         help.append("Description: \n");
         help.append(method.getAnnotation(CCCommand.class).description());
-        return new Object[] {help.toString()};
+        return new Object[] { help.toString() };
     }
 
     @Override
@@ -222,14 +223,9 @@ public abstract class BaseWrapperClass extends AbstractValue {
                     return getType() + ": " + object.toString();
                 }
                 if (object instanceof ICCTypeWrapped) {
-                    if (((ICCTypeWrapped) object)
-                                    .getObject()
-                                    .getClass()
-                                    .getMethod("toString")
-                                    .getDeclaringClass()
+                    if (((ICCTypeWrapped) object).getObject().getClass().getMethod("toString").getDeclaringClass()
                             != Object.class) {
-                        return getType() + ": "
-                                + ((ICCTypeWrapped) object).getObject().toString();
+                        return getType() + ": " + ((ICCTypeWrapped) object).getObject().toString();
                     }
                 }
             } catch (NoSuchMethodException | SecurityException e) {
@@ -450,16 +446,10 @@ public abstract class BaseWrapperClass extends AbstractValue {
             nbt.setInteger("Z", pos.getZ());
         } else if (object instanceof CCItemIdentifierImplementation) {
             nbt.setString("Type", "CCItemIdentifierImplementation");
-            ((CCItemIdentifierImplementation) object)
-                    .getObject()
-                    .makeNormalStack(1)
-                    .writeToNBT(nbt);
+            ((CCItemIdentifierImplementation) object).getObject().makeNormalStack(1).writeToNBT(nbt);
         } else if (object instanceof CCItemIdentifierStackImplementation) {
             nbt.setString("Type", "CCItemIdentifierStackImplementation");
-            ((CCItemIdentifierStackImplementation) object)
-                    .getObject()
-                    .makeNormalStack()
-                    .writeToNBT(nbt);
+            ((CCItemIdentifierStackImplementation) object).getObject().makeNormalStack().writeToNBT(nbt);
         } else if (object instanceof CCItemIdentifierBuilder) {
             nbt.setString("Type", "CCItemIdentifierBuilder");
             ((CCItemIdentifierBuilder) object).build().makeNormalStack(1).writeToNBT(nbt);

@@ -2,13 +2,14 @@ package logisticspipes.commands;
 
 import logisticspipes.commands.abstracts.SubCommandHandler;
 import logisticspipes.commands.commands.*;
+
 import net.minecraft.command.ICommandSender;
 
 public class MainCommandHandler extends SubCommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"logisticspipes", "lp", "logipipes"};
+        return new String[] { "logisticspipes", "lp", "logipipes" };
     }
 
     @Override
@@ -18,7 +19,7 @@ public class MainCommandHandler extends SubCommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"The main LP command"};
+        return new String[] { "The main LP command" };
     }
 
     @Override

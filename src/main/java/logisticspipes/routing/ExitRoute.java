@@ -1,15 +1,14 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.routing;
 
 import java.util.*;
+
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.routing.debug.ExitRouteDebug;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
@@ -27,18 +26,12 @@ public class ExitRoute implements Comparable<ExitRoute> {
     public IRouter root;
     public List<IFilter> filters = Collections.unmodifiableList(new ArrayList<>(0));
     /**
-     * Used to store debug information. No use in the actual Routing table
-     * calculation
+     * Used to store debug information. No use in the actual Routing table calculation
      */
     public ExitRouteDebug debug = new ExitRouteDebug();
 
-    public ExitRoute(
-            IRouter source,
-            IRouter destination,
-            ForgeDirection exitOrientation,
-            ForgeDirection insertOrientation,
-            double metric,
-            EnumSet<PipeRoutingConnectionType> connectionDetails,
+    public ExitRoute(IRouter source, IRouter destination, ForgeDirection exitOrientation,
+            ForgeDirection insertOrientation, double metric, EnumSet<PipeRoutingConnectionType> connectionDetails,
             int blockDistance) {
         this.destination = destination;
         root = source;
@@ -69,8 +62,7 @@ public class ExitRoute implements Comparable<ExitRoute> {
             return false;
         }
         ExitRoute that = (ExitRoute) aThat;
-        return exitOrientation.equals(that.exitOrientation)
-                && insertOrientation.equals(that.insertOrientation)
+        return exitOrientation.equals(that.exitOrientation) && insertOrientation.equals(that.insertOrientation)
                 && connectionDetails.equals(that.connectionDetails)
                 && distanceToDestination == that.distanceToDestination
                 && destinationDistanceToRoot == that.destinationDistanceToRoot
@@ -82,15 +74,24 @@ public class ExitRoute implements Comparable<ExitRoute> {
         if (equals(that)) {
             return true;
         }
-        return connectionDetails.equals(that.connectionDetails)
-                && destination == that.destination
+        return connectionDetails.equals(that.connectionDetails) && destination == that.destination
                 && filters.equals(that.filters);
     }
 
     @Override
     public String toString() {
-        return "{" + exitOrientation.name() + "," + insertOrientation.name() + "," + distanceToDestination + ","
-                + destinationDistanceToRoot + ", ConnectionDetails: " + connectionDetails + ", " + filters + "}";
+        return "{" + exitOrientation.name()
+                + ","
+                + insertOrientation.name()
+                + ","
+                + distanceToDestination
+                + ","
+                + destinationDistanceToRoot
+                + ", ConnectionDetails: "
+                + connectionDetails
+                + ", "
+                + filters
+                + "}";
     }
 
     public void removeFlags(EnumSet<PipeRoutingConnectionType> flags) {
@@ -124,14 +125,8 @@ public class ExitRoute implements Comparable<ExitRoute> {
         return c;
     }
 
-    public ExitRoute(
-            IRouter source,
-            IRouter destination,
-            double distance,
-            EnumSet<PipeRoutingConnectionType> enumSet,
-            List<IFilter> filterA,
-            List<IFilter> filterB,
-            int blockDistance) {
+    public ExitRoute(IRouter source, IRouter destination, double distance, EnumSet<PipeRoutingConnectionType> enumSet,
+            List<IFilter> filterA, List<IFilter> filterB, int blockDistance) {
         this(source, destination, ForgeDirection.UNKNOWN, ForgeDirection.UNKNOWN, distance, enumSet, blockDistance);
         List<IFilter> filter = new ArrayList<>(filterA.size() + filterB.size());
         filter.addAll(filterA);

@@ -1,11 +1,11 @@
 package logisticspipes.proxy.buildcraft.gates;
 
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerInternal;
-import buildcraft.transport.Pipe;
 import logisticspipes.pipes.PipeItemsCraftingLogistics;
 import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
 import logisticspipes.textures.provider.LPActionTriggerIconProvider;
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerInternal;
+import buildcraft.transport.Pipe;
 
 public class TriggerCrafting extends LPTrigger implements ITriggerInternal {
 

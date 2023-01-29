@@ -5,6 +5,7 @@ import logisticspipes.gui.GuiPowerProvider;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PowerProviderGui extends CoordinatesGuiProvider {
@@ -15,8 +16,8 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
 
     @Override
     public Object getClientGui(EntityPlayer player) {
-        LogisticsPowerProviderTileEntity tile =
-                this.getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
+        LogisticsPowerProviderTileEntity tile = this
+                .getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
         if (tile == null) {
             return null;
         }
@@ -25,8 +26,8 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
 
     @Override
     public DummyContainer getContainer(EntityPlayer player) {
-        LogisticsPowerProviderTileEntity tile =
-                this.getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
+        LogisticsPowerProviderTileEntity tile = this
+                .getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
         if (tile == null) {
             return null;
         }

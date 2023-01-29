@@ -7,6 +7,7 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.RequestHandler;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
@@ -23,8 +24,8 @@ public class RequestComponentPacket extends RequestPacket {
 
     @Override
     public void processPacket(EntityPlayer player) {
-        final LogisticsTileGenericPipe pipe =
-                MainProxy.proxy.getPipeInDimensionAt(getDimension(), getPosX(), getPosY(), getPosZ(), player);
+        final LogisticsTileGenericPipe pipe = MainProxy.proxy
+                .getPipeInDimensionAt(getDimension(), getPosX(), getPosY(), getPosZ(), player);
         if (pipe == null || !(pipe.pipe instanceof CoreRoutedPipe)) {
             return;
         }

@@ -4,14 +4,18 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
 import javax.xml.bind.DatatypeConverter;
+
 import logisticspipes.LPConstants;
 import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
 import logisticspipes.proxy.opencomputers.asm.ClassCreator;
 import logisticspipes.utils.ModStatusHelper;
+
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -37,8 +41,7 @@ public class LogisticsPipesClassInjector implements IClassTransformer {
                 if (node.visibleAnnotations != null) {
                     for (AnnotationNode a : node.visibleAnnotations) {
                         if (a.desc.equals("Llogisticspipes/asm/ModVersionedClass;")) {
-                            if (a.values.size() == 8
-                                    && a.values.get(0).equals("modId")
+                            if (a.values.size() == 8 && a.values.get(0).equals("modId")
                                     && a.values.get(2).equals("version")
                                     && a.values.get(4).equals("classData")
                                     && a.values.get(6).equals("classDataDev")) {
@@ -51,8 +54,7 @@ public class LogisticsPipesClassInjector implements IClassTransformer {
                                     if (isObfEnv == null) {
                                         try {
                                             isObfEnv = (Class.forName("net.minecraft.world.World")
-                                                            .getDeclaredField("chunkProvider")
-                                                    == null);
+                                                    .getDeclaredField("chunkProvider") == null);
                                         } catch (Throwable e) {
                                             isObfEnv = true;
                                         }
@@ -76,8 +78,8 @@ public class LogisticsPipesClassInjector implements IClassTransformer {
                     && name.endsWith("$OpenComputersWrapper")) {
                 String correctName = name.substring(56, name.length() - 21);
                 Class<?> clazz = Launch.classLoader.findClass(correctName);
-                bytes = ClassCreator.getWrappedClassAsBytes(
-                        CCObjectWrapper.getWrapperInformation(clazz), clazz.getName());
+                bytes = ClassCreator
+                        .getWrappedClassAsBytes(CCObjectWrapper.getWrapperInformation(clazz), clazz.getName());
                 Set<String> set = new TreeSet<>();
                 set.add(name);
                 Launch.classLoader.clearNegativeEntries(set);

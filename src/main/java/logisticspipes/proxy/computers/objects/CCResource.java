@@ -75,8 +75,7 @@ public class CCResource implements ILPCCTypeDefinition {
         }
 
         @CCCommand(
-                description =
-                        "Returns whether the OreDictionary's entry category should be used to compare this resource")
+                description = "Returns whether the OreDictionary's entry category should be used to compare this resource")
         public Boolean isUseOreDictionaryCategorySet() {
             return resource.use_category;
         }

@@ -1,6 +1,7 @@
 package logisticspipes.commands.commands.debug;
 
 import logisticspipes.commands.abstracts.ICommandHandler;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
@@ -9,7 +10,7 @@ public class MeCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"me", "self"};
+        return new String[] { "me", "self" };
     }
 
     @Override
@@ -19,7 +20,7 @@ public class MeCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Start debugging the CommandSender"};
+        return new String[] { "Start debugging the CommandSender" };
     }
 
     @Override

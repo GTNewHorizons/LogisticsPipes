@@ -1,10 +1,12 @@
 package logisticspipes.items;
 
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -58,7 +60,7 @@ public class LogisticsSolidBlockItem extends ItemBlock {
         return par1;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(this, 1, LogisticsSolidBlock.SOLDERING_STATION));

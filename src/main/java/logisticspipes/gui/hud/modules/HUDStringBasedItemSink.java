@@ -1,13 +1,16 @@
 package logisticspipes.gui.hud.modules;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.IHUDButton;
 import logisticspipes.interfaces.IHUDModuleRenderer;
 import logisticspipes.interfaces.IStringBasedModule;
 import logisticspipes.utils.gui.hud.BasicHUDButton;
+
 import net.minecraft.client.Minecraft;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class HUDStringBasedItemSink implements IHUDModuleRenderer {
 
@@ -60,7 +63,10 @@ public class HUDStringBasedItemSink implements IHUDModuleRenderer {
         for (int i = page * 6; i < itemSink.getStringList().size() && i < 6 + (page * 6); i++) {
             String mod = itemSink.getStringList().get(i);
             mc.fontRenderer.drawString(
-                    mod.substring(0, Math.min(12, mod.length())), -28, -25 + ((i - (page * 6)) * 10), 0x404040);
+                    mod.substring(0, Math.min(12, mod.length())),
+                    -28,
+                    -25 + ((i - (page * 6)) * 10),
+                    0x404040);
             // mc.fontRenderer.drawSplitString(mod, -28, -25 + ((i - (page * 6)) * 10), 50, 0x404040);
         }
     }

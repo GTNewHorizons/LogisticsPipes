@@ -1,8 +1,8 @@
 package logisticspipes.utils.gui;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ISpecialItemRenderer;
 import logisticspipes.utils.Color;
@@ -12,6 +12,7 @@ import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -20,10 +21,13 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class ItemDisplay {
 
@@ -63,16 +67,8 @@ public class ItemDisplay {
     private final Minecraft mc = FMLClientHandler.instance().getClient();
     private static DisplayOption option = DisplayOption.ID;
 
-    public ItemDisplay(
-            IItemSearch search,
-            FontRenderer fontRenderer,
-            LogisticsBaseGuiScreen screen,
-            ISpecialItemRenderer renderer,
-            int left,
-            int top,
-            int width,
-            int height,
-            int[] amountChangeMode,
+    public ItemDisplay(IItemSearch search, FontRenderer fontRenderer, LogisticsBaseGuiScreen screen,
+            ISpecialItemRenderer renderer, int left, int top, int width, int height, int[] amountChangeMode,
             boolean shiftPageChange) {
         this.search = search;
         this.fontRenderer = fontRenderer;
@@ -148,9 +144,7 @@ public class ItemDisplay {
                 }
                 return basicCompare(o2, o1);
             } else if (ItemDisplay.option == DisplayOption.NAME) {
-                int c = o1.getItem()
-                        .getFriendlyName()
-                        .compareToIgnoreCase(o2.getItem().getFriendlyName());
+                int c = o1.getItem().getFriendlyName().compareToIgnoreCase(o2.getItem().getFriendlyName());
                 if (c != 0) {
                     return c;
                 }
@@ -160,9 +154,7 @@ public class ItemDisplay {
                 }
                 return o2.getStackSize() - o1.getStackSize();
             } else if (ItemDisplay.option == DisplayOption.NAME_DOWN) {
-                int c = o2.getItem()
-                        .getFriendlyName()
-                        .compareToIgnoreCase(o1.getItem().getFriendlyName());
+                int c = o2.getItem().getFriendlyName().compareToIgnoreCase(o1.getItem().getFriendlyName());
                 if (c != 0) {
                     return c;
                 }
@@ -232,7 +224,10 @@ public class ItemDisplay {
         String StackrequestCount = "" + (requestCount / stackAmount) + "+" + (requestCount % stackAmount);
         fontRenderer.drawString(requestCount + "", x - fontRenderer.getStringWidth(requestCount + "") / 2, y, 0x404040);
         fontRenderer.drawString(
-                StackrequestCount + "", x - fontRenderer.getStringWidth(StackrequestCount + "") / 2, y + 10, 0x404040);
+                StackrequestCount + "",
+                x - fontRenderer.getStringWidth(StackrequestCount + "") / 2,
+                y + 10,
+                0x404040);
     }
 
     public void renderItemArea(double zLevel) {
@@ -304,15 +299,15 @@ public class ItemDisplay {
                     screen.drawRect(x - 2, y - 2, x + panelxSize - 2, y + panelySize - 2, Color.BLACK);
                     screen.drawRect(x - 1, y - 1, x + panelxSize - 3, y + panelySize - 3, Color.DARKER_GREY);
 
-                    tooltip = new Object[] {mouseX + left, mouseY + top, itemstack};
+                    tooltip = new Object[] { mouseX + left, mouseY + top, itemstack };
                 }
 
-                /*if (lastClickedx >= realX && lastClickedx < realX + panelxSize && lastClickedy >= realY && lastClickedy < realY + panelySize) {
-                	selectedItem = itemIdentifierStack;
-                	screen.drawRect(x - 2, y - 2, x + panelxSize - 2, y + panelySize - 2, Color.BLACK);
-                	screen.drawRect(x - 1, y - 1, x + panelxSize - 3, y + panelySize - 3, Color.LIGHTER_GREY);
-                	screen.drawRect(x, y, x + panelxSize - 4, y + panelySize - 4, Color.DARKER_GREY);
-                }
+                /*
+                 * if (lastClickedx >= realX && lastClickedx < realX + panelxSize && lastClickedy >= realY &&
+                 * lastClickedy < realY + panelySize) { selectedItem = itemIdentifierStack; screen.drawRect(x - 2, y -
+                 * 2, x + panelxSize - 2, y + panelySize - 2, Color.BLACK); screen.drawRect(x - 1, y - 1, x + panelxSize
+                 * - 3, y + panelySize - 3, Color.LIGHTER_GREY); screen.drawRect(x, y, x + panelxSize - 4, y +
+                 * panelySize - 4, Color.DARKER_GREY); }
                  */
                 if (selectedItem == itemIdentifierStack) {
                     screen.drawRect(x - 2, y - 2, x + panelxSize - 2, y + panelySize - 2, Color.BLACK);
@@ -504,8 +499,7 @@ public class ItemDisplay {
         }
         selectedItem = null;
         for (Entry<Pair<Integer, Integer>, ItemIdentifierStack> entry : map.entrySet()) {
-            if (x >= entry.getKey().getValue1()
-                    && x < entry.getKey().getValue1() + ItemDisplay.PANELSIZEX
+            if (x >= entry.getKey().getValue1() && x < entry.getKey().getValue1() + ItemDisplay.PANELSIZEX
                     && y >= entry.getKey().getValue2()
                     && y < entry.getKey().getValue2() + ItemDisplay.PANELSIZEY) {
                 selectedItem = entry.getValue();

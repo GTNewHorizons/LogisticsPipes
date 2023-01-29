@@ -4,8 +4,11 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.Locale;
+
 import logisticspipes.utils.Color;
+
 import net.minecraft.client.gui.FontRenderer;
+
 import org.lwjgl.input.Keyboard;
 
 public class SearchBar {
@@ -23,44 +26,23 @@ public class SearchBar {
     private final LogisticsBaseGuiScreen screen;
     private int left, top, heigth, width;
 
-    public SearchBar(
-            FontRenderer fontRenderer, LogisticsBaseGuiScreen screen, int left, int top, int width, int heigth) {
+    public SearchBar(FontRenderer fontRenderer, LogisticsBaseGuiScreen screen, int left, int top, int width,
+            int heigth) {
         this(fontRenderer, screen, left, top, width, heigth, true);
     }
 
-    public SearchBar(
-            FontRenderer fontRenderer,
-            LogisticsBaseGuiScreen screen,
-            int left,
-            int top,
-            int width,
-            int heigth,
+    public SearchBar(FontRenderer fontRenderer, LogisticsBaseGuiScreen screen, int left, int top, int width, int heigth,
             boolean isActive) {
         this(fontRenderer, screen, left, top, width, heigth, isActive, false);
     }
 
-    public SearchBar(
-            FontRenderer fontRenderer,
-            LogisticsBaseGuiScreen screen,
-            int left,
-            int top,
-            int width,
-            int heigth,
-            boolean isActive,
-            boolean numberOnly) {
+    public SearchBar(FontRenderer fontRenderer, LogisticsBaseGuiScreen screen, int left, int top, int width, int heigth,
+            boolean isActive, boolean numberOnly) {
         this(fontRenderer, screen, left, top, width, heigth, isActive, numberOnly, false);
     }
 
-    public SearchBar(
-            FontRenderer fontRenderer,
-            LogisticsBaseGuiScreen screen,
-            int left,
-            int top,
-            int width,
-            int heigth,
-            boolean isActive,
-            boolean numberOnly,
-            boolean alignRight) {
+    public SearchBar(FontRenderer fontRenderer, LogisticsBaseGuiScreen screen, int left, int top, int width, int heigth,
+            boolean isActive, boolean numberOnly, boolean alignRight) {
         this.fontRenderer = fontRenderer;
         this.screen = screen;
         this.left = left;
@@ -170,9 +152,7 @@ public class SearchBar {
         }
         if (c == 13 || i == 28) { // Enter
             unFocus();
-        } else if (c == 8
-                || (i == 14
-                        && System.getProperty("os.name").toLowerCase(Locale.US).contains("mac"))) { // Backspace
+        } else if (c == 8 || (i == 14 && System.getProperty("os.name").toLowerCase(Locale.US).contains("mac"))) { // Backspace
             if (searchinput1.length() > 0) {
                 searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
             }
@@ -232,13 +212,11 @@ public class SearchBar {
 
     private static String getClipboardString() {
         try {
-            Transferable transferable =
-                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+            Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
             if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
                 return (String) transferable.getTransferData(DataFlavor.stringFlavor);
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         return "";
     }
 }

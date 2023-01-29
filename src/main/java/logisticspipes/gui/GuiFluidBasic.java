@@ -5,6 +5,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 
@@ -37,7 +38,10 @@ public class GuiFluidBasic extends LogisticsBaseGuiScreen {
             mc.fontRenderer.drawString(StringUtils.translate("gui.fluidbasic.Empty"), 50, 18, 0x404040);
         } else {
             mc.fontRenderer.drawString(
-                    ItemIdentifier.get(inventorySlots.getSlot(0).getStack()).getFriendlyName(), 50, 18, 0x404040);
+                    ItemIdentifier.get(inventorySlots.getSlot(0).getStack()).getFriendlyName(),
+                    50,
+                    18,
+                    0x404040);
         }
     }
 }

@@ -1,15 +1,13 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.routing;
 
 import java.util.BitSet;
 import java.util.List;
 import java.util.UUID;
+
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.IFilter;
@@ -18,6 +16,7 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IRouter {
@@ -68,8 +67,8 @@ public interface IRouter {
     LPPosition getLPPosition();
 
     /**
-     * @param hasBeenProcessed a bitset flagging which nodes have already been acted on (the
-     *                         router should set the bit for it's own id, then return true.
+     * @param hasBeenProcessed a bitset flagging which nodes have already been acted on (the router should set the bit
+     *                         for it's own id, then return true.
      * @param actor            the visitor
      */
     void act(BitSet hasBeenProcessed, IRAction actor);

@@ -1,14 +1,9 @@
 package logisticspipes;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
-import cpw.mods.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+
 import logisticspipes.config.PlayerConfig;
 import logisticspipes.interfaces.IItemAdvancedExistance;
 import logisticspipes.modules.ModuleQuickSort;
@@ -28,6 +23,7 @@ import logisticspipes.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,23 +41,27 @@ import net.minecraftforge.event.world.ChunkWatchEvent.UnWatch;
 import net.minecraftforge.event.world.ChunkWatchEvent.Watch;
 import net.minecraftforge.event.world.WorldEvent;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import cpw.mods.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class LogisticsEventListener {
 
-    public static final WeakHashMap<EntityPlayer, List<WeakReference<ModuleQuickSort>>> chestQuickSortConnection =
-            new WeakHashMap<>();
+    public static final WeakHashMap<EntityPlayer, List<WeakReference<ModuleQuickSort>>> chestQuickSortConnection = new WeakHashMap<>();
     public static Map<ChunkCoordIntPair, PlayerCollectionList> watcherList = new ConcurrentHashMap<>();
     int taskCount = 0;
     public static Map<PlayerIdentifier, PlayerConfig> playerConfigs = new HashMap<>();
 
     @SubscribeEvent
     public void onEntitySpawn(EntityJoinWorldEvent event) {
-        if (event != null
-                && event.entity instanceof EntityItem
+        if (event != null && event.entity instanceof EntityItem
                 && event.entity.worldObj != null
                 && !event.entity.worldObj.isRemote) {
             ItemStack stack = ((EntityItem) event.entity).getEntityItem(); // Get ItemStack
-            if (stack != null
-                    && stack.getItem() instanceof IItemAdvancedExistance
+            if (stack != null && stack.getItem() instanceof IItemAdvancedExistance
                     && !((IItemAdvancedExistance) stack.getItem()).canExistInWorld(stack)) {
                 event.setCanceled(true);
             }
@@ -92,12 +92,12 @@ public class LogisticsEventListener {
                         if (!((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe)
                                 .canBeDestroyedByPlayer(event.entityPlayer)) {
                             event.setCanceled(true);
-                            event.entityPlayer.addChatComponentMessage(
-                                    new ChatComponentTranslation("lp.chat.permissiondenied"));
+                            event.entityPlayer
+                                    .addChatComponentMessage(new ChatComponentTranslation("lp.chat.permissiondenied"));
                             ((LogisticsTileGenericPipe) tile).scheduleNeighborChange();
                             event.entityPlayer.worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
-                            ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).delayTo =
-                                    System.currentTimeMillis() + 200;
+                            ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).delayTo = System
+                                    .currentTimeMillis() + 200;
                             ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).repeatFor = 10;
                         } else {
                             ((CoreRoutedPipe) ((LogisticsTileGenericPipe) tile).pipe).setDestroyByPlayer();
@@ -113,14 +113,14 @@ public class LogisticsEventListener {
                         if (adj.tile instanceof LogisticsTileGenericPipe) {
                             if (((LogisticsTileGenericPipe) adj.tile).pipe instanceof PipeLogisticsChassi) {
                                 if (((PipeLogisticsChassi) ((LogisticsTileGenericPipe) adj.tile).pipe)
-                                                .getPointedOrientation()
-                                        == adj.orientation.getOpposite()) {
-                                    PipeLogisticsChassi chassi =
-                                            (PipeLogisticsChassi) ((LogisticsTileGenericPipe) adj.tile).pipe;
+                                        .getPointedOrientation() == adj.orientation.getOpposite()) {
+                                    PipeLogisticsChassi chassi = (PipeLogisticsChassi) ((LogisticsTileGenericPipe) adj.tile).pipe;
                                     for (int i = 0; i < chassi.getChassiSize(); i++) {
                                         if (chassi.getLogisticsModule().getSubModule(i) instanceof ModuleQuickSort) {
-                                            list.add(new WeakReference<>((ModuleQuickSort)
-                                                    chassi.getLogisticsModule().getSubModule(i)));
+                                            list.add(
+                                                    new WeakReference<>(
+                                                            (ModuleQuickSort) chassi.getLogisticsModule()
+                                                                    .getSubModule(i)));
                                         }
                                     }
                                 }
@@ -184,7 +184,8 @@ public class LogisticsEventListener {
         SimpleServiceLocator.serverBufferHandler.clear(event.player);
         PlayerConfig config = LogisticsEventListener.getPlayerConfig(PlayerIdentifier.get(event.player));
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(PlayerConfigToClientPacket.class).setConfig(config), event.player);
+                PacketHandler.getPacket(PlayerConfigToClientPacket.class).setConfig(config),
+                event.player);
     }
 
     @SubscribeEvent
@@ -230,11 +231,9 @@ public class LogisticsEventListener {
             if (event.gui == null) {
                 if (part.isActive()) {
                     part = LogisticsEventListener.getGuiPos().poll();
-                    MainProxy.sendPacketToServer(PacketHandler.getPacket(GuiReopenPacket.class)
-                            .setGuiID(part.getGuiID())
-                            .setPosX(part.getXCoord())
-                            .setPosY(part.getYCoord())
-                            .setPosZ(part.getZCoord()));
+                    MainProxy.sendPacketToServer(
+                            PacketHandler.getPacket(GuiReopenPacket.class).setGuiID(part.getGuiID())
+                                    .setPosX(part.getXCoord()).setPosY(part.getYCoord()).setPosZ(part.getZCoord()));
                     LogisticsGuiOverrenderer.getInstance().setOverlaySlotActive(false);
                 }
             } else {
@@ -244,9 +243,8 @@ public class LogisticsEventListener {
         if (event.gui == null) {
             LogisticsGuiOverrenderer.getInstance().setOverlaySlotActive(false);
         }
-        if (event.gui instanceof GuiChest
-                || (SimpleServiceLocator.ironChestProxy != null
-                        && SimpleServiceLocator.ironChestProxy.isChestGui(event.gui))) {
+        if (event.gui instanceof GuiChest || (SimpleServiceLocator.ironChestProxy != null
+                && SimpleServiceLocator.ironChestProxy.isChestGui(event.gui))) {
             MainProxy.sendPacketToServer(PacketHandler.getPacket(ChestGuiOpened.class));
         } else {
             QuickSortChestMarkerStorage.getInstance().disable();

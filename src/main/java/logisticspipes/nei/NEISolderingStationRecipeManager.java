@@ -1,22 +1,28 @@
 package logisticspipes.nei;
 
-import codechicken.nei.NEIServerUtils;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.ShapedRecipeHandler;
 import java.awt.*;
+
 import logisticspipes.gui.GuiSolderingStation;
 import logisticspipes.recipes.SolderingStationRecipes;
 import logisticspipes.recipes.SolderingStationRecipes.SolderingStationRecipe;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 
+import codechicken.nei.NEIServerUtils;
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.ShapedRecipeHandler;
+
 public class NEISolderingStationRecipeManager extends ShapedRecipeHandler {
 
     private ShapedRecipeHandler.CachedShapedRecipe getShape(SolderingStationRecipe recipe) {
-        ShapedRecipeHandler.CachedShapedRecipe shape =
-                new ShapedRecipeHandler.CachedShapedRecipe(0, 0, null, recipe.result);
+        ShapedRecipeHandler.CachedShapedRecipe shape = new ShapedRecipeHandler.CachedShapedRecipe(
+                0,
+                0,
+                null,
+                recipe.result);
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 if (recipe.source[y * 3 + x] == null) {

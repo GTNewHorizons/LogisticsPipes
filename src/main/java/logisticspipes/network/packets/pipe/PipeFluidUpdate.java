@@ -2,6 +2,7 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 import java.util.BitSet;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
@@ -12,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -37,7 +39,9 @@ public class PipeFluidUpdate extends CoordinatesPacket {
         for (int i = 0; i < renderCache.length; i++) {
             if (bits.get(i)) {
                 renderCache[i] = new FluidStack(
-                        FluidRegistry.getFluid(data.readInt()), data.readInt(), data.readNBTTagCompound());
+                        FluidRegistry.getFluid(data.readInt()),
+                        data.readInt(),
+                        data.readNBTTagCompound());
             }
         }
     }

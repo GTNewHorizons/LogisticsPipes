@@ -1,16 +1,9 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils.item;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.*;
@@ -20,6 +13,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import logisticspipes.asm.addinfo.IAddInfo;
 import logisticspipes.asm.addinfo.IAddInfoProvider;
 import logisticspipes.items.LogisticsFluidContainer;
@@ -29,6 +23,7 @@ import logisticspipes.renderer.LogisticsRenderPipe;
 import logisticspipes.utils.FinalNBTTagCompound;
 import logisticspipes.utils.ReflectionHelper;
 import lombok.AllArgsConstructor;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -38,13 +33,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
- * @author Krapht I have no bloody clue what different mods use to differate
- * between items except for itemID, there is metadata, damage, and
- * whatnot. so..... to avoid having to change all my bloody code every
- * time I need to support a new item flag that would make it a
- * "different" item, I made this cache here A ItemIdentifier is
- * immutable, singleton and most importantly UNIQUE!
+ * @author Krapht I have no bloody clue what different mods use to differate between items except for itemID, there is
+ *         metadata, damage, and whatnot. so..... to avoid having to change all my bloody code every time I need to
+ *         support a new item flag that would make it a "different" item, I made this cache here A ItemIdentifier is
+ *         immutable, singleton and most importantly UNIQUE!
  */
 public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTypeHolder {
 
@@ -156,12 +154,16 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     // array of ItemIdentifiers for damage=0,tag=null items
-    private static final ConcurrentHashMap<Item, ItemIdentifier> simpleIdentifiers =
-            new ConcurrentHashMap<>(4096, 0.5f, 1);
+    private static final ConcurrentHashMap<Item, ItemIdentifier> simpleIdentifiers = new ConcurrentHashMap<>(
+            4096,
+            0.5f,
+            1);
 
     // array of arrays for items with damage>0 and tag==null
-    private static final ConcurrentHashMap<Item, IDamagedIdentifierHolder> damageIdentifiers =
-            new ConcurrentHashMap<>(4096, 0.5f, 1);
+    private static final ConcurrentHashMap<Item, IDamagedIdentifierHolder> damageIdentifiers = new ConcurrentHashMap<>(
+            4096,
+            0.5f,
+            1);
 
     // map for id+damage+tag -> ItemIdentifier lookup
     private static final HashMap<ItemKey, IDReference> keyRefMap = new HashMap<>(1024, 0.5f);
@@ -325,8 +327,8 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         return get(item, itemUndamagableDamage, tag, null);
     }
 
-    private static ItemIdentifier get(
-            Item item, int itemUndamagableDamage, NBTTagCompound tag, ItemIdentifier proposal) {
+    private static ItemIdentifier get(Item item, int itemUndamagableDamage, NBTTagCompound tag,
+            ItemIdentifier proposal) {
         if (itemUndamagableDamage < 0) {
             throw new IllegalArgumentException("Item Damage out of range");
         }
@@ -344,6 +346,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
 
     @AllArgsConstructor
     public static class ItemStackAddInfo implements IAddInfo {
+
         private final ItemIdentifier ident;
     }
 
@@ -361,8 +364,8 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                 proposal = info.ident;
             }
         }
-        ItemIdentifier ident = ItemIdentifier.get(
-                itemStack.getItem(), itemStack.getItemDamage(), itemStack.stackTagCompound, proposal);
+        ItemIdentifier ident = ItemIdentifier
+                .get(itemStack.getItem(), itemStack.getItemDamage(), itemStack.stackTagCompound, proposal);
         if (ident != proposal && prov != null && !itemStack.hasTagCompound()) {
             prov.setLogisticsPipesAddInfo(new ItemStackAddInfo(ident));
         }
@@ -488,12 +491,12 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                     Block block = Block.getBlockFromItem(item);
                     if (block != null) {
                         try {
-                            tab = ReflectionHelper.getPrivateField(
-                                    CreativeTabs.class, Block.class, "displayOnCreativeTab", block);
+                            tab = ReflectionHelper
+                                    .getPrivateField(CreativeTabs.class, Block.class, "displayOnCreativeTab", block);
                         } catch (NoSuchFieldException e1) {
                             try {
-                                tab = ReflectionHelper.getPrivateField(
-                                        CreativeTabs.class, Block.class, "field_149772_a", block);
+                                tab = ReflectionHelper
+                                        .getPrivateField(CreativeTabs.class, Block.class, "field_149772_a", block);
                             } catch (NoSuchFieldException e2) {
                                 tab = ReflectionHelper.getPrivateField(CreativeTabs.class, Block.class, "a", block);
                             }
@@ -502,23 +505,20 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
                 }
                 if (tab != null) {
                     try {
-                        creativeTabName =
-                                ReflectionHelper.getPrivateField(String.class, CreativeTabs.class, "tabLabel", tab);
+                        creativeTabName = ReflectionHelper
+                                .getPrivateField(String.class, CreativeTabs.class, "tabLabel", tab);
                     } catch (NoSuchFieldException e1) {
                         try {
-                            creativeTabName = ReflectionHelper.getPrivateField(
-                                    String.class, CreativeTabs.class, "field_78034_o", tab);
+                            creativeTabName = ReflectionHelper
+                                    .getPrivateField(String.class, CreativeTabs.class, "field_78034_o", tab);
                         } catch (NoSuchFieldException e2) {
-                            creativeTabName =
-                                    ReflectionHelper.getPrivateField(String.class, CreativeTabs.class, "o", tab);
+                            creativeTabName = ReflectionHelper
+                                    .getPrivateField(String.class, CreativeTabs.class, "o", tab);
                         }
                     }
                 }
-            } catch (NoSuchFieldException
-                    | IllegalAccessException
-                    | IllegalArgumentException
-                    | SecurityException ignored) {
-            }
+            } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException
+                    | SecurityException ignored) {}
             if (creativeTabName == null) {
                 creativeTabName = "UNKNOWN";
             }
@@ -668,8 +668,7 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             map.put("value", ((NBTTagString) nbt).func_150285_a_());
             return map;
         } else {
-            throw new UnsupportedOperationException(
-                    "Unsupported NBTBase of type:" + nbt.getClass().getName());
+            throw new UnsupportedOperationException("Unsupported NBTBase of type:" + nbt.getClass().getName());
         }
     }
 
@@ -756,8 +755,13 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     public void debugDumpData(boolean isClient) {
-        System.out.println((isClient ? "Client" : "Server") + " Item: " + Item.getIdFromItem(item) + ":" + itemDamage
-                + " uniqueID " + uniqueID);
+        System.out.println(
+                (isClient ? "Client" : "Server") + " Item: "
+                        + Item.getIdFromItem(item)
+                        + ":"
+                        + itemDamage
+                        + " uniqueID "
+                        + uniqueID);
         StringBuilder sb = new StringBuilder();
         sb.append("Tag: ");
         debugDumpTag(tag, sb);
@@ -783,31 +787,19 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
             return;
         }
         if (nbt instanceof NBTTagByte) {
-            sb.append("TagByte(data=")
-                    .append(((NBTTagByte) nbt).func_150290_f())
-                    .append(")");
+            sb.append("TagByte(data=").append(((NBTTagByte) nbt).func_150290_f()).append(")");
         } else if (nbt instanceof NBTTagShort) {
-            sb.append("TagShort(data=")
-                    .append(((NBTTagShort) nbt).func_150289_e())
-                    .append(")");
+            sb.append("TagShort(data=").append(((NBTTagShort) nbt).func_150289_e()).append(")");
         } else if (nbt instanceof NBTTagInt) {
             sb.append("TagInt(data=").append(((NBTTagInt) nbt).func_150287_d()).append(")");
         } else if (nbt instanceof NBTTagLong) {
-            sb.append("TagLong(data=")
-                    .append(((NBTTagLong) nbt).func_150291_c())
-                    .append(")");
+            sb.append("TagLong(data=").append(((NBTTagLong) nbt).func_150291_c()).append(")");
         } else if (nbt instanceof NBTTagFloat) {
-            sb.append("TagFloat(data=")
-                    .append(((NBTTagFloat) nbt).func_150288_h())
-                    .append(")");
+            sb.append("TagFloat(data=").append(((NBTTagFloat) nbt).func_150288_h()).append(")");
         } else if (nbt instanceof NBTTagDouble) {
-            sb.append("TagDouble(data=")
-                    .append(((NBTTagDouble) nbt).func_150286_g())
-                    .append(")");
+            sb.append("TagDouble(data=").append(((NBTTagDouble) nbt).func_150286_g()).append(")");
         } else if (nbt instanceof NBTTagString) {
-            sb.append("TagString(data=\"")
-                    .append(((NBTTagString) nbt).func_150285_a_())
-                    .append("\")");
+            sb.append("TagString(data=\"").append(((NBTTagString) nbt).func_150285_a_()).append("\")");
         } else if (nbt instanceof NBTTagByteArray) {
             sb.append("TagByteArray(data=");
             for (int i = 0; i < ((NBTTagByteArray) nbt).func_150292_c().length; i++) {

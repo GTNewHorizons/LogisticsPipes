@@ -1,16 +1,14 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.pipes.basic;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.PriorityBlockingQueue;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
@@ -65,6 +63,7 @@ import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
 import lombok.Getter;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
@@ -81,15 +80,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 @CCType(name = "LogisticsPipes:Normal")
 public abstract class CoreRoutedPipe extends CoreUnroutedPipe
-        implements IClientState,
-                IRequestItems,
-                IAdjacentWorldAccess,
-                ITrackStatistics,
-                IWorldProvider,
-                IWatchingHandler,
-                IPipeServiceProvider,
-                IQueueCCEvent,
-                ILPPositionProvider {
+        implements IClientState, IRequestItems, IAdjacentWorldAccess, ITrackStatistics, IWorldProvider,
+        IWatchingHandler, IPipeServiceProvider, IQueueCCEvent, ILPPositionProvider {
 
     public enum ItemSendMode {
         Normal,
@@ -119,8 +111,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 
     protected RouteLayer _routeLayer;
     protected TransportLayer _transportLayer;
-    protected final PriorityBlockingQueue<ItemRoutingInformation> _inTransitToMe =
-            new PriorityBlockingQueue<>(10, new ItemRoutingInformation.DelayComparator());
+    protected final PriorityBlockingQueue<ItemRoutingInformation> _inTransitToMe = new PriorityBlockingQueue<>(
+            10,
+            new ItemRoutingInformation.DelayComparator());
 
     protected UpgradeManager upgradeManager = new UpgradeManager(this);
     protected LogisticsItemOrderManager _orderItemManager = null;
@@ -140,8 +133,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 
     protected final LinkedList<Triplet<IRoutedItem, ForgeDirection, ItemSendMode>> _sendQueue = new LinkedList<>();
 
-    protected final Map<ItemIdentifier, Queue<Pair<Integer, ItemRoutingInformation>>> queuedDataForUnroutedItems =
-            Collections.synchronizedMap(new TreeMap<>());
+    protected final Map<ItemIdentifier, Queue<Pair<Integer, ItemRoutingInformation>>> queuedDataForUnroutedItems = Collections
+            .synchronizedMap(new TreeMap<>());
 
     public final PlayerCollectionList watchers = new PlayerCollectionList();
 
@@ -244,7 +237,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 // TODO: handle sending items to known chunk-unloaded destination?
             }
         } // should not be able to send to a non-existing router
-        // router.startTrackingRoutedItem((RoutedEntityItem) routedItem.getTravelingItem());
+          // router.startTrackingRoutedItem((RoutedEntityItem) routedItem.getTravelingItem());
         spawnParticle(Particles.OrangeParticle, 2);
         stat_lifetime_sent++;
         stat_session_sent++;
@@ -272,8 +265,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public abstract ItemSendMode getItemSendMode();
 
     /**
-     * Designed to help protect against routing loops - if both pipes are on the
-     * same block, and of ISided overlapps, return true
+     * Designed to help protect against routing loops - if both pipes are on the same block, and of ISided overlapps,
+     * return true
      *
      * @return boolean indicating if both pull from the same inventory.
      */
@@ -312,8 +305,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public void firstInitialiseTick() {
         getRouter();
         if (MainProxy.isClient(getWorld())) {
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(RequestSignPacket.class).setTilePos(container));
+            MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSignPacket.class).setTilePos(container));
         }
     }
 
@@ -341,11 +333,11 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (stillNeedReplace) {
             stillNeedReplace = false;
             getWorld().notifyBlockChange(getX(), getY(), getZ(), getWorld().getBlock(getX(), getY(), getZ()));
-            /* TravelingItems are just held by a pipe, they don't need to know their world
-             * for(Triplet<IRoutedItem, ForgeDirection, ItemSendMode> item : _sendQueue) {
-            	//assign world to any entityitem we created in readfromnbt
-            	item.getValue1().getTravelingItem().setWorld(getWorld());
-            }*/
+            /*
+             * TravelingItems are just held by a pipe, they don't need to know their world for(Triplet<IRoutedItem,
+             * ForgeDirection, ItemSendMode> item : _sendQueue) { //assign world to any entityitem we created in
+             * readfromnbt item.getValue1().getTravelingItem().setWorld(getWorld()); }
+             */
             // first tick just create a router and do nothing.
             firstInitialiseTick();
             return;
@@ -370,12 +362,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             }
         }
         // update router before ticking logic/transport
-        getRouter()
-                .update(
-                        getWorld().getTotalWorldTime() % Configs.LOGISTICS_DETECTION_FREQUENCY == _delayOffset
-                                || _initialInit
-                                || recheckConnections,
-                        this);
+        getRouter().update(
+                getWorld().getTotalWorldTime() % Configs.LOGISTICS_DETECTION_FREQUENCY == _delayOffset || _initialInit
+                        || recheckConnections,
+                this);
         recheckConnections = false;
         getOriginalUpgradeManager().securityTick();
         super.updateEntity();
@@ -397,9 +387,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 Triplet<IRoutedItem, ForgeDirection, ItemSendMode> itemToSend = _sendQueue.getFirst();
                 sendRoutedItem(itemToSend.getValue1(), itemToSend.getValue2());
                 _sendQueue.removeFirst();
-                for (int i = 0;
-                        i < 16 && !_sendQueue.isEmpty() && _sendQueue.getFirst().getValue3() == ItemSendMode.Fast;
-                        i++) {
+                for (int i = 0; i < 16 && !_sendQueue.isEmpty()
+                        && _sendQueue.getFirst().getValue3() == ItemSendMode.Fast; i++) {
                     if (!_sendQueue.isEmpty()) {
                         itemToSend = _sendQueue.getFirst();
                         sendRoutedItem(itemToSend.getValue1(), itemToSend.getValue2());
@@ -417,11 +406,13 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 }
                 sendQueueChanged(false);
             } else if (getItemSendMode() == null) {
-                throw new UnsupportedOperationException("getItemSendMode() can't return null. "
-                        + this.getClass().getName());
+                throw new UnsupportedOperationException(
+                        "getItemSendMode() can't return null. " + this.getClass().getName());
             } else {
-                throw new UnsupportedOperationException("getItemSendMode() returned unhandled value. "
-                        + getItemSendMode().name() + " in " + this.getClass().getName());
+                throw new UnsupportedOperationException(
+                        "getItemSendMode() returned unhandled value. " + getItemSendMode().name()
+                                + " in "
+                                + this.getClass().getName());
             }
         }
         if (MainProxy.isClient(getWorld())) {
@@ -464,8 +455,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         }
         System.out.println("***");
         System.out.println("---------Interests---------------");
-        for (Entry<ItemIdentifier, Set<IRouter>> i :
-                ServerRouter.getInterestedInSpecifics().entrySet()) {
+        for (Entry<ItemIdentifier, Set<IRouter>> i : ServerRouter.getInterestedInSpecifics().entrySet()) {
             System.out.print(i.getKey().getFriendlyName() + ":");
             for (IRouter j : i.getValue()) {
                 System.out.print(j.getSimpleID() + ",");
@@ -489,8 +479,14 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         System.out.println();
         System.out.println("========DISTANCE TABLE==============");
         for (ExitRoute n : r.getIRoutersByCost()) {
-            System.out.println(n.destination.getSimpleID() + " @ " + n.distanceToDestination + " -> "
-                    + n.connectionDetails + "(" + n.destination.getId() + ")");
+            System.out.println(
+                    n.destination.getSimpleID() + " @ "
+                            + n.distanceToDestination
+                            + " -> "
+                            + n.connectionDetails
+                            + "("
+                            + n.destination.getId()
+                            + ")");
         }
         System.out.println();
         System.out.println("*******EXIT ROUTE TABLE*************");
@@ -498,8 +494,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         for (int i = 0; i < table.size(); i++) {
             if (table.get(i) != null) {
                 if (table.get(i).size() > 0) {
-                    System.out.println(
-                            i + " -> " + table.get(i).get(0).destination.getSimpleID());
+                    System.out.println(i + " -> " + table.get(i).get(0).destination.getSimpleID());
                     for (ExitRoute route : table.get(i)) {
                         System.out.println(
                                 "\t\t via " + route.exitOrientation + "(" + route.distanceToDestination + " distance)");
@@ -537,9 +532,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             onAllowedRemoval();
             super.onBlockRemoval();
             // invalidate() removes the router
-            //				if (logic instanceof BaseRoutingLogic){
-            //					((BaseRoutingLogic)logic).destroy();
-            //				}
+            // if (logic instanceof BaseRoutingLogic){
+            // ((BaseRoutingLogic)logic).destroy();
+            // }
             // Just in case
             CoreRoutedPipe.pipecount = Math.max(CoreRoutedPipe.pipecount - 1, 0);
             if (transport != null) {
@@ -666,17 +661,18 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                     getX(),
                     getZ(),
                     MainProxy.getDimensionForWorld(getWorld()),
-                    PacketHandler.getPacket(ParticleFX.class)
-                            .setParticles(tosend)
-                            .setPosX(getX())
-                            .setPosY(getY())
+                    PacketHandler.getPacket(ParticleFX.class).setParticles(tosend).setPosX(getX()).setPosY(getY())
                             .setPosZ(getZ()));
         } else {
             if (Minecraft.isFancyGraphicsEnabled()) {
                 for (int i = 0; i < queuedParticles.length; i++) {
                     if (queuedParticles[i] > 0) {
                         PipeFXRenderHandler.spawnGenericParticle(
-                                Particles.values()[i], getX(), getY(), getZ(), queuedParticles[i]);
+                                Particles.values()[i],
+                                getX(),
+                                getY(),
+                                getZ(),
+                                queuedParticles[i]);
                     }
                 }
             }
@@ -817,7 +813,12 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                     routerIntId = UUID.fromString(routerId);
                 }
                 router = SimpleServiceLocator.routerManager.getOrCreateRouter(
-                        routerIntId, MainProxy.getDimensionForWorld(getWorld()), getX(), getY(), getZ(), false);
+                        routerIntId,
+                        MainProxy.getDimensionForWorld(getWorld()),
+                        getX(),
+                        getY(),
+                        getZ(),
+                        false);
             }
         }
         return router;
@@ -854,8 +855,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public final boolean blockActivated(EntityPlayer entityplayer) {
         SecuritySettings settings = null;
         if (MainProxy.isServer(entityplayer.worldObj)) {
-            LogisticsSecurityTileEntity station = SimpleServiceLocator.securityStationManager.getStation(
-                    getOriginalUpgradeManager().getSecurityID());
+            LogisticsSecurityTileEntity station = SimpleServiceLocator.securityStationManager
+                    .getStation(getOriginalUpgradeManager().getSecurityID());
             if (station != null) {
                 settings = station.getSecuritySettingsForPlayer(entityplayer, true);
             }
@@ -864,9 +865,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (MainProxy.isPipeControllerEquipped(entityplayer)) {
             if (MainProxy.isServer(entityplayer.worldObj)) {
                 if (settings == null || settings.openNetworkMonitor) {
-                    NewGuiHandler.getGui(PipeController.class)
-                            .setTilePos(container)
-                            .open(entityplayer);
+                    NewGuiHandler.getGui(PipeController.class).setTilePos(container).open(entityplayer);
                 } else {
                     entityplayer.addChatComponentMessage(new ChatComponentTranslation("lp.chat.permissiondenied"));
                 }
@@ -883,14 +882,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 return false;
             }
             /*
-            if (MainProxy.isClient(entityplayer.worldObj)) {
-            	if (!LogisticsHUDRenderer.instance().hasLasers()) {
-            		MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestRoutingLasersPacket.class).setPosX(getX()).setPosY(getY()).setPosZ(getZ()));
-            	} else {
-            		LogisticsHUDRenderer.instance().resetLasers();
-            	}
-            }
-            */
+             * if (MainProxy.isClient(entityplayer.worldObj)) { if (!LogisticsHUDRenderer.instance().hasLasers()) {
+             * MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestRoutingLasersPacket.class).setPosX(getX()).
+             * setPosY(getY()).setPosZ(getZ())); } else { LogisticsHUDRenderer.instance().resetLasers(); } }
+             */
             if (LPConstants.DEBUG) {
                 doDebugStuff(entityplayer);
             }
@@ -901,7 +896,12 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             if (MainProxy.isServer(entityplayer.worldObj)) {
                 if (settings == null || settings.openRequest) {
                     entityplayer.openGui(
-                            LogisticsPipes.instance, GuiIDs.GUI_Normal_Orderer_ID, getWorld(), getX(), getY(), getZ());
+                            LogisticsPipes.instance,
+                            GuiIDs.GUI_Normal_Orderer_ID,
+                            getWorld(),
+                            getX(),
+                            getY(),
+                            getZ());
                 } else {
                     entityplayer.addChatComponentMessage(new ChatComponentTranslation("lp.chat.permissiondenied"));
                 }
@@ -914,9 +914,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             if (MainProxy.isServer(entityplayer.worldObj)) {
                 if (settings == null || settings.openGui) {
                     if (getLogisticsModule() != null && getLogisticsModule() instanceof LogisticsGuiModule) {
-                        ((LogisticsGuiModule) getLogisticsModule())
-                                .getPipeGuiProviderForModule()
-                                .setTilePos(container)
+                        ((LogisticsGuiModule) getLogisticsModule()).getPipeGuiProviderForModule().setTilePos(container)
                                 .open(entityplayer);
                     } else {
                         onWrenchClicked(entityplayer);
@@ -997,8 +995,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public void playerStartWatching(EntityPlayer player, int mode) {
         if (mode == 0) {
             watchers.add(player);
-            MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(StatUpdate.class).setPipe(this), player);
+            MainProxy.sendPacketToPlayer(PacketHandler.getPacket(StatUpdate.class).setPipe(this), player);
         }
     }
 
@@ -1059,8 +1056,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             return true;
         }
         if (!stillNeedReplace) {
-            return getRouter().isSideDisconneceted(side)
-                    && !ignoreSystemDisconnection
+            return getRouter().isSideDisconneceted(side) && !ignoreSystemDisconnection
                     && !globalIgnoreConnectionDisconnection;
         }
         return false;
@@ -1125,8 +1121,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (list == null) {
             return false;
         }
-        outer:
-        for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : list) {
+        outer: for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : list) {
             for (IFilter filter : provider.getValue2()) {
                 if (filter.blockPower()) {
                     continue outer;
@@ -1165,8 +1160,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (list == null) {
             return false;
         }
-        outer:
-        for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : list) {
+        outer: for (Pair<ILogisticsPowerProvider, List<IFilter>> provider : list) {
             for (IFilter filter : provider.getValue2()) {
                 if (filter.blockPower()) {
                     continue outer;
@@ -1222,13 +1216,12 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     public ISecurityProvider getSecurityProvider() {
-        return SimpleServiceLocator.securityStationManager.getStation(
-                getOriginalUpgradeManager().getSecurityID());
+        return SimpleServiceLocator.securityStationManager.getStation(getOriginalUpgradeManager().getSecurityID());
     }
 
     public boolean canBeDestroyedByPlayer(EntityPlayer entityPlayer) {
-        LogisticsSecurityTileEntity station = SimpleServiceLocator.securityStationManager.getStation(
-                getOriginalUpgradeManager().getSecurityID());
+        LogisticsSecurityTileEntity station = SimpleServiceLocator.securityStationManager
+                .getStation(getOriginalUpgradeManager().getSecurityID());
         if (station != null) {
             return station.getSecuritySettingsForPlayer(entityPlayer, true).removePipes;
         }
@@ -1275,8 +1268,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     public void queueUnroutedItemInformation(ItemIdentifierStack item, ItemRoutingInformation information) {
         if (item != null) {
             synchronized (queuedDataForUnroutedItems) {
-                Queue<Pair<Integer, ItemRoutingInformation>> queue =
-                        queuedDataForUnroutedItems.computeIfAbsent(item.getItem(), k -> new LinkedList<>());
+                Queue<Pair<Integer, ItemRoutingInformation>> queue = queuedDataForUnroutedItems
+                        .computeIfAbsent(item.getItem(), k -> new LinkedList<>());
                 queue.add(new Pair<>(item.getStackSize(), information));
             }
         }
@@ -1308,8 +1301,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     /**
-     * used as a distance offset when deciding which pipe to use NOTE: called
-     * very regularly, returning a pre-calculated int is probably appropriate.
+     * used as a distance offset when deciding which pipe to use NOTE: called very regularly, returning a pre-calculated
+     * int is probably appropriate.
      */
     public double getLoadFactor() {
         return 0.0;
@@ -1429,7 +1422,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
                 exit.destination.queueTask(
-                        10, (pipe, router) -> pipe.handleMesssage((int) ((double) computerId), message, fSourceId));
+                        10,
+                        (pipe, router) -> pipe.handleMesssage((int) ((double) computerId), message, fSourceId));
                 set.set(exit.destination.getSimpleID());
             }
         }
@@ -1490,7 +1484,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     private void handleBroadcast(String message, int sourceId) {
-        queueEvent(CCConstants.LP_CC_BROADCAST_EVENT, new Object[] {sourceId, message});
+        queueEvent(CCConstants.LP_CC_BROADCAST_EVENT, new Object[] { sourceId, message });
     }
 
     public void onWrenchClicked(EntityPlayer entityplayer) {
@@ -1528,25 +1522,25 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         }
         switch (mode) {
             case LeaveFirst:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        inv, getPointedOrientation().getOpposite(), false, false, 1, 0);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(inv, getPointedOrientation().getOpposite(), false, false, 1, 0);
             case LeaveLast:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        inv, getPointedOrientation().getOpposite(), false, false, 0, 1);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(inv, getPointedOrientation().getOpposite(), false, false, 0, 1);
             case LeaveFirstAndLast:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        inv, getPointedOrientation().getOpposite(), false, false, 1, 1);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(inv, getPointedOrientation().getOpposite(), false, false, 1, 1);
             case Leave1PerStack:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        inv, getPointedOrientation().getOpposite(), true, false, 0, 0);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(inv, getPointedOrientation().getOpposite(), true, false, 0, 0);
             case Leave1PerType:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        inv, getPointedOrientation().getOpposite(), false, true, 0, 0);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(inv, getPointedOrientation().getOpposite(), false, true, 0, 0);
             default:
                 break;
         }
-        return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                inv, getPointedOrientation().getOpposite(), false, false, 0, 0);
+        return SimpleServiceLocator.inventoryUtilFactory
+                .getHidingInventoryUtil(inv, getPointedOrientation().getOpposite(), false, false, 0, 0);
     }
 
     @Override
@@ -1567,7 +1561,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         }
         if (inv instanceof net.minecraft.inventory.ISidedInventory) {
             inv = new SidedInventoryMinecraftAdapter(
-                    (net.minecraft.inventory.ISidedInventory) inv, _sneakyOrientation, forExtraction);
+                    (net.minecraft.inventory.ISidedInventory) inv,
+                    _sneakyOrientation,
+                    forExtraction);
         }
         return SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, _sneakyOrientation);
     }
@@ -1611,10 +1607,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     @Override
-    public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(
-            ItemIdentifier stack, boolean allowDefault, List<Integer> routerIDsToExclude) {
-        return SimpleServiceLocator.logisticsManager.hasDestination(
-                stack, allowDefault, getRouter().getSimpleID(), routerIDsToExclude);
+    public Triplet<Integer, SinkReply, List<IFilter>> hasDestination(ItemIdentifier stack, boolean allowDefault,
+            List<Integer> routerIDsToExclude) {
+        return SimpleServiceLocator.logisticsManager
+                .hasDestination(stack, allowDefault, getRouter().getSimpleID(), routerIDsToExclude);
     }
 
     @Override
@@ -1634,8 +1630,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     @Override
-    public IRoutedItem sendStack(
-            ItemStack stack, int destination, ItemSendMode mode, IAdditionalTargetInformation info) {
+    public IRoutedItem sendStack(ItemStack stack, int destination, ItemSendMode mode,
+            IAdditionalTargetInformation info) {
         IRoutedItem itemToSend = SimpleServiceLocator.routedItemHelper.createNewTravelItem(stack);
         itemToSend.setDestination(destination);
         itemToSend.setTransportMode(TransportMode.Active);
@@ -1685,8 +1681,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 }
             }
         }
-        ModernPacket packet =
-                PacketHandler.getPacket(PipeSignTypes.class).setTypes(types).setTilePos(container);
+        ModernPacket packet = PacketHandler.getPacket(PipeSignTypes.class).setTypes(types).setTilePos(container);
         MainProxy.sendPacketToAllWatchingChunk(getX(), getZ(), MainProxy.getDimensionForWorld(getWorld()), packet);
         MainProxy.sendPacketToPlayer(packet, player);
         for (int i = 0; i < 6; i++) {
@@ -1694,7 +1689,10 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 packet = signItem[i].getPacket();
                 if (packet != null) {
                     MainProxy.sendPacketToAllWatchingChunk(
-                            getX(), getZ(), MainProxy.getDimensionForWorld(getWorld()), packet);
+                            getX(),
+                            getZ(),
+                            MainProxy.getDimensionForWorld(getWorld()),
+                            packet);
                     MainProxy.sendPacketToPlayer(packet, player);
                 }
             }
@@ -1825,14 +1823,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     @Override
-    public double getDistanceTo(
-            int destinationint,
-            ForgeDirection ignore,
-            ItemIdentifier ident,
-            boolean isActive,
-            double traveled,
-            double max,
-            List<LPPosition> visited) {
+    public double getDistanceTo(int destinationint, ForgeDirection ignore, ItemIdentifier ident, boolean isActive,
+            double traveled, double max, List<LPPosition> visited) {
         if (!stillNeedReplace) {
             if (getRouterId() == destinationint) {
                 return 0;

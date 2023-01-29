@@ -1,9 +1,8 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.IClientInformationProvider;
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.IModuleWatchReciver;
@@ -25,11 +24,15 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleApiaristAnalyser extends LogisticsGuiModule
         implements IClientInformationProvider, IModuleWatchReciver {
@@ -59,19 +62,20 @@ public class ModuleApiaristAnalyser extends LogisticsGuiModule
     public void registerPosition(ModulePositionType slot, int positionInt) {
         super.registerPosition(slot, positionInt);
         _sinkReply = new SinkReply(
-                FixedPriority.APIARIST_Analyser, 0, true, false, 3, 0, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.APIARIST_Analyser,
+                0,
+                true,
+                false,
+                3,
+                0,
+                new ChassiTargetInformation(getPositionInt()));
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier itemID,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier itemID, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
         ItemStack item = itemID.makeNormalStack(1);
@@ -105,8 +109,8 @@ public class ModuleApiaristAnalyser extends LogisticsGuiModule
                 ItemStack item = inv.getStackInSlot(i);
                 if (SimpleServiceLocator.forestryProxy.isBee(item)) {
                     if (SimpleServiceLocator.forestryProxy.isAnalysedBee(item)) {
-                        Pair<Integer, SinkReply> reply =
-                                _service.hasDestination(ItemIdentifier.get(item), true, new ArrayList<>());
+                        Pair<Integer, SinkReply> reply = _service
+                                .hasDestination(ItemIdentifier.get(item), true, new ArrayList<>());
                         if (reply == null) {
                             continue;
                         }
@@ -165,15 +169,13 @@ public class ModuleApiaristAnalyser extends LogisticsGuiModule
         if (MainProxy.isServer(_world.getWorld())) {
             if (getSlot().isInWorld()) {
                 MainProxy.sendToPlayerList(
-                        PacketHandler.getPacket(ApiaristAnalyserMode.class)
-                                .setMode(getExtractMode())
+                        PacketHandler.getPacket(ApiaristAnalyserMode.class).setMode(getExtractMode())
                                 .setModulePos(this),
                         localModeWatchers);
             }
         } else {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(ApiaristAnalyserMode.class)
-                    .setMode(getExtractMode())
-                    .setModulePos(this));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(ApiaristAnalyserMode.class).setMode(getExtractMode()).setModulePos(this));
         }
     }
 
@@ -189,9 +191,7 @@ public class ModuleApiaristAnalyser extends LogisticsGuiModule
     public void startWatching(EntityPlayer player) {
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ApiaristAnalyserMode.class)
-                        .setMode(getExtractMode())
-                        .setModulePos(this),
+                PacketHandler.getPacket(ApiaristAnalyserMode.class).setMode(getExtractMode()).setModulePos(this),
                 player);
     }
 

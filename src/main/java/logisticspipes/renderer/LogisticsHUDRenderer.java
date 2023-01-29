@@ -1,7 +1,7 @@
 package logisticspipes.renderer;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.*;
+
 import logisticspipes.api.IHUDArmor;
 import logisticspipes.config.Configs;
 import logisticspipes.hud.HUDConfig;
@@ -20,6 +20,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
@@ -29,8 +30,11 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class LogisticsHUDRenderer {
 
@@ -53,8 +57,7 @@ public class LogisticsHUDRenderer {
     public void add(IHeadUpDisplayBlockRendererProvider provider) {
         IHeadUpDisplayBlockRendererProvider toRemove = null;
         for (IHeadUpDisplayBlockRendererProvider listedProvider : providers) {
-            if (listedProvider.getX() == provider.getX()
-                    && listedProvider.getY() == provider.getY()
+            if (listedProvider.getX() == provider.getX() && listedProvider.getY() == provider.getY()
                     && listedProvider.getZ() == provider.getZ()) {
                 toRemove = listedProvider;
                 break;
@@ -95,10 +98,9 @@ public class LogisticsHUDRenderer {
                 continue;
             }
             if (MainProxy.getDimensionForWorld(pipe.getWorld())
-                    == MainProxy.getDimensionForWorld(
-                            FMLClientHandler.instance().getClient().theWorld)) {
-                double dis =
-                        Math.hypot(pipe.getX() - x + 0.5, Math.hypot(pipe.getY() - y + 0.5, pipe.getZ() - z + 0.5));
+                    == MainProxy.getDimensionForWorld(FMLClientHandler.instance().getClient().theWorld)) {
+                double dis = Math
+                        .hypot(pipe.getX() - x + 0.5, Math.hypot(pipe.getY() - y + 0.5, pipe.getZ() - z + 0.5));
                 if (dis < Configs.LOGISTICS_HUD_RENDER_DISTANCE && dis > 0.75) {
                     newList.add(new Pair<>(dis, (IHeadUpDisplayRendererProvider) pipe));
                     if (!list.contains(pipe)) {
@@ -111,12 +113,11 @@ public class LogisticsHUDRenderer {
         List<IHeadUpDisplayBlockRendererProvider> remove = new ArrayList<>();
         for (IHeadUpDisplayBlockRendererProvider provider : providers) {
             if (MainProxy.getDimensionForWorld(provider.getWorld())
-                    == MainProxy.getDimensionForWorld(
-                            FMLClientHandler.instance().getClient().theWorld)) {
+                    == MainProxy.getDimensionForWorld(FMLClientHandler.instance().getClient().theWorld)) {
                 double dis = Math.hypot(
-                        provider.getX() - x + 0.5, Math.hypot(provider.getY() - y + 0.5, provider.getZ() - z + 0.5));
-                if (dis < Configs.LOGISTICS_HUD_RENDER_DISTANCE
-                        && dis > 0.75
+                        provider.getX() - x + 0.5,
+                        Math.hypot(provider.getY() - y + 0.5, provider.getZ() - z + 0.5));
+                if (dis < Configs.LOGISTICS_HUD_RENDER_DISTANCE && dis > 0.75
                         && !provider.isHUDInvalid()
                         && provider.isHUDExistent()) {
                     newList.add(new Pair<>(dis, provider));
@@ -164,19 +165,9 @@ public class LogisticsHUDRenderer {
     }
 
     private boolean checkItemStackForHUD(ItemStack stack) {
-        if (FMLClientHandler.instance()
-                        .getClient()
-                        .thePlayer
-                        .inventory
-                        .armorInventory[3]
-                        .getItem()
-                instanceof IHUDArmor) {
-            return ((IHUDArmor) FMLClientHandler.instance()
-                            .getClient()
-                            .thePlayer
-                            .inventory
-                            .armorInventory[3]
-                            .getItem())
+        if (FMLClientHandler.instance().getClient().thePlayer.inventory.armorInventory[3]
+                .getItem() instanceof IHUDArmor) {
+            return ((IHUDArmor) FMLClientHandler.instance().getClient().thePlayer.inventory.armorInventory[3].getItem())
                     .isEnabled(FMLClientHandler.instance().getClient().thePlayer.inventory.armorInventory[3]);
         }
         return false;
@@ -306,9 +297,8 @@ public class LogisticsHUDRenderer {
                     if (pos.length == 2) {
                         if (renderer.getRenderer().cursorOnWindow(pos[0], pos[1])) {
                             renderer.getRenderer().handleCursor(pos[0], pos[1]);
-                            if (Keyboard.isKeyDown(
-                                    Keyboard
-                                            .KEY_LSHIFT)) { // if(FMLClientHandler.instance().getClient().thePlayer.isSneaking()) {
+                            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { // if(FMLClientHandler.instance().getClient().thePlayer.isSneaking())
+                                                                           // {
                                 thisIsLast = renderer;
                                 displayCross = true;
                             }
@@ -343,7 +333,8 @@ public class LogisticsHUDRenderer {
                         100);
             } else {
                 progress = Math.max(
-                        progress - (2 * Math.max(1, (int) Math.floor((System.currentTimeMillis() - last) / 50.0D))), 0);
+                        progress - (2 * Math.max(1, (int) Math.floor((System.currentTimeMillis() - last) / 50.0D))),
+                        0);
             }
             if (progress != 0) {
                 List<String> textData = new ArrayList<>();
@@ -413,10 +404,7 @@ public class LogisticsHUDRenderer {
 
                             ItemStackRenderer itemStackRenderer = new ItemStackRenderer(5, 6, 0.0F, false, true, true);
                             itemStackRenderer.setItemstack(item).setDisplayAmount(DisplayAmount.NEVER);
-                            itemStackRenderer
-                                    .setScaleX(scaleX)
-                                    .setScaleY(scaleY)
-                                    .setScaleZ(scaleZ);
+                            itemStackRenderer.setScaleX(scaleX).setScaleY(scaleY).setScaleZ(scaleZ);
 
                             itemStackRenderer.renderInGui();
                         }
@@ -564,8 +552,8 @@ public class LogisticsHUDRenderer {
         }
     }
 
-    private void displayOneView(
-            IHeadUpDisplayRendererProvider renderer, IHUDConfig config, float partialTick, boolean shifted) {
+    private void displayOneView(IHeadUpDisplayRendererProvider renderer, IHUDConfig config, float partialTick,
+            boolean shifted) {
         Minecraft mc = FMLClientHandler.instance().getClient();
         EntityPlayer player = mc.thePlayer;
         double x = renderer.getX() + 0.5 - player.prevPosX - ((player.posX - player.prevPosX) * partialTick);
@@ -600,7 +588,8 @@ public class LogisticsHUDRenderer {
         EntityPlayer player = mc.thePlayer;
 
         MathVector playerView = MathVector.getFromAngles(
-                (270 - player.rotationYaw) / 360 * -2 * Math.PI, (player.rotationPitch) / 360 * -2 * Math.PI);
+                (270 - player.rotationYaw) / 360 * -2 * Math.PI,
+                (player.rotationPitch) / 360 * -2 * Math.PI);
         MathVector playerPos = new MathVector();
         playerPos.X = player.posX;
         playerPos.Y = player.posY;
@@ -635,8 +624,7 @@ public class LogisticsHUDRenderer {
             panelScalVector1.Y = 1;
             panelScalVector1.Z = 0;
         } else {
-            panelScalVector1 =
-                    panelView.getOrtogonal(-panelView.X, null, -panelView.Z).makeVectorLength(1.0D);
+            panelScalVector1 = panelView.getOrtogonal(-panelView.X, null, -panelView.Z).makeVectorLength(1.0D);
         }
 
         MathVector panelScalVector2 = new MathVector();
@@ -677,7 +665,7 @@ public class LogisticsHUDRenderer {
             cursorY *= -1;
         }
 
-        return new int[] {(int) cursorX, (int) cursorY};
+        return new int[] { (int) cursorX, (int) cursorY };
     }
 
     public boolean displayRenderer() {
@@ -690,8 +678,7 @@ public class LogisticsHUDRenderer {
     }
 
     private boolean displayHUD() {
-        return (playerWearsHUD() || debugHUD != null)
-                && FMLClientHandler.instance().getClient().currentScreen == null
+        return (playerWearsHUD() || debugHUD != null) && FMLClientHandler.instance().getClient().currentScreen == null
                 && FMLClientHandler.instance().getClient().gameSettings.thirdPersonView == 0
                 && !FMLClientHandler.instance().getClient().gameSettings.hideGUI;
     }

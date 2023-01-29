@@ -1,13 +1,15 @@
 package logisticspipes.blocks.powertile;
 
-import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.common.Optional;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler")
 public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergyHandler {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.items.LogisticsItemCard;
@@ -23,6 +24,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -31,6 +33,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -58,51 +61,57 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
     public GuiPipeController(final EntityPlayer player, final CoreRoutedPipe pipe) {
         super(180, 220, 0, 0);
         this.pipe = pipe;
-        DummyContainer dummy = new DummyContainer(
-                player, null, pipe.getOriginalUpgradeManager().getGuiController());
+        DummyContainer dummy = new DummyContainer(player, null, pipe.getOriginalUpgradeManager().getGuiController());
         dummy.addNormalSlotsForPlayerInventory(10, 135);
 
         // TAB_1 SLOTS
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
-            TAB_SLOTS_1_1.add(dummy.addRestrictedSlot(
-                    pipeSlot, pipe.getOriginalUpgradeManager().getInv(), 10 + pipeSlot * 18, 42, itemStack -> {
-                        if (itemStack == null) {
-                            return false;
-                        }
-                        if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                            return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                                    .isAllowedForPipe(pipe);
-                        } else {
-                            return false;
-                        }
-                    }));
+            TAB_SLOTS_1_1.add(
+                    dummy.addRestrictedSlot(
+                            pipeSlot,
+                            pipe.getOriginalUpgradeManager().getInv(),
+                            10 + pipeSlot * 18,
+                            42,
+                            itemStack -> {
+                                if (itemStack == null) {
+                                    return false;
+                                }
+                                if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                                    return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
+                                            .isAllowedForPipe(pipe);
+                                } else {
+                                    return false;
+                                }
+                            }));
         }
 
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
-            TAB_SLOTS_1_2.add(dummy.addRestrictedSlot(
-                    pipeSlot, pipe.getOriginalUpgradeManager().getSneakyInv(), 10 + pipeSlot * 18, 78, itemStack -> {
-                        if (itemStack == null) {
-                            return false;
-                        }
-                        if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                            IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null);
-                            if (!(upgrade instanceof SneakyUpgrade)) {
-                                return false;
-                            }
-                            return upgrade.isAllowedForPipe(pipe);
-                        } else {
-                            return false;
-                        }
-                    }));
+            TAB_SLOTS_1_2.add(
+                    dummy.addRestrictedSlot(
+                            pipeSlot,
+                            pipe.getOriginalUpgradeManager().getSneakyInv(),
+                            10 + pipeSlot * 18,
+                            78,
+                            itemStack -> {
+                                if (itemStack == null) {
+                                    return false;
+                                }
+                                if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
+                                    IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem
+                                            .getUpgradeForItem(itemStack, null);
+                                    if (!(upgrade instanceof SneakyUpgrade)) {
+                                        return false;
+                                    }
+                                    return upgrade.isAllowedForPipe(pipe);
+                                } else {
+                                    return false;
+                                }
+                            }));
         }
 
         // TAB_2 SLOTS
-        TAB_SLOTS_2.add(dummy.addStaticRestrictedSlot(
-                0,
-                pipe.getOriginalUpgradeManager().getSecInv(),
-                10,
-                42,
-                itemStack -> {
+        TAB_SLOTS_2.add(
+                dummy.addStaticRestrictedSlot(0, pipe.getOriginalUpgradeManager().getSecInv(), 10, 42, itemStack -> {
                     if (itemStack == null) {
                         return false;
                     }
@@ -112,13 +121,17 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                     if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
                         return false;
                     }
-                    return SimpleServiceLocator.securityStationManager.isAuthorized(
-                            UUID.fromString(itemStack.getTagCompound().getString("UUID")));
-                },
-                1));
+                    return SimpleServiceLocator.securityStationManager
+                            .isAuthorized(UUID.fromString(itemStack.getTagCompound().getString("UUID")));
+                }, 1));
 
-        TAB_SLOTS_4.add(dummy.addRestrictedSlot(
-                0, pipe.container.logicController.diskInv, 14, 36, LogisticsPipes.LogisticsItemDisk));
+        TAB_SLOTS_4.add(
+                dummy.addRestrictedSlot(
+                        0,
+                        pipe.container.logicController.diskInv,
+                        14,
+                        36,
+                        LogisticsPipes.LogisticsItemDisk));
 
         inventorySlots = dummy;
     }
@@ -131,8 +144,17 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         TAB_BUTTON_5.add(addButton(new SmallGuiButton(1, guiLeft + 95, guiTop + 26, 10, 10, "<")));
         TAB_BUTTON_5.add(addButton(new SmallGuiButton(2, guiLeft + 165, guiTop + 26, 10, 10, ">")));
         if (_itemDisplay_5 == null) {
-            _itemDisplay_5 =
-                    new ItemDisplay(null, mc.fontRenderer, this, null, 10, 40, 20, 60, new int[] {1, 1, 1, 1}, true);
+            _itemDisplay_5 = new ItemDisplay(
+                    null,
+                    mc.fontRenderer,
+                    this,
+                    null,
+                    10,
+                    40,
+                    20,
+                    60,
+                    new int[] { 1, 1, 1, 1 },
+                    true);
         }
         _itemDisplay_5.reposition(10, 40, 20, 60);
     }
@@ -197,8 +219,8 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableGUIStandardItemLighting();
         ItemStack stack = new ItemStack(LogisticsPipes.UpgradeItem, 1, ItemUpgrade.SNEAKY_COMBINATION);
-        GuiScreen.itemRender.renderItemAndEffectIntoGUI(
-                fontRendererObj, getMC().renderEngine, stack, guiLeft + 6, guiTop + 4);
+        GuiScreen.itemRender
+                .renderItemAndEffectIntoGUI(fontRendererObj, getMC().renderEngine, stack, guiLeft + 6, guiTop + 4);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GuiScreen.itemRender.zLevel = 0.0F;
@@ -216,8 +238,8 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableGUIStandardItemLighting();
         ItemStack stack2 = new ItemStack(Blocks.redstone_torch);
-        GuiScreen.itemRender.renderItemAndEffectIntoGUI(
-                fontRendererObj, getMC().renderEngine, stack2, guiLeft + 81, guiTop + 1);
+        GuiScreen.itemRender
+                .renderItemAndEffectIntoGUI(fontRendererObj, getMC().renderEngine, stack2, guiLeft + 81, guiTop + 1);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GuiScreen.itemRender.zLevel = 0.0F;
@@ -256,15 +278,15 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
             if (current_Tab == 4) {
                 if (!managerWatching) {
                     managerWatching = true;
-                    MainProxy.sendPacketToServer(PacketHandler.getPacket(PipeManagerWatchingPacket.class)
-                            .setStart(true)
-                            .setTilePos(pipe.container));
+                    MainProxy.sendPacketToServer(
+                            PacketHandler.getPacket(PipeManagerWatchingPacket.class).setStart(true)
+                                    .setTilePos(pipe.container));
                 }
             } else if (managerWatching) {
                 managerWatching = false;
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(PipeManagerWatchingPacket.class)
-                        .setStart(false)
-                        .setTilePos(pipe.container));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(PipeManagerWatchingPacket.class).setStart(false)
+                                .setTilePos(pipe.container));
             }
         } else {
             super.mouseClicked(par1, par2, par3);
@@ -275,10 +297,18 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
         mc.fontRenderer.drawString(
-                StringUtils.translate(PREFIX + "inventory"), 10, 122, Color.getValue(Color.DARKER_GREY), false);
+                StringUtils.translate(PREFIX + "inventory"),
+                10,
+                122,
+                Color.getValue(Color.DARKER_GREY),
+                false);
         if (current_Tab == 0) {
             mc.fontRenderer.drawString(
-                    StringUtils.translate(PREFIX + "upgrade"), 10, 28, Color.getValue(Color.DARKER_GREY), false);
+                    StringUtils.translate(PREFIX + "upgrade"),
+                    10,
+                    28,
+                    Color.getValue(Color.DARKER_GREY),
+                    false);
             if (pipe.getOriginalUpgradeManager().hasCombinedSneakyUpgrade()) {
                 mc.fontRenderer.drawString(
                         StringUtils.translate(PREFIX + "sneakyUpgrades"),
@@ -289,22 +319,25 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
             }
         } else if (current_Tab == 1) {
             mc.fontRenderer.drawString(
-                    StringUtils.translate(PREFIX + "security"), 10, 28, Color.getValue(Color.DARKER_GREY), false);
+                    StringUtils.translate(PREFIX + "security"),
+                    10,
+                    28,
+                    Color.getValue(Color.DARKER_GREY),
+                    false);
             ItemStack itemStack = pipe.getOriginalUpgradeManager().getSecInv().getStackInSlot(0);
             if (itemStack != null) {
                 UUID id = UUID.fromString(itemStack.getTagCompound().getString("UUID"));
                 mc.fontRenderer.drawString("Id: ", 10, 68, Color.getValue(Color.DARKER_GREY), false);
                 GL11.glTranslated(10, 80, 0);
                 GL11.glScaled(0.75D, 0.75D, 1.0D);
-                mc.fontRenderer.drawString(
-                        ChatColor.BLUE.toString() + id, 0, 0, Color.getValue(Color.DARKER_GREY), false);
+                mc.fontRenderer
+                        .drawString(ChatColor.BLUE.toString() + id, 0, 0, Color.getValue(Color.DARKER_GREY), false);
                 GL11.glScaled(1 / 0.75D, 1 / 0.75D, 1.0D);
                 GL11.glTranslated(-10, -80, 0);
                 mc.fontRenderer.drawString(
-                        "Authorization: "
-                                + (SimpleServiceLocator.securityStationManager.isAuthorized(id)
-                                        ? ChatColor.GREEN + "Authorized"
-                                        : ChatColor.RED + "Deauthorized"),
+                        "Authorization: " + (SimpleServiceLocator.securityStationManager.isAuthorized(id)
+                                ? ChatColor.GREEN + "Authorized"
+                                : ChatColor.RED + "Deauthorized"),
                         10,
                         94,
                         Color.getValue(Color.DARKER_GREY),
@@ -380,9 +413,7 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
             _itemDisplay_5.renderPageNumber(right - guiLeft - 45, 28);
             int start = _itemDisplay_5.getPage() * 3;
             int stringPos = 40;
-            for (int i = start;
-                    i < start + 3 && i < pipe.getClientSideOrderManager().size();
-                    i++) {
+            for (int i = start; i < start + 3 && i < pipe.getClientSideOrderManager().size(); i++) {
                 IOrderInfoProvider order = pipe.getClientSideOrderManager().get(i);
                 ItemIdentifier target = order.getTargetType();
                 String s = "";

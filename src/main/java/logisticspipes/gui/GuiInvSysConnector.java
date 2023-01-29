@@ -3,6 +3,7 @@ package logisticspipes.gui;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.LogisticsItemCard;
 import logisticspipes.network.PacketHandler;
@@ -19,9 +20,11 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -63,12 +66,24 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
         buttonList.clear();
         buttonList.add(new SmallGuiButton(0, guiLeft + 120, guiTop + 47, 10, 10, "<"));
         buttonList.add(new SmallGuiButton(1, guiLeft + 160, guiTop + 47, 10, 10, ">"));
-        buttonList.add(new SmallGuiButton(
-                2, guiLeft + 68, guiTop + 47, 46, 10, StringUtils.translate(GuiInvSysConnector.PREFIX + "Refresh")));
+        buttonList.add(
+                new SmallGuiButton(
+                        2,
+                        guiLeft + 68,
+                        guiTop + 47,
+                        46,
+                        10,
+                        StringUtils.translate(GuiInvSysConnector.PREFIX + "Refresh")));
         buttonList.add(new SmallGuiButton(3, guiLeft + 80, guiTop + 35, 10, 10, "<"));
         buttonList.add(new SmallGuiButton(4, guiLeft + 120, guiTop + 35, 10, 10, ">"));
-        buttonList.add(new SmallGuiButton(
-                5, guiLeft + 140, guiTop + 35, 30, 10, StringUtils.translate(GuiInvSysConnector.PREFIX + "Save")));
+        buttonList.add(
+                new SmallGuiButton(
+                        5,
+                        guiLeft + 140,
+                        guiTop + 35,
+                        30,
+                        10,
+                        StringUtils.translate(GuiInvSysConnector.PREFIX + "Save")));
         refreshPacket();
     }
 
@@ -110,7 +125,17 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
         ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                _allItems, null, page, 9, 59, 9, 27, 18, 18, 100.0F, DisplayAmount.ALWAYS);
+                _allItems,
+                null,
+                page,
+                9,
+                59,
+                9,
+                27,
+                18,
+                18,
+                100.0F,
+                DisplayAmount.ALWAYS);
 
         int ppi = 0;
         int column = 0;
@@ -128,13 +153,14 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
             int x = 9 + 18 * column + guiLeft;
             int y = 59 + 18 * row + guiTop;
 
-            GL11.glDisable(2896 /*GL_LIGHTING*/);
+            GL11.glDisable(2896 /* GL_LIGHTING */);
 
             int mouseX = Mouse.getX() * width / mc.displayWidth;
             int mouseY = height - Mouse.getY() * height / mc.displayHeight - 1;
 
             if (x < mouseX && mouseX < x + 18 && y < mouseY && mouseY < y + 18) {
-                GuiGraphics.displayItemToolTip(new Object[] {mouseX, mouseY, st, true}, zLevel, guiLeft, guiTop, false);
+                GuiGraphics
+                        .displayItemToolTip(new Object[] { mouseX, mouseY, st, true }, zLevel, guiLeft, guiTop, false);
             }
 
             column++;
@@ -146,10 +172,9 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
     }
 
     private void refreshPacket() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(InvSysConContentRequest.class)
-                .setPosX(pipe.getX())
-                .setPosY(pipe.getY())
-                .setPosZ(pipe.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(InvSysConContentRequest.class).setPosX(pipe.getX()).setPosY(pipe.getY())
+                        .setPosZ(pipe.getZ()));
     }
 
     private void pageDown() {
@@ -197,11 +222,9 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
             }
         } else if (button.id == 5) {
             pipe.resistance = localresistance;
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(InvSysConResistance.class)
-                    .setInteger(pipe.resistance)
-                    .setPosX(pipe.getX())
-                    .setPosY(pipe.getY())
-                    .setPosZ(pipe.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(InvSysConResistance.class).setInteger(pipe.resistance).setPosX(pipe.getX())
+                            .setPosY(pipe.getY()).setPosZ(pipe.getZ()));
         }
     }
 

@@ -1,8 +1,8 @@
 package logisticspipes.renderer;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.lang.reflect.Field;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.network.PacketHandler;
@@ -11,10 +11,14 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.SimpleGraphics;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class LogisticsGuiOverrenderer {
 
@@ -135,17 +139,11 @@ public class LogisticsGuiOverrenderer {
                     GL11.glEnable(GL11.GL_LIGHTING);
                     GL11.glEnable(GL11.GL_DEPTH_TEST);
                     if (clicked) {
-                        MainProxy.sendPacketToServer(PacketHandler.getPacket(SlotFinderNumberPacket.class)
-                                .setInventorySlot(slot.slotNumber)
-                                .setSlot(this.slot)
-                                .setPipePosX(pipePosX)
-                                .setPipePosY(pipePosY)
-                                .setPipePosZ(pipePosZ)
-                                .setType(positionType)
-                                .setPositionInt(positionInt)
-                                .setPosX(targetPosX)
-                                .setPosY(targetPosY)
-                                .setPosZ(targetPosZ));
+                        MainProxy.sendPacketToServer(
+                                PacketHandler.getPacket(SlotFinderNumberPacket.class).setInventorySlot(slot.slotNumber)
+                                        .setSlot(this.slot).setPipePosX(pipePosX).setPipePosY(pipePosY)
+                                        .setPipePosZ(pipePosZ).setType(positionType).setPositionInt(positionInt)
+                                        .setPosX(targetPosX).setPosY(targetPosY).setPosZ(targetPosZ));
                         clicked = false;
                         FMLClientHandler.instance().getClient().thePlayer.closeScreen();
                         isOverlaySlotActive = false;

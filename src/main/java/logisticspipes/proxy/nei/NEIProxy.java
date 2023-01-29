@@ -1,17 +1,13 @@
 package logisticspipes.proxy.nei;
 
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.api.ItemInfo;
-import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.guihook.IContainerTooltipHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.proxy.interfaces.INEIProxy;
 import logisticspipes.utils.ReflectionHelper;
 import lombok.SneakyThrows;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -20,6 +16,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.api.ItemInfo;
+import codechicken.nei.guihook.GuiContainerManager;
+import codechicken.nei.guihook.IContainerTooltipHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class NEIProxy implements INEIProxy {
 
@@ -35,9 +38,9 @@ public class NEIProxy implements INEIProxy {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SneakyThrows({NoSuchFieldException.class, IllegalAccessException.class})
-    public boolean renderItemToolTip(
-            int mousex, int mousey, List<String> msg, EnumChatFormatting rarityColor, ItemStack stack) {
+    @SneakyThrows({ NoSuchFieldException.class, IllegalAccessException.class })
+    public boolean renderItemToolTip(int mousex, int mousey, List<String> msg, EnumChatFormatting rarityColor,
+            ItemStack stack) {
         if (!(Minecraft.getMinecraft().currentScreen instanceof GuiContainer)) {
             return false;
         }
@@ -67,8 +70,8 @@ public class NEIProxy implements INEIProxy {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public List<String> getItemToolTip(
-            ItemStack stack, EntityPlayer thePlayer, boolean advancedItemTooltips, GuiContainer screen) {
+    public List<String> getItemToolTip(ItemStack stack, EntityPlayer thePlayer, boolean advancedItemTooltips,
+            GuiContainer screen) {
         return GuiContainerManager.itemDisplayNameMultiline(stack, screen, true);
     }
 

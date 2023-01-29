@@ -1,12 +1,14 @@
 package logisticspipes.renderer.state;
 
 import java.io.IOException;
+
 import logisticspipes.config.Configs;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import lombok.Getter;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TextureMatrix {
@@ -72,9 +74,8 @@ public class TextureMatrix {
                 }
                 isSubPowerInDir[i] = cPipe.getRouter().isSubPoweredExit(ForgeDirection.getOrientation(i));
             }
-            if (hasPowerUpgrade
-                    != (cPipe.getUpgradeManager().hasRFPowerSupplierUpgrade()
-                            || cPipe.getUpgradeManager().getIC2PowerLevel() > 0)) {
+            if (hasPowerUpgrade != (cPipe.getUpgradeManager().hasRFPowerSupplierUpgrade()
+                    || cPipe.getUpgradeManager().getIC2PowerLevel() > 0)) {
                 dirty = true;
             }
             hasPowerUpgrade = cPipe.getUpgradeManager().hasRFPowerSupplierUpgrade()

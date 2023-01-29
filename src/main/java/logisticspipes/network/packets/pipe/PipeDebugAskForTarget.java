@@ -1,7 +1,7 @@
 package logisticspipes.network.packets.pipe;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.io.IOException;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -12,11 +12,14 @@ import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 @Accessors(chain = true)
 public class PipeDebugAskForTarget extends ModernPacket {
@@ -39,11 +42,10 @@ public class PipeDebugAskForTarget extends ModernPacket {
         MovingObjectPosition box = FMLClientHandler.instance().getClient().objectMouseOver;
         if (box != null && box.typeOfHit == MovingObjectType.BLOCK) {
             if (!isServer) {
-                TileEntity tile =
-                        new LPPosition(box.blockX, box.blockY, box.blockZ).getTileEntity(player.getEntityWorld());
+                TileEntity tile = new LPPosition(box.blockX, box.blockY, box.blockZ)
+                        .getTileEntity(player.getEntityWorld());
                 if (tile instanceof LogisticsTileGenericPipe) {
-                    ((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe =
-                            !((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe;
+                    ((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe = !((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe;
                     if (((LogisticsTileGenericPipe) tile).pipe.debug.debugThisPipe) {
                         player.addChatComponentMessage(new ChatComponentText("Debug enabled On Client"));
                     } else {
@@ -51,10 +53,9 @@ public class PipeDebugAskForTarget extends ModernPacket {
                     }
                 }
             } else {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(PipeDebugResponse.class)
-                        .setPosX(box.blockX)
-                        .setPosY(box.blockY)
-                        .setPosZ(box.blockZ));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(PipeDebugResponse.class).setPosX(box.blockX).setPosY(box.blockY)
+                                .setPosZ(box.blockZ));
             }
         }
     }

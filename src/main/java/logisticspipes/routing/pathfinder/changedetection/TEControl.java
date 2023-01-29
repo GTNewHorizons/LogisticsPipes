@@ -2,6 +2,7 @@ package logisticspipes.routing.pathfinder.changedetection;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
+
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.asm.te.ITileEntityChangeListener;
 import logisticspipes.asm.te.LPTileEntityObject;
@@ -12,6 +13,7 @@ import logisticspipes.ticks.LPTickHandler;
 import logisticspipes.ticks.LPTickHandler.LPWorldInfo;
 import logisticspipes.ticks.QueuedTasks;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -38,8 +40,7 @@ public class TEControl {
         if (SimpleServiceLocator.pipeInformationManager.isPipe(tile, false)
                 || SimpleServiceLocator.specialtileconnection.isType(tile)) {
             ((ILPTEInformation) tile).setObject(new LPTileEntityObject());
-            ((ILPTEInformation) tile).getObject().initialised =
-                    LPTickHandler.getWorldInfo(world).getWorldTick();
+            ((ILPTEInformation) tile).getObject().initialised = LPTickHandler.getWorldInfo(world).getWorldTick();
             if (((ILPTEInformation) tile).getObject().initialised < 5) {
                 return;
             }
@@ -56,20 +57,17 @@ public class TEControl {
                     TileEntity nextTile = newPos.getTileEntity(world);
                     if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
                         if (SimpleServiceLocator.pipeInformationManager.isItemPipe(nextTile)) {
-                            SimpleServiceLocator.pipeInformationManager
-                                    .getInformationProviderFor(nextTile)
+                            SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(nextTile)
                                     .refreshTileCacheOnSide(dir.getOpposite());
                         }
                         if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tile)) {
-                            SimpleServiceLocator.pipeInformationManager
-                                    .getInformationProviderFor(tile)
+                            SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(tile)
                                     .refreshTileCacheOnSide(dir);
-                            SimpleServiceLocator.pipeInformationManager
-                                    .getInformationProviderFor(tile)
+                            SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(tile)
                                     .refreshTileCacheOnSide(dir.getOpposite());
                         }
-                        for (ITileEntityChangeListener listener :
-                                new ArrayList<>(((ILPTEInformation) nextTile).getObject().changeListeners)) {
+                        for (ITileEntityChangeListener listener : new ArrayList<>(
+                                ((ILPTEInformation) nextTile).getObject().changeListeners)) {
                             listener.pipeAdded(pos, dir.getOpposite());
                         }
                     }
@@ -102,14 +100,13 @@ public class TEControl {
                     TileEntity nextTile = newPos.getTileEntity(world);
                     if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
                         if (SimpleServiceLocator.pipeInformationManager.isItemPipe(nextTile)) {
-                            SimpleServiceLocator.pipeInformationManager
-                                    .getInformationProviderFor(nextTile)
+                            SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(nextTile)
                                     .refreshTileCacheOnSide(dir.getOpposite());
                         }
                     }
                 }
-                for (ITileEntityChangeListener listener :
-                        new ArrayList<>(((ILPTEInformation) tile).getObject().changeListeners)) {
+                for (ITileEntityChangeListener listener : new ArrayList<>(
+                        ((ILPTEInformation) tile).getObject().changeListeners)) {
                     listener.pipeRemoved(pos);
                 }
                 return null;
@@ -165,14 +162,14 @@ public class TEControl {
                     }
                     TileEntity nextTile = newPos.getTileEntity(world);
                     if (nextTile != null && ((ILPTEInformation) nextTile).getObject() != null) {
-                        for (ITileEntityChangeListener listener :
-                                new ArrayList<>(((ILPTEInformation) nextTile).getObject().changeListeners)) {
+                        for (ITileEntityChangeListener listener : new ArrayList<>(
+                                ((ILPTEInformation) nextTile).getObject().changeListeners)) {
                             listener.pipeModified(pos);
                         }
                     }
                 }
-                for (ITileEntityChangeListener listener :
-                        new ArrayList<>(((ILPTEInformation) tile).getObject().changeListeners)) {
+                for (ITileEntityChangeListener listener : new ArrayList<>(
+                        ((ILPTEInformation) tile).getObject().changeListeners)) {
                     listener.pipeModified(pos);
                 }
                 info.getUpdateQueued().remove(pos);

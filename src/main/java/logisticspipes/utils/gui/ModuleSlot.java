@@ -4,6 +4,7 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
 import logisticspipes.pipes.PipeLogisticsChassi;
 import lombok.Getter;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -24,8 +25,7 @@ public class ModuleSlot extends RestrictedSlot {
 
     @Override
     public void onPickupFromSlot(EntityPlayer pl, ItemStack itemStack) {
-        ItemModuleInformationManager.saveInfotmation(
-                itemStack, _pipe.getLogisticsModule().getSubModule(_moduleIndex));
+        ItemModuleInformationManager.saveInfotmation(itemStack, _pipe.getLogisticsModule().getSubModule(_moduleIndex));
         super.onPickupFromSlot(pl, itemStack);
     }
 

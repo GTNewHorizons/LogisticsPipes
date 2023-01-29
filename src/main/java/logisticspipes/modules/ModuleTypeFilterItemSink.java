@@ -1,16 +1,11 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.OrePrefixes;
-import gregtech.api.objects.ItemData;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.common.tileentities.automation.GT_MetaTileEntity_TypeFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import logisticspipes.gui.hud.modules.HUDStringBasedItemSink;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
@@ -29,11 +24,19 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.objects.ItemData;
+import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.common.tileentities.automation.GT_MetaTileEntity_TypeFilter;
 
 public class ModuleTypeFilterItemSink extends LogisticsGuiModule
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver, IStringBasedModule {
@@ -59,15 +62,10 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
-        if (bestPriority > sinkReply.fixedPriority.ordinal()
-                || (bestPriority == sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= sinkReply.customPriority)) {
+        if (bestPriority > sinkReply.fixedPriority.ordinal() || (bestPriority == sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= sinkReply.customPriority)) {
             return null;
         }
 
@@ -84,8 +82,7 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
 
         for (OrePrefixes prefix : prefixes) {
             if (prefix == OrePrefixes.ore) {
-                if (data != null
-                        && data.mPrefix != null
+                if (data != null && data.mPrefix != null
                         && GT_MetaTileEntity_TypeFilter.OREBLOCK_PREFIXES.contains(data.mPrefix)) {
                     return true;
                 }
@@ -123,14 +120,12 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -139,7 +134,8 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ItemSinkListPacket.class).setNbt(nbt).setModulePos(this), player);
+                PacketHandler.getPacket(ItemSinkListPacket.class).setNbt(nbt).setModulePos(this),
+                player);
     }
 
     @Override
@@ -227,16 +223,13 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
             NBTTagCompound nbt = new NBTTagCompound();
             writeToNBT(nbt);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ItemSinkListPacket.class)
-                            .setNbt(nbt)
-                            .setModulePos(this),
+                    PacketHandler.getPacket(ItemSinkListPacket.class).setNbt(nbt).setModulePos(this),
                     localModeWatchers);
         } else {
             NBTTagCompound nbt = new NBTTagCompound();
             writeToNBT(nbt);
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(ItemSinkListPacket.class)
-                    .setNbt(nbt)
-                    .setModulePos(this));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(ItemSinkListPacket.class).setNbt(nbt).setModulePos(this));
         }
     }
 

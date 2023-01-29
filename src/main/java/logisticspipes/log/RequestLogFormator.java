@@ -1,9 +1,8 @@
 package logisticspipes.log;
 
 /*
- Copied from ConsoleLogFormatter for shared use on the client
-
-*/
+ * Copied from ConsoleLogFormatter for shared use on the client
+ */
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -37,8 +36,7 @@ public class RequestLogFormator extends Formatter {
             msg.append(" [SEVERE] ");
         }
 
-        if (record.getLoggerName() != null
-                && !record.getLoggerName().equals("LogisticsPipes|Request")
+        if (record.getLoggerName() != null && !record.getLoggerName().equals("LogisticsPipes|Request")
                 && !record.getLoggerName().equals("")) {
             msg.append("[").append(record.getLoggerName()).append("] ");
         }

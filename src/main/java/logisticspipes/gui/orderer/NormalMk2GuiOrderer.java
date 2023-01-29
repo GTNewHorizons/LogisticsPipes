@@ -12,10 +12,12 @@ import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
 public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvider {
@@ -32,10 +34,9 @@ public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvid
                 MainProxy.getDimensionForWorld(RequestPipeMK2.getWorld()),
                 entityPlayer);
         pipe = RequestPipeMK2;
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(DiskRequestConectPacket.class)
-                .setPosX(pipe.getX())
-                .setPosY(pipe.getY())
-                .setPosZ(pipe.getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(DiskRequestConectPacket.class).setPosX(pipe.getX()).setPosY(pipe.getY())
+                        .setPosZ(pipe.getZ()));
     }
 
     @SuppressWarnings("unchecked")
@@ -59,16 +60,15 @@ public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvid
         } else {
             Macrobutton.enabled = false;
         }
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
+        GL11.glDisable(2896 /* GL_LIGHTING */);
     }
 
     @Override
     protected void mouseClicked(int x, int y, int k) {
         if (x >= right - 39 && x < right - 19 && y >= bottom - 47 && y < bottom - 27) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(DiskDropPacket.class)
-                    .setPosX(pipe.getX())
-                    .setPosY(pipe.getY())
-                    .setPosZ(pipe.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(DiskDropPacket.class).setPosX(pipe.getX()).setPosY(pipe.getY())
+                            .setPosZ(pipe.getZ()));
         } else {
             super.mouseClicked(x, y, k);
         }
@@ -78,10 +78,9 @@ public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvid
     protected void actionPerformed(GuiButton guibutton) {
         super.actionPerformed(guibutton);
         if (guibutton.id == 12) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(DiskRequestConectPacket.class)
-                    .setPosX(pipe.getX())
-                    .setPosY(pipe.getY())
-                    .setPosZ(pipe.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(DiskRequestConectPacket.class).setPosX(pipe.getX()).setPosY(pipe.getY())
+                            .setPosZ(pipe.getZ()));
             setSubGui(new GuiDiskPopup(this));
         }
     }
@@ -94,8 +93,8 @@ public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvid
     @Override
     public void specialItemRendering(ItemIdentifier item, int x, int y) {
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
-        if (SimpleServiceLocator.thaumCraftProxy.isScannedObject(
-                item.unsafeMakeNormalStack(1), mc.thePlayer.getDisplayName())) {
+        if (SimpleServiceLocator.thaumCraftProxy
+                .isScannedObject(item.unsafeMakeNormalStack(1), mc.thePlayer.getDisplayName())) {
             SimpleServiceLocator.thaumCraftProxy.renderAspectsDown(item.unsafeMakeNormalStack(1), -20, 10, this);
         }
         GL11.glPopAttrib();

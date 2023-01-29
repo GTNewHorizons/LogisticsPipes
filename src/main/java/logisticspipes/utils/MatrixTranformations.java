@@ -19,9 +19,8 @@ public final class MatrixTranformations {
     }
 
     /**
-     * Shifts the coordinates around effectively rotating something. Zero state
-     * is DOWN then -> NORTH -> WEST Note - To obtain Position, do a mirrorY()
-     * before rotating
+     * Shifts the coordinates around effectively rotating something. Zero state is DOWN then -> NORTH -> WEST Note - To
+     * obtain Position, do a mirrorY() before rotating
      *
      * @param targetArray the array that should be rotated
      */

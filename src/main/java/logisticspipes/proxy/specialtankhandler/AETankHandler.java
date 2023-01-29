@@ -1,5 +1,19 @@
 package logisticspipes.proxy.specialtankhandler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import logisticspipes.interfaces.ISpecialTankAccessHandler;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.FluidIdentifier;
+
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
 import appeng.api.implementations.tiles.ITileStorageMonitorable;
@@ -14,17 +28,6 @@ import appeng.api.storage.IStorageMonitorable;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.util.AECableType;
 import appeng.api.util.DimensionalCoord;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import logisticspipes.interfaces.ISpecialTankAccessHandler;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.FluidIdentifier;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
 
 public class AETankHandler implements ISpecialTankAccessHandler {
 
@@ -74,8 +77,7 @@ public class AETankHandler implements ISpecialTankAccessHandler {
                         map.put(
                                 FluidIdentifier.get(
                                         stack.getFluid(),
-                                        stack.getTagCompound() != null
-                                                ? stack.getTagCompound().getNBTTagCompoundCopy()
+                                        stack.getTagCompound() != null ? stack.getTagCompound().getNBTTagCompoundCopy()
                                                 : null,
                                         null),
                                 stack.getStackSize());
@@ -100,8 +102,8 @@ public class AETankHandler implements ISpecialTankAccessHandler {
                 }
                 IMEMonitor<IAEFluidStack> fluids = monitor.getFluidInventory();
                 IAEFluidStack s = AEApi.instance().storage().createFluidStack(ident.makeFluidStack(amount));
-                IAEFluidStack extracted =
-                        fluids.extractItems(s, drain ? Actionable.MODULATE : Actionable.SIMULATE, source);
+                IAEFluidStack extracted = fluids
+                        .extractItems(s, drain ? Actionable.MODULATE : Actionable.SIMULATE, source);
                 if (extracted == null) {
                     return null;
                 }

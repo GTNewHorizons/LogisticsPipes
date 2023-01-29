@@ -1,5 +1,13 @@
 package logisticspipes.proxy.enderio;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import logisticspipes.proxy.interfaces.IEnderIOProxy;
+
+import net.minecraft.tileentity.TileEntity;
+
 import crazypants.enderio.machine.hypercube.HyperCubeRegister;
 import crazypants.enderio.machine.hypercube.TileHyperCube;
 import crazypants.enderio.machine.hypercube.TileHyperCube.IoMode;
@@ -8,11 +16,6 @@ import crazypants.enderio.machine.transceiver.Channel;
 import crazypants.enderio.machine.transceiver.ChannelType;
 import crazypants.enderio.machine.transceiver.ServerChannelRegister;
 import crazypants.enderio.machine.transceiver.TileTransceiver;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import logisticspipes.proxy.interfaces.IEnderIOProxy;
-import net.minecraft.tileentity.TileEntity;
 
 public class EnderIOProxy implements IEnderIOProxy {
 
@@ -42,16 +45,14 @@ public class EnderIOProxy implements IEnderIOProxy {
     public List<TileEntity> getConnectedTransceivers(TileEntity tile) {
         TileTransceiver transceiver = (TileTransceiver) tile;
         List<TileEntity> tiles = new ArrayList<>();
-        Channel channel =
-                transceiver.getRecieveChannels(ChannelType.ITEM).iterator().next();
+        Channel channel = transceiver.getRecieveChannels(ChannelType.ITEM).iterator().next();
         for (TileTransceiver t : ServerChannelRegister.instance.getIterator(channel)) {
             if (t == transceiver) {
                 continue;
             }
             Set<Channel> receiveChannels = t.getRecieveChannels(ChannelType.ITEM);
             Set<Channel> sendChannels = t.getSendChannels(ChannelType.ITEM);
-            if (receiveChannels.size() == 1
-                    && sendChannels.size() == 1
+            if (receiveChannels.size() == 1 && sendChannels.size() == 1
                     && channel.equals(receiveChannels.iterator().next())
                     && channel.equals(sendChannels.iterator().next())) {
                 tiles.add(t);
@@ -68,12 +69,8 @@ public class EnderIOProxy implements IEnderIOProxy {
         if (tile instanceof TileTransceiver) {
             Set<Channel> receiveChannels = ((TileTransceiver) tile).getRecieveChannels(ChannelType.ITEM);
             Set<Channel> sendChannels = ((TileTransceiver) tile).getSendChannels(ChannelType.ITEM);
-            return receiveChannels.size() == 1
-                    && sendChannels.size() == 1
-                    && receiveChannels
-                            .iterator()
-                            .next()
-                            .equals(sendChannels.iterator().next());
+            return receiveChannels.size() == 1 && sendChannels.size() == 1
+                    && receiveChannels.iterator().next().equals(sendChannels.iterator().next());
         }
         return false;
     }

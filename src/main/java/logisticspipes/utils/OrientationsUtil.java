@@ -66,8 +66,7 @@ public class OrientationsUtil {
     }
 
     public static boolean isSide(ForgeDirection ori) {
-        return ori == ForgeDirection.EAST
-                || ori == ForgeDirection.WEST
+        return ori == ForgeDirection.EAST || ori == ForgeDirection.WEST
                 || ori == ForgeDirection.SOUTH
                 || ori == ForgeDirection.NORTH;
     }

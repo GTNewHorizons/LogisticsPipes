@@ -1,17 +1,16 @@
 /*
- * Copyright (c) 2015  RS485
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
+ * Copyright (c) 2015 RS485 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0, or
+ * MMPL. Please check the contents of the license located in
  * https://github.com/RS485/LogisticsPipes/blob/mc16/LICENSE.md
  */
 
 package logisticspipes.utils.gui;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import java.util.List;
+
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -23,8 +22,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 /**
  * Utils class for GUI-related drawing methods.
@@ -33,12 +35,15 @@ public final class GuiGraphics {
 
     public static final ResourceLocation WIDGETS_TEXTURE = new ResourceLocation("textures/gui/widgets.png");
     public static final ResourceLocation SLOT_TEXTURE = new ResourceLocation("logisticspipes", "textures/gui/slot.png");
-    public static final ResourceLocation BIG_SLOT_TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/slot-big.png");
-    public static final ResourceLocation SMALL_SLOT_TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/slot-small.png");
-    public static final ResourceLocation BACKGROUND_TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/GuiBackground.png");
+    public static final ResourceLocation BIG_SLOT_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/slot-big.png");
+    public static final ResourceLocation SMALL_SLOT_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/slot-small.png");
+    public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/GuiBackground.png");
     public static final ResourceLocation LOCK_ICON = new ResourceLocation("logisticspipes", "textures/gui/lock.png");
     public static final ResourceLocation LINES_ICON = new ResourceLocation("logisticspipes", "textures/gui/lines.png");
     public static final ResourceLocation STATS_ICON = new ResourceLocation("logisticspipes", "textures/gui/stats.png");
@@ -53,8 +58,8 @@ public final class GuiGraphics {
      * @param x         the x-coordinate for the bar
      * @param y         the y-coordinate for the bar
      * @param zLevel    the z-level for the bar
-     * @see net.minecraft.client.renderer.entity.RenderItem#renderItemOverlayIntoGUI(FontRenderer,
-     * TextureManager, ItemStack, int, int, String)
+     * @see net.minecraft.client.renderer.entity.RenderItem#renderItemOverlayIntoGUI(FontRenderer, TextureManager,
+     *      ItemStack, int, int, String)
      */
     public static void drawDurabilityBar(ItemStack itemstack, int x, int y, double zLevel) {
         if (itemstack.getItem().showDurabilityBar(itemstack)) {
@@ -90,7 +95,10 @@ public final class GuiGraphics {
         List<String> var24;
         if (mc.currentScreen instanceof GuiContainer) {
             var24 = SimpleServiceLocator.neiProxy.getItemToolTip(
-                    var22, mc.thePlayer, mc.gameSettings.advancedItemTooltips, (GuiContainer) mc.currentScreen);
+                    var22,
+                    mc.thePlayer,
+                    mc.gameSettings.advancedItemTooltips,
+                    (GuiContainer) mc.currentScreen);
         } else {
             var24 = var22.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
         }
@@ -106,8 +114,8 @@ public final class GuiGraphics {
 
         int var11 = (Integer) tooltip[0] - (forceAdd ? 0 : guiLeft) + 12;
         int var12 = (Integer) tooltip[1] - (forceAdd ? 0 : guiTop) - 12;
-        if (!SimpleServiceLocator.neiProxy.renderItemToolTip(
-                var11, var12, var24, var22.getRarity().rarityColor, var22)) {
+        if (!SimpleServiceLocator.neiProxy
+                .renderItemToolTip(var11, var12, var24, var22.getRarity().rarityColor, var22)) {
             GuiGraphics.drawToolTip(var11, var12, var24, var22.getRarity().rarityColor);
         }
 
@@ -140,27 +148,51 @@ public final class GuiGraphics {
             var14 += 2 + (msg.size() - 1) * 10;
         }
 
-        GL11.glDisable(2896 /*GL_LIGHTING*/);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(2896 /* GL_LIGHTING */);
+        GL11.glDisable(2929 /* GL_DEPTH_TEST */);
         GuiGraphics.zLevel = 300.0F;
         int var15 = -267386864;
 
         SimpleGraphics.drawGradientRect(var11 - 3, var12 - 4, var11 + var10 + 3, var12 - 3, var15, var15, 0.0);
         SimpleGraphics.drawGradientRect(
-                var11 - 3, var12 + var14 + 3, var11 + var10 + 3, var12 + var14 + 4, var15, var15, 0.0);
+                var11 - 3,
+                var12 + var14 + 3,
+                var11 + var10 + 3,
+                var12 + var14 + 4,
+                var15,
+                var15,
+                0.0);
         SimpleGraphics.drawGradientRect(var11 - 3, var12 - 3, var11 + var10 + 3, var12 + var14 + 3, var15, var15, 0.0);
         SimpleGraphics.drawGradientRect(var11 - 4, var12 - 3, var11 - 3, var12 + var14 + 3, var15, var15, 0.0);
         SimpleGraphics.drawGradientRect(
-                var11 + var10 + 3, var12 - 3, var11 + var10 + 4, var12 + var14 + 3, var15, var15, 0.0);
+                var11 + var10 + 3,
+                var12 - 3,
+                var11 + var10 + 4,
+                var12 + var14 + 3,
+                var15,
+                var15,
+                0.0);
         int var16 = 1347420415;
         int var17 = (var16 & 16711422) >> 1 | var16 & -16777216;
+        SimpleGraphics
+                .drawGradientRect(var11 - 3, var12 - 3 + 1, var11 - 3 + 1, var12 + var14 + 3 - 1, var16, var17, 0.0);
         SimpleGraphics.drawGradientRect(
-                var11 - 3, var12 - 3 + 1, var11 - 3 + 1, var12 + var14 + 3 - 1, var16, var17, 0.0);
-        SimpleGraphics.drawGradientRect(
-                var11 + var10 + 2, var12 - 3 + 1, var11 + var10 + 3, var12 + var14 + 3 - 1, var16, var17, 0.0);
+                var11 + var10 + 2,
+                var12 - 3 + 1,
+                var11 + var10 + 3,
+                var12 + var14 + 3 - 1,
+                var16,
+                var17,
+                0.0);
         SimpleGraphics.drawGradientRect(var11 - 3, var12 - 3, var11 + var10 + 3, var12 - 3 + 1, var16, var16, 0.0);
         SimpleGraphics.drawGradientRect(
-                var11 - 3, var12 + var14 + 2, var11 + var10 + 3, var12 + var14 + 3, var17, var17, 0.0);
+                var11 - 3,
+                var12 + var14 + 2,
+                var11 + var10 + 3,
+                var12 + var14 + 3,
+                var17,
+                var17,
+                0.0);
 
         for (int var18 = 0; var18 < msg.size(); ++var18) {
             String var19 = msg.get(var18);
@@ -182,8 +214,8 @@ public final class GuiGraphics {
 
         GuiGraphics.zLevel = 0.0F;
 
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
-        GL11.glEnable(2896 /*GL_LIGHTING*/);
+        GL11.glEnable(2929 /* GL_DEPTH_TEST */);
+        GL11.glEnable(2896 /* GL_LIGHTING */);
     }
 
     public static void drawPlayerInventoryBackground(Minecraft mc, int xOffset, int yOffset) {
@@ -332,23 +364,13 @@ public final class GuiGraphics {
         var9.draw();
     }
 
-    public static void drawGuiBackGround(
-            Minecraft mc, int guiLeft, int guiTop, int right, int bottom, float zLevel, boolean resetColor) {
+    public static void drawGuiBackGround(Minecraft mc, int guiLeft, int guiTop, int right, int bottom, float zLevel,
+            boolean resetColor) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, resetColor, true, true, true, true);
     }
 
-    public static void drawGuiBackGround(
-            Minecraft mc,
-            int guiLeft,
-            int guiTop,
-            int right,
-            int bottom,
-            float zLevel,
-            boolean resetColor,
-            boolean displayTop,
-            boolean displayLeft,
-            boolean displayBottom,
-            boolean displayRight) {
+    public static void drawGuiBackGround(Minecraft mc, int guiLeft, int guiTop, int right, int bottom, float zLevel,
+            boolean resetColor, boolean displayTop, boolean displayLeft, boolean displayBottom, boolean displayRight) {
         if (resetColor) {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         }

@@ -2,9 +2,12 @@ package logisticspipes.asm;
 
 import java.lang.reflect.Field;
 import java.util.*;
+
 import logisticspipes.LPConstants;
+
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -38,8 +41,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes) {
         Thread thread = Thread.currentThread();
-        if (thread.getName().equals("Minecraft main thread")
-                || thread.getName().equals("main")
+        if (thread.getName().equals("Minecraft main thread") || thread.getName().equals("main")
                 || thread.getName().equals("Server thread")) { // Only clear when called from the main thread to avoid
             // ConcurrentModificationException on start
             clearNegativeInterfaceCache();
@@ -47,8 +49,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
         if (bytes == null) {
             return null;
         }
-        if (transformedName.startsWith("logisticspipes.")
-                || transformedName.startsWith("net.minecraft")
+        if (transformedName.startsWith("logisticspipes.") || transformedName.startsWith("net.minecraft")
                 || LPConstants.DEBUG) {
             return ParamProfiler.handleClass(applyLPTransforms(transformedName, bytes));
         }
@@ -137,94 +138,92 @@ public class LogisticsClassTransformer implements IClassTransformer {
         for (MethodNode m : node.methods) {
             if (m.name.equals("wrapLuaObject")
                     && m.desc.equals("(Ldan200/computercraft/api/lua/ILuaObject;)Lorg/luaj/vm2/LuaTable;")) {
-                MethodNode mv =
-                        new MethodNode(
-                                Opcodes.ASM4,
-                                m.access,
-                                m.name,
-                                m.desc,
-                                m.signature,
-                                m.exceptions.toArray(new String[0])) {
+                MethodNode mv = new MethodNode(
+                        Opcodes.ASM4,
+                        m.access,
+                        m.name,
+                        m.desc,
+                        m.signature,
+                        m.exceptions.toArray(new String[0])) {
 
-                            @Override
-                            public void visitInsn(int opcode) {
-                                if (opcode == Opcodes.ARETURN) {
-                                    super.visitVarInsn(Opcodes.ALOAD, 1);
-                                    super.visitMethodInsn(
-                                            Opcodes.INVOKESTATIC,
-                                            "logisticspipes/proxy/cc/LPASMHookCC",
-                                            "onCCWrappedILuaObject",
-                                            "(Lorg/luaj/vm2/LuaTable;Ldan200/computercraft/api/lua/ILuaObject;)Lorg/luaj/vm2/LuaTable;");
-                                }
-                                super.visitInsn(opcode);
-                            }
+                    @Override
+                    public void visitInsn(int opcode) {
+                        if (opcode == Opcodes.ARETURN) {
+                            super.visitVarInsn(Opcodes.ALOAD, 1);
+                            super.visitMethodInsn(
+                                    Opcodes.INVOKESTATIC,
+                                    "logisticspipes/proxy/cc/LPASMHookCC",
+                                    "onCCWrappedILuaObject",
+                                    "(Lorg/luaj/vm2/LuaTable;Ldan200/computercraft/api/lua/ILuaObject;)Lorg/luaj/vm2/LuaTable;");
+                        }
+                        super.visitInsn(opcode);
+                    }
 
-                            @Override
-                            public void visitCode() {
-                                super.visitCode();
-                                Label l0 = new Label();
-                                super.visitLabel(l0);
-                                super.visitVarInsn(Opcodes.ALOAD, 1);
-                                super.visitMethodInsn(
-                                        Opcodes.INVOKESTATIC,
-                                        "logisticspipes/proxy/cc/LPASMHookCC",
-                                        "handleCCWrappedILuaObject",
-                                        "(Ldan200/computercraft/api/lua/ILuaObject;)Z");
-                                Label l1 = new Label();
-                                super.visitJumpInsn(Opcodes.IFEQ, l1);
-                                Label l2 = new Label();
-                                super.visitLabel(l2);
-                                super.visitVarInsn(Opcodes.ALOAD, 1);
-                                super.visitMethodInsn(
-                                        Opcodes.INVOKESTATIC,
-                                        "logisticspipes/proxy/cc/LPASMHookCC",
-                                        "returnCCWrappedILuaObject",
-                                        "(Ldan200/computercraft/api/lua/ILuaObject;)Lorg/luaj/vm2/LuaTable;");
-                                super.visitInsn(Opcodes.ARETURN);
-                                super.visitLabel(l1);
-                            }
-                        };
+                    @Override
+                    public void visitCode() {
+                        super.visitCode();
+                        Label l0 = new Label();
+                        super.visitLabel(l0);
+                        super.visitVarInsn(Opcodes.ALOAD, 1);
+                        super.visitMethodInsn(
+                                Opcodes.INVOKESTATIC,
+                                "logisticspipes/proxy/cc/LPASMHookCC",
+                                "handleCCWrappedILuaObject",
+                                "(Ldan200/computercraft/api/lua/ILuaObject;)Z");
+                        Label l1 = new Label();
+                        super.visitJumpInsn(Opcodes.IFEQ, l1);
+                        Label l2 = new Label();
+                        super.visitLabel(l2);
+                        super.visitVarInsn(Opcodes.ALOAD, 1);
+                        super.visitMethodInsn(
+                                Opcodes.INVOKESTATIC,
+                                "logisticspipes/proxy/cc/LPASMHookCC",
+                                "returnCCWrappedILuaObject",
+                                "(Ldan200/computercraft/api/lua/ILuaObject;)Lorg/luaj/vm2/LuaTable;");
+                        super.visitInsn(Opcodes.ARETURN);
+                        super.visitLabel(l1);
+                    }
+                };
                 m.accept(mv);
                 node.methods.set(node.methods.indexOf(m), mv);
             }
             if (m.name.equals("toObject") && m.desc.equals("(Lorg/luaj/vm2/LuaValue;)Ljava/lang/Object;")) {
-                MethodNode mv =
-                        new MethodNode(
-                                Opcodes.ASM4,
-                                m.access,
-                                m.name,
-                                m.desc,
-                                m.signature,
-                                m.exceptions.toArray(new String[0])) {
+                MethodNode mv = new MethodNode(
+                        Opcodes.ASM4,
+                        m.access,
+                        m.name,
+                        m.desc,
+                        m.signature,
+                        m.exceptions.toArray(new String[0])) {
 
-                            boolean added = false;
+                    boolean added = false;
 
-                            @Override
-                            public void visitLineNumber(int line, Label start) {
-                                if (!added) {
-                                    added = true;
-                                    super.visitVarInsn(Opcodes.ALOAD, 1);
-                                    super.visitMethodInsn(
-                                            Opcodes.INVOKESTATIC,
-                                            "logisticspipes/proxy/cc/LPASMHookCC",
-                                            "handleCCToObject",
-                                            "(Lorg/luaj/vm2/LuaValue;)Z");
-                                    start = new Label();
-                                    super.visitJumpInsn(Opcodes.IFEQ, start);
-                                    Label l5 = new Label();
-                                    super.visitLabel(l5);
-                                    super.visitVarInsn(Opcodes.ALOAD, 1);
-                                    super.visitMethodInsn(
-                                            Opcodes.INVOKESTATIC,
-                                            "logisticspipes/proxy/cc/LPASMHookCC",
-                                            "returnCCToObject",
-                                            "(Lorg/luaj/vm2/LuaValue;)Ljava/lang/Object;");
-                                    super.visitInsn(Opcodes.ARETURN);
-                                    super.visitLabel(start);
-                                }
-                                super.visitLineNumber(line, start);
-                            }
-                        };
+                    @Override
+                    public void visitLineNumber(int line, Label start) {
+                        if (!added) {
+                            added = true;
+                            super.visitVarInsn(Opcodes.ALOAD, 1);
+                            super.visitMethodInsn(
+                                    Opcodes.INVOKESTATIC,
+                                    "logisticspipes/proxy/cc/LPASMHookCC",
+                                    "handleCCToObject",
+                                    "(Lorg/luaj/vm2/LuaValue;)Z");
+                            start = new Label();
+                            super.visitJumpInsn(Opcodes.IFEQ, start);
+                            Label l5 = new Label();
+                            super.visitLabel(l5);
+                            super.visitVarInsn(Opcodes.ALOAD, 1);
+                            super.visitMethodInsn(
+                                    Opcodes.INVOKESTATIC,
+                                    "logisticspipes/proxy/cc/LPASMHookCC",
+                                    "returnCCToObject",
+                                    "(Lorg/luaj/vm2/LuaValue;)Ljava/lang/Object;");
+                            super.visitInsn(Opcodes.ARETURN);
+                            super.visitLabel(start);
+                        }
+                        super.visitLineNumber(line, start);
+                    }
+                };
                 m.accept(mv);
                 node.methods.set(node.methods.indexOf(m), mv);
             }
@@ -246,59 +245,55 @@ public class LogisticsClassTransformer implements IClassTransformer {
                 null,
                 null);
         for (MethodNode m : node.methods) {
-            if (m.name.equals("validate")
-                    || m.name.equals("func_145829_t")
+            if (m.name.equals("validate") || m.name.equals("func_145829_t")
                     || (m.name.equals("t") && m.desc.equals("()V"))) {
-                MethodNode mv =
-                        new MethodNode(
-                                Opcodes.ASM4,
-                                m.access,
-                                m.name,
-                                m.desc,
-                                m.signature,
-                                m.exceptions.toArray(new String[0])) {
+                MethodNode mv = new MethodNode(
+                        Opcodes.ASM4,
+                        m.access,
+                        m.name,
+                        m.desc,
+                        m.signature,
+                        m.exceptions.toArray(new String[0])) {
 
-                            @Override
-                            public void visitCode() {
-                                super.visitCode();
-                                Label l0 = new Label();
-                                visitLabel(l0);
-                                visitVarInsn(Opcodes.ALOAD, 0);
-                                this.visitMethodInsn(
-                                        Opcodes.INVOKESTATIC,
-                                        "logisticspipes/asm/LogisticsASMHookClass",
-                                        "validate",
-                                        "(Lnet/minecraft/tileentity/TileEntity;)V");
-                            }
-                        };
+                    @Override
+                    public void visitCode() {
+                        super.visitCode();
+                        Label l0 = new Label();
+                        visitLabel(l0);
+                        visitVarInsn(Opcodes.ALOAD, 0);
+                        this.visitMethodInsn(
+                                Opcodes.INVOKESTATIC,
+                                "logisticspipes/asm/LogisticsASMHookClass",
+                                "validate",
+                                "(Lnet/minecraft/tileentity/TileEntity;)V");
+                    }
+                };
                 m.accept(mv);
                 node.methods.set(node.methods.indexOf(m), mv);
             }
-            if (m.name.equals("invalidate")
-                    || m.name.equals("func_145843_s")
+            if (m.name.equals("invalidate") || m.name.equals("func_145843_s")
                     || (m.name.equals("s") && m.desc.equals("()V"))) {
-                MethodNode mv =
-                        new MethodNode(
-                                Opcodes.ASM4,
-                                m.access,
-                                m.name,
-                                m.desc,
-                                m.signature,
-                                m.exceptions.toArray(new String[0])) {
+                MethodNode mv = new MethodNode(
+                        Opcodes.ASM4,
+                        m.access,
+                        m.name,
+                        m.desc,
+                        m.signature,
+                        m.exceptions.toArray(new String[0])) {
 
-                            @Override
-                            public void visitCode() {
-                                super.visitCode();
-                                Label l0 = new Label();
-                                visitLabel(l0);
-                                visitVarInsn(Opcodes.ALOAD, 0);
-                                this.visitMethodInsn(
-                                        Opcodes.INVOKESTATIC,
-                                        "logisticspipes/asm/LogisticsASMHookClass",
-                                        "invalidate",
-                                        "(Lnet/minecraft/tileentity/TileEntity;)V");
-                            }
-                        };
+                    @Override
+                    public void visitCode() {
+                        super.visitCode();
+                        Label l0 = new Label();
+                        visitLabel(l0);
+                        visitVarInsn(Opcodes.ALOAD, 0);
+                        this.visitMethodInsn(
+                                Opcodes.INVOKESTATIC,
+                                "logisticspipes/asm/LogisticsASMHookClass",
+                                "invalidate",
+                                "(Lnet/minecraft/tileentity/TileEntity;)V");
+                    }
+                };
                 m.accept(mv);
                 node.methods.set(node.methods.indexOf(m), mv);
             }
@@ -306,7 +301,11 @@ public class LogisticsClassTransformer implements IClassTransformer {
         MethodVisitor mv;
         {
             mv = node.visitMethod(
-                    Opcodes.ACC_PUBLIC, "getObject", "()Llogisticspipes/asm/te/LPTileEntityObject;", null, null);
+                    Opcodes.ACC_PUBLIC,
+                    "getObject",
+                    "()Llogisticspipes/asm/te/LPTileEntityObject;",
+                    null,
+                    null);
             mv.visitCode();
             Label l0 = new Label();
             mv.visitLabel(l0);
@@ -324,7 +323,11 @@ public class LogisticsClassTransformer implements IClassTransformer {
         }
         {
             mv = node.visitMethod(
-                    Opcodes.ACC_PUBLIC, "setObject", "(Llogisticspipes/asm/te/LPTileEntityObject;)V", null, null);
+                    Opcodes.ACC_PUBLIC,
+                    "setObject",
+                    "(Llogisticspipes/asm/te/LPTileEntityObject;)V",
+                    null,
+                    null);
             mv.visitCode();
             Label l0 = new Label();
             mv.visitLabel(l0);
@@ -353,88 +356,84 @@ public class LogisticsClassTransformer implements IClassTransformer {
         final ClassNode node = new ClassNode();
         reader.accept(node, 0);
         for (MethodNode m : node.methods) {
-            if (m.name.equals("notifyBlocksOfNeighborChange")
-                    || m.name.equals("func_147459_d")
+            if (m.name.equals("notifyBlocksOfNeighborChange") || m.name.equals("func_147459_d")
                     || (m.name.equals("d") && m.desc.equals("(IIILaji;)V"))) {
-                MethodNode mv =
-                        new MethodNode(
-                                Opcodes.ASM4,
-                                m.access,
-                                m.name,
-                                m.desc,
-                                m.signature,
-                                m.exceptions.toArray(new String[0])) {
+                MethodNode mv = new MethodNode(
+                        Opcodes.ASM4,
+                        m.access,
+                        m.name,
+                        m.desc,
+                        m.signature,
+                        m.exceptions.toArray(new String[0])) {
 
-                            @Override
-                            public void visitCode() {
-                                super.visitCode();
-                                Label l0 = new Label();
-                                visitLabel(l0);
-                                visitVarInsn(Opcodes.ALOAD, 0);
-                                visitVarInsn(Opcodes.ILOAD, 1);
-                                visitVarInsn(Opcodes.ILOAD, 2);
-                                visitVarInsn(Opcodes.ILOAD, 3);
-                                this.visitMethodInsn(
-                                        Opcodes.INVOKESTATIC,
-                                        "logisticspipes/asm/LogisticsASMHookClass",
-                                        "notifyBlocksOfNeighborChange_Start",
-                                        "(Lnet/minecraft/world/World;III)V");
-                            }
+                    @Override
+                    public void visitCode() {
+                        super.visitCode();
+                        Label l0 = new Label();
+                        visitLabel(l0);
+                        visitVarInsn(Opcodes.ALOAD, 0);
+                        visitVarInsn(Opcodes.ILOAD, 1);
+                        visitVarInsn(Opcodes.ILOAD, 2);
+                        visitVarInsn(Opcodes.ILOAD, 3);
+                        this.visitMethodInsn(
+                                Opcodes.INVOKESTATIC,
+                                "logisticspipes/asm/LogisticsASMHookClass",
+                                "notifyBlocksOfNeighborChange_Start",
+                                "(Lnet/minecraft/world/World;III)V");
+                    }
 
-                            @Override
-                            public void visitInsn(int opcode) {
-                                if (opcode == Opcodes.RETURN) {
-                                    visitVarInsn(Opcodes.ALOAD, 0);
-                                    visitVarInsn(Opcodes.ILOAD, 1);
-                                    visitVarInsn(Opcodes.ILOAD, 2);
-                                    visitVarInsn(Opcodes.ILOAD, 3);
-                                    this.visitMethodInsn(
-                                            Opcodes.INVOKESTATIC,
-                                            "logisticspipes/asm/LogisticsASMHookClass",
-                                            "notifyBlocksOfNeighborChange_Stop",
-                                            "(Lnet/minecraft/world/World;III)V");
-                                    Label l0 = new Label();
-                                    visitLabel(l0);
-                                }
-                                super.visitInsn(opcode);
-                            }
-                        };
+                    @Override
+                    public void visitInsn(int opcode) {
+                        if (opcode == Opcodes.RETURN) {
+                            visitVarInsn(Opcodes.ALOAD, 0);
+                            visitVarInsn(Opcodes.ILOAD, 1);
+                            visitVarInsn(Opcodes.ILOAD, 2);
+                            visitVarInsn(Opcodes.ILOAD, 3);
+                            this.visitMethodInsn(
+                                    Opcodes.INVOKESTATIC,
+                                    "logisticspipes/asm/LogisticsASMHookClass",
+                                    "notifyBlocksOfNeighborChange_Stop",
+                                    "(Lnet/minecraft/world/World;III)V");
+                            Label l0 = new Label();
+                            visitLabel(l0);
+                        }
+                        super.visitInsn(opcode);
+                    }
+                };
                 m.accept(mv);
                 node.methods.set(node.methods.indexOf(m), mv);
             }
-            if (m.name.equals("notifyBlockOfNeighborChange")
-                    || m.name.equals("func_147460_e")
+            if (m.name.equals("notifyBlockOfNeighborChange") || m.name.equals("func_147460_e")
                     || (m.name.equals("e") && m.desc.equals("(IIILaji;)V"))) {
-                MethodNode mv =
-                        new MethodNode(
-                                Opcodes.ASM4,
-                                m.access,
-                                m.name,
-                                m.desc,
-                                m.signature,
-                                m.exceptions.toArray(new String[0])) {
+                MethodNode mv = new MethodNode(
+                        Opcodes.ASM4,
+                        m.access,
+                        m.name,
+                        m.desc,
+                        m.signature,
+                        m.exceptions.toArray(new String[0])) {
 
-                            boolean done = false;
+                    boolean done = false;
 
-                            @Override
-                            public void visitLabel(Label label) {
-                                if (!done) {
-                                    done = true;
-                                    Label l0 = new Label();
-                                    visitLabel(l0);
-                                    visitVarInsn(Opcodes.ALOAD, 0);
-                                    visitVarInsn(Opcodes.ILOAD, 1);
-                                    visitVarInsn(Opcodes.ILOAD, 2);
-                                    visitVarInsn(Opcodes.ILOAD, 3);
-                                    this.visitMethodInsn(
-                                            Opcodes.INVOKESTATIC,
-                                            "logisticspipes/asm/LogisticsASMHookClass",
-                                            "notifyBlockOfNeighborChange",
-                                            "(Lnet/minecraft/world/World;III)V");
-                                }
-                                super.visitLabel(label);
-                            }
-                        };
+                    @Override
+                    public void visitLabel(Label label) {
+                        if (!done) {
+                            done = true;
+                            Label l0 = new Label();
+                            visitLabel(l0);
+                            visitVarInsn(Opcodes.ALOAD, 0);
+                            visitVarInsn(Opcodes.ILOAD, 1);
+                            visitVarInsn(Opcodes.ILOAD, 2);
+                            visitVarInsn(Opcodes.ILOAD, 3);
+                            this.visitMethodInsn(
+                                    Opcodes.INVOKESTATIC,
+                                    "logisticspipes/asm/LogisticsASMHookClass",
+                                    "notifyBlockOfNeighborChange",
+                                    "(Lnet/minecraft/world/World;III)V");
+                        }
+                        super.visitLabel(label);
+                    }
+                };
                 m.accept(mv);
                 node.methods.set(node.methods.indexOf(m), mv);
             }
@@ -487,7 +486,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitLineNumber(11, l0);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             Label l1 = new Label();
             mv.visitJumpInsn(Opcodes.IFNONNULL, l1);
             Label l2 = new Label();
@@ -500,13 +502,20 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitMethodInsn(
-                    Opcodes.INVOKEVIRTUAL, "java/util/ArrayList", "iterator", "()Ljava/util/Iterator;", false);
+                    Opcodes.INVOKEVIRTUAL,
+                    "java/util/ArrayList",
+                    "iterator",
+                    "()Ljava/util/Iterator;",
+                    false);
             mv.visitVarInsn(Opcodes.ASTORE, 2);
             Label l3 = new Label();
             mv.visitLabel(l3);
-            mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] {"java/util/Iterator"}, 0, null);
+            mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { "java/util/Iterator" }, 0, null);
             mv.visitVarInsn(Opcodes.ALOAD, 2);
             mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, "java/util/Iterator", "hasNext", "()Z", true);
             Label l4 = new Label();
@@ -524,7 +533,7 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitJumpInsn(Opcodes.GOTO, l3);
             mv.visitLabel(l6);
             mv.visitLineNumber(16, l6);
-            mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] {"logisticspipes/asm/addinfo/IAddInfo"}, 0, null);
+            mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { "logisticspipes/asm/addinfo/IAddInfo" }, 0, null);
             mv.visitVarInsn(Opcodes.ALOAD, 3);
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Object", "getClass", "()Ljava/lang/Class;", false);
             mv.visitVarInsn(Opcodes.ALOAD, 1);
@@ -565,7 +574,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitLineNumber(25, l0);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             Label l1 = new Label();
             mv.visitJumpInsn(Opcodes.IFNONNULL, l1);
             Label l2 = new Label();
@@ -576,7 +588,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitInsn(Opcodes.DUP);
             mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/util/ArrayList", "<init>", "()V", false);
             mv.visitFieldInsn(
-                    Opcodes.PUTFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.PUTFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitLabel(l1);
             mv.visitLineNumber(28, l1);
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
@@ -584,11 +599,14 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitVarInsn(Opcodes.ISTORE, 2);
             Label l3 = new Label();
             mv.visitLabel(l3);
-            mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] {Opcodes.INTEGER}, 0, null);
+            mv.visitFrame(Opcodes.F_APPEND, 1, new Object[] { Opcodes.INTEGER }, 0, null);
             mv.visitVarInsn(Opcodes.ILOAD, 2);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/util/ArrayList", "size", "()I", false);
             Label l4 = new Label();
             mv.visitJumpInsn(Opcodes.IF_ICMPGE, l4);
@@ -597,7 +615,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitLineNumber(29, l5);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitVarInsn(Opcodes.ILOAD, 2);
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/util/ArrayList", "get", "(I)Ljava/lang/Object;", false);
             Label l6 = new Label();
@@ -609,7 +630,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitVarInsn(Opcodes.ILOAD, 2);
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/util/ArrayList", "get", "(I)Ljava/lang/Object;", false);
             mv.visitTypeInsn(Opcodes.CHECKCAST, "logisticspipes/asm/addinfo/IAddInfo");
@@ -622,7 +646,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitLineNumber(31, l8);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitVarInsn(Opcodes.ILOAD, 2);
             mv.visitVarInsn(Opcodes.ALOAD, 1);
             mv.visitMethodInsn(
@@ -646,7 +673,10 @@ public class LogisticsClassTransformer implements IClassTransformer {
             mv.visitFrame(Opcodes.F_CHOP, 1, null, 0, null);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(
-                    Opcodes.GETFIELD, className, "logisticsPipesAdditionalInformation", "Ljava/util/ArrayList;");
+                    Opcodes.GETFIELD,
+                    className,
+                    "logisticsPipesAdditionalInformation",
+                    "Ljava/util/ArrayList;");
             mv.visitVarInsn(Opcodes.ALOAD, 1);
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
             mv.visitInsn(Opcodes.POP);

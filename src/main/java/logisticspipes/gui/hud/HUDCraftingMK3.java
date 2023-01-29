@@ -2,13 +2,16 @@ package logisticspipes.gui.hud;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.IHUDConfig;
 import logisticspipes.pipes.PipeItemsCraftingLogisticsMk3;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+
 import net.minecraft.client.Minecraft;
+
 import org.lwjgl.opengl.GL11;
 
 public class HUDCraftingMK3 extends BasicHUDGui {
@@ -69,12 +72,51 @@ public class HUDCraftingMK3 extends BasicHUDGui {
         }
         if (pipe.displayList.size() > 0 && pipe.getMk3Module().bufferList.size() == 0) {
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list, null, 0, 13, -17, 1, 1, 18, 18, 100.0F, DisplayAmount.ALWAYS, true, false, shifted);
+                    list,
+                    null,
+                    0,
+                    13,
+                    -17,
+                    1,
+                    1,
+                    18,
+                    18,
+                    100.0F,
+                    DisplayAmount.ALWAYS,
+                    true,
+                    false,
+                    shifted);
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.displayList, null, 0, 13, 3, 1, 1, 18, 18, 100.0F, DisplayAmount.ALWAYS, true, false, shifted);
+                    pipe.displayList,
+                    null,
+                    0,
+                    13,
+                    3,
+                    1,
+                    1,
+                    18,
+                    18,
+                    100.0F,
+                    DisplayAmount.ALWAYS,
+                    true,
+                    false,
+                    shifted);
         } else if (pipe.getMk3Module().bufferList.size() > 0) {
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list, null, 0, 13, -37, 1, 1, 18, 18, 100.0F, DisplayAmount.ALWAYS, true, false, shifted);
+                    list,
+                    null,
+                    0,
+                    13,
+                    -37,
+                    1,
+                    1,
+                    18,
+                    18,
+                    100.0F,
+                    DisplayAmount.ALWAYS,
+                    true,
+                    false,
+                    shifted);
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                     pipe.displayList,
                     null,
@@ -108,16 +150,28 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     shifted);
         } else {
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list, null, 0, -9, 0, 1, 1, 18, 18, 100.0F, DisplayAmount.ALWAYS, true, false, shifted);
+                    list,
+                    null,
+                    0,
+                    -9,
+                    0,
+                    1,
+                    1,
+                    18,
+                    18,
+                    100.0F,
+                    DisplayAmount.ALWAYS,
+                    true,
+                    false,
+                    shifted);
         }
     }
 
     @Override
     public boolean display(IHUDConfig config) {
-        return config.isHUDCrafting()
-                && ((!pipe.hasCraftingSign() && pipe.getCraftedItems() != null)
-                        || pipe.getMk3Module().bufferList.size() > 0
-                        || pipe.displayList.size() > 0);
+        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getCraftedItems() != null)
+                || pipe.getMk3Module().bufferList.size() > 0
+                || pipe.displayList.size() > 0);
     }
 
     @Override

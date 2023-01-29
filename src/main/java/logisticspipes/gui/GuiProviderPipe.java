@@ -1,10 +1,7 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui;
 
 import logisticspipes.network.PacketHandler;
@@ -15,9 +12,11 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiProviderPipe extends LogisticsBaseGuiScreen {
@@ -52,17 +51,23 @@ public class GuiProviderPipe extends LogisticsBaseGuiScreen {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        buttonList.add(new GuiButton(
-                0,
-                width / 2 + 40,
-                height / 2 - 59,
-                45,
-                20,
-                logic.isExcludeFilter()
-                        ? StringUtils.translate(GuiProviderPipe.PREFIX + "Exclude")
-                        : StringUtils.translate(GuiProviderPipe.PREFIX + "Include")));
-        buttonList.add(new GuiButton(
-                1, width / 2 - 90, height / 2 - 41, 38, 20, StringUtils.translate(GuiProviderPipe.PREFIX + "Switch")));
+        buttonList.add(
+                new GuiButton(
+                        0,
+                        width / 2 + 40,
+                        height / 2 - 59,
+                        45,
+                        20,
+                        logic.isExcludeFilter() ? StringUtils.translate(GuiProviderPipe.PREFIX + "Exclude")
+                                : StringUtils.translate(GuiProviderPipe.PREFIX + "Include")));
+        buttonList.add(
+                new GuiButton(
+                        1,
+                        width / 2 - 90,
+                        height / 2 - 41,
+                        38,
+                        20,
+                        StringUtils.translate(GuiProviderPipe.PREFIX + "Switch")));
     }
 
     @Override
@@ -72,16 +77,14 @@ public class GuiProviderPipe extends LogisticsBaseGuiScreen {
             ((GuiButton) buttonList.get(0)).displayString = logic.isExcludeFilter()
                     ? StringUtils.translate(GuiProviderPipe.PREFIX + "Exclude")
                     : StringUtils.translate(GuiProviderPipe.PREFIX + "Include");
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(ProviderPipeIncludePacket.class)
-                    .setPosX(logic.getX())
-                    .setPosY(logic.getY())
-                    .setPosZ(logic.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(ProviderPipeIncludePacket.class).setPosX(logic.getX()).setPosY(logic.getY())
+                            .setPosZ(logic.getZ()));
         } else if (guibutton.id == 1) {
             logic.nextExtractionMode();
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(ProviderPipeNextModePacket.class)
-                    .setPosX(logic.getX())
-                    .setPosY(logic.getY())
-                    .setPosZ(logic.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(ProviderPipeNextModePacket.class).setPosX(logic.getX())
+                            .setPosY(logic.getY()).setPosZ(logic.getZ()));
         }
         super.actionPerformed(guibutton);
     }
@@ -96,13 +99,12 @@ public class GuiProviderPipe extends LogisticsBaseGuiScreen {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiProviderPipe.PREFIX + "TargetInv"),
-                xSize / 2
-                        - mc.fontRenderer.getStringWidth(StringUtils.translate(GuiProviderPipe.PREFIX + "TargetInv"))
-                                / 2,
+                xSize / 2 - mc.fontRenderer.getStringWidth(StringUtils.translate(GuiProviderPipe.PREFIX + "TargetInv"))
+                        / 2,
                 6,
                 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiProviderPipe.PREFIX + "Inventory"), 18, ySize - 102, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiProviderPipe.PREFIX + "Inventory"), 18, ySize - 102, 0x404040);
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiProviderPipe.PREFIX + "Mode") + ": "
                         + logic.getExtractionMode().getExtractionModeString(),

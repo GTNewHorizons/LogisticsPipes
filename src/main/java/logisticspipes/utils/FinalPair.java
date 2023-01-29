@@ -1,8 +1,7 @@
 package logisticspipes.utils;
 
 /**
- * A final pair that caches hashcode and implements equals, mainly for use as
- * hashmap key
+ * A final pair that caches hashcode and implements equals, mainly for use as hashmap key
  */
 public class FinalPair<T1, T2> {
 

@@ -1,6 +1,7 @@
 package logisticspipes.interfaces;
 
 import logisticspipes.utils.gui.ItemDisplay;
+
 import net.minecraft.item.ItemStack;
 
 public interface IDiskProvider {

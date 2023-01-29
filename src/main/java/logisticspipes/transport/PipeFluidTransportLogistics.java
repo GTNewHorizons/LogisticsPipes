@@ -7,6 +7,7 @@ import logisticspipes.pipes.basic.fluid.FluidRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.SafeTimeTracker;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
@@ -27,8 +28,7 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (from.ordinal() < ForgeDirection.VALID_DIRECTIONS.length
-                && getFluidPipe().canReceiveFluid()) {
+        if (from.ordinal() < ForgeDirection.VALID_DIRECTIONS.length && getFluidPipe().canReceiveFluid()) {
             return sideTanks[from.ordinal()].fill(resource, doFill);
         } else {
             return 0;
@@ -70,7 +70,7 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         if (from.ordinal() < ForgeDirection.VALID_DIRECTIONS.length) {
-            return new FluidTankInfo[] {new FluidTankInfo(sideTanks[from.ordinal()])};
+            return new FluidTankInfo[] { new FluidTankInfo(sideTanks[from.ordinal()]) };
         } else {
             return null;
         }
@@ -82,8 +82,8 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
 
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
             if (nbttagcompound.hasKey("tank[" + direction.ordinal() + "]")) {
-                sideTanks[direction.ordinal()].readFromNBT(
-                        nbttagcompound.getCompoundTag("tank[" + direction.ordinal() + "]"));
+                sideTanks[direction.ordinal()]
+                        .readFromNBT(nbttagcompound.getCompoundTag("tank[" + direction.ordinal() + "]"));
             }
         }
         if (nbttagcompound.hasKey("tank[middle]")) {
@@ -168,7 +168,10 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
             ModernPacket packet = computeFluidUpdate(init, true);
             if (packet != null) {
                 MainProxy.sendPacketToAllWatchingChunk(
-                        container.xCoord, container.zCoord, MainProxy.getDimensionForWorld(getWorld()), packet);
+                        container.xCoord,
+                        container.zCoord,
+                        MainProxy.getDimensionForWorld(getWorld()),
+                        packet);
             }
         }
     }
@@ -234,12 +237,8 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
         }
 
         if (changed || initPacket) {
-            return PacketHandler.getPacket(PipeFluidUpdate.class)
-                    .setRenderCache(renderCache)
-                    .setPosX(container.xCoord)
-                    .setPosY(container.yCoord)
-                    .setPosZ(container.zCoord)
-                    .setChunkDataPacket(initPacket);
+            return PacketHandler.getPacket(PipeFluidUpdate.class).setRenderCache(renderCache).setPosX(container.xCoord)
+                    .setPosY(container.yCoord).setPosZ(container.zCoord).setChunkDataPacket(initPacket);
         }
 
         return null;

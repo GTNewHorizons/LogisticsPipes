@@ -1,6 +1,7 @@
 package logisticspipes.routing.order;
 
 import java.util.List;
+
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
@@ -38,16 +39,8 @@ public class ClientSideOrderInfo implements IOrderInfoProvider {
     @Getter
     private final ItemIdentifier targetType;
 
-    public ClientSideOrderInfo(
-            ItemIdentifierStack item,
-            boolean isFinished,
-            ResourceType type,
-            boolean inProgress,
-            int routerId,
-            List<Float> progresses,
-            byte machineProgress,
-            LPPosition pos,
-            ItemIdentifier targetType) {
+    public ClientSideOrderInfo(ItemIdentifierStack item, boolean isFinished, ResourceType type, boolean inProgress,
+            int routerId, List<Float> progresses, byte machineProgress, LPPosition pos, ItemIdentifier targetType) {
         asDisplayItem = item;
         this.isFinished = isFinished;
         this.type = type;

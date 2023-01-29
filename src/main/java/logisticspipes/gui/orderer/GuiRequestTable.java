@@ -2,6 +2,7 @@ package logisticspipes.gui.orderer;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.popup.GuiDiskPopup;
@@ -28,6 +29,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -36,6 +38,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -115,48 +118,40 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         super.initGui();
 
         buttonList.clear();
-        buttonList.add(
-                hideWhileSmall.addChain(new GuiButton(0, right - 55, bottom - 25, 50, 20, "Request"))); // Request
-        buttonList.add(
-                hideWhileSmall.addChain(new SmallGuiButton(1, right - 15, guiTop + 5, 10, 10, ">"))); // Next page
-        buttonList.add(
-                hideWhileSmall.addChain(new SmallGuiButton(2, right - 90, guiTop + 5, 10, 10, "<"))); // Prev page
+        buttonList.add(hideWhileSmall.addChain(new GuiButton(0, right - 55, bottom - 25, 50, 20, "Request"))); // Request
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(1, right - 15, guiTop + 5, 10, 10, ">"))); // Next
+                                                                                                             // page
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(2, right - 90, guiTop + 5, 10, 10, "<"))); // Prev
+                                                                                                             // page
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(10, right - 148, bottom - 15, 26, 10, "---"))); // -64
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(4, right - 148, bottom - 26, 15, 10, "--"))); // -10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(5, right - 132, bottom - 26, 10, 10, "-"))); // -1
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(6, right - 86, bottom - 26, 10, 10, "+"))); // +1
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
-        buttonList.add(hideWhileSmall.addChain(
-                new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
-
-        buttonList.add(hideWhileSmall.addChain(
-                new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
-        buttonList.add(hideWhileSmall.addChain(
-                new SmallGuiButton(13, guiLeft + 210, bottom - 28, 46, 10, "Content"))); // Component
-        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(9, guiLeft + 210, bottom - 41, 46, 10, "Both")));
         buttonList.add(
-                hideWhileSmall.addChain(new SmallGuiButton(20, right - 116, bottom - 41, 26, 10, "Sort"))); // Sort
+                hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
+
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(13, guiLeft + 210, bottom - 28, 46, 10, "Content"))); // Component
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(9, guiLeft + 210, bottom - 41, 46, 10, "Both")));
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(20, right - 116, bottom - 41, 26, 10, "Sort"))); // Sort
 
         buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(14, guiLeft + 96, guiTop + 53, 10, 10, "+"))); // +1
-        buttonList.add(
-                moveWhileSmall.addChain(new SmallGuiButton(15, guiLeft + 108, guiTop + 53, 15, 10, "++"))); // +10
-        buttonList.add(
-                moveWhileSmall.addChain(new SmallGuiButton(16, guiLeft + 96, guiTop + 64, 26, 10, "+++"))); // +64
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(15, guiLeft + 108, guiTop + 53, 15, 10, "++"))); // +10
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(16, guiLeft + 96, guiTop + 64, 26, 10, "+++"))); // +64
 
-        buttonList.add(
-                moveWhileSmall.addChain(new SmallGuiButton(30, guiLeft + 96 + 2, guiTop + 18, 10, 10, "X"))); // x
-        buttonList.add(
-                moveWhileSmall.addChain(new SmallGuiButton(31, guiLeft + 108 + 2, guiTop + 18, 10, 10, "~", 3))); // ~
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(30, guiLeft + 96 + 2, guiTop + 18, 10, 10, "X"))); // x
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(31, guiLeft + 108 + 2, guiTop + 18, 10, 10, "~", 3))); // ~
 
         buttonList.add(hideShowButton = new SmallGuiButton(17, guiLeft + 173, guiTop + 5, 36, 10, "Hide")); // Hide
         buttonList.add(Macrobutton = new SmallGuiButton(18, right - 55, bottom - 60, 50, 10, "Disk"));
         Macrobutton.enabled = false;
 
-        (sycleButtons[0] = addButton(new SmallGuiButton(21, guiLeft + 124, guiTop + 30, 15, 10, "/\\"))).visible =
-                false;
-        (sycleButtons[1] = addButton(new SmallGuiButton(22, guiLeft + 124, guiTop + 42, 15, 10, "\\/"))).visible =
-                false;
+        (sycleButtons[0] = addButton(
+                new SmallGuiButton(21, guiLeft + 124, guiTop + 30, 15, 10, "/\\"))).visible = false;
+        (sycleButtons[1] = addButton(
+                new SmallGuiButton(22, guiLeft + 124, guiTop + 42, 15, 10, "\\/"))).visible = false;
 
         if (search == null) {
             search = new SearchBar(mc.fontRenderer, this, guiLeft + 205, bottom - 78, 200, 15);
@@ -173,7 +168,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     guiTop + 18,
                     200,
                     ySize - 100,
-                    new int[] {1, 10, 64, 64},
+                    new int[] { 1, 10, 64, 64 },
                     true);
         }
         itemDisplay.reposition(guiLeft + 205, guiTop + 18, 200, ySize - 100);
@@ -208,7 +203,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
         if (showRequest) {
             mc.fontRenderer.drawString(
-                    _title, guiLeft + 180 + mc.fontRenderer.getStringWidth(_title) / 2, guiTop + 6, 0x404040);
+                    _title,
+                    guiLeft + 180 + mc.fontRenderer.getStringWidth(_title) / 2,
+                    guiTop + 6,
+                    0x404040);
             itemDisplay.renderPageNumber(right - 47, guiTop + 6);
 
             if (buttonList.get(9) instanceof GuiCheckBox && ((GuiCheckBox) buttonList.get(9)).getState()) {
@@ -247,8 +245,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             drawRect(guiLeft + 164 + a, guiTop + 65 - a, guiLeft + 166 + a, guiTop + 67 - a, Color.DARKER_GREY);
         }
         GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 20, guiTop + 150);
-        for (final Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>> entry :
-                _table.watchedRequests.entrySet()) {
+        for (final Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>> entry : _table.watchedRequests
+                .entrySet()) {
             if (!handledExtention.get(entry.getKey())) {
                 handledExtention.set(entry.getKey());
                 extentionControllerLeft.addExtention(new GuiExtention() {
@@ -282,9 +280,18 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                         if (resource != null) {
                             stack = resource.getDisplayItem().makeNormalStack();
                             GuiScreen.itemRender.renderItemAndEffectIntoGUI(
-                                    mc.fontRenderer, getMC().renderEngine, stack, left + 5, top + 5);
+                                    mc.fontRenderer,
+                                    getMC().renderEngine,
+                                    stack,
+                                    left + 5,
+                                    top + 5);
                             GuiScreen.itemRender.renderItemOverlayIntoGUI(
-                                    mc.fontRenderer, getMC().renderEngine, stack, left + 5, top + 5, "");
+                                    mc.fontRenderer,
+                                    getMC().renderEngine,
+                                    stack,
+                                    left + 5,
+                                    top + 5,
+                                    "");
                             s = StringUtils.getFormatedStackSize(stack.stackSize, false);
                         } else {
                             s = "List";
@@ -295,19 +302,26 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
                         // Draw number
                         mc.fontRenderer.drawStringWithShadow(
-                                s, left + 22 - mc.fontRenderer.getStringWidth(s), top + 14, 16777215);
+                                s,
+                                left + 22 - mc.fontRenderer.getStringWidth(s),
+                                top + 14,
+                                16777215);
                         if (isFullyExtended()) {
                             if (localControlledButton == null || orderIdForButton != entry.getKey()) {
                                 if (localControlledButton != null) {
                                     buttonList.remove(localControlledButton);
                                 }
-                                localControlledButton =
-                                        new SmallGuiButton(100, guiLeft - 35, guiTop + 10, 30, 10, "more");
+                                localControlledButton = new SmallGuiButton(
+                                        100,
+                                        guiLeft - 35,
+                                        guiTop + 10,
+                                        30,
+                                        10,
+                                        "more");
                                 buttonList.add(localControlledButton);
                                 orderIdForButton = entry.getKey();
                             }
-                            List<IOrderInfoProvider> list =
-                                    entry.getValue().getValue2().getList();
+                            List<IOrderInfoProvider> list = entry.getValue().getValue2().getList();
                             calculateSize(left, top, list);
                             String ident = "ID: " + entry.getKey();
                             mc.fontRenderer.drawStringWithShadow(ident, left + 25, top + 7, 16777215);
@@ -321,10 +335,15 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                 GL11.glEnable(GL11.GL_LIGHTING);
                                 GL11.glEnable(GL11.GL_DEPTH_TEST);
                                 RenderHelper.enableGUIStandardItemLighting();
-                                GuiScreen.itemRender.renderItemAndEffectIntoGUI(
-                                        mc.fontRenderer, getMC().renderEngine, stack, x, y);
+                                GuiScreen.itemRender
+                                        .renderItemAndEffectIntoGUI(mc.fontRenderer, getMC().renderEngine, stack, x, y);
                                 GuiScreen.itemRender.renderItemOverlayIntoGUI(
-                                        mc.fontRenderer, getMC().renderEngine, stack, x, y, "");
+                                        mc.fontRenderer,
+                                        getMC().renderEngine,
+                                        stack,
+                                        x,
+                                        y,
+                                        "");
                                 s = StringUtils.getFormatedStackSize(stack.stackSize, false);
                                 GL11.glDisable(GL11.GL_LIGHTING);
                                 GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -332,7 +351,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
                                 // Draw number
                                 mc.fontRenderer.drawStringWithShadow(
-                                        s, x + 17 - mc.fontRenderer.getStringWidth(s), y + 9, 16777215);
+                                        s,
+                                        x + 17 - mc.fontRenderer.getStringWidth(s),
+                                        y + 9,
+                                        16777215);
                                 ordererPosition.put(new Pair<>(x, y), order);
                                 x += 18;
                                 if (x > left + getFinalWidth() - 18) {
@@ -341,8 +363,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                 }
                             }
                         } else if (isExtending()) {
-                            List<IOrderInfoProvider> list =
-                                    entry.getValue().getValue2().getList();
+                            List<IOrderInfoProvider> list = entry.getValue().getValue2().getList();
                             calculateSize(left, top, list);
                         }
                         if (!isFullyExtended() && localControlledButton != null) {
@@ -398,24 +419,22 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     public void handleMouseOverAt(int xPos, int yPos) {
                         if (isFullyExtended()) {
                             for (Pair<Integer, Integer> key : ordererPosition.keySet()) {
-                                if (xPos >= key.getValue1()
-                                        && xPos < key.getValue1() + 18
+                                if (xPos >= key.getValue1() && xPos < key.getValue1() + 18
                                         && yPos >= key.getValue2()
                                         && yPos < key.getValue2() + 18) {
                                     IOrderInfoProvider order = ordererPosition.get(key);
                                     List<String> list = new ArrayList<>();
-                                    list.add(ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW
-                                            + order.getType().name());
-                                    list.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW
-                                            + order.getRouterId());
+                                    list.add(
+                                            ChatColor.BLUE + "Request Type: "
+                                                    + ChatColor.YELLOW
+                                                    + order.getType().name());
+                                    list.add(
+                                            ChatColor.BLUE + "Send to Router ID: "
+                                                    + ChatColor.YELLOW
+                                                    + order.getRouterId());
                                     GuiGraphics.displayItemToolTip(
-                                            new Object[] {
-                                                xPos - 10,
-                                                yPos,
-                                                order.getAsDisplayItem().makeNormalStack(),
-                                                true,
-                                                list
-                                            },
+                                            new Object[] { xPos - 10, yPos, order.getAsDisplayItem().makeNormalStack(),
+                                                    true, list },
                                             zLevel,
                                             guiLeft,
                                             guiTop,
@@ -427,16 +446,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                 List<String> list = new ArrayList<>();
                                 list.add(ChatColor.BLUE + "Request ID: " + ChatColor.YELLOW + entry.getKey());
                                 GuiGraphics.displayItemToolTip(
-                                        new Object[] {
-                                            xPos - 10,
-                                            yPos,
-                                            entry.getValue()
-                                                    .getValue1()
-                                                    .getDisplayItem()
-                                                    .makeNormalStack(),
-                                            true,
-                                            list
-                                        },
+                                        new Object[] { xPos - 10, yPos,
+                                                entry.getValue().getValue1().getDisplayItem().makeNormalStack(), true,
+                                                list },
                                         zLevel,
                                         guiLeft,
                                         guiTop,
@@ -466,18 +478,18 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 integer = 3;
         }
         integer += (dimension * 10);
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(OrdererRefreshRequestPacket.class)
-                .setInteger(integer)
-                .setTilePos(_table.container));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(OrdererRefreshRequestPacket.class).setInteger(integer)
+                        .setTilePos(_table.container));
     }
 
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0 && itemDisplay.getSelectedItem() != null) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSubmitPacket.class)
-                    .setDimension(dimension)
-                    .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
-                    .setTilePos(_table.container));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(RequestSubmitPacket.class).setDimension(dimension)
+                            .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
+                            .setTilePos(_table.container));
             refreshItems();
         } else if (guibutton.id == 1) {
             itemDisplay.nextPage();
@@ -502,10 +514,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             Configs.DISPLAY_POPUP = button.change();
             Configs.savePopupState();
         } else if (guibutton.id == 13 && itemDisplay.getSelectedItem() != null) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestComponentPacket.class)
-                    .setDimension(dimension)
-                    .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
-                    .setTilePos(_table.container));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(RequestComponentPacket.class).setDimension(dimension)
+                            .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
+                            .setTilePos(_table.container));
         } else if (guibutton.id == 9) {
             String displayString = "";
             switch (displayOptions) {
@@ -559,25 +571,23 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             extentionControllerLeft.retract();
             setSubGui(new RequestMonitorPopup(_table, orderIdForButton));
         } else if (guibutton.id == 18) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(DiskRequestConectPacket.class)
-                    .setPosX(_table.getX())
-                    .setPosY(_table.getY())
-                    .setPosZ(_table.getZ()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(DiskRequestConectPacket.class).setPosX(_table.getX()).setPosY(_table.getY())
+                            .setPosZ(_table.getZ()));
             setSubGui(new GuiDiskPopup(this));
         } else if (guibutton.id == 20) {
             itemDisplay.cycle();
         } else if (guibutton.id == 21 || guibutton.id == 22) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(CraftingCycleRecipe.class)
-                    .setDown(guibutton.id == 22)
-                    .setTilePos(_table.container));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(CraftingCycleRecipe.class).setDown(guibutton.id == 22)
+                            .setTilePos(_table.container));
         } else if (guibutton.id == 30) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(ClearCraftingGridPacket.class).setTilePos(_table.container));
             _table.cacheRecipe();
         } else if (guibutton.id == 31) {
             ArrayList<ItemIdentifierStack> list = new ArrayList<>(9);
-            for (Entry<ItemIdentifier, Integer> e :
-                    _table.matrix.getItemsAndCount().entrySet()) {
+            for (Entry<ItemIdentifier, Integer> e : _table.matrix.getItemsAndCount().entrySet()) {
                 list.add(e.getKey().makeStack(e.getValue()));
             }
             for (Pair<ItemStack, Integer> entry : _table.inv) {
@@ -593,9 +603,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             }
             list.removeIf(itemIdentifierStack -> itemIdentifierStack.getStackSize() <= 0);
             if (!list.isEmpty()) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSubmitListPacket.class)
-                        .setIdentList(list)
-                        .setTilePos(_table.container));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(RequestSubmitListPacket.class).setIdentList(list)
+                                .setTilePos(_table.container));
                 refreshItems();
             }
         }
@@ -606,9 +616,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         for (Entry<ItemIdentifier, Integer> e : _table.matrix.getItemsAndCount().entrySet()) {
             list.add(e.getKey().makeStack(e.getValue() * multiplier));
         }
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestSubmitListPacket.class)
-                .setIdentList(list)
-                .setTilePos(_table.container));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(RequestSubmitListPacket.class).setIdentList(list).setTilePos(_table.container));
         refreshItems();
     }
 
@@ -642,9 +651,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         if (search.isEmpty()) {
             return true;
         }
-        if (isSearched(
-                item.getFriendlyName().toLowerCase(Locale.US),
-                search.getContent().toLowerCase(Locale.US))) {
+        if (isSearched(item.getFriendlyName().toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
             return true;
         }
         // if(isSearched(String.valueOf(Item.getIdFromItem(item.item)), search.getContent())) return true;
@@ -654,9 +661,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             if (e.getKey() < Enchantment.enchantmentsList.length && Enchantment.enchantmentsList[e.getKey()] != null) {
                 String enchantname = Enchantment.enchantmentsList[e.getKey()].getTranslatedName(e.getValue());
                 if (enchantname != null) {
-                    if (isSearched(
-                            enchantname.toLowerCase(Locale.US),
-                            search.getContent().toLowerCase(Locale.US))) {
+                    if (isSearched(enchantname.toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
                         return true;
                     }
                 }
@@ -693,8 +698,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         super.handleMouseInputSub();
     }
 
-    public void handleRequestAnswer(
-            Collection<IResource> items, boolean error, ISubGuiControler control, EntityPlayer player) {
+    public void handleRequestAnswer(Collection<IResource> items, boolean error, ISubGuiControler control,
+            EntityPlayer player) {
         while (control.hasSubGui()) {
             control = control.getSubGui();
         }
@@ -705,8 +710,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         }
     }
 
-    public void handleSimulateAnswer(
-            Collection<IResource> used, Collection<IResource> missing, ISubGuiControler control, EntityPlayer player) {
+    public void handleSimulateAnswer(Collection<IResource> used, Collection<IResource> missing,
+            ISubGuiControler control, EntityPlayer player) {
         while (control.hasSubGui()) {
             control = control.getSubGui();
         }

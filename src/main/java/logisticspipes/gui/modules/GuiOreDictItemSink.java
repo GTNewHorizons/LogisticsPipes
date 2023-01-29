@@ -2,6 +2,7 @@ package logisticspipes.gui.modules;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.modules.ModuleOreDictItemSink;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.DummyContainer;
@@ -9,6 +10,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -112,8 +114,8 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
                         Color.LIGHT_GREY,
                         0.0);
             }
-            mc.fontRenderer.drawString(
-                    unsunkNames.get(currentOffset + i), guiLeft + 28, guiTop + 7 + (10 * i), 0x404040);
+            mc.fontRenderer
+                    .drawString(unsunkNames.get(currentOffset + i), guiLeft + 28, guiTop + 7 + (10 * i), 0x404040);
             if (27 <= mouseX && mouseX < 158 && 6 + (10 * i) <= mouseY && mouseY < 6 + (10 * (i + 1))) {
                 mouseX = 0;
                 mouseY = 0;

@@ -1,15 +1,17 @@
 package logisticspipes.network;
 
-import cpw.mods.fml.common.FMLLog;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.PacketHandler.InboundModernPacketWrapper;
 import logisticspipes.network.exception.TargetNotFoundException;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
+
 import org.apache.logging.log4j.Level;
+
+import cpw.mods.fml.common.FMLLog;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 public class PacketInboundHandler extends SimpleChannelInboundHandler<InboundModernPacketWrapper> {
 

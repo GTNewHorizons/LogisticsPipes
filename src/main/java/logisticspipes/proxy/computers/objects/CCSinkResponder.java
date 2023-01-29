@@ -54,8 +54,7 @@ public class CCSinkResponder implements ILPCCTypeHolder {
     }
 
     @CCCommand(
-            description =
-                    "Sends the response to the CC QuickSort module to accept the sink for the givven amount with the givven priority")
+            description = "Sends the response to the CC QuickSort module to accept the sink for the givven amount with the givven priority")
     public void acceptSink(Double amount, Double priority) {
         canSink = ((Double) (amount > 0 ? amount : 0D)).intValue();
         this.priority = priority.intValue();

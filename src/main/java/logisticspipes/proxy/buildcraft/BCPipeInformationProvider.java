@@ -1,13 +1,7 @@
 package logisticspipes.proxy.buildcraft;
 
-import buildcraft.core.CoreConstants;
-import buildcraft.core.lib.TileBuffer;
-import buildcraft.transport.*;
-import buildcraft.transport.pipes.PipeItemsDiamond;
-import buildcraft.transport.pipes.PipeItemsIron;
-import buildcraft.transport.pipes.PipeItemsObsidian;
-import buildcraft.transport.pipes.PipeStructureCobblestone;
 import java.util.List;
+
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -16,9 +10,18 @@ import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.core.CoreConstants;
+import buildcraft.core.lib.TileBuffer;
+import buildcraft.transport.*;
+import buildcraft.transport.pipes.PipeItemsDiamond;
+import buildcraft.transport.pipes.PipeItemsIron;
+import buildcraft.transport.pipes.PipeItemsObsidian;
+import buildcraft.transport.pipes.PipeStructureCobblestone;
 
 public class BCPipeInformationProvider implements IPipeInformationProvider {
 
@@ -126,37 +129,28 @@ public class BCPipeInformationProvider implements IPipeInformationProvider {
 
     @Override
     public boolean isItemPipe() {
-        return pipe != null
-                && pipe.pipe != null
+        return pipe != null && pipe.pipe != null
                 && pipe.pipe.transport instanceof PipeTransportItems
                 && SimpleServiceLocator.buildCraftProxy.isActive();
     }
 
     @Override
     public boolean isFluidPipe() {
-        return pipe != null
-                && pipe.pipe != null
+        return pipe != null && pipe.pipe != null
                 && pipe.pipe.transport instanceof PipeTransportFluids
                 && SimpleServiceLocator.buildCraftProxy.isActive();
     }
 
     @Override
     public boolean isPowerPipe() {
-        return pipe != null
-                && pipe.pipe != null
+        return pipe != null && pipe.pipe != null
                 && pipe.pipe.transport instanceof PipeTransportPower
                 && SimpleServiceLocator.buildCraftProxy.isActive();
     }
 
     @Override
-    public double getDistanceTo(
-            int destinationint,
-            ForgeDirection ignore,
-            ItemIdentifier ident,
-            boolean isActive,
-            double traveled,
-            double max,
-            List<LPPosition> visited) {
+    public double getDistanceTo(int destinationint, ForgeDirection ignore, ItemIdentifier ident, boolean isActive,
+            double traveled, double max, List<LPPosition> visited) {
         if (traveled >= max) {
             return Integer.MAX_VALUE;
         }
@@ -164,8 +158,8 @@ public class BCPipeInformationProvider implements IPipeInformationProvider {
             if (ignore == dir) {
                 continue;
             }
-            IPipeInformationProvider information =
-                    SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(getTile(dir));
+            IPipeInformationProvider information = SimpleServiceLocator.pipeInformationManager
+                    .getInformationProviderFor(getTile(dir));
             if (information != null) {
                 LPPosition pos = new LPPosition(information);
                 if (visited.contains(pos)) {
@@ -173,7 +167,13 @@ public class BCPipeInformationProvider implements IPipeInformationProvider {
                 }
                 visited.add(pos);
                 double result = information.getDistanceTo(
-                        destinationint, dir.getOpposite(), ident, isActive, traveled + getDistance(), max, visited);
+                        destinationint,
+                        dir.getOpposite(),
+                        ident,
+                        isActive,
+                        traveled + getDistance(),
+                        max,
+                        visited);
                 visited.remove(pos);
                 if (result == Integer.MAX_VALUE) {
                     return result;
@@ -196,8 +196,10 @@ public class BCPipeInformationProvider implements IPipeInformationProvider {
             } else {
                 return true;
             }
-            LPPosition p =
-                    new LPPosition(pipe.xCoord + 0.5F, pipe.yCoord + CoreConstants.PIPE_MIN_POS, pipe.zCoord + 0.5F);
+            LPPosition p = new LPPosition(
+                    pipe.xCoord + 0.5F,
+                    pipe.yCoord + CoreConstants.PIPE_MIN_POS,
+                    pipe.zCoord + 0.5F);
             if (item.output.getOpposite() == ForgeDirection.DOWN) {
                 p.moveForward(item.output.getOpposite(), 0.24F);
             } else if (item.output.getOpposite() == ForgeDirection.UP) {

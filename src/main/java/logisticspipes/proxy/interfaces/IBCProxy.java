@@ -7,6 +7,7 @@ import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
 import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
 import logisticspipes.proxy.buildcraft.subproxies.IBCTilePart;
 import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -25,8 +26,8 @@ public interface IBCProxy {
 
     boolean checkForPipeConnection(TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe);
 
-    IConnectionOverrideResult checkConnectionOverride(
-            TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe);
+    IConnectionOverrideResult checkConnectionOverride(TileEntity with, ForgeDirection side,
+            LogisticsTileGenericPipe pipe);
 
     /** Only used by the BC proxy internaly */
     boolean canPipeConnect(TileEntity pipe, TileEntity tile, ForgeDirection direction);
@@ -50,17 +51,8 @@ public interface IBCProxy {
 
     IBCTilePart getBCTilePart(LogisticsTileGenericPipe logisticsTileGenericPipe);
 
-    IBCClickResult handleBCClickOnPipe(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int side,
-            float xOffset,
-            float yOffset,
-            float zOffset,
-            CoreUnroutedPipe pipe);
+    IBCClickResult handleBCClickOnPipe(World world, int x, int y, int z, EntityPlayer player, int side, float xOffset,
+            float yOffset, float zOffset, CoreUnroutedPipe pipe);
 
     void callBCNeighborBlockChange(World world, int x, int y, int z, Block block);
 

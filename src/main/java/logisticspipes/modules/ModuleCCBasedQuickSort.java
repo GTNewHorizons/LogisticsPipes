@@ -1,9 +1,8 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.gui.hud.modules.HUDCCBasedQuickSort;
 import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IFilter;
@@ -32,11 +31,15 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
 import lombok.Getter;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleCCBasedQuickSort extends ModuleQuickSort
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {
@@ -59,8 +62,8 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
         if (sourceRouter == null) {
             return;
         }
-        BitSet routersIndex =
-                ServerRouter.getRoutersInterestedIn((ItemIdentifier) null); // get only pipes with generic interest
+        BitSet routersIndex = ServerRouter.getRoutersInterestedIn((ItemIdentifier) null); // get only pipes with generic
+                                                                                          // interest
         List<ExitRoute> validDestinations = new ArrayList<>(); // get the routing table
         for (int i = routersIndex.nextSetBit(0); i >= 0; i = routersIndex.nextSetBit(i + 1)) {
             IRouter r = SimpleServiceLocator.routerManager.getRouterUnsafe(i, false);
@@ -75,8 +78,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
         }
         Collections.sort(validDestinations);
 
-        outer:
-        for (ExitRoute candidateRouter : validDestinations) {
+        outer: for (ExitRoute candidateRouter : validDestinations) {
             if (candidateRouter.destination.getId().equals(sourceRouter.getId())) {
                 continue;
             }
@@ -154,8 +156,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
 
     private void handleSinkResponses(IInventoryUtil invUtil) {
         boolean changed = false;
-        Iterator<Entry<Integer, Pair<Integer, List<CCSinkResponder>>>> iter =
-                sinkResponses.entrySet().iterator();
+        Iterator<Entry<Integer, Pair<Integer, List<CCSinkResponder>>>> iter = sinkResponses.entrySet().iterator();
         while (iter.hasNext()) {
             Entry<Integer, Pair<Integer, List<CCSinkResponder>>> pair = iter.next();
             pair.getValue().setValue1(pair.getValue().getValue1() + 1);
@@ -170,8 +171,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
                 // skip entry, if slot is not in the inventory (too high).
                 boolean slotInInventory = pair.getKey() < invUtil.getSizeInventory();
 
-                if (slotInInventory
-                        && handle(invUtil, pair.getKey(), pair.getValue().getValue2())) {
+                if (slotInInventory && handle(invUtil, pair.getKey(), pair.getValue().getValue2())) {
                     stalled = false;
                     lastSuceededStack = pair.getKey();
                 }
@@ -208,8 +208,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
             }
             List<ExitRoute> ways = source.getDistanceTo(r);
             double minDistance = Double.MAX_VALUE;
-            outer:
-            for (ExitRoute route : ways) {
+            outer: for (ExitRoute route : ways) {
                 for (IFilter filter : route.filters) {
                     if (filter.blockRouting() || filter.isFilteredItem(ident) == filter.isBlocked()) {
                         continue outer;
@@ -287,37 +286,29 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
         if (sinkSize != sinkResponses.size()) {
             sinkSize = sinkResponses.size();
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(CCBasedQuickSortSinkSize.class)
-                            .setSinkSize(sinkSize)
-                            .setModulePos(this),
+                    PacketHandler.getPacket(CCBasedQuickSortSinkSize.class).setSinkSize(sinkSize).setModulePos(this),
                     localModeWatchers);
         }
     }
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void startWatching(EntityPlayer player) {
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(CCBasedQuickSortMode.class)
-                        .setTimeOut(timeout)
-                        .setModulePos(this),
+                PacketHandler.getPacket(CCBasedQuickSortMode.class).setTimeOut(timeout).setModulePos(this),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(CCBasedQuickSortSinkSize.class)
-                        .setSinkSize(sinkSize)
-                        .setModulePos(this),
+                PacketHandler.getPacket(CCBasedQuickSortSinkSize.class).setSinkSize(sinkSize).setModulePos(this),
                 player);
     }
 
@@ -335,9 +326,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
         timeout = time;
         if (MainProxy.isServer(this._world.getWorld())) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(CCBasedQuickSortMode.class)
-                            .setTimeOut(timeout)
-                            .setModulePos(this),
+                    PacketHandler.getPacket(CCBasedQuickSortMode.class).setTimeOut(timeout).setModulePos(this),
                     localModeWatchers);
         }
     }

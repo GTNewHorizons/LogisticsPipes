@@ -1,18 +1,12 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils.gui;
 
-import codechicken.nei.VisiblityData;
-import codechicken.nei.api.INEIGuiHandler;
-import codechicken.nei.api.TaggedInventoryArea;
-import cpw.mods.fml.common.Optional;
 import java.lang.reflect.Field;
 import java.util.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.network.PacketHandler;
@@ -24,6 +18,7 @@ import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.extention.GuiExtentionController;
 import logisticspipes.utils.gui.extention.GuiExtentionController.GuiSide;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -34,18 +29,27 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "NotEnoughItems", iface = "codechicken.nei.api.INEIGuiHandler")
 public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISubGuiControler, INEIGuiHandler {
 
-    protected static final ResourceLocation ITEMSINK =
-            new ResourceLocation("logisticspipes", "textures/gui/itemsink.png");
-    protected static final ResourceLocation SUPPLIER =
-            new ResourceLocation("logisticspipes", "textures/gui/supplier.png");
-    protected static final ResourceLocation CHASSI1 =
-            new ResourceLocation("logisticspipes", "textures/gui/itemsink.png");
+    protected static final ResourceLocation ITEMSINK = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/itemsink.png");
+    protected static final ResourceLocation SUPPLIER = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/supplier.png");
+    protected static final ResourceLocation CHASSI1 = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/itemsink.png");
 
     protected int right;
     protected int bottom;
@@ -194,13 +198,11 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
                 int mouseY = par2 - guiTop;
                 int mouseXMax = mouseX - slot.getSize();
                 int mouseYMax = mouseY - slot.getSize();
-                if (slot.getXPos() < mouseX
-                        && slot.getXPos() > mouseXMax
+                if (slot.getXPos() < mouseX && slot.getXPos() > mouseXMax
                         && slot.getYPos() < mouseY
                         && slot.getYPos() > mouseYMax) {
                     if (slot.displayToolTip()) {
-                        if (slot.getToolTipText() != null
-                                && !slot.getToolTipText().equals("")) {
+                        if (slot.getToolTipText() != null && !slot.getToolTipText().equals("")) {
                             ArrayList<String> list = new ArrayList<>();
                             list.add(slot.getToolTipText());
                             GuiGraphics.drawToolTip(par1, par2, list, EnumChatFormatting.WHITE);
@@ -295,7 +297,17 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
                     GL11.glDisable(GL11.GL_DEPTH_TEST);
                     GL11.glDisable(GL11.GL_LIGHTING);
                     GuiGraphics.drawGuiBackGround(
-                            mc, posX, posY, posX + 60, posY + 52, zLevel, true, true, true, true, true);
+                            mc,
+                            posX,
+                            posY,
+                            posX + 60,
+                            posY + 52,
+                            zLevel,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true);
                     final String PREFIX = "gui.crafting.";
                     mc.fontRenderer.drawString(
                             StringUtils.translate(PREFIX + "OreDict"),
@@ -430,8 +442,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
             int mouseY = par2 - guiTop;
             int mouseXMax = mouseX - slot.getSize();
             int mouseYMax = mouseY - slot.getSize();
-            if (slot.getXPos() < mouseX
-                    && slot.getXPos() > mouseXMax
+            if (slot.getXPos() < mouseX && slot.getXPos() > mouseXMax
                     && slot.getYPos() < mouseY
                     && slot.getYPos() > mouseYMax) {
                 slot.mouseClicked(par3);
@@ -461,9 +472,9 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
             if (sel == 3) {
                 resource.use_category = !resource.use_category;
             }
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(FuzzySlotSettingsPacket.class)
-                    .setSlotNumber(fuzzySlot.getSlotId())
-                    .setFlags(resource.getBitSet()));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(FuzzySlotSettingsPacket.class).setSlotNumber(fuzzySlot.getSlotId())
+                            .setFlags(resource.getBitSet()));
             resource.loadFromBitSet(set); // Reset to wait for server
             return;
         }
@@ -496,8 +507,7 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
         if (selectedButton != null && par3 == 0) {
             selectedButton.mouseReleased(par1, par2);
             selectedButton = null;
-        } else if (isMouseInFuzzyPanel(par1 - guiLeft, par2 - guiTop)) {
-        } else {
+        } else if (isMouseInFuzzyPanel(par1 - guiLeft, par2 - guiTop)) {} else {
             super.mouseMovedOrUp(par1, par2, par3);
         }
     }
@@ -597,10 +607,9 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
             if (result != null) {
                 if (result instanceof DummySlot || result instanceof ColorSlot || result instanceof FluidSlot) {
                     ((DummyContainer) gui.inventorySlots).handleDummyClick(result, pos, stack, button, 0, mc.thePlayer);
-                    MainProxy.sendPacketToServer(PacketHandler.getPacket(DummyContainerSlotClick.class)
-                            .setSlotId(pos)
-                            .setStack(stack)
-                            .setButton(button));
+                    MainProxy.sendPacketToServer(
+                            PacketHandler.getPacket(DummyContainerSlotClick.class).setSlotId(pos).setStack(stack)
+                                    .setButton(button));
                     return true;
                 }
             }

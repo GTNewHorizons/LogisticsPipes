@@ -1,10 +1,9 @@
 package logisticspipes.modules.abstractmodules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IQueueCCEvent;
 import logisticspipes.interfaces.IWorldProvider;
@@ -17,8 +16,12 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @CCType(name = "LogisticsModule")
 public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
@@ -32,8 +35,7 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
      * Registers the Inventory and ItemSender to the module
      *
      * @param world   that the module is in.
-     * @param service Inventory access, power and utility functions provided by the
-     *                pipe
+     * @param service Inventory access, power and utility functions provided by the pipe
      */
     public void registerHandler(IWorldProvider world, IPipeServiceProvider service) {
         _world = world;
@@ -55,6 +57,7 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
     }
 
     public enum ModulePositionType {
+
         SLOT(true),
         IN_HAND(false),
         IN_PIPE(true);
@@ -89,16 +92,12 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
      * @param bestPriority       best priority seen so far
      * @param bestCustomPriority best custom subpriority
      * @param allowDefault       is a default only sink allowed to sink this?
-     * @param includeInTransit   inclide the "in transit" items? -- true for a destination
-     *                           search, false for a sink check.
+     * @param includeInTransit   inclide the "in transit" items? -- true for a destination search, false for a sink
+     *                           check.
      * @return SinkReply whether the module sinks the item or not
      */
-    public abstract SinkReply sinksItem(
-            ItemIdentifier stack,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
-            boolean includeInTransit);
+    public abstract SinkReply sinksItem(ItemIdentifier stack, int bestPriority, int bestCustomPriority,
+            boolean allowDefault, boolean includeInTransit);
 
     /**
      * Returns submodules. Normal modules don't have submodules
@@ -115,24 +114,21 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
     /**
      * Is this module interested in all items, or just some specific ones?
      *
-     * @return true: this module will be checked against every item request
-     * false: only requests involving items returned by
-     * getSpecificInterestes() will be checked
+     * @return true: this module will be checked against every item request false: only requests involving items
+     *         returned by getSpecificInterestes() will be checked
      */
     public abstract boolean hasGenericInterests();
 
     /**
-     * the list of items which this module is capable of providing or supplying
-     * (or is otherwise interested in) the size of the list here does not
-     * influence the ongoing computational cost.
+     * the list of items which this module is capable of providing or supplying (or is otherwise interested in) the size
+     * of the list here does not influence the ongoing computational cost.
      */
     public abstract Collection<ItemIdentifier> getSpecificInterests();
 
     public abstract boolean interestedInAttachedInventory();
 
     /**
-     * is this module interested in receiving any damage variant of items in the
-     * attached inventory?
+     * is this module interested in receiving any damage variant of items in the attached inventory?
      */
     public abstract boolean interestedInUndamagedID();
 
@@ -148,8 +144,7 @@ public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {
     public abstract IIcon getIconTexture(IIconRegister register);
 
     /**
-     * Returns whether the module should be displayed the effect when as an
-     * item.
+     * Returns whether the module should be displayed the effect when as an item.
      *
      * @return True to show effect False to no effect (default)
      */

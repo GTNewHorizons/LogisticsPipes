@@ -2,6 +2,7 @@ package logisticspipes.commands.commands;
 
 import logisticspipes.commands.LogisticsPipesCommand;
 import logisticspipes.commands.abstracts.ICommandHandler;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
@@ -9,7 +10,7 @@ public class DumpCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"dump"};
+        return new String[] { "dump" };
     }
 
     @Override
@@ -19,7 +20,7 @@ public class DumpCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Dumps the current Tread states", "into the server log"};
+        return new String[] { "Dumps the current Tread states", "into the server log" };
     }
 
     @Override

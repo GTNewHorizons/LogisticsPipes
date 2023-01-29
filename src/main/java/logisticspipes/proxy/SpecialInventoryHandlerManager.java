@@ -1,7 +1,7 @@
 package logisticspipes.proxy;
 
-import cpw.mods.fml.common.Loader;
 import logisticspipes.proxy.specialinventoryhandler.*;
+import cpw.mods.fml.common.Loader;
 
 public class SpecialInventoryHandlerManager {
 
@@ -29,7 +29,6 @@ public class SpecialInventoryHandlerManager {
         try {
             Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit");
             SimpleServiceLocator.inventoryUtilFactory.registerHandler(new DSUInventoryHandler());
-        } catch (ClassNotFoundException ignored) {
-        }
+        } catch (ClassNotFoundException ignored) {}
     }
 }

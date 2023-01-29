@@ -3,9 +3,11 @@ package logisticspipes.proxy.specialinventoryhandler;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
+
 import logisticspipes.utils.item.ItemIdentifier;
 import mcp.mobius.betterbarrels.common.blocks.IBarrelStorage;
 import mcp.mobius.betterbarrels.common.blocks.TileEntityBarrel;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -16,8 +18,8 @@ public class JABBAInventoryHandler extends SpecialInventoryHandler {
     private final IBarrelStorage _storage;
     private final boolean _hideOnePerStack;
 
-    private JABBAInventoryHandler(
-            TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    private JABBAInventoryHandler(TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart,
+            int cropEnd) {
         _tile = (TileEntityBarrel) tile;
         _storage = _tile.getStorage();
         _hideOnePerStack = hideOnePerStack || hideOne;
@@ -40,8 +42,8 @@ public class JABBAInventoryHandler extends SpecialInventoryHandler {
     }
 
     @Override
-    public SpecialInventoryHandler getUtilForTile(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         return new JABBAInventoryHandler(tile, hideOnePerStack, hideOne, cropStart, cropEnd);
     }
 

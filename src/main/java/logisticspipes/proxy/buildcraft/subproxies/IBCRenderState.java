@@ -1,6 +1,7 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
 import java.io.IOException;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 

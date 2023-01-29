@@ -1,13 +1,15 @@
 package logisticspipes.proxy.buildcraft;
 
-import buildcraft.transport.TravelingItem;
 import logisticspipes.interfaces.IItemAdvancedExistance;
 import logisticspipes.routing.ItemRoutingInformation;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import buildcraft.transport.TravelingItem;
 
 public class LPRoutedBCTravelingItem extends TravelingItem {
 
@@ -15,8 +17,7 @@ public class LPRoutedBCTravelingItem extends TravelingItem {
 
         @Override
         public boolean canInsertItem(TravelingItem item, IInventory inv) {
-            return item.getItemStack() == null
-                    || !(item.getItemStack().getItem() instanceof IItemAdvancedExistance)
+            return item.getItemStack() == null || !(item.getItemStack().getItem() instanceof IItemAdvancedExistance)
                     || ((IItemAdvancedExistance) item.getItemStack().getItem())
                             .canExistInNormalInventory(item.getItemStack());
         }

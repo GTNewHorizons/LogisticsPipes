@@ -5,7 +5,9 @@ import logisticspipes.pipes.PipeItemsInvSysConnector;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+
 import net.minecraft.client.Minecraft;
+
 import org.lwjgl.opengl.GL11;
 
 public class HUDInvSysConnector extends BasicHUDGui {
@@ -38,7 +40,20 @@ public class HUDInvSysConnector extends BasicHUDGui {
         GL11.glScalef(0.8F, 0.8F, -1F);
 
         ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                pipe.displayList, null, 0, -37, -18, 3, 9, 18, 18, 100.0F, DisplayAmount.ALWAYS, true, false, shifted);
+                pipe.displayList,
+                null,
+                0,
+                -37,
+                -18,
+                3,
+                9,
+                18,
+                18,
+                100.0F,
+                DisplayAmount.ALWAYS,
+                true,
+                false,
+                shifted);
     }
 
     @Override

@@ -1,22 +1,22 @@
 /*
- Copyright (c) Krapht, 2012
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2012 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui.modules;
 
 import java.util.Locale;
+
 import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.module.ExtractorModuleDirectionPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiExtractor extends ModuleBaseGui {
@@ -60,9 +60,9 @@ public class GuiExtractor extends ModuleBaseGui {
     protected void actionPerformed(GuiButton guibutton) {
         _directionReceiver.setSneakyDirection(ForgeDirection.getOrientation(guibutton.id));
 
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(ExtractorModuleDirectionPacket.class)
-                .setDirection(_directionReceiver.getSneakyDirection())
-                .setModulePos(_directionReceiver));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(ExtractorModuleDirectionPacket.class)
+                        .setDirection(_directionReceiver.getSneakyDirection()).setModulePos(_directionReceiver));
 
         refreshButtons();
         super.actionPerformed(guibutton);
@@ -82,8 +82,9 @@ public class GuiExtractor extends ModuleBaseGui {
                 0x404040);
     }
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/extractor.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/extractor.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {

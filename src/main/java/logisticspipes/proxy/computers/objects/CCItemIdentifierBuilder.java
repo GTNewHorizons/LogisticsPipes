@@ -1,10 +1,12 @@
 package logisticspipes.proxy.computers.objects;
 
 import java.util.List;
+
 import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.item.Item;
 
 @CCType(name = "ItemIdentifierBuilder")

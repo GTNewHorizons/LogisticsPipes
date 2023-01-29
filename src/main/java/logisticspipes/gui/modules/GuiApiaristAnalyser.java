@@ -4,6 +4,7 @@ import logisticspipes.modules.ModuleApiaristAnalyser;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 
@@ -23,13 +24,14 @@ public class GuiApiaristAnalyser extends ModuleBaseGui {
     public void initGui() {
         super.initGui();
         buttonList.clear();
-        buttonList.add(new GuiStringHandlerButton(
-                0,
-                guiLeft + 12,
-                guiTop + 20,
-                96,
-                20,
-                () -> module.getExtractMode() == 1 ? "Extract Mode: on" : "Extract Mode: off"));
+        buttonList.add(
+                new GuiStringHandlerButton(
+                        0,
+                        guiLeft + 12,
+                        guiTop + 20,
+                        96,
+                        20,
+                        () -> module.getExtractMode() == 1 ? "Extract Mode: on" : "Extract Mode: off"));
     }
 
     @Override

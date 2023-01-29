@@ -1,9 +1,5 @@
 package logisticspipes.proxy.cofhccl;
 
-import cofh.repack.codechicken.lib.render.CCModel;
-import cofh.repack.codechicken.lib.render.CCRenderState;
-import cofh.repack.codechicken.lib.render.uv.*;
-import cofh.repack.codechicken.lib.vec.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -11,12 +7,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import logisticspipes.proxy.DontLoadProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.interfaces.ICCLProxy;
 import logisticspipes.proxy.object3d.interfaces.*;
 import logisticspipes.proxy.object3d.operation.LPScale;
+
 import net.minecraft.util.IIcon;
+
+import cofh.repack.codechicken.lib.render.CCModel;
+import cofh.repack.codechicken.lib.render.CCRenderState;
+import cofh.repack.codechicken.lib.render.uv.*;
+import cofh.repack.codechicken.lib.vec.*;
 
 public class CoFHCCLProxy implements ICCLProxy {
 

@@ -1,18 +1,23 @@
 package logisticspipes.nei;
 
-import codechicken.nei.guihook.IContainerTooltipHandler;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import logisticspipes.config.Configs;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+
 import org.lwjgl.input.Keyboard;
+
+import codechicken.nei.guihook.IContainerTooltipHandler;
 
 public class DebugHelper implements IContainerTooltipHandler {
 
@@ -24,53 +29,49 @@ public class DebugHelper implements IContainerTooltipHandler {
     }
 
     @Override
-    public List<String> handleItemDisplayName(
-            GuiContainer paramGuiContainer, ItemStack paramItemStack, List<String> paramList) {
+    public List<String> handleItemDisplayName(GuiContainer paramGuiContainer, ItemStack paramItemStack,
+            List<String> paramList) {
         return paramList;
     }
 
     @Override
-    public List<String> handleItemTooltip(
-            GuiContainer gui, final ItemStack itemstack, int paramInt1, int paramInt2, List<String> currenttip) {
+    public List<String> handleItemTooltip(GuiContainer gui, final ItemStack itemstack, int paramInt1, int paramInt2,
+            List<String> currenttip) {
         if (Configs.TOOLTIP_INFO && itemstack != null) {
-            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
-                    && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
                     && Keyboard.isKeyDown(Keyboard.KEY_H)) {
                 if (DebugHelper.lastTime + 1000 < System.currentTimeMillis()) {
                     DebugHelper.lastTime = System.currentTimeMillis();
                     new Thread(() -> {
-                                while (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
-                                        || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
-                                        || Keyboard.isKeyDown(Keyboard.KEY_H)) {
-                                    try {
-                                        Thread.sleep(50);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                DefaultMutableTreeNode node = new DefaultMutableTreeNode(
-                                        ItemIdentifier.get(itemstack).getFriendlyName());
-                                node.add(new DefaultMutableTreeNode(
-                                        "ItemId: " + Item.getIdFromItem(itemstack.getItem())));
-                                node.add(new DefaultMutableTreeNode("ItemDamage: " + itemstack.getItemDamage()));
-                                if (itemstack.hasTagCompound()) {
-                                    DefaultMutableTreeNode tag = new DefaultMutableTreeNode("Tag:");
-                                    try {
-                                        addNBTToTree(itemstack.getTagCompound(), tag);
-                                    } catch (Exception e) {
-                                        tag.add(new DefaultMutableTreeNode(e));
-                                    }
-                                    node.add(tag);
-                                }
-                                JTree tree = new JTree(node);
-                                JScrollPane treeView = new JScrollPane(tree);
-                                JFrame frame = new JFrame("Item Info");
-                                frame.getContentPane().add(treeView, BorderLayout.CENTER);
-                                frame.setLocationRelativeTo(null);
-                                frame.pack();
-                                frame.setVisible(true);
-                            })
-                            .start();
+                        while (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
+                                || Keyboard.isKeyDown(Keyboard.KEY_H)) {
+                            try {
+                                Thread.sleep(50);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+                                ItemIdentifier.get(itemstack).getFriendlyName());
+                        node.add(new DefaultMutableTreeNode("ItemId: " + Item.getIdFromItem(itemstack.getItem())));
+                        node.add(new DefaultMutableTreeNode("ItemDamage: " + itemstack.getItemDamage()));
+                        if (itemstack.hasTagCompound()) {
+                            DefaultMutableTreeNode tag = new DefaultMutableTreeNode("Tag:");
+                            try {
+                                addNBTToTree(itemstack.getTagCompound(), tag);
+                            } catch (Exception e) {
+                                tag.add(new DefaultMutableTreeNode(e));
+                            }
+                            node.add(tag);
+                        }
+                        JTree tree = new JTree(node);
+                        JScrollPane treeView = new JScrollPane(tree);
+                        JFrame frame = new JFrame("Item Info");
+                        frame.getContentPane().add(treeView, BorderLayout.CENTER);
+                        frame.setLocationRelativeTo(null);
+                        frame.pack();
+                        frame.setVisible(true);
+                    }).start();
                 }
             }
         }
@@ -164,8 +165,7 @@ public class DebugHelper implements IContainerTooltipHandler {
             type.add(new DefaultMutableTreeNode("Data: '" + ((NBTTagString) nbt).func_150285_a_() + "'"));
             node.add(type);
         } else {
-            throw new UnsupportedOperationException(
-                    "Unsupported NBTBase of type:" + nbt.getClass().getName());
+            throw new UnsupportedOperationException("Unsupported NBTBase of type:" + nbt.getClass().getName());
         }
     }
 }

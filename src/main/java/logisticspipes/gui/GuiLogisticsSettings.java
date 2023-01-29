@@ -7,12 +7,14 @@ import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.LogisticsBaseTabGuiScreen;
 import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -48,15 +50,23 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
             }
             renderDistance.reposition(15, 80, 30, 15);
             if (contentRenderDistance == null) {
-                contentRenderDistance =
-                        new SearchBar(fontRendererObj, getBaseScreen(), 15, 105, 30, 15, false, true, true);
+                contentRenderDistance = new SearchBar(
+                        fontRendererObj,
+                        getBaseScreen(),
+                        15,
+                        105,
+                        30,
+                        15,
+                        false,
+                        true,
+                        true);
                 contentRenderDistance.searchinput1 = config.getRenderPipeContentDistance() + "";
             }
             contentRenderDistance.reposition(15, 110, 30, 15);
-            useNewRendererButton = (GuiCheckBox)
-                    addButton(new GuiCheckBox(0, guiLeft + 15, guiTop + 30, 16, 16, config.isUseNewRenderer()));
-            useFallbackRendererButton = (GuiCheckBox)
-                    addButton(new GuiCheckBox(0, guiLeft + 15, guiTop + 50, 16, 16, config.isUseFallbackRenderer()));
+            useNewRendererButton = (GuiCheckBox) addButton(
+                    new GuiCheckBox(0, guiLeft + 15, guiTop + 30, 16, 16, config.isUseNewRenderer()));
+            useFallbackRendererButton = (GuiCheckBox) addButton(
+                    new GuiCheckBox(0, guiLeft + 15, guiTop + 50, 16, 16, config.isUseFallbackRenderer()));
         }
 
         @Override

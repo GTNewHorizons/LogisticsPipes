@@ -2,9 +2,11 @@ package logisticspipes.proxy.specialinventoryhandler;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.bs.ICrateStorageProxy;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -14,8 +16,8 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
     private final ICrateStorageProxy _tile;
     private final boolean _hideOnePerStack;
 
-    private CrateInventoryHandler(
-            TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    private CrateInventoryHandler(TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart,
+            int cropEnd) {
         _tile = SimpleServiceLocator.betterStorageProxy.getCrateStorageProxy(tile);
         _hideOnePerStack = hideOnePerStack || hideOne;
     }
@@ -36,8 +38,8 @@ public class CrateInventoryHandler extends SpecialInventoryHandler {
     }
 
     @Override
-    public SpecialInventoryHandler getUtilForTile(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         return new CrateInventoryHandler(tile, hideOnePerStack, hideOne, cropStart, cropEnd);
     }
 

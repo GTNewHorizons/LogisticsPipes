@@ -2,8 +2,10 @@ package logisticspipes.utils.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Slot;
+
 import org.lwjgl.opengl.GL11;
 
 public class LogisticsBaseTabGuiScreen extends LogisticsBaseGuiScreen {

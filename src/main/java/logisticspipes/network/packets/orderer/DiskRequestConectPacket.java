@@ -8,6 +8,7 @@ import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.PipeItemsRequestLogisticsMk2;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -30,9 +31,7 @@ public class DiskRequestConectPacket extends CoordinatesPacket {
         }
         if (pipe.pipe instanceof PipeItemsRequestLogisticsMk2) {
             if (((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk() != null) {
-                if (((PipeItemsRequestLogisticsMk2) pipe.pipe)
-                        .getDisk()
-                        .getItem()
+                if (((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().getItem()
                         .equals(LogisticsPipes.LogisticsItemDisk)) {
                     if (!((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().hasTagCompound()) {
                         ((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().setTagCompound(new NBTTagCompound());
@@ -41,26 +40,16 @@ public class DiskRequestConectPacket extends CoordinatesPacket {
             }
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(DiscContent.class)
-                            .setStack(((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk())
-                            .setPosX(pipe.xCoord)
-                            .setPosY(pipe.yCoord)
-                            .setPosZ(pipe.zCoord),
+                            .setStack(((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk()).setPosX(pipe.xCoord)
+                            .setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
                     player);
         }
         if (pipe.pipe instanceof PipeBlockRequestTable) {
             if (((PipeBlockRequestTable) pipe.pipe).diskInv.getStackInSlot(0) != null) {
-                if (((PipeBlockRequestTable) pipe.pipe)
-                        .diskInv
-                        .getStackInSlot(0)
-                        .getItem()
+                if (((PipeBlockRequestTable) pipe.pipe).diskInv.getStackInSlot(0).getItem()
                         .equals(LogisticsPipes.LogisticsItemDisk)) {
-                    if (!((PipeBlockRequestTable) pipe.pipe)
-                            .diskInv
-                            .getStackInSlot(0)
-                            .hasTagCompound()) {
-                        ((PipeBlockRequestTable) pipe.pipe)
-                                .diskInv
-                                .getStackInSlot(0)
+                    if (!((PipeBlockRequestTable) pipe.pipe).diskInv.getStackInSlot(0).hasTagCompound()) {
+                        ((PipeBlockRequestTable) pipe.pipe).diskInv.getStackInSlot(0)
                                 .setTagCompound(new NBTTagCompound());
                     }
                 }
@@ -68,9 +57,7 @@ public class DiskRequestConectPacket extends CoordinatesPacket {
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(DiscContent.class)
                             .setStack(((PipeBlockRequestTable) pipe.pipe).diskInv.getStackInSlot(0))
-                            .setPosX(pipe.xCoord)
-                            .setPosY(pipe.yCoord)
-                            .setPosZ(pipe.zCoord),
+                            .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
                     player);
         }
     }

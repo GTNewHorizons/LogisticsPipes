@@ -3,6 +3,7 @@ package logisticspipes.network.packets.block;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.network.abstractpackets.IntegerCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PowerJunctionLevel extends IntegerCoordinatesPacket {

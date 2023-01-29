@@ -2,6 +2,7 @@ package logisticspipes.pipes.upgrades;
 
 import java.util.EnumSet;
 import java.util.UUID;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IGuiOpenControler;
 import logisticspipes.interfaces.IPipeUpgradeManager;
@@ -20,6 +21,7 @@ import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.item.SimpleStackInventory;
 import lombok.Getter;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -147,8 +149,7 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
         hasUpgradeModuleUpgarde = false;
         for (int i = 0; i < upgrades.length; i++) {
             IPipeUpgrade upgrade = upgrades[i];
-            if (upgrade instanceof SneakyUpgrade
-                    && sneakyOrientation == ForgeDirection.UNKNOWN
+            if (upgrade instanceof SneakyUpgrade && sneakyOrientation == ForgeDirection.UNKNOWN
                     && !isCombinedSneakyUpgrade) {
                 sneakyOrientation = ((SneakyUpgrade) upgrade).getSneakyOrientation();
             } else if (upgrade instanceof SpeedUpgrade) {
@@ -294,33 +295,26 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
                     return false;
                 }
                 if (itemStack.getItem() == LogisticsPipes.UpgradeItem) {
-                    return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null)
-                            .isAllowedForPipe(pipe);
+                    return LogisticsPipes.UpgradeItem.getUpgradeForItem(itemStack, null).isAllowedForPipe(pipe);
                 } else {
                     return false;
                 }
             });
         }
         // Static slot for Security Cards
-        dummy.addStaticRestrictedSlot(
-                0,
-                secInv,
-                8 + 8 * 18,
-                18,
-                itemStack -> {
-                    if (itemStack == null) {
-                        return false;
-                    }
-                    if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
-                        return false;
-                    }
-                    if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
-                        return false;
-                    }
-                    return SimpleServiceLocator.securityStationManager.isAuthorized(
-                            UUID.fromString(itemStack.getTagCompound().getString("UUID")));
-                },
-                1);
+        dummy.addStaticRestrictedSlot(0, secInv, 8 + 8 * 18, 18, itemStack -> {
+            if (itemStack == null) {
+                return false;
+            }
+            if (itemStack.getItem() != LogisticsPipes.LogisticsItemCard) {
+                return false;
+            }
+            if (itemStack.getItemDamage() != LogisticsItemCard.SEC_CARD) {
+                return false;
+            }
+            return SimpleServiceLocator.securityStationManager
+                    .isAuthorized(UUID.fromString(itemStack.getTagCompound().getString("UUID")));
+        }, 1);
 
         int y = isCombinedSneakyUpgrade ? 58 : 100000;
         for (int pipeSlot = 0; pipeSlot < 9; pipeSlot++) {
@@ -364,8 +358,8 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
             if (MainProxy.isClient(world)) {
                 return true;
             }
-            IPipeUpgrade upgrade =
-                    LogisticsPipes.UpgradeItem.getUpgradeForItem(entityplayer.getCurrentEquippedItem(), null);
+            IPipeUpgrade upgrade = LogisticsPipes.UpgradeItem
+                    .getUpgradeForItem(entityplayer.getCurrentEquippedItem(), null);
             if (upgrade.isAllowedForPipe(pipe)) {
                 if (isCombinedSneakyUpgrade) {
                     if (upgrade instanceof SneakyUpgrade) {
@@ -399,12 +393,10 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack item = inv.getStackInSlot(i);
             if (item == null) {
-                inv.setInventorySlotContents(
-                        i, entityplayer.getCurrentEquippedItem().splitStack(1));
+                inv.setInventorySlotContents(i, entityplayer.getCurrentEquippedItem().splitStack(1));
                 InventoryChanged(inv);
                 return true;
-            } else if (item.getItemDamage()
-                    == entityplayer.getCurrentEquippedItem().getItemDamage()) {
+            } else if (item.getItemDamage() == entityplayer.getCurrentEquippedItem().getItemDamage()) {
                 if (item.stackSize < inv.getInventoryStackLimit()) {
                     item.stackSize++;
                     entityplayer.getCurrentEquippedItem().splitStack(1);

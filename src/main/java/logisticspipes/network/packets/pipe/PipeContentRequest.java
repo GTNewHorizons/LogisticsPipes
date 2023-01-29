@@ -1,12 +1,14 @@
 package logisticspipes.network.packets.pipe;
 
 import java.lang.ref.WeakReference;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.IntegerPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PipeContentRequest extends IntegerPacket {
@@ -24,8 +26,7 @@ public class PipeContentRequest extends IntegerPacket {
         }
         if (item != null) {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(PipeContentPacket.class)
-                            .setItem(item.getItemIdentifierStack())
+                    PacketHandler.getPacket(PipeContentPacket.class).setItem(item.getItemIdentifierStack())
                             .setTravelId(item.getId()),
                     player);
         }

@@ -14,12 +14,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.lwjgl.opengl.GL11;
 
 @SuppressWarnings("unused")
@@ -41,6 +44,7 @@ public class OpenGLDebugger {
     private int printOnCycle;
 
     private enum GLTypes {
+
         BOOLEAN(Boolean.class, "boolean", "GL11.glGetBoolean"),
         DOUBLE(Double.class, "double", "GL11.glGetDouble"),
         FLOAT(Float.class, "float", "GL11.glGetFloat"),
@@ -192,8 +196,8 @@ public class OpenGLDebugger {
     public class SpecialTableCellRenderer extends DefaultTableCellRenderer {
 
         @Override
-        public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
             if (table == null) {
                 return this;
             }
@@ -437,7 +441,9 @@ public class OpenGLDebugger {
                                 && !OpenGLDebugger.niceToHave.get(id).equals(nice)) {
                             System.out.printf(
                                     "NiceToHave: ID %d exists. Replacing %s with %s!!%n",
-                                    id, OpenGLDebugger.niceToHave.remove(id), nice);
+                                    id,
+                                    OpenGLDebugger.niceToHave.remove(id),
+                                    nice);
                         }
 
                         OpenGLDebugger.niceToHave.put(id, String.format("%s.%s", packageGL, nice));

@@ -1,8 +1,7 @@
 package logisticspipes.pipes.signs;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.network.PacketHandler;
@@ -13,18 +12,24 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.renderer.LogisticsRenderPipe;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Data;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CraftingPipeSign implements IPipeSign {
 
     @Data
     private static class CraftingPipeSignData implements IPipeSignData {
+
         private final ItemIdentifierStack item;
         private final int satID;
 
@@ -57,12 +62,8 @@ public class CraftingPipeSign implements IPipeSign {
     @Override
     public ModernPacket getPacket() {
         PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
-        return PacketHandler.getPacket(CPipeSatelliteImportBack.class)
-                .setInventory(cpipe.getDummyInventory())
-                .setType(ModulePositionType.IN_PIPE)
-                .setPosX(cpipe.getX())
-                .setPosY(cpipe.getY())
-                .setPosZ(cpipe.getZ());
+        return PacketHandler.getPacket(CPipeSatelliteImportBack.class).setInventory(cpipe.getDummyInventory())
+                .setType(ModulePositionType.IN_PIPE).setPosX(cpipe.getX()).setPosY(cpipe.getY()).setPosZ(cpipe.getZ());
     }
 
     @Override
@@ -102,8 +103,7 @@ public class CraftingPipeSign implements IPipeSign {
                 } catch (Exception e) {
                     try {
                         name = item.getUnlocalizedName();
-                    } catch (Exception ignored) {
-                    }
+                    } catch (Exception ignored) {}
                 }
 
                 var17.drawString(

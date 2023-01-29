@@ -2,6 +2,7 @@ package logisticspipes.gui.modules;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.modules.ModuleThaumicAspectSink;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.Color;
@@ -9,7 +10,9 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.inventory.IInventory;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiThaumicAspectSink extends ModuleBaseGui {
@@ -90,9 +93,8 @@ public class GuiThaumicAspectSink extends ModuleBaseGui {
         mouseY = 0;
 
         // transfer tags from stack to gui list
-        if (tmpInv.getStackInSlot(0) != null
-                && SimpleServiceLocator.thaumCraftProxy.isScannedObject(
-                        tmpInv.getStackInSlot(0), mc.thePlayer.getDisplayName())) {
+        if (tmpInv.getStackInSlot(0) != null && SimpleServiceLocator.thaumCraftProxy
+                .isScannedObject(tmpInv.getStackInSlot(0), mc.thePlayer.getDisplayName())) {
             stackTags = SimpleServiceLocator.thaumCraftProxy.getListOfTagsForStack(tmpInv.getStackInSlot(0));
         }
 

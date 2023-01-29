@@ -1,6 +1,7 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
 import logisticspipes.asm.IgnoreDisabledProxy;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;

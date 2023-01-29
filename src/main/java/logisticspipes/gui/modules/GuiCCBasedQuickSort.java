@@ -7,8 +7,10 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
+
 import org.lwjgl.input.Keyboard;
 
 public class GuiCCBasedQuickSort extends ModuleBaseGui {
@@ -70,19 +72,22 @@ public class GuiCCBasedQuickSort extends ModuleBaseGui {
                 break;
         }
         _sortModule.setTimeout(Math.max(Math.min(_sortModule.getTimeout() + change, 1000), 5));
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(CCBasedQuickSortMode.class)
-                .setTimeOut(_sortModule.getTimeout())
-                .setModulePos(_sortModule));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(CCBasedQuickSortMode.class).setTimeOut(_sortModule.getTimeout())
+                        .setModulePos(_sortModule));
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
         mc.fontRenderer.drawString(
-                "Timeout Timer", xSize / 2 - mc.fontRenderer.getStringWidth("Timeout Timer") / 2, 10, 0x404040);
+                "Timeout Timer",
+                xSize / 2 - mc.fontRenderer.getStringWidth("Timeout Timer") / 2,
+                10,
+                0x404040);
         String timeoutString = _sortModule.getTimeout() + " ticks";
-        mc.fontRenderer.drawString(
-                timeoutString, xSize / 2 - mc.fontRenderer.getStringWidth(timeoutString) / 2, 30, 0x404040);
+        mc.fontRenderer
+                .drawString(timeoutString, xSize / 2 - mc.fontRenderer.getStringWidth(timeoutString) / 2, 30, 0x404040);
     }
 
     @Override

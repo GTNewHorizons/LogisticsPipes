@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeSet;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.IFluidSink;
 import logisticspipes.interfaces.routing.IProvideFluids;
@@ -16,6 +17,7 @@ import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
@@ -35,8 +37,7 @@ public class LogisticsFluidManager implements ILogisticsFluidManager {
                 continue;
             }
 
-            if (candidateRouter.destination.getPipe() == null
-                    || !candidateRouter.destination.getPipe().isEnabled()) {
+            if (candidateRouter.destination.getPipe() == null || !candidateRouter.destination.getPipe().isEnabled()) {
                 continue;
             }
             CoreRoutedPipe pipe = candidateRouter.destination.getPipe();

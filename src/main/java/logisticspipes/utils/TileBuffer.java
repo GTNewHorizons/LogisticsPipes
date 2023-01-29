@@ -1,6 +1,7 @@
 package logisticspipes.utils;
 
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -27,8 +28,7 @@ public final class TileBuffer {
     }
 
     public void refresh() {
-        if (tile instanceof LogisticsTileGenericPipe
-                && ((LogisticsTileGenericPipe) tile).pipe != null
+        if (tile instanceof LogisticsTileGenericPipe && ((LogisticsTileGenericPipe) tile).pipe != null
                 && ((LogisticsTileGenericPipe) tile).pipe.preventRemove()) {
             if (world.getBlock(x, y, z) == null) {
                 return;

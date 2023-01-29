@@ -2,6 +2,7 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 import java.util.List;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.modules.ModuleActiveSupplier;
 import logisticspipes.network.LPDataInputStream;
@@ -14,6 +15,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;

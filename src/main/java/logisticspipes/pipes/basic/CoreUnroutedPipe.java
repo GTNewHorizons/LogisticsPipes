@@ -1,9 +1,8 @@
 package logisticspipes.pipes.basic;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.config.Configs;
@@ -22,6 +21,7 @@ import logisticspipes.transport.PipeTransportLogistics;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +32,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTypeHolder {
 
@@ -87,9 +90,8 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
     }
 
     /**
-     * Should return the textureindex used by the Pipe Item Renderer, as this is
-     * done client-side the default implementation might not work if your
-     * getTextureIndex(Orienations.Unknown) has logic. Then override this
+     * Should return the textureindex used by the Pipe Item Renderer, as this is done client-side the default
+     * implementation might not work if your getTextureIndex(Orienations.Unknown) has logic. Then override this
      */
     public int getIconIndexForItem() {
         return getIconIndex(ForgeDirection.UNKNOWN);
@@ -106,11 +108,9 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
     }
 
     /**
-     * Should return the index in the array returned by GetTextureIcons() for a
-     * specified direction
+     * Should return the index in the array returned by GetTextureIcons() for a specified direction
      *
-     * @param direction - The direction for which the indexed should be rendered.
-     *                  Unknown for pipe center
+     * @param direction - The direction for which the indexed should be rendered. Unknown for pipe center
      * @return An index valid in the array returned by getTextureIcons()
      */
     public abstract int getIconIndex(ForgeDirection direction);
@@ -119,9 +119,8 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
         transport.updateEntity();
 
         if (MainProxy.isClient(getWorld())) {
-            if (oldRendererState
-                    != (LogisticsPipes.getClientPlayerConfig().isUseNewRenderer()
-                            && !container.renderState.forceRenderOldPipe)) {
+            if (oldRendererState != (LogisticsPipes.getClientPlayerConfig().isUseNewRenderer()
+                    && !container.renderState.forceRenderOldPipe)) {
                 oldRendererState = (LogisticsPipes.getClientPlayerConfig().isUseNewRenderer()
                         && !container.renderState.forceRenderOldPipe);
                 getWorld().markBlockForUpdate(getX(), getY(), getZ());
@@ -147,21 +146,20 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
     }
 
     protected void notifyBlockOfNeighborChange(ForgeDirection side) {
-        container
-                .getWorldObj()
-                .notifyBlockOfNeighborChange(
-                        container.xCoord + side.offsetX,
-                        container.yCoord + side.offsetY,
-                        container.zCoord + side.offsetZ,
-                        LogisticsPipes.LogisticsPipeBlock);
+        container.getWorldObj().notifyBlockOfNeighborChange(
+                container.xCoord + side.offsetX,
+                container.yCoord + side.offsetY,
+                container.zCoord + side.offsetZ,
+                LogisticsPipes.LogisticsPipeBlock);
     }
 
     public void updateNeighbors(boolean needSelf) {
         if (needSelf) {
-            container
-                    .getWorldObj()
-                    .notifyBlockOfNeighborChange(
-                            container.xCoord, container.yCoord, container.zCoord, LogisticsPipes.LogisticsPipeBlock);
+            container.getWorldObj().notifyBlockOfNeighborChange(
+                    container.xCoord,
+                    container.yCoord,
+                    container.zCoord,
+                    LogisticsPipes.LogisticsPipeBlock);
         }
         for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             notifyBlockOfNeighborChange(side);
@@ -381,21 +379,15 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
         };
     }
 
-    public double getDistanceTo(
-            int destinationint,
-            ForgeDirection ignore,
-            ItemIdentifier ident,
-            boolean isActive,
-            double travled,
-            double max,
-            List<LPPosition> visited) {
+    public double getDistanceTo(int destinationint, ForgeDirection ignore, ItemIdentifier ident, boolean isActive,
+            double travled, double max, List<LPPosition> visited) {
         double lowest = Integer.MAX_VALUE;
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             if (ignore == dir) {
                 continue;
             }
-            IPipeInformationProvider information =
-                    SimpleServiceLocator.pipeInformationManager.getInformationProviderFor(container.getTile(dir));
+            IPipeInformationProvider information = SimpleServiceLocator.pipeInformationManager
+                    .getInformationProviderFor(container.getTile(dir));
             if (information != null) {
                 LPPosition pos = new LPPosition(information);
                 if (visited.contains(pos)) {
@@ -404,7 +396,13 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
                 visited.add(pos);
 
                 lowest = information.getDistanceTo(
-                        destinationint, dir.getOpposite(), ident, isActive, travled, Math.min(max, lowest), visited);
+                        destinationint,
+                        dir.getOpposite(),
+                        ident,
+                        isActive,
+                        travled,
+                        Math.min(max, lowest),
+                        visited);
 
                 visited.remove(pos);
             }

@@ -2,6 +2,7 @@ package logisticspipes.pipes.upgrades;
 
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class ConnectionUpgrade implements IPipeUpgrade {
@@ -25,7 +26,7 @@ public abstract class ConnectionUpgrade implements IPipeUpgrade {
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] {"all"};
+        return new String[] { "all" };
     }
 
     @Override

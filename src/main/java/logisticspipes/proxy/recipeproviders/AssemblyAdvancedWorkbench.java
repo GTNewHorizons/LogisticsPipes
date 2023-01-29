@@ -1,12 +1,14 @@
 package logisticspipes.proxy.recipeproviders;
 
-import buildcraft.silicon.TileAdvancedCraftingTable;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import buildcraft.silicon.TileAdvancedCraftingTable;
 
 public class AssemblyAdvancedWorkbench implements ICraftingRecipeProvider {
 
@@ -35,8 +37,7 @@ public class AssemblyAdvancedWorkbench implements ICraftingRecipeProvider {
             if (i >= inventory.getSizeInventory() - 2) {
                 break;
             }
-            final ItemStack newStack = bench.getCraftingSlots().getStackInSlot(i) == null
-                    ? null
+            final ItemStack newStack = bench.getCraftingSlots().getStackInSlot(i) == null ? null
                     : bench.getCraftingSlots().getStackInSlot(i).copy();
             inventory.setInventorySlotContents(i, newStack);
         }

@@ -1,23 +1,21 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils;
 
-import com.google.common.primitives.Ints;
 import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.google.common.primitives.Ints;
+
 /**
- * This class is responsible for abstracting an ISidedInventory as a normal
- * IInventory
+ * This class is responsible for abstracting an ISidedInventory as a normal IInventory
  *
  * @author Krapht
  */
@@ -44,10 +42,8 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
                 int[] allSlots = _sidedInventory.getAccessibleSlotsFromSide(_side);
                 for (int number : allSlots) {
                     ItemStack item = _sidedInventory.getStackInSlot(number);
-                    if (!list.contains(number)
-                            && (!_forExtraction
-                                    || // check extract condition
-                                    (item != null && _sidedInventory.canExtractItem(number, item, _side)))) {
+                    if (!list.contains(number) && (!_forExtraction || // check extract condition
+                            (item != null && _sidedInventory.canExtractItem(number, item, _side)))) {
                         list.add(number);
                     }
                 }
@@ -64,10 +60,8 @@ public final class SidedInventoryMinecraftAdapter implements IInventory {
             int[] slots = _sidedInventory.getAccessibleSlotsFromSide(i);
             for (int number : slots) {
                 ItemStack item = _sidedInventory.getStackInSlot(number);
-                if (!list.contains(number)
-                        && (!_forExtraction
-                                || // check extract condition
-                                (item != null && _sidedInventory.canExtractItem(number, item, i)))) {
+                if (!list.contains(number) && (!_forExtraction || // check extract condition
+                        (item != null && _sidedInventory.canExtractItem(number, item, i)))) {
                     list.add(number);
                 }
             }

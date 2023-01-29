@@ -1,6 +1,7 @@
 package logisticspipes.pipefxhandlers;
 
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 
@@ -40,8 +41,7 @@ public class PipeFXRenderHandler {
                 }
             }
 
-        } catch (NullPointerException ignored) {
-        }
+        } catch (NullPointerException ignored) {}
     }
 
     public static void registerParticleHandler(Particles particle, ParticleProvider provider) {

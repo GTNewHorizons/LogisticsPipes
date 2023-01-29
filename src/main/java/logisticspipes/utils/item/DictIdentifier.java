@@ -3,6 +3,7 @@ package logisticspipes.utils.item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DictIdentifier {

@@ -3,11 +3,13 @@ package logisticspipes.commands.commands.wrapper;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import logisticspipes.asm.wrapper.AbstractWrapper;
 import logisticspipes.asm.wrapper.LogisticsWrapperHandler;
 import logisticspipes.asm.wrapper.WrapperState;
 import logisticspipes.commands.LogisticsPipesCommand;
 import logisticspipes.commands.abstracts.ICommandHandler;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
@@ -15,7 +17,7 @@ public class EnableCommand implements ICommandHandler {
 
     @Override
     public String[] getNames() {
-        return new String[] {"enable"};
+        return new String[] { "enable" };
     }
 
     @Override
@@ -25,7 +27,7 @@ public class EnableCommand implements ICommandHandler {
 
     @Override
     public String[] getDescription() {
-        return new String[] {"Reenables the givven proxy", "if it was disabled by an exception."};
+        return new String[] { "Reenables the givven proxy", "if it was disabled by an exception." };
     }
 
     @Override

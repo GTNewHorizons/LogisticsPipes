@@ -1,13 +1,14 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
-import buildcraft.transport.PipePluggableState;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import java.io.IOException;
 import java.util.Arrays;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import lombok.SneakyThrows;
+import buildcraft.transport.PipePluggableState;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 public class LPBCPluggableState extends PipePluggableState implements IBCPluggableState {
 
@@ -27,7 +28,7 @@ public class LPBCPluggableState extends PipePluggableState implements IBCPluggab
     }
 
     @Override
-    @SneakyThrows({IOException.class})
+    @SneakyThrows({ IOException.class })
     public boolean isDirty(boolean clean) {
         LPDataOutputStream buffer = new LPDataOutputStream();
         ByteBuf buf = Unpooled.buffer(128);

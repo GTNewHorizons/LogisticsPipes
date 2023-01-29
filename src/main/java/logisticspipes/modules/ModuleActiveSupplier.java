@@ -1,9 +1,8 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
@@ -33,6 +32,7 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -41,14 +41,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ModuleActiveSupplier extends LogisticsGuiModule
-        implements IRequestItems,
-                IRequireReliableTransport,
-                IClientInformationProvider,
-                IHUDModuleHandler,
-                IModuleWatchReciver,
-                IModuleInventoryReceive,
-                ISimpleInventoryEventHandler {
+        implements IRequestItems, IRequireReliableTransport, IClientInformationProvider, IHUDModuleHandler,
+        IModuleWatchReciver, IModuleInventoryReceive, ISimpleInventoryEventHandler {
 
     private final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -59,11 +57,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         return null;
     }
@@ -84,14 +78,12 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -99,8 +91,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(dummyInventory))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(dummyInventory)).setModulePos(this),
                 player);
     }
 
@@ -125,8 +116,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(dummyInventory))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(dummyInventory)).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -290,14 +280,14 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
 
             boolean success = false;
 
-            IAdditionalTargetInformation targetInformation =
-                    new PatternSupplierTargetInformation(slotArray[i], needed.getStackSize());
+            IAdditionalTargetInformation targetInformation = new PatternSupplierTargetInformation(
+                    slotArray[i],
+                    needed.getStackSize());
 
             if (_patternMode != PatternMode.Full) {
                 _service.getDebug().log("Supplier: Requesting partial: " + toRequest);
                 neededCount = RequestTree.requestPartial(toRequest, this, targetInformation);
-                _service.getDebug()
-                        .log("Supplier: Requested: " + toRequest.getItem().makeStack(neededCount));
+                _service.getDebug().log("Supplier: Requested: " + toRequest.getItem().makeStack(neededCount));
                 if (neededCount > 0) {
                     success = true;
                 }
@@ -355,8 +345,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
                 item.setValue(Math.min(item.getKey().getMaxStackSize(), spaceAvailable));
                 continue;
             }
-            if (spaceAvailable == 0
-                    || (_requestMode == SupplyMode.Bulk50 && haveCount > item.getValue() / 2)
+            if (spaceAvailable == 0 || (_requestMode == SupplyMode.Bulk50 && haveCount > item.getValue() / 2)
                     || (_requestMode == SupplyMode.Bulk100 && haveCount >= item.getValue())) {
                 item.setValue(0);
                 continue;
@@ -392,8 +381,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             IAdditionalTargetInformation targetInformation = new SupplierTargetInformation();
 
             if (_requestMode != SupplyMode.Full) {
-                _service.getDebug()
-                        .log("Supplier: Requesting partial: " + need.getKey().makeStack(neededCount));
+                _service.getDebug().log("Supplier: Requesting partial: " + need.getKey().makeStack(neededCount));
                 neededCount = RequestTree.requestPartial(need.getKey().makeStack(neededCount), this, targetInformation);
                 _service.getDebug().log("Supplier: Requested: " + need.getKey().makeStack(neededCount));
                 if (neededCount > 0) {
@@ -416,8 +404,10 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
                     _service.getDebug().log("Supplier: Inserting Requested Items: " + neededCount);
                 } else {
                     _requestedItems.put(need.getKey(), currentRequest + neededCount);
-                    _service.getDebug()
-                            .log("Supplier: Raising Requested Items from: " + currentRequest + " to: " + currentRequest
+                    _service.getDebug().log(
+                            "Supplier: Raising Requested Items from: " + currentRequest
+                                    + " to: "
+                                    + currentRequest
                                     + neededCount);
                 }
             } else {
@@ -484,9 +474,8 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             Entry<ItemIdentifier, Integer> e = it.next();
             if (e.getKey().equalsWithoutNBT(item.getItem())) {
                 int expected = e.getValue();
-                _service.getDebug()
-                        .log("Supplier: Fuzzy match with" + e + ". Still missing: "
-                                + Math.max(0, expected - remaining));
+                _service.getDebug().log(
+                        "Supplier: Fuzzy match with" + e + ". Still missing: " + Math.max(0, expected - remaining));
                 if (expected - remaining > 0) {
                     e.setValue(expected - remaining);
                 } else {
@@ -571,13 +560,11 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
 
     @Override
     protected ModuleCoordinatesGuiProvider getPipeGuiProvider() {
-        return NewGuiHandler.getGui(ActiveSupplierSlot.class)
-                .setPatternUpgarde(hasPatternUpgrade())
+        return NewGuiHandler.getGui(ActiveSupplierSlot.class).setPatternUpgarde(hasPatternUpgrade())
                 .setSlotArray(slotArray)
-                .setMode((_service.getUpgradeManager(slot, positionInt).hasPatternUpgrade()
-                                ? getPatternMode()
-                                : getSupplyMode())
-                        .ordinal())
+                .setMode(
+                        (_service.getUpgradeManager(slot, positionInt).hasPatternUpgrade() ? getPatternMode()
+                                : getSupplyMode()).ordinal())
                 .setLimit(isLimited);
     }
 

@@ -1,6 +1,5 @@
 package logisticspipes.gui.hud;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.interfaces.IHUDButton;
 import logisticspipes.interfaces.IHUDConfig;
 import logisticspipes.interfaces.IHUDModuleHandler;
@@ -12,9 +11,13 @@ import logisticspipes.utils.gui.hud.BasicHUDButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class HudChassisPipe extends BasicHUDGui {
 
@@ -28,8 +31,8 @@ public class HudChassisPipe extends BasicHUDGui {
     private int xCursor;
     private int yCursor;
 
-    public HudChassisPipe(
-            PipeLogisticsChassi pipeLogisticsChassi, ChassiModule _module, ItemIdentifierInventory _moduleInventory) {
+    public HudChassisPipe(PipeLogisticsChassi pipeLogisticsChassi, ChassiModule _module,
+            ItemIdentifierInventory _moduleInventory) {
         pipe = pipeLogisticsChassi;
         module = _module;
         moduleInventory = _moduleInventory;
@@ -120,9 +123,7 @@ public class HudChassisPipe extends BasicHUDGui {
                 GL11.glTranslatef(11.0F, 5.0F, (float) (-0.00005F * distance));
                 ((IHUDModuleHandler) selectedmodule).getHUDRenderer().renderContent(shifted);
                 if (((IHUDModuleHandler) selectedmodule).getHUDRenderer().getButtons() != null) {
-                    for (IHUDButton button : ((IHUDModuleHandler) selectedmodule)
-                            .getHUDRenderer()
-                            .getButtons()) {
+                    for (IHUDButton button : ((IHUDModuleHandler) selectedmodule).getHUDRenderer().getButtons()) {
                         button.renderAlways(shifted);
                         if (button.shouldRenderButton()) {
                             button.renderButton(button.isFocused(), button.isblockFocused(), shifted);
@@ -131,7 +132,7 @@ public class HudChassisPipe extends BasicHUDGui {
                             continue;
                         }
                         if ((button.getX() - 1 < (xCursor - 11)
-                                        && (xCursor - 11) < (button.getX() + button.sizeX() + 1))
+                                && (xCursor - 11) < (button.getX() + button.sizeX() + 1))
                                 && (button.getY() - 1 < (yCursor - 5)
                                         && (yCursor - 5) < (button.getY() + button.sizeY() + 1))) {
                             if (!button.isFocused() && !button.isblockFocused()) {
@@ -291,7 +292,12 @@ public class HudChassisPipe extends BasicHUDGui {
             if (module != null) {
                 boolean renderInColor = buttonEnabled() || isSlotSelected(position);
                 ItemStackRenderer itemStackRenderer = new ItemStackRenderer(
-                        posX + ((sizeX - 16) / 2), posY + ((sizeY - 16) / 2), -0.002F, false, shifted, renderInColor);
+                        posX + ((sizeX - 16) / 2),
+                        posY + ((sizeY - 16) / 2),
+                        -0.002F,
+                        false,
+                        shifted,
+                        renderInColor);
                 itemStackRenderer.setItemstack(module).setDisplayAmount(DisplayAmount.NEVER);
 
                 itemStackRenderer.renderInGui();

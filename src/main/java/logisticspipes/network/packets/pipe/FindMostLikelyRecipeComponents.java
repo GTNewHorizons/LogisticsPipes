@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
+
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.network.LPDataInputStream;
@@ -22,6 +23,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -43,9 +45,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
         CoreRoutedPipe pipe = null;
         if (tile instanceof LogisticsCraftingTableTileEntity) {
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                TileEntity conn = ((LogisticsCraftingTableTileEntity) tile)
-                        .getLPPosition()
-                        .moveForward(dir)
+                TileEntity conn = ((LogisticsCraftingTableTileEntity) tile).getLPPosition().moveForward(dir)
                         .getTileEntity(player.getEntityWorld());
                 if (conn instanceof LogisticsTileGenericPipe) {
                     if (((LogisticsTileGenericPipe) conn).pipe instanceof PipeItemsCraftingLogistics) {
@@ -72,8 +72,8 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
             int max = 0;
             for (int i = 0; i < canidates.order.size(); i++) {
                 ItemIdentifier ident = canidates.order.get(i).getItem();
-                int newAmount = SimpleServiceLocator.logisticsManager.getAmountFor(
-                        ident, pipe.getRouter().getIRoutersByCost());
+                int newAmount = SimpleServiceLocator.logisticsManager
+                        .getAmountFor(ident, pipe.getRouter().getIRoutersByCost());
                 if (newAmount > max) {
                     max = newAmount;
                     maxItemPos = i;
@@ -81,8 +81,8 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
             }
             if (max < 64) {
                 if (craftable == null) {
-                    craftable = SimpleServiceLocator.logisticsManager.getCraftableItems(
-                            pipe.getRouter().getIRoutersByCost());
+                    craftable = SimpleServiceLocator.logisticsManager
+                            .getCraftableItems(pipe.getRouter().getIRoutersByCost());
                 }
                 for (ItemIdentifier craft : craftable) {
                     for (int i = 0; i < canidates.order.size(); i++) {
@@ -97,8 +97,7 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
             list.set(j, maxItemPos);
         }
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(MostLikelyRecipeComponentsResponse.class)
-                        .setResponse(list),
+                PacketHandler.getPacket(MostLikelyRecipeComponentsResponse.class).setResponse(list),
                 player);
     }
 

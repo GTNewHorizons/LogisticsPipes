@@ -4,9 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.launchwrapper.Launch;
+
 import org.objectweb.asm.*;
 
 public class ClassCreator {
@@ -15,8 +18,8 @@ public class ClassCreator {
 
     public static byte[] getWrappedClassAsBytes(CCWrapperInformation info, String className) {
 
-        String newClassName_DOT =
-                "logisticspipes.proxy.opencomputers.asm.BaseWrapperClass$" + className + "$OpenComputersWrapper";
+        String newClassName_DOT = "logisticspipes.proxy.opencomputers.asm.BaseWrapperClass$" + className
+                + "$OpenComputersWrapper";
         String newClassName_SLASH = newClassName_DOT.replace('.', '/');
         String newClassName_TYPE = "L" + newClassName_SLASH + ";";
 
@@ -32,7 +35,11 @@ public class ClassCreator {
 
         {
             MethodVisitor mv = cw.visitMethod(
-                    Opcodes.ACC_PUBLIC, "<init>", "()V", null, new String[] {"java/lang/ClassNotFoundException"});
+                    Opcodes.ACC_PUBLIC,
+                    "<init>",
+                    "()V",
+                    null,
+                    new String[] { "java/lang/ClassNotFoundException" });
             mv.visitCode();
             Label l0 = new Label();
             mv.visitLabel(l0);
@@ -81,7 +88,12 @@ public class ClassCreator {
             mv.visitLabel(l2);
             mv.visitLocalVariable("this", newClassName_TYPE, null, l0, l2, 0);
             mv.visitLocalVariable(
-                    "info", "Llogisticspipes/proxy/computers/wrapper/CCWrapperInformation;", null, l0, l2, 1);
+                    "info",
+                    "Llogisticspipes/proxy/computers/wrapper/CCWrapperInformation;",
+                    null,
+                    l0,
+                    l2,
+                    1);
             mv.visitLocalVariable("object", "Ljava/lang/Object;", null, l0, l2, 2);
             mv.visitMaxs(3, 3);
             mv.visitEnd();
@@ -101,14 +113,13 @@ public class ClassCreator {
 
     public static Class<? extends BaseWrapperClass> getWrapperClass(CCWrapperInformation info, String className)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
-                    InvocationTargetException {
-        String newClassName_DOT =
-                "logisticspipes.proxy.opencomputers.asm.BaseWrapperClass$" + className + "$OpenComputersWrapper";
+            InvocationTargetException {
+        String newClassName_DOT = "logisticspipes.proxy.opencomputers.asm.BaseWrapperClass$" + className
+                + "$OpenComputersWrapper";
         if (ClassCreator.createdClasses.contains(className)) {
             try {
                 return (Class<? extends BaseWrapperClass>) Class.forName(newClassName_DOT);
-            } catch (ClassNotFoundException ignored) {
-            }
+            } catch (ClassNotFoundException ignored) {}
         }
         byte[] bytes = ClassCreator.getWrappedClassAsBytes(info, className);
         return (Class<? extends BaseWrapperClass>) ClassCreator.loadClass(bytes, newClassName_DOT);
@@ -120,7 +131,7 @@ public class ClassCreator {
                 name,
                 "(Lli/cil/oc/api/machine/Context;Lli/cil/oc/api/machine/Arguments;)[Ljava/lang/Object;",
                 null,
-                new String[] {"java/lang/Exception"});
+                new String[] { "java/lang/Exception" });
         {
             AnnotationVisitor av0 = mv.visitAnnotation("Lli/cil/oc/api/machine/Callback;", true);
             if (direct) {
@@ -156,12 +167,11 @@ public class ClassCreator {
 
     private static Method m_defineClass = null;
 
-    private static Class<?> loadClass(byte[] data, String lookfor)
-            throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
-                    InvocationTargetException {
+    private static Class<?> loadClass(byte[] data, String lookfor) throws NoSuchMethodException, SecurityException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         if (ClassCreator.m_defineClass == null) {
-            ClassCreator.m_defineClass =
-                    ClassLoader.class.getDeclaredMethod("defineClass", byte[].class, int.class, int.class);
+            ClassCreator.m_defineClass = ClassLoader.class
+                    .getDeclaredMethod("defineClass", byte[].class, int.class, int.class);
             ClassCreator.m_defineClass.setAccessible(true);
         }
         return (Class<?>) ClassCreator.m_defineClass.invoke(Launch.classLoader, data, 0, data.length);

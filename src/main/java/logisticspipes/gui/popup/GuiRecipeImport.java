@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.NEISetCraftingRecipe;
 import logisticspipes.network.packets.pipe.FindMostLikelyRecipeComponents;
@@ -15,6 +16,7 @@ import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -103,8 +105,8 @@ public class GuiRecipeImport extends SubGuiScreen {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        fontRendererObj.renderString(
-                StringUtils.translate("misc.selectOreDict"), guiLeft + 10, guiTop + 6, 0x404040, false);
+        fontRendererObj
+                .renderString(StringUtils.translate("misc.selectOreDict"), guiLeft + 10, guiTop + 6, 0x404040, false);
         tooltip = null;
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -120,13 +122,21 @@ public class GuiRecipeImport extends SubGuiScreen {
                 }
 
                 itemRenderer.renderItemAndEffectIntoGUI(
-                        font, mc.renderEngine, itemStack, guiLeft + 45 + x * 18, guiTop + 20 + y * 18);
+                        font,
+                        mc.renderEngine,
+                        itemStack,
+                        guiLeft + 45 + x * 18,
+                        guiTop + 20 + y * 18);
                 // With empty string, because damage value indicator struggles with the depth
                 itemRenderer.renderItemOverlayIntoGUI(
-                        font, mc.renderEngine, itemStack, guiLeft + 45 + x * 18, guiTop + 20 + y * 18, null);
+                        font,
+                        mc.renderEngine,
+                        itemStack,
+                        guiLeft + 45 + x * 18,
+                        guiTop + 20 + y * 18,
+                        null);
 
-                if (guiLeft + 45 + x * 18 < mouseX
-                        && mouseX < guiLeft + 45 + x * 18 + 16
+                if (guiLeft + 45 + x * 18 < mouseX && mouseX < guiLeft + 45 + x * 18 + 16
                         && guiTop + 20 + y * 18 < mouseY
                         && mouseY < guiTop + 20 + y * 18 + 16
                         && !hasSubGui()) {
@@ -138,7 +148,7 @@ public class GuiRecipeImport extends SubGuiScreen {
                             Color.WHITE_50,
                             Color.WHITE_50,
                             0.0);
-                    tooltip = new Object[] {guiLeft + mouseX, guiTop + mouseY, itemStack};
+                    tooltip = new Object[] { guiLeft + mouseX, guiTop + mouseY, itemStack };
                 }
             }
         }
@@ -153,13 +163,21 @@ public class GuiRecipeImport extends SubGuiScreen {
             }
 
             itemRenderer.renderItemAndEffectIntoGUI(
-                    font, mc.renderEngine, itemStack, guiLeft + 20 + x * 40, guiTop + 90 + y * 40);
+                    font,
+                    mc.renderEngine,
+                    itemStack,
+                    guiLeft + 20 + x * 40,
+                    guiTop + 90 + y * 40);
             // With empty string, because damage value indicator struggles with the depth
             itemRenderer.renderItemOverlayIntoGUI(
-                    font, mc.renderEngine, itemStack, guiLeft + 20 + x * 40, guiTop + 90 + y * 40, "");
+                    font,
+                    mc.renderEngine,
+                    itemStack,
+                    guiLeft + 20 + x * 40,
+                    guiTop + 90 + y * 40,
+                    "");
 
-            if (guiLeft + 20 + x * 40 < mouseX
-                    && mouseX < guiLeft + 20 + x * 40 + 16
+            if (guiLeft + 20 + x * 40 < mouseX && mouseX < guiLeft + 20 + x * 40 + 16
                     && guiTop + 90 + y * 40 < mouseY
                     && mouseY < guiTop + 90 + y * 40 + 16
                     && !hasSubGui()) {
@@ -171,7 +189,7 @@ public class GuiRecipeImport extends SubGuiScreen {
                         Color.WHITE_50,
                         Color.WHITE_50,
                         0.0);
-                tooltip = new Object[] {guiLeft + mouseX, guiTop + mouseY, itemStack};
+                tooltip = new Object[] { guiLeft + mouseX, guiTop + mouseY, itemStack };
             }
 
             x++;
@@ -185,8 +203,8 @@ public class GuiRecipeImport extends SubGuiScreen {
     @Override
     protected void renderGuiBackground(int par1, int par2) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-        fontRendererObj.renderString(
-                StringUtils.translate("misc.selectOreDict"), guiLeft + 10, guiTop + 6, 0x404040, false);
+        fontRendererObj
+                .renderString(StringUtils.translate("misc.selectOreDict"), guiLeft + 10, guiTop + 6, 0x404040, false);
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 GuiGraphics.drawSlotBackground(mc, guiLeft + 44 + x * 18, guiTop + 19 + y * 18);
@@ -218,15 +236,12 @@ public class GuiRecipeImport extends SubGuiScreen {
                 stack[i++] = canidate.order.get(canidate.pos).makeNormalStack();
             }
             NEISetCraftingRecipe packet = PacketHandler.getPacket(NEISetCraftingRecipe.class);
-            MainProxy.sendPacketToServer(packet.setContent(stack)
-                    .setPosX(tile.xCoord)
-                    .setPosY(tile.yCoord)
-                    .setPosZ(tile.zCoord));
+            MainProxy.sendPacketToServer(
+                    packet.setContent(stack).setPosX(tile.xCoord).setPosY(tile.yCoord).setPosZ(tile.zCoord));
             exitGui();
         } else if (id == 1) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(FindMostLikelyRecipeComponents.class)
-                    .setContent(list)
-                    .setTilePos(tile));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(FindMostLikelyRecipeComponents.class).setContent(list).setTilePos(tile));
         } else if (id >= 10 && id < 30) {
             int slot = id % 10;
             boolean up = id < 20;
@@ -262,8 +277,7 @@ public class GuiRecipeImport extends SubGuiScreen {
         int y = 0;
         for (final Canidates canidate : list) {
 
-            if (guiLeft + 20 + x * 40 < mouseX
-                    && mouseX < guiLeft + 20 + x * 40 + 16
+            if (guiLeft + 20 + x * 40 < mouseX && mouseX < guiLeft + 20 + x * 40 + 16
                     && guiTop + 90 + y * 40 < mouseY
                     && mouseY < guiTop + 90 + y * 40 + 16) {
                 setSubGui(new SelectItemOutOfList(canidate.order, slot -> canidate.pos = slot));

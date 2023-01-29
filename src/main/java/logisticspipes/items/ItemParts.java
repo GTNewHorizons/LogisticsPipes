@@ -1,6 +1,7 @@
 package logisticspipes.items;
 
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -19,8 +20,7 @@ public class ItemParts extends LogisticsItem {
     public void registerIcons(IIconRegister iconreg) {
         _icons = new IIcon[9];
         for (int i = 0; i < 9; i++) {
-            _icons[i] = iconreg.registerIcon(
-                    "logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
+            _icons[i] = iconreg.registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
         }
     }
 
@@ -59,7 +59,7 @@ public class ItemParts extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(this, 1, 0));

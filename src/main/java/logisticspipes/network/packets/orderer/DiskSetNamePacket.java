@@ -5,6 +5,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.StringCoordinatesPacket;
 import logisticspipes.pipes.PipeItemsRequestLogisticsMk2;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -29,17 +30,14 @@ public class DiskSetNamePacket extends StringCoordinatesPacket {
             if (((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk() == null) {
                 return;
             }
-            if (!((PipeItemsRequestLogisticsMk2) pipe.pipe)
-                    .getDisk()
-                    .getItem()
+            if (!((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().getItem()
                     .equals(LogisticsPipes.LogisticsItemDisk)) {
                 return;
             }
             if (!((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().hasTagCompound()) {
                 ((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().setTagCompound(new NBTTagCompound());
             }
-            NBTTagCompound nbt =
-                    ((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().getTagCompound();
+            NBTTagCompound nbt = ((PipeItemsRequestLogisticsMk2) pipe.pipe).getDisk().getTagCompound();
             nbt.setString("name", getString());
         }
     }

@@ -1,6 +1,7 @@
 package logisticspipes.renderer;
 
 import java.util.Arrays;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -106,22 +107,13 @@ public final class CustomBlockRenderer {
         }
     }
 
-    public void renderBlock(
-            RenderInfo info, IBlockAccess blockAccess, int x, int y, int z, boolean doLight, boolean doTessellating) {
+    public void renderBlock(RenderInfo info, IBlockAccess blockAccess, int x, int y, int z, boolean doLight,
+            boolean doTessellating) {
         renderBlock(info, blockAccess, x, y, z, x, y, z, doLight, doTessellating);
     }
 
-    public void renderBlock(
-            RenderInfo info,
-            IBlockAccess blockAccess,
-            double x,
-            double y,
-            double z,
-            int lightX,
-            int lightY,
-            int lightZ,
-            boolean doLight,
-            boolean doTessellating) {
+    public void renderBlock(RenderInfo info, IBlockAccess blockAccess, double x, double y, double z, int lightX,
+            int lightY, int lightZ, boolean doLight, boolean doTessellating) {
         float lightBottom = 0.5F;
         float lightTop = 1.0F;
         float lightEastWest = 0.8F;
@@ -157,7 +149,7 @@ public final class CustomBlockRenderer {
             tessellator.setBrightness(brightness);
             tessellator.setColorOpaque_F(lightBottom * light, lightBottom * light, lightBottom * light);
         } else {
-            //			tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
+            // tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             if (info.brightness >= 0) {
                 tessellator.setBrightness(info.brightness);
             }

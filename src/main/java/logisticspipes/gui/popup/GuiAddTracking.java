@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.blocks.stats.TrackingTask;
 import logisticspipes.config.Configs;
@@ -15,6 +16,7 @@ import logisticspipes.utils.gui.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
@@ -67,7 +69,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
                     guiTop + 18,
                     xSize - 20,
                     ySize - 100,
-                    new int[] {1, 10, 64, 64},
+                    new int[] { 1, 10, 64, 64 },
                     true);
         }
         itemDisplay.reposition(guiLeft + 10, guiTop + 18, xSize - 20, ySize - 80);
@@ -109,9 +111,9 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
             if (found) {
                 setSubGui(new GuiMessagePopup(StringUtils.translate(PREFIX + "alreadytracked")));
             } else {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(AddItemToTrackPacket.class)
-                        .setItem(itemDisplay.getSelectedItem().getItem())
-                        .setTilePos(tile));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(AddItemToTrackPacket.class)
+                                .setItem(itemDisplay.getSelectedItem().getItem()).setTilePos(tile));
                 TrackingTask task = new TrackingTask();
                 task.item = itemDisplay.getSelectedItem().getItem();
                 tile.tasks.add(task);
@@ -135,8 +137,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
     }
 
     private void refreshItems() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(RequestAmountTaskSubGui.class).setTilePos(tile));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestAmountTaskSubGui.class).setTilePos(tile));
     }
 
     @Override
@@ -171,7 +172,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
                     guiTop + 18,
                     xSize - 20,
                     ySize - 100,
-                    new int[] {1, 10, 64, 64},
+                    new int[] { 1, 10, 64, 64 },
                     true);
         }
         itemDisplay.setItemList(identList);
@@ -183,9 +184,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         if (search.isEmpty()) {
             return true;
         }
-        if (isSearched(
-                item.getFriendlyName().toLowerCase(Locale.US),
-                search.getContent().toLowerCase(Locale.US))) {
+        if (isSearched(item.getFriendlyName().toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
             return true;
         }
         // if(isSearched(String.valueOf(Item.getIdFromItem(item.item)), search.getContent())) return true;
@@ -195,9 +194,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
             if (e.getKey() < Enchantment.enchantmentsList.length && Enchantment.enchantmentsList[e.getKey()] != null) {
                 String enchantname = Enchantment.enchantmentsList[e.getKey()].getTranslatedName(e.getValue());
                 if (enchantname != null) {
-                    if (isSearched(
-                            enchantname.toLowerCase(Locale.US),
-                            search.getContent().toLowerCase(Locale.US))) {
+                    if (isSearched(enchantname.toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
                         return true;
                     }
                 }

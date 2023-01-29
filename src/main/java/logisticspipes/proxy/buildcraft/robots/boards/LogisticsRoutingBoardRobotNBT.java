@@ -1,10 +1,9 @@
 package logisticspipes.proxy.buildcraft.robots.boards;
 
-import buildcraft.api.boards.RedstoneBoardRobot;
-import buildcraft.api.boards.RedstoneBoardRobotNBT;
-import buildcraft.api.robots.EntityRobotBase;
 import java.util.List;
+
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,12 +11,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
+import buildcraft.api.boards.RedstoneBoardRobot;
+import buildcraft.api.boards.RedstoneBoardRobotNBT;
+import buildcraft.api.robots.EntityRobotBase;
+
 public class LogisticsRoutingBoardRobotNBT extends RedstoneBoardRobotNBT {
 
     public static LogisticsRoutingBoardRobotNBT instance = new LogisticsRoutingBoardRobotNBT();
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/robots/robot_router.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/robots/robot_router.png");
 
     private IIcon icon;
 
@@ -37,7 +41,7 @@ public class LogisticsRoutingBoardRobotNBT extends RedstoneBoardRobotNBT {
     }
 
     @Override
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
         list.add(StringUtils.translate("robot.logisticsRouting"));
     }

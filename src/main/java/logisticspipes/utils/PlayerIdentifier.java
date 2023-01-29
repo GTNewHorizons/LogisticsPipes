@@ -3,8 +3,10 @@ package logisticspipes.utils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import lombok.Getter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -26,8 +28,7 @@ public class PlayerIdentifier {
     private UUID id;
 
     public static PlayerIdentifier get(EntityPlayer player) {
-        return PlayerIdentifier.get(
-                player.getGameProfile().getName(), player.getGameProfile().getId());
+        return PlayerIdentifier.get(player.getGameProfile().getName(), player.getGameProfile().getId());
     }
 
     public static PlayerIdentifier get(String username, UUID id) {
@@ -63,8 +64,7 @@ public class PlayerIdentifier {
             String tmp = nbt.getString(prefix + "_id");
             try {
                 id = UUID.fromString(tmp);
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
         String username = nbt.getString(prefix + "_name");
         return PlayerIdentifier.get(username, id);

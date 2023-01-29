@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DictItemIdentifier {

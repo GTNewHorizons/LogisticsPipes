@@ -1,6 +1,7 @@
 package logisticspipes.gui.popup;
 
 import java.util.List;
+
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
@@ -8,10 +9,12 @@ import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
 public class SelectItemOutOfList extends SubGuiScreen {
@@ -65,13 +68,21 @@ public class SelectItemOutOfList extends SubGuiScreen {
                 }
 
                 itemRenderer.renderItemAndEffectIntoGUI(
-                        font, mc.renderEngine, itemStack, guiLeft + 5 + x * 18, guiTop + 17 + y * 18);
+                        font,
+                        mc.renderEngine,
+                        itemStack,
+                        guiLeft + 5 + x * 18,
+                        guiTop + 17 + y * 18);
                 // With empty string, because damage value indicator struggles with the depth
                 itemRenderer.renderItemOverlayIntoGUI(
-                        font, mc.renderEngine, itemStack, guiLeft + 5 + x * 18, guiTop + 17 + y * 18, "");
+                        font,
+                        mc.renderEngine,
+                        itemStack,
+                        guiLeft + 5 + x * 18,
+                        guiTop + 17 + y * 18,
+                        "");
 
-                if (guiLeft + 5 + x * 18 < mouseX
-                        && mouseX < guiLeft + 5 + x * 18 + 16
+                if (guiLeft + 5 + x * 18 < mouseX && mouseX < guiLeft + 5 + x * 18 + 16
                         && guiTop + 17 + y * 18 < mouseY
                         && mouseY < guiTop + 17 + y * 18 + 16
                         && !hasSubGui()) {
@@ -89,7 +100,7 @@ public class SelectItemOutOfList extends SubGuiScreen {
                     GL11.glColorMask(true, true, true, true);
                     GL11.glEnable(GL11.GL_LIGHTING);
                     GL11.glEnable(GL11.GL_DEPTH_TEST);
-                    tooltip = new Object[] {guiLeft + mouseX, guiTop + mouseY, itemStack};
+                    tooltip = new Object[] { guiLeft + mouseX, guiTop + mouseY, itemStack };
                 }
             }
 
@@ -107,8 +118,8 @@ public class SelectItemOutOfList extends SubGuiScreen {
     @Override
     protected void renderGuiBackground(int par1, int par2) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-        fontRendererObj.renderString(
-                StringUtils.translate("misc.selectType"), guiLeft + 10, guiTop + 6, 0x404040, false); // TODO
+        fontRendererObj
+                .renderString(StringUtils.translate("misc.selectType"), guiLeft + 10, guiTop + 6, 0x404040, false); // TODO
         String pageString = page + 1 + "/" + maxPage;
         fontRendererObj.renderString(
                 pageString,
@@ -156,8 +167,7 @@ public class SelectItemOutOfList extends SubGuiScreen {
         int count = 0;
         for (ItemIdentifierStack stack : canidate) {
             if (y >= 0) {
-                if (guiLeft + 5 + x * 18 < mouseX
-                        && mouseX < guiLeft + 5 + x * 18 + 16
+                if (guiLeft + 5 + x * 18 < mouseX && mouseX < guiLeft + 5 + x * 18 + 16
                         && guiTop + 17 + y * 18 < mouseY
                         && mouseY < guiTop + 17 + y * 18 + 16) {
                     handler.handleItemChoise(count);

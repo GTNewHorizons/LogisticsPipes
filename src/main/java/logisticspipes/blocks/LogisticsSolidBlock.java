@@ -1,7 +1,5 @@
 package logisticspipes.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
@@ -12,6 +10,7 @@ import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.interfaces.IGuiTileEntity;
 import logisticspipes.interfaces.IRotationProvider;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -24,6 +23,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LogisticsSolidBlock extends BlockContainer {
 
@@ -72,16 +74,8 @@ public class LogisticsSolidBlock extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World par1World,
-            int par2,
-            int par3,
-            int par4,
-            EntityPlayer par5EntityPlayer,
-            int par6,
-            float par7,
-            float par8,
-            float par9) {
+    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer,
+            int par6, float par7, float par8, float par9) {
         if (!par5EntityPlayer.isSneaking()) {
             TileEntity tile = par1World.getTileEntity(par2, par3, par4);
             if (tile instanceof IGuiTileEntity) {
@@ -95,8 +89,8 @@ public class LogisticsSolidBlock extends BlockContainer {
     }
 
     @Override
-    public void onBlockPlacedBy(
-            World world, int posX, int posY, int posZ, EntityLivingBase entity, ItemStack itemStack) {
+    public void onBlockPlacedBy(World world, int posX, int posY, int posZ, EntityLivingBase entity,
+            ItemStack itemStack) {
         super.onBlockPlacedBy(world, posX, posY, posZ, entity, itemStack);
         TileEntity tile = world.getTileEntity(posX, posY, posZ);
         if (tile instanceof LogisticsCraftingTableTileEntity) {
@@ -192,7 +186,10 @@ public class LogisticsSolidBlock extends BlockContainer {
         TileEntity tile = access.getTileEntity(x, y, z);
         if (tile instanceof IRotationProvider) {
             return getRotatedTexture(
-                    meta, side, ((IRotationProvider) tile).getRotation(), ((IRotationProvider) tile).getFrontTexture());
+                    meta,
+                    side,
+                    ((IRotationProvider) tile).getRotation(),
+                    ((IRotationProvider) tile).getFrontTexture());
         } else {
             return getRotatedTexture(meta, side, 3, 0);
         }
@@ -204,26 +201,24 @@ public class LogisticsSolidBlock extends BlockContainer {
         for (int i = 0; i < LogisticsSolidBlock.icons.length; i++) {
             LogisticsSolidBlock.icons[i] = par1IIconRegister.registerIcon("logisticspipes:lpsolidblock/" + i);
         }
-        LogisticsSolidBlock.newTextures[0] =
-                par1IIconRegister.registerIcon("logisticspipes:lpsolidblock/baseTexture"); // Base
-        LogisticsSolidBlock.newTextures[1] =
-                par1IIconRegister.registerIcon("logisticspipes:lpsolidblock/solderTexture"); // SOLDERING_STATION
-        LogisticsSolidBlock.newTextures[9] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/solderTexture_active"); // SOLDERING_STATION Active
-        LogisticsSolidBlock.newTextures[2] =
-                par1IIconRegister.registerIcon("logisticspipes:lpsolidblock/powerTexture"); // LOGISTICS_POWER_JUNCTION
-        LogisticsSolidBlock.newTextures[3] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/securityTexture"); // LOGISTICS_SECURITY_STATION
-        LogisticsSolidBlock.newTextures[4] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/craftingTexture"); // LOGISTICS_AUTOCRAFTING_TABLE
-        LogisticsSolidBlock.newTextures[5] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/fuzzycraftingTexture"); // LOGISTICS_FUZZYCRAFTING_TABLE
-        LogisticsSolidBlock.newTextures[6] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/statisticsTexture"); // LOGISTICS_STATISTICS_TABLE
-        LogisticsSolidBlock.newTextures[7] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/powerRFTexture"); // LOGISTICS_RF_POWERPROVIDER
-        LogisticsSolidBlock.newTextures[8] = par1IIconRegister.registerIcon(
-                "logisticspipes:lpsolidblock/powerIC2Texture"); // LOGISTICS_IC2_POWERPROVIDER
+        LogisticsSolidBlock.newTextures[0] = par1IIconRegister.registerIcon("logisticspipes:lpsolidblock/baseTexture"); // Base
+        LogisticsSolidBlock.newTextures[1] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/solderTexture"); // SOLDERING_STATION
+        LogisticsSolidBlock.newTextures[9] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/solderTexture_active"); // SOLDERING_STATION Active
+        LogisticsSolidBlock.newTextures[2] = par1IIconRegister.registerIcon("logisticspipes:lpsolidblock/powerTexture"); // LOGISTICS_POWER_JUNCTION
+        LogisticsSolidBlock.newTextures[3] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/securityTexture"); // LOGISTICS_SECURITY_STATION
+        LogisticsSolidBlock.newTextures[4] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/craftingTexture"); // LOGISTICS_AUTOCRAFTING_TABLE
+        LogisticsSolidBlock.newTextures[5] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/fuzzycraftingTexture"); // LOGISTICS_FUZZYCRAFTING_TABLE
+        LogisticsSolidBlock.newTextures[6] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/statisticsTexture"); // LOGISTICS_STATISTICS_TABLE
+        LogisticsSolidBlock.newTextures[7] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/powerRFTexture"); // LOGISTICS_RF_POWERPROVIDER
+        LogisticsSolidBlock.newTextures[8] = par1IIconRegister
+                .registerIcon("logisticspipes:lpsolidblock/powerIC2Texture"); // LOGISTICS_IC2_POWERPROVIDER
     }
 
     private IIcon getRotatedTexture(int meta, int side, int rotation, int front) {

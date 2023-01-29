@@ -1,11 +1,14 @@
 package logisticspipes.proxy.specialtankhandler;
 
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.ISpecialTankHandler;
+
 import net.minecraft.tileentity.TileEntity;
+
+import com.google.common.collect.Lists;
 
 public class SpecialTankHandler {
 
@@ -15,11 +18,9 @@ public class SpecialTankHandler {
         try {
             if (handler.init()) {
                 handlers.add(handler);
-                LogisticsPipes.log.info(
-                        "Loaded SpecialTankHandler: " + handler.getClass().getName());
+                LogisticsPipes.log.info("Loaded SpecialTankHandler: " + handler.getClass().getName());
             } else {
-                LogisticsPipes.log.warn(
-                        "Didn't load SpecialTankHandler: " + handler.getClass().getName());
+                LogisticsPipes.log.warn("Didn't load SpecialTankHandler: " + handler.getClass().getName());
             }
         } catch (Exception e) {
             e.printStackTrace();

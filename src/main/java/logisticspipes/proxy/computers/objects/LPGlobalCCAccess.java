@@ -1,6 +1,7 @@
 package logisticspipes.proxy.computers.objects;
 
 import java.util.Map;
+
 import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;

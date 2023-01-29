@@ -1,35 +1,38 @@
 package logisticspipes.proxy.thaumcraft;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.items.ItemModule;
 import logisticspipes.items.ItemPipeComponents;
 import logisticspipes.proxy.interfaces.ICraftingParts;
 import logisticspipes.proxy.interfaces.IThaumCraftProxy;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+
 import org.lwjgl.opengl.GL11;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ScanManager;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ThaumCraftProxy implements IThaumCraftProxy {
 
-    public ThaumCraftProxy()
-            throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException,
-                    SecurityException {
+    public ThaumCraftProxy() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException,
+            NoSuchFieldException, SecurityException {
         Class<?> tcConfig = Class.forName("thaumcraft.common.config.ConfigItems");
         itemShard = (Item) tcConfig.getField("itemShard").get(null);
     }
@@ -83,8 +86,7 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     }
 
     /**
-     * Used to render a icon of an aspect at a give x and y on top of a given
-     * GuiScreen.
+     * Used to render a icon of an aspect at a give x and y on top of a given GuiScreen.
      *
      * @param tag The EnumTag (aspect) to render
      * @param gui The gui to render on.
@@ -120,9 +122,8 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     }
 
     /**
-     * Used to render a rectangle of different aspects. Algorithm does top row
-     * then the next row down, and so on. It will stop when it runs out of
-     * aspects to render.
+     * Used to render a rectangle of different aspects. Algorithm does top row then the next row down, and so on. It
+     * will stop when it runs out of aspects to render.
      *
      * @param etagIDs A list of aspect IDs in Integer list to render.
      * @param x       Starting coordinate, top left.
@@ -155,8 +156,8 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     }
 
     /**
-     * Used to get a list of integers representing the IDs of all the aspects in
-     * the given ItemStack. Returns null if object has no tags.
+     * Used to get a list of integers representing the IDs of all the aspects in the given ItemStack. Returns null if
+     * object has no tags.
      *
      * @param stack The item to get tags for.
      * @return An Integer list of aspect IDs.
@@ -184,49 +185,46 @@ public class ThaumCraftProxy implements IThaumCraftProxy {
     @Override
     public void addCraftingRecipes(ICraftingParts parts) {
         if (!Configs.ENABLE_BETA_RECIPES) {
-            CraftingManager.getInstance()
-                    .addRecipe(
-                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK),
-                            "wGe",
-                            "rBr",
-                            "fra",
-                            'w',
-                            new ItemStack(itemShard, 1, 2),
-                            'e',
-                            new ItemStack(itemShard, 1, 3),
-                            'f',
-                            new ItemStack(itemShard, 1, 1),
-                            'a',
-                            new ItemStack(itemShard, 1, 0),
-                            'G',
-                            parts.getChipTear1(),
-                            'r',
-                            Items.redstone,
-                            'B',
-                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
+            CraftingManager.getInstance().addRecipe(
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK),
+                    "wGe",
+                    "rBr",
+                    "fra",
+                    'w',
+                    new ItemStack(itemShard, 1, 2),
+                    'e',
+                    new ItemStack(itemShard, 1, 3),
+                    'f',
+                    new ItemStack(itemShard, 1, 1),
+                    'a',
+                    new ItemStack(itemShard, 1, 0),
+                    'G',
+                    parts.getChipTear1(),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
         }
         if (Configs.ENABLE_BETA_RECIPES) {
-            CraftingManager.getInstance()
-                    .addRecipe(
-                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK),
-                            "wGe",
-                            "rBr",
-                            "fra",
-                            'w',
-                            new ItemStack(itemShard, 1, 2),
-                            'e',
-                            new ItemStack(itemShard, 1, 3),
-                            'f',
-                            new ItemStack(itemShard, 1, 1),
-                            'a',
-                            new ItemStack(itemShard, 1, 0),
-                            'G',
-                            new ItemStack(
-                                    LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER),
-                            'r',
-                            Items.redstone,
-                            'B',
-                            new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
+            CraftingManager.getInstance().addRecipe(
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.THAUMICASPECTSINK),
+                    "wGe",
+                    "rBr",
+                    "fra",
+                    'w',
+                    new ItemStack(itemShard, 1, 2),
+                    'e',
+                    new ItemStack(itemShard, 1, 3),
+                    'f',
+                    new ItemStack(itemShard, 1, 1),
+                    'a',
+                    new ItemStack(itemShard, 1, 0),
+                    'G',
+                    new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROPACKAGER),
+                    'r',
+                    Items.redstone,
+                    'B',
+                    new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.BLANK));
         }
     }
 

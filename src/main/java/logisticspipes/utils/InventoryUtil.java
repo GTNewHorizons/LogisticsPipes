@@ -1,19 +1,18 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.ISpecialInsertion;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -100,8 +99,7 @@ public class InventoryUtil implements IInventoryUtil, ISpecialInsertion {
 
         for (int i = _cropStart; i < _inventory.getSizeInventory() - _cropEnd && count > 0; i++) {
             ItemStack stack = _inventory.getStackInSlot(i);
-            if (stack == null
-                    || (stack.stackSize == 1 && _hideOnePerStack)
+            if (stack == null || (stack.stackSize == 1 && _hideOnePerStack)
                     || !ItemIdentifier.get(stack).equals(item)) {
                 continue;
             }

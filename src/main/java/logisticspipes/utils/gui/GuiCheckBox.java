@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiCheckBox extends GuiButton {
@@ -21,14 +22,19 @@ public class GuiCheckBox extends GuiButton {
     @Override
     public void drawButton(Minecraft minecraft, int par2, int par3) {
         if (visible) {
-            boolean var5 =
-                    par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+            boolean var5 = par2 >= xPosition && par3 >= yPosition
+                    && par2 < xPosition + width
+                    && par3 < yPosition + height;
             int var6 = getHoverState(var5);
             // GL11.glBindTexture(GL11.GL_TEXTURE_2D, minecraft.renderEngine.getTexture("/logisticspipes/gui/checkbox-"
             // + (state?"on":"out") + "" + (var6 == 2?"-mouse":"") + ".png"));
-            minecraft.renderEngine.bindTexture(new ResourceLocation(
-                    "logisticspipes",
-                    "textures/gui/checkbox-" + (state ? "on" : "out") + "" + (var6 == 2 ? "-mouse" : "") + ".png"));
+            minecraft.renderEngine.bindTexture(
+                    new ResourceLocation(
+                            "logisticspipes",
+                            "textures/gui/checkbox-" + (state ? "on" : "out")
+                                    + ""
+                                    + (var6 == 2 ? "-mouse" : "")
+                                    + ".png"));
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
@@ -38,12 +44,10 @@ public class GuiCheckBox extends GuiButton {
             var9.addVertexWithUV(xPosition, yPosition, zLevel, 0, 0);
             var9.draw();
             /*
-                       drawTexturedModalRect(xPosition  			, yPosition				, 0		, 0 ,0);
-                       drawTexturedModalRect(xPosition + width / 2	, yPosition				, 0		, 1, 0);
-
-                       drawTexturedModalRect(xPosition  			, yPosition + height / 2, 0		, 0 ,1);
-                       drawTexturedModalRect(xPosition + width / 2	, yPosition + height / 2, 0		, 1, 1);
-            */
+             * drawTexturedModalRect(xPosition , yPosition , 0 , 0 ,0); drawTexturedModalRect(xPosition + width / 2 ,
+             * yPosition , 0 , 1, 0); drawTexturedModalRect(xPosition , yPosition + height / 2, 0 , 0 ,1);
+             * drawTexturedModalRect(xPosition + width / 2 , yPosition + height / 2, 0 , 1, 1);
+             */
             mouseDragged(minecraft, par2, par3);
         }
     }

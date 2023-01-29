@@ -2,6 +2,7 @@ package logisticspipes.blocks;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ICraftingResultHandler;
@@ -24,6 +25,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -134,10 +136,8 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
                     if (!itemEquals(recipestack, inputStack)) {
                         match = false;
                     } else {
-                        if (remove
-                                && ((getTagetForRecipe(false) != null
-                                                && itemEquals(getTagetForRecipe(false), recipe.result))
-                                        || removeThis)) {
+                        if (remove && ((getTagetForRecipe(false) != null
+                                && itemEquals(getTagetForRecipe(false), recipe.result)) || removeThis)) {
                             inputStack.stackSize -= 1;
                             if (inputStack.stackSize <= 0) {
                                 inputStack = null;
@@ -201,37 +201,25 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
                 xCoord,
                 zCoord,
                 MainProxy.getDimensionForWorld(getWorldObj()),
-                PacketHandler.getPacket(SolderingStationHeat.class)
-                        .setInteger(heat)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
+                PacketHandler.getPacket(SolderingStationHeat.class).setInteger(heat).setPosX(xCoord).setPosY(yCoord)
                         .setPosZ(zCoord));
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SolderingStationHeat.class)
-                        .setInteger(heat)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
+                PacketHandler.getPacket(SolderingStationHeat.class).setInteger(heat).setPosX(xCoord).setPosY(yCoord)
                         .setPosZ(zCoord),
                 listener);
     }
 
     private void updateProgress() {
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SolderingStationProgress.class)
-                        .setInteger(progress)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(SolderingStationProgress.class).setInteger(progress).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord),
                 listener);
     }
 
     private void updateInventory() {
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(SolderingStationInventory.class)
-                        .setInventory(this)
-                        .setPosX(xCoord)
-                        .setPosY(yCoord)
-                        .setPosZ(zCoord),
+                PacketHandler.getPacket(SolderingStationInventory.class).setInventory(this).setPosX(xCoord)
+                        .setPosY(yCoord).setPosZ(zCoord),
                 listener);
     }
 
@@ -444,7 +432,7 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
 
     @Override
     public int[] getAccessibleSlotsFromSide(int var1) {
-        return new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     }
 
     @Override

@@ -4,6 +4,7 @@ import logisticspipes.interfaces.IChestContentReceiver;
 import logisticspipes.network.abstractpackets.InventoryModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ChestContent extends InventoryModuleCoordinatesPacket {

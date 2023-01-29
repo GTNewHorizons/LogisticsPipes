@@ -5,6 +5,7 @@ import logisticspipes.gui.GuiSolderingStation;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -47,7 +48,11 @@ public class SolderingStationGui extends CoordinatesGuiProvider {
         dummy.addRestrictedSlot(9, tile, 107, 17, Items.iron_ingot);
         dummy.addRestrictedSlot(10, tile, 141, 47, (Item) null);
         dummy.addRestrictedSlot(
-                11, tile, 9, 9, itemStack -> tile.getRecipeForTaget(itemStack) != null && tile.areStacksEmpty());
+                11,
+                tile,
+                9,
+                9,
+                itemStack -> tile.getRecipeForTaget(itemStack) != null && tile.areStacksEmpty());
         dummy.addNormalSlotsForPlayerInventory(8, 84);
         return dummy;
     }

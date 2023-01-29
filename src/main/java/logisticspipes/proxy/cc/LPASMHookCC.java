@@ -1,11 +1,13 @@
 package logisticspipes.proxy.cc;
 
-import dan200.computercraft.api.lua.ILuaObject;
 import logisticspipes.proxy.cc.wrapper.CCCommandWrapper;
 import logisticspipes.proxy.computers.interfaces.ICCTypeWrapped;
+
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
+
+import dan200.computercraft.api.lua.ILuaObject;
 
 public class LPASMHookCC {
 

@@ -3,6 +3,7 @@ package logisticspipes.utils;
 import java.util.BitSet;
 
 public class SlidingWindowBitSet {
+
     private final BitSet set = new BitSet();
     private final int window;
     private int currentEx = -1;

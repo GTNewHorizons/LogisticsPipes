@@ -7,6 +7,7 @@ import logisticspipes.proxy.computers.interfaces.ILPCCTypeDefinition;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -1,7 +1,9 @@
 package logisticspipes.items;
 
 import java.util.List;
+
 import logisticspipes.config.Configs;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -37,8 +39,7 @@ public class ItemPipeComponents extends LogisticsItem {
     public void registerIcons(IIconRegister iconreg) {
         _icons = new IIcon[8];
         for (int i = 0; i < 8; i++) {
-            _icons[i] = iconreg.registerIcon(
-                    "logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
+            _icons[i] = iconreg.registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
         }
     }
 

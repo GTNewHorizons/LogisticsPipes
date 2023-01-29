@@ -2,6 +2,7 @@ package logisticspipes.modules;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IWorldProvider;
@@ -17,6 +18,7 @@ import logisticspipes.proxy.computers.objects.CCSinkResponder;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -50,17 +52,13 @@ public class ChassiModule extends LogisticsGuiModule {
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         SinkReply bestresult = null;
         for (LogisticsModule module : _modules) {
             if (module != null) {
-                SinkReply result =
-                        module.sinksItem(item, bestPriority, bestCustomPriority, allowDefault, includeInTransit);
+                SinkReply result = module
+                        .sinksItem(item, bestPriority, bestCustomPriority, allowDefault, includeInTransit);
                 if (result != null && result.maxNumberOfItems >= 0) {
                     bestresult = result;
                     bestPriority = result.fixedPriority.ordinal();
@@ -74,7 +72,9 @@ public class ChassiModule extends LogisticsGuiModule {
         }
         // Always deny items when we can't put the item anywhere
         IInventoryUtil invUtil = _parentPipe.getSneakyInventory(
-                false, ModulePositionType.SLOT, ((ChassiTargetInformation) bestresult.addInfo).getModuleSlot());
+                false,
+                ModulePositionType.SLOT,
+                ((ChassiTargetInformation) bestresult.addInfo).getModuleSlot());
         if (invUtil == null) {
             return null;
         }

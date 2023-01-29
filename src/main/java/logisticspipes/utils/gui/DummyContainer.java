@@ -1,15 +1,13 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils.gui;
 
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IFuzzySlot;
@@ -27,6 +25,7 @@ import logisticspipes.request.resources.DictResource;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.MinecraftColor;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -123,8 +122,8 @@ public class DummyContainer extends Container {
         return addSlotToContainer(new RestrictedSlot(inventory, slotId, xCoord, yCoord, item));
     }
 
-    public Slot addStaticRestrictedSlot(
-            int slotId, IInventory inventory, int xCoord, int yCoord, Item item, int stackLimit) {
+    public Slot addStaticRestrictedSlot(int slotId, IInventory inventory, int xCoord, int yCoord, Item item,
+            int stackLimit) {
         return addSlotToContainer(new StaticRestrictedSlot(inventory, slotId, xCoord, yCoord, item, stackLimit));
     }
 
@@ -132,8 +131,8 @@ public class DummyContainer extends Container {
         return addSlotToContainer(new RestrictedSlot(inventory, slotId, xCoord, yCoord, slotCheck));
     }
 
-    public Slot addStaticRestrictedSlot(
-            int slotId, IInventory inventory, int xCoord, int yCoord, ISlotCheck slotCheck, int stackLimit) {
+    public Slot addStaticRestrictedSlot(int slotId, IInventory inventory, int xCoord, int yCoord, ISlotCheck slotCheck,
+            int stackLimit) {
         return addSlotToContainer(new StaticRestrictedSlot(inventory, slotId, xCoord, yCoord, slotCheck, stackLimit));
     }
 
@@ -161,8 +160,8 @@ public class DummyContainer extends Container {
         return addSlotToContainer(new FuzzyDummySlot(_dummyInventory, slotId, xCoord, yCoord, dictResource));
     }
 
-    public Slot addFuzzyUnmodifiableSlot(
-            int slotId, IInventory inventory, int xCoord, int yCoord, DictResource dictResource) {
+    public Slot addFuzzyUnmodifiableSlot(int slotId, IInventory inventory, int xCoord, int yCoord,
+            DictResource dictResource) {
         return addSlotToContainer(new FuzzyUnmodifiableSlot(inventory, slotId, xCoord, yCoord, dictResource));
     }
 
@@ -172,8 +171,7 @@ public class DummyContainer extends Container {
             return null;
         }
         Slot slot = (Slot) inventorySlots.get(i);
-        if (slot == null
-                || slot instanceof DummySlot
+        if (slot == null || slot instanceof DummySlot
                 || slot instanceof UnmodifiableSlot
                 || slot instanceof FluidSlot
                 || slot instanceof ColorSlot
@@ -228,8 +226,7 @@ public class DummyContainer extends Container {
         }
         ItemStack out = from.getStack();
         from.onPickupFromSlot(player, out);
-        if (to.getHasStack()
-                && to.getStack().isItemEqual(out)
+        if (to.getHasStack() && to.getStack().isItemEqual(out)
                 && ItemStack.areItemStackTagsEqual(to.getStack(), from.getStack())) {
             int free = Math.min(to.getSlotStackLimit(), to.getStack().getMaxStackSize()) - to.getStack().stackSize;
             if (free > 0) {
@@ -246,7 +243,7 @@ public class DummyContainer extends Container {
         return false;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     public ItemStack superSlotClick(int par1, int par2, int par3, EntityPlayer par4EntityPlayer) {
         ItemStack itemstack = null;
         InventoryPlayer inventoryplayer = par4EntityPlayer.inventory;
@@ -273,8 +270,7 @@ public class DummyContainer extends Container {
             } else if (field_94536_g == 1) {
                 Slot slot = (Slot) inventorySlots.get(par1);
 
-                if (slot != null
-                        && Container.func_94527_a(slot, inventoryplayer.getItemStack(), true)
+                if (slot != null && Container.func_94527_a(slot, inventoryplayer.getItemStack(), true)
                         && slot.isItemValid(inventoryplayer.getItemStack())
                         && inventoryplayer.getItemStack().stackSize > field_94537_h.size()
                         && canDragIntoSlot(slot)) {
@@ -288,8 +284,7 @@ public class DummyContainer extends Container {
                     for (Object o : field_94537_h) {
                         Slot slot1 = (Slot) o;
 
-                        if (slot1 != null
-                                && Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
+                        if (slot1 != null && Container.func_94527_a(slot1, inventoryplayer.getItemStack(), true)
                                 && slot1.isItemValid(inventoryplayer.getItemStack())
                                 && inventoryplayer.getItemStack().stackSize >= field_94537_h.size()
                                 && canDragIntoSlot(slot1)) {
@@ -339,8 +334,8 @@ public class DummyContainer extends Container {
                         }
 
                         if (par2 == 1) {
-                            par4EntityPlayer.dropPlayerItemWithRandomChoice(
-                                    inventoryplayer.getItemStack().splitStack(1), true);
+                            par4EntityPlayer
+                                    .dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack().splitStack(1), true);
 
                             if (inventoryplayer.getItemStack().stackSize == 0) {
                                 inventoryplayer.setItemStack(null);
@@ -411,10 +406,9 @@ public class DummyContainer extends Container {
                             } else if (slot2.isItemValid(itemstack4)) {
                                 if (itemstack3.getItem() == itemstack4.getItem()
                                         && itemstack3.getItemDamage() == itemstack4.getItemDamage()
-                                        && areEqualForMerge(
-                                                itemstack3,
-                                                itemstack4,
-                                                slot2)) { // XXX replaced ItemStack.areItemStackTagsEqual with
+                                        && areEqualForMerge(itemstack3, itemstack4, slot2)) { // XXX replaced
+                                                                                              // ItemStack.areItemStackTagsEqual
+                                                                                              // with
                                     // areEqualForMerge for slot based handling
                                     l1 = par2 == 0 ? itemstack4.stackSize : 1;
 
@@ -438,36 +432,32 @@ public class DummyContainer extends Container {
                                     // ItemIdentifierInventory's disappearing items)
 
                                 } else if (itemstack4.stackSize <= slot2.getSlotStackLimit()) {
-                                    handleSwitch(
-                                            slot2,
-                                            itemstack3,
-                                            itemstack4,
-                                            par4EntityPlayer); // XXX added Slot switching handle method
+                                    handleSwitch(slot2, itemstack3, itemstack4, par4EntityPlayer); // XXX added Slot
+                                                                                                   // switching handle
+                                                                                                   // method
                                     slot2.putStack(itemstack4);
                                     inventoryplayer.setItemStack(itemstack3);
                                 }
-                            } else if (itemstack3.getItem() == itemstack4.getItem()
-                                    && itemstack4.getMaxStackSize() > 1
+                            } else if (itemstack3.getItem() == itemstack4.getItem() && itemstack4.getMaxStackSize() > 1
                                     && (!itemstack3.getHasSubtypes()
                                             || itemstack3.getItemDamage() == itemstack4.getItemDamage())
-                                    && areEqualForMerge(
-                                            itemstack3,
-                                            itemstack4,
-                                            slot2)) { // XXX replaced ItemStack.areItemStackTagsEqual with
-                                // areEqualForMerge for slot based handling
-                                l1 = itemstack3.stackSize;
+                                    && areEqualForMerge(itemstack3, itemstack4, slot2)) { // XXX replaced
+                                                                                          // ItemStack.areItemStackTagsEqual
+                                                                                          // with
+                                        // areEqualForMerge for slot based handling
+                                        l1 = itemstack3.stackSize;
 
-                                if (l1 > 0 && l1 + itemstack4.stackSize <= itemstack4.getMaxStackSize()) {
-                                    itemstack4.stackSize += l1;
-                                    itemstack3 = slot2.decrStackSize(l1);
+                                        if (l1 > 0 && l1 + itemstack4.stackSize <= itemstack4.getMaxStackSize()) {
+                                            itemstack4.stackSize += l1;
+                                            itemstack3 = slot2.decrStackSize(l1);
 
-                                    if (itemstack3.stackSize == 0) {
-                                        slot2.putStack(null);
+                                            if (itemstack3.stackSize == 0) {
+                                                slot2.putStack(null);
+                                            }
+
+                                            slot2.onPickupFromSlot(par4EntityPlayer, inventoryplayer.getItemStack());
+                                        }
                                     }
-
-                                    slot2.onPickupFromSlot(par4EntityPlayer, inventoryplayer.getItemStack());
-                                }
-                            }
                         }
 
                         slot2.onSlotChanged();
@@ -478,8 +468,8 @@ public class DummyContainer extends Container {
 
                 if (slot2.canTakeStack(par4EntityPlayer)) {
                     itemstack3 = inventoryplayer.getStackInSlot(par2);
-                    boolean flag =
-                            itemstack3 == null || slot2.inventory == inventoryplayer && slot2.isItemValid(itemstack3);
+                    boolean flag = itemstack3 == null
+                            || slot2.inventory == inventoryplayer && slot2.isItemValid(itemstack3);
                     l1 = -1;
 
                     if (!flag) {
@@ -509,67 +499,62 @@ public class DummyContainer extends Container {
                         slot2.putStack(itemstack3);
                     }
                 }
-            } else if (par3 == 3
-                    && par4EntityPlayer.capabilities.isCreativeMode
+            } else if (par3 == 3 && par4EntityPlayer.capabilities.isCreativeMode
                     && inventoryplayer.getItemStack() == null
                     && par1 >= 0) {
-                slot2 = (Slot) inventorySlots.get(par1);
+                        slot2 = (Slot) inventorySlots.get(par1);
 
-                if (slot2 != null && slot2.getHasStack()) {
-                    itemstack3 = slot2.getStack().copy();
-                    itemstack3.stackSize = itemstack3.getMaxStackSize();
-                    inventoryplayer.setItemStack(itemstack3);
-                }
-            } else if (par3 == 4 && inventoryplayer.getItemStack() == null && par1 >= 0) {
-                slot2 = (Slot) inventorySlots.get(par1);
+                        if (slot2 != null && slot2.getHasStack()) {
+                            itemstack3 = slot2.getStack().copy();
+                            itemstack3.stackSize = itemstack3.getMaxStackSize();
+                            inventoryplayer.setItemStack(itemstack3);
+                        }
+                    } else
+                if (par3 == 4 && inventoryplayer.getItemStack() == null && par1 >= 0) {
+                    slot2 = (Slot) inventorySlots.get(par1);
 
-                if (slot2 != null && slot2.getHasStack() && slot2.canTakeStack(par4EntityPlayer)) {
-                    itemstack3 = slot2.decrStackSize(par2 == 0 ? 1 : slot2.getStack().stackSize);
-                    slot2.onPickupFromSlot(par4EntityPlayer, itemstack3);
-                    par4EntityPlayer.dropPlayerItemWithRandomChoice(itemstack3, true);
-                }
-            } else if (par3 == 6 && par1 >= 0) {
-                slot2 = (Slot) inventorySlots.get(par1);
-                itemstack3 = inventoryplayer.getItemStack();
+                    if (slot2 != null && slot2.getHasStack() && slot2.canTakeStack(par4EntityPlayer)) {
+                        itemstack3 = slot2.decrStackSize(par2 == 0 ? 1 : slot2.getStack().stackSize);
+                        slot2.onPickupFromSlot(par4EntityPlayer, itemstack3);
+                        par4EntityPlayer.dropPlayerItemWithRandomChoice(itemstack3, true);
+                    }
+                } else if (par3 == 6 && par1 >= 0) {
+                    slot2 = (Slot) inventorySlots.get(par1);
+                    itemstack3 = inventoryplayer.getItemStack();
 
-                if (itemstack3 != null
-                        && (slot2 == null || !slot2.getHasStack() || !slot2.canTakeStack(par4EntityPlayer))) {
-                    i1 = par2 == 0 ? 0 : inventorySlots.size() - 1;
-                    l1 = par2 == 0 ? 1 : -1;
+                    if (itemstack3 != null
+                            && (slot2 == null || !slot2.getHasStack() || !slot2.canTakeStack(par4EntityPlayer))) {
+                        i1 = par2 == 0 ? 0 : inventorySlots.size() - 1;
+                        l1 = par2 == 0 ? 1 : -1;
 
-                    for (int i2 = 0; i2 < 2; ++i2) {
-                        for (int j2 = i1;
-                                j2 >= 0
-                                        && j2 < inventorySlots.size()
-                                        && itemstack3.stackSize < itemstack3.getMaxStackSize();
-                                j2 += l1) {
-                            Slot slot3 = (Slot) inventorySlots.get(j2);
+                        for (int i2 = 0; i2 < 2; ++i2) {
+                            for (int j2 = i1; j2 >= 0 && j2 < inventorySlots.size()
+                                    && itemstack3.stackSize < itemstack3.getMaxStackSize(); j2 += l1) {
+                                Slot slot3 = (Slot) inventorySlots.get(j2);
 
-                            if (slot3.getHasStack()
-                                    && Container.func_94527_a(slot3, itemstack3, true)
-                                    && slot3.canTakeStack(par4EntityPlayer)
-                                    && func_94530_a(itemstack3, slot3)
-                                    && (i2 != 0
-                                            || slot3.getStack().stackSize
-                                                    != slot3.getStack().getMaxStackSize())) {
-                                int k1 = Math.min(
-                                        itemstack3.getMaxStackSize() - itemstack3.stackSize,
-                                        slot3.getStack().stackSize);
-                                ItemStack itemstack2 = slot3.decrStackSize(k1);
-                                itemstack3.stackSize += k1;
+                                if (slot3.getHasStack() && Container.func_94527_a(slot3, itemstack3, true)
+                                        && slot3.canTakeStack(par4EntityPlayer)
+                                        && func_94530_a(itemstack3, slot3)
+                                        && (i2 != 0
+                                                || slot3.getStack().stackSize != slot3.getStack().getMaxStackSize())) {
+                                    int k1 = Math.min(
+                                            itemstack3.getMaxStackSize() - itemstack3.stackSize,
+                                            slot3.getStack().stackSize);
+                                    ItemStack itemstack2 = slot3.decrStackSize(k1);
+                                    itemstack3.stackSize += k1;
 
-                                if (itemstack2.stackSize <= 0) {
-                                    slot3.putStack(null);
+                                    if (itemstack2.stackSize <= 0) {
+                                        slot3.putStack(null);
+                                    }
+
+                                    slot3.onPickupFromSlot(par4EntityPlayer, itemstack2);
                                 }
-
-                                slot3.onPickupFromSlot(par4EntityPlayer, itemstack2);
                             }
                         }
                     }
-                }
 
-                detectAndSendChanges();
-            }
+                    detectAndSendChanges();
+                }
         }
 
         return itemstack;
@@ -577,8 +562,7 @@ public class DummyContainer extends Container {
 
     private void handleSwitch(Slot slot2, ItemStack out, ItemStack in, EntityPlayer player) {
         if (slot2 instanceof ModuleSlot) {
-            ChassiModule logisticsModule =
-                    (ChassiModule) ((ModuleSlot) slot2).get_pipe().getLogisticsModule();
+            ChassiModule logisticsModule = (ChassiModule) ((ModuleSlot) slot2).get_pipe().getLogisticsModule();
             int moduleIndex = ((ModuleSlot) slot2).get_moduleIndex();
             if (out.getItem() instanceof ItemModule) {
                 ItemModuleInformationManager.saveInfotmation(out, logisticsModule.getSubModule(moduleIndex));
@@ -613,8 +597,7 @@ public class DummyContainer extends Container {
                 ItemIdentifier.get(stack).debugDumpData(entityplayer.worldObj.isRemote);
             }
         }
-        if ((!(slot instanceof DummySlot)
-                && !(slot instanceof UnmodifiableSlot)
+        if ((!(slot instanceof DummySlot) && !(slot instanceof UnmodifiableSlot)
                 && !(slot instanceof FluidSlot)
                 && !(slot instanceof ColorSlot)
                 && !(slot instanceof HandelableSlot))) {
@@ -655,12 +638,7 @@ public class DummyContainer extends Container {
         return currentlyEquippedStack;
     }
 
-    public void handleDummyClick(
-            Slot slot,
-            int slotId,
-            ItemStack currentlyEquippedStack,
-            int mouseButton,
-            int isShift,
+    public void handleDummyClick(Slot slot, int slotId, ItemStack currentlyEquippedStack, int mouseButton, int isShift,
             EntityPlayer entityplayer) {
         if (slot instanceof FluidSlot) {
             if (currentlyEquippedStack != null) {
@@ -842,8 +820,7 @@ public class DummyContainer extends Container {
 
     @Override
     public boolean canDragIntoSlot(Slot slot) {
-        if (slot == null
-                || slot instanceof UnmodifiableSlot
+        if (slot == null || slot instanceof UnmodifiableSlot
                 || slot instanceof FluidSlot
                 || slot instanceof ColorSlot
                 || slot instanceof HandelableSlot) {
@@ -901,8 +878,7 @@ public class DummyContainer extends Container {
                 if (set == null) {
                     set = fuzzySlot.getFuzzyFlags().getBitSet();
                     MainProxy.sendToPlayerList(
-                            PacketHandler.getPacket(FuzzySlotSettingsPacket.class)
-                                    .setSlotNumber(fuzzySlot.getSlotId())
+                            PacketHandler.getPacket(FuzzySlotSettingsPacket.class).setSlotNumber(fuzzySlot.getSlotId())
                                     .setFlags(set),
                             crafters);
                     inventoryFuzzySlotsContent.set(i, set);
@@ -911,8 +887,7 @@ public class DummyContainer extends Container {
                     if (!set.equals(setB)) {
                         MainProxy.sendToPlayerList(
                                 PacketHandler.getPacket(FuzzySlotSettingsPacket.class)
-                                        .setSlotNumber(fuzzySlot.getSlotId())
-                                        .setFlags(setB),
+                                        .setSlotNumber(fuzzySlot.getSlotId()).setFlags(setB),
                                 crafters);
                         inventoryFuzzySlotsContent.set(i, setB);
                     }
@@ -927,8 +902,7 @@ public class DummyContainer extends Container {
 
                 for (Object crafter : crafters) {
                     boolean revert = false;
-                    if (overrideMCAntiSend
-                            && crafter instanceof EntityPlayerMP
+                    if (overrideMCAntiSend && crafter instanceof EntityPlayerMP
                             && ((EntityPlayerMP) crafter).isChangingQuantityOnly) {
                         ((EntityPlayerMP) crafter).isChangingQuantityOnly = false;
                         revert = true;

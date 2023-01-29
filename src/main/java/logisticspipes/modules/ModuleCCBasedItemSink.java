@@ -1,9 +1,8 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Collection;
 import java.util.List;
+
 import logisticspipes.interfaces.IQueueCCEvent;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -12,9 +11,13 @@ import logisticspipes.utils.OneList;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleCCBasedItemSink extends LogisticsModule {
 
@@ -47,11 +50,7 @@ public class ModuleCCBasedItemSink extends LogisticsModule {
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier stack,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier stack, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         return null;
     }
@@ -92,7 +91,7 @@ public class ModuleCCBasedItemSink extends LogisticsModule {
     @Override
     public List<CCSinkResponder> queueCCSinkEvent(ItemIdentifierStack item) {
         CCSinkResponder resonse = new CCSinkResponder(item, _service.getSourceID(), eventQueuer);
-        eventQueuer.queueEvent("ItemSink", new Object[] {SimpleServiceLocator.ccProxy.getAnswer(resonse)});
+        eventQueuer.queueEvent("ItemSink", new Object[] { SimpleServiceLocator.ccProxy.getAnswer(resonse) });
         return new OneList<>(resonse);
     }
 

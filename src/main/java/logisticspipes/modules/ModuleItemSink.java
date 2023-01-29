@@ -1,8 +1,7 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
+
 import logisticspipes.gui.hud.modules.HUDItemSink;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
@@ -31,19 +30,19 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 @CCType(name = "ItemSink Module")
-public class ModuleItemSink extends LogisticsGuiModule
-        implements IClientInformationProvider,
-                IHUDModuleHandler,
-                IModuleWatchReciver,
-                ISimpleInventoryEventHandler,
-                IModuleInventoryReceive {
+public class ModuleItemSink extends LogisticsGuiModule implements IClientInformationProvider, IHUDModuleHandler,
+        IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Requested items", 1);
     private boolean _isDefaultRoute;
@@ -74,9 +73,7 @@ public class ModuleItemSink extends LogisticsGuiModule
         _isDefaultRoute = isDefaultRoute;
         if (!localModeWatchers.isEmpty()) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ItemSinkDefault.class)
-                            .setFlag(_isDefaultRoute)
-                            .setModulePos(this),
+                    PacketHandler.getPacket(ItemSinkDefault.class).setFlag(_isDefaultRoute).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -88,24 +85,31 @@ public class ModuleItemSink extends LogisticsGuiModule
     public void registerPosition(ModulePositionType slot, int positionInt) {
         super.registerPosition(slot, positionInt);
         _sinkReply = new SinkReply(
-                FixedPriority.ItemSink, 0, true, false, 1, 0, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.ItemSink,
+                0,
+                true,
+                false,
+                1,
+                0,
+                new ChassiTargetInformation(getPositionInt()));
         _sinkReplyDefault = new SinkReply(
-                FixedPriority.DefaultRoute, 0, true, true, 1, 0, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.DefaultRoute,
+                0,
+                true,
+                true,
+                1,
+                0,
+                new ChassiTargetInformation(getPositionInt()));
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         if (_isDefaultRoute && !allowDefault) {
             return null;
         }
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
         if (_filterInventory.containsUndamagedItem(item.getUndamaged())) {
@@ -156,12 +160,9 @@ public class ModuleItemSink extends LogisticsGuiModule
 
     @Override
     public ModuleCoordinatesGuiProvider getPipeGuiProvider() {
-        return NewGuiHandler.getGui(ItemSinkSlot.class)
-                .setDefaultRoute(_isDefaultRoute)
-                .setIgnoreData(ignoreData)
+        return NewGuiHandler.getGui(ItemSinkSlot.class).setDefaultRoute(_isDefaultRoute).setIgnoreData(ignoreData)
                 .setIgnoreNBT(ignoreNBT)
-                .setHasFuzzyUpgrade(
-                        _service.getUpgradeManager(slot, positionInt).isFuzzyUpgrade());
+                .setHasFuzzyUpgrade(_service.getUpgradeManager(slot, positionInt).isFuzzyUpgrade());
     }
 
     @Override
@@ -207,14 +208,12 @@ public class ModuleItemSink extends LogisticsGuiModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -222,13 +221,10 @@ public class ModuleItemSink extends LogisticsGuiModule
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory)).setModulePos(this),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ItemSinkDefault.class)
-                        .setFlag(_isDefaultRoute)
-                        .setModulePos(this),
+                PacketHandler.getPacket(ItemSinkDefault.class).setFlag(_isDefaultRoute).setModulePos(this),
                 player);
     }
 
@@ -242,8 +238,7 @@ public class ModuleItemSink extends LogisticsGuiModule
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -338,22 +333,21 @@ public class ModuleItemSink extends LogisticsGuiModule
         }
         if (MainProxy.isClient(_world.getWorld())) {
             if (player == null) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(ItemSinkFuzzy.class)
-                        .setPos(slot)
-                        .setNBT(false)
-                        .setModulePos(this));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(ItemSinkFuzzy.class).setPos(slot).setNBT(false).setModulePos(this));
             }
         } else {
             ignoreData.set(slot, !ignoreData.get(slot));
-            ModernPacket pak = PacketHandler.getPacket(ItemSinkFuzzy.class)
-                    .setIgnoreData(ignoreData)
-                    .setIgnoreNBT(ignoreNBT)
-                    .setModulePos(this);
+            ModernPacket pak = PacketHandler.getPacket(ItemSinkFuzzy.class).setIgnoreData(ignoreData)
+                    .setIgnoreNBT(ignoreNBT).setModulePos(this);
             if (player != null) {
                 MainProxy.sendPacketToPlayer(pak, player);
             }
             MainProxy.sendPacketToAllWatchingChunk(
-                    getX(), getZ(), MainProxy.getDimensionForWorld(_world.getWorld()), pak);
+                    getX(),
+                    getZ(),
+                    MainProxy.getDimensionForWorld(_world.getWorld()),
+                    pak);
         }
     }
 
@@ -363,22 +357,21 @@ public class ModuleItemSink extends LogisticsGuiModule
         }
         if (MainProxy.isClient(_world.getWorld())) {
             if (player == null) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(ItemSinkFuzzy.class)
-                        .setPos(slot)
-                        .setNBT(true)
-                        .setModulePos(this));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(ItemSinkFuzzy.class).setPos(slot).setNBT(true).setModulePos(this));
             }
         } else {
             ignoreNBT.set(slot, !ignoreNBT.get(slot));
-            ModernPacket pak = PacketHandler.getPacket(ItemSinkFuzzy.class)
-                    .setIgnoreData(ignoreData)
-                    .setIgnoreNBT(ignoreNBT)
-                    .setModulePos(this);
+            ModernPacket pak = PacketHandler.getPacket(ItemSinkFuzzy.class).setIgnoreData(ignoreData)
+                    .setIgnoreNBT(ignoreNBT).setModulePos(this);
             if (player != null) {
                 MainProxy.sendPacketToPlayer(pak, player);
             }
             MainProxy.sendPacketToAllWatchingChunk(
-                    getX(), getZ(), MainProxy.getDimensionForWorld(_world.getWorld()), pak);
+                    getX(),
+                    getZ(),
+                    MainProxy.getDimensionForWorld(_world.getWorld()),
+                    pak);
         }
     }
 

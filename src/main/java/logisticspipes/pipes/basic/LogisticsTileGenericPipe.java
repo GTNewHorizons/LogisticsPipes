@@ -1,18 +1,9 @@
 package logisticspipes.pipes.basic;
 
-import buildcraft.api.core.EnumColor;
-import buildcraft.api.transport.IPipe;
-import buildcraft.api.transport.IPipeConnection;
-import buildcraft.api.transport.IPipeTile;
-import buildcraft.api.transport.pluggable.PipePluggable;
-import buildcraft.transport.TileGenericPipe;
-import cofh.api.transport.IItemDuct;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
@@ -49,6 +40,7 @@ import logisticspipes.utils.StackTraceUtil.Info;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
+
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
@@ -64,28 +56,29 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
 import org.apache.logging.log4j.Level;
 
-@Optional.InterfaceList({
-    @Optional.Interface(modid = "CoFHCore", iface = "cofh.api.transport.IItemDuct"),
-    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
-    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
-    @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.SidedEnvironment"),
-    @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeTile"),
-    @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeConnection"),
-})
+import buildcraft.api.core.EnumColor;
+import buildcraft.api.transport.IPipe;
+import buildcraft.api.transport.IPipeConnection;
+import buildcraft.api.transport.IPipeTile;
+import buildcraft.api.transport.pluggable.PipePluggable;
+import buildcraft.transport.TileGenericPipe;
+import cofh.api.transport.IItemDuct;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@Optional.InterfaceList({ @Optional.Interface(modid = "CoFHCore", iface = "cofh.api.transport.IItemDuct"),
+        @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),
+        @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.Environment"),
+        @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.SidedEnvironment"),
+        @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeTile"),
+        @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeConnection"), })
 public class LogisticsTileGenericPipe extends TileEntity
-        implements IOCTile,
-                ILPPipeTile,
-                IPipeInformationProvider,
-                IItemDuct,
-                ManagedPeripheral,
-                Environment,
-                SidedEnvironment,
-                IFluidHandler,
-                IPipeTile,
-                ILogicControllerTile,
-                IPipeConnection {
+        implements IOCTile, ILPPipeTile, IPipeInformationProvider, IItemDuct, ManagedPeripheral, Environment,
+        SidedEnvironment, IFluidHandler, IPipeTile, ILogicControllerTile, IPipeConnection {
 
     public Object OPENPERIPHERAL_IGNORE; // Tell OpenPeripheral to ignore this class
 
@@ -165,8 +158,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public void updateEntity() {
-        Info superDebug =
-                StackTraceUtil.addSuperTraceInformation("Time: " + getWorld().getWorldTime());
+        Info superDebug = StackTraceUtil.addSuperTraceInformation("Time: " + getWorld().getWorldTime());
         Info debug = StackTraceUtil.addTraceInformation("(" + getX() + ", " + getY() + ", " + getZ() + ")", superDebug);
         if (sendInitPacket && MainProxy.isServer(getWorldObj())) {
             sendInitPacket = false;
@@ -240,7 +232,10 @@ public class LogisticsTileGenericPipe extends TileEntity
             sendClientUpdate = false;
 
             MainProxy.sendPacketToAllWatchingChunk(
-                    xCoord, zCoord, MainProxy.getDimensionForWorld(worldObj), getLPDescriptionPacket());
+                    xCoord,
+                    zCoord,
+                    MainProxy.getDimensionForWorld(worldObj),
+                    getLPDescriptionPacket());
         }
         getRenderController().onUpdate();
         if (!addedToNetwork) {
@@ -274,8 +269,7 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (pipe != null) {
             par1CrashReportCategory.addCrashSection("Pipe", pipe.getClass().getCanonicalName());
             if (pipe.transport != null) {
-                par1CrashReportCategory.addCrashSection(
-                        "Transport", pipe.transport.getClass().getCanonicalName());
+                par1CrashReportCategory.addCrashSection("Transport", pipe.transport.getClass().getCanonicalName());
             } else {
                 par1CrashReportCategory.addCrashSection("Transport", "null");
             }
@@ -314,10 +308,8 @@ public class LogisticsTileGenericPipe extends TileEntity
         super.writeToNBT(nbt);
 
         /*
-        for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++) {
-        	final String key = "redstoneInputSide[" + i + "]";
-        	nbt.setByte(key, (byte) redstoneInputSide[i]);
-        }
+         * for (int i = 0; i < ForgeDirection.VALID_DIRECTIONS.length; i++) { final String key = "redstoneInputSide[" +
+         * i + "]"; nbt.setByte(key, (byte) redstoneInputSide[i]); }
          */
 
         if (pipe != null) {
@@ -342,8 +334,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     public void readFromNBT(NBTTagCompound nbt) {
         if (pipe != null) {
             StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-            if (trace.length > 2
-                    && trace[2].getMethodName().equals("handle")
+            if (trace.length > 2 && trace[2].getMethodName().equals("handle")
                     && trace[2].getClassName().equals("com.xcompwiz.lookingglass.network.packet.PacketTileEntityNBT")) {
                 System.out.println("Prevented false data injection by LookingGlass");
                 return;
@@ -393,14 +384,12 @@ public class LogisticsTileGenericPipe extends TileEntity
         }
 
         if (SimpleServiceLocator.ccProxy.isTurtle(with)
-                && !turtleConnect[
-                        OrientationsUtil.getOrientationOfTilewithTile(this, with)
-                                .ordinal()]) {
+                && !turtleConnect[OrientationsUtil.getOrientationOfTilewithTile(this, with).ordinal()]) {
             return false;
         }
 
-        IConnectionOverrideResult result =
-                SimpleServiceLocator.buildCraftProxy.checkConnectionOverride(with, side, this);
+        IConnectionOverrideResult result = SimpleServiceLocator.buildCraftProxy
+                .checkConnectionOverride(with, side, this);
         if (result.forceDisconnect()) {
             return false;
         }
@@ -597,8 +586,8 @@ public class LogisticsTileGenericPipe extends TileEntity
                 int lastIterLeft;
                 do {
                     lastIterLeft = leftStack.stackSize;
-                    LPTravelingItem.LPTravelingItemServer travelingItem =
-                            SimpleServiceLocator.routedItemHelper.createNewTravelItem(leftStack);
+                    LPTravelingItem.LPTravelingItemServer travelingItem = SimpleServiceLocator.routedItemHelper
+                            .createNewTravelItem(leftStack);
                     leftStack.stackSize = pipe.transport.injectItem(travelingItem, from.getOpposite());
                 } while (leftStack.stackSize != lastIterLeft && leftStack.stackSize != 0);
                 return payload.stackSize - leftStack.stackSize;
@@ -646,7 +635,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     @Override
     @Optional.Method(modid = LPConstants.openComputersModID)
     public String[] methods() {
-        return new String[] {"getPipe"};
+        return new String[] { "getPipe" };
     }
 
     @Override
@@ -709,8 +698,8 @@ public class LogisticsTileGenericPipe extends TileEntity
         blockType = getBlockType();
 
         if (pipe == null) {
-            LogisticsPipes.log.log(
-                    Level.WARN, "Pipe failed to initialize at {},{},{}, deleting", xCoord, yCoord, zCoord);
+            LogisticsPipes.log
+                    .log(Level.WARN, "Pipe failed to initialize at {},{},{}, deleting", xCoord, yCoord, zCoord);
             worldObj.setBlockToAir(xCoord, yCoord, zCoord);
             return;
         }
@@ -788,8 +777,8 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public TileBuffer[] getTileCache() {
         if (tileBuffer == null && pipe != null) {
-            tileBuffer =
-                    TileBuffer.makeBuffer(worldObj, xCoord, yCoord, zCoord, pipe.transport.delveIntoUnloadedChunks());
+            tileBuffer = TileBuffer
+                    .makeBuffer(worldObj, xCoord, yCoord, zCoord, pipe.transport.delveIntoUnloadedChunks());
         }
         return tileBuffer;
     }
@@ -839,8 +828,8 @@ public class LogisticsTileGenericPipe extends TileEntity
 
             pipeConnectionsBuffer[side.ordinal()] = canPipeConnect(t.getTile(), side);
             if (pipeConnectionsBuffer[side.ordinal()]) {
-                pipeBCConnectionsBuffer[side.ordinal()] =
-                        SimpleServiceLocator.buildCraftProxy.isTileGenericPipe(t.getTile());
+                pipeBCConnectionsBuffer[side.ordinal()] = SimpleServiceLocator.buildCraftProxy
+                        .isTileGenericPipe(t.getTile());
             } else {
                 pipeBCConnectionsBuffer[side.ordinal()] = false;
             }
@@ -861,8 +850,7 @@ public class LogisticsTileGenericPipe extends TileEntity
      */
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (LogisticsBlockGenericPipe.isValid(pipe)
-                && pipe.transport instanceof IFluidHandler
+        if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport instanceof IFluidHandler
                 && !tilePart.hasBlockingPluggable(from)) {
             return ((IFluidHandler) pipe.transport).fill(from, resource, doFill);
         } else {
@@ -872,8 +860,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        if (LogisticsBlockGenericPipe.isValid(pipe)
-                && pipe.transport instanceof IFluidHandler
+        if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport instanceof IFluidHandler
                 && !tilePart.hasBlockingPluggable(from)) {
             return ((IFluidHandler) pipe.transport).drain(from, maxDrain, doDrain);
         } else {
@@ -883,8 +870,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-        if (LogisticsBlockGenericPipe.isValid(pipe)
-                && pipe.transport instanceof IFluidHandler
+        if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport instanceof IFluidHandler
                 && !tilePart.hasBlockingPluggable(from)) {
             return ((IFluidHandler) pipe.transport).drain(from, resource, doDrain);
         } else {
@@ -894,8 +880,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (LogisticsBlockGenericPipe.isValid(pipe)
-                && pipe.transport instanceof IFluidHandler
+        if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport instanceof IFluidHandler
                 && !tilePart.hasBlockingPluggable(from)) {
             return ((IFluidHandler) pipe.transport).canFill(from, fluid);
         } else {
@@ -905,8 +890,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if (LogisticsBlockGenericPipe.isValid(pipe)
-                && pipe.transport instanceof IFluidHandler
+        if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport instanceof IFluidHandler
                 && !tilePart.hasBlockingPluggable(from)) {
             return ((IFluidHandler) pipe.transport).canDrain(from, fluid);
         } else {
@@ -939,8 +923,8 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    public boolean shouldRefresh(
-            Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y, int z) {
+    public boolean shouldRefresh(Block oldBlock, Block newBlock, int oldMeta, int newMeta, World world, int x, int y,
+            int z) {
         return oldBlock != newBlock;
     }
 
@@ -1090,19 +1074,13 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    public double getDistanceTo(
-            int destinationint,
-            ForgeDirection ignore,
-            ItemIdentifier ident,
-            boolean isActive,
-            double traveled,
-            double max,
-            List<LPPosition> visited) {
+    public double getDistanceTo(int destinationint, ForgeDirection ignore, ItemIdentifier ident, boolean isActive,
+            double traveled, double max, List<LPPosition> visited) {
         if (pipe == null || traveled > max) {
             return Integer.MAX_VALUE;
         }
-        double result =
-                pipe.getDistanceTo(destinationint, ignore, ident, isActive, traveled + getDistance(), max, visited);
+        double result = pipe
+                .getDistanceTo(destinationint, ignore, ident, isActive, traveled + getDistance(), max, visited);
         if (result == Integer.MAX_VALUE) {
             return result;
         }

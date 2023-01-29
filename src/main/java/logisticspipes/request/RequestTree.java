@@ -1,6 +1,7 @@
 package logisticspipes.request;
 
 import java.util.*;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IProvide;
 import logisticspipes.interfaces.routing.IRequestFluid;
@@ -15,6 +16,7 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.IHavePriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 
@@ -29,14 +31,11 @@ public class RequestTree extends RequestTreeNode {
         LogUsed
     }
 
-    public static final EnumSet<ActiveRequestType> defaultRequestFlags =
-            EnumSet.of(ActiveRequestType.Provide, ActiveRequestType.Craft);
+    public static final EnumSet<ActiveRequestType> defaultRequestFlags = EnumSet
+            .of(ActiveRequestType.Provide, ActiveRequestType.Craft);
     private HashMap<FinalPair<IProvide, ItemIdentifier>, Integer> _promisetotals;
 
-    public RequestTree(
-            IResource requestType,
-            RequestTree parent,
-            EnumSet<ActiveRequestType> requestFlags,
+    public RequestTree(IResource requestType, RequestTree parent, EnumSet<ActiveRequestType> requestFlags,
             IAdditionalTargetInformation info) {
         super(requestType, parent, requestFlags, info);
     }
@@ -142,12 +141,8 @@ public class RequestTree extends RequestTreeNode {
         }
     }
 
-    public static boolean request(
-            List<ItemIdentifierStack> items,
-            IRequestItems requester,
-            RequestLog log,
-            EnumSet<ActiveRequestType> requestFlags,
-            IAdditionalTargetInformation info) {
+    public static boolean request(List<ItemIdentifierStack> items, IRequestItems requester, RequestLog log,
+            EnumSet<ActiveRequestType> requestFlags, IAdditionalTargetInformation info) {
         Map<IResource, Integer> messages = new HashMap<>();
         RequestTree tree = new RequestTree(
                 new ItemResource(
@@ -183,15 +178,8 @@ public class RequestTree extends RequestTreeNode {
         }
     }
 
-    public static int request(
-            ItemIdentifierStack item,
-            IRequestItems requester,
-            RequestLog log,
-            boolean acceptPartial,
-            boolean simulateOnly,
-            boolean logMissing,
-            boolean logUsed,
-            EnumSet<ActiveRequestType> requestFlags,
+    public static int request(ItemIdentifierStack item, IRequestItems requester, RequestLog log, boolean acceptPartial,
+            boolean simulateOnly, boolean logMissing, boolean logUsed, EnumSet<ActiveRequestType> requestFlags,
             IAdditionalTargetInformation info) {
         ItemResource req = new ItemResource(item, requester);
         RequestTree tree = new RequestTree(req, null, requestFlags, info);
@@ -217,22 +205,22 @@ public class RequestTree extends RequestTreeNode {
         }
     }
 
-    public static boolean request(
-            ItemIdentifierStack item, IRequestItems requester, RequestLog log, IAdditionalTargetInformation info) {
-        return RequestTree.request(
-                        item, requester, log, false, false, true, false, RequestTree.defaultRequestFlags, info)
+    public static boolean request(ItemIdentifierStack item, IRequestItems requester, RequestLog log,
+            IAdditionalTargetInformation info) {
+        return RequestTree
+                .request(item, requester, log, false, false, true, false, RequestTree.defaultRequestFlags, info)
                 == item.getStackSize();
     }
 
-    public static int requestPartial(
-            ItemIdentifierStack item, IRequestItems requester, IAdditionalTargetInformation info) {
-        return RequestTree.request(
-                item, requester, null, true, false, true, false, RequestTree.defaultRequestFlags, info);
+    public static int requestPartial(ItemIdentifierStack item, IRequestItems requester,
+            IAdditionalTargetInformation info) {
+        return RequestTree
+                .request(item, requester, null, true, false, true, false, RequestTree.defaultRequestFlags, info);
     }
 
     public static int simulate(ItemIdentifierStack item, IRequestItems requester, RequestLog log) {
-        return RequestTree.request(
-                item, requester, log, true, true, false, true, RequestTree.defaultRequestFlags, null);
+        return RequestTree
+                .request(item, requester, log, true, true, false, true, RequestTree.defaultRequestFlags, null);
     }
 
     public static int requestFluidPartial(FluidIdentifier liquid, int amount, IRequestFluid pipe, RequestLog log) {
@@ -243,8 +231,8 @@ public class RequestTree extends RequestTreeNode {
         return RequestTree.requestFluid(liquid, amount, pipe, log, false) == amount;
     }
 
-    private static int requestFluid(
-            FluidIdentifier liquid, int amount, IRequestFluid pipe, RequestLog log, boolean acceptPartial) {
+    private static int requestFluid(FluidIdentifier liquid, int amount, IRequestFluid pipe, RequestLog log,
+            boolean acceptPartial) {
         FluidResource req = new FluidResource(liquid, amount, pipe);
         RequestTree request = new RequestTree(req, null, RequestTree.defaultRequestFlags, null);
         if (request.isDone() || acceptPartial) {

@@ -2,6 +2,7 @@ package logisticspipes.pipes;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.crafting.AutoCraftingInventory;
 import logisticspipes.interfaces.IGuiOpenControler;
@@ -33,6 +34,7 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.SimpleStackInventory;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
@@ -94,10 +96,9 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         }
         if (MainProxy.isClient(getWorld())) {
             if (!init) {
-                MainProxy.sendPacketToServer(PacketHandler.getPacket(RequestRotationPacket.class)
-                        .setPosX(getX())
-                        .setPosY(getY())
-                        .setPosZ(getZ()));
+                MainProxy.sendPacketToServer(
+                        PacketHandler.getPacket(RequestRotationPacket.class).setPosX(getX()).setPosY(getY())
+                                .setPosZ(getZ()));
                 init = true;
             }
             return;
@@ -110,10 +111,8 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
             if (getUpgradeManager().hasCraftingMonitoringUpgrade()) {
                 for (Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>> entry : watchedRequests.entrySet()) {
                     MainProxy.sendToPlayerList(
-                            PacketHandler.getPacket(OrdererWatchPacket.class)
-                                    .setOrders(entry.getValue().getValue2())
-                                    .setStack(entry.getValue().getValue1())
-                                    .setInteger(entry.getKey())
+                            PacketHandler.getPacket(OrdererWatchPacket.class).setOrders(entry.getValue().getValue2())
+                                    .setStack(entry.getValue().getValue1()).setInteger(entry.getKey())
                                     .setTilePos(container),
                             localGuiWatcher);
                 }
@@ -124,14 +123,13 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
     }
 
     private void checkForExpired() {
-        Iterator<Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>>> iter =
-                watchedRequests.entrySet().iterator();
+        Iterator<Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>>> iter = watchedRequests.entrySet()
+                .iterator();
         while (iter.hasNext()) {
             Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>> entry = iter.next();
             if (isDone(entry.getValue().getValue2())) {
                 MainProxy.sendToPlayerList(
-                        PacketHandler.getPacket(OrderWatchRemovePacket.class)
-                                .setInteger(entry.getKey())
+                        PacketHandler.getPacket(OrderWatchRemovePacket.class).setInteger(entry.getKey())
                                 .setTilePos(container),
                         localGuiWatcher);
                 iter.remove();
@@ -167,8 +165,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
                 return;
             }
             IRoutedItem itemToSend = SimpleServiceLocator.routedItemHelper.createNewTravelItem(stack);
-            SimpleServiceLocator.logisticsManager.assignDestinationFor(
-                    itemToSend, getRouter().getSimpleID(), false);
+            SimpleServiceLocator.logisticsManager.assignDestinationFor(itemToSend, getRouter().getSimpleID(), false);
             if (itemToSend.getDestinationUUID() != null) {
                 ForgeDirection dir = getRouteLayer().getOrientationForItem(itemToSend, null);
                 super.queueRoutedItem(itemToSend, dir.getOpposite());
@@ -194,8 +191,8 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
             }
         }
         if (flag) {
-            entityplayer.openGui(
-                    LogisticsPipes.instance, GuiIDs.GUI_Request_Table_ID, getWorld(), getX(), getY(), getZ());
+            entityplayer
+                    .openGui(LogisticsPipes.instance, GuiIDs.GUI_Request_Table_ID, getWorld(), getX(), getY(), getZ());
         }
     }
 
@@ -303,14 +300,11 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         } else {
             targetType = null;
         }
-        if (targetType != oldTargetType
-                && !localGuiWatcher.isEmpty()
+        if (targetType != oldTargetType && !localGuiWatcher.isEmpty()
                 && getWorld() != null
                 && MainProxy.isServer(getWorld())) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(CraftingSetType.class)
-                            .setTargetType(targetType)
-                            .setTilePos(container),
+                    PacketHandler.getPacket(CraftingSetType.class).setTargetType(targetType).setTilePos(container),
                     localGuiWatcher);
         }
     }
@@ -368,9 +362,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         }
         if (!localGuiWatcher.isEmpty() && getWorld() != null && MainProxy.isServer(getWorld())) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(CraftingSetType.class)
-                            .setTargetType(targetType)
-                            .setTilePos(container),
+                    PacketHandler.getPacket(CraftingSetType.class).setTargetType(targetType).setTilePos(container),
                     localGuiWatcher);
         }
         cacheRecipe();
@@ -389,8 +381,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
 
         int[] toUse = new int[9];
         int[] used = new int[inv.getSizeInventory()];
-        outer:
-        for (int i = 0; i < 9; i++) {
+        outer: for (int i = 0; i < 9; i++) {
             ItemStack item = matrix.getStackInSlot(i);
             if (item == null) {
                 toUse[i] = -1;
@@ -411,8 +402,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
                     }
                 }
                 if (oreDict) {
-                    if (ident.getDictIdentifiers() != null
-                            && withIdent.getDictIdentifiers() != null
+                    if (ident.getDictIdentifiers() != null && withIdent.getDictIdentifiers() != null
                             && ident.getDictIdentifiers().canMatch(withIdent.getDictIdentifiers(), true, false)) {
                         if (item.stackSize > used[j]) {
                             used[j]++;
@@ -571,34 +561,24 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         orders.setWatched();
         watchedRequests.put(++localLastUsedWatcherId, new Pair<>(stack, orders));
         MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(OrdererWatchPacket.class)
-                        .setOrders(orders)
-                        .setStack(stack)
-                        .setInteger(localLastUsedWatcherId)
-                        .setTilePos(container),
+                PacketHandler.getPacket(OrdererWatchPacket.class).setOrders(orders).setStack(stack)
+                        .setInteger(localLastUsedWatcherId).setTilePos(container),
                 localGuiWatcher);
     }
 
     @Override
     public void guiOpenedByPlayer(EntityPlayer player) {
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(OrderWatchRemovePacket.class)
-                        .setInteger(-1)
-                        .setTilePos(container),
+                PacketHandler.getPacket(OrderWatchRemovePacket.class).setInteger(-1).setTilePos(container),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(CraftingSetType.class)
-                        .setTargetType(targetType)
-                        .setTilePos(container),
+                PacketHandler.getPacket(CraftingSetType.class).setTargetType(targetType).setTilePos(container),
                 player);
         localGuiWatcher.add(player);
         for (Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>> entry : watchedRequests.entrySet()) {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(OrdererWatchPacket.class)
-                            .setOrders(entry.getValue().getValue2())
-                            .setStack(entry.getValue().getValue1())
-                            .setInteger(entry.getKey())
-                            .setTilePos(container),
+                    PacketHandler.getPacket(OrdererWatchPacket.class).setOrders(entry.getValue().getValue2())
+                            .setStack(entry.getValue().getValue1()).setInteger(entry.getKey()).setTilePos(container),
                     player);
         }
     }

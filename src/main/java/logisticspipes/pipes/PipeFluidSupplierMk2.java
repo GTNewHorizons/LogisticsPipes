@@ -1,8 +1,5 @@
 package logisticspipes.pipes;
 
-import gnu.trove.iterator.TObjectIntIterator;
-import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.hash.TObjectIntHashMap;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
@@ -21,6 +18,7 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import lombok.Getter;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -31,11 +29,16 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import gnu.trove.iterator.TObjectIntIterator;
+import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
+
 public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFluid, IRequireReliableFluidTransport {
 
     private boolean _lastRequestFailed = false;
 
     public enum MinMode {
+
         NONE(0),
         ONEBUCKET(1000),
         TWOBUCKET(2000),
@@ -94,8 +97,11 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
     }
 
     // from PipeFluidSupplierMk2
-    private final ItemIdentifierInventory dummyInventory =
-            new ItemIdentifierInventory(1, "Fluid to keep stocked", 127, true);
+    private final ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(
+            1,
+            "Fluid to keep stocked",
+            127,
+            true);
     private int amount = 0;
 
     private final TObjectIntMap<FluidIdentifier> _requestedItems = new TObjectIntHashMap<>(8, 0.5f, -1);
@@ -110,8 +116,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
             return;
         // check if this tank need more fluid
         int have = 0;
-        FluidIdentifier fIdent =
-                FluidIdentifier.get(dummyInventory.getIDStackInSlot(0).getItem());
+        FluidIdentifier fIdent = FluidIdentifier.get(dummyInventory.getIDStackInSlot(0).getItem());
         for (FluidTankInfo info : tile.getTankInfo(ForgeDirection.UNKNOWN)) {
             if (info.fluid != null && fIdent.equals(FluidIdentifier.get(info.fluid))) have += info.fluid.amount;
         }
@@ -171,8 +176,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 
             // How much should I request?
             TObjectIntMap<FluidIdentifier> wantFluids = new TObjectIntHashMap<>(8);
-            FluidIdentifier fIdent =
-                    FluidIdentifier.get(dummyInventory.getIDStackInSlot(0).getItem());
+            FluidIdentifier fIdent = FluidIdentifier.get(dummyInventory.getIDStackInSlot(0).getItem());
             wantFluids.put(fIdent, amount);
 
             FluidTankInfo[] result = container.getTankInfo(ForgeDirection.UNKNOWN);
@@ -195,7 +199,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
             wantFluids.retainEntries((k, v) -> v >= 0);
 
             // Reduce what have been requested already
-            for (TObjectIntIterator<FluidIdentifier> iter = requestDiscount.iterator(); iter.hasNext(); ) {
+            for (TObjectIntIterator<FluidIdentifier> iter = requestDiscount.iterator(); iter.hasNext();) {
                 iter.advance();
                 wantFluids.adjustValue(iter.key(), -iter.value());
                 iter.remove();
@@ -205,7 +209,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 
             // Make request
 
-            for (TObjectIntIterator<FluidIdentifier> iter = wantFluids.iterator(); iter.hasNext(); ) {
+            for (TObjectIntIterator<FluidIdentifier> iter = wantFluids.iterator(); iter.hasNext();) {
                 iter.advance();
                 FluidIdentifier need = iter.key();
                 int countToRequest = iter.value();
@@ -306,8 +310,8 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 
     @Override
     public void onWrenchClicked(EntityPlayer entityplayer) {
-        entityplayer.openGui(
-                LogisticsPipes.instance, GuiIDs.GUI_FluidSupplier_MK2_ID, getWorld(), getX(), getY(), getZ());
+        entityplayer
+                .openGui(LogisticsPipes.instance, GuiIDs.GUI_FluidSupplier_MK2_ID, getWorld(), getX(), getY(), getZ());
     }
 
     public IInventory getDummyInventory() {
@@ -330,10 +334,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
             amount = 0;
         }
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(FluidSupplierAmount.class)
-                        .setInteger(amount)
-                        .setPosX(getX())
-                        .setPosY(getY())
+                PacketHandler.getPacket(FluidSupplierAmount.class).setInteger(amount).setPosX(getX()).setPosY(getY())
                         .setPosZ(getZ()),
                 player);
     }

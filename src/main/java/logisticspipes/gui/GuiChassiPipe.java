@@ -1,10 +1,7 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.gui;
 
 import logisticspipes.items.ItemModule;
@@ -21,10 +18,12 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiChassiPipe extends LogisticsBaseGuiScreen {
@@ -39,10 +38,10 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
 
     private final boolean hasUpgradeModuleUpgarde;
 
-    public GuiChassiPipe(
-            EntityPlayer player,
-            PipeLogisticsChassi chassi,
-            boolean hasUpgradeModuleUpgarde) { // , GuiScreen previousGui) {
+    public GuiChassiPipe(EntityPlayer player, PipeLogisticsChassi chassi, boolean hasUpgradeModuleUpgarde) { // ,
+                                                                                                             // GuiScreen
+                                                                                                             // previousGui)
+                                                                                                             // {
         super(null);
         _player = player;
         _chassiPipe = chassi;
@@ -122,8 +121,8 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
             if (module == null || _chassiPipe.getLogisticsModule().getSubModule(i) == null) {
                 ((SmallGuiButton) buttonList.get(i)).visible = false;
             } else {
-                ((SmallGuiButton) buttonList.get(i)).visible =
-                        _chassiPipe.getLogisticsModule().getSubModule(i).hasGui();
+                ((SmallGuiButton) buttonList.get(i)).visible = _chassiPipe.getLogisticsModule().getSubModule(i)
+                        .hasGui();
             }
         }
     }
@@ -134,11 +133,8 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
         if (guibutton.id >= 0 && guibutton.id <= 7) {
             LogisticsModule module = _chassiPipe.getLogisticsModule().getSubModule(guibutton.id);
             if (module != null) {
-                final ModernPacket packet = PacketHandler.getPacket(ChassisGUI.class)
-                        .setButtonID(guibutton.id)
-                        .setPosX(_chassiPipe.getX())
-                        .setPosY(_chassiPipe.getY())
-                        .setPosZ(_chassiPipe.getZ());
+                final ModernPacket packet = PacketHandler.getPacket(ChassisGUI.class).setButtonID(guibutton.id)
+                        .setPosX(_chassiPipe.getX()).setPosY(_chassiPipe.getY()).setPosZ(_chassiPipe.getZ());
                 MainProxy.sendPacketToServer(packet);
             }
         }
@@ -152,8 +148,8 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
             if (module == null || _chassiPipe.getLogisticsModule().getSubModule(i) == null) {
                 ((SmallGuiButton) buttonList.get(i)).visible = false;
             } else {
-                ((SmallGuiButton) buttonList.get(i)).visible =
-                        _chassiPipe.getLogisticsModule().getSubModule(i).hasGui();
+                ((SmallGuiButton) buttonList.get(i)).visible = _chassiPipe.getLogisticsModule().getSubModule(i)
+                        .hasGui();
             }
         }
         if (_chassiPipe.getChassiSize() > 0) {
@@ -186,9 +182,7 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
         if (!(_moduleInventory.getStackInSlot(slot).getItem() instanceof ItemModule)) {
             return "";
         }
-        String name = _moduleInventory
-                .getStackInSlot(slot)
-                .getItem()
+        String name = _moduleInventory.getStackInSlot(slot).getItem()
                 .getItemStackDisplayName(_moduleInventory.getStackInSlot(slot));
         if (!hasUpgradeModuleUpgarde) {
             return name;

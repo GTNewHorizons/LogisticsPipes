@@ -15,8 +15,8 @@ public class LogisticsDictPromise extends LogisticsPromise {
     @Getter
     private final DictResource resource;
 
-    public LogisticsDictPromise(
-            DictResource item, int stackSize, IProvideItems sender, IOrderInfoProvider.ResourceType type) {
+    public LogisticsDictPromise(DictResource item, int stackSize, IProvideItems sender,
+            IOrderInfoProvider.ResourceType type) {
         super(item.stack.getItem(), stackSize, sender, type);
         this.resource = item;
         this.resource.stack = this.resource.stack.clone();

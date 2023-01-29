@@ -12,6 +12,7 @@ public class LogisticsFluidOrderManager extends LogisticsOrderManager<LogisticsF
 
     private static class IC
             implements LogisticsOrderLinkedList.IIdentityProvider<LogisticsFluidOrder, FluidIdentifier> {
+
         @Override
         public FluidIdentifier getIdentity(LogisticsFluidOrder o) {
             return o.getFluid();
@@ -37,10 +38,7 @@ public class LogisticsFluidOrderManager extends LogisticsOrderManager<LogisticsF
         super.sendFailed();
     }
 
-    public LogisticsFluidOrder addOrder(
-            FluidLogisticsPromise promise,
-            IRequestFluid destination,
-            ResourceType type,
+    public LogisticsFluidOrder addOrder(FluidLogisticsPromise promise, IRequestFluid destination, ResourceType type,
             IAdditionalTargetInformation info) {
         if (promise.amount < 0) {
             throw new RuntimeException("The amount can't be less than zero");

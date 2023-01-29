@@ -2,6 +2,7 @@ package logisticspipes.request;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraft;
 import logisticspipes.interfaces.routing.IFilter;
@@ -24,20 +25,13 @@ import lombok.Getter;
 
 public class RequestTreeNode {
 
-    protected RequestTreeNode(
-            IResource requestType,
-            RequestTreeNode parentNode,
-            EnumSet<ActiveRequestType> requestFlags,
-            IAdditionalTargetInformation info) {
+    protected RequestTreeNode(IResource requestType, RequestTreeNode parentNode,
+            EnumSet<ActiveRequestType> requestFlags, IAdditionalTargetInformation info) {
         this(null, requestType, parentNode, requestFlags, info);
     }
 
-    private RequestTreeNode(
-            ICraftingTemplate template,
-            IResource requestType,
-            RequestTreeNode parentNode,
-            EnumSet<ActiveRequestType> requestFlags,
-            IAdditionalTargetInformation info) {
+    private RequestTreeNode(ICraftingTemplate template, IResource requestType, RequestTreeNode parentNode,
+            EnumSet<ActiveRequestType> requestFlags, IAdditionalTargetInformation info) {
         this.info = info;
         this.parentNode = parentNode;
         this.requestType = requestType;
@@ -187,7 +181,7 @@ public class RequestTreeNode {
             if (extras == null) {
                 continue;
             }
-            for (Iterator<IExtraPromise> it = extras.iterator(); it.hasNext(); ) {
+            for (Iterator<IExtraPromise> it = extras.iterator(); it.hasNext();) {
                 IExtraPromise extra = it.next();
                 if (extra.getAmount() >= usedcount) {
                     extra.lowerAmount(usedcount);
@@ -270,13 +264,12 @@ public class RequestTreeNode {
         if (thisPipe == null) {
             return false;
         }
-        for (Pair<IProvide, List<IFilter>> provider :
-                RequestTreeNode.getProviders(requestType.getRouter(), getRequestType())) {
+        for (Pair<IProvide, List<IFilter>> provider : RequestTreeNode
+                .getProviders(requestType.getRouter(), getRequestType())) {
             if (isDone()) {
                 break;
             }
-            if (provider.getValue1() == null
-                    || provider.getValue1().getRouter() == null
+            if (provider.getValue1() == null || provider.getValue1().getRouter() == null
                     || provider.getValue1().getRouter().getPipe() == null) {
                 continue;
             }
@@ -330,13 +323,9 @@ public class RequestTreeNode {
                 continue;
             }
             boolean valid = false;
-            List<ExitRoute> sources = extraPromise
-                    .getProvider()
-                    .getRouter()
-                    .getRouteTable()
+            List<ExitRoute> sources = extraPromise.getProvider().getRouter().getRouteTable()
                     .get(getRequestType().getRouter().getSimpleID());
-            outer:
-            for (ExitRoute source : sources) {
+            outer: for (ExitRoute source : sources) {
                 if (source != null && source.containsFlag(PipeRoutingConnectionType.canRouteTo)) {
                     for (ExitRoute node : getRequestType().getRouter().getIRoutersByCost()) {
                         if (node.destination == extraPromise.getProvider().getRouter()) {
@@ -373,13 +362,13 @@ public class RequestTreeNode {
                 validSources.addAll(e);
             }
         }
-        workWeightedSorter wSorter = new workWeightedSorter(
-                0); // distance doesn't matter, because ingredients have to be delivered to the crafter, and we can't
+        workWeightedSorter wSorter = new workWeightedSorter(0); // distance doesn't matter, because ingredients have to
+                                                                // be delivered to the crafter, and we can't
         // tell how long that will take.
         validSources.sort(wSorter);
 
-        List<Pair<ICraftingTemplate, List<IFilter>>> allCraftersForItem =
-                RequestTreeNode.getCrafters(getRequestType(), validSources);
+        List<Pair<ICraftingTemplate, List<IFilter>>> allCraftersForItem = RequestTreeNode
+                .getCrafters(getRequestType(), validSources);
 
         // if you have a crafter which can make the top treeNode.getStack().getItem()
         Iterator<Pair<ICraftingTemplate, List<IFilter>>> iterAllCrafters = allCraftersForItem.iterator();
@@ -391,8 +380,7 @@ public class RequestTreeNode {
         boolean done = false;
         Pair<ICraftingTemplate, List<IFilter>> lastCrafter = null;
         int currentPriority = 0;
-        outer:
-        while (!done) {
+        outer: while (!done) {
 
             /// First: Create a list of all crafters with the same priority (craftersSamePriority).
             if (iterAllCrafters.hasNext()) {
@@ -406,8 +394,7 @@ public class RequestTreeNode {
             int itemsNeeded = getMissingAmount();
 
             if (lastCrafter != null
-                    && (craftersSamePriority.isEmpty()
-                            || (currentPriority == lastCrafter.getValue1().getPriority()))) {
+                    && (craftersSamePriority.isEmpty() || (currentPriority == lastCrafter.getValue1().getPriority()))) {
                 currentPriority = lastCrafter.getValue1().getPriority();
                 Pair<ICraftingTemplate, List<IFilter>> crafter = lastCrafter;
                 lastCrafter = null;
@@ -425,7 +412,7 @@ public class RequestTreeNode {
                     }
                 }
                 CraftingSorterNode cn = new CraftingSorterNode(crafter, itemsNeeded, root, this);
-                //				if(cn.getWorkSetsAvailableForCrafting()>0)
+                // if(cn.getWorkSetsAvailableForCrafting()>0)
                 craftersSamePriority.add(cn);
                 continue;
             }
@@ -439,13 +426,13 @@ public class RequestTreeNode {
                 // automatically capped at the real amount of extra work.
                 craftersToBalance.get(0).addToWorkRequest(itemsNeeded);
             } else {
-                //				for(CraftingSorterNode c:craftersSamePriority)
-                //					c.clearWorkRequest(); // so the max request isn't in there; nothing is reserved, balancing can
+                // for(CraftingSorterNode c:craftersSamePriority)
+                // c.clearWorkRequest(); // so the max request isn't in there; nothing is reserved, balancing can
                 // work correctly.
 
                 // go through this list, pull the crafter(s) with least work, add work until either they can not do more
                 // work,
-                //   or the amount of work they have is equal to the next-least busy crafter. then pull the next crafter
+                // or the amount of work they have is equal to the next-least busy crafter. then pull the next crafter
                 // and repeat.
                 if (!craftersSamePriority.isEmpty()) {
                     craftersToBalance.add(craftersSamePriority.poll());
@@ -454,10 +441,9 @@ public class RequestTreeNode {
                 while (!craftersToBalance.isEmpty() && itemsNeeded > 0) {
                     // while there is more, and the next crafter has the same toDo as the current one, add it to
                     // craftersToBalance.
-                    //  typically pulls 1 at a time, but may pull multiple, if they have the exact same todo.
+                    // typically pulls 1 at a time, but may pull multiple, if they have the exact same todo.
                     while (!craftersSamePriority.isEmpty()
-                            && craftersSamePriority.peek().currentToDo()
-                                    <= craftersToBalance.get(0).currentToDo()) {
+                            && craftersSamePriority.peek().currentToDo() <= craftersToBalance.get(0).currentToDo()) {
                         craftersToBalance.add(craftersSamePriority.poll());
                     }
 
@@ -472,8 +458,8 @@ public class RequestTreeNode {
                     // split the work between N crafters, up to "cap" (at which point we would be dividing the work
                     // between N+1 crafters.
                     int floor = craftersToBalance.get(0).currentToDo();
-                    cap = Math.min(
-                            cap, floor + (itemsNeeded + craftersToBalance.size() - 1) / craftersToBalance.size());
+                    cap = Math
+                            .min(cap, floor + (itemsNeeded + craftersToBalance.size() - 1) / craftersToBalance.size());
 
                     for (CraftingSorterNode crafter : craftersToBalance) {
                         int request = Math.min(itemsNeeded, cap - floor);
@@ -484,8 +470,8 @@ public class RequestTreeNode {
                     }
                 } // all craftersToBalance exhausted, or work completed.
             } // end of else more than 1 crafter at this priority
-            // commit this work set.
-            // then it ran out of resources
+              // commit this work set.
+              // then it ran out of resources
             craftersToBalance.removeIf(c -> c.stacksOfWorkRequested > 0 && !c.addWorkPromisesToTree());
             itemsNeeded = getMissingAmount();
 
@@ -522,10 +508,7 @@ public class RequestTreeNode {
         public final Pair<ICraftingTemplate, List<IFilter>> crafter;
         public final int originalToDo;
 
-        CraftingSorterNode(
-                Pair<ICraftingTemplate, List<IFilter>> crafter,
-                int maxCount,
-                RequestTree tree,
+        CraftingSorterNode(Pair<ICraftingTemplate, List<IFilter>> crafter, int maxCount, RequestTree tree,
                 RequestTreeNode treeNode) {
             this.crafter = crafter;
             this.treeNode = treeNode;
@@ -565,12 +548,12 @@ public class RequestTreeNode {
         boolean addWorkPromisesToTree() {
             ICraftingTemplate template = crafter.getValue1();
             int setsToCraft = Math.min(stacksOfWorkRequested, maxWorkSetsAvailable);
-            int setsAbleToCraft = calculateMaxWork(
-                    setsToCraft); // Deliberately outside the 0 check, because calling generatePromies(0) here clears
+            int setsAbleToCraft = calculateMaxWork(setsToCraft); // Deliberately outside the 0 check, because calling
+                                                                 // generatePromies(0) here clears
             // the old ones.
 
-            if (setsAbleToCraft
-                    > 0) { // sanity check, as creating 0 sized promises is an exception. This should never be hit.
+            if (setsAbleToCraft > 0) { // sanity check, as creating 0 sized promises is an exception. This should never
+                                       // be hit.
                 // if we got here, we can at least some of the remaining amount
                 IPromise job = template.generatePromise(setsAbleToCraft);
                 if (job.getAmount() != setsAbleToCraft * setSize) {
@@ -594,8 +577,8 @@ public class RequestTreeNode {
         }
     }
 
-    private static List<Pair<ICraftingTemplate, List<IFilter>>> getCrafters(
-            IResource iRequestType, List<ExitRoute> validDestinations) {
+    private static List<Pair<ICraftingTemplate, List<IFilter>>> getCrafters(IResource iRequestType,
+            List<ExitRoute> validDestinations) {
         List<Pair<ICraftingTemplate, List<IFilter>>> crafters = new ArrayList<>(validDestinations.size());
         for (ExitRoute r : validDestinations) {
             CoreRoutedPipe pipe = r.destination.getPipe();
@@ -614,7 +597,7 @@ public class RequestTreeNode {
             }
         }
         // don't need to sort, as a sorted list is passed in and List guarantees order preservation
-        //		Collections.sort(crafters,new CraftingTemplate.PairPrioritizer());
+        // Collections.sort(crafters,new CraftingTemplate.PairPrioritizer());
         return crafters;
     }
 
@@ -625,7 +608,11 @@ public class RequestTreeNode {
         ArrayList<RequestTreeNode> lastNodes = new ArrayList<>(stacks.size());
         for (Pair<IResource, IAdditionalTargetInformation> stack : stacks) {
             RequestTreeNode node = new RequestTreeNode(
-                    template, stack.getValue1(), this, RequestTree.defaultRequestFlags, stack.getValue2());
+                    template,
+                    stack.getValue1(),
+                    this,
+                    RequestTree.defaultRequestFlags,
+                    stack.getValue2());
             lastNodes.add(node);
             if (!node.isDone()) {
                 failed = true;
@@ -660,7 +647,11 @@ public class RequestTreeNode {
             boolean failed = false;
             for (Pair<IResource, IAdditionalTargetInformation> stack : stacks) {
                 RequestTreeNode node = new RequestTreeNode(
-                        template, stack.getValue1(), this, RequestTree.defaultRequestFlags, stack.getValue2());
+                        template,
+                        stack.getValue1(),
+                        this,
+                        RequestTree.defaultRequestFlags,
+                        stack.getValue2());
                 newChildren.add(node);
                 if (!node.isDone()) {
                     failed = true;
@@ -687,8 +678,8 @@ public class RequestTreeNode {
 
         ICraftingTemplate template = lastCrafterTried;
 
-        int nCraftingSetsNeeded =
-                (getMissingAmount() + template.getResultStackSize() - 1) / template.getResultStackSize();
+        int nCraftingSetsNeeded = (getMissingAmount() + template.getResultStackSize() - 1)
+                / template.getResultStackSize();
 
         List<Pair<IResource, IAdditionalTargetInformation>> stacks = template.getComponents(nCraftingSetsNeeded);
 
@@ -722,8 +713,7 @@ public class RequestTreeNode {
 
     protected static List<IResource> shrinkToList(Map<IResource, Integer> items) {
         List<IResource> resources = new ArrayList<>();
-        outer:
-        for (Entry<IResource, Integer> entry : items.entrySet()) {
+        outer: for (Entry<IResource, Integer> entry : items.entrySet()) {
             for (IResource resource : resources) {
                 if (resource.mergeForDisplay(entry.getKey(), entry.getValue())) {
                     continue outer;

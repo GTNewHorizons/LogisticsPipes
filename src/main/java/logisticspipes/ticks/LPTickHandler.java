@@ -1,15 +1,9 @@
 package logisticspipes.ticks;
 
-import com.google.common.collect.MapMaker;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
-import cpw.mods.fml.relauncher.Side;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import logisticspipes.commands.commands.debug.DebugGuiController;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -20,7 +14,17 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.minecraft.world.World;
+
+import com.google.common.collect.MapMaker;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
+import cpw.mods.fml.relauncher.Side;
 
 public class LPTickHandler {
 
@@ -44,8 +48,7 @@ public class LPTickHandler {
         DebugGuiController.instance().execServer();
     }
 
-    private static final Map<World, LPWorldInfo> worldInfo =
-            new MapMaker().weakKeys().makeMap();
+    private static final Map<World, LPWorldInfo> worldInfo = new MapMaker().weakKeys().makeMap();
 
     @SubscribeEvent
     public void worldTick(WorldTickEvent event) {

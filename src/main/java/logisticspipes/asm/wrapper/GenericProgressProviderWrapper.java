@@ -1,6 +1,7 @@
 package logisticspipes.asm.wrapper;
 
 import logisticspipes.proxy.interfaces.IGenericProgressProvider;
+
 import net.minecraft.tileentity.TileEntity;
 
 public class GenericProgressProviderWrapper extends AbstractWrapper implements IGenericProgressProvider {

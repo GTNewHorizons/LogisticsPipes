@@ -1,9 +1,8 @@
 package logisticspipes.proxy.side;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.server.FMLServerHandler;
 import java.io.File;
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.blocks.LogisticsSolderingTileEntity;
@@ -22,6 +21,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.interfaces.IProxy;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,6 +37,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.Configuration;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.server.FMLServerHandler;
 
 public class ServerProxy implements IProxy {
 
@@ -60,7 +63,8 @@ public class ServerProxy implements IProxy {
     @Override
     public void registerTileEntities() {
         GameRegistry.registerTileEntity(
-                LogisticsSolderingTileEntity.class, "logisticspipes.blocks.LogisticsSolderingTileEntity");
+                LogisticsSolderingTileEntity.class,
+                "logisticspipes.blocks.LogisticsSolderingTileEntity");
         GameRegistry.registerTileEntity(
                 LogisticsPowerJunctionTileEntity.class,
                 "logisticspipes.blocks.powertile.LogisticsPowerJuntionTileEntity");
@@ -71,13 +75,15 @@ public class ServerProxy implements IProxy {
                 LogisticsIC2PowerProviderTileEntity.class,
                 "logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity");
         GameRegistry.registerTileEntity(
-                LogisticsSecurityTileEntity.class, "logisticspipes.blocks.LogisticsSecurityTileEntity");
+                LogisticsSecurityTileEntity.class,
+                "logisticspipes.blocks.LogisticsSecurityTileEntity");
         GameRegistry.registerTileEntity(
                 LogisticsCraftingTableTileEntity.class,
                 "logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity");
         GameRegistry.registerTileEntity(LogisticsTileGenericPipe.class, LogisticsPipes.logisticsTileGenericPipeMapping);
         GameRegistry.registerTileEntity(
-                LogisticsStatisticsTileEntity.class, "logisticspipes.blocks.stats.LogisticsStatisticsTileEntity");
+                LogisticsStatisticsTileEntity.class,
+                "logisticspipes.blocks.stats.LogisticsStatisticsTileEntity");
     }
 
     @Override
@@ -185,8 +191,7 @@ public class ServerProxy implements IProxy {
                 int meta = Integer.parseInt(metaPart);
                 SimpleServiceLocator.serverBufferHandler.addPacketToCompressor(
                         PacketHandler.getPacket(UpdateName.class)
-                                .setIdent(ItemIdentifier.get(Item.getItemById(id), meta, null))
-                                .setName("-"),
+                                .setIdent(ItemIdentifier.get(Item.getItemById(id), meta, null)).setName("-"),
                         player);
             }
         }
@@ -231,8 +236,8 @@ public class ServerProxy implements IProxy {
 
     // BuildCraft method end
     @Override
-    public void addLogisticsPipesOverride(
-            IIconRegister par1IIconRegister, int index, String override1, String override2, boolean flag) {
+    public void addLogisticsPipesOverride(IIconRegister par1IIconRegister, int index, String override1,
+            String override2, boolean flag) {
         // TODO Auto-generated method stub
 
     }

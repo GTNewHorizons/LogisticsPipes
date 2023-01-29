@@ -1,11 +1,10 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -21,11 +20,15 @@ import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleQuickSort extends LogisticsGuiModule {
 
@@ -48,11 +51,7 @@ public class ModuleQuickSort extends LogisticsGuiModule {
     public void writeToNBT(NBTTagCompound nbttagcompound) {}
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         return null;
     }
@@ -268,12 +267,8 @@ public class ModuleQuickSort extends LogisticsGuiModule {
 
     private void sendPacketTo(EntityPlayer player) {
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(QuickSortState.class)
-                        .setInteger2(lastPosSend)
-                        .setInteger(getPositionInt())
-                        .setPosX(getX())
-                        .setPosY(getY())
-                        .setPosZ(getZ()),
+                PacketHandler.getPacket(QuickSortState.class).setInteger2(lastPosSend).setInteger(getPositionInt())
+                        .setPosX(getX()).setPosY(getY()).setPosZ(getZ()),
                 player);
     }
 

@@ -1,9 +1,8 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.gui.hud.modules.HUDProviderModule;
 import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
@@ -46,6 +45,7 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -54,16 +54,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 
-@CCType(name = "Provider Module")
-public class ModuleProvider extends LogisticsSneakyDirectionModule
-        implements ILegacyActiveModule,
-                IClientInformationProvider,
-                IHUDModuleHandler,
-                IModuleWatchReciver,
-                IModuleInventoryReceive {
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-    private final ItemIdentifierInventory _filterInventory =
-            new ItemIdentifierInventory(9, "Items to provide (or empty for all)", 1);
+@CCType(name = "Provider Module")
+public class ModuleProvider extends LogisticsSneakyDirectionModule implements ILegacyActiveModule,
+        IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver, IModuleInventoryReceive {
+
+    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
+            9,
+            "Items to provide (or empty for all)",
+            1);
     private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
     private boolean isActive = false;
@@ -135,8 +136,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
         _sneakyDirection = sneakyDirection;
         if (MainProxy.isServer(this._world.getWorld())) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ExtractorModuleMode.class)
-                            .setDirection(_sneakyDirection)
+                    PacketHandler.getPacket(ExtractorModuleMode.class).setDirection(_sneakyDirection)
                             .setModulePos(this),
                     localModeWatchers);
         }
@@ -144,8 +144,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
 
     @Override
     protected ModuleCoordinatesGuiProvider getPipeGuiProvider() {
-        return NewGuiHandler.getGui(ProviderModuleGuiProvider.class)
-                .setExtractorMode(getExtractionMode().ordinal())
+        return NewGuiHandler.getGui(ProviderModuleGuiProvider.class).setExtractorMode(getExtractionMode().ordinal())
                 .setExclude(isExcludeFilter);
         // .setIsActive(isActive)
         // .setSneakyDirection(_sneakyDirection);
@@ -175,11 +174,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         return null;
     }
@@ -197,8 +192,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
         int stacksleft = stacksToExtract();
         LogisticsItemOrder firstOrder = null;
         LogisticsItemOrder order = null;
-        while (itemsleft > 0
-                && stacksleft > 0
+        while (itemsleft > 0 && stacksleft > 0
                 && _service.getItemOrderManager().hasOrders(ResourceType.PROVIDER)
                 && (firstOrder == null || firstOrder != order)) {
             if (firstOrder == null) {
@@ -257,21 +251,23 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
             if (canProvide < 1) {
                 return;
             }
-            LogisticsPromise promise =
-                    new LogisticsPromise(item, canProvide, (IProvideItems) _service, ResourceType.PROVIDER);
+            LogisticsPromise promise = new LogisticsPromise(
+                    item,
+                    canProvide,
+                    (IProvideItems) _service,
+                    ResourceType.PROVIDER);
             tree.addPromise(promise);
         }
     }
 
     @Override
-    public LogisticsOrder fullFill(
-            LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info) {
-        return _service.getItemOrderManager()
-                .addOrder(
-                        new ItemIdentifierStack(promise.item, promise.numberOfItems),
-                        destination,
-                        ResourceType.PROVIDER,
-                        info);
+    public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination,
+            IAdditionalTargetInformation info) {
+        return _service.getItemOrderManager().addOrder(
+                new ItemIdentifierStack(promise.item, promise.numberOfItems),
+                destination,
+                ResourceType.PROVIDER,
+                info);
     }
 
     private int getAvailableItemCount(ItemIdentifier item) {
@@ -288,8 +284,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
         Map<ItemIdentifier, Integer> currentInv = inv.getItemsAndCount();
 
         // Skip already added items from this provider, skip filtered items, Reduce what has been reserved, add.
-        outer:
-        for (Entry<ItemIdentifier, Integer> currItem : currentInv.entrySet()) {
+        outer: for (Entry<ItemIdentifier, Integer> currItem : currentInv.entrySet()) {
             if (items.containsKey(currItem.getKey())) {
                 continue; // Already provided by the previous module
             }
@@ -299,15 +294,14 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
             }
 
             for (IFilter filter : filters) {
-                if (filter.isBlocked()
-                                == filter.isFilteredItem(currItem.getKey().getUndamaged())
+                if (filter.isBlocked() == filter.isFilteredItem(currItem.getKey().getUndamaged())
                         || filter.blockProvider()) {
                     continue outer;
                 }
             }
 
-            int remaining =
-                    currItem.getValue() - _service.getItemOrderManager().totalItemsCountInOrders(currItem.getKey());
+            int remaining = currItem.getValue()
+                    - _service.getItemOrderManager().totalItemsCountInOrders(currItem.getKey());
             if (remaining < 1) {
                 continue;
             }
@@ -451,16 +445,12 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
             oldList.ensureCapacity(displayList.size());
             oldList.addAll(displayList);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(displayList)
-                            .setModulePos(this)
+                    PacketHandler.getPacket(ModuleInventory.class).setIdentList(displayList).setModulePos(this)
                             .setCompressable(true),
                     localModeWatchers);
         } else if (player != null) {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(displayList)
-                            .setModulePos(this)
+                    PacketHandler.getPacket(ModuleInventory.class).setIdentList(displayList).setModulePos(this)
                             .setCompressable(true),
                     player);
         }
@@ -468,14 +458,12 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -520,8 +508,8 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule
 
     @Override
     public boolean interestedInAttachedInventory() {
-        return isExcludeFilter
-                || _filterInventory.isEmpty(); // when items included this is only interested in items in the filter
+        return isExcludeFilter || _filterInventory.isEmpty(); // when items included this is only interested in items in
+                                                              // the filter
         // when items not included, we can only serve those items in the filter.
     }
 

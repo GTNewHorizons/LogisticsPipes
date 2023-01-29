@@ -1,17 +1,20 @@
 package logisticspipes.proxy.te;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+
 import cofh.api.transport.IEnderItemHandler;
 import cofh.core.RegistryEnderAttuned;
 import cofh.lib.transport.EnderRegistry;
 import cofh.thermalexpansion.block.TEBlocks;
 import cofh.thermalexpansion.block.ender.TileTesseract;
 import cofh.thermalexpansion.item.TEItems;
-import java.util.LinkedList;
-import java.util.List;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class ThermalExpansionProxy implements IThermalExpansionProxy {
 

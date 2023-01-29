@@ -1,10 +1,12 @@
 package logisticspipes.proxy.toolWrench;
 
-import buildcraft.api.tools.IToolWrench;
 import logisticspipes.proxy.DontLoadProxy;
 import logisticspipes.proxy.interfaces.IToolWrenchProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+
+import buildcraft.api.tools.IToolWrench;
 
 public class ToolWrenchProxy implements IToolWrenchProxy {
 

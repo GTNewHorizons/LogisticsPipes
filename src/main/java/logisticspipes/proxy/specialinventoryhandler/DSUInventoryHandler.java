@@ -3,10 +3,13 @@ package logisticspipes.proxy.specialinventoryhandler;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
+
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 
 public class DSUInventoryHandler extends SpecialInventoryHandler {
@@ -35,8 +38,8 @@ public class DSUInventoryHandler extends SpecialInventoryHandler {
     }
 
     @Override
-    public SpecialInventoryHandler getUtilForTile(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         return new DSUInventoryHandler(tile, hideOnePerStack, hideOne, cropStart, cropEnd);
     }
 

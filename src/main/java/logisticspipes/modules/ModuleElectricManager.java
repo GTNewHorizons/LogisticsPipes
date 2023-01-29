@@ -1,10 +1,9 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import logisticspipes.gui.hud.modules.HUDElectricManager;
 import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IFilter;
@@ -33,6 +32,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Triplet;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -40,12 +40,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
-public class ModuleElectricManager extends LogisticsGuiModule
-        implements IClientInformationProvider,
-                IHUDModuleHandler,
-                IModuleWatchReciver,
-                ISimpleInventoryEventHandler,
-                IModuleInventoryReceive {
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class ModuleElectricManager extends LogisticsGuiModule implements IClientInformationProvider, IHUDModuleHandler,
+        IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Electric Items", 1);
     private boolean _dischargeMode;
@@ -73,9 +72,7 @@ public class ModuleElectricManager extends LogisticsGuiModule
         _dischargeMode = isDischargeMode;
         if (!localModeWatchers.isEmpty()) {
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ElectricManagetMode.class)
-                            .setFlag(isDischargeMode())
-                            .setModulePos(this),
+                    PacketHandler.getPacket(ElectricManagetMode.class).setFlag(isDischargeMode()).setModulePos(this),
                     localModeWatchers);
         }
     }
@@ -86,15 +83,17 @@ public class ModuleElectricManager extends LogisticsGuiModule
     public void registerPosition(ModulePositionType slot, int positionInt) {
         super.registerPosition(slot, positionInt);
         _sinkReply = new SinkReply(
-                FixedPriority.ElectricManager, 0, true, false, 1, 1, new ChassiTargetInformation(getPositionInt()));
+                FixedPriority.ElectricManager,
+                0,
+                true,
+                false,
+                1,
+                1,
+                new ChassiTargetInformation(getPositionInt()));
     }
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier stackID,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier stackID, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
         if (bestPriority >= FixedPriority.ElectricManager.ordinal()) {
             return null;
@@ -168,8 +167,8 @@ public class ModuleElectricManager extends LogisticsGuiModule
             if (isOfInterest(stack)) {
                 // If item set to discharge and its fully discharged, then extract it.
                 if (_dischargeMode && SimpleServiceLocator.IC2Proxy.isFullyDischarged(stack)) {
-                    Triplet<Integer, SinkReply, List<IFilter>> reply =
-                            SimpleServiceLocator.logisticsManager.hasDestinationWithMinPriority(
+                    Triplet<Integer, SinkReply, List<IFilter>> reply = SimpleServiceLocator.logisticsManager
+                            .hasDestinationWithMinPriority(
                                     ItemIdentifier.get(stack),
                                     _service.getSourceID(),
                                     true,
@@ -183,10 +182,10 @@ public class ModuleElectricManager extends LogisticsGuiModule
                         return;
                     }
                 }
-                // If item set to charge  and its fully charged, then extract it.
+                // If item set to charge and its fully charged, then extract it.
                 if (!_dischargeMode && SimpleServiceLocator.IC2Proxy.isFullyCharged(stack)) {
-                    Triplet<Integer, SinkReply, List<IFilter>> reply =
-                            SimpleServiceLocator.logisticsManager.hasDestinationWithMinPriority(
+                    Triplet<Integer, SinkReply, List<IFilter>> reply = SimpleServiceLocator.logisticsManager
+                            .hasDestinationWithMinPriority(
                                     ItemIdentifier.get(stack),
                                     _service.getSourceID(),
                                     true,
@@ -232,14 +231,12 @@ public class ModuleElectricManager extends LogisticsGuiModule
 
     @Override
     public void startHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
     public void stopHUDWatching() {
-        MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
+        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopModuleWatchingPacket.class).setModulePos(this));
     }
 
     @Override
@@ -247,13 +244,10 @@ public class ModuleElectricManager extends LogisticsGuiModule
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(_filterInventory)).setModulePos(this),
                 player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ElectricManagetMode.class)
-                        .setFlag(isDischargeMode())
-                        .setModulePos(this),
+                PacketHandler.getPacket(ElectricManagetMode.class).setFlag(isDischargeMode()).setModulePos(this),
                 player);
     }
 
@@ -272,8 +266,7 @@ public class ModuleElectricManager extends LogisticsGuiModule
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
                     localModeWatchers);
         }
     }

@@ -3,6 +3,7 @@ package logisticspipes.items;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.guis.LogisticsPlayerSettingsGuiProvider;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -23,17 +24,8 @@ public class ItemPipeController extends LogisticsItem {
     }
 
     @Override
-    public boolean onItemUseFirst(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         return false;
     }
 

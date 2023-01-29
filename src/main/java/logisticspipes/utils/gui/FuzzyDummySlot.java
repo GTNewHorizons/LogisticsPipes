@@ -2,6 +2,7 @@ package logisticspipes.utils.gui;
 
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.request.resources.DictResource;
+
 import net.minecraft.inventory.IInventory;
 
 public class FuzzyDummySlot extends DummySlot implements IFuzzySlot {

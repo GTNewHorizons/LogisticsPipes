@@ -1,15 +1,14 @@
 package logisticspipes.routing;
 
 import java.util.*;
+
 import logisticspipes.interfaces.IRoutingDebugAdapter;
 import logisticspipes.interfaces.routing.IFilter;
 
 public class DummyRoutingDebugAdapter implements IRoutingDebugAdapter {
 
     @Override
-    public void start(
-            PriorityQueue<ExitRoute> candidatesCost,
-            ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet,
+    public void start(PriorityQueue<ExitRoute> candidatesCost, ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet,
             ArrayList<EnumMap<PipeRoutingConnectionType, List<List<IFilter>>>> filterList) {}
 
     @Override

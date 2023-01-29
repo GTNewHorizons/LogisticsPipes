@@ -1,6 +1,7 @@
 package logisticspipes.network.packets.module;
 
 import java.io.IOException;
+
 import logisticspipes.modules.ModuleActiveSupplier;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -11,6 +12,7 @@ import logisticspipes.proxy.MainProxy;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
@@ -35,9 +37,7 @@ public class SupplierPipeLimitedPacket extends ModuleCoordinatesPacket {
             refresh();
         } else {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(SupplierPipeLimitedPacket.class)
-                            .setLimited(isLimited())
-                            .setPacketPos(this),
+                    PacketHandler.getPacket(SupplierPipeLimitedPacket.class).setLimited(isLimited()).setPacketPos(this),
                     player);
         }
     }

@@ -2,16 +2,19 @@ package logisticspipes.gui;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import logisticspipes.blocks.LogisticsSolderingTileEntity;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiSolderingStation extends LogisticsBaseGuiScreen {
@@ -28,8 +31,9 @@ public class GuiSolderingStation extends LogisticsBaseGuiScreen {
         super.drawGuiContainerForegroundLayer(par1, par2);
     }
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/soldering_station.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/soldering_station.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
@@ -59,10 +63,20 @@ public class GuiSolderingStation extends LogisticsBaseGuiScreen {
             List<ItemIdentifierStack> iisl = new LinkedList<>();
             iisl.add(iis);
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    iisl, null, 0, guiLeft + 141, guiTop + 47, 1, 1, 18, 18, 100.0F, DisplayAmount.NEVER);
+                    iisl,
+                    null,
+                    0,
+                    guiLeft + 141,
+                    guiTop + 47,
+                    1,
+                    1,
+                    18,
+                    18,
+                    100.0F,
+                    DisplayAmount.NEVER);
         }
         mc.renderEngine.bindTexture(GuiSolderingStation.TEXTURE);
-        GL11.glDisable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glDisable(2929 /* GL_DEPTH_TEST */);
         for (int a = 0; a < 3; a++) {
             for (int b = 0; b < 3; b++) {
                 Gui.drawRect(
@@ -74,7 +88,7 @@ public class GuiSolderingStation extends LogisticsBaseGuiScreen {
             }
         }
         Gui.drawRect(guiLeft + 141, guiTop + 47, guiLeft + 157, guiTop + 63, 0xc08b8b8b);
-        GL11.glEnable(2929 /*GL_DEPTH_TEST*/);
+        GL11.glEnable(2929 /* GL_DEPTH_TEST */);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         int level = 100 - tile.heat;

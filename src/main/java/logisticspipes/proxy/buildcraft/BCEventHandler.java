@@ -1,8 +1,8 @@
 package logisticspipes.proxy.buildcraft;
 
-import buildcraft.transport.pipes.events.PipeEventItem;
 import logisticspipes.routing.ItemRoutingInformation;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+import buildcraft.transport.pipes.events.PipeEventItem;
 
 public class BCEventHandler {
 

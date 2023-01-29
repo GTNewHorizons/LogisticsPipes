@@ -6,6 +6,7 @@ import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class UpgradeManagerGui extends CoordinatesGuiProvider {

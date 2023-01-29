@@ -6,6 +6,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.security.SecuritySettings;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -50,7 +51,12 @@ public class PipeItemsRequestLogisticsMk2 extends PipeItemsRequestLogistics {
         }
         if (flag) {
             entityplayer.openGui(
-                    LogisticsPipes.instance, GuiIDs.GUI_Normal_Mk2_Orderer_ID, getWorld(), getX(), getY(), getZ());
+                    LogisticsPipes.instance,
+                    GuiIDs.GUI_Normal_Mk2_Orderer_ID,
+                    getWorld(),
+                    getX(),
+                    getY(),
+                    getZ());
         }
     }
 

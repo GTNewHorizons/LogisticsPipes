@@ -1,18 +1,16 @@
 /*
- * Copyright (c) 2015  RS485
- *
- * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- * License 1.0, or MMPL. Please check the contents of the license located in
+ * Copyright (c) 2015 RS485 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0, or
+ * MMPL. Please check the contents of the license located in
  * https://github.com/RS485/LogisticsPipes/blob/mc16/LICENSE.md
  */
 
 package logisticspipes.utils;
 
 /**
- * Enumeration for colors and their int values. Also contains some static
- * functions.
+ * Enumeration for colors and their int values. Also contains some static functions.
  */
 public enum Color {
+
     BLANK(0x00000000),
     WHITE(0xFFFFFFFF),
     WHITE_50(0x80FFFFFF),
@@ -25,8 +23,7 @@ public enum Color {
     RED(0xFFFF0000),
     GREEN(0xFF00FF00),
     BLUE(0xFF0000FF),
-    LIGHT_YELLOW(0xFFFFFFA0),
-    ;
+    LIGHT_YELLOW(0xFFFFFFA0),;
 
     private final int colorValue;
 

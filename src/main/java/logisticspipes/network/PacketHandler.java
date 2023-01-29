@@ -1,7 +1,24 @@
 package logisticspipes.network;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+
+import logisticspipes.LPConstants;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.network.abstractpackets.ModernPacket;
+import logisticspipes.network.exception.DelayPacketException;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import lombok.SneakyThrows;
+
+import net.minecraft.entity.player.EntityPlayer;
+
+import org.apache.logging.log4j.Level;
+
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
+
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
@@ -11,21 +28,10 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import io.netty.util.AttributeKey;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import logisticspipes.LPConstants;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.network.abstractpackets.ModernPacket;
-import logisticspipes.network.exception.DelayPacketException;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import lombok.SneakyThrows;
-import net.minecraft.entity.player.EntityPlayer;
-import org.apache.logging.log4j.Level;
 
 /*
- *  Basically FML SimpleIndexedCodec, except with static registration of LP ModernPackets and short instead of byte discriminator
+ * Basically FML SimpleIndexedCodec, except with static registration of LP ModernPackets and short instead of byte
+ * discriminator
  */
 @Sharable
 public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernPacket> {
@@ -67,19 +73,14 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
      * enumerates all ModernPackets, sets their IDs and populate packetlist/packetmap
      */
     @SuppressWarnings("unchecked")
-    @SneakyThrows({
-        IOException.class,
-        InvocationTargetException.class,
-        IllegalAccessException.class,
-        InstantiationException.class,
-        IllegalArgumentException.class,
-        NoSuchMethodException.class,
-        SecurityException.class
-    })
+    @SneakyThrows({ IOException.class, InvocationTargetException.class, IllegalAccessException.class,
+            InstantiationException.class, IllegalArgumentException.class, NoSuchMethodException.class,
+            SecurityException.class })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
     public static void initialize() {
-        final List<ClassInfo> classes = new ArrayList<>(ClassPath.from(PacketHandler.class.getClassLoader())
-                .getTopLevelClassesRecursive("logisticspipes.network.packets"));
+        final List<ClassInfo> classes = new ArrayList<>(
+                ClassPath.from(PacketHandler.class.getClassLoader())
+                        .getTopLevelClassesRecursive("logisticspipes.network.packets"));
         classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
 
         PacketHandler.packetlist = new ArrayList<>(classes.size());
@@ -89,8 +90,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
 
         for (ClassInfo c : classes) {
             final Class<?> cls = c.load();
-            final ModernPacket instance =
-                    (ModernPacket) cls.getConstructor(int.class).newInstance(currentid);
+            final ModernPacket instance = (ModernPacket) cls.getConstructor(int.class).newInstance(currentid);
             PacketHandler.packetlist.add(instance);
             PacketHandler.packetmap.put((Class<? extends ModernPacket>) cls, instance);
             currentid++;
@@ -98,8 +98,8 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     }
 
     // TODO correct to work with WeakReference (See FML original)
-    protected static final AttributeKey<ThreadLocal<FMLProxyPacket>> INBOUNDPACKETTRACKER =
-            new AttributeKey<>("lp:inboundpacket");
+    protected static final AttributeKey<ThreadLocal<FMLProxyPacket>> INBOUNDPACKETTRACKER = new AttributeKey<>(
+            "lp:inboundpacket");
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
@@ -122,8 +122,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
 
     @Override
     protected final void encode(ChannelHandlerContext ctx, ModernPacket msg, List<Object> out) throws Exception {
-        FMLProxyPacket proxy = PacketHandler.toFMLPacket(
-                msg, ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
+        FMLProxyPacket proxy = PacketHandler.toFMLPacket(msg, ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
         FMLProxyPacket old = ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).get().get();
         if (old != null) {
             proxy.setDispatcher(old.getDispatcher());

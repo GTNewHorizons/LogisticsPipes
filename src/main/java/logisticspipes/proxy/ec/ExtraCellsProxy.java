@@ -1,8 +1,10 @@
 package logisticspipes.proxy.ec;
 
-import extracells.api.ECApi;
 import logisticspipes.proxy.interfaces.IExtraCellsProxy;
+
 import net.minecraftforge.fluids.Fluid;
+
+import extracells.api.ECApi;
 
 public class ExtraCellsProxy implements IExtraCellsProxy {
 

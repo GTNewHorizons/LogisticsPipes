@@ -1,8 +1,7 @@
 package logisticspipes.modules;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Collection;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IWorldProvider;
@@ -15,10 +14,14 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 // IHUDModuleHandler,
 public class ModuleSatelite extends LogisticsModule {
@@ -50,15 +53,10 @@ public class ModuleSatelite extends LogisticsModule {
     private final SinkReply _sinkReply = new SinkReply(FixedPriority.ItemSink, 0, true, false, 1, 0, null);
 
     @Override
-    public SinkReply sinksItem(
-            ItemIdentifier item,
-            int bestPriority,
-            int bestCustomPriority,
-            boolean allowDefault,
+    public SinkReply sinksItem(ItemIdentifier item, int bestPriority, int bestCustomPriority, boolean allowDefault,
             boolean includeInTransit) {
-        if (bestPriority > _sinkReply.fixedPriority.ordinal()
-                || (bestPriority == _sinkReply.fixedPriority.ordinal()
-                        && bestCustomPriority >= _sinkReply.customPriority)) {
+        if (bestPriority > _sinkReply.fixedPriority.ordinal() || (bestPriority == _sinkReply.fixedPriority.ordinal()
+                && bestCustomPriority >= _sinkReply.customPriority)) {
             return null;
         }
         return new SinkReply(_sinkReply, spaceFor(item, includeInTransit));
@@ -74,7 +72,9 @@ public class ModuleSatelite extends LogisticsModule {
             IInventory base = (IInventory) tile.tile;
             if (base instanceof net.minecraft.inventory.ISidedInventory) {
                 base = new SidedInventoryMinecraftAdapter(
-                        (net.minecraft.inventory.ISidedInventory) base, tile.orientation.getOpposite(), false);
+                        (net.minecraft.inventory.ISidedInventory) base,
+                        tile.orientation.getOpposite(),
+                        false);
             }
             IInventoryUtil inv = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(base, tile.orientation);
             count += inv.roomForItem(item, 9999);

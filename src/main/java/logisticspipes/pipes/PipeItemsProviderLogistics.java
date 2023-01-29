@@ -1,14 +1,12 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.pipes;
 
 import java.util.*;
 import java.util.Map.Entry;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDProvider;
 import logisticspipes.interfaces.*;
@@ -51,18 +49,15 @@ import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class PipeItemsProviderLogistics extends CoreRoutedPipe
-        implements IProvideItems,
-                IHeadUpDisplayRendererProvider,
-                IChestContentReceiver,
-                IChangeListener,
-                IOrderManagerContentReceiver {
+public class PipeItemsProviderLogistics extends CoreRoutedPipe implements IProvideItems, IHeadUpDisplayRendererProvider,
+        IChestContentReceiver, IChangeListener, IOrderManagerContentReceiver {
 
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
 
@@ -201,30 +196,32 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
         IInventory base = (IInventory) tile.tile;
         if (base instanceof net.minecraft.inventory.ISidedInventory) {
             base = new SidedInventoryMinecraftAdapter(
-                    (net.minecraft.inventory.ISidedInventory) base, tile.orientation.getOpposite(), true);
+                    (net.minecraft.inventory.ISidedInventory) base,
+                    tile.orientation.getOpposite(),
+                    true);
         }
         ExtractionMode mode = getExtractionMode();
         switch (mode) {
             case LeaveFirst:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        base, tile.orientation.getOpposite(), false, false, 1, 0);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(base, tile.orientation.getOpposite(), false, false, 1, 0);
             case LeaveLast:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        base, tile.orientation.getOpposite(), false, false, 0, 1);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(base, tile.orientation.getOpposite(), false, false, 0, 1);
             case LeaveFirstAndLast:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        base, tile.orientation.getOpposite(), false, false, 1, 1);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(base, tile.orientation.getOpposite(), false, false, 1, 1);
             case Leave1PerStack:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        base, tile.orientation.getOpposite(), true, false, 0, 0);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(base, tile.orientation.getOpposite(), true, false, 0, 0);
             case Leave1PerType:
-                return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                        base, tile.orientation.getOpposite(), false, true, 0, 0);
+                return SimpleServiceLocator.inventoryUtilFactory
+                        .getHidingInventoryUtil(base, tile.orientation.getOpposite(), false, true, 0, 0);
             default:
                 break;
         }
-        return SimpleServiceLocator.inventoryUtilFactory.getHidingInventoryUtil(
-                base, tile.orientation.getOpposite(), false, false, 0, 0);
+        return SimpleServiceLocator.inventoryUtilFactory
+                .getHidingInventoryUtil(base, tile.orientation.getOpposite(), false, false, 0, 0);
     }
 
     @Override
@@ -259,8 +256,7 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
         int stacksleft = stacksToExtract();
         LogisticsItemOrder firstOrder = null;
         LogisticsItemOrder order = null;
-        while (itemsleft > 0
-                && stacksleft > 0
+        while (itemsleft > 0 && stacksleft > 0
                 && _orderManager.hasOrders(ResourceType.PROVIDER)
                 && (firstOrder == null || firstOrder != order)) {
             if (firstOrder == null) {
@@ -268,7 +264,10 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
             }
             order = _orderManager.peekAtTopRequest(ResourceType.PROVIDER);
             int sent = sendStack(
-                    order.getResource().stack, itemsleft, order.getRouter().getSimpleID(), order.getInformation());
+                    order.getResource().stack,
+                    itemsleft,
+                    order.getRouter().getSimpleID(),
+                    order.getInformation());
             if (sent < 0) {
                 break;
             }
@@ -298,7 +297,10 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
                 return;
             }
             LogisticsPromise promise = new LogisticsPromise(
-                    item, Math.min(canProvide, tree.getMissingAmount()), this, ResourceType.PROVIDER);
+                    item,
+                    Math.min(canProvide, tree.getMissingAmount()),
+                    this,
+                    ResourceType.PROVIDER);
             tree.addPromise(promise);
         } else if (tree.getRequestType() instanceof DictResource) {
             DictResource dict = (DictResource) tree.getRequestType();
@@ -314,7 +316,10 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
                     continue;
                 }
                 LogisticsPromise promise = new LogisticsPromise(
-                        item.getKey(), Math.min(canProvide, tree.getMissingAmount()), this, ResourceType.PROVIDER);
+                        item.getKey(),
+                        Math.min(canProvide, tree.getMissingAmount()),
+                        this,
+                        ResourceType.PROVIDER);
                 tree.addPromise(promise);
                 if (tree.getMissingAmount() <= 0) {
                     break;
@@ -324,11 +329,14 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
     }
 
     @Override
-    public LogisticsOrder fullFill(
-            LogisticsPromise promise, IRequestItems destination, IAdditionalTargetInformation info) {
+    public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination,
+            IAdditionalTargetInformation info) {
         spawnParticle(Particles.WhiteParticle, 2);
         return _orderManager.addOrder(
-                new ItemIdentifierStack(promise.item, promise.numberOfItems), destination, ResourceType.PROVIDER, info);
+                new ItemIdentifierStack(promise.item, promise.numberOfItems),
+                destination,
+                ResourceType.PROVIDER,
+                info);
     }
 
     @Override
@@ -349,21 +357,18 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
             IInventoryUtil inv = getAdaptedInventoryUtil(tile);
 
             Map<ItemIdentifier, Integer> currentInv = inv.getItemsAndCount();
-            outer:
-            for (Entry<ItemIdentifier, Integer> currItem : currentInv.entrySet()) {
+            outer: for (Entry<ItemIdentifier, Integer> currItem : currentInv.entrySet()) {
                 if (items.containsKey(currItem.getKey())) {
                     continue;
                 }
 
-                if (hasFilter()
-                        && ((isExcludeFilter() && itemIsFiltered(currItem.getKey()))
-                                || (!isExcludeFilter() && !itemIsFiltered(currItem.getKey())))) {
+                if (hasFilter() && ((isExcludeFilter() && itemIsFiltered(currItem.getKey()))
+                        || (!isExcludeFilter() && !itemIsFiltered(currItem.getKey())))) {
                     continue;
                 }
 
                 for (IFilter filter : filters) {
-                    if (filter.isBlocked()
-                                    == filter.isFilteredItem(currItem.getKey().getUndamaged())
+                    if (filter.isBlocked() == filter.isFilteredItem(currItem.getKey().getUndamaged())
                             || filter.blockProvider()) {
                         continue outer;
                     }
@@ -396,20 +401,16 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
 
     @Override
     public void startWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStartWatchingPacket.class)
-                .setInteger(1 /*TODO*/)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1 /* TODO */).setPosX(getX())
+                        .setPosY(getY()).setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
-        MainProxy.sendPacketToServer(PacketHandler.getPacket(HUDStopWatchingPacket.class)
-                .setInteger(1 /*TODO*/)
-                .setPosX(getX())
-                .setPosY(getY())
-                .setPosZ(getZ()));
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1 /* TODO */).setPosX(getX())
+                        .setPosY(getY()).setPosZ(getZ()));
     }
 
     private void updateInv(EntityPlayer player) {
@@ -428,19 +429,13 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
             oldList.ensureCapacity(displayList.size());
             oldList.addAll(displayList);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ChestContent.class)
-                            .setIdentList(displayList)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(ChestContent.class).setIdentList(displayList).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     localModeWatchers);
         } else if (player != null) {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(ChestContent.class)
-                            .setIdentList(displayList)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(ChestContent.class).setIdentList(displayList).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     player);
         }
     }
@@ -457,19 +452,13 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
             oldManagerList.clear();
             oldManagerList.addAll(all);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(OrdererManagerContent.class)
-                            .setIdentList(all)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     localModeWatchers);
         } else if (player != null) {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(OrdererManagerContent.class)
-                            .setIdentList(all)
-                            .setPosX(getX())
-                            .setPosY(getY())
-                            .setPosZ(getZ()),
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
                     player);
         }
     }
@@ -547,18 +536,12 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe
     public void onWrenchClicked(EntityPlayer entityplayer) {
         entityplayer.openGui(LogisticsPipes.instance, GuiIDs.GUI_ProviderPipe_ID, getWorld(), getX(), getY(), getZ());
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ProviderPipeMode.class)
-                        .setInteger(getExtractionMode().ordinal())
-                        .setPosX(getX())
-                        .setPosY(getY())
-                        .setPosZ(getZ()),
+                PacketHandler.getPacket(ProviderPipeMode.class).setInteger(getExtractionMode().ordinal())
+                        .setPosX(getX()).setPosY(getY()).setPosZ(getZ()),
                 entityplayer);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ProviderPipeInclude.class)
-                        .setInteger(isExcludeFilter() ? 1 : 0)
-                        .setPosX(getX())
-                        .setPosY(getY())
-                        .setPosZ(getZ()),
+                PacketHandler.getPacket(ProviderPipeInclude.class).setInteger(isExcludeFilter() ? 1 : 0).setPosX(getX())
+                        .setPosY(getY()).setPosZ(getZ()),
                 entityplayer);
     }
 

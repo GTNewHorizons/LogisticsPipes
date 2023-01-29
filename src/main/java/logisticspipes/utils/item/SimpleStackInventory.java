@@ -1,20 +1,19 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils.item;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.ISaveState;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.ISimpleInventoryEventHandler;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -114,8 +113,10 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
             if (index < _contents.length) {
                 _contents[index] = ItemStack.loadItemStackFromNBT(nbttagcompound2);
             } else {
-                LogisticsPipes.log.fatal("SimpleInventory: java.lang.ArrayIndexOutOfBoundsException: " + index + " of "
-                        + _contents.length);
+                LogisticsPipes.log.fatal(
+                        "SimpleInventory: java.lang.ArrayIndexOutOfBoundsException: " + index
+                                + " of "
+                                + _contents.length);
             }
         }
     }

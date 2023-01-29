@@ -1,3 +1,4 @@
 package logisticspipes.asm.addinfo;
 
-public interface IAddInfo {}
+public interface IAddInfo {
+}

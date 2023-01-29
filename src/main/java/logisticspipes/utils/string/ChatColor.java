@@ -1,6 +1,7 @@
 package logisticspipes.utils.string;
 
 public enum ChatColor {
+
     /**
      * Represents black
      */
@@ -91,8 +92,8 @@ public enum ChatColor {
     RESET('r');
 
     /**
-     * The special character which prefixes all chat colour codes. Use this if
-     * you need to dynamically convert colour codes from your custom format.
+     * The special character which prefixes all chat colour codes. Use this if you need to dynamically convert colour
+     * codes from your custom format.
      */
     public static final char COLOR_CHAR = '\u00A7';
 
@@ -107,7 +108,7 @@ public enum ChatColor {
     ChatColor(char code, boolean isFormat) {
         this.code = code;
         this.isFormat = isFormat;
-        toString = new String(new char[] {ChatColor.COLOR_CHAR, code});
+        toString = new String(new char[] { ChatColor.COLOR_CHAR, code });
     }
 
     /**

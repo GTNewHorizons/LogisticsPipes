@@ -23,7 +23,7 @@ public class CraftingMonitoringUpgrade implements IPipeUpgrade {
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] {"requestblock"};
+        return new String[] { "requestblock" };
     }
 
     @Override

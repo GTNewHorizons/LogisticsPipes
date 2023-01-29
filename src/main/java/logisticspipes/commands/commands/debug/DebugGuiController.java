@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.exception.DelayPacketException;
 import logisticspipes.network.packets.debuggui.DebugDataPacket;
@@ -14,6 +15,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.AllArgsConstructor;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.world.World;
@@ -73,8 +75,7 @@ public class DebugGuiController {
             }
         }
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(DebugPanelOpen.class)
-                        .setName(object.getClass().getSimpleName()),
+                PacketHandler.getPacket(DebugPanelOpen.class).setName(object.getClass().getSimpleName()),
                 player);
         synchronized (serverList) {
             int identification = serverList.size();
@@ -145,9 +146,7 @@ public class DebugGuiController {
         @Override
         public void passData(byte[] packet) {
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(DebugDataPacket.class)
-                            .setPayload(packet)
-                            .setIdentifier(identification),
+                    PacketHandler.getPacket(DebugDataPacket.class).setPayload(packet).setIdentifier(identification),
                     player);
         }
 
@@ -164,9 +163,8 @@ public class DebugGuiController {
 
         @Override
         public void passData(byte[] packet) {
-            MainProxy.sendPacketToServer(PacketHandler.getPacket(DebugDataPacket.class)
-                    .setPayload(packet)
-                    .setIdentifier(identification));
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(DebugDataPacket.class).setPayload(packet).setIdentifier(identification));
         }
 
         @Override
@@ -176,10 +174,10 @@ public class DebugGuiController {
     }
 
     private static class ObjectIdentification implements IObjectIdentification {
+
         @Override
         public boolean toStringObject(Object o) {
-            return o.getClass() == ForgeDirection.class
-                    || o.getClass() == ItemIdentifier.class
+            return o.getClass() == ForgeDirection.class || o.getClass() == ItemIdentifier.class
                     || o.getClass() == ItemIdentifierStack.class;
         }
 

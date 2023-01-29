@@ -1,10 +1,9 @@
 package logisticspipes.pipes.signs;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
+
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -25,6 +24,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Data;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -32,12 +32,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandler {
 
     @Data
     private static class ItemAmountPipeSignData implements IPipeSignData {
+
         private final ItemIdentifierStack item;
         private final int amount;
 
@@ -70,10 +75,7 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
     }
 
     private void openGUI(CoreRoutedPipe pipe, ForgeDirection dir, EntityPlayer player) {
-        NewGuiHandler.getGui(ItemAmountSignGui.class)
-                .setDir(dir)
-                .setTilePos(pipe.container)
-                .open(player);
+        NewGuiHandler.getGui(ItemAmountSignGui.class).setDir(dir).setTilePos(pipe.container).open(player);
     }
 
     @Override
@@ -88,11 +90,8 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
 
     @Override
     public ModernPacket getPacket() {
-        return PacketHandler.getPacket(ItemAmountSignUpdatePacket.class)
-                .setStack(itemTypeInv.getIDStackInSlot(0))
-                .setInteger2(amount)
-                .setInteger(dir.ordinal())
-                .setTilePos(pipe.container);
+        return PacketHandler.getPacket(ItemAmountSignUpdatePacket.class).setStack(itemTypeInv.getIDStackInSlot(0))
+                .setInteger2(amount).setInteger(dir.ordinal()).setTilePos(pipe.container);
     }
 
     @Override
@@ -106,14 +105,13 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
         }
         int newAmount = 0;
         if (itemTypeInv.getIDStackInSlot(0) != null) {
-            Map<ItemIdentifier, Integer> availableItems = SimpleServiceLocator.logisticsManager.getAvailableItems(
-                    pipe.getRouter().getIRoutersByCost());
+            Map<ItemIdentifier, Integer> availableItems = SimpleServiceLocator.logisticsManager
+                    .getAvailableItems(pipe.getRouter().getIRoutersByCost());
             if (availableItems != null) {
                 BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
                 spread(availableItems, set);
                 if (availableItems.containsKey(itemTypeInv.getIDStackInSlot(0).getItem())) {
-                    newAmount =
-                            availableItems.get(itemTypeInv.getIDStackInSlot(0).getItem());
+                    newAmount = availableItems.get(itemTypeInv.getIDStackInSlot(0).getItem());
                 }
             }
         }
@@ -123,9 +121,9 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
         }
     }
 
-    private void spread(
-            Map<ItemIdentifier, Integer> availableItems,
-            BitSet set) { // Improve performance by updating a wall of Amount pipe signs all at once
+    private void spread(Map<ItemIdentifier, Integer> availableItems, BitSet set) { // Improve performance by updating a
+                                                                                   // wall of Amount pipe signs all at
+                                                                                   // once
         IRouter router = pipe.getRouter();
         if (set.get(router.getSimpleID())) return;
         set.set(router.getSimpleID());
@@ -196,8 +194,7 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
                 } catch (Exception e) {
                     try {
                         name = item.getUnlocalizedName();
-                    } catch (Exception ignored) {
-                    }
+                    } catch (Exception ignored) {}
                 }
 
                 var17.drawString(
@@ -249,7 +246,10 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
     private void sendUpdatePacket() {
         if (MainProxy.isServer(pipe.getWorld())) {
             MainProxy.sendPacketToAllWatchingChunk(
-                    pipe.getX(), pipe.getZ(), MainProxy.getDimensionForWorld(pipe.getWorld()), getPacket());
+                    pipe.getX(),
+                    pipe.getZ(),
+                    MainProxy.getDimensionForWorld(pipe.getWorld()),
+                    getPacket());
         }
     }
 }

@@ -8,6 +8,7 @@ import logisticspipes.network.abstractguis.ModuleInHandGuiProvider;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.DummyModuleContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ApiaristSinkModuleInHand extends ModuleInHandGuiProvider {

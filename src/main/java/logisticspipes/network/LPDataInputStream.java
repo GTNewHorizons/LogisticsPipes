@@ -1,8 +1,5 @@
 package logisticspipes.network;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufInputStream;
-import io.netty.buffer.Unpooled;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -10,6 +7,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.EnumSet;
 import java.util.List;
+
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.request.resources.IResource;
@@ -24,6 +22,7 @@ import logisticspipes.routing.order.LinkedLogisticsOrderList;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;
@@ -31,6 +30,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufInputStream;
+import io.netty.buffer.Unpooled;
 
 public class LPDataInputStream extends DataInputStream {
 
@@ -61,7 +64,13 @@ public class LPDataInputStream extends DataInputStream {
         int blockDistance = readInt();
         List<LPPosition> positions = this.readList(LPDataInputStream::readLPPosition);
         ExitRoute e = new ExitRoute(
-                root, destination, exitOri, insertOri, destinationDistanceToRoot, connectionDetails, blockDistance);
+                root,
+                destination,
+                exitOri,
+                insertOri,
+                destinationDistanceToRoot,
+                connectionDetails,
+                blockDistance);
         e.distanceToDestination = distanceToDestination;
         e.debug.filterPosition = positions;
         e.debug.toStringNetwork = this.readUTF();
@@ -187,7 +196,15 @@ public class LPDataInputStream extends DataInputStream {
             ident = readItemIdentifier();
         }
         return new ClientSideOrderInfo(
-                stack, isFinished, type, inProgress, routerId, list, machineProgress, pos, ident);
+                stack,
+                isFinished,
+                type,
+                inProgress,
+                routerId,
+                list,
+                machineProgress,
+                pos,
+                ident);
     }
 
     public <T extends Enum<T>> T readEnum(Class<T> clazz) throws IOException {

@@ -1,12 +1,15 @@
 package logisticspipes.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import logisticspipes.interfaces.IItemAdvancedExistance;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LogisticsBrokenItem extends LogisticsItem implements IItemAdvancedExistance {
 
@@ -22,7 +25,7 @@ public class LogisticsBrokenItem extends LogisticsItem implements IItemAdvancedE
         return false;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

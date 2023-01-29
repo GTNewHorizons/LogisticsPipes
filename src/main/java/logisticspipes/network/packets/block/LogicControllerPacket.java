@@ -5,6 +5,7 @@ import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.guis.logic.LogicControllerGuiProvider;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -20,9 +21,7 @@ public class LogicControllerPacket extends CoordinatesPacket {
         if (tile == null) {
             return;
         }
-        NewGuiHandler.getGui(LogicControllerGuiProvider.class)
-                .setTilePos((TileEntity) tile)
-                .open(player);
+        NewGuiHandler.getGui(LogicControllerGuiProvider.class).setTilePos((TileEntity) tile).open(player);
     }
 
     @Override

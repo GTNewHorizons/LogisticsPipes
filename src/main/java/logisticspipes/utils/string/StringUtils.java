@@ -1,17 +1,20 @@
 package logisticspipes.utils.string;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.UnmodifiableListIterator;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+
 import org.lwjgl.input.Keyboard;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.UnmodifiableListIterator;
 
 public final class StringUtils {
 
@@ -37,8 +40,7 @@ public final class StringUtils {
                     List<ChatColor> colors = new ArrayList<>(values.length);
                     colors.addAll(Arrays.asList(values));
                     int i = 0;
-                    outer:
-                    while (iter.hasNext() && !colors.isEmpty()) {
+                    outer: while (iter.hasNext() && !colors.isEmpty()) {
                         Character c3 = iter.next();
                         handled.append(c3);
                         Iterator<ChatColor> colorIter = colors.iterator();

@@ -5,6 +5,7 @@ import logisticspipes.modules.abstractmodules.LogisticsSimpleFilterModule;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.abstractguis.ModuleCoordinatesGuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class SimpleFilterInventorySlot extends ModuleCoordinatesGuiProvider {
@@ -15,8 +16,8 @@ public class SimpleFilterInventorySlot extends ModuleCoordinatesGuiProvider {
 
     @Override
     public Object getClientGui(EntityPlayer player) {
-        LogisticsSimpleFilterModule module =
-                this.getLogisticsModule(player.getEntityWorld(), LogisticsSimpleFilterModule.class);
+        LogisticsSimpleFilterModule module = this
+                .getLogisticsModule(player.getEntityWorld(), LogisticsSimpleFilterModule.class);
         if (module == null) {
             return null;
         }
@@ -25,8 +26,8 @@ public class SimpleFilterInventorySlot extends ModuleCoordinatesGuiProvider {
 
     @Override
     public DummyContainer getContainer(EntityPlayer player) {
-        LogisticsSimpleFilterModule module =
-                this.getLogisticsModule(player.getEntityWorld(), LogisticsSimpleFilterModule.class);
+        LogisticsSimpleFilterModule module = this
+                .getLogisticsModule(player.getEntityWorld(), LogisticsSimpleFilterModule.class);
         if (module == null) {
             return null;
         }

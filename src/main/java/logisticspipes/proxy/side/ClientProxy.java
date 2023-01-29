@@ -1,12 +1,8 @@
 package logisticspipes.proxy.side;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.util.ArrayList;
 import java.util.List;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
@@ -55,6 +51,7 @@ import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiScreen;
@@ -71,6 +68,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.DimensionManager;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ClientProxy implements IProxy {
 
@@ -89,7 +92,8 @@ public class ClientProxy implements IProxy {
     @Override
     public void registerTileEntities() {
         GameRegistry.registerTileEntity(
-                LogisticsSolderingTileEntity.class, "logisticspipes.blocks.LogisticsSolderingTileEntity");
+                LogisticsSolderingTileEntity.class,
+                "logisticspipes.blocks.LogisticsSolderingTileEntity");
         GameRegistry.registerTileEntity(
                 LogisticsPowerJunctionTileEntity.class,
                 "logisticspipes.blocks.powertile.LogisticsPowerJuntionTileEntity");
@@ -100,13 +104,15 @@ public class ClientProxy implements IProxy {
                 LogisticsIC2PowerProviderTileEntity.class,
                 "logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity");
         GameRegistry.registerTileEntity(
-                LogisticsSecurityTileEntity.class, "logisticspipes.blocks.LogisticsSecurityTileEntity");
+                LogisticsSecurityTileEntity.class,
+                "logisticspipes.blocks.LogisticsSecurityTileEntity");
         GameRegistry.registerTileEntity(
                 LogisticsCraftingTableTileEntity.class,
                 "logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity");
         GameRegistry.registerTileEntity(LogisticsTileGenericPipe.class, LogisticsPipes.logisticsTileGenericPipeMapping);
         GameRegistry.registerTileEntity(
-                LogisticsStatisticsTileEntity.class, "logisticspipes.blocks.stats.LogisticsStatisticsTileEntity");
+                LogisticsStatisticsTileEntity.class,
+                "logisticspipes.blocks.stats.LogisticsStatisticsTileEntity");
 
         LPConstants.pipeModel = RenderingRegistry.getNextAvailableRenderId();
         LPConstants.solidBlockModel = RenderingRegistry.getNextAvailableRenderId();
@@ -137,8 +143,8 @@ public class ClientProxy implements IProxy {
         PipeFXRenderHandler.registerParticleHandler(Particles.GoldParticle, new EntityGoldSparkleFXProvider());
         PipeFXRenderHandler.registerParticleHandler(Particles.VioletParticle, new EntityVioletSparkleFXProvider());
         PipeFXRenderHandler.registerParticleHandler(Particles.OrangeParticle, new EntityOrangeSparkleFXProvider());
-        PipeFXRenderHandler.registerParticleHandler(
-                Particles.LightGreenParticle, new EntityLightGreenSparkleFXProvider());
+        PipeFXRenderHandler
+                .registerParticleHandler(Particles.LightGreenParticle, new EntityLightGreenSparkleFXProvider());
         PipeFXRenderHandler.registerParticleHandler(Particles.LightRedParticle, new EntityLightRedSparkleFXProvider());
     }
 
@@ -199,22 +205,23 @@ public class ClientProxy implements IProxy {
     // BuildCraft method end
 
     @Override
-    public void addLogisticsPipesOverride(
-            IIconRegister par1IIconRegister, int index, String override1, String override2, boolean flag) {
+    public void addLogisticsPipesOverride(IIconRegister par1IIconRegister, int index, String override1,
+            String override2, boolean flag) {
         if (par1IIconRegister != null) {
             if ("NewPipeTexture".equals(override2) && !override1.contains("status_overlay")) {
                 Textures.LPnewPipeIconProvider.setIcon(
                         index,
-                        par1IIconRegister.registerIcon(
-                                "logisticspipes:" + override1.replace("pipes/", "pipes/new_texture/")));
+                        par1IIconRegister
+                                .registerIcon("logisticspipes:" + override1.replace("pipes/", "pipes/new_texture/")));
             } else if (flag) {
-                Textures.LPpipeIconProvider.setIcon(
-                        index, par1IIconRegister.registerIcon("logisticspipes:" + override1));
+                Textures.LPpipeIconProvider
+                        .setIcon(index, par1IIconRegister.registerIcon("logisticspipes:" + override1));
             } else {
                 Textures.LPpipeIconProvider.setIcon(
                         index,
                         par1IIconRegister.registerIcon(
-                                "logisticspipes:" + override1.replace("pipes/", "pipes/overlay_gen/") + "/"
+                                "logisticspipes:" + override1.replace("pipes/", "pipes/overlay_gen/")
+                                        + "/"
                                         + override2.replace("pipes/status_overlay/", "")));
             }
         }
@@ -288,10 +295,9 @@ public class ClientProxy implements IProxy {
             }
             SelectItemOutOfList subGui = new SelectItemOutOfList(
                     list,
-                    slot -> MainProxy.sendPacketToServer(PacketHandler.getPacket(DummyContainerSlotClick.class)
-                            .setSlotId(slotId)
-                            .setStack(list.get(slot).makeNormalStack())
-                            .setButton(0)));
+                    slot -> MainProxy.sendPacketToServer(
+                            PacketHandler.getPacket(DummyContainerSlotClick.class).setSlotId(slotId)
+                                    .setStack(list.get(slot).makeNormalStack()).setButton(0)));
             LogisticsBaseGuiScreen gui = (LogisticsBaseGuiScreen) Minecraft.getMinecraft().currentScreen;
             if (!gui.hasSubGui()) {
                 gui.setSubGui(subGui);
@@ -321,8 +327,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void storeSendMessages(List<String> sendChatMessages) {
         sendChatMessages.clear();
-        sendChatMessages.addAll(
-                FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getSentMessages());
+        sendChatMessages.addAll(FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().getSentMessages());
     }
 
     @Override
@@ -366,61 +371,62 @@ public class ClientProxy implements IProxy {
     @Override
     public void processComponentListPacket(ComponentList packet, EntityPlayer player) {
         if (Configs.DISPLAY_POPUP && FMLClientHandler.instance().getClient().currentScreen instanceof GuiOrderer) {
-            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen)
-                    .handleSimulateAnswer(
-                            packet.getUsed(),
-                            packet.getMissing(),
-                            (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
-                            player);
+            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen).handleSimulateAnswer(
+                    packet.getUsed(),
+                    packet.getMissing(),
+                    (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
+                    player);
         } else if (Configs.DISPLAY_POPUP
                 && FMLClientHandler.instance().getClient().currentScreen instanceof GuiRequestTable) {
-            ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen)
-                    .handleSimulateAnswer(
+                    ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen).handleSimulateAnswer(
                             packet.getUsed(),
                             packet.getMissing(),
                             (GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen,
                             player);
-        } else {
-            for (IResource item : packet.getUsed()) {
-                player.addChatComponentMessage(
-                        new ChatComponentText("Component: " + item.getDisplayText(IResource.ColorCode.SUCCESS)));
-            }
-            for (IResource item : packet.getMissing()) {
-                player.addChatComponentMessage(
-                        new ChatComponentText("Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
-            }
-        }
+                } else {
+                    for (IResource item : packet.getUsed()) {
+                        player.addChatComponentMessage(
+                                new ChatComponentText(
+                                        "Component: " + item.getDisplayText(IResource.ColorCode.SUCCESS)));
+                    }
+                    for (IResource item : packet.getMissing()) {
+                        player.addChatComponentMessage(
+                                new ChatComponentText("Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
+                    }
+                }
     }
 
     @Override
     public void processMissingItemsPacket(MissingItems packet, EntityPlayer player) {
         if (Configs.DISPLAY_POPUP && FMLClientHandler.instance().getClient().currentScreen instanceof GuiOrderer) {
-            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen)
-                    .handleRequestAnswer(
-                            packet.getItems(),
-                            packet.isFlag(),
-                            (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
-                            player);
+            ((GuiOrderer) FMLClientHandler.instance().getClient().currentScreen).handleRequestAnswer(
+                    packet.getItems(),
+                    packet.isFlag(),
+                    (GuiOrderer) FMLClientHandler.instance().getClient().currentScreen,
+                    player);
         } else if (Configs.DISPLAY_POPUP
                 && FMLClientHandler.instance().getClient().currentScreen instanceof GuiRequestTable) {
-            ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen)
-                    .handleRequestAnswer(
+                    ((GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen).handleRequestAnswer(
                             packet.getItems(),
                             packet.isFlag(),
                             (GuiRequestTable) FMLClientHandler.instance().getClient().currentScreen,
                             player);
-        } else if (packet.isFlag()) {
-            for (IResource item : packet.getItems()) {
-                player.addChatComponentMessage(new ChatComponentText(
-                        ChatColor.RED + "Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
+                } else
+            if (packet.isFlag()) {
+                for (IResource item : packet.getItems()) {
+                    player.addChatComponentMessage(
+                            new ChatComponentText(
+                                    ChatColor.RED + "Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
+                }
+            } else {
+                for (IResource item : packet.getItems()) {
+                    player.addChatComponentMessage(
+                            new ChatComponentText(
+                                    ChatColor.GREEN + "Requested: "
+                                            + item.getDisplayText(IResource.ColorCode.SUCCESS)));
+                }
+                player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN + "Request successful!"));
             }
-        } else {
-            for (IResource item : packet.getItems()) {
-                player.addChatComponentMessage(new ChatComponentText(
-                        ChatColor.GREEN + "Requested: " + item.getDisplayText(IResource.ColorCode.SUCCESS)));
-            }
-            player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN + "Request successful!"));
-        }
     }
 
     @Override

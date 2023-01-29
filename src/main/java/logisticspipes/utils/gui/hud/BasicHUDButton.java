@@ -1,13 +1,16 @@
 package logisticspipes.utils.gui.hud;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.interfaces.IHUDButton;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public abstract class BasicHUDButton implements IHUDButton {
 
@@ -85,11 +88,11 @@ public abstract class BasicHUDButton implements IHUDButton {
         int k = !buttonEnabled() ? 0 : hover ? 2 : 1;
 
         SimpleGraphics.drawTexturedModalRect(posX, posY, 0, 46 + k * 20, sizeX / 2, sizeY / 2, 0.0);
-        SimpleGraphics.drawTexturedModalRect(
-                posX + sizeX / 2, posY, 200 - sizeX / 2, 46 + k * 20, sizeX / 2, sizeY / 2, 0.0);
+        SimpleGraphics
+                .drawTexturedModalRect(posX + sizeX / 2, posY, 200 - sizeX / 2, 46 + k * 20, sizeX / 2, sizeY / 2, 0.0);
 
-        SimpleGraphics.drawTexturedModalRect(
-                posX, posY + sizeY / 2, 0, 46 + 24 - sizeY + k * 20, sizeX / 2, sizeY / 2, 0.0);
+        SimpleGraphics
+                .drawTexturedModalRect(posX, posY + sizeY / 2, 0, 46 + 24 - sizeY + k * 20, sizeX / 2, sizeY / 2, 0.0);
         SimpleGraphics.drawTexturedModalRect(
                 posX + sizeX / 2,
                 posY + sizeY / 2,

@@ -1,14 +1,15 @@
 package logisticspipes.ticks;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
+
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.utils.tuples.Pair;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 
 public class QueuedTasks {
 
@@ -27,7 +28,7 @@ public class QueuedTasks {
         }
     }
 
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     @SubscribeEvent
     public void tickEnd(ServerTickEvent event) {
         if (event.phase != Phase.END) {

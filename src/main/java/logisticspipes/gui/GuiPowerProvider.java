@@ -4,8 +4,10 @@ import logisticspipes.blocks.powertile.LogisticsPowerProviderTileEntity;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 
 public class GuiPowerProvider extends LogisticsBaseGuiScreen {
@@ -22,8 +24,9 @@ public class GuiPowerProvider extends LogisticsBaseGuiScreen {
         this.junction = junction;
     }
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("logisticspipes", "textures/gui/power_junction.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/power_junction.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {

@@ -1,8 +1,8 @@
 package logisticspipes.proxy.buildcraft.gates;
 
+import logisticspipes.textures.provider.LPActionTriggerIconProvider;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
-import logisticspipes.textures.provider.LPActionTriggerIconProvider;
 
 public class ActionRobotRoutingLogistics extends LPAction {
 
@@ -21,6 +21,6 @@ public class ActionRobotRoutingLogistics extends LPAction {
     }
 
     @Override
-    public void actionActivate(
-            IStatementContainer paramIStatementContainer, IStatementParameter[] paramArrayOfIStatementParameter) {}
+    public void actionActivate(IStatementContainer paramIStatementContainer,
+            IStatementParameter[] paramArrayOfIStatementParameter) {}
 }

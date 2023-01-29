@@ -1,10 +1,8 @@
 package logisticspipes.pipes.basic;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.*;
 import java.util.concurrent.Callable;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
@@ -21,6 +19,7 @@ import logisticspipes.textures.Textures;
 import logisticspipes.ticks.QueuedTasks;
 import logisticspipes.utils.MatrixTranformations;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -43,6 +42,10 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LogisticsBlockGenericPipe extends BlockContainer {
 
@@ -80,7 +83,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({ "all" })
     public IIcon getIcon(IBlockAccess iblockaccess, int i, int j, int k, int l) {
         TileEntity tile = iblockaccess.getTileEntity(i, j, k);
         if (!(tile instanceof LogisticsTileGenericPipe)) {
@@ -97,8 +100,8 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     @Override
-    public void addCollisionBoxesToList(
-            World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist, Entity par7Entity) {
+    public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist,
+            Entity par7Entity) {
         TileEntity tile = world.getTileEntity(i, j, k);
         if (tile instanceof LogisticsTileGenericPipe
                 && ((LogisticsTileGenericPipe) tile).pipe instanceof PipeBlockRequestTable) {
@@ -225,7 +228,12 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         if (tile instanceof LogisticsTileGenericPipe
                 && ((LogisticsTileGenericPipe) tile).pipe instanceof PipeBlockRequestTable) {
             return AxisAlignedBB.getBoundingBox(
-                    (double) x + 0, (double) y + 0, (double) z + 0, (double) x + 1, (double) y + 1, (double) z + 1);
+                    (double) x + 0,
+                    (double) y + 0,
+                    (double) z + 0,
+                    (double) x + 1,
+                    (double) y + 1,
+                    (double) z + 1);
         }
         RaytraceResult rayTraceResult = doRayTrace(world, x, y, z, Minecraft.getMinecraft().thePlayer);
 
@@ -337,12 +345,14 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
             reachDistance = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
 
-        double eyeHeight =
-                world.isRemote ? player.getEyeHeight() - player.getDefaultEyeHeight() : player.getEyeHeight();
+        double eyeHeight = world.isRemote ? player.getEyeHeight() - player.getDefaultEyeHeight()
+                : player.getEyeHeight();
         Vec3 lookVec = player.getLookVec();
         Vec3 origin = Vec3.createVectorHelper(player.posX, player.posY + eyeHeight, player.posZ);
         Vec3 direction = origin.addVector(
-                lookVec.xCoord * reachDistance, lookVec.yCoord * reachDistance, lookVec.zCoord * reachDistance);
+                lookVec.xCoord * reachDistance,
+                lookVec.yCoord * reachDistance,
+                lookVec.zCoord * reachDistance);
 
         return doRayTrace(world, x, y, z, origin, direction);
     }
@@ -366,9 +376,8 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         }
 
         /*
-         pipe hits along x, y, and z axis, gate (all 6 sides) [and
-         wires+facades]
-        */
+         * pipe hits along x, y, and z axis, gate (all 6 sides) [and wires+facades]
+         */
         MovingObjectPosition[] hits = new MovingObjectPosition[31];
         AxisAlignedBB[] boxes = new AxisAlignedBB[31];
         ForgeDirection[] sideHit = new ForgeDirection[31];
@@ -440,7 +449,12 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
 
     private void setBlockBounds(AxisAlignedBB bb) {
         setBlockBounds(
-                (float) bb.minX, (float) bb.minY, (float) bb.minZ, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ);
+                (float) bb.minX,
+                (float) bb.minY,
+                (float) bb.minZ,
+                (float) bb.maxX,
+                (float) bb.maxY,
+                (float) bb.maxZ);
     }
 
     private AxisAlignedBB getPipeBoundingBox(ForgeDirection side) {
@@ -463,29 +477,26 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         bounds[2][1] = max;
 
         MatrixTranformations.transform(bounds, side);
-        return AxisAlignedBB.getBoundingBox(
-                bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
+        return AxisAlignedBB
+                .getBoundingBox(bounds[0][0], bounds[1][0], bounds[2][0], bounds[0][1], bounds[1][1], bounds[2][1]);
     }
 
     private boolean isVecInsideYZBounds(Vec3 par1Vec3) {
-        return par1Vec3 != null
-                && par1Vec3.yCoord >= minY
+        return par1Vec3 != null && par1Vec3.yCoord >= minY
                 && par1Vec3.yCoord <= maxY
                 && par1Vec3.zCoord >= minZ
                 && par1Vec3.zCoord <= maxZ;
     }
 
     private boolean isVecInsideXZBounds(Vec3 par1Vec3) {
-        return par1Vec3 != null
-                && par1Vec3.xCoord >= minX
+        return par1Vec3 != null && par1Vec3.xCoord >= minX
                 && par1Vec3.xCoord <= maxX
                 && par1Vec3.zCoord >= minZ
                 && par1Vec3.zCoord <= maxZ;
     }
 
     private boolean isVecInsideXYBounds(Vec3 par1Vec3) {
-        return par1Vec3 != null
-                && par1Vec3.xCoord >= minX
+        return par1Vec3 != null && par1Vec3.xCoord >= minX
                 && par1Vec3.xCoord <= maxX
                 && par1Vec3.yCoord >= minY
                 && par1Vec3.yCoord <= maxY;
@@ -525,10 +536,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         public final AxisAlignedBB boundingBox;
         public final ForgeDirection sideHit;
 
-        RaytraceResult(
-                Part hitPart,
-                MovingObjectPosition movingObjectPosition,
-                AxisAlignedBB boundingBox,
+        RaytraceResult(Part hitPart, MovingObjectPosition movingObjectPosition, AxisAlignedBB boundingBox,
                 ForgeDirection side) {
             this.hitPart = hitPart;
             this.movingObjectPosition = movingObjectPosition;
@@ -540,7 +548,8 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         public String toString() {
             return String.format(
                     "RayTraceResult: %s, %s",
-                    hitPart == null ? "null" : hitPart.name(), boundingBox == null ? "null" : boundingBox.toString());
+                    hitPart == null ? "null" : hitPart.name(),
+                    boundingBox == null ? "null" : boundingBox.toString());
         }
     }
 
@@ -777,16 +786,8 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int side,
-            float xOffset,
-            float yOffset,
-            float zOffset) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float xOffset,
+            float yOffset, float zOffset) {
         super.onBlockActivated(world, x, y, z, player, side, xOffset, yOffset, zOffset);
 
         world.notifyBlocksOfNeighborChange(x, y, z, LogisticsPipes.LogisticsPipeBlock);
@@ -809,8 +810,8 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
                 return pipe.blockActivated(player);
             }
             if (pipe.canHoldBCParts()) {
-                IBCClickResult result = SimpleServiceLocator.buildCraftProxy.handleBCClickOnPipe(
-                        world, x, y, z, player, side, xOffset, yOffset, zOffset, pipe);
+                IBCClickResult result = SimpleServiceLocator.buildCraftProxy
+                        .handleBCClickOnPipe(world, x, y, z, player, side, xOffset, yOffset, zOffset, pipe);
                 if (result.handled()) {
                     return true;
                 }
@@ -974,10 +975,9 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     /**
-     * Spawn a digging particle effect in the world, this is a wrapper around
-     * EffectRenderer.addBlockHitEffects to allow the block more control over
-     * the particles. Useful when you have entirely different texture sheets for
-     * different sides/locations in the world.
+     * Spawn a digging particle effect in the world, this is a wrapper around EffectRenderer.addBlockHitEffects to allow
+     * the block more control over the particles. Useful when you have entirely different texture sheets for different
+     * sides/locations in the world.
      *
      * @param worldObj       The current world
      * @param target         The target the player is looking at {x/y/z/side/sub}
@@ -1002,16 +1002,13 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
 
         Block block = LogisticsPipes.LogisticsPipeBlock;
         float b = 0.1F;
-        double px = x
-                + rand.nextDouble() * (block.getBlockBoundsMaxX() - block.getBlockBoundsMinX() - (b * 2.0F))
+        double px = x + rand.nextDouble() * (block.getBlockBoundsMaxX() - block.getBlockBoundsMinX() - (b * 2.0F))
                 + b
                 + block.getBlockBoundsMinX();
-        double py = y
-                + rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (b * 2.0F))
+        double py = y + rand.nextDouble() * (block.getBlockBoundsMaxY() - block.getBlockBoundsMinY() - (b * 2.0F))
                 + b
                 + block.getBlockBoundsMinY();
-        double pz = z
-                + rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (b * 2.0F))
+        double pz = z + rand.nextDouble() * (block.getBlockBoundsMaxZ() - block.getBlockBoundsMinZ() - (b * 2.0F))
                 + b
                 + block.getBlockBoundsMinZ();
 
@@ -1040,18 +1037,26 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         }
 
         EntityDiggingFX fx = new EntityDiggingFX(
-                worldObj, px, py, pz, 0.0D, 0.0D, 0.0D, block, sideHit, worldObj.getBlockMetadata(x, y, z));
+                worldObj,
+                px,
+                py,
+                pz,
+                0.0D,
+                0.0D,
+                0.0D,
+                block,
+                sideHit,
+                worldObj.getBlockMetadata(x, y, z));
         fx.setParticleIcon(icon);
-        effectRenderer.addEffect(
-                fx.applyColourMultiplier(x, y, z).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
+        effectRenderer
+                .addEffect(fx.applyColourMultiplier(x, y, z).multiplyVelocity(0.2F).multipleParticleScaleBy(0.6F));
         return true;
     }
 
     /**
-     * Spawn particles for when the block is destroyed. Due to the nature of how
-     * this is invoked, the x/y/z locations are not always guaranteed to host
-     * your block. So be sure to do proper sanity checks before assuming that
-     * the location is this block.
+     * Spawn particles for when the block is destroyed. Due to the nature of how this is invoked, the x/y/z locations
+     * are not always guaranteed to host your block. So be sure to do proper sanity checks before assuming that the
+     * location is this block.
      *
      * @param worldObj       The current world
      * @param x              X position to spawn the particle

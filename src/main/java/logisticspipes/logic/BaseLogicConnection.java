@@ -24,8 +24,8 @@ public abstract class BaseLogicConnection {
     @Setter
     private boolean isInvalidConnection;
 
-    public BaseLogicConnection(
-            BaseLogicTask source, int sourceIndex, BaseLogicTask target, int targetIndex, LogicParameterType type) {
+    public BaseLogicConnection(BaseLogicTask source, int sourceIndex, BaseLogicTask target, int targetIndex,
+            LogicParameterType type) {
         this.source = source;
         this.sourceIndex = sourceIndex;
         this.target = target;

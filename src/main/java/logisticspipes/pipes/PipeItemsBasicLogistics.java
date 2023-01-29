@@ -1,13 +1,13 @@
 /*
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the
+ * contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.pipes;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.interfaces.IInventoryUtil;
@@ -23,6 +23,7 @@ import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.InventoryHelper;
 import logisticspipes.utils.OrientationsUtil;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -33,25 +34,22 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
     private final ModuleItemSink itemSinkModule;
 
     public PipeItemsBasicLogistics(Item item) {
-        super(
-                new PipeTransportLogistics(true) {
+        super(new PipeTransportLogistics(true) {
 
-                    @Override
-                    public boolean canPipeConnect(TileEntity tile, ForgeDirection dir) {
-                        if (super.canPipeConnect(tile, dir)) {
-                            return true;
-                        }
-                        if (tile instanceof LogisticsSecurityTileEntity) {
-                            ForgeDirection ori = OrientationsUtil.getOrientationOfTilewithTile(container, tile);
-                            return ori != null
-                                    && ori != ForgeDirection.UNKNOWN
-                                    && ori != ForgeDirection.DOWN
-                                    && ori != ForgeDirection.UP;
-                        }
-                        return false;
-                    }
-                },
-                item);
+            @Override
+            public boolean canPipeConnect(TileEntity tile, ForgeDirection dir) {
+                if (super.canPipeConnect(tile, dir)) {
+                    return true;
+                }
+                if (tile instanceof LogisticsSecurityTileEntity) {
+                    ForgeDirection ori = OrientationsUtil.getOrientationOfTilewithTile(container, tile);
+                    return ori != null && ori != ForgeDirection.UNKNOWN
+                            && ori != ForgeDirection.DOWN
+                            && ori != ForgeDirection.UP;
+                }
+                return false;
+            }
+        }, item);
         itemSinkModule = new ModuleItemSink();
         itemSinkModule.registerHandler(this, this);
     }
@@ -118,8 +116,8 @@ public class PipeItemsBasicLogistics extends CoreRoutedPipe {
                 if (connected.tile instanceof IInventory) {
                     IInventory iinv = InventoryHelper.getInventory((IInventory) connected.tile);
                     if (iinv != null) {
-                        inv = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(
-                                iinv, connected.orientation.getOpposite());
+                        inv = SimpleServiceLocator.inventoryUtilFactory
+                                .getInventoryUtil(iinv, connected.orientation.getOpposite());
                         break;
                     }
                 }

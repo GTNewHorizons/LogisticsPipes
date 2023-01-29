@@ -1,6 +1,7 @@
 package logisticspipes.utils.gui;
 
 import logisticspipes.interfaces.ISlotCheck;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -28,8 +29,8 @@ public class StaticRestrictedSlot extends RestrictedSlot {
     }
 
     /**
-     * Returns the maximum stack size for a given slot (usually the same as
-     * getInventoryStackLimit(), but 1 in the case of armor slots)
+     * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the case
+     * of armor slots)
      */
     @Override
     public int getSlotStackLimit() {

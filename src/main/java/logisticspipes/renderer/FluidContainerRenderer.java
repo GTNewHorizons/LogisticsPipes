@@ -1,13 +1,11 @@
 package logisticspipes.renderer;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.items.LogisticsFluidContainer;
 import logisticspipes.items.LogisticsItemCard;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.MinecraftColor;
 import logisticspipes.utils.item.ItemIdentifierStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
@@ -20,8 +18,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class FluidContainerRenderer implements IItemRenderer {
@@ -67,8 +70,8 @@ public class FluidContainerRenderer implements IItemRenderer {
         GL11.glPushMatrix();
         Minecraft mc = FMLClientHandler.instance().getClient();
         if (item.getItem() instanceof LogisticsFluidContainer) {
-            FluidStack liquid = SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(
-                    ItemIdentifierStack.getFromStack(item));
+            FluidStack liquid = SimpleServiceLocator.logisticsFluidManager
+                    .getFluidFromContainer(ItemIdentifierStack.getFromStack(item));
             if ((type != ItemRenderType.INVENTORY && type != ItemRenderType.ENTITY) || liquid == null) {
                 doRenderItem(item, mc, type, data);
                 GL11.glPopMatrix();
@@ -124,8 +127,7 @@ public class FluidContainerRenderer implements IItemRenderer {
             GL11.glTranslated(-8, -4, -0.02);
         }
         GL11.glDisable(GL11.GL_LIGHTING);
-        ResourceLocation resourcelocation =
-                mc.renderEngine.getResourceLocation(liquid.getFluid().getSpriteNumber());
+        ResourceLocation resourcelocation = mc.renderEngine.getResourceLocation(liquid.getFluid().getSpriteNumber());
         mc.renderEngine.bindTexture(resourcelocation);
 
         int i1 = liquid.getFluid().getColor();
@@ -143,8 +145,7 @@ public class FluidContainerRenderer implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glRotatef(
                         ((((EntityItem) data[1]).age) / 20.0F + ((EntityItem) data[1]).hoverStart)
-                                        * (180F / (float) Math.PI)
-                                + 180,
+                                * (180F / (float) Math.PI) + 180,
                         0.0F,
                         1.0F,
                         0.0F);
@@ -162,7 +163,11 @@ public class FluidContainerRenderer implements IItemRenderer {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(
-                x, y + height, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y + height));
+                x,
+                y + height,
+                zLevel,
+                par3Icon.getInterpolatedU(x),
+                par3Icon.getInterpolatedV(y + height));
         tessellator.addVertexWithUV(
                 x + width,
                 y + height,
@@ -170,7 +175,11 @@ public class FluidContainerRenderer implements IItemRenderer {
                 par3Icon.getInterpolatedU(x + width),
                 par3Icon.getInterpolatedV(y + height));
         tessellator.addVertexWithUV(
-                x + width, y, zLevel, par3Icon.getInterpolatedU(x + width), par3Icon.getInterpolatedV(y));
+                x + width,
+                y,
+                zLevel,
+                par3Icon.getInterpolatedU(x + width),
+                par3Icon.getInterpolatedV(y));
         tessellator.addVertexWithUV(x, y, zLevel, par3Icon.getInterpolatedU(x), par3Icon.getInterpolatedV(y));
         tessellator.draw();
     }

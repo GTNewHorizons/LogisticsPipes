@@ -6,6 +6,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.PipeLogisticsChassi;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class RequestChassiOrientationPacket extends CoordinatesPacket {
@@ -22,10 +23,8 @@ public class RequestChassiOrientationPacket extends CoordinatesPacket {
         }
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ChassiOrientationPacket.class)
-                        .setDir(((PipeLogisticsChassi) pipe.pipe).getPointedOrientation())
-                        .setPosX(getPosX())
-                        .setPosY(getPosY())
-                        .setPosZ(getPosZ()),
+                        .setDir(((PipeLogisticsChassi) pipe.pipe).getPointedOrientation()).setPosX(getPosX())
+                        .setPosY(getPosY()).setPosZ(getPosZ()),
                 player);
     }
 

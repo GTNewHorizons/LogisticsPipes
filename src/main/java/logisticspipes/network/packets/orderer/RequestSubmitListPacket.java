@@ -6,6 +6,7 @@ import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.request.RequestHandler;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class RequestSubmitListPacket extends InventoryModuleCoordinatesPacket {

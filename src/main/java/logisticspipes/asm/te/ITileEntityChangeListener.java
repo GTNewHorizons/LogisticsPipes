@@ -1,6 +1,7 @@
 package logisticspipes.asm.te;
 
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 public interface ITileEntityChangeListener {

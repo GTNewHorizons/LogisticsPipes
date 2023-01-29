@@ -1,16 +1,15 @@
 /*
- Copyright (c) Krapht, 2011
-
- "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
- License 1.0, or MMPL. Please check the contents of the license located in
- http://www.mod-buildcraft.com/MMPL-1.0.txt
-*/
+ * Copyright (c) Krapht, 2011 "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public License 1.0,
+ * or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt
+ */
 package logisticspipes.utils;
 
 import java.util.LinkedList;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.proxy.specialinventoryhandler.SpecialInventoryHandler;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -22,11 +21,10 @@ public class InventoryUtilFactory {
     public void registerHandler(SpecialInventoryHandler invHandler) {
         if (invHandler.init()) {
             handler.addLast(invHandler);
-            LogisticsPipes.log.info(
-                    "Loaded SpecialInventoryHandler: " + invHandler.getClass().getCanonicalName());
+            LogisticsPipes.log.info("Loaded SpecialInventoryHandler: " + invHandler.getClass().getCanonicalName());
         } else {
-            LogisticsPipes.log.warn("Could not load SpecialInventoryHandler: "
-                    + invHandler.getClass().getCanonicalName());
+            LogisticsPipes.log
+                    .warn("Could not load SpecialInventoryHandler: " + invHandler.getClass().getCanonicalName());
         }
     }
 
@@ -41,8 +39,8 @@ public class InventoryUtilFactory {
         return null;
     }
 
-    public SpecialInventoryHandler getUtilForInv(
-            IInventory inv, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForInv(IInventory inv, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         TileEntity tile = getTileEntityFromInventory(inv);
         if (tile == null) {
             return null;
@@ -64,8 +62,8 @@ public class InventoryUtilFactory {
         return getHidingInventoryUtil(inv, dir, false, false, 0, 0);
     }
 
-    public IInventoryUtil getHidingInventoryUtil(
-            IInventory inv, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public IInventoryUtil getHidingInventoryUtil(IInventory inv, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         IInventoryUtil util = getUtilForInv(inv, dir, hideOnePerStack, hideOne, cropStart, cropEnd);
         if (util == null) {
             util = new InventoryUtil(InventoryHelper.getInventory(inv), hideOnePerStack, hideOne, cropStart, cropEnd);

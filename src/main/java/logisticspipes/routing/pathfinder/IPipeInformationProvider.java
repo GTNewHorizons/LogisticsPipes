@@ -1,11 +1,13 @@
 package logisticspipes.routing.pathfinder;
 
 import java.util.List;
+
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -54,14 +56,8 @@ public interface IPipeInformationProvider {
 
     boolean isPowerPipe();
 
-    double getDistanceTo(
-            int destinationint,
-            ForgeDirection ignore,
-            ItemIdentifier ident,
-            boolean isActive,
-            double travled,
-            double max,
-            List<LPPosition> visited);
+    double getDistanceTo(int destinationint, ForgeDirection ignore, ItemIdentifier ident, boolean isActive,
+            double travled, double max, List<LPPosition> visited);
 
     boolean acceptItem(LPTravelingItem item, TileEntity from);
 

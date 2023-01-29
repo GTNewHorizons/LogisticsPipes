@@ -6,6 +6,7 @@ import logisticspipes.nei.LoadingHelper;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ActivateNBTDebug extends ModernPacket {

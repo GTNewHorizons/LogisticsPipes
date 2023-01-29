@@ -8,6 +8,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 
@@ -51,26 +52,14 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
         if (par1GuiButton.id == 0) {
-            if (!_itemSink
-                    .getStringList()
-                    .contains(_itemSink.getStringForItem(
-                            tmpInv.getIDStackInSlot(0).getItem()))) {
-                _itemSink
-                        .getStringList()
-                        .add(_itemSink.getStringForItem(
-                                tmpInv.getIDStackInSlot(0).getItem()));
+            if (!_itemSink.getStringList().contains(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()))) {
+                _itemSink.getStringList().add(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()));
                 _itemSink.listChanged();
             }
         } else if (par1GuiButton.id == 1) {
-            if (tmpInv.getIDStackInSlot(0) != null
-                    && _itemSink
-                            .getStringList()
-                            .contains(_itemSink.getStringForItem(
-                                    tmpInv.getIDStackInSlot(0).getItem()))) {
-                _itemSink
-                        .getStringList()
-                        .remove(_itemSink.getStringForItem(
-                                tmpInv.getIDStackInSlot(0).getItem()));
+            if (tmpInv.getIDStackInSlot(0) != null && _itemSink.getStringList()
+                    .contains(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()))) {
+                _itemSink.getStringList().remove(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()));
                 _itemSink.listChanged();
             } else if (!name.equals("") && _itemSink.getStringList().contains(name)) {
                 _itemSink.getStringList().remove(name);
@@ -105,10 +94,7 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
                     guiLeft + 28,
                     guiTop + 7,
                     0x404040);
-            if (_itemSink
-                    .getStringList()
-                    .contains(_itemSink.getStringForItem(
-                            tmpInv.getIDStackInSlot(0).getItem()))) {
+            if (_itemSink.getStringList().contains(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()))) {
                 ((GuiButton) buttonList.get(0)).enabled = false;
                 ((GuiButton) buttonList.get(1)).enabled = true;
             } else if (_itemSink.getStringList().size() < 9) {

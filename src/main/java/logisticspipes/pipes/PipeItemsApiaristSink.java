@@ -6,6 +6,7 @@ import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
+
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 

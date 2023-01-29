@@ -9,8 +9,8 @@ import lombok.Getter;
 
 public class LogisticsItemOrder extends LogisticsOrder {
 
-    public LogisticsItemOrder(
-            DictResource item, IRequestItems destination, ResourceType type, IAdditionalTargetInformation info) {
+    public LogisticsItemOrder(DictResource item, IRequestItems destination, ResourceType type,
+            IAdditionalTargetInformation info) {
         super(type, info);
         if (item == null) {
             throw new NullPointerException();

@@ -3,6 +3,7 @@ package logisticspipes.network.packets;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class DummyPacket extends ModernPacket {

@@ -1,7 +1,9 @@
 package logisticspipes.utils.transactor;
 
 import java.util.Iterator;
+
 import logisticspipes.utils.InventoryHelper;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 

@@ -1,6 +1,7 @@
 package logisticspipes.items;
 
 import java.util.List;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.network.GuiIDs;
@@ -11,6 +12,7 @@ import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+
 import org.lwjgl.input.Keyboard;
 
 public class RemoteOrderer extends Item {
@@ -30,8 +33,8 @@ public class RemoteOrderer extends Item {
     @Override
     public void registerIcons(IIconRegister par1IIconRegister) {
         for (int i = 0; i < 17; i++) {
-            RemoteOrderer._icons[i] = par1IIconRegister.registerIcon(
-                    "logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
+            RemoteOrderer._icons[i] = par1IIconRegister
+                    .registerIcon("logisticspipes:" + getUnlocalizedName().replace("item.", "") + "/" + i);
         }
     }
 
@@ -48,7 +51,7 @@ public class RemoteOrderer extends Item {
         return RemoteOrderer._icons[par1];
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag) {
         // Add special tooltip in tribute to DireWolf
@@ -81,9 +84,10 @@ public class RemoteOrderer extends Item {
                 if (pipe.getWorld() != par3EntityPlayer.worldObj) {
                     energyUse += 2500;
                 }
-                energyUse += Math.sqrt(Math.pow(pipe.getX() - par3EntityPlayer.posX, 2)
-                        + Math.pow(pipe.getY() - par3EntityPlayer.posY, 2)
-                        + Math.pow(pipe.getZ() - par3EntityPlayer.posZ, 2));
+                energyUse += Math.sqrt(
+                        Math.pow(pipe.getX() - par3EntityPlayer.posX, 2)
+                                + Math.pow(pipe.getY() - par3EntityPlayer.posY, 2)
+                                + Math.pow(pipe.getZ() - par3EntityPlayer.posZ, 2));
                 if (pipe.useEnergy(energyUse)) {
                     MainProxy.sendPacketToPlayer(
                             PacketHandler.getPacket(RequestPipeDimension.class)
@@ -124,8 +128,7 @@ public class RemoteOrderer extends Item {
         if (!stack.hasTagCompound()) {
             return null;
         }
-        if (!stack.stackTagCompound.hasKey("connectedPipe-x")
-                || !stack.stackTagCompound.hasKey("connectedPipe-y")
+        if (!stack.stackTagCompound.hasKey("connectedPipe-x") || !stack.stackTagCompound.hasKey("connectedPipe-y")
                 || !stack.stackTagCompound.hasKey("connectedPipe-z")) {
             return null;
         }
@@ -156,7 +159,7 @@ public class RemoteOrderer extends Item {
         return CreativeTabs.tabTools;
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         for (int i = 0; i < 17; i++) {

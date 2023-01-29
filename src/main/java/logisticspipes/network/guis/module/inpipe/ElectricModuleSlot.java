@@ -5,6 +5,7 @@ import logisticspipes.modules.ModuleElectricManager;
 import logisticspipes.network.abstractguis.BooleanModuleCoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 public class ElectricModuleSlot extends BooleanModuleCoordinatesGuiProvider {

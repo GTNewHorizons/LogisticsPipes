@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.routing.order.LinkedLogisticsOrderList;
@@ -20,6 +22,7 @@ import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
@@ -30,6 +33,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -38,6 +42,7 @@ import org.lwjgl.opengl.GL12;
 public class RequestMonitorPopup extends SubGuiScreen {
 
     private enum ZOOM_LEVEL {
+
         NORMAL(1, 165, 224, 1, 0, 0, 0),
         LEVEL_1(0.5F, 330, 465, 1, 50, -200, 100),
         LEVEL_2(0.25F, 660, 950, 2, 100, -400, -100);
@@ -79,8 +84,8 @@ public class RequestMonitorPopup extends SubGuiScreen {
         }
     }
 
-    private static final ResourceLocation achievementTextures =
-            new ResourceLocation("textures/gui/achievement/achievement_background.png");
+    private static final ResourceLocation achievementTextures = new ResourceLocation(
+            "textures/gui/achievement/achievement_background.png");
 
     private final PipeBlockRequestTable _table;
     private final int orderId;
@@ -147,8 +152,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
             int i1 = k + 8;
             int j1 = l + 17;
 
-            if ((isMouseButtonDown == 0 || isMouseButtonDown == 1)
-                    && par1 >= i1
+            if ((isMouseButtonDown == 0 || isMouseButtonDown == 1) && par1 >= i1
                     && par1 < i1 + 224
                     && par2 >= j1
                     && par2 < j1 + 155) {
@@ -347,12 +351,15 @@ public class RequestMonitorPopup extends SubGuiScreen {
         String s = Integer.toString(orderId);
         if (!list.isEmpty()) {
             drawTexturedModalRect(left - 5, top - 40 + 17, 0, 202, 26, 26);
-            mc.fontRenderer.drawStringWithShadow(
-                    s, left + 9 - mc.fontRenderer.getStringWidth(s) / 2, top - 30 + 17, 16777215);
+            mc.fontRenderer
+                    .drawStringWithShadow(s, left + 9 - mc.fontRenderer.getStringWidth(s) / 2, top - 30 + 17, 16777215);
         } else {
             drawTexturedModalRect(left - 5, top - 18 + 17, 0, 202, 26, 26);
             mc.fontRenderer.drawStringWithShadow(
-                    s, left + 9 - mc.fontRenderer.getStringWidth(s) / 2, top - 18 + 10 + 17, 16777215);
+                    s,
+                    left + 9 - mc.fontRenderer.getStringWidth(s) / 2,
+                    top - 18 + 10 + 17,
+                    16777215);
         }
         renderLinkedOrderListItems(list, left, top + 17, 0, 0);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -515,17 +522,14 @@ public class RequestMonitorPopup extends SubGuiScreen {
             if (startLeft - 10 < par1 && par1 < startLeft + 20 && yPos - 6 < par2 && par2 < yPos + 20) {
                 if (guiLeft < par1 && par1 < guiLeft + xSize - 16 && guiTop < par2 && par2 < guiTop + ySize - 16) {
                     List<String> tooltipList = new ArrayList<>();
-                    tooltipList.add(ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW
-                            + iOrderInfoProvider.getType().name());
-                    tooltipList.add(ChatColor.BLUE + "Send to Router ID: " + ChatColor.YELLOW
-                            + iOrderInfoProvider.getRouterId());
-                    tooltip = new Object[] {
-                        (int) (par1 * zoom.zoom - 10),
-                        (int) (par2 * zoom.zoom),
-                        iOrderInfoProvider.getAsDisplayItem().makeNormalStack(),
-                        true,
-                        tooltipList
-                    };
+                    tooltipList.add(
+                            ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW + iOrderInfoProvider.getType().name());
+                    tooltipList.add(
+                            ChatColor.BLUE + "Send to Router ID: "
+                                    + ChatColor.YELLOW
+                                    + iOrderInfoProvider.getRouterId());
+                    tooltip = new Object[] { (int) (par1 * zoom.zoom - 10), (int) (par2 * zoom.zoom),
+                            iOrderInfoProvider.getAsDisplayItem().makeNormalStack(), true, tooltipList };
                 }
             }
             startLeft += 30;
@@ -564,7 +568,11 @@ public class RequestMonitorPopup extends SubGuiScreen {
                 startLeft -= 30;
             }
             SimpleGraphics.drawVerticalLine(
-                    left + ((startLeft - left) / 2) + 8, yPos + 28, yPos + 38, Color.GREEN, zoom.line);
+                    left + ((startLeft - left) / 2) + 8,
+                    yPos + 28,
+                    yPos + 38,
+                    Color.GREEN,
+                    zoom.line);
             startLeft = xPos + 20 - list.getSubTreeRootSize() * (40 / 2);
             left = startLeft;
             for (int i = 0; i < list.getSubOrders().size(); i++) {
@@ -576,8 +584,7 @@ public class RequestMonitorPopup extends SubGuiScreen {
             }
             if (!list.getSubOrders().isEmpty()) {
                 left += list.getSubOrders().get(0).getTreeRootSize() * (40 / 2);
-                startLeft -=
-                        list.getSubOrders().get(list.getSubOrders().size() - 1).getTreeRootSize() * (40 / 2);
+                startLeft -= list.getSubOrders().get(list.getSubOrders().size() - 1).getTreeRootSize() * (40 / 2);
             }
             SimpleGraphics.drawHorizontalLine(left - 12, startLeft - 12, yPos + 38, Color.GREEN, zoom.line);
         }

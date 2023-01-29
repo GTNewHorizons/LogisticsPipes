@@ -1,15 +1,14 @@
 package logisticspipes.interfaces;
 
 import java.util.*;
+
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.PipeRoutingConnectionType;
 
 public interface IRoutingDebugAdapter {
 
-    void start(
-            PriorityQueue<ExitRoute> candidatesCost,
-            ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet,
+    void start(PriorityQueue<ExitRoute> candidatesCost, ArrayList<EnumSet<PipeRoutingConnectionType>> closedSet,
             ArrayList<EnumMap<PipeRoutingConnectionType, List<List<IFilter>>>> filterList);
 
     void nextPipe(ExitRoute lowestCostNode);

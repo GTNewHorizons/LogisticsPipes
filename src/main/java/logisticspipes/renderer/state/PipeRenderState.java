@@ -1,9 +1,8 @@
 package logisticspipes.renderer.state;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.util.List;
+
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -13,7 +12,11 @@ import logisticspipes.proxy.object3d.interfaces.I3DOperation;
 import logisticspipes.proxy.object3d.interfaces.IModel3D;
 import logisticspipes.renderer.newpipe.GLRenderList;
 import logisticspipes.utils.tuples.Pair;
+
 import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PipeRenderState implements IClientState {
 
@@ -28,7 +31,8 @@ public class PipeRenderState implements IClientState {
     public int[] buffer = null;
     public GLRenderList renderList;
     /*
-     * This is a placeholder for the pipe renderer to set to a value that the BlockGenericPipe->TileGenericPipe will then return the the WorldRenderer
+     * This is a placeholder for the pipe renderer to set to a value that the BlockGenericPipe->TileGenericPipe will
+     * then return the the WorldRenderer
      */
     @SideOnly(Side.CLIENT)
     public IIcon currentTexture;

@@ -1,23 +1,26 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.buildcraft.BuildCraftProxy;
+import logisticspipes.proxy.buildcraft.gates.ActionDisableLogistics;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.core.IIconProvider;
 import buildcraft.api.statements.IActionInternal;
 import buildcraft.api.statements.StatementSlot;
 import buildcraft.transport.Pipe;
 import buildcraft.transport.gui.ContainerGateInterface;
 import buildcraft.transport.gui.GuiGateInterface;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.buildcraft.BuildCraftProxy;
-import logisticspipes.proxy.buildcraft.gates.ActionDisableLogistics;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LPBCPipe extends Pipe<LPBCPipeTransportsItems> implements IBCPipePart {
 

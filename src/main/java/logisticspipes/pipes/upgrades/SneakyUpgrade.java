@@ -6,6 +6,7 @@ import logisticspipes.modules.ModuleOreDictItemSink;
 import logisticspipes.modules.ModulePolymorphicItemSink;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class SneakyUpgrade implements IPipeUpgrade {
@@ -24,19 +25,18 @@ public abstract class SneakyUpgrade implements IPipeUpgrade {
 
     @Override
     public boolean isAllowedForModule(LogisticsModule module) {
-        return module instanceof ModuleItemSink
-                || module instanceof ModulePolymorphicItemSink
+        return module instanceof ModuleItemSink || module instanceof ModulePolymorphicItemSink
                 || module instanceof ModuleModBasedItemSink
                 || module instanceof ModuleOreDictItemSink;
     }
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] {"all"};
+        return new String[] { "all" };
     }
 
     @Override
     public String[] getAllowedModules() {
-        return new String[] {"itemsink"};
+        return new String[] { "itemsink" };
     }
 }

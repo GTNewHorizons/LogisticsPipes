@@ -3,6 +3,7 @@ package logisticspipes.utils.tuples;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
@@ -129,9 +130,9 @@ public class LPPosition extends Triplet<Double, Double, Double> {
     }
 
     public double distanceTo(LPPosition targetPos) {
-        return Math.sqrt(Math.pow(targetPos.getXD() - getXD(), 2)
-                + Math.pow(targetPos.getYD() - getYD(), 2)
-                + Math.pow(targetPos.getZD() - getZD(), 2));
+        return Math.sqrt(
+                Math.pow(targetPos.getXD() - getXD(), 2) + Math.pow(targetPos.getYD() - getYD(), 2)
+                        + Math.pow(targetPos.getZD() - getZD(), 2));
     }
 
     public LPPosition center() {
@@ -150,7 +151,9 @@ public class LPPosition extends Triplet<Double, Double, Double> {
     public static LPPosition readFromNBT(String prefix, NBTTagCompound nbt) {
         if (nbt.hasKey(prefix + "xPos") && nbt.hasKey(prefix + "yPos") && nbt.hasKey(prefix + "zPos")) {
             return new LPPosition(
-                    nbt.getDouble(prefix + "xPos"), nbt.getDouble(prefix + "yPos"), nbt.getDouble(prefix + "zPos"));
+                    nbt.getDouble(prefix + "xPos"),
+                    nbt.getDouble(prefix + "yPos"),
+                    nbt.getDouble(prefix + "zPos"));
         }
         return null;
     }

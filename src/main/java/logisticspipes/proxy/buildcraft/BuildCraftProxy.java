@@ -1,5 +1,39 @@
 package logisticspipes.proxy.buildcraft;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.pipes.PipeItemsFluidSupplier;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.VersionNotSupportedException;
+import logisticspipes.proxy.buildcraft.gates.*;
+import logisticspipes.proxy.buildcraft.recipeprovider.AssemblyTable;
+import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobotNBT;
+import logisticspipes.proxy.buildcraft.subproxies.*;
+import logisticspipes.proxy.interfaces.IBCProxy;
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
+import logisticspipes.transport.PipeFluidTransportLogistics;
+import logisticspipes.utils.ReflectionHelper;
+import lombok.SneakyThrows;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftSilicon;
 import buildcraft.BuildCraftTransport;
@@ -26,37 +60,6 @@ import buildcraft.transport.render.PipeRendererTESR;
 import buildcraft.transport.render.PipeTransportItemsRenderer;
 import buildcraft.transport.render.PipeTransportRenderer;
 import cpw.mods.fml.common.FMLCommonHandler;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.pipes.PipeItemsFluidSupplier;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.VersionNotSupportedException;
-import logisticspipes.proxy.buildcraft.gates.*;
-import logisticspipes.proxy.buildcraft.recipeprovider.AssemblyTable;
-import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobotNBT;
-import logisticspipes.proxy.buildcraft.subproxies.*;
-import logisticspipes.proxy.interfaces.IBCProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.transport.PipeFluidTransportLogistics;
-import logisticspipes.utils.ReflectionHelper;
-import lombok.SneakyThrows;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class BuildCraftProxy implements IBCProxy {
 
@@ -108,8 +111,8 @@ public class BuildCraftProxy implements IBCProxy {
 
     @Override
     public void registerPipeInformationProvider() {
-        SimpleServiceLocator.pipeInformationManager.registerProvider(
-                TileGenericPipe.class, BCPipeInformationProvider.class);
+        SimpleServiceLocator.pipeInformationManager
+                .registerProvider(TileGenericPipe.class, BCPipeInformationProvider.class);
     }
 
     @Override
@@ -127,8 +130,8 @@ public class BuildCraftProxy implements IBCProxy {
         }
 
         try {
-            canPipeConnect =
-                    TileGenericPipe.class.getDeclaredMethod("canPipeConnect", TileEntity.class, ForgeDirection.class);
+            canPipeConnect = TileGenericPipe.class
+                    .getDeclaredMethod("canPipeConnect", TileEntity.class, ForgeDirection.class);
             canPipeConnect.setAccessible(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,8 +148,8 @@ public class BuildCraftProxy implements IBCProxy {
                     TileGenericPipe.class,
                     with,
                     "hasBlockingPluggable",
-                    new Class[] {ForgeDirection.class},
-                    new Object[] {side.getOpposite()})) {
+                    new Class[] { ForgeDirection.class },
+                    new Object[] { side.getOpposite() })) {
                 return false;
             }
             Pipe<?> otherPipe = ((TileGenericPipe) with).pipe;
@@ -166,11 +169,11 @@ public class BuildCraftProxy implements IBCProxy {
     }
 
     @Override
-    public IConnectionOverrideResult checkConnectionOverride(
-            TileEntity with, ForgeDirection side, LogisticsTileGenericPipe pipe) {
+    public IConnectionOverrideResult checkConnectionOverride(TileEntity with, ForgeDirection side,
+            LogisticsTileGenericPipe pipe) {
         if (with instanceof IPipeConnection) {
-            IPipeConnection.ConnectOverride override =
-                    ((IPipeConnection) with).overridePipeConnection(PipeType.ITEM, side.getOpposite());
+            IPipeConnection.ConnectOverride override = ((IPipeConnection) with)
+                    .overridePipeConnection(PipeType.ITEM, side.getOpposite());
             if (override == IPipeConnection.ConnectOverride.DISCONNECT) {
                 // if it doesn't want to connect to item pipes, how about fluids?
                 if (pipe.pipe.transport instanceof PipeFluidTransportLogistics
@@ -257,8 +260,8 @@ public class BuildCraftProxy implements IBCProxy {
     @Override
     public Object getLPPipeType() {
         if (logisticsPipeType == null) {
-            logisticsPipeType = net.minecraftforge.common.util.EnumHelper.addEnum(
-                    PipeType.class, "LOGISTICS", new Class<?>[] {}, new Object[] {});
+            logisticsPipeType = net.minecraftforge.common.util.EnumHelper
+                    .addEnum(PipeType.class, "LOGISTICS", new Class<?>[] {}, new Object[] {});
         }
         return logisticsPipeType;
     }
@@ -372,37 +375,21 @@ public class BuildCraftProxy implements IBCProxy {
     }
 
     @Override
-    @SneakyThrows({
-        NoSuchFieldException.class,
-        SecurityException.class,
-        IllegalArgumentException.class,
-        IllegalAccessException.class
-    })
+    @SneakyThrows({ NoSuchFieldException.class, SecurityException.class, IllegalArgumentException.class,
+            IllegalAccessException.class })
     public IBCTilePart getBCTilePart(LogisticsTileGenericPipe pipe) {
         return new LPBCTileGenericPipe(new LPBCPipe(new LPBCPipeTransportsItems(pipe), pipe), pipe);
     }
 
     @Override
-    public IBCClickResult handleBCClickOnPipe(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int side,
-            float xOffset,
-            float yOffset,
-            float zOffset,
-            CoreUnroutedPipe pipe) {
-        boolean result = BuildCraftTransport.genericPipeBlock.onBlockActivated(
-                world, x, y, z, player, side, xOffset, yOffset, zOffset);
+    public IBCClickResult handleBCClickOnPipe(World world, int x, int y, int z, EntityPlayer player, int side,
+            float xOffset, float yOffset, float zOffset, CoreUnroutedPipe pipe) {
+        boolean result = BuildCraftTransport.genericPipeBlock
+                .onBlockActivated(world, x, y, z, player, side, xOffset, yOffset, zOffset);
 
-        world.notifyBlocksOfNeighborChange(
-                x,
-                y,
-                z,
-                LogisticsPipes
-                        .LogisticsPipeBlock); // Again because not all changes have been applied before the call inside
+        world.notifyBlocksOfNeighborChange(x, y, z, LogisticsPipes.LogisticsPipeBlock); // Again because not all changes
+                                                                                        // have been applied before the
+                                                                                        // call inside
         // the BC method is made.
         boolean block = false;
         if (!result) {
@@ -438,8 +425,8 @@ public class BuildCraftProxy implements IBCProxy {
     }
 
     /**
-     * @see buildcraft.robotics.ItemRobot#onItemUse(ItemStack, EntityPlayer,
-     * World, int, int, int, int, float, float, float)
+     * @see buildcraft.robotics.ItemRobot#onItemUse(ItemStack, EntityPlayer, World, int, int, int, int, float, float,
+     *      float)
      */
     private boolean checkRobot(World world, int x, int y, int z, EntityPlayer player, ItemStack currentItem) {
         if (!world.isRemote) {
@@ -451,11 +438,10 @@ public class BuildCraftProxy implements IBCProxy {
             BlockGenericPipe pipeBlock = BuildCraftTransport.genericPipeBlock;
             BlockGenericPipe.RaytraceResult rayTraceResult = pipeBlock.doRayTrace(world, x, y, z, player);
 
-            if (rayTraceResult != null
-                    && rayTraceResult.hitPart == BlockGenericPipe.Part.Pluggable
+            if (rayTraceResult != null && rayTraceResult.hitPart == BlockGenericPipe.Part.Pluggable
                     && bcPipe.container.getPipePluggable(rayTraceResult.sideHit) instanceof RobotStationPluggable) {
-                RobotStationPluggable pluggable =
-                        (RobotStationPluggable) bcPipe.container.getPipePluggable(rayTraceResult.sideHit);
+                RobotStationPluggable pluggable = (RobotStationPluggable) bcPipe.container
+                        .getPipePluggable(rayTraceResult.sideHit);
                 DockingStation station = pluggable.getStation();
 
                 if (!station.isTaken()) {
@@ -524,8 +510,8 @@ public class BuildCraftProxy implements IBCProxy {
                         PipeRendererTESR.class,
                         PipeRendererTESR.INSTANCE,
                         "renderGatesWires",
-                        new Class[] {TileGenericPipe.class, double.class, double.class, double.class},
-                        new Object[] {tgPipe, x, y, z});
+                        new Class[] { TileGenericPipe.class, double.class, double.class, double.class },
+                        new Object[] { tgPipe, x, y, z });
             }
 
             @Override
@@ -537,8 +523,8 @@ public class BuildCraftProxy implements IBCProxy {
                         PipeRendererTESR.class,
                         PipeRendererTESR.INSTANCE,
                         "renderPluggables",
-                        new Class[] {TileGenericPipe.class, double.class, double.class, double.class},
-                        new Object[] {tgPipe, x, y, z});
+                        new Class[] { TileGenericPipe.class, double.class, double.class, double.class },
+                        new Object[] { tgPipe, x, y, z });
             }
         };
     }

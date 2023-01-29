@@ -6,9 +6,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
+
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.factorization.FactorizationProxy;
 import logisticspipes.utils.item.ItemIdentifier;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -25,8 +27,8 @@ public class BarrelInventoryHandler extends SpecialInventoryHandler {
     private final TileEntity _tile;
     private final boolean _hideOnePerStack;
 
-    private BarrelInventoryHandler(
-            TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    private BarrelInventoryHandler(TileEntity tile, boolean hideOnePerStack, boolean hideOne, int cropStart,
+            int cropEnd) {
         _tile = tile;
         _hideOnePerStack = hideOnePerStack || hideOne;
     }
@@ -40,12 +42,10 @@ public class BarrelInventoryHandler extends SpecialInventoryHandler {
     public boolean init() {
         try {
             BarrelInventoryHandler.barrelClass = Class.forName(FactorizationProxy.barelClassPath);
-            BarrelInventoryHandler.getItemCount =
-                    BarrelInventoryHandler.barrelClass.getDeclaredMethod("getItemCount"); // ()I
-            BarrelInventoryHandler.setItemCount =
-                    BarrelInventoryHandler.barrelClass.getDeclaredMethod("setItemCount", int.class); // (I)V
-            BarrelInventoryHandler.getMaxSize =
-                    BarrelInventoryHandler.barrelClass.getDeclaredMethod("getMaxSize"); // ()I
+            BarrelInventoryHandler.getItemCount = BarrelInventoryHandler.barrelClass.getDeclaredMethod("getItemCount"); // ()I
+            BarrelInventoryHandler.setItemCount = BarrelInventoryHandler.barrelClass
+                    .getDeclaredMethod("setItemCount", int.class); // (I)V
+            BarrelInventoryHandler.getMaxSize = BarrelInventoryHandler.barrelClass.getDeclaredMethod("getMaxSize"); // ()I
             BarrelInventoryHandler.item = BarrelInventoryHandler.barrelClass.getDeclaredField("item");
             return true;
         } catch (Exception e) {
@@ -59,8 +59,8 @@ public class BarrelInventoryHandler extends SpecialInventoryHandler {
     }
 
     @Override
-    public SpecialInventoryHandler getUtilForTile(
-            TileEntity tile, ForgeDirection dir, boolean hideOnePerStack, boolean hideOne, int cropStart, int cropEnd) {
+    public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
+            boolean hideOne, int cropStart, int cropEnd) {
         return new BarrelInventoryHandler(tile, hideOnePerStack, hideOne, cropStart, cropEnd);
     }
 

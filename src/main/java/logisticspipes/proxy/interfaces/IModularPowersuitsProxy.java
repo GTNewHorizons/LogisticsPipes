@@ -1,6 +1,7 @@
 package logisticspipes.proxy.interfaces;
 
 import logisticspipes.interfaces.IHUDConfig;
+
 import net.minecraft.item.ItemStack;
 
 public interface IModularPowersuitsProxy {

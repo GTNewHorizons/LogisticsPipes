@@ -1,10 +1,12 @@
 package logisticspipes.network.packets.pipe;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.gui.orderer.GuiOrderer;
 import logisticspipes.network.abstractpackets.IntegerPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
+
 import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class RequestPipeDimension extends IntegerPacket {
 

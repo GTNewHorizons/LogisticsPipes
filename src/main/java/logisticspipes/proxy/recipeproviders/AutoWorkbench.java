@@ -1,10 +1,12 @@
 package logisticspipes.proxy.recipeproviders;
 
-import buildcraft.factory.TileAutoWorkbench;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import buildcraft.factory.TileAutoWorkbench;
 
 public class AutoWorkbench implements ICraftingRecipeProvider {
 
@@ -34,8 +36,7 @@ public class AutoWorkbench implements ICraftingRecipeProvider {
             if (i >= inventory.getSizeInventory() - 2) {
                 break;
             }
-            final ItemStack newStack = bench.craftMatrix.getStackInSlot(i) == null
-                    ? null
+            final ItemStack newStack = bench.craftMatrix.getStackInSlot(i) == null ? null
                     : bench.craftMatrix.getStackInSlot(i).copy();
             if (newStack != null && newStack.stackSize > 1) {
                 newStack.stackSize = 1;
