@@ -535,85 +535,81 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
     }
 
     @Override
-    protected void keyTyped(char c, int i) {
+    protected void keyTyped(char typedChar, int keyCode) {
         if (editname) {
-            if (c == 13) {
+            if (keyCode == Keyboard.KEY_RETURN) {
                 editname = false;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (keyCode == Keyboard.KEY_V && GuiScreen.isCtrlKeyDown()) {
                 name1 = name1 + GuiScreen.getClipboardString();
-            } else if (c == 8) {
+            } else if (keyCode == Keyboard.KEY_BACK) {
                 if (name1.length() > 0) {
                     name1 = name1.substring(0, name1.length() - 1);
                 }
-            } else if (Character.isLetterOrDigit(c) || c == ' ') {
-                if (mc.fontRenderer.getStringWidth(name1 + c + name2) <= nameWidth) {
-                    name1 += c;
+            } else if (Character.isLetterOrDigit(typedChar) || typedChar == ' ') {
+                if (mc.fontRenderer.getStringWidth(name1 + typedChar + name2) <= nameWidth) {
+                    name1 += typedChar;
                 }
-            } else if (i == 203) { // Left
+            } else if (keyCode == Keyboard.KEY_LEFT) {
                 if (name1.length() > 0) {
                     name2 = name1.substring(name1.length() - 1) + name2;
                     name1 = name1.substring(0, name1.length() - 1);
                 }
-            } else if (i == 205) { // Right
+            } else if (keyCode == Keyboard.KEY_RIGHT) {
                 if (name2.length() > 0) {
                     name1 += name2.substring(0, 1);
                     name2 = name2.substring(1);
                 }
-            } else if (i == 1) { // ESC
+            } else if (keyCode == Keyboard.KEY_ESCAPE) {
                 editname = false;
-            } else if (i == 28) { // Enter
-                editname = false;
-            } else if (i == 199) { // Pos
+            } else if (keyCode == Keyboard.KEY_HOME) {
                 name2 = name1 + name2;
                 name1 = "";
-            } else if (i == 207) { // Ende
+            } else if (keyCode == Keyboard.KEY_END) {
                 name1 = name1 + name2;
                 name2 = "";
-            } else if (i == 211) { // Entf
+            } else if (keyCode == Keyboard.KEY_DELETE) {
                 if (name2.length() > 0) {
                     name2 = name2.substring(1);
                 }
             }
         } else if (editsearch) {
-            if (c == 13) {
+            if (keyCode == Keyboard.KEY_RETURN) {
                 editsearch = false;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (keyCode == Keyboard.KEY_V && GuiScreen.isCtrlKeyDown()) {
                 Search1 = Search1 + GuiScreen.getClipboardString();
-            } else if (c == 8) {
+            } else if (keyCode == Keyboard.KEY_BACK) {
                 if (Search1.length() > 0) {
                     Search1 = Search1.substring(0, Search1.length() - 1);
                 }
-            } else if (Character.isLetterOrDigit(c) || c == ' ') {
-                if (mc.fontRenderer.getStringWidth(Search1 + c + Search2) <= searchWidth) {
-                    Search1 += c;
+            } else if (Character.isLetterOrDigit(typedChar) || typedChar == ' ') {
+                if (mc.fontRenderer.getStringWidth(Search1 + typedChar + Search2) <= searchWidth) {
+                    Search1 += typedChar;
                 }
-            } else if (i == 203) { // Left
+            } else if (keyCode == Keyboard.KEY_LEFT) {
                 if (Search1.length() > 0) {
                     Search2 = Search1.substring(Search1.length() - 1) + Search2;
                     Search1 = Search1.substring(0, Search1.length() - 1);
                 }
-            } else if (i == 205) { // Right
+            } else if (keyCode == Keyboard.KEY_RIGHT) {
                 if (Search2.length() > 0) {
                     Search1 += Search2.substring(0, 1);
                     Search2 = Search2.substring(1);
                 }
-            } else if (i == 1) { // ESC
+            } else if (keyCode == Keyboard.KEY_ESCAPE) {
                 editsearch = false;
-            } else if (i == 28) { // Enter
-                editsearch = false;
-            } else if (i == 199) { // Pos
+            } else if (keyCode == Keyboard.KEY_HOME) {
                 Search2 = Search1 + Search2;
                 Search1 = "";
-            } else if (i == 207) { // Ende
+            } else if (keyCode == Keyboard.KEY_END) {
                 Search1 = Search1 + Search2;
                 Search2 = "";
-            } else if (i == 211) { // Entf
+            } else if (keyCode == Keyboard.KEY_DELETE) {
                 if (Search2.length() > 0) {
                     Search2 = Search2.substring(1);
                 }
             }
         } else {
-            super.keyTyped(c, i);
+            super.keyTyped(typedChar, keyCode);
         }
     }
 }
