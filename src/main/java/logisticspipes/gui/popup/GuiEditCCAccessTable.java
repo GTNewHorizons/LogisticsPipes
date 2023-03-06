@@ -262,53 +262,51 @@ public class GuiEditCCAccessTable extends SubGuiScreen {
     }
 
     @Override
-    protected void keyTyped(char c, int i) {
+    protected void keyTyped(char typedChar, int keyCode) {
         if (editsearch) {
-            if (c == 13) {
+            if (keyCode == Keyboard.KEY_RETURN) {
                 editsearch = false;
-            } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
+            } else if (keyCode == Keyboard.KEY_V && GuiScreen.isCtrlKeyDown()) {
                 try {
                     Integer.valueOf(GuiScreen.getClipboardString());
                     searchinput1 = searchinput1 + GuiScreen.getClipboardString();
                 } catch (Exception e) {
                     setSubGui(new GuiMessagePopup("Clipboard doesn't", "contain a number."));
                 }
-            } else if (c == 8) {
+            } else if (keyCode == Keyboard.KEY_BACK) {
                 if (searchinput1.length() > 0) {
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
                 }
-            } else if (Character.isDigit(c)) {
-                if (mc.fontRenderer.getStringWidth(searchinput1 + c + searchinput2)
+            } else if (Character.isDigit(typedChar)) {
+                if (mc.fontRenderer.getStringWidth(searchinput1 + typedChar + searchinput2)
                         <= GuiEditCCAccessTable.searchWidth) {
-                    searchinput1 += c;
+                    searchinput1 += typedChar;
                 }
-            } else if (i == 203) { // Left
+            } else if (keyCode == Keyboard.KEY_LEFT) {
                 if (searchinput1.length() > 0) {
                     searchinput2 = searchinput1.substring(searchinput1.length() - 1) + searchinput2;
                     searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
                 }
-            } else if (i == 205) { // Right
+            } else if (keyCode == Keyboard.KEY_RIGHT) {
                 if (searchinput2.length() > 0) {
                     searchinput1 += searchinput2.substring(0, 1);
                     searchinput2 = searchinput2.substring(1);
                 }
-            } else if (i == 1) { // ESC
+            } else if (keyCode == Keyboard.KEY_ESCAPE) {
                 editsearch = false;
-            } else if (i == 28) { // Enter
-                editsearch = false;
-            } else if (i == 199) { // Pos
+            } else if (keyCode == Keyboard.KEY_HOME) {
                 searchinput2 = searchinput1 + searchinput2;
                 searchinput1 = "";
-            } else if (i == 207) { // Ende
+            } else if (keyCode == Keyboard.KEY_END) {
                 searchinput1 = searchinput1 + searchinput2;
                 searchinput2 = "";
-            } else if (i == 211) { // Entf
+            } else if (keyCode == Keyboard.KEY_DELETE) {
                 if (searchinput2.length() > 0) {
                     searchinput2 = searchinput2.substring(1);
                 }
             }
         } else {
-            super.keyTyped(c, i);
+            super.keyTyped(typedChar, keyCode);
         }
     }
 

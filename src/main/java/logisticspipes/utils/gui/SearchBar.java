@@ -3,11 +3,11 @@ package logisticspipes.utils.gui;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.util.Locale;
 
 import logisticspipes.utils.Color;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 
 import org.lwjgl.input.Keyboard;
 
@@ -143,40 +143,40 @@ public class SearchBar {
     /**
      * @return Boolean, true if key was handled.
      */
-    public boolean handleKey(char c, int i) {
+    public boolean handleKey(char typedChar, int keyCode) {
         if (!isFocused()) {
             return false;
         }
-        if (i == 1) {
+        if (keyCode == Keyboard.KEY_ESCAPE) {
             return false;
         }
-        if (c == 13 || i == 28) { // Enter
+        if (keyCode == Keyboard.KEY_RETURN) {
             unFocus();
-        } else if (c == 8 || (i == 14 && System.getProperty("os.name").toLowerCase(Locale.US).contains("mac"))) { // Backspace
+        } else if (keyCode == Keyboard.KEY_BACK) {
             if (searchinput1.length() > 0) {
                 searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
             }
-        } else if (i == 203) { // Left
+        } else if (keyCode == Keyboard.KEY_LEFT) {
             if (searchinput1.length() > 0) {
                 searchinput2 = searchinput1.substring(searchinput1.length() - 1) + searchinput2;
                 searchinput1 = searchinput1.substring(0, searchinput1.length() - 1);
             }
-        } else if (i == 205) { // Right
+        } else if (keyCode == Keyboard.KEY_RIGHT) {
             if (searchinput2.length() > 0) {
                 searchinput1 += searchinput2.substring(0, 1);
                 searchinput2 = searchinput2.substring(1);
             }
-        } else if (i == 199) { // Home
+        } else if (keyCode == Keyboard.KEY_HOME) {
             searchinput2 = searchinput1 + searchinput2;
             searchinput1 = "";
-        } else if (i == 207) { // End
+        } else if (keyCode == Keyboard.KEY_END) {
             searchinput1 = searchinput1 + searchinput2;
             searchinput2 = "";
-        } else if (i == 211) { // Del
+        } else if (keyCode == Keyboard.KEY_DELETE) {
             if (searchinput2.length() > 0) {
                 searchinput2 = searchinput2.substring(1);
             }
-        } else if (i == 47 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-v
+        } else if (keyCode == Keyboard.KEY_V && GuiScreen.isCtrlKeyDown()) {
             boolean isFine = true;
             if (numberOnly) {
                 try {
@@ -192,13 +192,14 @@ public class SearchBar {
                 }
                 searchinput1 = searchinput1 + toAdd;
             }
-        } else if ((!numberOnly && !Character.isISOControl(c)) || (numberOnly && Character.isDigit(c))) {
-            if (fontRenderer.getStringWidth(searchinput1 + c + searchinput2) <= searchWidth) {
-                searchinput1 += c;
+        } else
+            if ((!numberOnly && !Character.isISOControl(typedChar)) || (numberOnly && Character.isDigit(typedChar))) {
+                if (fontRenderer.getStringWidth(searchinput1 + typedChar + searchinput2) <= searchWidth) {
+                    searchinput1 += typedChar;
+                }
+            } else {
+                // ignore this key/character
             }
-        } else {
-            // ignore this key/character
-        }
         return true;
     }
 
