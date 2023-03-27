@@ -73,6 +73,7 @@ import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -219,11 +220,16 @@ public class LogisticsPipes {
     private static LPGlobalCCAccess generalAccess;
     private static PlayerConfig playerConfig;
 
+    public static boolean isGTNH = false;
+
     @EventHandler
     public void init(FMLInitializationEvent event) {
 
         // Register Network channels
         MainProxy.createChannels();
+
+        // Gregtech New Horizons compat
+        isGTNH = Loader.isModLoaded("dreamcraft") && Loader.isModLoaded("gregtech");
 
         RouterManager manager = new RouterManager();
         SimpleServiceLocator.setRouterManager(manager);

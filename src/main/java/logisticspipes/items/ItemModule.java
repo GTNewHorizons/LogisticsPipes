@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IWorldProvider;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
@@ -175,7 +176,9 @@ public class ItemModule extends LogisticsItem {
         registerModule(ItemModule.ACTIVE_SUPPLIER, ModuleActiveSupplier.class);
         registerModule(ItemModule.CREATIVETABBASEDITEMSINK, ModuleCreativeTabBasedItemSink.class);
 
-        registerModule(ItemModule.GT_TYPEFILTER_ITEMSINK, ModuleTypeFilterItemSink.class);
+        if (LogisticsPipes.isGTNH) {
+            registerModule(ItemModule.GT_TYPEFILTER_ITEMSINK, ModuleTypeFilterItemSink.class);
+        }
     }
 
     public void registerModule(int id, Class<? extends LogisticsModule> moduleClass) {
