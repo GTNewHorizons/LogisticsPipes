@@ -1,14 +1,14 @@
 package logisticspipes.logisticspipes;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.ISendRoutedItem;
 import logisticspipes.interfaces.ISlotUpgradeManager;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.routing.order.LogisticsItemOrderManager;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IInventoryProvider extends ISendRoutedItem {
 

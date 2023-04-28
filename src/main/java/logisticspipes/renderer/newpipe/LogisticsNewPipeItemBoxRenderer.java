@@ -3,14 +3,6 @@ package logisticspipes.renderer.newpipe;
 import java.util.HashMap;
 import java.util.Map;
 
-import logisticspipes.items.LogisticsFluidContainer;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.renderer.CustomBlockRenderer;
-import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
-import logisticspipes.renderer.FluidContainerRenderer;
-import logisticspipes.utils.FluidIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,6 +11,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.items.LogisticsFluidContainer;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.renderer.CustomBlockRenderer;
+import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
+import logisticspipes.renderer.FluidContainerRenderer;
+import logisticspipes.utils.FluidIdentifier;
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class LogisticsNewPipeItemBoxRenderer {
 

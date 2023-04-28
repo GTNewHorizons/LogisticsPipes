@@ -3,6 +3,10 @@ package logisticspipes.routing.pathfinder.changedetection;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.asm.te.ITileEntityChangeListener;
 import logisticspipes.asm.te.LPTileEntityObject;
@@ -13,10 +17,6 @@ import logisticspipes.ticks.LPTickHandler;
 import logisticspipes.ticks.LPTickHandler.LPWorldInfo;
 import logisticspipes.ticks.QueuedTasks;
 import logisticspipes.utils.tuples.LPPosition;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TEControl {
 

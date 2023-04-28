@@ -3,13 +3,6 @@ package logisticspipes.proxy.thaumcraft;
 import java.util.LinkedList;
 import java.util.List;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.Configs;
-import logisticspipes.items.ItemModule;
-import logisticspipes.items.ItemPipeComponents;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.IThaumCraftProxy;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.init.Items;
@@ -19,15 +12,21 @@ import net.minecraft.item.crafting.CraftingManager;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.Configs;
+import logisticspipes.items.ItemModule;
+import logisticspipes.items.ItemPipeComponents;
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.IThaumCraftProxy;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.lib.research.ScanManager;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ThaumCraftProxy implements IThaumCraftProxy {
 

@@ -3,6 +3,16 @@ package logisticspipes.renderer.newpipe;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.PlayerConfig;
@@ -24,16 +34,6 @@ import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Quartet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
 
 public class LogisticsNewRenderPipe {
 

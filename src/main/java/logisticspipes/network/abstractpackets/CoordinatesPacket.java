@@ -2,6 +2,9 @@ package logisticspipes.network.abstractpackets;
 
 import java.io.IOException;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.exception.TargetNotFoundException;
@@ -11,9 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
 @Accessors(chain = true)
 @ToString

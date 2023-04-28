@@ -3,6 +3,8 @@ package logisticspipes.network.packets.chassis;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.LogisticsEventListener;
 import logisticspipes.modules.ModuleQuickSort;
 import logisticspipes.network.LPDataInputStream;
@@ -10,8 +12,6 @@ import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.proxy.MainProxy;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ChestGuiOpened extends ModernPacket {
 

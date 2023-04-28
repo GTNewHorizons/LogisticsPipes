@@ -2,14 +2,14 @@ package logisticspipes.renderer.state;
 
 import java.io.IOException;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.config.Configs;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import lombok.Getter;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class TextureMatrix {
 

@@ -8,18 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import logisticspipes.proxy.DontLoadProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.object3d.interfaces.*;
-import logisticspipes.proxy.object3d.operation.LPScale;
-
 import net.minecraft.util.IIcon;
 
 import codechicken.lib.render.CCModel;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.uv.*;
 import codechicken.lib.vec.*;
+import logisticspipes.proxy.DontLoadProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.interfaces.ICCLProxy;
+import logisticspipes.proxy.object3d.interfaces.*;
+import logisticspipes.proxy.object3d.operation.LPScale;
 
 public class CCLProxy implements ICCLProxy {
 

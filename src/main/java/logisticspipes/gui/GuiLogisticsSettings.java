@@ -1,13 +1,5 @@
 package logisticspipes.gui;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.PlayerConfig;
-import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiCheckBox;
-import logisticspipes.utils.gui.LogisticsBaseTabGuiScreen;
-import logisticspipes.utils.gui.SearchBar;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -17,6 +9,14 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.PlayerConfig;
+import logisticspipes.utils.gui.DummyContainer;
+import logisticspipes.utils.gui.GuiCheckBox;
+import logisticspipes.utils.gui.LogisticsBaseTabGuiScreen;
+import logisticspipes.utils.gui.SearchBar;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
 

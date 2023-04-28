@@ -8,12 +8,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.interfaces.routing.ISaveState;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.ISimpleInventoryEventHandler;
-import logisticspipes.utils.tuples.Pair;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -21,6 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.interfaces.routing.ISaveState;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.ISimpleInventoryEventHandler;
+import logisticspipes.utils.tuples.Pair;
 
 public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pair<ItemStack, Integer>> {
 

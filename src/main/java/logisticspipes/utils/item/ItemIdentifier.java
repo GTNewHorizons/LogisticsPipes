@@ -14,16 +14,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import logisticspipes.asm.addinfo.IAddInfo;
-import logisticspipes.asm.addinfo.IAddInfoProvider;
-import logisticspipes.items.LogisticsFluidContainer;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
-import logisticspipes.renderer.LogisticsRenderPipe;
-import logisticspipes.utils.FinalNBTTagCompound;
-import logisticspipes.utils.ReflectionHelper;
-import lombok.AllArgsConstructor;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -37,6 +27,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.asm.addinfo.IAddInfo;
+import logisticspipes.asm.addinfo.IAddInfoProvider;
+import logisticspipes.items.LogisticsFluidContainer;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
+import logisticspipes.renderer.LogisticsRenderPipe;
+import logisticspipes.utils.FinalNBTTagCompound;
+import logisticspipes.utils.ReflectionHelper;
+import lombok.AllArgsConstructor;
 
 /**
  * @author Krapht I have no bloody clue what different mods use to differate between items except for itemID, there is

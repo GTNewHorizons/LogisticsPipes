@@ -2,16 +2,16 @@ package logisticspipes.asm;
 
 import java.util.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
 
 public class ParamProfiler {
 

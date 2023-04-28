@@ -3,14 +3,13 @@ package logisticspipes.gui.hud.modules;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+
+import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.interfaces.IHUDButton;
 import logisticspipes.interfaces.IHUDModuleRenderer;
 import logisticspipes.interfaces.IStringBasedModule;
 import logisticspipes.utils.gui.hud.BasicHUDButton;
-
-import net.minecraft.client.Minecraft;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class HUDStringBasedItemSink implements IHUDModuleRenderer {
 

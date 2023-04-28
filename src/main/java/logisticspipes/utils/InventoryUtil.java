@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.ISpecialInsertion;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 
 public class InventoryUtil implements IInventoryUtil, ISpecialInsertion {
 

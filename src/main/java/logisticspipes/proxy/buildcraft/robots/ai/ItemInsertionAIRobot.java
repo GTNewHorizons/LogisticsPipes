@@ -2,17 +2,16 @@ package logisticspipes.proxy.buildcraft.robots.ai;
 
 import java.util.Iterator;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.robots.AIRobot;
+import buildcraft.api.robots.EntityRobotBase;
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
-import buildcraft.api.robots.AIRobot;
-import buildcraft.api.robots.EntityRobotBase;
 
 public class ItemInsertionAIRobot extends AIRobot {
 

@@ -3,6 +3,13 @@ package logisticspipes.pipes.basic.fluid;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.IFluidHandler;
+
 import logisticspipes.LPConstants;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.logisticspipes.IRoutedItem;
@@ -24,13 +31,6 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public abstract class FluidRoutedPipe extends CoreRoutedPipe {
 

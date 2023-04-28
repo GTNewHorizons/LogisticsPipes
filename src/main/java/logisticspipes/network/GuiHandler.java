@@ -1,5 +1,11 @@
 package logisticspipes.network;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+import cpw.mods.fml.common.network.IGuiHandler;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.*;
 import logisticspipes.gui.hud.GuiHUDSettings;
@@ -17,13 +23,6 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
-import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
 

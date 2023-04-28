@@ -4,13 +4,13 @@
  */
 package logisticspipes.proxy.buildcraft.gates;
 
+import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.ITriggerInternal;
+import buildcraft.transport.Pipe;
 import logisticspipes.pipes.PipeItemsFluidSupplier;
 import logisticspipes.pipes.PipeItemsSupplierLogistics;
 import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
 import logisticspipes.textures.provider.LPActionTriggerIconProvider;
-import buildcraft.api.statements.IStatementParameter;
-import buildcraft.api.statements.ITriggerInternal;
-import buildcraft.transport.Pipe;
 
 public class TriggerSupplierFailed extends LPTrigger implements ITriggerInternal {
 

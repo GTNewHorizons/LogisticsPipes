@@ -1,16 +1,15 @@
 package logisticspipes.utils.gui.hud;
 
-import logisticspipes.interfaces.IHUDButton;
-import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.SimpleGraphics;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.interfaces.IHUDButton;
+import logisticspipes.utils.Color;
+import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.gui.SimpleGraphics;
 
 public abstract class BasicHUDButton implements IHUDButton {
 

@@ -2,13 +2,13 @@ package logisticspipes.items;
 
 import java.util.List;
 
-import logisticspipes.config.Configs;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+
+import logisticspipes.config.Configs;
 
 public class ItemPipeComponents extends LogisticsItem {
 

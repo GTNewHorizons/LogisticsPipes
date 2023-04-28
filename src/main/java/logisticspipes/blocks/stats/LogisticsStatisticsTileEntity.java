@@ -3,6 +3,10 @@ package logisticspipes.blocks.stats;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IGuiTileEntity;
 import logisticspipes.network.NewGuiHandler;
@@ -12,10 +16,6 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.WorldUtil;
-
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LogisticsStatisticsTileEntity extends LogisticsSolidTileEntity implements IGuiTileEntity {
 

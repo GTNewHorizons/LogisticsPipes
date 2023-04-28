@@ -1,5 +1,11 @@
 package logisticspipes.gui.modules;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
 import logisticspipes.modules.ModuleProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.module.ProviderModuleIncludePacket;
@@ -7,12 +13,6 @@ import logisticspipes.network.packets.module.ProviderModuleNextModePacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 public class GuiProvider extends ModuleBaseGui {
 

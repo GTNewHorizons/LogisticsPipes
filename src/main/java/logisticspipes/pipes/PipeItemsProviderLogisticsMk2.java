@@ -1,9 +1,9 @@
 package logisticspipes.pipes;
 
+import net.minecraft.item.Item;
+
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
-
-import net.minecraft.item.Item;
 
 public class PipeItemsProviderLogisticsMk2 extends PipeItemsProviderLogistics {
 

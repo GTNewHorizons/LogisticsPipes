@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
@@ -16,8 +18,6 @@ import logisticspipes.routing.order.LogisticsOrderManager;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class PipeManagerContentPacket extends CoordinatesPacket {

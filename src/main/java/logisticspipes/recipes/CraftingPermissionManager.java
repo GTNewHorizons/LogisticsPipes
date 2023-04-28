@@ -5,18 +5,18 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ContainerPlayer;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.blocks.crafting.AutoCraftingInventory;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.CraftingPermissionPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.PlayerIdentifier;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerPlayer;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class CraftingPermissionManager {
 

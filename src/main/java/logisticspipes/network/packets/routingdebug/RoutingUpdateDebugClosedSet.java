@@ -3,6 +3,8 @@ package logisticspipes.network.packets.routingdebug;
 import java.io.IOException;
 import java.util.EnumSet;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -12,8 +14,6 @@ import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class RoutingUpdateDebugClosedSet extends ModernPacket {

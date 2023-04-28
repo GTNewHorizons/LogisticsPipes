@@ -3,23 +3,6 @@ package logisticspipes.pipes.basic;
 import java.util.*;
 import java.util.concurrent.Callable;
 
-import logisticspipes.LPConstants;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.Configs;
-import logisticspipes.interfaces.IRotationProvider;
-import logisticspipes.items.ItemLogisticsPipe;
-import logisticspipes.pipes.PipeBlockRequestTable;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
-import logisticspipes.renderer.LogisticsPipeWorldRenderer;
-import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
-import logisticspipes.textures.Textures;
-import logisticspipes.ticks.QueuedTasks;
-import logisticspipes.utils.MatrixTranformations;
-import logisticspipes.utils.tuples.LPPosition;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -46,6 +29,22 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LPConstants;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.Configs;
+import logisticspipes.interfaces.IRotationProvider;
+import logisticspipes.items.ItemLogisticsPipe;
+import logisticspipes.pipes.PipeBlockRequestTable;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
+import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
+import logisticspipes.renderer.LogisticsPipeWorldRenderer;
+import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
+import logisticspipes.textures.Textures;
+import logisticspipes.ticks.QueuedTasks;
+import logisticspipes.utils.MatrixTranformations;
+import logisticspipes.utils.tuples.LPPosition;
 
 public class LogisticsBlockGenericPipe extends BlockContainer {
 

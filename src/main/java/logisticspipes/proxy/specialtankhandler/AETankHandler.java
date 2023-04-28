@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import logisticspipes.interfaces.ISpecialTankAccessHandler;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.FluidIdentifier;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -28,6 +24,9 @@ import appeng.api.storage.IStorageMonitorable;
 import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.util.AECableType;
 import appeng.api.util.DimensionalCoord;
+import logisticspipes.interfaces.ISpecialTankAccessHandler;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.FluidIdentifier;
 
 public class AETankHandler implements ISpecialTankAccessHandler {
 

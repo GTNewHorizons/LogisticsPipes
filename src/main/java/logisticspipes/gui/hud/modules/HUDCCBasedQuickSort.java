@@ -2,13 +2,12 @@ package logisticspipes.gui.hud.modules;
 
 import java.util.List;
 
-import logisticspipes.interfaces.IHUDButton;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.modules.ModuleCCBasedQuickSort;
-
 import net.minecraft.client.Minecraft;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.interfaces.IHUDButton;
+import logisticspipes.interfaces.IHUDModuleRenderer;
+import logisticspipes.modules.ModuleCCBasedQuickSort;
 
 public class HUDCCBasedQuickSort implements IHUDModuleRenderer {
 

@@ -2,17 +2,6 @@ package logisticspipes.pipes.signs;
 
 import java.util.List;
 
-import logisticspipes.modules.ModuleCrafter;
-import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.abstractpackets.ModernPacket;
-import logisticspipes.network.packets.cpipe.CPipeSatelliteImportBack;
-import logisticspipes.pipes.PipeItemsCraftingLogistics;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.renderer.LogisticsRenderPipe;
-import logisticspipes.utils.item.ItemIdentifierStack;
-import lombok.Data;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,6 +13,16 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.modules.ModuleCrafter;
+import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
+import logisticspipes.network.PacketHandler;
+import logisticspipes.network.abstractpackets.ModernPacket;
+import logisticspipes.network.packets.cpipe.CPipeSatelliteImportBack;
+import logisticspipes.pipes.PipeItemsCraftingLogistics;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.renderer.LogisticsRenderPipe;
+import logisticspipes.utils.item.ItemIdentifierStack;
+import lombok.Data;
 
 public class CraftingPipeSign implements IPipeSign {
 

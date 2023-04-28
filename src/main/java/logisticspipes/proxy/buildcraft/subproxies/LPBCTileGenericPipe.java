@@ -3,15 +3,6 @@ package logisticspipes.proxy.buildcraft.subproxies;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-import logisticspipes.utils.ReflectionHelper;
-import logisticspipes.utils.tuples.LPPosition;
-import lombok.Getter;
-import lombok.SneakyThrows;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +25,14 @@ import buildcraft.transport.gates.GatePluggable;
 import buildcraft.transport.pluggable.LensPluggable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
+import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+import logisticspipes.utils.ReflectionHelper;
+import logisticspipes.utils.tuples.LPPosition;
+import lombok.Getter;
+import lombok.SneakyThrows;
 
 public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart {
 

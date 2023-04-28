@@ -6,17 +6,16 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.transport.Pipe;
+import buildcraft.transport.TileGenericPipe;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.ISpecialPipedConnection;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.specialconnection.SpecialPipeConnection.ConnectionInformation;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
-
-import net.minecraftforge.common.util.ForgeDirection;
-
-import buildcraft.transport.Pipe;
-import buildcraft.transport.TileGenericPipe;
 
 /** Support for teleport pipes **/
 public class TeleportPipes implements ISpecialPipedConnection {

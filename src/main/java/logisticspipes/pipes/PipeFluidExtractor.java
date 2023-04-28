@@ -2,17 +2,17 @@ package logisticspipes.pipes;
 
 import java.util.List;
 
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.textures.Textures;
-import logisticspipes.textures.Textures.TextureType;
-import logisticspipes.transport.PipeFluidTransportLogistics;
-import logisticspipes.utils.AdjacentTile;
-
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.textures.Textures;
+import logisticspipes.textures.Textures.TextureType;
+import logisticspipes.transport.PipeFluidTransportLogistics;
+import logisticspipes.utils.AdjacentTile;
 
 public class PipeFluidExtractor extends PipeFluidInsertion {
 

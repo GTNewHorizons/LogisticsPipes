@@ -2,6 +2,8 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ListSyncPacket;
@@ -10,8 +12,6 @@ import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ItemBufferSyncPacket extends
         ListSyncPacket<Triplet<ItemIdentifierStack, Pair<Integer /* Time */, Integer /* BufferCounter */>, LPTravelingItemServer>> {

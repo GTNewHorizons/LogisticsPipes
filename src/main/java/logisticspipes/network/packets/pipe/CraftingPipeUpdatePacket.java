@@ -2,6 +2,8 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.items.ItemUpgrade;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.network.LPDataInputStream;
@@ -11,8 +13,6 @@ import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class CraftingPipeUpdatePacket extends ModuleCoordinatesPacket {

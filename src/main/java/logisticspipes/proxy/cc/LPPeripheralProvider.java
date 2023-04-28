@@ -1,16 +1,15 @@
 package logisticspipes.proxy.cc;
 
-import logisticspipes.blocks.LogisticsSolidTileEntity;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.cc.wrapper.LPPeripheralTilePipeWrapper;
-import logisticspipes.proxy.cc.wrapper.LPPeripheralTileSolidWrapper;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.api.peripheral.IPeripheralProvider;
+import logisticspipes.blocks.LogisticsSolidTileEntity;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.cc.wrapper.LPPeripheralTilePipeWrapper;
+import logisticspipes.proxy.cc.wrapper.LPPeripheralTileSolidWrapper;
 
 public class LPPeripheralProvider implements IPeripheralProvider {
 

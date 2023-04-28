@@ -4,12 +4,12 @@
  */
 package logisticspipes.pipes;
 
+import net.minecraft.item.Item;
+
 import logisticspipes.modules.ModuleCrafterMK2;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
-
-import net.minecraft.item.Item;
 
 public class PipeItemsCraftingLogisticsMk2 extends PipeItemsCraftingLogistics {
 

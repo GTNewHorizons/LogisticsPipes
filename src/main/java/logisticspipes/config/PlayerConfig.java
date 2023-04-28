@@ -7,6 +7,11 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
@@ -16,11 +21,6 @@ import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.PlayerIdentifier;
 import lombok.Getter;
 import lombok.SneakyThrows;
-
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
 
 public class PlayerConfig {
 

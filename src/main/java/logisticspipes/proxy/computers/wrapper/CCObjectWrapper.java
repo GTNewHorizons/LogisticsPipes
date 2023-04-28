@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import net.minecraft.nbt.NBTBase;
+
 import logisticspipes.proxy.computers.interfaces.*;
 import logisticspipes.proxy.computers.objects.*;
 import logisticspipes.request.resources.IResource;
@@ -16,8 +18,6 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Quartet;
 import logisticspipes.utils.tuples.Triplet;
-
-import net.minecraft.nbt.NBTBase;
 
 public class CCObjectWrapper {
 

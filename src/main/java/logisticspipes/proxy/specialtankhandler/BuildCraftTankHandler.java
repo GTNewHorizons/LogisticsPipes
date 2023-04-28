@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import logisticspipes.interfaces.ISpecialTankAccessHandler;
-import logisticspipes.utils.FluidIdentifier;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
@@ -15,6 +12,8 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import buildcraft.factory.TileTank;
+import logisticspipes.interfaces.ISpecialTankAccessHandler;
+import logisticspipes.utils.FluidIdentifier;
 
 public class BuildCraftTankHandler implements ISpecialTankAccessHandler {
 

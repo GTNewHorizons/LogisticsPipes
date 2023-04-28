@@ -3,10 +3,6 @@ package logisticspipes.items;
 import java.util.List;
 import java.util.UUID;
 
-import logisticspipes.interfaces.IItemAdvancedExistance;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -14,6 +10,9 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.interfaces.IItemAdvancedExistance;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.string.StringUtils;
 
 public class LogisticsItemCard extends LogisticsItem implements IItemAdvancedExistance {
 

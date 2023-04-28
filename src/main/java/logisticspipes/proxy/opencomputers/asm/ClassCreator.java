@@ -5,12 +5,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
-import logisticspipes.utils.tuples.Pair;
-
 import net.minecraft.launchwrapper.Launch;
 
 import org.objectweb.asm.*;
+
+import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
+import logisticspipes.utils.tuples.Pair;
 
 public class ClassCreator {
 

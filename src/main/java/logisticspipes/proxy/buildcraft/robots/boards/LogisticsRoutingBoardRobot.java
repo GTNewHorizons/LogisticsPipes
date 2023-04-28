@@ -3,21 +3,6 @@ package logisticspipes.proxy.buildcraft.robots.boards;
 import java.util.HashSet;
 import java.util.Set;
 
-import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
-import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
-import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl.RobotConnection;
-import logisticspipes.proxy.buildcraft.robots.ai.ItemInsertionAIRobot;
-import logisticspipes.routing.ExitRoute;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-import logisticspipes.utils.InventoryHelper;
-import logisticspipes.utils.transactor.ITransactor;
-import logisticspipes.utils.tuples.LPPosition;
-import logisticspipes.utils.tuples.Pair;
-import lombok.Getter;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -35,6 +20,20 @@ import buildcraft.robotics.ai.AIRobotGotoStation;
 import buildcraft.robotics.ai.AIRobotStraightMoveTo;
 import buildcraft.transport.TileGenericPipe;
 import cofh.api.energy.IEnergyStorage;
+import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
+import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
+import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl.RobotConnection;
+import logisticspipes.proxy.buildcraft.robots.ai.ItemInsertionAIRobot;
+import logisticspipes.routing.ExitRoute;
+import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+import logisticspipes.utils.InventoryHelper;
+import logisticspipes.utils.transactor.ITransactor;
+import logisticspipes.utils.tuples.LPPosition;
+import logisticspipes.utils.tuples.Pair;
+import lombok.Getter;
 
 public class LogisticsRoutingBoardRobot extends RedstoneBoardRobot {
 

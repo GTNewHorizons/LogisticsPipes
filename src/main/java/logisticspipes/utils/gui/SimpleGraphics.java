@@ -6,14 +6,14 @@
 
 package logisticspipes.utils.gui;
 
-import logisticspipes.utils.Color;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.utils.Color;
 
 /**
  * Utils class for simple drawing methods.

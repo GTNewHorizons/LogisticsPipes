@@ -1,15 +1,5 @@
 package logisticspipes.proxy.ic2;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.blocks.LogisticsSolidBlock;
-import logisticspipes.config.Configs;
-import logisticspipes.items.ItemModule;
-import logisticspipes.items.ItemPipeComponents;
-import logisticspipes.items.ItemUpgrade;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.IIC2Proxy;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -24,6 +14,15 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.item.IC2Items;
 import ic2.api.item.IElectricItem;
 import ic2.api.recipe.Recipes;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.blocks.LogisticsSolidBlock;
+import logisticspipes.config.Configs;
+import logisticspipes.items.ItemModule;
+import logisticspipes.items.ItemPipeComponents;
+import logisticspipes.items.ItemUpgrade;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.IIC2Proxy;
 
 public class IC2Proxy implements IIC2Proxy {
 

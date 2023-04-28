@@ -3,6 +3,16 @@ package logisticspipes.network.packets.pipe;
 import java.io.IOException;
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.modules.ModuleActiveSupplier;
 import logisticspipes.network.LPDataInputStream;
@@ -15,16 +25,6 @@ import logisticspipes.utils.item.ItemIdentifier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraftforge.common.util.ForgeDirection;
 
 @Accessors(chain = true)
 public class SlotFinderNumberPacket extends ModuleCoordinatesPacket {

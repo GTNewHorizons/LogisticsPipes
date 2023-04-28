@@ -7,6 +7,12 @@ package logisticspipes.pipes;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDProvider;
 import logisticspipes.interfaces.*;
@@ -49,12 +55,6 @@ import logisticspipes.utils.*;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class PipeItemsProviderLogistics extends CoreRoutedPipe implements IProvideItems, IHeadUpDisplayRendererProvider,
         IChestContentReceiver, IChangeListener, IOrderManagerContentReceiver {

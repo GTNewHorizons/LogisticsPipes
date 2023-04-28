@@ -2,6 +2,8 @@ package logisticspipes.pipes.basic;
 
 import java.util.List;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.blocks.powertile.LogisticsPowerProviderTileEntity;
 import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.IFilter;
@@ -10,8 +12,6 @@ import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyReceiver;
 import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.nbt.NBTTagCompound;
 
 public class PowerSupplierHandler {
 

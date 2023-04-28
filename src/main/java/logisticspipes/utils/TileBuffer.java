@@ -1,11 +1,11 @@
 package logisticspipes.utils;
 
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 
 public final class TileBuffer {
 

@@ -2,6 +2,8 @@ package logisticspipes.network.packets.routingdebug;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -11,8 +13,6 @@ import logisticspipes.routing.debug.ClientViewController;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class RoutingUpdateSourcePipe extends ModernPacket {

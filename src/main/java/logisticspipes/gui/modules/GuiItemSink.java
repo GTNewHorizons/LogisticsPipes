@@ -4,6 +4,12 @@
  */
 package logisticspipes.gui.modules;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
 import logisticspipes.modules.ModuleItemSink;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.module.ItemSinkDefaultPacket;
@@ -14,12 +20,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 public class GuiItemSink extends ModuleBaseGui {
 

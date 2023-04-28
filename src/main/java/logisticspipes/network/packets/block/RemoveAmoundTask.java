@@ -3,6 +3,8 @@ package logisticspipes.network.packets.block;
 import java.io.IOException;
 import java.util.Iterator;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.blocks.stats.TrackingTask;
 import logisticspipes.network.LPDataInputStream;
@@ -13,8 +15,6 @@ import logisticspipes.utils.item.ItemIdentifier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class RemoveAmoundTask extends CoordinatesPacket {

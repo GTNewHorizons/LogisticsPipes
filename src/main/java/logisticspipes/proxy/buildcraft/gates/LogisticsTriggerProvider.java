@@ -7,6 +7,13 @@ package logisticspipes.proxy.buildcraft.gates;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.statements.IStatementContainer;
+import buildcraft.api.statements.ITriggerExternal;
+import buildcraft.api.statements.ITriggerInternal;
+import buildcraft.api.statements.ITriggerProvider;
 import logisticspipes.blocks.LogisticsSolderingTileEntity;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.pipes.PipeItemsCraftingLogistics;
@@ -16,14 +23,6 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.buildcraft.BuildCraftProxy;
 import logisticspipes.proxy.buildcraft.subproxies.LPBCTileGenericPipe;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.ITriggerExternal;
-import buildcraft.api.statements.ITriggerInternal;
-import buildcraft.api.statements.ITriggerProvider;
 
 public class LogisticsTriggerProvider implements ITriggerProvider {
 

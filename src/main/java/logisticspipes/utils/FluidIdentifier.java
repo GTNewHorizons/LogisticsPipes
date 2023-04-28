@@ -5,6 +5,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.*;
+
 import logisticspipes.asm.addinfo.IAddInfo;
 import logisticspipes.asm.addinfo.IAddInfoProvider;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -12,11 +17,6 @@ import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.AllArgsConstructor;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
 
 public class FluidIdentifier implements ILPCCTypeHolder {
 

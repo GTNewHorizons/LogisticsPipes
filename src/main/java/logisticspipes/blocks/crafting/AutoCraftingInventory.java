@@ -1,11 +1,11 @@
 package logisticspipes.blocks.crafting;
 
-import logisticspipes.utils.PlayerIdentifier;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
+
+import logisticspipes.utils.PlayerIdentifier;
 
 public class AutoCraftingInventory extends InventoryCrafting {
 

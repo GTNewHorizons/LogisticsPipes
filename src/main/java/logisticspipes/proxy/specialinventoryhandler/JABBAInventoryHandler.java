@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-import logisticspipes.utils.item.ItemIdentifier;
-import mcp.mobius.betterbarrels.common.blocks.IBarrelStorage;
-import mcp.mobius.betterbarrels.common.blocks.TileEntityBarrel;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.utils.item.ItemIdentifier;
+import mcp.mobius.betterbarrels.common.blocks.IBarrelStorage;
+import mcp.mobius.betterbarrels.common.blocks.TileEntityBarrel;
 
 public class JABBAInventoryHandler extends SpecialInventoryHandler {
 

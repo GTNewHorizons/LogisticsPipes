@@ -6,6 +6,17 @@ package logisticspipes.pipes;
 
 import java.util.*;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
@@ -55,18 +66,6 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 @CCType(name = "LogisticsChassiePipe")
 public abstract class PipeLogisticsChassi extends CoreRoutedPipe

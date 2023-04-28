@@ -1,12 +1,12 @@
 package logisticspipes.items;
 
-import logisticspipes.network.NewGuiHandler;
-import logisticspipes.network.guis.LogisticsPlayerSettingsGuiProvider;
-import logisticspipes.proxy.MainProxy;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import logisticspipes.network.NewGuiHandler;
+import logisticspipes.network.guis.LogisticsPlayerSettingsGuiProvider;
+import logisticspipes.proxy.MainProxy;
 
 public class ItemPipeController extends LogisticsItem {
 

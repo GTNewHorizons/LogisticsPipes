@@ -2,8 +2,6 @@ package logisticspipes.proxy.specialinventoryhandler;
 
 import java.util.*;
 
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -19,6 +17,7 @@ import cpw.mods.fml.common.versioning.ArtifactVersion;
 import cpw.mods.fml.common.versioning.DefaultArtifactVersion;
 import cpw.mods.fml.common.versioning.InvalidVersionSpecificationException;
 import cpw.mods.fml.common.versioning.VersionRange;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
 

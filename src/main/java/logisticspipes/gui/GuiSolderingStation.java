@@ -3,19 +3,19 @@ package logisticspipes.gui;
 import java.util.LinkedList;
 import java.util.List;
 
-import logisticspipes.blocks.LogisticsSolderingTileEntity;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.item.ItemStackRenderer;
-import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
-
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.blocks.LogisticsSolderingTileEntity;
+import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.item.ItemStackRenderer;
+import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 
 public class GuiSolderingStation extends LogisticsBaseGuiScreen {
 

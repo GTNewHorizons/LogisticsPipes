@@ -4,6 +4,10 @@ import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.Callable;
 
+import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
+
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.interfaces.IRoutingDebugAdapter;
 import logisticspipes.interfaces.routing.IFilter;
@@ -17,10 +21,6 @@ import logisticspipes.routing.IRouter;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.routing.ServerRouter;
 import logisticspipes.ticks.QueuedTasks;
-
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 
 public class DebugController implements IRoutingDebugAdapter {
 

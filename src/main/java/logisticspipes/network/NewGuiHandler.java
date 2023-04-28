@@ -4,12 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.network.abstractguis.GuiProvider;
-import logisticspipes.network.packets.gui.GUIPacket;
-import logisticspipes.proxy.MainProxy;
-import lombok.SneakyThrows;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -21,6 +15,11 @@ import com.google.common.reflect.ClassPath.ClassInfo;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.network.abstractguis.GuiProvider;
+import logisticspipes.network.packets.gui.GUIPacket;
+import logisticspipes.proxy.MainProxy;
+import lombok.SneakyThrows;
 
 public class NewGuiHandler {
 

@@ -2,13 +2,13 @@ package logisticspipes.network.abstractpackets;
 
 import java.io.IOException;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.nbt.NBTTagCompound;
 
 @Accessors(chain = true)
 public abstract class NBTCoordinatesPacket extends CoordinatesPacket {

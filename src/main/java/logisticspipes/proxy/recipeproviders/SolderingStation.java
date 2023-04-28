@@ -1,12 +1,12 @@
 package logisticspipes.proxy.recipeproviders;
 
-import logisticspipes.blocks.LogisticsSolderingTileEntity;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.utils.item.ItemIdentifierInventory;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import logisticspipes.blocks.LogisticsSolderingTileEntity;
+import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 
 public class SolderingStation implements ICraftingRecipeProvider {
 

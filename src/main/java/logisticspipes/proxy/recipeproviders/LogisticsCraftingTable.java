@@ -2,15 +2,15 @@ package logisticspipes.proxy.recipeproviders;
 
 import java.util.BitSet;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.proxy.interfaces.IFuzzyRecipeProvider;
 import logisticspipes.request.resources.DictResource;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class LogisticsCraftingTable implements IFuzzyRecipeProvider {
 

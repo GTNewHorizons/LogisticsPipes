@@ -6,16 +6,16 @@ package logisticspipes.utils.item;
 
 import java.util.LinkedList;
 
-import logisticspipes.logisticspipes.IRoutedItem;
-import logisticspipes.pipes.basic.CoreRoutedPipe.ItemSendMode;
-import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
-import logisticspipes.utils.tuples.Triplet;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.logisticspipes.IRoutedItem;
+import logisticspipes.pipes.basic.CoreRoutedPipe.ItemSendMode;
+import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
+import logisticspipes.utils.tuples.Triplet;
 
 public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack>, ILPCCTypeHolder {
 

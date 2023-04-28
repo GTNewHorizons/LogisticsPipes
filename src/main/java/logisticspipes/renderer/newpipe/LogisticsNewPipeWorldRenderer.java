@@ -4,6 +4,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import logisticspipes.LPConstants;
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
@@ -20,15 +28,6 @@ import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer.Cover
 import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.textures.Textures;
 import logisticspipes.utils.tuples.LPPosition;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandler {
 

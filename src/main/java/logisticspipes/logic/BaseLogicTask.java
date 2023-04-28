@@ -2,10 +2,10 @@ package logisticspipes.logic;
 
 import java.util.UUID;
 
-import lombok.Getter;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+
+import lombok.Getter;
 
 public abstract class BaseLogicTask {
 

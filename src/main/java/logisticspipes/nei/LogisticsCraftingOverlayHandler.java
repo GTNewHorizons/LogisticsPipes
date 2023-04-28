@@ -5,14 +5,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import logisticspipes.gui.GuiLogisticsCraftingTable;
-import logisticspipes.gui.orderer.GuiRequestTable;
-import logisticspipes.gui.popup.GuiRecipeImport;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.NEISetCraftingRecipe;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,6 +14,13 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.recipe.IRecipeHandler;
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.gui.GuiLogisticsCraftingTable;
+import logisticspipes.gui.orderer.GuiRequestTable;
+import logisticspipes.gui.popup.GuiRecipeImport;
+import logisticspipes.network.PacketHandler;
+import logisticspipes.network.packets.NEISetCraftingRecipe;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 
 public class LogisticsCraftingOverlayHandler implements IOverlayHandler {
 

@@ -1,13 +1,12 @@
 package logisticspipes.network.packets.orderer;
 
+import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.gui.orderer.GuiOrderer;
 import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.network.abstractpackets.InventoryModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
-
-import net.minecraft.entity.player.EntityPlayer;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class OrdererContent extends InventoryModuleCoordinatesPacket {
 

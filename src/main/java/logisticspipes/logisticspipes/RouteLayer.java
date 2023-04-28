@@ -4,13 +4,13 @@
  */
 package logisticspipes.logisticspipes;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.IRouter;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Krapht This class is responsible for resolving where incoming items should go.

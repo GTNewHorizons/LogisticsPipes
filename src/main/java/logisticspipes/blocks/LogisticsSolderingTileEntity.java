@@ -3,6 +3,14 @@ package logisticspipes.blocks;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ICraftingResultHandler;
@@ -25,14 +33,6 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
-
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
         implements IGuiTileEntity, ISidedInventory, IGuiOpenControler {

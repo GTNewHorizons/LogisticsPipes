@@ -1,5 +1,10 @@
 package logisticspipes.pipes.upgrades;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.ISlotUpgradeManager;
 import logisticspipes.items.ItemUpgrade;
@@ -7,11 +12,6 @@ import logisticspipes.pipes.PipeLogisticsChassi;
 import logisticspipes.utils.ISimpleInventoryEventHandler;
 import logisticspipes.utils.item.SimpleStackInventory;
 import lombok.Getter;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ModuleUpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgradeManager {
 

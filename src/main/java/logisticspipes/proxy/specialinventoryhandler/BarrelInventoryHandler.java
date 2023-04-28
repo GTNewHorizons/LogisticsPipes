@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.factorization.FactorizationProxy;
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.factorization.FactorizationProxy;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public class BarrelInventoryHandler extends SpecialInventoryHandler {
 

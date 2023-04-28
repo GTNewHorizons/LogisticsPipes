@@ -2,17 +2,16 @@ package logisticspipes.gui.hud.modules;
 
 import java.util.List;
 
-import logisticspipes.interfaces.IHUDButton;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.modules.ModuleOreDictItemSink;
-import logisticspipes.utils.item.ItemStackRenderer;
-import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
-
 import net.minecraft.client.Minecraft;
 
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.interfaces.IHUDButton;
+import logisticspipes.interfaces.IHUDModuleRenderer;
+import logisticspipes.modules.ModuleOreDictItemSink;
+import logisticspipes.utils.item.ItemStackRenderer;
+import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 
 public class HUDOreDictItemSink implements IHUDModuleRenderer {
 

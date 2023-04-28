@@ -1,11 +1,11 @@
 package logisticspipes.network.packets.block;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.StringCoordinatesPacket;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class SecurityStationOpenPlayerRequest extends StringCoordinatesPacket {

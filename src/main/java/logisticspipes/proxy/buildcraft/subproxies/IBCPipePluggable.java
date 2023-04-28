@@ -1,14 +1,13 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
 
 public interface IBCPipePluggable {
 

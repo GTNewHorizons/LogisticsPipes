@@ -4,12 +4,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
 
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.transport.LPTravelingItem;
-import logisticspipes.utils.tuples.Pair;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.transport.LPTravelingItem;
+import logisticspipes.utils.tuples.Pair;
 
 public class QueuedTasks {
 

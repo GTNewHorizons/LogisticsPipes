@@ -1,7 +1,5 @@
 package logisticspipes.proxy.interfaces;
 
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -10,6 +8,7 @@ import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public interface IForestryProxy {
 

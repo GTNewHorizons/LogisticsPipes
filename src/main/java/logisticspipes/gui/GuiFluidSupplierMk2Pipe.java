@@ -4,6 +4,9 @@
  */
 package logisticspipes.gui;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.pipe.FluidSupplierAmount;
 import logisticspipes.network.packets.pipe.FluidSupplierMinMode;
@@ -16,9 +19,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
 
 public class GuiFluidSupplierMk2Pipe extends LogisticsBaseGuiScreen {
 

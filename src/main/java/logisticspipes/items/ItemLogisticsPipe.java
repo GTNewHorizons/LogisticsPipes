@@ -6,12 +6,6 @@ package logisticspipes.items;
 
 import java.util.List;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
-import logisticspipes.renderer.IIconProvider;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +18,11 @@ import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
+import logisticspipes.renderer.IIconProvider;
+import logisticspipes.utils.string.StringUtils;
 
 /**
  * A logistics pipe Item

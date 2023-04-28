@@ -1,7 +1,7 @@
 package logisticspipes.proxy.ccl;
 
-import logisticspipes.proxy.object3d.interfaces.ITranslation;
 import codechicken.lib.vec.Transformation;
+import logisticspipes.proxy.object3d.interfaces.ITranslation;
 
 public class TransformationProxy implements ITranslation {
 

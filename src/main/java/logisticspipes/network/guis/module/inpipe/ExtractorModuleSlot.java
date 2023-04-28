@@ -2,6 +2,9 @@ package logisticspipes.network.guis.module.inpipe;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.gui.modules.GuiExtractor;
 import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
 import logisticspipes.network.LPDataInputStream;
@@ -12,9 +15,6 @@ import logisticspipes.utils.gui.DummyContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 @Accessors(chain = true)
 public class ExtractorModuleSlot extends ModuleCoordinatesGuiProvider {

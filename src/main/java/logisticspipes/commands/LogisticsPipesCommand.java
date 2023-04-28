@@ -4,19 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import logisticspipes.LPConstants;
-import logisticspipes.commands.abstracts.ICommandHandler;
-import logisticspipes.commands.exception.CommandNotFoundException;
-import logisticspipes.commands.exception.LPCommandException;
-import logisticspipes.commands.exception.PermissionDeniedException;
-import logisticspipes.proxy.MainProxy;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import logisticspipes.LPConstants;
+import logisticspipes.commands.abstracts.ICommandHandler;
+import logisticspipes.commands.exception.CommandNotFoundException;
+import logisticspipes.commands.exception.LPCommandException;
+import logisticspipes.commands.exception.PermissionDeniedException;
+import logisticspipes.proxy.MainProxy;
 
 public class LogisticsPipesCommand extends CommandBase {
 

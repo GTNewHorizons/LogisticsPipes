@@ -2,6 +2,12 @@ package logisticspipes.gui.popup;
 
 import java.util.Collections;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+
+import org.lwjgl.input.Keyboard;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.SecurityAddCCIdPacket;
@@ -12,12 +18,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.string.StringUtils;
-
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-
-import org.lwjgl.input.Keyboard;
 
 public class GuiEditCCAccessTable extends SubGuiScreen {
 

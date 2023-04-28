@@ -1,9 +1,5 @@
 package logisticspipes.utils.tuples;
 
-import logisticspipes.network.abstractpackets.CoordinatesPacket;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.routing.pathfinder.IPipeInformationProvider;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +7,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.network.abstractpackets.CoordinatesPacket;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.routing.pathfinder.IPipeInformationProvider;
 
 public class LPPosition extends Triplet<Double, Double, Double> {
 

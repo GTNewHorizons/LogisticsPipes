@@ -1,5 +1,12 @@
 package logisticspipes.gui.orderer;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+import org.lwjgl.opengl.GL11;
+
 import logisticspipes.gui.popup.GuiDiskPopup;
 import logisticspipes.interfaces.IDiskProvider;
 import logisticspipes.network.PacketHandler;
@@ -12,13 +19,6 @@ import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-
-import org.lwjgl.opengl.GL11;
 
 public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvider {
 

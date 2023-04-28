@@ -1,5 +1,7 @@
 package logisticspipes.gui.modules;
 
+import net.minecraft.inventory.Container;
+
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.network.PacketHandler;
@@ -7,8 +9,6 @@ import logisticspipes.network.packets.gui.GuiOpenChassie;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import lombok.Getter;
-
-import net.minecraft.inventory.Container;
 
 public abstract class ModuleBaseGui extends LogisticsBaseGuiScreen {
 

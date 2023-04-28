@@ -4,14 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-import logisticspipes.LPConstants;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.network.abstractpackets.ModernPacket;
-import logisticspipes.network.exception.DelayPacketException;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import lombok.SneakyThrows;
-
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.apache.logging.log4j.Level;
@@ -28,6 +20,13 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
 import io.netty.util.AttributeKey;
+import logisticspipes.LPConstants;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.network.abstractpackets.ModernPacket;
+import logisticspipes.network.exception.DelayPacketException;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import lombok.SneakyThrows;
 
 /*
  * Basically FML SimpleIndexedCodec, except with static registration of LP ModernPackets and short instead of byte

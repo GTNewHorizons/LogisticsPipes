@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import logisticspipes.proxy.interfaces.IEnderIOProxy;
-
 import net.minecraft.tileentity.TileEntity;
 
 import crazypants.enderio.machine.hypercube.HyperCubeRegister;
@@ -16,6 +14,7 @@ import crazypants.enderio.machine.transceiver.Channel;
 import crazypants.enderio.machine.transceiver.ChannelType;
 import crazypants.enderio.machine.transceiver.ServerChannelRegister;
 import crazypants.enderio.machine.transceiver.TileTransceiver;
+import logisticspipes.proxy.interfaces.IEnderIOProxy;
 
 public class EnderIOProxy implements IEnderIOProxy {
 

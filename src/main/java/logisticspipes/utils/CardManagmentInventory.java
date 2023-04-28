@@ -1,13 +1,13 @@
 package logisticspipes.utils;
 
-import logisticspipes.items.ItemModule;
-import logisticspipes.items.LogisticsItemCard;
-import logisticspipes.utils.item.ItemIdentifierInventory;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import logisticspipes.items.ItemModule;
+import logisticspipes.items.LogisticsItemCard;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 
 public class CardManagmentInventory implements IInventory {
 

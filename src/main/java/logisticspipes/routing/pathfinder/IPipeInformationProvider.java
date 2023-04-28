@@ -2,15 +2,15 @@ package logisticspipes.routing.pathfinder;
 
 import java.util.List;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IPipeInformationProvider {
 

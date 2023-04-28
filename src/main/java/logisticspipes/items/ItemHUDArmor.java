@@ -1,11 +1,5 @@
 package logisticspipes.items;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.api.IHUDArmor;
-import logisticspipes.network.GuiIDs;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -16,6 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.api.IHUDArmor;
+import logisticspipes.network.GuiIDs;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.string.StringUtils;
 
 public class ItemHUDArmor extends ItemArmor implements ISpecialArmor, IHUDArmor {
 

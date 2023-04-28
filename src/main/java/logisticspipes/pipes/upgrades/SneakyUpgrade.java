@@ -1,13 +1,13 @@
 package logisticspipes.pipes.upgrades;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.modules.ModuleItemSink;
 import logisticspipes.modules.ModuleModBasedItemSink;
 import logisticspipes.modules.ModuleOreDictItemSink;
 import logisticspipes.modules.ModulePolymorphicItemSink;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class SneakyUpgrade implements IPipeUpgrade {
 

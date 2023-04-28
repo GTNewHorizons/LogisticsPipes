@@ -1,5 +1,10 @@
 package logisticspipes.pipes;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.items.RemoteOrderer;
@@ -9,11 +14,6 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.security.SecuritySettings;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentTranslation;
 
 public class PipeItemsRemoteOrdererLogistics extends CoreRoutedPipe implements IRequestItems {
 

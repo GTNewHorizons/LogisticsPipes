@@ -3,16 +3,6 @@ package logisticspipes.utils.gui;
 import java.util.*;
 import java.util.Map.Entry;
 
-import logisticspipes.config.Configs;
-import logisticspipes.interfaces.ISpecialItemRenderer;
-import logisticspipes.utils.Color;
-import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.item.ItemStackRenderer;
-import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
-import logisticspipes.utils.tuples.Pair;
-import lombok.Getter;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -28,6 +18,15 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.config.Configs;
+import logisticspipes.interfaces.ISpecialItemRenderer;
+import logisticspipes.utils.Color;
+import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.item.ItemStackRenderer;
+import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+import logisticspipes.utils.tuples.Pair;
+import lombok.Getter;
 
 public class ItemDisplay {
 

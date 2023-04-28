@@ -2,19 +2,18 @@ package logisticspipes.modules;
 
 import java.util.List;
 
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.modules.abstractmodules.LogisticsModule;
-import logisticspipes.pipes.PipeLogisticsChassi.ChassiTargetInformation;
-import logisticspipes.utils.SinkReply;
-import logisticspipes.utils.SinkReply.FixedPriority;
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.modules.abstractmodules.LogisticsModule;
+import logisticspipes.pipes.PipeLogisticsChassi.ChassiTargetInformation;
+import logisticspipes.utils.SinkReply;
+import logisticspipes.utils.SinkReply.FixedPriority;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public class ModulePolymorphicItemSink extends LogisticsModule {
 

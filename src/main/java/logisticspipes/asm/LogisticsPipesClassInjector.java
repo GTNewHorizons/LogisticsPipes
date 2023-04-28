@@ -7,11 +7,6 @@ import java.util.TreeSet;
 
 import javax.xml.bind.DatatypeConverter;
 
-import logisticspipes.LPConstants;
-import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
-import logisticspipes.proxy.opencomputers.asm.ClassCreator;
-import logisticspipes.utils.ModStatusHelper;
-
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
@@ -19,6 +14,11 @@ import net.minecraft.launchwrapper.LaunchClassLoader;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.ClassNode;
+
+import logisticspipes.LPConstants;
+import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
+import logisticspipes.proxy.opencomputers.asm.ClassCreator;
+import logisticspipes.utils.ModStatusHelper;
 
 public class LogisticsPipesClassInjector implements IClassTransformer {
 

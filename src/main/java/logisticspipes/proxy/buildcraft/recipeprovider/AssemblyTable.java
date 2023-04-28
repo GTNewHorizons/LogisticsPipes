@@ -2,9 +2,6 @@ package logisticspipes.proxy.buildcraft.recipeprovider;
 
 import java.util.List;
 
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.utils.item.ItemIdentifierInventory;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +14,8 @@ import buildcraft.api.recipes.IFlexibleRecipe;
 import buildcraft.core.recipes.AssemblyRecipeManager;
 import buildcraft.core.recipes.FlexibleRecipe;
 import buildcraft.silicon.TileAssemblyTable;
+import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 
 public class AssemblyTable implements ICraftingRecipeProvider {
 

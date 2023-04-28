@@ -1,8 +1,8 @@
 package logisticspipes.proxy.interfaces;
 
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-
 import net.minecraft.tileentity.TileEntity;
+
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 
 public interface ICCProxy {
 

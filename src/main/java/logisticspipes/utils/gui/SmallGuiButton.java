@@ -4,13 +4,13 @@
  */
 package logisticspipes.utils.gui;
 
-import logisticspipes.utils.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.utils.Color;
 
 public class SmallGuiButton extends GuiButton {
 

@@ -5,6 +5,10 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
 
+import org.luaj.vm2.LuaTable;
+
+import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.ILuaObject;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCDirectCall;
@@ -14,11 +18,6 @@ import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
 import logisticspipes.proxy.computers.wrapper.ICommandWrapper;
 import logisticspipes.security.PermissionException;
 import logisticspipes.ticks.QueuedTasks;
-
-import org.luaj.vm2.LuaTable;
-
-import dan200.computercraft.api.lua.ILuaContext;
-import dan200.computercraft.api.lua.ILuaObject;
 
 public class CCCommandWrapper implements ILuaObject {
 

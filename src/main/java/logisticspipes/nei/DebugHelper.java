@@ -7,9 +7,6 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import logisticspipes.config.Configs;
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,6 +15,8 @@ import net.minecraft.nbt.*;
 import org.lwjgl.input.Keyboard;
 
 import codechicken.nei.guihook.IContainerTooltipHandler;
+import logisticspipes.config.Configs;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public class DebugHelper implements IContainerTooltipHandler {
 

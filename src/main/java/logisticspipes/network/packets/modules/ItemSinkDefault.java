@@ -1,10 +1,10 @@
 package logisticspipes.network.packets.modules;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.modules.ModuleItemSink;
 import logisticspipes.network.abstractpackets.BooleanModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ItemSinkDefault extends BooleanModuleCoordinatesPacket {
 

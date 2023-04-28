@@ -3,16 +3,16 @@ package logisticspipes.network.packets;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.proxy.MainProxy;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.DimensionManager;
 
 @Accessors(chain = true)
 public class PlayerListRequest extends ModernPacket {

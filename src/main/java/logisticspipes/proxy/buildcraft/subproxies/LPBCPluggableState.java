@@ -3,12 +3,12 @@ package logisticspipes.proxy.buildcraft.subproxies;
 import java.io.IOException;
 import java.util.Arrays;
 
-import logisticspipes.network.LPDataInputStream;
-import logisticspipes.network.LPDataOutputStream;
-import lombok.SneakyThrows;
 import buildcraft.transport.PipePluggableState;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import logisticspipes.network.LPDataInputStream;
+import logisticspipes.network.LPDataOutputStream;
+import lombok.SneakyThrows;
 
 public class LPBCPluggableState extends PipePluggableState implements IBCPluggableState {
 

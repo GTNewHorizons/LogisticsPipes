@@ -1,15 +1,14 @@
 package logisticspipes.proxy.buildcraft;
 
-import logisticspipes.interfaces.IItemAdvancedExistance;
-import logisticspipes.routing.ItemRoutingInformation;
-import lombok.Getter;
-import lombok.Setter;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import buildcraft.transport.TravelingItem;
+import logisticspipes.interfaces.IItemAdvancedExistance;
+import logisticspipes.routing.ItemRoutingInformation;
+import lombok.Getter;
+import lombok.Setter;
 
 public class LPRoutedBCTravelingItem extends TravelingItem {
 

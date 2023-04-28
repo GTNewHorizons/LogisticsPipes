@@ -3,6 +3,12 @@ package logisticspipes.blocks.powertile;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.gui.hud.HUDPowerLevel;
@@ -30,12 +36,6 @@ import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.Triplet;
-
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 @CCType(name = "LogisticsPowerProvider")
 public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTileEntity

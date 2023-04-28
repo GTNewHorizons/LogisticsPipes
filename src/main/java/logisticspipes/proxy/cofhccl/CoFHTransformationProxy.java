@@ -1,7 +1,7 @@
 package logisticspipes.proxy.cofhccl;
 
-import logisticspipes.proxy.object3d.interfaces.ITranslation;
 import cofh.repack.codechicken.lib.vec.Transformation;
+import logisticspipes.proxy.object3d.interfaces.ITranslation;
 
 public class CoFHTransformationProxy implements ITranslation {
 

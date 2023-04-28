@@ -1,11 +1,5 @@
 package logisticspipes.renderer;
 
-import logisticspipes.items.LogisticsFluidContainer;
-import logisticspipes.items.LogisticsItemCard;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.MinecraftColor;
-import logisticspipes.utils.item.ItemIdentifierStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
@@ -25,6 +19,11 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.items.LogisticsFluidContainer;
+import logisticspipes.items.LogisticsItemCard;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.MinecraftColor;
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 @SideOnly(Side.CLIENT)
 public class FluidContainerRenderer implements IItemRenderer {

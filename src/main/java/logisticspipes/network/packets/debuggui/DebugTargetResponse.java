@@ -2,6 +2,12 @@ package logisticspipes.network.packets.debuggui;
 
 import java.io.*;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.commands.commands.debug.DebugGuiController;
 import logisticspipes.network.LPDataInputStream;
@@ -14,12 +20,6 @@ import logisticspipes.utils.string.ChatColor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 
 @Accessors(chain = true)
 public class DebugTargetResponse extends ModernPacket {

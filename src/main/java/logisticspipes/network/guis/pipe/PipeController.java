@@ -2,6 +2,8 @@ package logisticspipes.network.guis.pipe;
 
 import java.util.UUID;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.GuiPipeController;
 import logisticspipes.interfaces.IGuiOpenControler;
@@ -14,8 +16,6 @@ import logisticspipes.pipes.upgrades.IPipeUpgrade;
 import logisticspipes.pipes.upgrades.SneakyUpgrade;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.gui.DummyContainer;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class PipeController extends CoordinatesGuiProvider {
 

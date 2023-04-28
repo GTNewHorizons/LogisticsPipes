@@ -7,13 +7,13 @@ package logisticspipes.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.tuples.LPPosition;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.tuples.LPPosition;
 
 public class WorldUtil {
 
