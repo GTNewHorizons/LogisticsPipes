@@ -228,9 +228,6 @@ public class LogisticsPipes {
         // Register Network channels
         MainProxy.createChannels();
 
-        // Gregtech New Horizons compat
-        isGTNH = Loader.isModLoaded("dreamcraft") && Loader.isModLoaded("gregtech");
-
         RouterManager manager = new RouterManager();
         SimpleServiceLocator.setRouterManager(manager);
         SimpleServiceLocator.setDirectConnectionManager(manager);
@@ -272,6 +269,9 @@ public class LogisticsPipes {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
+		// Gregtech New Horizons compat
+        isGTNH = Loader.isModLoaded("dreamcraft") && Loader.isModLoaded("gregtech");
+		
         LogisticsPipes.log = evt.getModLog();
         loadClasses();
         ProxyManager.load();
