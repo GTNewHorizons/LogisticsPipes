@@ -1,5 +1,8 @@
 package logisticspipes.gui.hud;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.hud.HUDConfig;
 import logisticspipes.interfaces.IHUDConfig;
@@ -10,9 +13,6 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class GuiHUDSettings extends LogisticsBaseGuiScreen {
 

@@ -2,14 +2,13 @@ package logisticspipes.nei;
 
 import java.util.List;
 
-import logisticspipes.utils.QuickSortChestMarkerStorage;
-import logisticspipes.utils.gui.GuiGraphics;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
 
 import codechicken.nei.guihook.IContainerDrawHandler;
+import logisticspipes.utils.QuickSortChestMarkerStorage;
+import logisticspipes.utils.gui.GuiGraphics;
 
 public class DrawHandler implements IContainerDrawHandler {
 

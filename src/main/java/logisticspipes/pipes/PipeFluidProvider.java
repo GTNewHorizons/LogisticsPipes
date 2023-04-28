@@ -3,6 +3,13 @@ package logisticspipes.pipes;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+
 import logisticspipes.interfaces.ISpecialTankAccessHandler;
 import logisticspipes.interfaces.ISpecialTankHandler;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
@@ -26,13 +33,6 @@ import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class PipeFluidProvider extends FluidRoutedPipe implements IProvideFluids {
 

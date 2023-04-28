@@ -1,18 +1,18 @@
 package logisticspipes.pipes;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.network.GuiIDs;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.security.SecuritySettings;
-import logisticspipes.textures.Textures;
-import logisticspipes.textures.Textures.TextureType;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.network.GuiIDs;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.security.SecuritySettings;
+import logisticspipes.textures.Textures;
+import logisticspipes.textures.Textures.TextureType;
 
 public class PipeItemsRequestLogisticsMk2 extends PipeItemsRequestLogistics {
 

@@ -3,6 +3,10 @@ package logisticspipes.request.resources;
 import java.io.IOException;
 import java.util.BitSet;
 
+import net.minecraft.item.ItemStack;
+
+import com.google.common.base.Objects;
+
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -10,10 +14,6 @@ import logisticspipes.routing.IRouter;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
-
-import net.minecraft.item.ItemStack;
-
-import com.google.common.base.Objects;
 
 public class DictResource implements IResource {
 

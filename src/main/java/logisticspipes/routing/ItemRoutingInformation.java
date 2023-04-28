@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
 import logisticspipes.proxy.MainProxy;
@@ -12,9 +15,6 @@ import logisticspipes.routing.order.IDistanceTracker;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemRoutingInformation {
 

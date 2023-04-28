@@ -2,11 +2,11 @@ package logisticspipes.commands.commands;
 
 import java.util.Arrays;
 
+import net.minecraft.command.ICommandSender;
+
 import logisticspipes.LPConstants;
 import logisticspipes.commands.abstracts.SubCommandHandler;
 import logisticspipes.commands.commands.debug.*;
-
-import net.minecraft.command.ICommandSender;
 
 public class DebugCommand extends SubCommandHandler {
 

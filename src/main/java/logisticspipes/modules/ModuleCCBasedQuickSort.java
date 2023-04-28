@@ -3,6 +3,14 @@ package logisticspipes.modules;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.gui.hud.modules.HUDCCBasedQuickSort;
 import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IFilter;
@@ -31,15 +39,6 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
 import lombok.Getter;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModuleCCBasedQuickSort extends ModuleQuickSort
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver {

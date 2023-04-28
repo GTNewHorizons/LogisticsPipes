@@ -3,18 +3,6 @@ package logisticspipes.proxy.forestry;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.Configs;
-import logisticspipes.items.ItemModule;
-import logisticspipes.items.ItemPipeComponents;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.IForestryProxy;
-import logisticspipes.recipes.CraftingDependency;
-import logisticspipes.recipes.RecipeManager;
-import logisticspipes.recipes.RecipeManager.LocalCraftingManager;
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -37,6 +25,17 @@ import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IAlleleSpecies;
 import forestry.api.recipes.RecipeManagers;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.Configs;
+import logisticspipes.items.ItemModule;
+import logisticspipes.items.ItemPipeComponents;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.IForestryProxy;
+import logisticspipes.recipes.CraftingDependency;
+import logisticspipes.recipes.RecipeManager;
+import logisticspipes.recipes.RecipeManager.LocalCraftingManager;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public class ForestryProxy implements IForestryProxy {
 

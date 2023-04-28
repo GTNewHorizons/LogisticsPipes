@@ -2,28 +2,6 @@ package logisticspipes.renderer;
 
 import java.util.*;
 
-import logisticspipes.LPConstants;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.PlayerConfig;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.pipes.signs.IPipeSign;
-import logisticspipes.pipes.signs.IPipeSignData;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
-import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
-import logisticspipes.renderer.newpipe.GLRenderList;
-import logisticspipes.renderer.newpipe.LogisticsNewPipeItemBoxRenderer;
-import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
-import logisticspipes.transport.LPTravelingItem;
-import logisticspipes.transport.PipeFluidTransportLogistics;
-import logisticspipes.transport.PipeTransportLogistics;
-import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.item.ItemStackRenderer;
-import logisticspipes.utils.tuples.LPPosition;
-import logisticspipes.utils.tuples.Pair;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -56,6 +34,28 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import logisticspipes.LPConstants;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.PlayerConfig;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.pipes.signs.IPipeSign;
+import logisticspipes.pipes.signs.IPipeSignData;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
+import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
+import logisticspipes.renderer.newpipe.GLRenderList;
+import logisticspipes.renderer.newpipe.LogisticsNewPipeItemBoxRenderer;
+import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
+import logisticspipes.transport.LPTravelingItem;
+import logisticspipes.transport.PipeFluidTransportLogistics;
+import logisticspipes.transport.PipeTransportLogistics;
+import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.item.ItemStackRenderer;
+import logisticspipes.utils.tuples.LPPosition;
+import logisticspipes.utils.tuples.Pair;
 
 public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
 

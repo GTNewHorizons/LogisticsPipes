@@ -6,6 +6,18 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.objects.ItemData;
+import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.common.tileentities.automation.GT_MetaTileEntity_TypeFilter;
 import logisticspipes.gui.hud.modules.HUDStringBasedItemSink;
 import logisticspipes.interfaces.*;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
@@ -24,19 +36,6 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.OrePrefixes;
-import gregtech.api.objects.ItemData;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.common.tileentities.automation.GT_MetaTileEntity_TypeFilter;
 
 public class ModuleTypeFilterItemSink extends LogisticsGuiModule
         implements IClientInformationProvider, IHUDModuleHandler, IModuleWatchReciver, IStringBasedModule {

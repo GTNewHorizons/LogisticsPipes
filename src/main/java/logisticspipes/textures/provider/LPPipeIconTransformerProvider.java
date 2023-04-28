@@ -2,10 +2,10 @@ package logisticspipes.textures.provider;
 
 import java.util.ArrayList;
 
+import net.minecraft.util.IIcon;
+
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
-
-import net.minecraft.util.IIcon;
 
 public class LPPipeIconTransformerProvider {
 

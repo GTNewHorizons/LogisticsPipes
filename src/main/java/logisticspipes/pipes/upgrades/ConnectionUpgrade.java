@@ -1,9 +1,9 @@
 package logisticspipes.pipes.upgrades;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class ConnectionUpgrade implements IPipeUpgrade {
 

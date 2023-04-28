@@ -1,11 +1,11 @@
 package logisticspipes.network.packets.orderer;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.interfaces.IOrderManagerContentReceiver;
 import logisticspipes.network.abstractpackets.InventoryModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class OrdererManagerContent extends InventoryModuleCoordinatesPacket {
 

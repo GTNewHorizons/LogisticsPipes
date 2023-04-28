@@ -2,6 +2,11 @@ package logisticspipes.network.packets.routingdebug;
 
 import java.io.*;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -17,11 +22,6 @@ import logisticspipes.utils.string.ChatColor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 
 @Accessors(chain = true)
 public class RoutingUpdateTargetResponse extends ModernPacket {

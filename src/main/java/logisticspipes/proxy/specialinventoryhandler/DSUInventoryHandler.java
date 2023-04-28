@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import logisticspipes.utils.item.ItemIdentifier;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 
 public class DSUInventoryHandler extends SpecialInventoryHandler {

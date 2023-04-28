@@ -5,16 +5,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ICraftingResultHandler;
 import logisticspipes.items.ItemPipeComponents;
 import logisticspipes.proxy.interfaces.ICraftingParts;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 // @formatter:off
 // CHECKSTYLE:OFF

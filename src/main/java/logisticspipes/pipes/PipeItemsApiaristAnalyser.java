@@ -2,6 +2,11 @@ package logisticspipes.pipes;
 
 import java.util.List;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.interfaces.IInventoryUtil;
 import logisticspipes.interfaces.ISendRoutedItem;
 import logisticspipes.interfaces.routing.IFilter;
@@ -22,11 +27,6 @@ import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Triplet;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsApiaristAnalyser extends CoreRoutedPipe implements ISendRoutedItem {
 

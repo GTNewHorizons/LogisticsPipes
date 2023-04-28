@@ -2,17 +2,6 @@ package logisticspipes.items;
 
 import java.util.List;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.Configs;
-import logisticspipes.network.GuiIDs;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.pipe.RequestPipeDimension;
-import logisticspipes.pipes.PipeItemsRemoteOrdererLogistics;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +14,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import org.lwjgl.input.Keyboard;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.Configs;
+import logisticspipes.network.GuiIDs;
+import logisticspipes.network.PacketHandler;
+import logisticspipes.network.packets.pipe.RequestPipeDimension;
+import logisticspipes.pipes.PipeItemsRemoteOrdererLogistics;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.string.StringUtils;
 
 public class RemoteOrderer extends Item {
 

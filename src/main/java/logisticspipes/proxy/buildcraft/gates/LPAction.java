@@ -5,8 +5,6 @@
  */
 package logisticspipes.proxy.buildcraft.gates;
 
-import logisticspipes.textures.Textures;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
@@ -15,6 +13,7 @@ import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.StatementManager;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.textures.Textures;
 
 public abstract class LPAction implements IActionInternal {
 

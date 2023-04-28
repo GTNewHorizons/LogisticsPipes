@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IQueueCCEvent;
 import logisticspipes.interfaces.IWorldProvider;
@@ -16,12 +21,6 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @CCType(name = "LogisticsModule")
 public abstract class LogisticsModule implements ISaveState, ILPCCTypeHolder {

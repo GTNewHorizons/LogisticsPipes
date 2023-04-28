@@ -8,15 +8,6 @@ package logisticspipes.utils.item;
 
 import java.util.List;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.gui.IItemSearch;
-import logisticspipes.utils.gui.SimpleGraphics;
-import logisticspipes.utils.string.StringUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
@@ -35,6 +26,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.utils.Color;
+import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.SimpleGraphics;
+import logisticspipes.utils.string.StringUtils;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)

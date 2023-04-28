@@ -3,6 +3,14 @@ package logisticspipes.gui;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+
+import org.lwjgl.input.Keyboard;
+
 import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.gui.popup.GuiEditCCAccessTable;
@@ -17,14 +25,6 @@ import logisticspipes.security.SecuritySettings;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.*;
 import logisticspipes.utils.string.StringUtils;
-
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-
-import org.lwjgl.input.Keyboard;
 
 public class GuiSecurityStation extends LogisticsBaseGuiScreen implements PlayerListReciver {
 

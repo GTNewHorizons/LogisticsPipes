@@ -1,5 +1,7 @@
 package logisticspipes.network.packets.module;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
@@ -7,8 +9,6 @@ import logisticspipes.network.packets.modules.ProviderPipeInclude;
 import logisticspipes.pipes.PipeItemsProviderLogistics;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ProviderPipeIncludePacket extends CoordinatesPacket {
 

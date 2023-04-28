@@ -6,13 +6,13 @@ package logisticspipes.utils;
 
 import java.util.LinkedList;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.proxy.specialinventoryhandler.SpecialInventoryHandler;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.proxy.specialinventoryhandler.SpecialInventoryHandler;
 
 public class InventoryUtilFactory {
 

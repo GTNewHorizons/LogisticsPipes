@@ -6,6 +6,12 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 
+import net.minecraft.launchwrapper.Launch;
+import net.minecraft.launchwrapper.LogWrapper;
+
+import org.apache.logging.log4j.Level;
+import org.objectweb.asm.*;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.asm.IgnoreDisabledProxy;
@@ -14,12 +20,6 @@ import logisticspipes.proxy.VersionNotSupportedException;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
 import logisticspipes.proxy.interfaces.IGenericProgressProvider;
 import logisticspipes.utils.ModStatusHelper;
-
-import net.minecraft.launchwrapper.Launch;
-import net.minecraft.launchwrapper.LogWrapper;
-
-import org.apache.logging.log4j.Level;
-import org.objectweb.asm.*;
 
 public class LogisticsWrapperHandler {
 

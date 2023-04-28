@@ -4,26 +4,6 @@ import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import logisticspipes.config.PlayerConfig;
-import logisticspipes.interfaces.IItemAdvancedExistance;
-import logisticspipes.modules.ModuleQuickSort;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.PlayerConfigToClientPacket;
-import logisticspipes.network.packets.chassis.ChestGuiClosed;
-import logisticspipes.network.packets.chassis.ChestGuiOpened;
-import logisticspipes.network.packets.gui.GuiReopenPacket;
-import logisticspipes.pipes.PipeLogisticsChassi;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.renderer.LogisticsGuiOverrenderer;
-import logisticspipes.renderer.LogisticsHUDRenderer;
-import logisticspipes.utils.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,6 +27,25 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.config.PlayerConfig;
+import logisticspipes.interfaces.IItemAdvancedExistance;
+import logisticspipes.modules.ModuleQuickSort;
+import logisticspipes.network.PacketHandler;
+import logisticspipes.network.packets.PlayerConfigToClientPacket;
+import logisticspipes.network.packets.chassis.ChestGuiClosed;
+import logisticspipes.network.packets.chassis.ChestGuiOpened;
+import logisticspipes.network.packets.gui.GuiReopenPacket;
+import logisticspipes.pipes.PipeLogisticsChassi;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.renderer.LogisticsGuiOverrenderer;
+import logisticspipes.renderer.LogisticsHUDRenderer;
+import logisticspipes.utils.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 public class LogisticsEventListener {
 

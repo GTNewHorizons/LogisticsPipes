@@ -6,10 +6,10 @@ package logisticspipes.routing;
 
 import java.util.*;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.routing.debug.ExitRouteDebug;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Defines direction with a cost

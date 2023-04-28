@@ -3,17 +3,17 @@ package logisticspipes.proxy.ccl;
 import java.util.ArrayList;
 import java.util.List;
 
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
-import logisticspipes.proxy.object3d.interfaces.IBounds;
-import logisticspipes.proxy.object3d.interfaces.IModel3D;
-import logisticspipes.proxy.object3d.interfaces.IVec3;
 import codechicken.lib.lighting.LightModel;
 import codechicken.lib.render.CCModel;
 import codechicken.lib.render.CCRenderState.IVertexOperation;
 import codechicken.lib.render.uv.UVTransformation;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Transformation;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.object3d.interfaces.I3DOperation;
+import logisticspipes.proxy.object3d.interfaces.IBounds;
+import logisticspipes.proxy.object3d.interfaces.IModel3D;
+import logisticspipes.proxy.object3d.interfaces.IVec3;
 
 public class Model3D implements IModel3D {
 

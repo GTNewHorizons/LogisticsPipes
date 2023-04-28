@@ -2,15 +2,6 @@ package logisticspipes.proxy.buildcraft;
 
 import java.util.List;
 
-import logisticspipes.interfaces.routing.IFilter;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.routing.pathfinder.IPipeInformationProvider;
-import logisticspipes.transport.LPTravelingItem;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.tuples.LPPosition;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -22,6 +13,14 @@ import buildcraft.transport.pipes.PipeItemsDiamond;
 import buildcraft.transport.pipes.PipeItemsIron;
 import buildcraft.transport.pipes.PipeItemsObsidian;
 import buildcraft.transport.pipes.PipeStructureCobblestone;
+import logisticspipes.interfaces.routing.IFilter;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.routing.pathfinder.IPipeInformationProvider;
+import logisticspipes.transport.LPTravelingItem;
+import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.tuples.LPPosition;
 
 public class BCPipeInformationProvider implements IPipeInformationProvider {
 

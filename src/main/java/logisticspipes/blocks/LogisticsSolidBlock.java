@@ -1,16 +1,5 @@
 package logisticspipes.blocks;
 
-import logisticspipes.LPConstants;
-import logisticspipes.LogisticsPipes;
-import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
-import logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity;
-import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
-import logisticspipes.blocks.powertile.LogisticsRFPowerProviderTileEntity;
-import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
-import logisticspipes.interfaces.IGuiTileEntity;
-import logisticspipes.interfaces.IRotationProvider;
-import logisticspipes.proxy.MainProxy;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -26,6 +15,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LPConstants;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
+import logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity;
+import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
+import logisticspipes.blocks.powertile.LogisticsRFPowerProviderTileEntity;
+import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
+import logisticspipes.interfaces.IGuiTileEntity;
+import logisticspipes.interfaces.IRotationProvider;
+import logisticspipes.proxy.MainProxy;
 
 public class LogisticsSolidBlock extends BlockContainer {
 

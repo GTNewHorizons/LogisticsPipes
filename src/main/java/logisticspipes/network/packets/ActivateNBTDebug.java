@@ -1,13 +1,13 @@
 package logisticspipes.network.packets;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.nei.LoadingHelper;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ActivateNBTDebug extends ModernPacket {
 

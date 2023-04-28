@@ -4,13 +4,13 @@
  */
 package logisticspipes.gui.modules;
 
-import logisticspipes.modules.ModuleFluidSupplier;
-import logisticspipes.utils.gui.DummyContainer;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.modules.ModuleFluidSupplier;
+import logisticspipes.utils.gui.DummyContainer;
 
 public class GuiFluidSupplier extends ModuleBaseGui {
 

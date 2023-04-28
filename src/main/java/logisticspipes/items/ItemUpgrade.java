@@ -6,13 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import logisticspipes.LPConstants;
-import logisticspipes.pipes.upgrades.*;
-import logisticspipes.pipes.upgrades.connection.*;
-import logisticspipes.pipes.upgrades.power.*;
-import logisticspipes.pipes.upgrades.sneaky.*;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +17,12 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LPConstants;
+import logisticspipes.pipes.upgrades.*;
+import logisticspipes.pipes.upgrades.connection.*;
+import logisticspipes.pipes.upgrades.power.*;
+import logisticspipes.pipes.upgrades.sneaky.*;
+import logisticspipes.utils.string.StringUtils;
 
 public class ItemUpgrade extends LogisticsItem {
 

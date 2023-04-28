@@ -2,6 +2,8 @@ package logisticspipes.network.packets.orderer;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.interfaces.IRequestWatcher;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -13,8 +15,6 @@ import logisticspipes.routing.order.LinkedLogisticsOrderList;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class OrdererWatchPacket extends IntegerCoordinatesPacket {

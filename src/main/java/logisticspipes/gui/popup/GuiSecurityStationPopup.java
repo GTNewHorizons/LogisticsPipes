@@ -1,5 +1,8 @@
 package logisticspipes.gui.popup;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.SaveSecurityPlayerPacket;
@@ -10,9 +13,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.string.StringUtils;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class GuiSecurityStationPopup extends SubGuiScreen {
 

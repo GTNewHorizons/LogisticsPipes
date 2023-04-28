@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.network.LPDataInputStream;
@@ -23,10 +27,6 @@ import logisticspipes.utils.item.ItemIdentifier;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 @Accessors(chain = true)
 public class FindMostLikelyRecipeComponents extends CoordinatesPacket {

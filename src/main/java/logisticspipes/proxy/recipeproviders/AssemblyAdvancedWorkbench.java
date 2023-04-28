@@ -1,14 +1,13 @@
 package logisticspipes.proxy.recipeproviders;
 
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierInventory;
-import logisticspipes.utils.item.ItemIdentifierStack;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import buildcraft.silicon.TileAdvancedCraftingTable;
+import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
+import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class AssemblyAdvancedWorkbench implements ICraftingRecipeProvider {
 

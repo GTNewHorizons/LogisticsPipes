@@ -4,17 +4,17 @@
  */
 package logisticspipes.gui;
 
-import logisticspipes.pipes.PipeFluidSatellite;
-import logisticspipes.pipes.PipeItemsSatelliteLogistics;
-import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.pipes.PipeFluidSatellite;
+import logisticspipes.pipes.PipeItemsSatelliteLogistics;
+import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiSatellitePipe extends LogisticsBaseGuiScreen {
 

@@ -1,13 +1,13 @@
 package logisticspipes.utils;
 
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.transactor.ITransactor;
-import logisticspipes.utils.transactor.TransactorSimple;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.transactor.ITransactor;
+import logisticspipes.utils.transactor.TransactorSimple;
 
 public class InventoryHelper {
 

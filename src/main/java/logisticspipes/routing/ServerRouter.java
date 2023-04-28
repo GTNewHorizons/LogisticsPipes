@@ -10,6 +10,11 @@ import java.util.Map.Entry;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.asm.te.ILPTEInformation;
@@ -44,11 +49,6 @@ import logisticspipes.utils.tuples.Quartet;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 

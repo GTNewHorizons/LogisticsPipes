@@ -2,6 +2,9 @@ package logisticspipes.network.packets.hud;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentTranslation;
+
 import logisticspipes.hud.HUDConfig;
 import logisticspipes.interfaces.IHUDConfig;
 import logisticspipes.network.LPDataInputStream;
@@ -10,9 +13,6 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
 
 @Accessors(chain = true)
 public class HUDSettingsPacket extends ModernPacket {

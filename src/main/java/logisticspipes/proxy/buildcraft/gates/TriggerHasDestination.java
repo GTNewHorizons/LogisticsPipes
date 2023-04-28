@@ -2,17 +2,16 @@ package logisticspipes.proxy.buildcraft.gates;
 
 import java.util.ArrayList;
 
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
-import logisticspipes.textures.provider.LPActionTriggerIconProvider;
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.item.ItemStack;
 
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerInternal;
 import buildcraft.transport.Pipe;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
+import logisticspipes.textures.provider.LPActionTriggerIconProvider;
+import logisticspipes.utils.item.ItemIdentifier;
 
 public class TriggerHasDestination extends LPTrigger implements ITriggerInternal {
 

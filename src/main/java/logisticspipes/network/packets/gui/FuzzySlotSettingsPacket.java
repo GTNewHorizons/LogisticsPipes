@@ -3,6 +3,8 @@ package logisticspipes.network.packets.gui;
 import java.io.IOException;
 import java.util.BitSet;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -10,8 +12,6 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class FuzzySlotSettingsPacket extends ModernPacket {

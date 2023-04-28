@@ -20,10 +20,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import org.lwjgl.opengl.GL11;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import org.lwjgl.opengl.GL11;
 
 @SuppressWarnings("unused")
 public class OpenGLDebugger {

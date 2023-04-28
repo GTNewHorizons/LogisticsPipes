@@ -6,18 +6,18 @@ package logisticspipes.gui.modules;
 
 import java.util.Locale;
 
-import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.module.ExtractorModuleDirectionPacket;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.gui.DummyContainer;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.modules.abstractmodules.LogisticsSneakyDirectionModule;
+import logisticspipes.network.PacketHandler;
+import logisticspipes.network.packets.module.ExtractorModuleDirectionPacket;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.gui.DummyContainer;
 
 public class GuiExtractor extends ModuleBaseGui {
 

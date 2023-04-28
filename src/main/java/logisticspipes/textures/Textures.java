@@ -1,16 +1,15 @@
 package logisticspipes.textures;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 import logisticspipes.LPConstants;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.renderer.IIconProvider;
 import logisticspipes.textures.provider.LPActionTriggerIconProvider;
 import logisticspipes.textures.provider.LPPipeIconProvider;
 import logisticspipes.textures.provider.LPPipeIconTransformerProvider;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.util.IIcon;
-
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class Textures {
 

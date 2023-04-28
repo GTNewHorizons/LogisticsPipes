@@ -3,14 +3,6 @@ package logisticspipes.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.pipes.signs.CraftingPipeSign;
-import logisticspipes.pipes.signs.IPipeSign;
-import logisticspipes.pipes.signs.ItemAmountPipeSign;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +15,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.pipes.signs.CraftingPipeSign;
+import logisticspipes.pipes.signs.IPipeSign;
+import logisticspipes.pipes.signs.ItemAmountPipeSign;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.string.StringUtils;
 
 public class ItemPipeSignCreator extends LogisticsItem {
 

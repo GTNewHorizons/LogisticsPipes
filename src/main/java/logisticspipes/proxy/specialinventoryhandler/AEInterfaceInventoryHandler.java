@@ -3,8 +3,6 @@ package logisticspipes.proxy.specialinventoryhandler;
 import java.util.*;
 import java.util.Map.Entry;
 
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -19,6 +17,7 @@ import appeng.api.networking.security.MachineSource;
 import appeng.api.storage.IStorageMonitorable;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.util.AECableType;
+import logisticspipes.utils.item.ItemIdentifier;
 
 /*
  * Compatibility for Applied Energistics

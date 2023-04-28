@@ -1,10 +1,10 @@
 package logisticspipes.logisticspipes;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.PipeLogisticsChassi;
 import logisticspipes.utils.SinkReply;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ChassiTransportLayer extends TransportLayer {
 

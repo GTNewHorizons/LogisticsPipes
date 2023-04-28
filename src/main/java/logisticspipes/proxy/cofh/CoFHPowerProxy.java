@@ -1,5 +1,14 @@
 package logisticspipes.proxy.cofh;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyReceiver;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.config.Configs;
@@ -12,16 +21,6 @@ import logisticspipes.proxy.interfaces.ICraftingParts;
 import logisticspipes.recipes.CraftingDependency;
 import logisticspipes.recipes.RecipeManager;
 import logisticspipes.recipes.RecipeManager.LocalCraftingManager;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyReceiver;
 
 public class CoFHPowerProxy implements ICoFHPowerProxy {
 

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import net.minecraft.util.IIcon;
+
 import logisticspipes.proxy.object3d.interfaces.*;
 import logisticspipes.proxy.object3d.operation.LPScale;
-
-import net.minecraft.util.IIcon;
 
 public interface ICCLProxy {
 

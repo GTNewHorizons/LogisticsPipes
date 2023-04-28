@@ -4,6 +4,34 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+
+import org.apache.logging.log4j.Level;
+
+import buildcraft.api.core.EnumColor;
+import buildcraft.api.transport.IPipe;
+import buildcraft.api.transport.IPipeConnection;
+import buildcraft.api.transport.IPipeTile;
+import buildcraft.api.transport.pluggable.PipePluggable;
+import buildcraft.transport.TileGenericPipe;
+import cofh.api.transport.IItemDuct;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
@@ -40,35 +68,6 @@ import logisticspipes.utils.StackTraceUtil.Info;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
-
-import net.minecraft.block.Block;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-
-import org.apache.logging.log4j.Level;
-
-import buildcraft.api.core.EnumColor;
-import buildcraft.api.transport.IPipe;
-import buildcraft.api.transport.IPipeConnection;
-import buildcraft.api.transport.IPipeTile;
-import buildcraft.api.transport.pluggable.PipePluggable;
-import buildcraft.transport.TileGenericPipe;
-import cofh.api.transport.IItemDuct;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.InterfaceList({ @Optional.Interface(modid = "CoFHCore", iface = "cofh.api.transport.IItemDuct"),
         @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),

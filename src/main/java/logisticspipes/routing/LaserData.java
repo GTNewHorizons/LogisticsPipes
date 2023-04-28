@@ -5,13 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.EnumSet;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 @SuppressWarnings("NullableProblems") // NonNull necessary for Lombok
 @Data

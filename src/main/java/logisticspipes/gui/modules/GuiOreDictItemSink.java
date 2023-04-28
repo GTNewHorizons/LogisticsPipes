@@ -3,6 +3,11 @@ package logisticspipes.gui.modules;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+
 import logisticspipes.modules.ModuleOreDictItemSink;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.DummyContainer;
@@ -10,11 +15,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class GuiOreDictItemSink extends ModuleBaseGui {
 

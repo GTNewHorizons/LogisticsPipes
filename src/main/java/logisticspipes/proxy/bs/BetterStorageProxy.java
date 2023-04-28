@@ -1,10 +1,10 @@
 package logisticspipes.proxy.bs;
 
-import logisticspipes.proxy.interfaces.IBetterStorageProxy;
-
 import net.mcft.copy.betterstorage.api.crate.ICrateStorage;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import logisticspipes.proxy.interfaces.IBetterStorageProxy;
 
 public class BetterStorageProxy implements IBetterStorageProxy {
 

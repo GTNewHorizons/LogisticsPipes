@@ -1,13 +1,13 @@
 package logisticspipes.pipes.unrouted;
 
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.textures.Textures;
 import logisticspipes.transport.PipeTransportLogistics;
-
-import net.minecraft.item.Item;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsBasicTransport extends CoreUnroutedPipe {
 

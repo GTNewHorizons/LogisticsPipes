@@ -1,14 +1,14 @@
 package logisticspipes.network.guis.block;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+
 import logisticspipes.blocks.LogisticsSolderingTileEntity;
 import logisticspipes.gui.GuiSolderingStation;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 
 public class SolderingStationGui extends CoordinatesGuiProvider {
 

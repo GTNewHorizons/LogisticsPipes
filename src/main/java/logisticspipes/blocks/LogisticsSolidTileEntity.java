@@ -1,5 +1,12 @@
 package logisticspipes.blocks;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
@@ -18,14 +25,6 @@ import logisticspipes.proxy.opencomputers.IOCTile;
 import logisticspipes.proxy.opencomputers.asm.BaseWrapperClass;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.LPPosition;
-
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.InterfaceList({
         @Optional.Interface(modid = LPConstants.openComputersModID, iface = "li.cil.oc.api.network.ManagedPeripheral"),

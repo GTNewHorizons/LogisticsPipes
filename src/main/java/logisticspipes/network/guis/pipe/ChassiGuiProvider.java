@@ -1,5 +1,9 @@
 package logisticspipes.network.guis.pipe;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.GuiChassiPipe;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
@@ -9,10 +13,6 @@ import logisticspipes.pipes.PipeLogisticsChassi;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.pipes.upgrades.ModuleUpgradeManager;
 import logisticspipes.utils.gui.DummyContainer;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 
 public class ChassiGuiProvider extends BooleanModuleCoordinatesGuiProvider {
 

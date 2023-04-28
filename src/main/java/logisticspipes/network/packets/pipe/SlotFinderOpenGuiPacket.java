@@ -2,6 +2,12 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+
 import logisticspipes.interfaces.ISpecialInsertion;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -16,12 +22,6 @@ import logisticspipes.utils.WorldUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 
 @Accessors(chain = true)
 public class SlotFinderOpenGuiPacket extends ModuleCoordinatesPacket {

@@ -2,6 +2,16 @@ package logisticspipes.blocks.powertile;
 
 import java.util.List;
 
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.common.Optional;
+import ic2.api.energy.tile.IEnergySink;
 import logisticspipes.LPConstants;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
@@ -21,17 +31,6 @@ import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.utils.PlayerCollectionList;
-
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import cofh.api.energy.IEnergyHandler;
-import cpw.mods.fml.common.Optional;
-import ic2.api.energy.tile.IEnergySink;
 
 @Optional.InterfaceList({ @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink"),
         @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler"),

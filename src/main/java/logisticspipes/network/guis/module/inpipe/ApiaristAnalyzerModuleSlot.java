@@ -2,6 +2,8 @@ package logisticspipes.network.guis.module.inpipe;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.gui.modules.GuiApiaristAnalyser;
 import logisticspipes.modules.ModuleApiaristAnalyser;
 import logisticspipes.network.LPDataInputStream;
@@ -12,8 +14,6 @@ import logisticspipes.utils.gui.DummyContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class ApiaristAnalyzerModuleSlot extends ModuleCoordinatesGuiProvider {

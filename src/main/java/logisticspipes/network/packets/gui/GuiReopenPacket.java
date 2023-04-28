@@ -2,6 +2,8 @@ package logisticspipes.network.packets.gui;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -10,8 +12,6 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class GuiReopenPacket extends CoordinatesPacket {

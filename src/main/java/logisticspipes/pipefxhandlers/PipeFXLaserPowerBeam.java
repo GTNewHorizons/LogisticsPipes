@@ -2,10 +2,6 @@ package logisticspipes.pipefxhandlers;
 
 import java.util.Random;
 
-import logisticspipes.utils.tuples.LPPosition;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,6 +15,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.utils.tuples.LPPosition;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 public class PipeFXLaserPowerBeam extends EntityFX {

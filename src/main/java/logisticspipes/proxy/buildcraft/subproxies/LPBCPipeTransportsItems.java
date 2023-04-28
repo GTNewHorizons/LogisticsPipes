@@ -1,11 +1,10 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TravelingItem;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 
 public class LPBCPipeTransportsItems extends PipeTransportItems {
 

@@ -3,6 +3,9 @@ package logisticspipes.network.packets.pipe;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.LPConstants;
 import logisticspipes.config.Configs;
 import logisticspipes.network.PacketHandler;
@@ -19,9 +22,6 @@ import logisticspipes.routing.pathfinder.PathFinder;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class RequestRoutingLasersPacket extends CoordinatesPacket {
 

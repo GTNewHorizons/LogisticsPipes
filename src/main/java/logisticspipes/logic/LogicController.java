@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import logisticspipes.utils.item.SimpleStackInventory;
-import lombok.Getter;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+
+import logisticspipes.utils.item.SimpleStackInventory;
+import lombok.Getter;
 
 public class LogicController {
 

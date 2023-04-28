@@ -1,16 +1,15 @@
 package logisticspipes.blocks.powertile;
 
-import logisticspipes.pipes.basic.CoreRoutedPipe;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.renderer.LogisticsHUDRenderer;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
+import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.renderer.LogisticsHUDRenderer;
 
 @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink")
 public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergySink {

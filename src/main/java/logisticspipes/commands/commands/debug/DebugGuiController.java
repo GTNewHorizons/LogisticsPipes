@@ -7,6 +7,14 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import network.rs485.debuggui.api.IDataConnection;
+import network.rs485.debuggui.api.IDebugGuiEntry;
+import network.rs485.debuggui.api.IObjectIdentification;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.exception.DelayPacketException;
 import logisticspipes.network.packets.debuggui.DebugDataPacket;
@@ -15,14 +23,6 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.AllArgsConstructor;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.launchwrapper.Launch;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import network.rs485.debuggui.api.IDataConnection;
-import network.rs485.debuggui.api.IDebugGuiEntry;
-import network.rs485.debuggui.api.IObjectIdentification;
 
 public class DebugGuiController {
 

@@ -4,12 +4,12 @@
  */
 package logisticspipes.utils.gui;
 
-import lombok.Setter;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import lombok.Setter;
 
 public class DummySlot extends Slot {
 

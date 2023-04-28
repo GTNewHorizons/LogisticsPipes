@@ -2,10 +2,10 @@ package logisticspipes.renderer.state;
 
 import java.io.IOException;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ConnectionMatrix {
 

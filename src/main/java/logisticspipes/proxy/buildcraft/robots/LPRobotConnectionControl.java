@@ -2,17 +2,6 @@ package logisticspipes.proxy.buildcraft.robots;
 
 import java.util.*;
 
-import logisticspipes.config.Configs;
-import logisticspipes.interfaces.routing.ISpecialPipedConnection;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
-import logisticspipes.proxy.specialconnection.SpecialPipeConnection.ConnectionInformation;
-import logisticspipes.routing.PipeRoutingConnectionType;
-import logisticspipes.routing.pathfinder.IPipeInformationProvider;
-import logisticspipes.utils.tuples.LPPosition;
-import logisticspipes.utils.tuples.Pair;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -23,6 +12,16 @@ import buildcraft.api.robots.EntityRobotBase;
 import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.robotics.RobotStationPluggable;
 import buildcraft.transport.TileGenericPipe;
+import logisticspipes.config.Configs;
+import logisticspipes.interfaces.routing.ISpecialPipedConnection;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
+import logisticspipes.proxy.specialconnection.SpecialPipeConnection.ConnectionInformation;
+import logisticspipes.routing.PipeRoutingConnectionType;
+import logisticspipes.routing.pathfinder.IPipeInformationProvider;
+import logisticspipes.utils.tuples.LPPosition;
+import logisticspipes.utils.tuples.Pair;
 
 public class LPRobotConnectionControl implements ISpecialPipedConnection {
 

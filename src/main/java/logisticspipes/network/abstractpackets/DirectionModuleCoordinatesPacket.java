@@ -2,13 +2,13 @@ package logisticspipes.network.abstractpackets;
 
 import java.io.IOException;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 @Accessors(chain = true)
 public abstract class DirectionModuleCoordinatesPacket extends ModuleCoordinatesPacket {

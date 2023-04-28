@@ -3,6 +3,10 @@ package logisticspipes.renderer.state;
 import java.io.IOException;
 import java.util.List;
 
+import net.minecraft.util.IIcon;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -12,11 +16,6 @@ import logisticspipes.proxy.object3d.interfaces.I3DOperation;
 import logisticspipes.proxy.object3d.interfaces.IModel3D;
 import logisticspipes.renderer.newpipe.GLRenderList;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.util.IIcon;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PipeRenderState implements IClientState {
 

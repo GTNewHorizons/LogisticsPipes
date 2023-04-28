@@ -8,6 +8,11 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
 import logisticspipes.interfaces.IInventoryUtil;
@@ -23,11 +28,6 @@ import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.InventoryHelper;
 import logisticspipes.utils.OrientationsUtil;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class PipeItemsBasicLogistics extends CoreRoutedPipe {
 

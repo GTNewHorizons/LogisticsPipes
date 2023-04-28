@@ -7,6 +7,11 @@ package logisticspipes.routing.pathfinder;
 import java.util.*;
 import java.util.Map.Entry;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.asm.te.ILPTEInformation;
 import logisticspipes.asm.te.ITileEntityChangeListener;
@@ -27,11 +32,6 @@ import logisticspipes.utils.OneList;
 import logisticspipes.utils.OrientationsUtil;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.inventory.IInventory;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Examines all pipe connections and their forks to locate all connected routers

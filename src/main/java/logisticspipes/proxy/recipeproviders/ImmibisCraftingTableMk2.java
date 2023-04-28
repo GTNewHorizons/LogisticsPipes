@@ -1,11 +1,5 @@
 package logisticspipes.proxy.recipeproviders;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.utils.CraftingUtil;
-import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierInventory;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -13,6 +7,12 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
+import logisticspipes.utils.CraftingUtil;
+import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 
 public class ImmibisCraftingTableMk2 implements ICraftingRecipeProvider {
 

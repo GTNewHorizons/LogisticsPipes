@@ -5,14 +5,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import logisticspipes.interfaces.IClientInformationProvider;
-import logisticspipes.modules.abstractmodules.LogisticsModule;
-import logisticspipes.proxy.MainProxy;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+
+import logisticspipes.interfaces.IClientInformationProvider;
+import logisticspipes.modules.abstractmodules.LogisticsModule;
+import logisticspipes.proxy.MainProxy;
 
 public class ItemModuleInformationManager {
 

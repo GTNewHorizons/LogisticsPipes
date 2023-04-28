@@ -1,12 +1,12 @@
 package logisticspipes.network.packets.pipe;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.abstractpackets.BitSetCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.pipes.PipeItemsFirewall;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class FireWallFlag extends BitSetCoordinatesPacket {

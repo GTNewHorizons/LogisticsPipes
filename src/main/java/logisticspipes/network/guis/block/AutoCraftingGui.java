@@ -2,6 +2,8 @@ package logisticspipes.network.guis.block;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
 import logisticspipes.gui.GuiLogisticsCraftingTable;
 import logisticspipes.network.LPDataInputStream;
@@ -10,8 +12,6 @@ import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class AutoCraftingGui extends CoordinatesGuiProvider {
 

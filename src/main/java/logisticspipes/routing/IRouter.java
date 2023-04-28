@@ -8,6 +8,8 @@ import java.util.BitSet;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.IFilter;
@@ -16,8 +18,6 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 public interface IRouter {
 

@@ -2,14 +2,13 @@ package logisticspipes.proxy.binnie;
 
 import java.lang.reflect.Field;
 
-import logisticspipes.proxy.interfaces.IBinnieProxy;
-import lombok.SneakyThrows;
-
 import net.minecraft.tileentity.TileEntity;
 
 import binnie.core.machines.Machine;
 import binnie.core.machines.TileEntityMachine;
 import binnie.genetics.machine.analyser.AnalyserPackage;
+import logisticspipes.proxy.interfaces.IBinnieProxy;
+import lombok.SneakyThrows;
 
 public class BinnieProxy implements IBinnieProxy {
 

@@ -1,8 +1,8 @@
 package logisticspipes.logic;
 
-import lombok.Getter;
-
 import net.minecraftforge.common.util.ForgeDirection;
+
+import lombok.Getter;
 
 public enum LogicParameterType {
 

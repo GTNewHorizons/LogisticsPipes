@@ -1,12 +1,11 @@
 package logisticspipes.modules;
 
-import logisticspipes.pipes.PipeItemsCraftingLogistics;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.pipes.PipeItemsCraftingLogistics;
 
 public class ModuleCrafterMK2 extends ModuleCrafter {
 

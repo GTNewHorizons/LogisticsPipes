@@ -1,10 +1,9 @@
 package logisticspipes.proxy.enderio;
 
-import logisticspipes.proxy.interfaces.IGenericProgressProvider;
-
 import net.minecraft.tileentity.TileEntity;
 
 import crazypants.enderio.machine.AbstractPoweredTaskEntity;
+import logisticspipes.proxy.interfaces.IGenericProgressProvider;
 
 public class EnderIOProgressProvider implements IGenericProgressProvider {
 

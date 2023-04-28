@@ -1,11 +1,5 @@
 package logisticspipes.renderer;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.config.PlayerConfig;
-import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.renderer.newpipe.LogisticsNewPipeItemRenderer;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -16,6 +10,12 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.config.PlayerConfig;
+import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.renderer.newpipe.LogisticsNewPipeItemRenderer;
 
 public class LogisticsPipeItemRenderer implements IItemRenderer {
 

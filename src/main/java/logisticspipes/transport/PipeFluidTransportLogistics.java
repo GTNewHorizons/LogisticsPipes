@@ -1,5 +1,9 @@
 package logisticspipes.transport;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.*;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.pipe.PipeFluidUpdate;
@@ -7,10 +11,6 @@ import logisticspipes.pipes.basic.fluid.FluidRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.SafeTimeTracker;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
 
 public class PipeFluidTransportLogistics extends PipeTransportLogistics implements IFluidHandler {
 

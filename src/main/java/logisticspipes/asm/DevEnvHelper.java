@@ -12,11 +12,6 @@ import java.util.*;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
-import logisticspipes.LPConstants;
-import logisticspipes.asm.DevEnvHelper.MappingLoader_MCP.CantLoadMCPMappingException;
-import logisticspipes.asm.DevEnvHelper.MinecraftNameSet.Side;
-import lombok.SneakyThrows;
-
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
@@ -38,6 +33,10 @@ import cpw.mods.fml.common.asm.transformers.ModAccessTransformer;
 import cpw.mods.fml.relauncher.CoreModManager;
 import cpw.mods.fml.relauncher.FMLRelaunchLog;
 import cpw.mods.fml.relauncher.FileListHelper;
+import logisticspipes.LPConstants;
+import logisticspipes.asm.DevEnvHelper.MappingLoader_MCP.CantLoadMCPMappingException;
+import logisticspipes.asm.DevEnvHelper.MinecraftNameSet.Side;
+import lombok.SneakyThrows;
 
 public class DevEnvHelper {
 

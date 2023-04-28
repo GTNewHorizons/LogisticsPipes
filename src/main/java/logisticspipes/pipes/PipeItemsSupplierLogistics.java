@@ -6,6 +6,9 @@ package logisticspipes.pipes;
 
 import java.util.List;
 
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -17,9 +20,6 @@ import logisticspipes.pipes.basic.debug.StatusEntry;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
 import logisticspipes.utils.item.ItemIdentifierStack;
-
-import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class PipeItemsSupplierLogistics extends CoreRoutedPipe implements IRequestItems, IRequireReliableTransport {
 

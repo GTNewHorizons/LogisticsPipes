@@ -1,13 +1,12 @@
 package logisticspipes.network.packets;
 
+import net.minecraft.entity.player.EntityPlayer;
+
+import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.proxy.SimpleServiceLocator;
-
-import net.minecraft.entity.player.EntityPlayer;
-
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class RequestUpdateNamesPacket extends ModernPacket {
 

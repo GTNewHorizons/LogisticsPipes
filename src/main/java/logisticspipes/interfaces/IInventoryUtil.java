@@ -3,9 +3,9 @@ package logisticspipes.interfaces;
 import java.util.Map;
 import java.util.Set;
 
-import logisticspipes.utils.item.ItemIdentifier;
-
 import net.minecraft.item.ItemStack;
+
+import logisticspipes.utils.item.ItemIdentifier;
 
 public interface IInventoryUtil {
 

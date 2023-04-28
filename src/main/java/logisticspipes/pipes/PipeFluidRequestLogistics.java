@@ -1,5 +1,9 @@
 package logisticspipes.pipes;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.util.ChatComponentText;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.network.GuiIDs;
@@ -10,10 +14,6 @@ import logisticspipes.security.SecuritySettings;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
 import logisticspipes.utils.FluidIdentifier;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.util.ChatComponentText;
 
 public class PipeFluidRequestLogistics extends FluidRoutedPipe implements IRequestFluid {
 

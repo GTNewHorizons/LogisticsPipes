@@ -4,26 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.pipes.PipeItemsFluidSupplier;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.proxy.VersionNotSupportedException;
-import logisticspipes.proxy.buildcraft.gates.*;
-import logisticspipes.proxy.buildcraft.recipeprovider.AssemblyTable;
-import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
-import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobotNBT;
-import logisticspipes.proxy.buildcraft.subproxies.*;
-import logisticspipes.proxy.interfaces.IBCProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.transport.PipeFluidTransportLogistics;
-import logisticspipes.utils.ReflectionHelper;
-import lombok.SneakyThrows;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.item.EntityItem;
@@ -60,6 +40,25 @@ import buildcraft.transport.render.PipeRendererTESR;
 import buildcraft.transport.render.PipeTransportItemsRenderer;
 import buildcraft.transport.render.PipeTransportRenderer;
 import cpw.mods.fml.common.FMLCommonHandler;
+import logisticspipes.LogisticsPipes;
+import logisticspipes.pipes.PipeItemsFluidSupplier;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.VersionNotSupportedException;
+import logisticspipes.proxy.buildcraft.gates.*;
+import logisticspipes.proxy.buildcraft.recipeprovider.AssemblyTable;
+import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
+import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobotNBT;
+import logisticspipes.proxy.buildcraft.subproxies.*;
+import logisticspipes.proxy.interfaces.IBCProxy;
+import logisticspipes.proxy.interfaces.ICraftingParts;
+import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
+import logisticspipes.transport.PipeFluidTransportLogistics;
+import logisticspipes.utils.ReflectionHelper;
+import lombok.SneakyThrows;
 
 public class BuildCraftProxy implements IBCProxy {
 

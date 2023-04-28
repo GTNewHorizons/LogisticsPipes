@@ -4,6 +4,11 @@
  */
 package logisticspipes.gui.modules;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+
+import org.lwjgl.opengl.GL11;
+
 import logisticspipes.modules.ModuleAdvancedExtractor;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.module.AdvancedExtractorIncludePacket;
@@ -12,11 +17,6 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
-
-import org.lwjgl.opengl.GL11;
 
 public class GuiAdvancedExtractor extends ModuleBaseGui {
 

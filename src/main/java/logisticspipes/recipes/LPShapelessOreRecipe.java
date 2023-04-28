@@ -1,14 +1,14 @@
 package logisticspipes.recipes;
 
-import logisticspipes.config.Configs;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.PlayerIdentifier;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import logisticspipes.config.Configs;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.PlayerIdentifier;
 
 public class LPShapelessOreRecipe extends ShapelessOreRecipe {
 

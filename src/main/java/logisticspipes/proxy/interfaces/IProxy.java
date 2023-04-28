@@ -2,6 +2,13 @@ package logisticspipes.proxy.interfaces;
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetHandler;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
+import net.minecraftforge.client.IItemRenderer;
+
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.packets.gui.GUIPacket;
@@ -11,13 +18,6 @@ import logisticspipes.network.packets.pipe.MostLikelyRecipeComponentsResponse;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetHandler;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.World;
-import net.minecraftforge.client.IItemRenderer;
 
 public interface IProxy {
 

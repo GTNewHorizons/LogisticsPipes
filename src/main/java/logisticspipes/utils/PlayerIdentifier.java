@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import lombok.Getter;
-import lombok.experimental.Accessors;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+
+import lombok.Getter;
+import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 public class PlayerIdentifier {

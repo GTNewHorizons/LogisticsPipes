@@ -8,9 +8,6 @@ package logisticspipes.utils.gui;
 
 import java.util.List;
 
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -27,6 +24,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.Color;
 
 /**
  * Utils class for GUI-related drawing methods.

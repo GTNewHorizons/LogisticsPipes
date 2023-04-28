@@ -3,12 +3,12 @@ package logisticspipes.logisticspipes;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.routing.IRouter;
 import logisticspipes.utils.AdjacentTile;
-
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * This class is responsible for handling incoming items for standard pipes

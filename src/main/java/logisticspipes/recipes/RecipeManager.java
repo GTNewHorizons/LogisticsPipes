@@ -3,15 +3,6 @@ package logisticspipes.recipes;
 import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
 import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPELESS;
 
-import logisticspipes.LogisticsPipes;
-import logisticspipes.blocks.LogisticsSolidBlock;
-import logisticspipes.config.Configs;
-import logisticspipes.items.ItemModule;
-import logisticspipes.items.ItemPipeComponents;
-import logisticspipes.items.ItemUpgrade;
-import logisticspipes.items.RemoteOrderer;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -20,6 +11,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import logisticspipes.LogisticsPipes;
+import logisticspipes.blocks.LogisticsSolidBlock;
+import logisticspipes.config.Configs;
+import logisticspipes.items.ItemModule;
+import logisticspipes.items.ItemPipeComponents;
+import logisticspipes.items.ItemUpgrade;
+import logisticspipes.items.RemoteOrderer;
+import logisticspipes.proxy.interfaces.ICraftingParts;
 
 // @formatter:off
 // CHECKSTYLE:OFF

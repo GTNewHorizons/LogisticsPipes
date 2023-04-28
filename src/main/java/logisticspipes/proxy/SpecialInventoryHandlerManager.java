@@ -1,7 +1,7 @@
 package logisticspipes.proxy;
 
-import logisticspipes.proxy.specialinventoryhandler.*;
 import cpw.mods.fml.common.Loader;
+import logisticspipes.proxy.specialinventoryhandler.*;
 
 public class SpecialInventoryHandlerManager {
 

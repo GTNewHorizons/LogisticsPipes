@@ -1,10 +1,10 @@
 package logisticspipes.network.packets.block;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.abstractpackets.NBTCoordinatesPacket;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class SecurityStationCCIDs extends NBTCoordinatesPacket {
 

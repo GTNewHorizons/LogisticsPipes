@@ -1,11 +1,11 @@
 package logisticspipes.network.packets.chassis;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.utils.QuickSortChestMarkerStorage;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class EnableQuickSortMarker extends ModernPacket {
 

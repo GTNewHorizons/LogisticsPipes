@@ -2,12 +2,12 @@ package logisticspipes.utils;
 
 import java.util.*;
 
-import logisticspipes.network.abstractpackets.ListSyncPacket;
-import logisticspipes.proxy.MainProxy;
-
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.jetbrains.annotations.NotNull;
+
+import logisticspipes.network.abstractpackets.ListSyncPacket;
+import logisticspipes.proxy.MainProxy;
 
 public class SyncList<E> implements List<E> {
 

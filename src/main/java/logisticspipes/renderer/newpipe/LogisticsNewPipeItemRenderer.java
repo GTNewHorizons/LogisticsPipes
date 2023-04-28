@@ -3,6 +3,15 @@ package logisticspipes.renderer.newpipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -14,15 +23,6 @@ import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer.Block
 import logisticspipes.renderer.newpipe.LogisticsNewSolidBlockWorldRenderer.CoverSides;
 import logisticspipes.textures.Textures;
 import logisticspipes.utils.tuples.Pair;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
 
 public class LogisticsNewPipeItemRenderer implements IItemRenderer {
 

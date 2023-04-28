@@ -1,5 +1,7 @@
 package logisticspipes.network.guis.module.inpipe;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.gui.modules.GuiStringBasedItemSink;
 import logisticspipes.interfaces.IStringBasedModule;
 import logisticspipes.network.abstractguis.GuiProvider;
@@ -7,8 +9,6 @@ import logisticspipes.network.abstractguis.NBTModuleCoordinatesGuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 @Accessors(chain = true)
 public class StringBasedItemSinkModuleGuiSlot extends NBTModuleCoordinatesGuiProvider {

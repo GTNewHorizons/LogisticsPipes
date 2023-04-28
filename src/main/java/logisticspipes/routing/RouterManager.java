@@ -6,6 +6,8 @@ package logisticspipes.routing;
 
 import java.util.*;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.blocks.LogisticsSecurityTileEntity;
 import logisticspipes.interfaces.ISecurityStationManager;
 import logisticspipes.interfaces.routing.IDirectConnectionManager;
@@ -13,8 +15,6 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.SecurityStationAuthorizedList;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class RouterManager implements IRouterManager, IDirectConnectionManager, ISecurityStationManager {
 

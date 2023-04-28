@@ -2,6 +2,9 @@ package logisticspipes.network.packets.pipe;
 
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.Integer2CoordinatesPacket;
@@ -14,9 +17,6 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.util.ForgeDirection;
 
 @Accessors(chain = true)
 public class ItemAmountSignUpdatePacket extends Integer2CoordinatesPacket {

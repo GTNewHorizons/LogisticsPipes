@@ -1,9 +1,9 @@
 package logisticspipes.commands;
 
+import net.minecraft.command.ICommandSender;
+
 import logisticspipes.commands.abstracts.SubCommandHandler;
 import logisticspipes.commands.commands.*;
-
-import net.minecraft.command.ICommandSender;
 
 public class MainCommandHandler extends SubCommandHandler {
 

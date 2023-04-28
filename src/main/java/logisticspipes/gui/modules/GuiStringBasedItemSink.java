@@ -1,5 +1,8 @@
 package logisticspipes.gui.modules;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.inventory.IInventory;
+
 import logisticspipes.interfaces.IStringBasedModule;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.utils.Color;
@@ -8,9 +11,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.IInventory;
 
 public class GuiStringBasedItemSink extends ModuleBaseGui {
 

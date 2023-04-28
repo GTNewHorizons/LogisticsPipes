@@ -1,5 +1,8 @@
 package logisticspipes.gui.orderer;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.orderer.RequestFluidOrdererRefreshPacket;
 import logisticspipes.network.packets.orderer.SubmitFluidRequestPacket;
@@ -7,9 +10,6 @@ import logisticspipes.pipes.PipeFluidRequestLogistics;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.item.ItemIdentifier;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class FluidGuiOrderer extends GuiOrderer {
 

@@ -3,14 +3,14 @@ package logisticspipes.asm;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import logisticspipes.LPConstants;
-
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+
+import logisticspipes.LPConstants;
 
 public class LogisticsClassTransformer implements IClassTransformer {
 

@@ -4,9 +4,9 @@
  */
 package logisticspipes.interfaces.routing;
 
-import logisticspipes.utils.item.ItemIdentifierStack;
-
 import org.jetbrains.annotations.NotNull;
+
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 public interface IRequestItems extends Comparable<IRequestItems>, IRequest {
 

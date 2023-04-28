@@ -1,11 +1,11 @@
 package logisticspipes.routing.pathfinder.changedetection;
 
-import logisticspipes.ticks.LPTickHandler.LPWorldInfo;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
+
+import logisticspipes.ticks.LPTickHandler.LPWorldInfo;
 
 public class LPWorldAccess implements IWorldAccess {
 

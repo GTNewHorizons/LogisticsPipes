@@ -6,13 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import logisticspipes.LPConstants;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.gui.OpenChatGui;
-import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.ChatColor;
-import logisticspipes.utils.string.StringUtils;
-
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -21,6 +14,12 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.ServerChatEvent;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import logisticspipes.LPConstants;
+import logisticspipes.network.PacketHandler;
+import logisticspipes.network.packets.gui.OpenChatGui;
+import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.string.ChatColor;
+import logisticspipes.utils.string.StringUtils;
 
 public class LPChatListener {
 

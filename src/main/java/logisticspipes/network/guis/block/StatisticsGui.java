@@ -3,6 +3,9 @@ package logisticspipes.network.guis.block;
 import java.io.IOException;
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+
 import logisticspipes.blocks.stats.LogisticsStatisticsTileEntity;
 import logisticspipes.blocks.stats.TrackingTask;
 import logisticspipes.gui.GuiStatistics;
@@ -14,9 +17,6 @@ import logisticspipes.utils.gui.DummyContainer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 
 @Accessors(chain = true)
 public class StatisticsGui extends CoordinatesGuiProvider {

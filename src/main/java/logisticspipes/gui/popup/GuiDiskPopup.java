@@ -1,5 +1,13 @@
 package logisticspipes.gui.popup;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
+import org.lwjgl.input.Keyboard;
+
 import logisticspipes.interfaces.IDiskProvider;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.orderer.DiscContent;
@@ -10,14 +18,6 @@ import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.SubGuiScreen;
-
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-
-import org.lwjgl.input.Keyboard;
 
 public class GuiDiskPopup extends SubGuiScreen {
 

@@ -1,13 +1,13 @@
 package logisticspipes.network.guis.module.inpipe;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import logisticspipes.gui.modules.GuiThaumicAspectSink;
 import logisticspipes.modules.ModuleThaumicAspectSink;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.abstractguis.NBTModuleCoordinatesGuiProvider;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.item.ItemIdentifierInventory;
-
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ThaumicAspectSinkModuleSlot extends NBTModuleCoordinatesGuiProvider {
 

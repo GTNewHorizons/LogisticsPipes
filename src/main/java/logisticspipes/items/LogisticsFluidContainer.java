@@ -2,10 +2,6 @@ package logisticspipes.items;
 
 import java.util.List;
 
-import logisticspipes.interfaces.IItemAdvancedExistance;
-import logisticspipes.proxy.SimpleServiceLocator;
-import logisticspipes.utils.item.ItemIdentifierStack;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +13,9 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.interfaces.IItemAdvancedExistance;
+import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvancedExistance {
 

@@ -1,9 +1,9 @@
 package logisticspipes.proxy.buildcraft;
 
-import logisticspipes.renderer.LogisticsRenderPipe;
 import buildcraft.api.core.EnumColor;
 import buildcraft.transport.TravelingItem;
 import buildcraft.transport.render.PipeTransportItemsRenderer;
+import logisticspipes.renderer.LogisticsRenderPipe;
 
 public class BCLPPipeTransportItemsRenderer extends PipeTransportItemsRenderer {
 

@@ -2,14 +2,14 @@ package logisticspipes.network.abstractpackets;
 
 import java.io.IOException;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 @Accessors(chain = true)
 public abstract class ItemPacket extends CoordinatesPacket {
