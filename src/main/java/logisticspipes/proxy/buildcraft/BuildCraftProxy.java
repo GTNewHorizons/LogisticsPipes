@@ -374,8 +374,6 @@ public class BuildCraftProxy implements IBCProxy {
     }
 
     @Override
-    @SneakyThrows({ NoSuchFieldException.class, SecurityException.class, IllegalArgumentException.class,
-            IllegalAccessException.class })
     public IBCTilePart getBCTilePart(LogisticsTileGenericPipe pipe) {
         return new LPBCTileGenericPipe(new LPBCPipe(new LPBCPipeTransportsItems(pipe), pipe), pipe);
     }

@@ -20,6 +20,8 @@ import buildcraft.api.transport.pluggable.PipePluggable;
 import buildcraft.core.lib.render.FakeBlock;
 import buildcraft.robotics.RobotStationPluggable;
 import buildcraft.transport.BlockGenericPipe;
+import buildcraft.transport.PipePluggableState;
+import buildcraft.transport.PipeRenderState;
 import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.gates.GatePluggable;
 import buildcraft.transport.pluggable.LensPluggable;
@@ -37,23 +39,26 @@ import lombok.SneakyThrows;
 public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart {
 
     private final LPBCPipe bcPipe;
-    private final LPBCPluggableState bcPlugState;
-    private final LPBCPipeRenderState bcRenderState;
 
     @Getter
     private final LogisticsTileGenericPipe lpPipe;
 
     public Map<ForgeDirection, List<StatementSlot>> activeActions = new HashMap<>();
 
-    public LPBCTileGenericPipe(LPBCPipe pipe, LogisticsTileGenericPipe lpPipe)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    public LPBCTileGenericPipe(LPBCPipe pipe, LogisticsTileGenericPipe lpPipe) {
         this.pipe = bcPipe = pipe;
         bcPipe.setTile(this);
         this.lpPipe = lpPipe;
-        bcPlugState = new LPBCPluggableState();
-        bcRenderState = new LPBCPipeRenderState();
-        ReflectionHelper.setFinalField(TileGenericPipe.class, "pluggableState", this, bcPlugState);
-        ReflectionHelper.setFinalField(TileGenericPipe.class, "renderState", this, bcRenderState);
+    }
+
+    @Override
+    protected PipeRenderState createRenderState() {
+        return new LPBCPipeRenderState();
+    }
+
+    @Override
+    protected PipePluggableState createPluggableState() {
+        return new LPBCPluggableState();
     }
 
     @Override
@@ -254,7 +259,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
 
     @Override
     public IBCRenderState getBCRenderState() {
-        return bcRenderState;
+        return (IBCRenderState) renderState;
     }
 
     @Override
@@ -264,7 +269,7 @@ public class LPBCTileGenericPipe extends TileGenericPipe implements IBCTilePart 
 
     @Override
     public IBCPluggableState getBCPlugableState() {
-        return bcPlugState;
+        return (IBCPluggableState) pluggableState;
     }
 
     @Override

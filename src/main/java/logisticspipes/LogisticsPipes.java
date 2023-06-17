@@ -88,8 +88,7 @@ import logisticspipes.utils.RoutedItemHelper;
         modid = "LogisticsPipes",
         name = "Logistics Pipes",
         version = LPConstants.VERSION,
-        /* %------------CERTIFICATE-SUM-----------% */
-        dependencies = "required-after:Forge@[10.12.1.1079,);" + "required-after:BuildCraft|Core;"
+        dependencies = "required-after:Forge@[10.12.1.1079,);" + "required-after:BuildCraft|Core@[7.1.34,);"
                 + "required-after:BuildCraft|Transport;"
                 + "required-after:BuildCraft|Silicon;"
                 + "required-after:BuildCraft|Robotics;"
