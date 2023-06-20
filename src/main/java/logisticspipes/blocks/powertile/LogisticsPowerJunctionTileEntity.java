@@ -321,14 +321,15 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
 
     @Override
     @Optional.Method(modid = "IC2")
+    @SuppressWarnings({ "RedundantCast" })
     public double getDemandedEnergy() {
         if (!addedToEnergyNet) {
             return 0;
         }
         transferFromIC2Buffer();
         // round up so we demand enough to completely fill visible storage
-        return (double) (freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1)
-                / LogisticsPowerJunctionTileEntity.IC2Multiplier;
+        return (double) ((freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1)
+                / LogisticsPowerJunctionTileEntity.IC2Multiplier);
     }
 
     @Override
