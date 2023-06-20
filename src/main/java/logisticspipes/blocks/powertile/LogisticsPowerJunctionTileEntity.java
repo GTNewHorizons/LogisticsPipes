@@ -326,9 +326,9 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
             return 0;
         }
         transferFromIC2Buffer();
-        // round up so we demand enough to completely fill visible storage
-        return (double) (freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1)
-                / LogisticsPowerJunctionTileEntity.IC2Multiplier;
+        return Math.floorDiv(
+                freeSpace() + LogisticsPowerJunctionTileEntity.IC2Multiplier - 1,
+                LogisticsPowerJunctionTileEntity.IC2Multiplier);
     }
 
     @Override
