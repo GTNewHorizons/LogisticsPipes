@@ -28,11 +28,11 @@ public class DebugAskForTarget extends ModernPacket {
         } else if (box.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(DebugTargetResponse.class).setMode(DebugTargetResponse.TargetMode.Block)
-                            .setAdditions(new Object[] { box.blockX, box.blockY, box.blockZ }));
+                            .setAdditions(new int[] { box.blockX, box.blockY, box.blockZ }));
         } else if (box.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(DebugTargetResponse.class).setMode(DebugTargetResponse.TargetMode.Entity)
-                            .setAdditions(new Object[] { box.entityHit.getEntityId() }));
+                            .setAdditions(new int[] { box.entityHit.getEntityId() }));
         }
     }
 

@@ -40,26 +40,15 @@ public class DebugTargetResponse extends ModernPacket {
 
     @Getter
     @Setter
-    private Object[] additions = new Object[0];
+    private int[] additions = new int[0];
 
     @Override
     public void readData(LPDataInputStream data) throws IOException {
         mode = TargetMode.values()[data.readByte()];
         int size = data.readInt();
-        additions = new Object[size];
+        additions = new int[size];
         for (int i = 0; i < size; i++) {
-            int arraySize = data.readInt();
-            byte[] bytes = new byte[arraySize];
-            data.read(bytes);
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            ObjectInput in;
-            in = new ObjectInputStream(bis);
-            try {
-                Object o = in.readObject();
-                additions[i] = o;
-            } catch (ClassNotFoundException e) {
-                throw new UnsupportedOperationException(e);
-            }
+            additions[i] = data.readInt();
         }
     }
 
@@ -68,9 +57,9 @@ public class DebugTargetResponse extends ModernPacket {
         if (mode == TargetMode.None) {
             player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No Target Found"));
         } else if (mode == TargetMode.Block) {
-            int x = (Integer) additions[0];
-            int y = (Integer) additions[1];
-            int z = (Integer) additions[2];
+            int x = additions[0];
+            int y = additions[1];
+            int z = additions[2];
             player.addChatComponentMessage(new ChatComponentText("Checking Block at: x:" + x + " y:" + y + " z:" + z));
             Block id = player.worldObj.getBlock(x, y, z);
             player.addChatComponentMessage(new ChatComponentText("Found Block with Id: " + id.getClass()));
@@ -153,14 +142,8 @@ public class DebugTargetResponse extends ModernPacket {
     public void writeData(LPDataOutputStream data) throws IOException {
         data.writeByte(mode.ordinal());
         data.writeInt(additions.length);
-        for (Object addition : additions) {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutput out;
-            out = new ObjectOutputStream(bos);
-            out.writeObject(addition);
-            byte[] bytes = bos.toByteArray();
-            data.writeInt(bytes.length);
-            data.write(bytes);
+        for (int addition : additions) {
+            data.writeInt(addition);
         }
     }
 

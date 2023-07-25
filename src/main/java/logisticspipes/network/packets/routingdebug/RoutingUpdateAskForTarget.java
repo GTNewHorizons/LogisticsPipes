@@ -30,11 +30,11 @@ public class RoutingUpdateAskForTarget extends ModernPacket {
         } else if (box.typeOfHit == MovingObjectType.BLOCK) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RoutingUpdateTargetResponse.class).setMode(TargetMode.Block)
-                            .setAdditions(new Object[] { box.blockX, box.blockY, box.blockZ }));
+                            .setAdditions(new int[] { box.blockX, box.blockY, box.blockZ }));
         } else if (box.typeOfHit == MovingObjectType.ENTITY) {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RoutingUpdateTargetResponse.class).setMode(TargetMode.Entity)
-                            .setAdditions(new Object[] { box.entityHit.getEntityId() }));
+                            .setAdditions(new int[] { box.entityHit.getEntityId() }));
         }
     }
 
