@@ -1,6 +1,7 @@
 package logisticspipes.nei;
 
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Rectangle;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;

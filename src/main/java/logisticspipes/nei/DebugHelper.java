@@ -1,10 +1,12 @@
 package logisticspipes.nei;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
