@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Queue;
 
 import net.minecraft.client.Minecraft;
@@ -29,6 +28,7 @@ import org.lwjgl.opengl.GL11;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
 import logisticspipes.LPConstants;
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.network.PacketHandler;
