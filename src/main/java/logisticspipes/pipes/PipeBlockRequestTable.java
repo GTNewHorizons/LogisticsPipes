@@ -443,7 +443,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         if (fake == null) {
             fake = MainProxy.getFakePlayer(container);
         }
-		EntityPlayer playerToUse = player == null ? fake : player;
+        EntityPlayer playerToUse = player == null ? fake : player;
         result = result.copy();
         SlotCrafting craftingSlot = new SlotCrafting(playerToUse, crafter, resultInv, 0, 0, 0);
         craftingSlot.onPickupFromSlot(playerToUse, result);
@@ -457,18 +457,18 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
                 }
             }
         }
-		if (playerToUse == fake) {
-			for (int i = 0; i < fake.inventory.getSizeInventory(); i++) {
-				ItemStack left = fake.inventory.getStackInSlot(i);
-				fake.inventory.setInventorySlotContents(i, null);
-				if (left != null) {
-					left.stackSize = inv.addCompressed(left, false);
-					if (left.stackSize > 0) {
-						ItemIdentifierInventory.dropItems(getWorld(), left, getX(), getY(), getZ());
-					}
-				}
-			}
-		}
+        if (playerToUse == fake) {
+            for (int i = 0; i < fake.inventory.getSizeInventory(); i++) {
+                ItemStack left = fake.inventory.getStackInSlot(i);
+                fake.inventory.setInventorySlotContents(i, null);
+                if (left != null) {
+                    left.stackSize = inv.addCompressed(left, false);
+                    if (left.stackSize > 0) {
+                        ItemIdentifierInventory.dropItems(getWorld(), left, getX(), getY(), getZ());
+                    }
+                }
+            }
+        }
         return result;
     }
 
