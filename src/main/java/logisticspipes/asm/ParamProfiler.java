@@ -1,6 +1,11 @@
 package logisticspipes.asm;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+import java.util.WeakHashMap;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;

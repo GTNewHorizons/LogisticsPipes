@@ -7,7 +7,11 @@ import java.util.List;
 
 import net.minecraft.launchwrapper.Launch;
 
-import org.objectweb.asm.*;
+import org.objectweb.asm.AnnotationVisitor;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
 import logisticspipes.utils.tuples.Pair;

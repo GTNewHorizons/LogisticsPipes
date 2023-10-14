@@ -1,7 +1,11 @@
 package logisticspipes.pipes;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
 
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;

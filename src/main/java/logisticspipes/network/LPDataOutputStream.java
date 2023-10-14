@@ -3,7 +3,11 @@ package logisticspipes.network;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.List;
 
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompressedStreamTools;

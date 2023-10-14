@@ -4,7 +4,6 @@ import java.awt.*;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 
 import codechicken.nei.NEIServerUtils;

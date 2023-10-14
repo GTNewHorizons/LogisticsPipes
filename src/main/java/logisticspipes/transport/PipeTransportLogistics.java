@@ -5,7 +5,12 @@
 package logisticspipes.transport;
 
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -23,7 +28,12 @@ import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.powertile.LogisticsPowerJunctionTileEntity;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IBufferItems;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.interfaces.IItemAdvancedExistance;
+import logisticspipes.interfaces.ISlotUpgradeManager;
+import logisticspipes.interfaces.ISpecialInsertion;
+import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.ITargetSlotInformation;
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;

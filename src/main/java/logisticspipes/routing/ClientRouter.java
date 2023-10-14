@@ -1,6 +1,10 @@
 package logisticspipes.routing;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

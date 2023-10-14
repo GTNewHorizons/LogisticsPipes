@@ -3,7 +3,16 @@ package logisticspipes.commands;
 import net.minecraft.command.ICommandSender;
 
 import logisticspipes.commands.abstracts.SubCommandHandler;
-import logisticspipes.commands.commands.*;
+import logisticspipes.commands.commands.BypassCommand;
+import logisticspipes.commands.commands.ClearCommand;
+import logisticspipes.commands.commands.DebugCommand;
+import logisticspipes.commands.commands.DummyCommand;
+import logisticspipes.commands.commands.DumpCommand;
+import logisticspipes.commands.commands.NBTDebugCommand;
+import logisticspipes.commands.commands.NameLookupCommand;
+import logisticspipes.commands.commands.RoutingThreadCommand;
+import logisticspipes.commands.commands.TransferNamesCommand;
+import logisticspipes.commands.commands.WrapperCommand;
 
 public class MainCommandHandler extends SubCommandHandler {
 

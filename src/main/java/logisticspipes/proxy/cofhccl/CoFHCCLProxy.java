@@ -12,12 +12,25 @@ import net.minecraft.util.IIcon;
 
 import cofh.repack.codechicken.lib.render.CCModel;
 import cofh.repack.codechicken.lib.render.CCRenderState;
-import cofh.repack.codechicken.lib.render.uv.*;
-import cofh.repack.codechicken.lib.vec.*;
+import cofh.repack.codechicken.lib.render.uv.IconTransformation;
+import cofh.repack.codechicken.lib.render.uv.UVScale;
+import cofh.repack.codechicken.lib.render.uv.UVTransformation;
+import cofh.repack.codechicken.lib.render.uv.UVTransformationList;
+import cofh.repack.codechicken.lib.render.uv.UVTranslation;
+import cofh.repack.codechicken.lib.vec.Rotation;
+import cofh.repack.codechicken.lib.vec.Scale;
+import cofh.repack.codechicken.lib.vec.Transformation;
+import cofh.repack.codechicken.lib.vec.Translation;
+import cofh.repack.codechicken.lib.vec.Vector3;
 import logisticspipes.proxy.DontLoadProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.object3d.interfaces.*;
+import logisticspipes.proxy.object3d.interfaces.I3DOperation;
+import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
+import logisticspipes.proxy.object3d.interfaces.IModel3D;
+import logisticspipes.proxy.object3d.interfaces.IRenderState;
+import logisticspipes.proxy.object3d.interfaces.ITranslation;
+import logisticspipes.proxy.object3d.interfaces.IVec3;
 import logisticspipes.proxy.object3d.operation.LPScale;
 
 public class CoFHCCLProxy implements ICCLProxy {

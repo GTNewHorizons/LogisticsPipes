@@ -121,8 +121,8 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
     }
 
     private void spread(Map<ItemIdentifier, Integer> availableItems, BitSet set) { // Improve performance by updating a
-                                                                                   // wall of Amount pipe signs all at
-                                                                                   // once
+        // wall of Amount pipe signs all at
+        // once
         IRouter router = pipe.getRouter();
         if (set.get(router.getSimpleID())) return;
         set.set(router.getSimpleID());

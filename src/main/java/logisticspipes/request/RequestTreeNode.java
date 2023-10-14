@@ -1,7 +1,19 @@
 package logisticspipes.request;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraft;
@@ -363,7 +375,7 @@ public class RequestTreeNode {
             }
         }
         workWeightedSorter wSorter = new workWeightedSorter(0); // distance doesn't matter, because ingredients have to
-                                                                // be delivered to the crafter, and we can't
+        // be delivered to the crafter, and we can't
         // tell how long that will take.
         validSources.sort(wSorter);
 
@@ -549,11 +561,11 @@ public class RequestTreeNode {
             ICraftingTemplate template = crafter.getValue1();
             int setsToCraft = Math.min(stacksOfWorkRequested, maxWorkSetsAvailable);
             int setsAbleToCraft = calculateMaxWork(setsToCraft); // Deliberately outside the 0 check, because calling
-                                                                 // generatePromies(0) here clears
+            // generatePromies(0) here clears
             // the old ones.
 
             if (setsAbleToCraft > 0) { // sanity check, as creating 0 sized promises is an exception. This should never
-                                       // be hit.
+                // be hit.
                 // if we got here, we can at least some of the remaining amount
                 IPromise job = template.generatePromise(setsAbleToCraft);
                 if (job.getAmount() != setsAbleToCraft * setSize) {

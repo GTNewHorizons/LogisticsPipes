@@ -1,7 +1,11 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

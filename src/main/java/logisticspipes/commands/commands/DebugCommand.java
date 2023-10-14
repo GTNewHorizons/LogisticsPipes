@@ -6,7 +6,11 @@ import net.minecraft.command.ICommandSender;
 
 import logisticspipes.LPConstants;
 import logisticspipes.commands.abstracts.SubCommandHandler;
-import logisticspipes.commands.commands.debug.*;
+import logisticspipes.commands.commands.debug.HandCommand;
+import logisticspipes.commands.commands.debug.MeCommand;
+import logisticspipes.commands.commands.debug.PipeCommand;
+import logisticspipes.commands.commands.debug.RoutingTableCommand;
+import logisticspipes.commands.commands.debug.TargetCommand;
 
 public class DebugCommand extends SubCommandHandler {
 

@@ -25,7 +25,15 @@ import logisticspipes.network.packets.orderer.RequestSubmitPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.*;
+import logisticspipes.utils.gui.DummyContainer;
+import logisticspipes.utils.gui.GuiCheckBox;
+import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISubGuiControler;
+import logisticspipes.utils.gui.ItemDisplay;
+import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.gui.SearchBar;
+import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 

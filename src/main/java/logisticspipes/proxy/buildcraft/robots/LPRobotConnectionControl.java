@@ -1,6 +1,12 @@
 package logisticspipes.proxy.buildcraft.robots;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

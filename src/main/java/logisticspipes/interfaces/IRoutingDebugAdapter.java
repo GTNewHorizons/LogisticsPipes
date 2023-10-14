@@ -1,6 +1,10 @@
 package logisticspipes.interfaces;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.PriorityQueue;
 
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.routing.ExitRoute;

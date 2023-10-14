@@ -4,8 +4,15 @@
  */
 package logisticspipes.pipes;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -15,7 +22,12 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.hud.HUDProvider;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IChangeListener;
+import logisticspipes.interfaces.IChestContentReceiver;
+import logisticspipes.interfaces.IHeadUpDisplayRenderer;
+import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.interfaces.IOrderManagerContentReceiver;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.interfaces.routing.IProvideItems;
@@ -51,7 +63,11 @@ import logisticspipes.routing.order.LogisticsItemOrderManager;
 import logisticspipes.routing.order.LogisticsOrder;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
-import logisticspipes.utils.*;
+import logisticspipes.utils.AdjacentTile;
+import logisticspipes.utils.PlayerCollectionList;
+import logisticspipes.utils.SidedInventoryMinecraftAdapter;
+import logisticspipes.utils.SinkReply;
+import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -566,7 +582,9 @@ public class PipeItemsProviderLogistics extends CoreRoutedPipe implements IProvi
         nbttagcompound.setInteger("extractionMode", _extractionMode.ordinal());
     }
 
-    /** INTERFACE TO PIPE **/
+    /**
+     * INTERFACE TO PIPE
+     **/
     public boolean hasFilter() {
         return !providingInventory.isEmpty();
     }

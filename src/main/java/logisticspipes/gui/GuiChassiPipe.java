@@ -39,9 +39,9 @@ public class GuiChassiPipe extends LogisticsBaseGuiScreen {
     private final boolean hasUpgradeModuleUpgarde;
 
     public GuiChassiPipe(EntityPlayer player, PipeLogisticsChassi chassi, boolean hasUpgradeModuleUpgarde) { // ,
-                                                                                                             // GuiScreen
-                                                                                                             // previousGui)
-                                                                                                             // {
+        // GuiScreen
+        // previousGui)
+        // {
         super(null);
         _player = player;
         _chassiPipe = chassi;

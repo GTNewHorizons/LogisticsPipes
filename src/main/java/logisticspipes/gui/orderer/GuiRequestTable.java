@@ -1,6 +1,12 @@
 package logisticspipes.gui.orderer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.client.gui.GuiButton;
@@ -27,7 +33,11 @@ import logisticspipes.interfaces.ISpecialItemRenderer;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.block.ClearCraftingGridPacket;
 import logisticspipes.network.packets.block.CraftingCycleRecipe;
-import logisticspipes.network.packets.orderer.*;
+import logisticspipes.network.packets.orderer.DiskRequestConectPacket;
+import logisticspipes.network.packets.orderer.OrdererRefreshRequestPacket;
+import logisticspipes.network.packets.orderer.RequestComponentPacket;
+import logisticspipes.network.packets.orderer.RequestSubmitListPacket;
+import logisticspipes.network.packets.orderer.RequestSubmitPacket;
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.IResource;
@@ -35,7 +45,15 @@ import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.routing.order.LinkedLogisticsOrderList;
 import logisticspipes.utils.ChainAddArrayList;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.*;
+import logisticspipes.utils.gui.DummyContainer;
+import logisticspipes.utils.gui.GuiCheckBox;
+import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISubGuiControler;
+import logisticspipes.utils.gui.ItemDisplay;
+import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.gui.SearchBar;
+import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
@@ -125,9 +143,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.clear();
         buttonList.add(hideWhileSmall.addChain(new GuiButton(0, right - 55, bottom - 25, 50, 20, "Request"))); // Request
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(1, right - 15, guiTop + 5, 10, 10, ">"))); // Next
-                                                                                                             // page
+        // page
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(2, right - 90, guiTop + 5, 10, 10, "<"))); // Prev
-                                                                                                             // page
+        // page
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(10, right - 148, bottom - 15, 26, 10, "---"))); // -64
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(4, right - 148, bottom - 26, 15, 10, "--"))); // -10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(5, right - 132, bottom - 26, 10, 10, "-"))); // -1
