@@ -1,6 +1,13 @@
 package logisticspipes.asm;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,7 +15,16 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 
@@ -21,7 +37,20 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.AnnotationNode;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.FieldNode;
+import org.objectweb.asm.tree.FrameNode;
+import org.objectweb.asm.tree.InnerClassNode;
+import org.objectweb.asm.tree.LdcInsnNode;
+import org.objectweb.asm.tree.LocalVariableNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.MultiANewArrayInsnNode;
+import org.objectweb.asm.tree.TryCatchBlockNode;
+import org.objectweb.asm.tree.TypeInsnNode;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ObjectArrays;
@@ -380,7 +409,7 @@ public class DevEnvHelper {
 
                                 min.name = DevEnvHelper.m.getMethod(realOwner, min.name, realDesc);
                                 min.owner = DevEnvHelper.m.getClass(min.owner); // note: not realOwner which could be an
-                                                                                // interface
+                                // interface
                                 min.desc = DevEnvHelper.m.mapMethodDescriptor(realDesc);
 
                             } else if (ain instanceof LdcInsnNode) {
@@ -1096,7 +1125,9 @@ public class DevEnvHelper {
 
     public abstract static class CsvFile {
 
-        /** Does not close <var>r</var>. */
+        /**
+         * Does not close <var>r</var>.
+         */
         public static Map<String, String> read(Reader r, int[] n_sides) {
             Map<String, String> data = new HashMap<>();
 
@@ -1107,7 +1138,8 @@ public class DevEnvHelper {
                 String searge = in.next();
                 String name = in.next();
                 String side = in.next();
-                /* String desc = */ in.nextLine();
+                /* String desc = */
+                in.nextLine();
                 try {
                     if (CsvFile.sideIn(Integer.parseInt(side), n_sides)) {
                         data.put(searge, name);
@@ -1156,7 +1188,9 @@ public class DevEnvHelper {
             return ExcFile.read(new InputStreamReader(in, StandardCharsets.UTF_8));
         }
 
-        /** Does not close <var>r</var>. */
+        /**
+         * Does not close <var>r</var>.
+         */
         public static ExcFile read(Reader r) {
             // example line:
             // net/minecraft/src/NetClientHandler.<init>(Lnet/minecraft/client/Minecraft;Ljava/lang/String;I)V=java/net/UnknownHostException,java/io/IOException|p_i42_1_,p_i42_2_,p_i42_3_
@@ -1227,7 +1261,9 @@ public class DevEnvHelper {
 
         private SrgFile() {}
 
-        /** Does not close <var>r</var>. */
+        /**
+         * Does not close <var>r</var>.
+         */
         public static SrgFile read(Reader r, boolean reverse) {
             Scanner in = new Scanner(r);
             SrgFile rv = new SrgFile();

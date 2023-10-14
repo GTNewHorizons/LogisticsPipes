@@ -1,7 +1,12 @@
 package logisticspipes.transport;
 
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;

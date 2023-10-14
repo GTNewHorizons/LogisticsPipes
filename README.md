@@ -1,6 +1,7 @@
 # LogisticsPipes
 
-Logistics Pipes is an extensive overhaul of the Buildcraft pipe system. It allows for better distribution of items via pipes, more organised stockkeeping and easier automated crafting.
+Logistics Pipes is an extensive overhaul of the Buildcraft pipe system. It allows for better distribution of items via
+pipes, more organised stockkeeping and easier automated crafting.
 
 You are free to use this mod in your modpack without asking or noticing us.
 

@@ -4,7 +4,13 @@
  */
 package logisticspipes.utils.item;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -359,14 +365,14 @@ public class ItemIdentifierInventory
             ItemIdentifier itemId = _content.getItem();
             _contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
             _contentsUndamagedSet.add(itemId.getUndamaged()); // add is cheaper than check then add; it just returns
-                                                              // false if it is
+            // false if it is
             // already there
             _contentsNoNBTSet.add(itemId.getIgnoringNBT()); // add is cheaper than check then add; it just returns false
-                                                            // if it is
+            // if it is
             // already there
             _contentsUndamagedNoNBTSet.add(itemId.getIgnoringNBT().getUndamaged()); // add is cheaper than check then
-                                                                                    // add; it just returns false if it
-                                                                                    // is already
+            // add; it just returns false if it
+            // is already
             // there
         }
     }

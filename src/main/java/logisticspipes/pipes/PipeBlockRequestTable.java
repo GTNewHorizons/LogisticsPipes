@@ -1,6 +1,10 @@
 package logisticspipes.pipes;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -368,7 +372,7 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         cacheRecipe();
     }
 
-    public ItemStack getOutput(boolean oreDict) {
+    public ItemStack getOutput(EntityPlayer player, boolean oreDict) {
         if (cache == null) {
             cacheRecipe();
             if (cache == null) {
@@ -443,9 +447,10 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         if (fake == null) {
             fake = MainProxy.getFakePlayer(container);
         }
+        EntityPlayer playerToUse = player == null ? fake : player;
         result = result.copy();
-        SlotCrafting craftingSlot = new SlotCrafting(fake, crafter, resultInv, 0, 0, 0);
-        craftingSlot.onPickupFromSlot(fake, result);
+        SlotCrafting craftingSlot = new SlotCrafting(playerToUse, crafter, resultInv, 0, 0, 0);
+        craftingSlot.onPickupFromSlot(playerToUse, result);
         for (int i = 0; i < 9; i++) {
             ItemStack left = crafter.getStackInSlot(i);
             crafter.setInventorySlotContents(i, null);
@@ -456,23 +461,25 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
                 }
             }
         }
-        for (int i = 0; i < fake.inventory.getSizeInventory(); i++) {
-            ItemStack left = fake.inventory.getStackInSlot(i);
-            fake.inventory.setInventorySlotContents(i, null);
-            if (left != null) {
-                left.stackSize = inv.addCompressed(left, false);
-                if (left.stackSize > 0) {
-                    ItemIdentifierInventory.dropItems(getWorld(), left, getX(), getY(), getZ());
+        if (playerToUse == fake) {
+            for (int i = 0; i < fake.inventory.getSizeInventory(); i++) {
+                ItemStack left = fake.inventory.getStackInSlot(i);
+                fake.inventory.setInventorySlotContents(i, null);
+                if (left != null) {
+                    left.stackSize = inv.addCompressed(left, false);
+                    if (left.stackSize > 0) {
+                        ItemIdentifierInventory.dropItems(getWorld(), left, getX(), getY(), getZ());
+                    }
                 }
             }
         }
         return result;
     }
 
-    public ItemStack getResultForClick() {
-        ItemStack result = getOutput(true);
+    public ItemStack getResultForClick(EntityPlayer player) {
+        ItemStack result = getOutput(player, true);
         if (result == null) {
-            result = getOutput(false);
+            result = getOutput(player, false);
         }
         if (result == null) {
             return null;

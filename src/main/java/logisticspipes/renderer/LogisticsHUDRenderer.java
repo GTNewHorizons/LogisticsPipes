@@ -1,6 +1,10 @@
 package logisticspipes.renderer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -297,7 +301,7 @@ public class LogisticsHUDRenderer {
                         if (renderer.getRenderer().cursorOnWindow(pos[0], pos[1])) {
                             renderer.getRenderer().handleCursor(pos[0], pos[1]);
                             if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) { // if(FMLClientHandler.instance().getClient().thePlayer.isSneaking())
-                                                                           // {
+                                // {
                                 thisIsLast = renderer;
                                 displayCross = true;
                             }

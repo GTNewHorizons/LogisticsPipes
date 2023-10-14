@@ -23,7 +23,7 @@ public class ItemRoutingInformation {
         @Override
         public int compare(ItemRoutingInformation o1, ItemRoutingInformation o2) {
             return (int) (o2.getTimeOut() - o1.getTimeOut()); // cast will never overflow because the delta is in
-                                                              // 1/20ths of a second.
+            // 1/20ths of a second.
         }
     }
 

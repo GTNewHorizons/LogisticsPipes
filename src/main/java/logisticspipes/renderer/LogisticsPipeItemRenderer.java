@@ -139,7 +139,9 @@ public class LogisticsPipeItemRenderer implements IItemRenderer {
         }
     }
 
-    /** IItemRenderer implementation **/
+    /**
+     * IItemRenderer implementation
+     **/
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         if (config.isUseNewRenderer()) {

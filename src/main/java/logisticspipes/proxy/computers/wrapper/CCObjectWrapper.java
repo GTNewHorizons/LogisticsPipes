@@ -8,8 +8,21 @@ import java.util.WeakHashMap;
 
 import net.minecraft.nbt.NBTBase;
 
-import logisticspipes.proxy.computers.interfaces.*;
-import logisticspipes.proxy.computers.objects.*;
+import logisticspipes.proxy.computers.interfaces.CCCommand;
+import logisticspipes.proxy.computers.interfaces.CCQueued;
+import logisticspipes.proxy.computers.interfaces.CCSecurtiyCheck;
+import logisticspipes.proxy.computers.interfaces.CCType;
+import logisticspipes.proxy.computers.interfaces.ILPCCTypeDefinition;
+import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
+import logisticspipes.proxy.computers.objects.CCFilterInventory;
+import logisticspipes.proxy.computers.objects.CCFluidIdentifier;
+import logisticspipes.proxy.computers.objects.CCItemIdentifier;
+import logisticspipes.proxy.computers.objects.CCItemIdentifierInventory;
+import logisticspipes.proxy.computers.objects.CCItemIdentifierStack;
+import logisticspipes.proxy.computers.objects.CCPair;
+import logisticspipes.proxy.computers.objects.CCQuartet;
+import logisticspipes.proxy.computers.objects.CCResource;
+import logisticspipes.proxy.computers.objects.CCTriplet;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;

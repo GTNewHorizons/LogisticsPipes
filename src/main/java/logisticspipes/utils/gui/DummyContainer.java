@@ -407,8 +407,8 @@ public class DummyContainer extends Container {
                                 if (itemstack3.getItem() == itemstack4.getItem()
                                         && itemstack3.getItemDamage() == itemstack4.getItemDamage()
                                         && areEqualForMerge(itemstack3, itemstack4, slot2)) { // XXX replaced
-                                                                                              // ItemStack.areItemStackTagsEqual
-                                                                                              // with
+                                    // ItemStack.areItemStackTagsEqual
+                                    // with
                                     // areEqualForMerge for slot based handling
                                     l1 = par2 == 0 ? itemstack4.stackSize : 1;
 
@@ -433,8 +433,8 @@ public class DummyContainer extends Container {
 
                                 } else if (itemstack4.stackSize <= slot2.getSlotStackLimit()) {
                                     handleSwitch(slot2, itemstack3, itemstack4, par4EntityPlayer); // XXX added Slot
-                                                                                                   // switching handle
-                                                                                                   // method
+                                    // switching handle
+                                    // method
                                     slot2.putStack(itemstack4);
                                     inventoryplayer.setItemStack(itemstack3);
                                 }
@@ -442,8 +442,8 @@ public class DummyContainer extends Container {
                                     && (!itemstack3.getHasSubtypes()
                                             || itemstack3.getItemDamage() == itemstack4.getItemDamage())
                                     && areEqualForMerge(itemstack3, itemstack4, slot2)) { // XXX replaced
-                                                                                          // ItemStack.areItemStackTagsEqual
-                                                                                          // with
+                                        // ItemStack.areItemStackTagsEqual
+                                        // with
                                         // areEqualForMerge for slot based handling
                                         l1 = itemstack3.stackSize;
 

@@ -52,7 +52,7 @@ public class ItemInsertionAIRobot extends AIRobot {
                 robotInv.getMultipleItems(
                         item.getItemIdentifierStack().getItem(),
                         item.getItemIdentifierStack().getStackSize()); // We clear the Inv at the end so we don't care
-                                                                       // if this fails
+                // if this fails
                 iter.remove();
             } else {
                 terminate();

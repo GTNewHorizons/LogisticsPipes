@@ -4,7 +4,11 @@
  */
 package logisticspipes.routing;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 import net.minecraftforge.common.util.ForgeDirection;
 

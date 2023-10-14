@@ -4,7 +4,11 @@
  */
 package logisticspipes.pipes;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -16,7 +20,11 @@ import logisticspipes.interfaces.IChangeListener;
 import logisticspipes.interfaces.IHeadUpDisplayRenderer;
 import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
 import logisticspipes.interfaces.IOrderManagerContentReceiver;
-import logisticspipes.interfaces.routing.*;
+import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
+import logisticspipes.interfaces.routing.ICraftItems;
+import logisticspipes.interfaces.routing.IFilter;
+import logisticspipes.interfaces.routing.IRequestItems;
+import logisticspipes.interfaces.routing.IRequireReliableTransport;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
 import logisticspipes.network.PacketHandler;

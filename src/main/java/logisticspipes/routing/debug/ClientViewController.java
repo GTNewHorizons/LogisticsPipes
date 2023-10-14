@@ -1,13 +1,22 @@
 package logisticspipes.routing.debug;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
 import logisticspipes.interfaces.IDebugHUDProvider;
 import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
-import logisticspipes.network.packets.routingdebug.*;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateCanidatePipe;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugCanidateList;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugClosedSet;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateDebugFilters;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateDoneDebug;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateInitDebug;
+import logisticspipes.network.packets.routingdebug.RoutingUpdateSourcePipe;
 import logisticspipes.pipefxhandlers.Particles;
 import logisticspipes.pipefxhandlers.PipeFXRenderHandler;
 import logisticspipes.renderer.LogisticsHUDRenderer;

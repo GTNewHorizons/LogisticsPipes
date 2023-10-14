@@ -35,7 +35,14 @@ import buildcraft.core.lib.ITileBufferHolder;
 import buildcraft.robotics.EntityRobot;
 import buildcraft.robotics.ItemRobot;
 import buildcraft.robotics.RobotStationPluggable;
-import buildcraft.transport.*;
+import buildcraft.transport.BlockGenericPipe;
+import buildcraft.transport.ItemGateCopier;
+import buildcraft.transport.ItemPipe;
+import buildcraft.transport.Pipe;
+import buildcraft.transport.PipeEventBus;
+import buildcraft.transport.PipeTransportFluids;
+import buildcraft.transport.PipeTransportItems;
+import buildcraft.transport.TileGenericPipe;
 import buildcraft.transport.render.PipeRendererTESR;
 import buildcraft.transport.render.PipeTransportItemsRenderer;
 import buildcraft.transport.render.PipeTransportRenderer;
@@ -47,12 +54,25 @@ import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.VersionNotSupportedException;
-import logisticspipes.proxy.buildcraft.gates.*;
+import logisticspipes.proxy.buildcraft.gates.ActionDisableLogistics;
+import logisticspipes.proxy.buildcraft.gates.ActionRobotRoutingLogistics;
+import logisticspipes.proxy.buildcraft.gates.LogisticsActionProvider;
+import logisticspipes.proxy.buildcraft.gates.LogisticsTriggerProvider;
+import logisticspipes.proxy.buildcraft.gates.TriggerCrafting;
+import logisticspipes.proxy.buildcraft.gates.TriggerHasDestination;
+import logisticspipes.proxy.buildcraft.gates.TriggerNeedsPower;
+import logisticspipes.proxy.buildcraft.gates.TriggerSupplierFailed;
 import logisticspipes.proxy.buildcraft.recipeprovider.AssemblyTable;
 import logisticspipes.proxy.buildcraft.robots.LPRobotConnectionControl;
 import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobot;
 import logisticspipes.proxy.buildcraft.robots.boards.LogisticsRoutingBoardRobotNBT;
-import logisticspipes.proxy.buildcraft.subproxies.*;
+import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
+import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
+import logisticspipes.proxy.buildcraft.subproxies.IBCTilePart;
+import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
+import logisticspipes.proxy.buildcraft.subproxies.LPBCPipe;
+import logisticspipes.proxy.buildcraft.subproxies.LPBCPipeTransportsItems;
+import logisticspipes.proxy.buildcraft.subproxies.LPBCTileGenericPipe;
 import logisticspipes.proxy.interfaces.IBCProxy;
 import logisticspipes.proxy.interfaces.ICraftingParts;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
@@ -385,8 +405,8 @@ public class BuildCraftProxy implements IBCProxy {
                 .onBlockActivated(world, x, y, z, player, side, xOffset, yOffset, zOffset);
 
         world.notifyBlocksOfNeighborChange(x, y, z, LogisticsPipes.LogisticsPipeBlock); // Again because not all changes
-                                                                                        // have been applied before the
-                                                                                        // call inside
+        // have been applied before the
+        // call inside
         // the BC method is made.
         boolean block = false;
         if (!result) {

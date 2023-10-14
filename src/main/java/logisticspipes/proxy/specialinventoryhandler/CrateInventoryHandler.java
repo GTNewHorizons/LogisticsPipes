@@ -1,7 +1,11 @@
 package logisticspipes.proxy.specialinventoryhandler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

@@ -1,7 +1,13 @@
 package logisticspipes;
 
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.client.gui.inventory.GuiChest;
@@ -42,7 +48,11 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.LogisticsGuiOverrenderer;
 import logisticspipes.renderer.LogisticsHUDRenderer;
-import logisticspipes.utils.*;
+import logisticspipes.utils.AdjacentTile;
+import logisticspipes.utils.PlayerCollectionList;
+import logisticspipes.utils.PlayerIdentifier;
+import logisticspipes.utils.QuickSortChestMarkerStorage;
+import logisticspipes.utils.WorldUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -4,7 +4,13 @@
  */
 package logisticspipes.pipes;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -22,8 +28,20 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.config.Configs;
 import logisticspipes.gui.GuiChassiPipe;
 import logisticspipes.gui.hud.HudChassisPipe;
-import logisticspipes.interfaces.*;
-import logisticspipes.interfaces.routing.*;
+import logisticspipes.interfaces.IBufferItems;
+import logisticspipes.interfaces.IHeadUpDisplayRenderer;
+import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.interfaces.ILegacyActiveModule;
+import logisticspipes.interfaces.ISendQueueContentRecieiver;
+import logisticspipes.interfaces.ISendRoutedItem;
+import logisticspipes.interfaces.ISlotUpgradeManager;
+import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
+import logisticspipes.interfaces.routing.ICraftItems;
+import logisticspipes.interfaces.routing.IFilter;
+import logisticspipes.interfaces.routing.IProvideItems;
+import logisticspipes.interfaces.routing.IRequestItems;
+import logisticspipes.interfaces.routing.IRequireReliableTransport;
 import logisticspipes.items.ItemModule;
 import logisticspipes.logisticspipes.ChassiTransportLayer;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
@@ -686,7 +704,9 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
 
     public abstract ResourceLocation getChassiGUITexture();
 
-    /** ICraftItems */
+    /**
+     * ICraftItems
+     */
     public final LinkedList<LogisticsOrder> _extras = new LinkedList<>();
 
     @Override

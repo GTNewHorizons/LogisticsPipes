@@ -1,6 +1,10 @@
 package logisticspipes.blocks.powertile;
 
-import java.util.*;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.crash.CrashReportCategory;
@@ -12,7 +16,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 import logisticspipes.LPConstants;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.gui.hud.HUDPowerLevel;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IBlockWatchingHandler;
+import logisticspipes.interfaces.IGuiOpenControler;
+import logisticspipes.interfaces.IGuiTileEntity;
+import logisticspipes.interfaces.IHeadUpDisplayBlockRendererProvider;
+import logisticspipes.interfaces.IHeadUpDisplayRenderer;
+import logisticspipes.interfaces.IPowerLevelDisplay;
+import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
@@ -159,7 +169,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
             List<ExitRoute> exits = part.getValue1().getRoutersOnSide(part.getValue2());
             for (ExitRoute exit : exits) {
                 if (exit.containsFlag(PipeRoutingConnectionType.canPowerSubSystemFrom)) { // Find only result (caused by
-                                                                                          // only straight connections)
+                    // only straight connections)
                     int distance = part.getValue1().getDistanceToNextPowerPipe(exit.exitOrientation);
                     CoreRoutedPipe pipe = part.getValue1().getPipe();
                     if (pipe != null && pipe.isInitialized()) {

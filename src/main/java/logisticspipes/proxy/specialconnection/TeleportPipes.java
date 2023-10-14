@@ -17,7 +17,9 @@ import logisticspipes.proxy.specialconnection.SpecialPipeConnection.ConnectionIn
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
 
-/** Support for teleport pipes **/
+/**
+ * Support for teleport pipes
+ **/
 public class TeleportPipes implements ISpecialPipedConnection {
 
     private static Class<? extends Pipe> PipeItemTeleport;

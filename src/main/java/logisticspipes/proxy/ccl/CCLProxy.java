@@ -12,12 +12,25 @@ import net.minecraft.util.IIcon;
 
 import codechicken.lib.render.CCModel;
 import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.uv.*;
-import codechicken.lib.vec.*;
+import codechicken.lib.render.uv.IconTransformation;
+import codechicken.lib.render.uv.UVScale;
+import codechicken.lib.render.uv.UVTransformation;
+import codechicken.lib.render.uv.UVTransformationList;
+import codechicken.lib.render.uv.UVTranslation;
+import codechicken.lib.vec.Rotation;
+import codechicken.lib.vec.Scale;
+import codechicken.lib.vec.Transformation;
+import codechicken.lib.vec.Translation;
+import codechicken.lib.vec.Vector3;
 import logisticspipes.proxy.DontLoadProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.object3d.interfaces.*;
+import logisticspipes.proxy.object3d.interfaces.I3DOperation;
+import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
+import logisticspipes.proxy.object3d.interfaces.IModel3D;
+import logisticspipes.proxy.object3d.interfaces.IRenderState;
+import logisticspipes.proxy.object3d.interfaces.ITranslation;
+import logisticspipes.proxy.object3d.interfaces.IVec3;
 import logisticspipes.proxy.object3d.operation.LPScale;
 
 public class CCLProxy implements ICCLProxy {

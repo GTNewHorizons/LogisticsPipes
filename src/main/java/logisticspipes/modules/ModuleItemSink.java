@@ -1,6 +1,10 @@
 package logisticspipes.modules;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +15,12 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.gui.hud.modules.HUDItemSink;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IClientInformationProvider;
+import logisticspipes.interfaces.IHUDModuleHandler;
+import logisticspipes.interfaces.IHUDModuleRenderer;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.interfaces.IModuleInventoryReceive;
+import logisticspipes.interfaces.IModuleWatchReciver;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.NewGuiHandler;

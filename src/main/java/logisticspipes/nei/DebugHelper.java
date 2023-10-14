@@ -1,16 +1,29 @@
 package logisticspipes.nei;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagByteArray;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagDouble;
+import net.minecraft.nbt.NBTTagFloat;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagLong;
+import net.minecraft.nbt.NBTTagShort;
+import net.minecraft.nbt.NBTTagString;
 
 import org.lwjgl.input.Keyboard;
 

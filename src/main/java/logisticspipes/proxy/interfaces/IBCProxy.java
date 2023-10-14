@@ -29,7 +29,9 @@ public interface IBCProxy {
     IConnectionOverrideResult checkConnectionOverride(TileEntity with, ForgeDirection side,
             LogisticsTileGenericPipe pipe);
 
-    /** Only used by the BC proxy internaly */
+    /**
+     * Only used by the BC proxy internaly
+     */
     boolean canPipeConnect(TileEntity pipe, TileEntity tile, ForgeDirection direction);
 
     boolean isActive();

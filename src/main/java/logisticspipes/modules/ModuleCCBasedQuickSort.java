@@ -1,6 +1,12 @@
 package logisticspipes.modules;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -12,7 +18,11 @@ import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.gui.hud.modules.HUDCCBasedQuickSort;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IClientInformationProvider;
+import logisticspipes.interfaces.IHUDModuleHandler;
+import logisticspipes.interfaces.IHUDModuleRenderer;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.interfaces.IModuleWatchReciver;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
@@ -62,7 +72,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
             return;
         }
         BitSet routersIndex = ServerRouter.getRoutersInterestedIn((ItemIdentifier) null); // get only pipes with generic
-                                                                                          // interest
+        // interest
         List<ExitRoute> validDestinations = new ArrayList<>(); // get the routing table
         for (int i = routersIndex.nextSetBit(0); i >= 0; i = routersIndex.nextSetBit(i + 1)) {
             IRouter r = SimpleServiceLocator.routerManager.getRouterUnsafe(i, false);

@@ -24,7 +24,38 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.interfaces.IPipeServiceProvider;
 import logisticspipes.interfaces.IWorldProvider;
 import logisticspipes.logisticspipes.ItemModuleInformationManager;
-import logisticspipes.modules.*;
+import logisticspipes.modules.ModuleActiveSupplier;
+import logisticspipes.modules.ModuleAdvancedExtractor;
+import logisticspipes.modules.ModuleAdvancedExtractorMK2;
+import logisticspipes.modules.ModuleAdvancedExtractorMK3;
+import logisticspipes.modules.ModuleApiaristAnalyser;
+import logisticspipes.modules.ModuleApiaristRefiller;
+import logisticspipes.modules.ModuleApiaristSink;
+import logisticspipes.modules.ModuleApiaristTerminus;
+import logisticspipes.modules.ModuleCCBasedItemSink;
+import logisticspipes.modules.ModuleCCBasedQuickSort;
+import logisticspipes.modules.ModuleCrafter;
+import logisticspipes.modules.ModuleCrafterMK2;
+import logisticspipes.modules.ModuleCrafterMK3;
+import logisticspipes.modules.ModuleCreativeTabBasedItemSink;
+import logisticspipes.modules.ModuleElectricBuffer;
+import logisticspipes.modules.ModuleElectricManager;
+import logisticspipes.modules.ModuleEnchantmentSink;
+import logisticspipes.modules.ModuleEnchantmentSinkMK2;
+import logisticspipes.modules.ModuleExtractor;
+import logisticspipes.modules.ModuleExtractorMk2;
+import logisticspipes.modules.ModuleExtractorMk3;
+import logisticspipes.modules.ModuleItemSink;
+import logisticspipes.modules.ModuleModBasedItemSink;
+import logisticspipes.modules.ModuleOreDictItemSink;
+import logisticspipes.modules.ModulePassiveSupplier;
+import logisticspipes.modules.ModulePolymorphicItemSink;
+import logisticspipes.modules.ModuleProvider;
+import logisticspipes.modules.ModuleProviderMk2;
+import logisticspipes.modules.ModuleQuickSort;
+import logisticspipes.modules.ModuleTerminus;
+import logisticspipes.modules.ModuleThaumicAspectSink;
+import logisticspipes.modules.ModuleTypeFilterItemSink;
 import logisticspipes.modules.abstractmodules.LogisticsGuiModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.modules.abstractmodules.LogisticsModule.ModulePositionType;
@@ -260,7 +291,7 @@ public class ItemModule extends LogisticsItem {
             TileEntity tile = par3World.getTileEntity(par4, par5, par6);
             if (tile instanceof LogisticsTileGenericPipe) {
                 if (par2EntityPlayer.getDisplayName().equals("ComputerCraft")) { // Allow turtle to place modules in
-                                                                                 // pipes.
+                    // pipes.
                     CoreUnroutedPipe pipe = LogisticsBlockGenericPipe.getPipe(par3World, par4, par5, par6);
                     if (LogisticsBlockGenericPipe.isValid(pipe)) {
                         pipe.blockActivated(par2EntityPlayer);

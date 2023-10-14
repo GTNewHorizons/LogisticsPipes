@@ -1,7 +1,11 @@
 package logisticspipes.modules;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +18,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.gui.hud.modules.HUDProviderModule;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IClientInformationProvider;
+import logisticspipes.interfaces.IHUDModuleHandler;
+import logisticspipes.interfaces.IHUDModuleRenderer;
+import logisticspipes.interfaces.IInventoryUtil;
+import logisticspipes.interfaces.ILegacyActiveModule;
+import logisticspipes.interfaces.IModuleInventoryReceive;
+import logisticspipes.interfaces.IModuleWatchReciver;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.interfaces.routing.IProvideItems;
@@ -508,7 +518,7 @@ public class ModuleProvider extends LogisticsSneakyDirectionModule implements IL
     @Override
     public boolean interestedInAttachedInventory() {
         return isExcludeFilter || _filterInventory.isEmpty(); // when items included this is only interested in items in
-                                                              // the filter
+        // the filter
         // when items not included, we can only serve those items in the filter.
     }
 

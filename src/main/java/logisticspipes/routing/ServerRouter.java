@@ -5,8 +5,21 @@
 package logisticspipes.routing;
 
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -140,14 +153,14 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
             int c = 0;
             if (((UpdateRouterRunnable) o).newVersion <= 0) {
                 c = newVersion - ((UpdateRouterRunnable) o).newVersion; // negative numbers have priority, more negative
-                                                                        // first
+                // first
             }
             if (c != 0) {
                 return 0;
             }
             c = target.getSimpleID() - ((UpdateRouterRunnable) o).target.getSimpleID(); // do things in order of router
-                                                                                        // id, to minimize router
-                                                                                        // recursion
+            // id, to minimize router
+            // recursion
             if (c != 0) {
                 return 0;
             }
@@ -216,7 +229,9 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
     protected static LSA[] SharedLSADatabase = new LSA[0];
 
-    /** Map of router -> orientation for all known destinations **/
+    /**
+     * Map of router -> orientation for all known destinations
+     **/
     public List<List<ExitRoute>> _routeTable = Collections.unmodifiableList(new ArrayList<>());
 
     public List<ExitRoute> _routeCosts = Collections.unmodifiableList(new ArrayList<>());
@@ -301,7 +316,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         _myLsa.neighboursWithMetric = new HashMap<>();
         _myLsa.power = new ArrayList<>();
         ServerRouter.SharedLSADatabasewriteLock.lock(); // any time after we claim the SimpleID, the database could be
-                                                        // accessed at that index
+        // accessed at that index
         simpleID = ServerRouter.claimSimpleID();
         if (ServerRouter.SharedLSADatabase.length <= simpleID) {
             int newlength = ((int) (simpleID * 1.5)) + 1;
@@ -761,7 +776,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         int routingTableSize = ServerRouter.getBiggestSimpleID();
         if (routingTableSize == 0) {
             routingTableSize = ServerRouter.SharedLSADatabase.length; // deliberatly ignoring concurrent access, either
-                                                                      // the old or the version of the size will
+            // the old or the version of the size will
             // work, this is just an approximate number.
         }
 
@@ -810,13 +825,13 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
 
         /* The total cost for the candidate route **/
         PriorityQueue<ExitRoute> candidatesCost = new PriorityQueue<>((int) Math.sqrt(routingTableSize)); // sqrt nodes
-                                                                                                          // is a good
-                                                                                                          // guess for
-                                                                                                          // the total
-                                                                                                          // number of
-                                                                                                          // candidate
-                                                                                                          // nodes at
-                                                                                                          // once.
+        // is a good
+        // guess for
+        // the total
+        // number of
+        // candidate
+        // nodes at
+        // once.
 
         // Init candidates
         // the shortest way to go to an adjacent item is the adjacent item.
@@ -840,7 +855,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
         debug.start(candidatesCost, closedSet, filterList);
 
         ServerRouter.SharedLSADatabasereadLock.lock(); // readlock, not inside the while - too costly to aquire, then
-                                                       // release.
+        // release.
         ExitRoute lowestCostNode;
         while ((lowestCostNode = candidatesCost.poll()) != null) {
             if (!lowestCostNode.hasActivePipe()) {
@@ -1036,7 +1051,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
             node.root = this; // replace the root with this, rather than the first hop.
             node.exitOrientation = hop.exitOrientation;
             while (node.destination.getSimpleID() >= routeTable.size()) { // the array will not expand, as it is init'd
-                                                                          // to contain enough elements
+                // to contain enough elements
                 routeTable.add(null);
             }
 
@@ -1095,7 +1110,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     @Override
     public void destroy() {
         ServerRouter.SharedLSADatabasewriteLock.lock(); // take a write lock so that we don't overlap with any ongoing
-                                                        // route updates
+        // route updates
         if (simpleID < ServerRouter.SharedLSADatabase.length) {
             ServerRouter.SharedLSADatabase[simpleID] = null;
         }

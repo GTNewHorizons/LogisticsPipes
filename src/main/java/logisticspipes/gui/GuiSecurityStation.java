@@ -18,12 +18,21 @@ import logisticspipes.gui.popup.GuiSecurityStationPopup;
 import logisticspipes.interfaces.PlayerListReciver;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.PlayerListRequest;
-import logisticspipes.network.packets.block.*;
+import logisticspipes.network.packets.block.SecurityAuthorizationPacket;
+import logisticspipes.network.packets.block.SecurityCardPacket;
+import logisticspipes.network.packets.block.SecurityRequestCCIdsPacket;
+import logisticspipes.network.packets.block.SecurityStationAutoDestroy;
+import logisticspipes.network.packets.block.SecurityStationCC;
+import logisticspipes.network.packets.block.SecurityStationOpenPlayerRequest;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.security.SecuritySettings;
 import logisticspipes.utils.Color;
-import logisticspipes.utils.gui.*;
+import logisticspipes.utils.gui.DummyContainer;
+import logisticspipes.utils.gui.GuiCheckBox;
+import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.string.StringUtils;
 
 public class GuiSecurityStation extends LogisticsBaseGuiScreen implements PlayerListReciver {

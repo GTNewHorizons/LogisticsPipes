@@ -1,6 +1,6 @@
 package logisticspipes.network.packets.debuggui;
 
-import java.io.*;
+import java.io.IOException;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

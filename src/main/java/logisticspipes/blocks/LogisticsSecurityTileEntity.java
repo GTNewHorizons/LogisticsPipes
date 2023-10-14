@@ -1,7 +1,12 @@
 package logisticspipes.blocks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +31,11 @@ import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractguis.CoordinatesGuiProvider;
 import logisticspipes.network.guis.block.SecurityStationGui;
-import logisticspipes.network.packets.block.*;
+import logisticspipes.network.packets.block.SecurityStationAutoDestroy;
+import logisticspipes.network.packets.block.SecurityStationCC;
+import logisticspipes.network.packets.block.SecurityStationCCIDs;
+import logisticspipes.network.packets.block.SecurityStationId;
+import logisticspipes.network.packets.block.SecurityStationOpenPlayer;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;

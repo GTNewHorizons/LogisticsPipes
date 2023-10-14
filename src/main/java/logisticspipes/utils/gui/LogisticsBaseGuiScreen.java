@@ -5,7 +5,11 @@
 package logisticspipes.utils.gui;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

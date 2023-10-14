@@ -6,7 +6,12 @@ import java.util.Map;
 
 import net.minecraft.util.IIcon;
 
-import logisticspipes.proxy.object3d.interfaces.*;
+import logisticspipes.proxy.object3d.interfaces.I3DOperation;
+import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
+import logisticspipes.proxy.object3d.interfaces.IModel3D;
+import logisticspipes.proxy.object3d.interfaces.IRenderState;
+import logisticspipes.proxy.object3d.interfaces.ITranslation;
+import logisticspipes.proxy.object3d.interfaces.IVec3;
 import logisticspipes.proxy.object3d.operation.LPScale;
 
 public interface ICCLProxy {
