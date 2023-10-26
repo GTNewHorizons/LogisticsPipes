@@ -330,6 +330,7 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
     public ItemStack add(ItemStack stack, ForgeDirection from, boolean doAdd) {
         ItemStack st = stack.copy();
         st.stackSize = 0;
+        boolean[] mergePassArr = { true, false };
 
         if (_smartGroup != null) {
             BitSet set = new BitSet();
@@ -339,70 +340,94 @@ public class StorageDrawersInventoryHandler extends SpecialInventoryHandler {
             for (int slot : _smartGroup.enumerateDrawersForExtraction(stack, false)) {
                 set.set(slot);
             }
-            int slot = -1;
-            while ((slot = set.nextSetBit(slot + 1)) != -1) {
-                IDrawer drawer = _drawer.getDrawer(slot);
-                int avail;
-                if (!drawer.isEmpty()) {
-                    avail = Math.min(stack.stackSize, drawer.getRemainingCapacity());
-                    if (doAdd) {
-                        drawer.setStoredItemCount(drawer.getStoredItemCount() + avail);
-                    }
-                } else {
-                    avail = Math.min(stack.stackSize, drawer.getMaxCapacity(stack));
-                    if (doAdd) {
-                        drawer.setStoredItem(stack, avail);
-                    }
-                }
 
-                if (drawer instanceof IVoidable && ((IVoidable) drawer).isVoid()) {
-                    return stack;
-                }
-
-                stack.stackSize -= avail;
-                st.stackSize += avail;
+            for (boolean mergePass : mergePassArr) {
 
                 if (stack.stackSize <= 0) {
                     break;
+                }
+
+                int slot = -1;
+                while ((slot = set.nextSetBit(slot + 1)) != -1) {
+                    IDrawer drawer = _drawer.getDrawer(slot);
+
+                    if (mergePass && drawer.isEmpty()) {
+                        continue;
+                    }
+
+                    int avail;
+                    if (!drawer.isEmpty()) {
+                        avail = Math.min(stack.stackSize, drawer.getRemainingCapacity());
+                        if (doAdd) {
+                            drawer.setStoredItemCount(drawer.getStoredItemCount() + avail);
+                        }
+                    } else {
+                        avail = Math.min(stack.stackSize, drawer.getMaxCapacity(stack));
+                        if (doAdd) {
+                            drawer.setStoredItem(stack, avail);
+                        }
+                    }
+
+                    if (drawer instanceof IVoidable && ((IVoidable) drawer).isVoid()) {
+                        return stack;
+                    }
+
+                    stack.stackSize -= avail;
+                    st.stackSize += avail;
+
+                    if (stack.stackSize <= 0) {
+                        break;
+                    }
                 }
             }
 
             return st;
         }
 
-        for (int i = 0; i < _drawer.getDrawerCount(); i++) {
-            if (!_drawer.isDrawerEnabled(i)) {
-                continue;
+        for (boolean mergePass : mergePassArr) {
+
+            if (stack.stackSize <= 0) {
+                break;
             }
 
-            IDrawer drawer = _drawer.getDrawer(i);
-            if (drawer == null) {
-                continue;
-            }
-
-            if (drawer.canItemBeStored(stack)) {
-                int avail;
-                if (drawer.isEmpty()) {
-                    avail = Math.min(stack.stackSize, drawer.getMaxCapacity(stack));
-                    if (doAdd) {
-                        drawer.setStoredItem(stack.copy(), avail);
-                    }
-                } else {
-                    avail = Math.min(stack.stackSize, drawer.getRemainingCapacity());
-                    if (doAdd) {
-                        drawer.setStoredItemCount(drawer.getStoredItemCount() + avail);
-                    }
+            for (int i = 0; i < _drawer.getDrawerCount(); i++) {
+                if (!_drawer.isDrawerEnabled(i)) {
+                    continue;
                 }
 
-                if (drawer instanceof IVoidable && ((IVoidable) drawer).isVoid()) {
-                    return stack;
+                IDrawer drawer = _drawer.getDrawer(i);
+                if (drawer == null) {
+                    continue;
                 }
 
-                stack.stackSize -= avail;
-                st.stackSize += avail;
+                if (drawer.canItemBeStored(stack)) {
+                    if (mergePass && drawer.isEmpty()) {
+                        continue;
+                    }
 
-                if (stack.stackSize <= 0) {
-                    break;
+                    int avail;
+                    if (drawer.isEmpty()) {
+                        avail = Math.min(stack.stackSize, drawer.getMaxCapacity(stack));
+                        if (doAdd) {
+                            drawer.setStoredItem(stack.copy(), avail);
+                        }
+                    } else {
+                        avail = Math.min(stack.stackSize, drawer.getRemainingCapacity());
+                        if (doAdd) {
+                            drawer.setStoredItemCount(drawer.getStoredItemCount() + avail);
+                        }
+                    }
+
+                    if (drawer instanceof IVoidable && ((IVoidable) drawer).isVoid()) {
+                        return stack;
+                    }
+
+                    stack.stackSize -= avail;
+                    st.stackSize += avail;
+
+                    if (stack.stackSize <= 0) {
+                        break;
+                    }
                 }
             }
         }
