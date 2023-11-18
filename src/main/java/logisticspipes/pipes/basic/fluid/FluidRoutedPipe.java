@@ -147,6 +147,9 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                         continue;
                     }
                 }
+				if (!(pair.getValue1() instanceof IFluidHandler)) {
+					continue;
+				}
                 FluidTank tank = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
                 validDirections++;
                 if (tank.getFluid() == null) {
@@ -235,6 +238,9 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
                 List<Pair<TileEntity, ForgeDirection>> adjTanks = getAdjacentTanks(false);
                 // Try to put liquid into all adjacent tanks.
                 for (Pair<TileEntity, ForgeDirection> pair : adjTanks) {
+					if (!(pair.getValue1() instanceof IFluidHandler)) {
+						continue;
+					}
                     IFluidHandler tank = (IFluidHandler) pair.getValue1();
                     ForgeDirection dir = pair.getValue2();
                     fillSide(liquid, dir, tank);
