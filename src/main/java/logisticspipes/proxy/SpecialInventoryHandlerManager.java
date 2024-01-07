@@ -6,6 +6,7 @@ import logisticspipes.proxy.specialinventoryhandler.BarrelInventoryHandler;
 import logisticspipes.proxy.specialinventoryhandler.CrateInventoryHandler;
 import logisticspipes.proxy.specialinventoryhandler.DSUInventoryHandler;
 import logisticspipes.proxy.specialinventoryhandler.JABBAInventoryHandler;
+import logisticspipes.proxy.specialinventoryhandler.QuantumChestInventoryHandler;
 import logisticspipes.proxy.specialinventoryhandler.StorageDrawersInventoryHandler;
 
 public class SpecialInventoryHandlerManager {
@@ -35,5 +36,9 @@ public class SpecialInventoryHandlerManager {
             Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit");
             SimpleServiceLocator.inventoryUtilFactory.registerHandler(new DSUInventoryHandler());
         } catch (ClassNotFoundException ignored) {}
+
+        if (Loader.isModLoaded("gregtech")) {
+            SimpleServiceLocator.inventoryUtilFactory.registerHandler(new QuantumChestInventoryHandler());
+        }
     }
 }
