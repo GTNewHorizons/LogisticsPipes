@@ -5,9 +5,8 @@ pluginManagement {
             // RetroFuturaGradle
             name "GTNH Maven"
             url "https://nexus.gtnewhorizons.com/repository/public/"
-            allowInsecureProtocol = true
             mavenContent {
-                includeGroup("com.gtnewhorizons.retrofuturagradle")
+                includeGroupByRegex("com\\.gtnewhorizons\\..+")
             }
         }
         gradlePluginPortal()
