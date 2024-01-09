@@ -64,19 +64,21 @@ public class CCLProxy implements ICCLProxy {
     public IRenderState getRenderState() {
         return new IRenderState() {
 
+            final CCRenderState state = CCRenderState.instance();
+
             @Override
             public void reset() {
-                CCRenderState.reset();
+                state.reset();
             }
 
             @Override
             public void setUseNormals(boolean b) {
-                CCRenderState.useNormals = b;
+                state.useNormals = b;
             }
 
             @Override
             public void setAlphaOverride(int i) {
-                CCRenderState.alphaOverride = i;
+                state.alphaOverride = i;
             }
         };
     }

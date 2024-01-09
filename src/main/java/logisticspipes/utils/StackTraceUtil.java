@@ -1,5 +1,6 @@
 package logisticspipes.utils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,7 +8,6 @@ import java.util.Map;
 
 import logisticspipes.LPConstants;
 import logisticspipes.utils.tuples.Pair;
-import scala.actors.threadpool.Arrays;
 
 public class StackTraceUtil {
 
