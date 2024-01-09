@@ -65,6 +65,8 @@ public class CCLProxy implements ICCLProxy {
         final CCRenderState state = CCRenderState.instance();
         return new IRenderState() {
 
+            final CCRenderState state = CCRenderState.instance();
+
             @Override
             public void reset() {
                 state.reset();
