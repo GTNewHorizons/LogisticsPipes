@@ -64,6 +64,8 @@ import logisticspipes.utils.tuples.Pair;
 public class GuiRequestTable extends LogisticsBaseGuiScreen
         implements IItemSearch, ISpecialItemRenderer, IDiskProvider {
 
+    private static final int[] AMOUNT_CHANGE_MODE = { 1, 10, 64, 64 };
+
     private enum DisplayOptions {
         Both,
         SupplyOnly,
@@ -141,6 +143,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         super.initGui();
 
         buttonList.clear();
+        // @formatter:off
         buttonList.add(hideWhileSmall.addChain(new GuiButton(0, right - 55, bottom - 25, 50, 20, "Request"))); // Request
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(1, right - 15, guiTop + 5, 10, 10, ">"))); // Next
         // page
@@ -152,8 +155,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(6, right - 86, bottom - 26, 10, 10, "+"))); // +1
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
-        buttonList.add(
-                hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
+        buttonList.add(hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
 
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(13, guiLeft + 210, bottom - 28, 46, 10, "Content"))); // Component
@@ -164,8 +167,11 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(15, guiLeft + 108, guiTop + 53, 15, 10, "++"))); // +10
         buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(16, guiLeft + 96, guiTop + 64, 26, 10, "+++"))); // +64
 
-        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(30, guiLeft + 96 + 2, guiTop + 18, 10, 10, "X"))); // x
-        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(31, guiLeft + 108 + 2, guiTop + 18, 10, 10, "~", 3))); // ~
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(30, guiLeft + 125, guiTop + 21, 10, 10, "X"))); // x
+
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(31, guiLeft + 96, guiTop + 10, 10, 10, "~", 3))); // fill to 1 craft
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(32, guiLeft + 108, guiTop + 10, 15, 10, "~~", 3))); // fill to 10 craft
+        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(33, guiLeft + 96, guiTop + 21, 26, 10, "~~~", 3))); // fill to 64 craft
 
         buttonList.add(hideShowButton = new SmallGuiButton(17, guiLeft + 173, guiTop + 5, 36, 10, "Hide")); // Hide
         buttonList.add(Macrobutton = new SmallGuiButton(18, right - 55, bottom - 60, 50, 10, "Disk"));
@@ -175,6 +181,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 new SmallGuiButton(21, guiLeft + 124, guiTop + 30, 15, 10, "/\\"))).visible = false;
         (sycleButtons[1] = addButton(
                 new SmallGuiButton(22, guiLeft + 124, guiTop + 42, 15, 10, "\\/"))).visible = false;
+		// @formatter:on
 
         if (search == null) {
             search = new SearchBar(mc.fontRenderer, this, guiLeft + 205, bottom - 78, 200, 15);
@@ -191,7 +198,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     guiTop + 18,
                     200,
                     ySize - 100,
-                    new int[] { 1, 10, 64, 64 },
+                    AMOUNT_CHANGE_MODE,
                     true);
         }
         itemDisplay.reposition(guiLeft + 205, guiTop + 18, 200, ySize - 100);
@@ -608,10 +615,11 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(ClearCraftingGridPacket.class).setTilePos(_table.container));
             _table.cacheRecipe();
-        } else if (guibutton.id == 31) {
+        } else if (guibutton.id >= 31 && guibutton.id <= 33) {
+            int mult = AMOUNT_CHANGE_MODE[guibutton.id - 31];
             ArrayList<ItemIdentifierStack> list = new ArrayList<>(9);
             for (Entry<ItemIdentifier, Integer> e : _table.matrix.getItemsAndCount().entrySet()) {
-                list.add(e.getKey().makeStack(e.getValue()));
+                list.add(e.getKey().makeStack(e.getValue() * mult));
             }
             for (Pair<ItemStack, Integer> entry : _table.inv) {
                 if (entry.getValue1() == null) continue;
@@ -631,6 +639,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                 .setTilePos(_table.container));
                 refreshItems();
             }
+        } else if (guibutton.id == 34) {
+            itemDisplay.resetAmount();
         }
     }
 
