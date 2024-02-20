@@ -31,15 +31,15 @@ public class RecipeManager {
         public LocalCraftingManager() {}
 
         public void addRecipe(ItemStack stack, CraftingDependency dependent, Object... objects) {
-            //			craftingManager.getRecipeList().add(new LPShapedOreRecipe(stack, dependent, objects));
+            			craftingManager.getRecipeList().add(new LPShapedOreRecipe(stack, dependent, objects));
         }
 
         public void addOrdererRecipe(ItemStack stack, String dye, ItemStack orderer) {
-            //			craftingManager.getRecipeList().add(new ShapelessOrdererRecipe(stack, new Object[] {dye, orderer}));
+            			craftingManager.getRecipeList().add(new ShapelessOrdererRecipe(stack, new Object[] {dye, orderer}));
         }
 
         public void addShapelessRecipe(ItemStack stack, CraftingDependency dependent, Object... objects) {
-            //			craftingManager.getRecipeList().add(new LPShapelessOreRecipe(stack, dependent, objects));
+            			craftingManager.getRecipeList().add(new LPShapelessOreRecipe(stack, dependent, objects));
         }
 
         @SuppressWarnings("unchecked")
@@ -106,7 +106,7 @@ public class RecipeManager {
             "dyeOrange",
             "dyeWhite"
         };
-        if (!Configs.ENABLE_BETA_RECIPES) {
+        if (!Configs.ENABLE_BETA_RECIPES && !LogisticsPipes.isGTNH) {
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.BasicTransportPipe, 8),
                     CraftingDependency.Basic,
@@ -1614,7 +1614,7 @@ public class RecipeManager {
                     'w',
                     parts.getExtractorFluid());
         }
-        if (Configs.ENABLE_BETA_RECIPES) {
+        if (Configs.ENABLE_BETA_RECIPES && !LogisticsPipes.isGTNH) {
             ItemStack micserv =
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_MICROSERVO);
             ItemStack logproc =
