@@ -728,64 +728,65 @@ public class LogisticsNewRenderPipe {
             renderState.renderList = null;
         }
 
-        if (renderState.renderList == null) {
-            renderState.renderList = SimpleServiceLocator.renderListHandler.getNewRenderList();
-        }
-
         if (distance > config.getRenderPipeDistance() * config.getRenderPipeDistance()) {
             if (config.isUseFallbackRenderer()) {
                 renderState.forceRenderOldPipe = true;
             }
-        } else {
-            renderState.forceRenderOldPipe = false;
-            boolean recalculateList = false;
-            if (renderState.cachedRenderer == null) {
-                List<Pair<IModel3D, I3DOperation[]>> objectsToRender = new ArrayList<>();
-                fillObjectsToRenderList(objectsToRender, pipeTile, renderState);
-                renderState.cachedRenderer = objectsToRender;
-                recalculateList = true;
-            }
-            if (!renderState.renderList.isFilled() || recalculateList) {
-                renderState.renderList.startListCompile();
+            return;
+        }
 
-                Tessellator tess = Tessellator.instance;
+        if (renderState.renderList == null) {
+            renderState.renderList = SimpleServiceLocator.renderListHandler.getNewRenderList();
+        }
 
-                SimpleServiceLocator.cclProxy.getRenderState().reset();
-                SimpleServiceLocator.cclProxy.getRenderState().setUseNormals(true);
-                SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
+        renderState.forceRenderOldPipe = false;
+        boolean recalculateList = false;
+        if (renderState.cachedRenderer == null) {
+            List<Pair<IModel3D, I3DOperation[]>> objectsToRender = new ArrayList<>();
+            fillObjectsToRenderList(objectsToRender, pipeTile, renderState);
+            renderState.cachedRenderer = objectsToRender;
+            recalculateList = true;
+        }
+        if (!renderState.renderList.isFilled() || recalculateList) {
+            renderState.renderList.startListCompile();
 
-                int brightness = new LPPosition((TileEntity) pipeTile).getBlock(pipeTile.getWorldObj())
-                        .getMixedBrightnessForBlock(
-                                pipeTile.getWorldObj(),
-                                pipeTile.xCoord,
-                                pipeTile.yCoord,
-                                pipeTile.zCoord);
+            Tessellator tess = Tessellator.instance;
 
-                tess.setColorOpaque_F(1F, 1F, 1F);
-                tess.setBrightness(brightness);
+            SimpleServiceLocator.cclProxy.getRenderState().reset();
+            SimpleServiceLocator.cclProxy.getRenderState().setUseNormals(true);
+            SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
 
-                tess.startDrawingQuads();
-                for (Pair<IModel3D, I3DOperation[]> model : renderState.cachedRenderer) {
-                    if (model == null) {
-                        SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xa0);
-                    } else {
-                        model.getValue1().render(model.getValue2());
-                    }
+            int brightness = new LPPosition((TileEntity) pipeTile).getBlock(pipeTile.getWorldObj())
+                    .getMixedBrightnessForBlock(
+                            pipeTile.getWorldObj(),
+                            pipeTile.xCoord,
+                            pipeTile.yCoord,
+                            pipeTile.zCoord);
+
+            tess.setColorOpaque_F(1F, 1F, 1F);
+            tess.setBrightness(brightness);
+
+            tess.startDrawingQuads();
+            for (Pair<IModel3D, I3DOperation[]> model : renderState.cachedRenderer) {
+                if (model == null) {
+                    SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xa0);
+                } else {
+                    model.getValue1().render(model.getValue2());
                 }
-                SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
-                tess.draw();
+            }
+            SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
+            tess.draw();
 
-                renderState.renderList.stopCompile();
-            }
-            if (renderState.renderList != null) {
-                GL11.glPushMatrix();
-                GL11.glTranslated(x, y, z);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ZERO);
-                renderState.renderList.render();
-                GL11.glDisable(GL11.GL_BLEND);
-                GL11.glPopMatrix();
-            }
+            renderState.renderList.stopCompile();
+        }
+        if (renderState.renderList != null) {
+            GL11.glPushMatrix();
+            GL11.glTranslated(x, y, z);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ZERO);
+            renderState.renderList.render();
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glPopMatrix();
         }
     }
 
