@@ -27,8 +27,6 @@ import lombok.Setter;
 
 public class LPTickHandler {
 
-    public static int adjChecksDone = 0;
-
     @SubscribeEvent
     public void clientTick(ClientTickEvent event) {
         FluidIdentifier.initFromForge(true);
@@ -43,7 +41,6 @@ public class LPTickHandler {
         SimpleServiceLocator.craftingPermissionManager.tick();
         SimpleServiceLocator.serverBufferHandler.serverTick(event);
         MainProxy.proxy.tickServer();
-        LPTickHandler.adjChecksDone = 0;
         DebugGuiController.instance().execServer();
     }
 

@@ -49,7 +49,6 @@ import logisticspipes.request.resources.FluidResource;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.request.resources.ItemResource;
 import logisticspipes.routing.pathfinder.PathFinder;
-import logisticspipes.ticks.LPTickHandler;
 import logisticspipes.ticks.RoutingTableUpdateThread;
 import logisticspipes.utils.CacheHolder;
 import logisticspipes.utils.OneList;
@@ -489,7 +488,6 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
             getPipe().spawnParticle(Particles.LightRedParticle, 5);
         }
 
-        LPTickHandler.adjChecksDone++;
         boolean adjacentChanged = false;
         CoreRoutedPipe thisPipe = getPipe();
         if (thisPipe == null) {
