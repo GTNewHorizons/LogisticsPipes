@@ -11,59 +11,67 @@ import net.minecraftforge.common.util.ForgeDirection;
 import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
+import lombok.EqualsAndHashCode;
 
-public class LPPosition extends Triplet<Double, Double, Double> {
+@EqualsAndHashCode
+public class LPPosition {
+
+    private double xPos;
+    private double yPos;
+    private double zPos;
 
     public LPPosition(double xPos, double yPos, double zPos) {
-        super(xPos, yPos, zPos);
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.zPos = zPos;
     }
 
     public LPPosition(int xPos, int yPos, int zPos) {
-        super((double) xPos, (double) yPos, (double) zPos);
+        this((double) xPos, (double) yPos, (double) zPos);
     }
 
     public LPPosition(TileEntity tile) {
-        super((double) tile.xCoord, (double) tile.yCoord, (double) tile.zCoord);
+        this((double) tile.xCoord, (double) tile.yCoord, (double) tile.zCoord);
     }
 
     public LPPosition(CoreUnroutedPipe pipe) {
-        super((double) pipe.getX(), (double) pipe.getY(), (double) pipe.getZ());
+        this((double) pipe.getX(), (double) pipe.getY(), (double) pipe.getZ());
     }
 
     public LPPosition(IPipeInformationProvider pipe) {
-        super((double) pipe.getX(), (double) pipe.getY(), (double) pipe.getZ());
+        this((double) pipe.getX(), (double) pipe.getY(), (double) pipe.getZ());
     }
 
     public LPPosition(CoordinatesPacket packet) {
-        super((double) packet.getPosX(), (double) packet.getPosY(), (double) packet.getPosZ());
+        this((double) packet.getPosX(), (double) packet.getPosY(), (double) packet.getPosZ());
     }
 
     public LPPosition(Entity entity) {
-        super(entity.posX, entity.posY, entity.posZ);
+        this(entity.posX, entity.posY, entity.posZ);
     }
 
     public int getX() {
-        return (int) (double) getValue1();
+        return (int) xPos;
     }
 
     public int getY() {
-        return (int) (double) getValue2();
+        return (int) yPos;
     }
 
     public int getZ() {
-        return (int) (double) getValue3();
+        return (int) zPos;
     }
 
     public double getXD() {
-        return getValue1();
+        return xPos;
     }
 
     public double getYD() {
-        return getValue2();
+        return yPos;
     }
 
     public double getZD() {
-        return getValue3();
+        return zPos;
     }
 
     public TileEntity getTileEntity(World world) {
@@ -73,24 +81,23 @@ public class LPPosition extends Triplet<Double, Double, Double> {
     public LPPosition moveForward(ForgeDirection dir, double steps) {
         switch (dir) {
             case UP:
-                value2 += steps;
+                yPos += steps;
                 break;
             case DOWN:
-                value2 -= steps;
+                yPos -= steps;
                 break;
             case NORTH:
-                value3 -= steps;
+                zPos -= steps;
                 break;
             case SOUTH:
-                value3 += steps;
+                zPos += steps;
                 break;
             case EAST:
-                value1 += steps;
+                xPos += steps;
                 break;
             case WEST:
-                value1 -= steps;
+                xPos -= steps;
                 break;
-            default:
         }
         return this;
     }
@@ -99,26 +106,17 @@ public class LPPosition extends Triplet<Double, Double, Double> {
         return moveForward(dir, 1);
     }
 
-    public LPPosition moveBackward(ForgeDirection dir, double steps) {
-        return moveForward(dir, -1 * steps);
-    }
-
-    public LPPosition moveBackward(ForgeDirection dir) {
-        return moveBackward(dir, 1);
-    }
-
     @Override
     public String toString() {
-        return "(" + getXD() + ", " + getYD() + ", " + getZD() + ")";
+        return "(" + xPos + ", " + yPos + ", " + zPos + ")";
     }
 
     public String toIntBasedString() {
-        return "(" + getXD() + ", " + getYD() + ", " + getZD() + ")";
+        return "(" + xPos + ", " + yPos + ", " + zPos + ")";
     }
 
-    @Override
     public LPPosition copy() {
-        return new LPPosition(value1, value2, value3);
+        return new LPPosition(xPos, yPos, zPos);
     }
 
     public Block getBlock(IBlockAccess world) {
@@ -131,21 +129,21 @@ public class LPPosition extends Triplet<Double, Double, Double> {
 
     public double distanceTo(LPPosition targetPos) {
         return Math.sqrt(
-                Math.pow(targetPos.getXD() - getXD(), 2) + Math.pow(targetPos.getYD() - getYD(), 2)
-                        + Math.pow(targetPos.getZD() - getZD(), 2));
+                Math.pow(targetPos.xPos - xPos, 2) + Math.pow(targetPos.yPos - yPos, 2)
+                        + Math.pow(targetPos.zPos - zPos, 2));
     }
 
     public LPPosition center() {
-        value1 += 0.5D;
-        value2 += 0.5D;
-        value3 += 0.5D;
+        xPos += 0.5D;
+        yPos += 0.5D;
+        zPos += 0.5D;
         return this;
     }
 
     public void writeToNBT(String prefix, NBTTagCompound nbt) {
-        nbt.setDouble(prefix + "xPos", value1);
-        nbt.setDouble(prefix + "yPos", value2);
-        nbt.setDouble(prefix + "zPos", value3);
+        nbt.setDouble(prefix + "xPos", xPos);
+        nbt.setDouble(prefix + "yPos", yPos);
+        nbt.setDouble(prefix + "zPos", zPos);
     }
 
     public static LPPosition readFromNBT(String prefix, NBTTagCompound nbt) {
