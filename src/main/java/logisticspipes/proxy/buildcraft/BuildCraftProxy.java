@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import buildcraft.BuildCraftCore;
@@ -31,6 +32,7 @@ import buildcraft.api.transport.IPipeConnection;
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.IPipeTile.PipeType;
 import buildcraft.core.ItemMapLocation;
+import buildcraft.core.Version;
 import buildcraft.core.lib.ITileBufferHolder;
 import buildcraft.robotics.EntityRobot;
 import buildcraft.robotics.ItemRobot;
@@ -43,7 +45,6 @@ import buildcraft.transport.PipeEventBus;
 import buildcraft.transport.PipeTransportFluids;
 import buildcraft.transport.PipeTransportItems;
 import buildcraft.transport.TileGenericPipe;
-import buildcraft.transport.render.PipeRendererTESR;
 import buildcraft.transport.render.PipeTransportItemsRenderer;
 import buildcraft.transport.render.PipeTransportRenderer;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -78,7 +79,6 @@ import logisticspipes.proxy.interfaces.ICraftingParts;
 import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
 import logisticspipes.transport.PipeFluidTransportLogistics;
 import logisticspipes.utils.ReflectionHelper;
-import lombok.SneakyThrows;
 
 public class BuildCraftProxy implements IBCProxy {
 
@@ -96,7 +96,7 @@ public class BuildCraftProxy implements IBCProxy {
     public BuildCraftProxy() {
         String BCVersion = null;
         try {
-            Field versionField = buildcraft.core.Version.class.getDeclaredField("VERSION");
+            Field versionField = Version.class.getDeclaredField("VERSION");
             BCVersion = (String) versionField.get(null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,8 +279,7 @@ public class BuildCraftProxy implements IBCProxy {
     @Override
     public Object getLPPipeType() {
         if (logisticsPipeType == null) {
-            logisticsPipeType = net.minecraftforge.common.util.EnumHelper
-                    .addEnum(PipeType.class, "LOGISTICS", new Class<?>[] {}, new Object[] {});
+            logisticsPipeType = EnumHelper.addEnum(PipeType.class, "LOGISTICS", new Class<?>[] {}, new Object[] {});
         }
         return logisticsPipeType;
     }
@@ -442,8 +441,7 @@ public class BuildCraftProxy implements IBCProxy {
     }
 
     /**
-     * @see buildcraft.robotics.ItemRobot#onItemUse(ItemStack, EntityPlayer, World, int, int, int, int, float, float,
-     *      float)
+     * @see ItemRobot#onItemUse(ItemStack, EntityPlayer, World, int, int, int, int, float, float, float)
      */
     private boolean checkRobot(World world, int x, int y, int z, EntityPlayer player, ItemStack currentItem) {
         if (!world.isRemote) {
@@ -516,34 +514,7 @@ public class BuildCraftProxy implements IBCProxy {
 
     @Override
     public IBCRenderTESR getBCRenderTESR() {
-        return new IBCRenderTESR() {
-
-            @Override
-            @SneakyThrows(Exception.class)
-            public void renderWires(LogisticsTileGenericPipe pipe, double x, double y, double z) {
-                TileGenericPipe tgPipe = (TileGenericPipe) pipe.tilePart.getOriginal();
-                ReflectionHelper.invokePrivateMethod(
-                        Object.class,
-                        PipeRendererTESR.class,
-                        PipeRendererTESR.INSTANCE,
-                        "renderGatesWires",
-                        new Class[] { TileGenericPipe.class, double.class, double.class, double.class },
-                        new Object[] { tgPipe, x, y, z });
-            }
-
-            @Override
-            @SneakyThrows(Exception.class)
-            public void dynamicRenderPluggables(LogisticsTileGenericPipe pipe, double x, double y, double z) {
-                TileGenericPipe tgPipe = (TileGenericPipe) pipe.tilePart.getOriginal();
-                ReflectionHelper.invokePrivateMethod(
-                        Object.class,
-                        PipeRendererTESR.class,
-                        PipeRendererTESR.INSTANCE,
-                        "renderPluggables",
-                        new Class[] { TileGenericPipe.class, double.class, double.class, double.class },
-                        new Object[] { tgPipe, x, y, z });
-            }
-        };
+        return new BCRenderTESR();
     }
 
     @Override
