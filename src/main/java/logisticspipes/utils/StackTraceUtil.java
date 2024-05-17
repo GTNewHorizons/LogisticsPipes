@@ -18,11 +18,11 @@ public class StackTraceUtil {
         public abstract void end();
     }
 
-    private static class DummyInfo extends Info {
+    private static final Info dummyInfo = new Info() {
 
         @Override
         public void end() {}
-    }
+    };
 
     private static LinkedList<Pair<StackTraceElement, String>> getList() {
         return StackTraceUtil.informationMap.computeIfAbsent(Thread.currentThread(), k -> new LinkedList<>());
@@ -30,7 +30,7 @@ public class StackTraceUtil {
 
     public static Info addTraceInformation(final String information, Info... infos) {
         if (!LPConstants.DEBUG) {
-            return new DummyInfo();
+            return dummyInfo;
         }
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         final StackTraceElement calledFrom = trace[2];
@@ -39,7 +39,7 @@ public class StackTraceUtil {
 
     public static Info addSuperTraceInformation(final String information, Info... infos) {
         if (!LPConstants.DEBUG) {
-            return new DummyInfo();
+            return dummyInfo;
         }
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         final StackTraceElement calledFrom = trace[3];
