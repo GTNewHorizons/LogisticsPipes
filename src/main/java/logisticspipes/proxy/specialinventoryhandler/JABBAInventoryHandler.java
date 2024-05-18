@@ -43,7 +43,7 @@ public class JABBAInventoryHandler extends DSULikeInventoryHandler {
 
     @Override
     boolean isEmpty() {
-        return _tile.getStoredItemType() != null;
+        return _tile.getStoredItemType() == null;
     }
 
     @Override
