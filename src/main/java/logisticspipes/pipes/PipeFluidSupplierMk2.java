@@ -273,7 +273,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
         else _requestedItems.put(liquid, count - remaining);
         if (remaining > count) {
             // we have no idea what this is, log it.
-            debug.log("liquid supplier got unexpected item " + liquid.toString());
+            debug.log("liquid supplier got unexpected item %s", liquid.toString());
         }
     }
 
