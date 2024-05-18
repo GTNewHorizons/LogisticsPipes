@@ -6,7 +6,9 @@
 
 package logisticspipes.utils.item;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
@@ -19,7 +21,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -46,7 +47,7 @@ public class ItemStackRenderer {
     private TextureManager texManager;
     private FontRenderer fontRenderer;
 
-    private ItemStack itemstack;
+    private ItemIdentifierStack itemstack;
     private int posX;
     private int posY;
     private float zLevel;
@@ -57,9 +58,10 @@ public class ItemStackRenderer {
     private boolean renderEffects;
     private boolean ignoreDepth;
     private boolean renderInColor;
-    private EntityItem entityitem;
     private World worldObj;
     private float partialTickTime;
+
+    private final Map<ItemIdentifier, EntityItem> entityCache = new HashMap<>();
 
     public ItemStackRenderer(int posX, int posY, float zLevel, boolean renderEffects, boolean ignoreDepth,
             boolean renderInColor) {
@@ -160,14 +162,12 @@ public class ItemStackRenderer {
             if (ppi > items * (page + 1)) {
                 continue;
             }
-            ItemStack itemstack = identifierStack.unsafeMakeNormalStack();
+
             int x = left + xSize * column;
             int y = top + ySize * row + 1;
 
-            if (itemstack != null) {
-                itemStackRenderer.setItemstack(itemstack).setPosX(x).setPosY(y);
-                itemStackRenderer.renderInGui();
-            }
+            itemStackRenderer.setItemstack(identifierStack).setPosX(x).setPosY(y);
+            itemStackRenderer.renderInGui();
 
             column++;
             if (column >= columns) {
@@ -206,10 +206,11 @@ public class ItemStackRenderer {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
 
+        ItemStack itemStack = itemstack.makeNormalStack();
         if (!ForgeHooksClient
-                .renderInventoryItem(renderBlocks, texManager, itemstack, renderInColor, zLevel, posX, posY)) {
+                .renderInventoryItem(renderBlocks, texManager, itemStack, renderInColor, zLevel, posX, posY)) {
             renderItem.zLevel += zLevel;
-            renderItem.renderItemIntoGUI(fontRenderer, texManager, itemstack, posX, posY, renderEffects);
+            renderItem.renderItemIntoGUI(fontRenderer, texManager, itemStack, posX, posY, renderEffects);
             renderItem.zLevel -= zLevel;
         }
 
@@ -222,7 +223,7 @@ public class ItemStackRenderer {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
         // 20 should be about the size of a block
-        GuiGraphics.drawDurabilityBar(itemstack, posX, posY, zLevel + 20.0F);
+        GuiGraphics.drawDurabilityBar(itemStack, posX, posY, zLevel + 20.0F);
 
         // if we want to render the amount, do that
         if (displayAmount != DisplayAmount.NEVER) {
@@ -232,7 +233,7 @@ public class ItemStackRenderer {
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
             }
 
-            FontRenderer specialFontRenderer = itemstack.getItem().getFontRenderer(itemstack);
+            FontRenderer specialFontRenderer = itemstack.getItem().item.getFontRenderer(itemStack);
 
             if (specialFontRenderer != null) {
                 fontRenderer = specialFontRenderer;
@@ -240,7 +241,7 @@ public class ItemStackRenderer {
 
             GL11.glDisable(GL11.GL_LIGHTING);
             String amountString = StringUtils
-                    .getFormatedStackSize(itemstack.stackSize, displayAmount == DisplayAmount.ALWAYS);
+                    .getFormatedStackSize(itemstack.getStackSize(), displayAmount == DisplayAmount.ALWAYS);
 
             // 20 should be about the size of a block + 20 for the effect and overlay
             GL11.glTranslatef(0.0F, 0.0F, zLevel + 40.0F);
@@ -262,21 +263,13 @@ public class ItemStackRenderer {
     public void renderInWorld() {
         assert renderManager != null;
         assert renderItem != null;
-        assert scaleX != 0.0F;
-        assert scaleY != 0.0F;
-        assert scaleZ != 0.0F;
 
-        if (entityitem == null || !ItemStack.areItemStacksEqual(entityitem.getEntityItem(), itemstack)) {
-            if (itemstack == null) {
-                throw new RuntimeException("No EntityItem and no ItemStack, I do not know what to render!");
-            } else {
-                if (worldObj == null) {
-                    throw new NullPointerException("World object is null");
-                }
-                entityitem = new EntityItem(worldObj, 0.0D, 0.0D, 0.0D, itemstack);
-                entityitem.getEntityItem().stackSize = 1;
-                entityitem.hoverStart = 0.0F;
-            }
+        ItemIdentifier itemId = itemstack.getItem();
+        EntityItem entityItem = entityCache.get(itemId);
+        if (entityItem == null) {
+            entityItem = new EntityItem(worldObj, 0, 0, 0, itemId.makeNormalStack(1));
+            entityItem.hoverStart = 0;
+            entityCache.put(itemId, entityItem);
         }
 
         boolean changeColor = renderItem.renderWithColor != renderInColor;
@@ -284,17 +277,16 @@ public class ItemStackRenderer {
             renderItem.renderWithColor = renderInColor;
         }
 
-        Item item = itemstack.getItem();
-        if (item instanceof ItemBlock) {
-            Block block = ((ItemBlock) item).field_150939_a;
+        if (itemId.item instanceof ItemBlock) {
+            Block block = ((ItemBlock) itemId.item).field_150939_a;
             if (block instanceof BlockPane) {
                 GL11.glScalef(0.5F, 0.5F, 0.5F);
             }
-        } else if (item == LogisticsPipes.logisticsRequestTable) {
+        } else if (itemId.item == LogisticsPipes.logisticsRequestTable) {
             GL11.glScalef(0.5F, 0.5F, 0.5F);
         }
 
-        renderManager.renderEntityWithPosYaw(entityitem, posX, posY, zLevel, 0.0F, partialTickTime);
+        renderManager.renderEntityWithPosYaw(entityItem, posX, posY, zLevel, 0.0F, partialTickTime);
 
         if (changeColor) {
             renderItem.renderWithColor = !renderInColor;
