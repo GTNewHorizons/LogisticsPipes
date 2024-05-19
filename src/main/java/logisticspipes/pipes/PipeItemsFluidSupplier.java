@@ -290,7 +290,7 @@ public class PipeItemsFluidSupplier extends CoreRoutedPipe implements IRequestIt
             }
         }
         // we have no idea what this is, log it.
-        debug.log("liquid supplier got unexpected item " + item);
+        debug.log("liquid supplier got unexpected item %s", item);
     }
 
     @Override

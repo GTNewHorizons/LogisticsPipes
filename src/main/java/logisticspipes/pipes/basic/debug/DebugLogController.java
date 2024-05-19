@@ -26,12 +26,14 @@ public class DebugLogController {
         this.pipe = pipe;
     }
 
-    public void log(String info) {
+    public void log(String formatString, Object... args) {
         if (players.isEmptyWithoutCheck()) {
             return;
         }
-        MainProxy
-                .sendToPlayerList(PacketHandler.getPacket(SendNewLogLine.class).setWindowID(ID).setLine(info), players);
+        MainProxy.sendToPlayerList(
+                PacketHandler.getPacket(SendNewLogLine.class).setWindowID(ID)
+                        .setLine(String.format(formatString, args)),
+                players);
     }
 
     public void tick() {
