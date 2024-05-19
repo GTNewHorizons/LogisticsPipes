@@ -165,8 +165,11 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public void updateEntity() {
-        Info superDebug = StackTraceUtil.addSuperTraceInformation("Time: " + getWorld().getWorldTime());
-        Info debug = StackTraceUtil.addTraceInformation("(" + getX() + ", " + getY() + ", " + getZ() + ")", superDebug);
+        Info debug = StackTraceUtil.DUMMY_INFO;
+        if (LPConstants.DEBUG) {
+            Info superDebug = StackTraceUtil.addSuperTraceInformation("Time: " + getWorld().getWorldTime());
+            debug = StackTraceUtil.addTraceInformation("(" + getX() + ", " + getY() + ", " + getZ() + ")", superDebug);
+        }
         if (sendInitPacket && MainProxy.isServer(getWorldObj())) {
             sendInitPacket = false;
             getRenderController().sendInit();
