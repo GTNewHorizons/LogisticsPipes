@@ -407,7 +407,7 @@ public class LogisticsHUDRenderer {
                             GL11.glScalef(scaleX, scaleY, scaleZ);
 
                             ItemStackRenderer itemStackRenderer = new ItemStackRenderer(5, 6, 0.0F, false, true, true);
-                            itemStackRenderer.setItemstack(ItemIdentifierStack.getFromStack(item))
+                            itemStackRenderer.setItemIdentifierStack(ItemIdentifierStack.getFromStack(item))
                                     .setDisplayAmount(DisplayAmount.NEVER);
                             itemStackRenderer.setScaleX(scaleX).setScaleY(scaleY).setScaleZ(scaleZ);
 

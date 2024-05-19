@@ -298,7 +298,7 @@ public class HudChassisPipe extends BasicHUDGui {
                         false,
                         shifted,
                         renderInColor);
-                itemStackRenderer.setItemstack(ItemIdentifierStack.getFromStack(module))
+                itemStackRenderer.setItemIdentifierStack(ItemIdentifierStack.getFromStack(module))
                         .setDisplayAmount(DisplayAmount.NEVER);
 
                 itemStackRenderer.renderInGui();

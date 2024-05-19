@@ -323,7 +323,7 @@ public class ItemDisplay {
 
                 // use GuiGraphics to render the ItemStacks
                 ItemStackRenderer itemstackRenderer = new ItemStackRenderer(x, y, 100.0F, true, false, true);
-                itemstackRenderer.setItemstack(itemIdentifierStack).setDisplayAmount(DisplayAmount.HIDE_ONE);
+                itemstackRenderer.setItemIdentifierStack(itemIdentifierStack).setDisplayAmount(DisplayAmount.HIDE_ONE);
                 itemstackRenderer.renderInGui();
 
                 x += panelxSize;

@@ -261,7 +261,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         GL11.glTranslated(x, y, z);
         GL11.glScalef(renderScale, renderScale, renderScale);
         GL11.glTranslatef(0.0F, -0.1F, 0.0F);
-        itemRenderer.setItemstack(itemstack).setWorldObj(worldObj).setPartialTickTime(partialTickTime);
+        itemRenderer.setItemIdentifierStack(itemstack).setWorldObj(worldObj).setPartialTickTime(partialTickTime);
         itemRenderer.renderInWorld();
         GL11.glPopMatrix();
     }

@@ -47,7 +47,7 @@ public class ItemStackRenderer {
     private TextureManager texManager;
     private FontRenderer fontRenderer;
 
-    private ItemIdentifierStack itemstack;
+    private ItemIdentifierStack itemIdentifierStack;
     private int posX;
     private int posY;
     private float zLevel;
@@ -140,8 +140,8 @@ public class ItemStackRenderer {
         int column = 0;
         int row = 0;
 
-        for (ItemIdentifierStack identifierStack : _allItems) {
-            if (identifierStack == null) {
+        for (ItemIdentifierStack itemIdentifierStack : _allItems) {
+            if (itemIdentifierStack == null) {
                 column++;
                 if (column >= columns) {
                     row++;
@@ -150,7 +150,7 @@ public class ItemStackRenderer {
                 ppi++;
                 continue;
             }
-            ItemIdentifier item = identifierStack.getItem();
+            ItemIdentifier item = itemIdentifierStack.getItem();
             if (IItemSearch != null && !IItemSearch.itemSearched(item)) {
                 continue;
             }
@@ -166,7 +166,7 @@ public class ItemStackRenderer {
             int x = left + xSize * column;
             int y = top + ySize * row + 1;
 
-            itemStackRenderer.setItemstack(identifierStack).setPosX(x).setPosY(y);
+            itemStackRenderer.setItemIdentifierStack(itemIdentifierStack).setPosX(x).setPosY(y);
             itemStackRenderer.renderInGui();
 
             column++;
@@ -178,7 +178,7 @@ public class ItemStackRenderer {
     }
 
     public void renderInGui() {
-        assert itemstack != null;
+        assert itemIdentifierStack != null;
         assert displayAmount != null;
         assert renderBlocks != null;
         assert renderItem != null;
@@ -206,7 +206,7 @@ public class ItemStackRenderer {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
 
-        ItemStack itemStack = itemstack.makeNormalStack();
+        ItemStack itemStack = itemIdentifierStack.makeNormalStack();
         if (!ForgeHooksClient
                 .renderInventoryItem(renderBlocks, texManager, itemStack, renderInColor, zLevel, posX, posY)) {
             renderItem.zLevel += zLevel;
@@ -233,7 +233,7 @@ public class ItemStackRenderer {
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
             }
 
-            FontRenderer specialFontRenderer = itemstack.getItem().item.getFontRenderer(itemStack);
+            FontRenderer specialFontRenderer = itemIdentifierStack.getItem().item.getFontRenderer(itemStack);
 
             if (specialFontRenderer != null) {
                 fontRenderer = specialFontRenderer;
@@ -241,7 +241,7 @@ public class ItemStackRenderer {
 
             GL11.glDisable(GL11.GL_LIGHTING);
             String amountString = StringUtils
-                    .getFormatedStackSize(itemstack.getStackSize(), displayAmount == DisplayAmount.ALWAYS);
+                    .getFormatedStackSize(itemIdentifierStack.getStackSize(), displayAmount == DisplayAmount.ALWAYS);
 
             // 20 should be about the size of a block + 20 for the effect and overlay
             GL11.glTranslatef(0.0F, 0.0F, zLevel + 40.0F);
@@ -264,7 +264,7 @@ public class ItemStackRenderer {
         assert renderManager != null;
         assert renderItem != null;
 
-        ItemIdentifier itemId = itemstack.getItem();
+        ItemIdentifier itemId = itemIdentifierStack.getItem();
         EntityItem entityItem = entityCache.get(itemId);
         if (entityItem == null) {
             entityItem = new EntityItem(worldObj, 0, 0, 0, itemId.makeNormalStack(1));
