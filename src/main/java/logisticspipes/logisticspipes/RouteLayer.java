@@ -33,7 +33,7 @@ public class RouteLayer {
         // If a item has no destination, find one
         if (item.getDestination() < 0) {
             item = SimpleServiceLocator.logisticsManager.assignDestinationFor(item, _router.getSimpleID(), false);
-            _pipe.debug.log("No Destination, assigned new destination: (" + item.getInfo());
+            _pipe.debug.log("No Destination, assigned new destination: (%s)", item.getInfo());
         }
 
         // If the destination is unknown / unroutable or it already arrived at its destination and somehow looped back
@@ -42,7 +42,7 @@ public class RouteLayer {
                 item.getTransportMode() == TransportMode.Active,
                 item.getItemIdentifierStack().getItem()) || item.getArrived())) {
             item = SimpleServiceLocator.logisticsManager.assignDestinationFor(item, _router.getSimpleID(), false);
-            _pipe.debug.log("Unreachable Destination, sssigned new destination: (" + item.getInfo());
+            _pipe.debug.log("Unreachable Destination, assigned new destination: (%s)", item.getInfo());
         }
 
         item.checkIDFromUUID();

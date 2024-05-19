@@ -399,9 +399,9 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             final ItemRoutingInformation p = _inTransitToMe.poll();
             if (p != null) {
                 if (LPConstants.DEBUG) {
-                    LogisticsPipes.log.info("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
+                    LogisticsPipes.log.info("Timed Out: {} ({})", p.getItem().getFriendlyName(), p.hashCode());
                 }
-                debug.log("Timed Out: " + p.getItem().getFriendlyName() + " (" + p.hashCode() + ")");
+                debug.log("Timed Out: %s (%d)", p.getItem().getFriendlyName(), p.hashCode());
             }
         }
         // update router before ticking logic/transport
