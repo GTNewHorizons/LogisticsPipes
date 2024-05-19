@@ -29,4 +29,7 @@ dependencies {
 	compileOnly('curse.maven:minefactory-reloaded-66672:2366150') { transitive = false }
 
 	annotationProcessor('org.projectlombok:lombok:1.18.24')
+
+    testImplementation(platform('org.junit:junit-bom:5.10.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
 }

@@ -14,5 +14,5 @@ public interface IBCPluggableState extends IClientState {
     @Override
     void readData(LPDataInputStream data) throws IOException;
 
-    boolean isDirty(boolean clean);
+    boolean isDirty();
 }
