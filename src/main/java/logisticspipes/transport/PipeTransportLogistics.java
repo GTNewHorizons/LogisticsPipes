@@ -206,11 +206,10 @@ public class PipeTransportLogistics {
                 return 0;
             }
             getPipe().debug.log(
-                    "Injected Item: [" + item.input
-                            + ", "
-                            + item.output
-                            + "] ("
-                            + ((LPTravelingItemServer) item).getInfo());
+                    "Injected Item: [%s, %s] (%s)",
+                    item.input,
+                    item.output,
+                    ((LPTravelingItemServer) item).getInfo());
         } else {
             item.output = ForgeDirection.UNKNOWN;
         }

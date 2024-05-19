@@ -262,7 +262,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             int haveCount = 0;
             if (have != null) {
                 if (!have.getItem().equals(needed.getItem())) {
-                    _service.getDebug().log("Supplier: Slot for " + i + ", " + needed + " already taken by " + have);
+                    _service.getDebug().log("Supplier: Slot for %d, %s already taken by %s", i, needed, have);
                     setRequestFailed(true);
                     continue;
                 }
@@ -285,7 +285,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
 
             ItemIdentifierStack toRequest = new ItemIdentifierStack(needed.getItem(), neededCount);
 
-            _service.getDebug().log("Supplier: Missing for slot " + i + ": " + toRequest);
+            _service.getDebug().log("Supplier: Missing for slot %d: %s", i, toRequest);
 
             if (!_service.useEnergy(10)) {
                 break;
@@ -298,20 +298,16 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
                     needed.getStackSize());
 
             if (_patternMode != PatternMode.Full) {
-                _service.getDebug().log("Supplier: Requesting partial: " + toRequest);
+                _service.getDebug().log("Supplier: Requesting partial: %s", toRequest);
                 neededCount = RequestTree.requestPartial(toRequest, this, targetInformation);
-                _service.getDebug().log("Supplier: Requested: " + toRequest.getItem().makeStack(neededCount));
+                _service.getDebug().log("Supplier: Requested: %s", toRequest.getItem().makeStack(neededCount));
                 if (neededCount > 0) {
                     success = true;
                 }
             } else {
-                _service.getDebug().log("Supplier: Requesting: " + toRequest);
+                _service.getDebug().log("Supplier: Requesting: %s", toRequest);
                 success = RequestTree.request(toRequest, this, null, targetInformation);
-                if (success) {
-                    _service.getDebug().log("Supplier: Request success");
-                } else {
-                    _service.getDebug().log("Supplier: Request failed");
-                }
+                _service.getDebug().log("Supplier: Request %s", success ? "success" : "failed");
             }
 
             if (success) {
@@ -331,11 +327,11 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         _service.getDebug().log("Supplier: Start calculating supply request");
         // How many do I want?
         HashMap<ItemIdentifier, Integer> needed = new HashMap<>(dummyInventory.getItemsAndCount());
-        _service.getDebug().log("Supplier: Needed: " + needed);
+        _service.getDebug().log("Supplier: Needed: %s", needed);
 
         // How many do I have?
         Map<ItemIdentifier, Integer> have = invUtil.getItemsAndCount();
-        _service.getDebug().log("Supplier: Have:   " + have);
+        _service.getDebug().log("Supplier: Have:   %s", have);
 
         // How many do I have?
         HashMap<ItemIdentifier, Integer> haveUndamaged = new HashMap<>();
@@ -374,7 +370,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             }
         }
 
-        _service.getDebug().log("Supplier: Missing:   " + needed);
+        _service.getDebug().log("Supplier: Missing:   %s", needed);
 
         setRequestFailed(false);
 
@@ -403,25 +399,20 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             } else {
                 _service.getDebug().log("Supplier: Requesting: " + need.getKey().makeStack(neededCount));
                 success = RequestTree.request(need.getKey().makeStack(neededCount), this, null, targetInformation);
-                if (success) {
-                    _service.getDebug().log("Supplier: Request success");
-                } else {
-                    _service.getDebug().log("Supplier: Request failed");
-                }
+                _service.getDebug().log("Supplier: Request %s", success ? "success" : "failed");
             }
 
             if (success) {
                 Integer currentRequest = _requestedItems.get(need.getKey());
                 if (currentRequest == null) {
                     _requestedItems.put(need.getKey(), neededCount);
-                    _service.getDebug().log("Supplier: Inserting Requested Items: " + neededCount);
+                    _service.getDebug().log("Supplier: Inserting Requested Items: %d", neededCount);
                 } else {
                     _requestedItems.put(need.getKey(), currentRequest + neededCount);
                     _service.getDebug().log(
-                            "Supplier: Raising Requested Items from: " + currentRequest
-                                    + " to: "
-                                    + currentRequest
-                                    + neededCount);
+                            "Supplier: Raising Requested Items from: %d to: %d",
+                            currentRequest,
+                            currentRequest + neededCount);
                 }
             } else {
                 setRequestFailed(true);
@@ -470,7 +461,7 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
         // see if we can get an exact match
         Integer count = _requestedItems.get(item.getItem());
         if (count != null) {
-            _service.getDebug().log("Supplier: Exact match. Still missing: " + Math.max(0, count - remaining));
+            _service.getDebug().log("Supplier: Exact match. Still missing: %d", Math.max(0, count - remaining));
             if (count - remaining > 0) {
                 _requestedItems.put(item.getItem(), count - remaining);
             } else {
@@ -487,8 +478,8 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             Entry<ItemIdentifier, Integer> e = it.next();
             if (e.getKey().equalsWithoutNBT(item.getItem())) {
                 int expected = e.getValue();
-                _service.getDebug().log(
-                        "Supplier: Fuzzy match with" + e + ". Still missing: " + Math.max(0, expected - remaining));
+                _service.getDebug()
+                        .log("Supplier: Fuzzy match with %s. Still missing: %d", e, Math.max(0, expected - remaining));
                 if (expected - remaining > 0) {
                     e.setValue(expected - remaining);
                 } else {
@@ -501,18 +492,18 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             }
         }
         // we have no idea what this is, log it.
-        _service.getDebug().log("Supplier: supplier got unexpected item " + item);
+        _service.getDebug().log("Supplier: supplier got unexpected item %s", item);
     }
 
     @Override
     public void itemLost(ItemIdentifierStack item, IAdditionalTargetInformation info) {
-        _service.getDebug().log("Supplier: Registered Item Lost: " + item);
+        _service.getDebug().log("Supplier: Registered Item Lost: %s", item);
         decreaseRequested(item);
     }
 
     @Override
     public void itemArrived(ItemIdentifierStack item, IAdditionalTargetInformation info) {
-        _service.getDebug().log("Supplier: Registered Item Arrived: " + item);
+        _service.getDebug().log("Supplier: Registered Item Arrived: %s", item);
         decreaseRequested(item);
     }
 
