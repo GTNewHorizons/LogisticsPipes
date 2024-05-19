@@ -15,6 +15,7 @@ import logisticspipes.pipes.PipeLogisticsChassi;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.hud.BasicHUDButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 
@@ -297,7 +298,8 @@ public class HudChassisPipe extends BasicHUDGui {
                         false,
                         shifted,
                         renderInColor);
-                itemStackRenderer.setItemstack(module).setDisplayAmount(DisplayAmount.NEVER);
+                itemStackRenderer.setItemIdentifierStack(ItemIdentifierStack.getFromStack(module))
+                        .setDisplayAmount(DisplayAmount.NEVER);
 
                 itemStackRenderer.renderInGui();
             }

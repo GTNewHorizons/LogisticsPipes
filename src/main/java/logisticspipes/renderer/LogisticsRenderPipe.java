@@ -201,9 +201,8 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                     || item.getContainer().zCoord != pipe.container.zCoord) {
                 continue;
             }
-            ItemStack itemstack = item.getItemIdentifierStack().makeNormalStack();
             doRenderItem(
-                    itemstack,
+                    item.getItemIdentifierStack(),
                     pipe.container.getWorldObj(),
                     x + pos.getXD(),
                     y + pos.getYD(),
@@ -224,9 +223,8 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             if (item == null || item.getValue1() == null) {
                 continue;
             }
-            ItemStack itemstack = item.getValue1().makeNormalStack();
             doRenderItem(
-                    itemstack,
+                    item.getValue1(),
                     pipe.container.getWorldObj(),
                     x + pos.getXD(),
                     y + pos.getYD(),
@@ -253,17 +251,17 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    public void doRenderItem(ItemStack itemstack, World worldObj, double x, double y, double z, float light,
+    public void doRenderItem(ItemIdentifierStack itemstack, World worldObj, double x, double y, double z, float light,
             float renderScale, double boxScale, float partialTickTime) {
         if (LogisticsRenderPipe.config.isUseNewRenderer() && boxScale != 0) {
-            LogisticsRenderPipe.boxRenderer.doRenderItem(itemstack, light, x, y, z, boxScale);
+            LogisticsRenderPipe.boxRenderer.doRenderItem(itemstack.makeNormalStack(), light, x, y, z, boxScale);
         }
 
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
         GL11.glScalef(renderScale, renderScale, renderScale);
         GL11.glTranslatef(0.0F, -0.1F, 0.0F);
-        itemRenderer.setItemstack(itemstack).setWorldObj(worldObj).setPartialTickTime(partialTickTime);
+        itemRenderer.setItemIdentifierStack(itemstack).setWorldObj(worldObj).setPartialTickTime(partialTickTime);
         itemRenderer.renderInWorld();
         GL11.glPopMatrix();
     }
