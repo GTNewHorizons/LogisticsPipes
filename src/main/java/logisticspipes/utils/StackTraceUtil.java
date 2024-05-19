@@ -18,7 +18,7 @@ public class StackTraceUtil {
         public abstract void end();
     }
 
-    private static final Info dummyInfo = new Info() {
+    public static final Info DUMMY_INFO = new Info() {
 
         @Override
         public void end() {}
@@ -30,7 +30,7 @@ public class StackTraceUtil {
 
     public static Info addTraceInformation(final String information, Info... infos) {
         if (!LPConstants.DEBUG) {
-            return dummyInfo;
+            return DUMMY_INFO;
         }
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         final StackTraceElement calledFrom = trace[2];
@@ -39,7 +39,7 @@ public class StackTraceUtil {
 
     public static Info addSuperTraceInformation(final String information, Info... infos) {
         if (!LPConstants.DEBUG) {
-            return dummyInfo;
+            return DUMMY_INFO;
         }
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         final StackTraceElement calledFrom = trace[3];
