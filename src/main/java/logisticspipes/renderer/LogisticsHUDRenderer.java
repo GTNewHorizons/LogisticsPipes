@@ -35,6 +35,7 @@ import logisticspipes.routing.LaserData;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.utils.MathVector;
 import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 import logisticspipes.utils.tuples.Pair;
@@ -406,7 +407,8 @@ public class LogisticsHUDRenderer {
                             GL11.glScalef(scaleX, scaleY, scaleZ);
 
                             ItemStackRenderer itemStackRenderer = new ItemStackRenderer(5, 6, 0.0F, false, true, true);
-                            itemStackRenderer.setItemstack(item).setDisplayAmount(DisplayAmount.NEVER);
+                            itemStackRenderer.setItemIdentifierStack(ItemIdentifierStack.getFromStack(item))
+                                    .setDisplayAmount(DisplayAmount.NEVER);
                             itemStackRenderer.setScaleX(scaleX).setScaleY(scaleY).setScaleZ(scaleZ);
 
                             itemStackRenderer.renderInGui();
