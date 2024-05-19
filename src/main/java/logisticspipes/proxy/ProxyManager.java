@@ -304,7 +304,7 @@ public class ProxyManager {
                                     public void readData(LPDataInputStream data) {}
 
                                     @Override
-                                    public boolean isDirty(boolean clean) {
+                                    public boolean isDirty() {
                                         return false;
                                     }
                                 };

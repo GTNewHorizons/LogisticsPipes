@@ -1,18 +1,17 @@
 package logisticspipes.proxy.buildcraft.subproxies;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import buildcraft.transport.PipePluggableState;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
-import lombok.SneakyThrows;
 
 public class LPBCPluggableState extends PipePluggableState implements IBCPluggableState {
 
-    private byte[] oldBuffer;
+    private ByteBuf oldBuffer = Unpooled.buffer(128);
+    private ByteBuf dirtyCheckBuffer = Unpooled.buffer(128);
 
     @Override
     public void writeData(LPDataOutputStream data) throws IOException {
@@ -28,17 +27,19 @@ public class LPBCPluggableState extends PipePluggableState implements IBCPluggab
     }
 
     @Override
-    @SneakyThrows({ IOException.class })
-    public boolean isDirty(boolean clean) {
-        LPDataOutputStream buffer = new LPDataOutputStream();
-        ByteBuf buf = Unpooled.buffer(128);
-        this.writeData(buf);
-        buffer.writeByteBuf(buf);
-        byte[] newBuffer = buffer.toByteArray();
-        boolean result = !Arrays.equals(newBuffer, oldBuffer);
-        if (clean && result) {
-            oldBuffer = newBuffer;
+    public synchronized boolean isDirty() {
+        dirtyCheckBuffer.clear();
+        this.writeData(dirtyCheckBuffer);
+
+        boolean isDirty = !dirtyCheckBuffer.equals(oldBuffer);
+        if (isDirty) {
+            // Instead of copying the content of `dirtyCheckBuffer` into `oldBuffer`
+            // we simply swap them. So `dirtyCheckBuffer` becomes the new `oldBuffer`
+            // and we'll use `oldBuffer` the next time for checking.
+            ByteBuf tmp = oldBuffer;
+            oldBuffer = dirtyCheckBuffer;
+            dirtyCheckBuffer = tmp;
         }
-        return result;
+        return isDirty;
     }
 }

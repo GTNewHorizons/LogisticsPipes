@@ -234,7 +234,7 @@ public class LogisticsTileGenericPipe extends TileEntity
             refreshRenderState = false;
         }
 
-        if (bcPlugableState.isDirty(true)) {
+        if (bcPlugableState.isDirty()) {
             sendUpdateToClient();
         }
 
