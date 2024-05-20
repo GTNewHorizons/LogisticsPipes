@@ -71,12 +71,8 @@ public class LogisticsNewPipeItemBoxRenderer {
     }
 
     private int getRenderListFor(FluidStack fluid) {
-        FluidIdentifier ident = FluidIdentifier.get(fluid);
-        int[] array = LogisticsNewPipeItemBoxRenderer.renderLists.get(fluid);
-        if (array == null) {
-            array = new int[LogisticsNewPipeItemBoxRenderer.RENDER_SIZE];
-            LogisticsNewPipeItemBoxRenderer.renderLists.put(ident, array);
-        }
+        int[] array = LogisticsNewPipeItemBoxRenderer.renderLists
+                .computeIfAbsent(FluidIdentifier.get(fluid), k -> new int[LogisticsNewPipeItemBoxRenderer.RENDER_SIZE]);
         int pos = Math.min(
                 (int) (((Math.min(fluid.amount, 5000) * 1.0F) * LogisticsNewPipeItemBoxRenderer.RENDER_SIZE) / 5000),
                 LogisticsNewPipeItemBoxRenderer.RENDER_SIZE - 1);
