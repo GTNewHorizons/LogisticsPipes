@@ -21,16 +21,12 @@ public class BCRenderTESR implements IBCRenderTESR {
         renderPluggables = getHandle(lookup, "renderPluggables");
     }
 
+    @SneakyThrows
     private static MethodHandle getHandle(MethodHandles.Lookup lookup, String methodName) {
-        try {
-            Method method = PipeRendererTESR.class.getDeclaredMethod(
-                    methodName,
-                    new Class[] { TileGenericPipe.class, double.class, double.class, double.class });
-            method.setAccessible(true);
-            return lookup.unreflect(method);
-        } catch (Exception ignored) {
-            return null;
-        }
+        Method method = PipeRendererTESR.class
+                .getDeclaredMethod(methodName, TileGenericPipe.class, double.class, double.class, double.class);
+        method.setAccessible(true);
+        return lookup.unreflect(method);
     }
 
     @Override
