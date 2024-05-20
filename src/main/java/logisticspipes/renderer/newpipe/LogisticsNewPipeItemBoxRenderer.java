@@ -6,7 +6,6 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -28,7 +27,8 @@ public class LogisticsNewPipeItemBoxRenderer {
     private static final ResourceLocation BLOCKS = new ResourceLocation("textures/atlas/blocks.png");
     private static final Map<FluidIdentifier, int[]> renderLists = new HashMap<>();
 
-    public void doRenderItem(ItemStack itemstack, float light, double x, double y, double z, double boxScale) {
+    public void doRenderItem(ItemIdentifierStack itemIdentifierStack, float light, double x, double y, double z,
+            double boxScale) {
         if (LogisticsNewRenderPipe.innerTransportBox == null) return;
         GL11.glPushMatrix();
 
@@ -51,9 +51,8 @@ public class LogisticsNewPipeItemBoxRenderer {
         GL11.glScaled(1 / boxScale, 1 / boxScale, 1 / boxScale);
         GL11.glTranslated(-0.5, -0.5, -0.5);
 
-        if (itemstack != null && itemstack.getItem() instanceof LogisticsFluidContainer) {
-            FluidStack f = SimpleServiceLocator.logisticsFluidManager
-                    .getFluidFromContainer(ItemIdentifierStack.getFromStack(itemstack));
+        if (itemIdentifierStack != null && itemIdentifierStack.getItem().item instanceof LogisticsFluidContainer) {
+            FluidStack f = SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(itemIdentifierStack);
             if (f != null) {
                 FluidContainerRenderer.skipNext = true;
                 int list = getRenderListFor(f);

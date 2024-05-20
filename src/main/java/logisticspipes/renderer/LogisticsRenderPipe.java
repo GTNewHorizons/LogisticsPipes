@@ -251,17 +251,18 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    public void doRenderItem(ItemIdentifierStack itemstack, World worldObj, double x, double y, double z, float light,
-            float renderScale, double boxScale, float partialTickTime) {
+    public void doRenderItem(ItemIdentifierStack itemIdentifierStack, World worldObj, double x, double y, double z,
+            float light, float renderScale, double boxScale, float partialTickTime) {
         if (LogisticsRenderPipe.config.isUseNewRenderer() && boxScale != 0) {
-            LogisticsRenderPipe.boxRenderer.doRenderItem(itemstack.makeNormalStack(), light, x, y, z, boxScale);
+            LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, light, x, y, z, boxScale);
         }
 
         GL11.glPushMatrix();
         GL11.glTranslated(x, y, z);
         GL11.glScalef(renderScale, renderScale, renderScale);
         GL11.glTranslatef(0.0F, -0.1F, 0.0F);
-        itemRenderer.setItemIdentifierStack(itemstack).setWorldObj(worldObj).setPartialTickTime(partialTickTime);
+        itemRenderer.setItemIdentifierStack(itemIdentifierStack).setWorldObj(worldObj)
+                .setPartialTickTime(partialTickTime);
         itemRenderer.renderInWorld();
         GL11.glPopMatrix();
     }
