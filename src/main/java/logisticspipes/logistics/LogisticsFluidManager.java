@@ -65,7 +65,7 @@ public class LogisticsFluidManager implements ILogisticsFluidManager {
 
     @Override
     public FluidStack getFluidFromContainer(ItemIdentifierStack stack) {
-        if (stack.makeNormalStack().getItem() instanceof LogisticsFluidContainer && stack.getItem().tag != null) {
+        if (stack.getItem().item instanceof LogisticsFluidContainer && stack.getItem().tag != null) {
             return FluidStack.loadFluidStackFromNBT(stack.getItem().tag);
         }
         return null;
