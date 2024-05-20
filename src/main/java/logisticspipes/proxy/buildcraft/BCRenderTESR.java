@@ -12,24 +12,25 @@ import lombok.SneakyThrows;
 
 public class BCRenderTESR implements IBCRenderTESR {
 
-    private final MethodHandle renderGatesWires;
-    private final MethodHandle renderPluggables;
+    private static final MethodHandle renderGatesWires;
+    private static final MethodHandle renderPluggables;
 
-    @SneakyThrows(Exception.class)
-    BCRenderTESR() {
+    static {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
+        renderGatesWires = getHandle(lookup, "renderGatesWires");
+        renderPluggables = getHandle(lookup, "renderPluggables");
+    }
 
-        Method renderGatesWiresMethod = PipeRendererTESR.class.getDeclaredMethod(
-                "renderGatesWires",
-                new Class[] { TileGenericPipe.class, double.class, double.class, double.class });
-        renderGatesWiresMethod.setAccessible(true);
-        renderGatesWires = lookup.unreflect(renderGatesWiresMethod);
-
-        Method renderPluggablesMethod = PipeRendererTESR.class.getDeclaredMethod(
-                "renderPluggables",
-                new Class[] { TileGenericPipe.class, double.class, double.class, double.class });
-        renderPluggablesMethod.setAccessible(true);
-        renderPluggables = lookup.unreflect(renderPluggablesMethod);
+    private static MethodHandle getHandle(MethodHandles.Lookup lookup, String methodName) {
+        try {
+            Method method = PipeRendererTESR.class.getDeclaredMethod(
+                    methodName,
+                    new Class[] { TileGenericPipe.class, double.class, double.class, double.class });
+            method.setAccessible(true);
+            return lookup.unreflect(method);
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 
     @Override
