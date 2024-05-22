@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import net.minecraft.entity.player.EntityPlayer;
-
 import org.jetbrains.annotations.NotNull;
 
 import logisticspipes.network.abstractpackets.ListSyncPacket;
@@ -15,24 +13,10 @@ import logisticspipes.proxy.MainProxy;
 
 public class SyncList<E> implements List<E> {
 
-    private final List<E> list;
-    private ListSyncPacket<E> packetType;
-    private PlayerCollectionList watcherList = null;
+    private final List<E> list = new ArrayList<>();
+    private ListSyncPacket<E> packetType = null;
     private boolean dirty = false;
     private int dim, x, z;
-
-    public SyncList() {
-        this(null, new ArrayList<>());
-    }
-
-    public SyncList(ListSyncPacket<E> type) {
-        this(type, new ArrayList<>());
-    }
-
-    public SyncList(ListSyncPacket<E> type, List<E> list) {
-        this.packetType = type;
-        this.list = list;
-    }
 
     /**
      * Can be used to trigger update manualy
@@ -50,11 +34,7 @@ public class SyncList<E> implements List<E> {
         }
         if (dirty) {
             dirty = false;
-            if (watcherList != null) {
-                MainProxy.sendToPlayerList(packetType.template().setList(list), watcherList);
-            } else {
-                MainProxy.sendPacketToAllWatchingChunk(x, z, dim, packetType.template().setList(list));
-            }
+            MainProxy.sendPacketToAllWatchingChunk(x, z, dim, packetType.template().setList(list));
         }
     }
 
@@ -63,28 +43,7 @@ public class SyncList<E> implements List<E> {
         this.dim = dim;
         this.x = x;
         this.z = z;
-        if (watcherList != null) {
-            MainProxy.sendToPlayerList(packetType.template().setList(list), watcherList);
-        } else {
-            MainProxy.sendPacketToAllWatchingChunk(x, z, dim, packetType.template().setList(list));
-        }
-    }
-
-    public void addWatcher(EntityPlayer player) {
-        if (watcherList == null) {
-            watcherList = new PlayerCollectionList();
-        }
-        if (packetType != null) {
-            MainProxy.sendPacketToPlayer(packetType.template().setList(list), player);
-        }
-        watcherList.add(player);
-    }
-
-    public boolean removeWatcher(EntityPlayer player) {
-        if (watcherList == null) {
-            watcherList = new PlayerCollectionList();
-        }
-        return watcherList.remove(player);
+        MainProxy.sendPacketToAllWatchingChunk(x, z, dim, packetType.template().setList(list));
     }
 
     @Override
