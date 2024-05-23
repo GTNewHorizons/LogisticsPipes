@@ -51,7 +51,6 @@ import logisticspipes.proxy.ccl.CCLProxy;
 import logisticspipes.proxy.cofh.CoFHPowerProxy;
 import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyReceiver;
 import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
-import logisticspipes.proxy.cofhccl.CoFHCCLProxy;
 import logisticspipes.proxy.ec.ExtraCellsProxy;
 import logisticspipes.proxy.enderchest.EnderStorageProxy;
 import logisticspipes.proxy.enderio.EnderIOProxy;
@@ -1210,9 +1209,6 @@ public class ProxyManager {
         };
         SimpleServiceLocator.setCCLProxy(ProxyManager.getWrappedProxy(
                 "!CCLRender", ICCLProxy.class, CCLProxy.class, dummyCCLProxy, cclSubWrapper));
-        if (!SimpleServiceLocator.cclProxy.isActivated()) {
-            SimpleServiceLocator.setCCLProxy(ProxyManager.getWrappedProxy(
-                    "!CoFHCCLRender", ICCLProxy.class, CoFHCCLProxy.class, dummyCCLProxy, cclSubWrapper));
-        }
+        assert SimpleServiceLocator.cclProxy.isActivated();
     }
 }
