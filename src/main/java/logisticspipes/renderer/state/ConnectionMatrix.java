@@ -11,7 +11,6 @@ public class ConnectionMatrix {
 
     private int mask = 0;
     private int isBCPipeMask = 0;
-    private int isTDPipeMask = 0;
     private boolean dirty = false;
 
     public boolean isConnected(ForgeDirection direction) {
@@ -27,7 +26,6 @@ public class ConnectionMatrix {
         }
         if (!value) {
             setBCConnected(direction, false);
-            setTDConnected(direction, false);
         }
     }
 
@@ -40,19 +38,6 @@ public class ConnectionMatrix {
         if (isBCConnected(direction) != value) {
             // invert the direction.ordinal()'th bit of mask
             isBCPipeMask ^= 1 << direction.ordinal();
-            dirty = true;
-        }
-    }
-
-    public boolean isTDConnected(ForgeDirection direction) {
-        // test if the direction.ordinal()'th bit of mask is set
-        return (isTDPipeMask & (1 << direction.ordinal())) != 0;
-    }
-
-    public void setTDConnected(ForgeDirection direction, boolean value) {
-        if (isTDConnected(direction) != value) {
-            // invert the direction.ordinal()'th bit of mask
-            isTDPipeMask ^= 1 << direction.ordinal();
             dirty = true;
         }
     }
@@ -77,7 +62,6 @@ public class ConnectionMatrix {
     public void writeData(LPDataOutputStream data) throws IOException {
         data.writeByte(mask);
         data.writeByte(isBCPipeMask);
-        data.writeByte(isTDPipeMask);
     }
 
     public void readData(LPDataInputStream data) throws IOException {
@@ -91,12 +75,6 @@ public class ConnectionMatrix {
         newMask = data.readByte();
         if (newMask != isBCPipeMask) {
             isBCPipeMask = newMask;
-            dirty = true;
-        }
-
-        newMask = data.readByte();
-        if (newMask != isTDPipeMask) {
-            isTDPipeMask = newMask;
             dirty = true;
         }
     }
