@@ -182,16 +182,6 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                 }
                 pos.moveForward(item.output, fPos - 0.5F);
             }
-            if (pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.input.getOpposite())) {
-                boxScale = (fPos * (1 - 0.65)) + 0.65;
-            }
-            if (pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.output)) {
-                boxScale = ((1 - fPos) * (1 - 0.65)) + 0.65;
-            }
-            if (pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.input.getOpposite())
-                    && pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.output)) {
-                boxScale = 0.65;
-            }
 
             if (item.getItemIdentifierStack() == null) {
                 continue;

@@ -801,8 +801,7 @@ public class LogisticsNewRenderPipe {
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             if (renderState.pipeConnectionMatrix.isConnected(dir)) {
                 connectionCount++;
-                if (renderState.pipeConnectionMatrix.isBCConnected(dir)
-                        || renderState.pipeConnectionMatrix.isTDConnected(dir)) {
+                if (renderState.pipeConnectionMatrix.isBCConnected(dir)) {
                     I3DOperation[] texture = new I3DOperation[] { LogisticsNewRenderPipe.basicTexture };
                     if (renderState.textureMatrix.isRouted()) {
                         if (renderState.textureMatrix.isRoutedInDir(dir)) {
