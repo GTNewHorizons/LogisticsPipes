@@ -23,7 +23,7 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
     private final String PREFIX = "gui.settings.";
 
     public GuiLogisticsSettings(final EntityPlayer player) {
-        super(180, 220);
+        super(220, 220);
         DummyContainer dummy = new DummyContainer(player, null);
         dummy.addNormalSlotsForPlayerInventory(10, 135);
 
@@ -36,6 +36,7 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
 
         private SearchBar renderDistance;
         private SearchBar contentRenderDistance;
+        private GuiCheckBox useVBORendererButton;
         private GuiCheckBox useNewRendererButton;
         private GuiCheckBox useFallbackRendererButton;
 
@@ -45,10 +46,10 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
         public void initTab() {
             PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
             if (renderDistance == null) {
-                renderDistance = new SearchBar(fontRendererObj, getBaseScreen(), 15, 75, 30, 15, false, true, true);
+                renderDistance = new SearchBar(fontRendererObj, getBaseScreen(), 15, 95, 30, 15, false, true, true);
                 renderDistance.searchinput1 = config.getRenderPipeDistance() + "";
             }
-            renderDistance.reposition(15, 80, 30, 15);
+            renderDistance.reposition(15, 94, 30, 15);
             if (contentRenderDistance == null) {
                 contentRenderDistance = new SearchBar(
                         fontRendererObj,
@@ -62,11 +63,13 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
                         true);
                 contentRenderDistance.searchinput1 = config.getRenderPipeContentDistance() + "";
             }
-            contentRenderDistance.reposition(15, 110, 30, 15);
+            contentRenderDistance.reposition(15, 114, 30, 15);
             useNewRendererButton = (GuiCheckBox) addButton(
                     new GuiCheckBox(0, guiLeft + 15, guiTop + 30, 16, 16, config.isUseNewRenderer()));
+            useVBORendererButton = (GuiCheckBox) addButton(
+                    new GuiCheckBox(0, guiLeft + 15, guiTop + 50, 16, 16, config.isUseVBORenderer()));
             useFallbackRendererButton = (GuiCheckBox) addButton(
-                    new GuiCheckBox(0, guiLeft + 15, guiTop + 50, 16, 16, config.isUseFallbackRenderer()));
+                    new GuiCheckBox(0, guiLeft + 15, guiTop + 70, 16, 16, config.isUseFallbackRenderer()));
         }
 
         @Override
@@ -91,6 +94,9 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
             if (button == useNewRendererButton) {
                 useNewRendererButton.change();
             }
+            if (button == useVBORendererButton) {
+                useVBORendererButton.change();
+            }
             if (button == useFallbackRendererButton) {
                 useFallbackRendererButton.change();
             }
@@ -101,9 +107,10 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
             renderDistance.renderSearchBar();
             contentRenderDistance.renderSearchBar();
             fontRendererObj.drawString(StringUtils.translate(PREFIX + "pipenewrenderer"), 38, 34, 0x404040);
-            fontRendererObj.drawString(StringUtils.translate(PREFIX + "pipefallbackrenderer"), 38, 54, 0x404040);
-            fontRendererObj.drawString(StringUtils.translate(PREFIX + "piperenderdistance"), 10, 70, 0x404040);
-            fontRendererObj.drawString(StringUtils.translate(PREFIX + "pipecontentrenderdistance"), 10, 100, 0x404040);
+            fontRendererObj.drawString(StringUtils.translate(PREFIX + "pipevborenderer"), 38, 54, 0x404040);
+            fontRendererObj.drawString(StringUtils.translate(PREFIX + "pipefallbackrenderer"), 38, 74, 0x404040);
+            fontRendererObj.drawString(StringUtils.translate(PREFIX + "piperenderdistance"), 53, 98, 0x404040);
+            fontRendererObj.drawString(StringUtils.translate(PREFIX + "pipecontentrenderdistance"), 53, 118, 0x404040);
         }
 
         @Override
@@ -128,6 +135,7 @@ public class GuiLogisticsSettings extends LogisticsBaseTabGuiScreen {
                 e.printStackTrace();
             }
             config.setUseNewRenderer(useNewRendererButton.getState());
+            config.setUseVBORenderer(useVBORendererButton.getState());
             config.setUseFallbackRenderer(useFallbackRendererButton.getState());
             config.sendUpdate();
         }
