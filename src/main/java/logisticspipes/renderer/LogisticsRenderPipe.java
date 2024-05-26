@@ -13,8 +13,6 @@ import net.minecraft.client.model.ModelSign;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
@@ -57,7 +55,6 @@ import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.transport.PipeFluidTransportLogistics;
 import logisticspipes.transport.PipeTransportLogistics;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.tuples.LPPosition;
 import logisticspipes.utils.tuples.Pair;
 
@@ -70,7 +67,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     public static LogisticsNewRenderPipe secondRenderer = new LogisticsNewRenderPipe();
     public static LogisticsNewPipeItemBoxRenderer boxRenderer = new LogisticsNewPipeItemBoxRenderer();
     public static PlayerConfig config;
-    private static final ItemStackRenderer itemRenderer = new ItemStackRenderer(0, 0, 0, false, false, false);
+    private static final TravelingItemRenderer travelingItemRenderer = new TravelingItemRenderer();
     private static final Map<IPipeSignData, GLRenderList> pipeSignRenderListMap = new HashMap<>();
     private static int localItemTestRenderList = -1;
 
@@ -87,20 +84,6 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         modelSign.signStick.showModel = false;
 
         LogisticsRenderPipe.config = LogisticsPipes.getClientPlayerConfig();
-        RenderItem customRenderItem = new RenderItem() {
-
-            @Override
-            public boolean shouldBob() {
-                return false;
-            }
-
-            @Override
-            public boolean shouldSpreadItems() {
-                return false;
-            }
-        };
-        customRenderItem.setRenderManager(RenderManager.instance);
-        itemRenderer.setRenderItem(customRenderItem);
     }
 
     @Override
@@ -261,9 +244,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         GL11.glTranslated(x, y, z);
         GL11.glScalef(renderScale, renderScale, renderScale);
         GL11.glTranslatef(0.0F, -0.1F, 0.0F);
-        itemRenderer.setItemIdentifierStack(itemIdentifierStack).setWorldObj(worldObj)
-                .setPartialTickTime(partialTickTime);
-        itemRenderer.renderInWorld();
+        travelingItemRenderer.renderInWorld(worldObj, itemIdentifierStack.getItem(), partialTickTime);
         GL11.glPopMatrix();
     }
 
