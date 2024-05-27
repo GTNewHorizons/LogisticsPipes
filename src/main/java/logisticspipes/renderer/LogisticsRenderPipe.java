@@ -147,9 +147,6 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     private void renderSolids(CoreUnroutedPipe pipe, double x, double y, double z, float partialTickTime) {
         GL11.glPushMatrix();
 
-        float light = pipe.container.getWorldObj()
-                .getLightBrightness(pipe.container.xCoord, pipe.container.yCoord, pipe.container.zCoord);
-
         int count = 0;
         for (LPTravelingItem item : pipe.transport.items) {
             if (count >= LogisticsRenderPipe.MAX_ITEMS_TO_RENDER) {
@@ -163,7 +160,6 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             }
 
             float fPos = item.getPosition() + item.getSpeed() * partialTickTime;
-            double boxScale = 1;
 
             if (fPos < 0.5) {
                 if (item.input == ForgeDirection.UNKNOWN) {
@@ -197,9 +193,8 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                     x + pos.getXD(),
                     y + pos.getYD(),
                     z + pos.getZD(),
-                    light,
                     0.75F,
-                    boxScale,
+                    /* renderTransportBox */ true,
                     partialTickTime);
             count++;
         }
@@ -219,9 +214,8 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                     x + pos.getXD(),
                     y + pos.getYD(),
                     z + pos.getZD(),
-                    light,
                     0.25F,
-                    0,
+                    /* renderTransportBox */ false,
                     partialTickTime);
             count++;
             if (count >= 27) {
@@ -242,9 +236,9 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     }
 
     public void doRenderItem(ItemIdentifierStack itemIdentifierStack, World worldObj, double x, double y, double z,
-            float light, float renderScale, double boxScale, float partialTickTime) {
-        if (LogisticsRenderPipe.config.isUseNewRenderer() && boxScale != 0) {
-            LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, light, x, y, z, boxScale);
+            float renderScale, boolean renderTransportBox, float partialTickTime) {
+        if (LogisticsRenderPipe.config.isUseNewRenderer() && renderTransportBox) {
+            LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, x, y, z);
         }
 
         GL11.glPushMatrix();

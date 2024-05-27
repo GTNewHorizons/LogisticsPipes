@@ -27,8 +27,7 @@ public class LogisticsNewPipeItemBoxRenderer {
     private static final ResourceLocation BLOCKS = new ResourceLocation("textures/atlas/blocks.png");
     private static final Map<FluidIdentifier, int[]> renderLists = new HashMap<>();
 
-    public void doRenderItem(ItemIdentifierStack itemIdentifierStack, float light, double x, double y, double z,
-            double boxScale) {
+    public void doRenderItem(ItemIdentifierStack itemIdentifierStack, double x, double y, double z) {
         if (LogisticsNewRenderPipe.innerTransportBox == null) return;
         GL11.glPushMatrix();
 
@@ -42,14 +41,9 @@ public class LogisticsNewPipeItemBoxRenderer {
             GL11.glEndList();
         }
 
-        GL11.glTranslated(x, y, z);
         Minecraft.getMinecraft().getTextureManager().bindTexture(LogisticsNewPipeItemBoxRenderer.BLOCKS);
-        GL11.glScaled(boxScale, boxScale, boxScale);
-        GL11.glTranslated(-0.5, -0.5, -0.5);
+        GL11.glTranslated(x - 0.5, y - 0.5, z - 0.5);
         GL11.glCallList(renderList);
-        GL11.glTranslated(0.5, 0.5, 0.5);
-        GL11.glScaled(1 / boxScale, 1 / boxScale, 1 / boxScale);
-        GL11.glTranslated(-0.5, -0.5, -0.5);
 
         if (itemIdentifierStack != null && itemIdentifierStack.getItem().item instanceof LogisticsFluidContainer) {
             FluidStack f = SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(itemIdentifierStack);
