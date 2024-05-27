@@ -17,7 +17,7 @@ public class BCLPPipeTransportItemsRenderer extends PipeTransportItemsRenderer {
                 if (LogisticsRenderPipe.boxRenderer != null) {
                     ItemIdentifierStack itemIdentifierStack = ItemIdentifierStack
                             .getFromStack(travellingItem.getItemStack());
-                    LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, light, x, y + 0.25, z, 1.0D);
+                    LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, x, y + 0.25, z);
                 }
             }
         }
