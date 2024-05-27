@@ -6,9 +6,7 @@
 
 package logisticspipes.utils.item;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -18,7 +16,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -56,8 +53,6 @@ public class ItemStackRenderer {
     private boolean renderInColor;
     private World worldObj;
     private float partialTickTime;
-
-    private final Map<ItemIdentifier, EntityItem> entityCache = new HashMap<>();
 
     public ItemStackRenderer(int posX, int posY, float zLevel, boolean renderEffects, boolean ignoreDepth,
             boolean renderInColor) {
