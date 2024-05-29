@@ -120,7 +120,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
         buffer.writeShort(msg.getId());
         buffer.writeInt(msg.getDebugId());
         msg.writeData(new LPDataOutputStream(buffer));
-        return new FMLProxyPacket(buffer.copy(), channel);
+        return new FMLProxyPacket(buffer, channel);
     }
 
     @Override
