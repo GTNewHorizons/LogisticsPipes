@@ -6,12 +6,8 @@
 
 package logisticspipes.utils.item;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -20,15 +16,12 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
-import logisticspipes.LogisticsPipes;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemSearch;
@@ -60,8 +53,6 @@ public class ItemStackRenderer {
     private boolean renderInColor;
     private World worldObj;
     private float partialTickTime;
-
-    private final Map<ItemIdentifier, EntityItem> entityCache = new HashMap<>();
 
     public ItemStackRenderer(int posX, int posY, float zLevel, boolean renderEffects, boolean ignoreDepth,
             boolean renderInColor) {
@@ -258,39 +249,6 @@ public class ItemStackRenderer {
         }
 
         GL11.glPopAttrib();
-    }
-
-    public void renderInWorld() {
-        assert renderManager != null;
-        assert renderItem != null;
-
-        ItemIdentifier itemId = itemIdentifierStack.getItem();
-        EntityItem entityItem = entityCache.get(itemId);
-        if (entityItem == null) {
-            entityItem = new EntityItem(worldObj, 0, 0, 0, itemId.makeNormalStack(1));
-            entityItem.hoverStart = 0;
-            entityCache.put(itemId, entityItem);
-        }
-
-        boolean changeColor = renderItem.renderWithColor != renderInColor;
-        if (changeColor) {
-            renderItem.renderWithColor = renderInColor;
-        }
-
-        if (itemId.item instanceof ItemBlock) {
-            Block block = ((ItemBlock) itemId.item).field_150939_a;
-            if (block instanceof BlockPane) {
-                GL11.glScalef(0.5F, 0.5F, 0.5F);
-            }
-        } else if (itemId.item == LogisticsPipes.logisticsRequestTable) {
-            GL11.glScalef(0.5F, 0.5F, 0.5F);
-        }
-
-        renderManager.renderEntityWithPosYaw(entityItem, posX, posY, zLevel, 0.0F, partialTickTime);
-
-        if (changeColor) {
-            renderItem.renderWithColor = !renderInColor;
-        }
     }
 
     public enum DisplayAmount {
