@@ -756,12 +756,11 @@ public class LogisticsNewRenderPipe {
             SimpleServiceLocator.cclProxy.getRenderState().setUseNormals(true);
             SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
 
-            int brightness = new LPPosition((TileEntity) pipeTile).getBlock(pipeTile.getWorldObj())
-                    .getMixedBrightnessForBlock(
-                            pipeTile.getWorldObj(),
-                            pipeTile.xCoord,
-                            pipeTile.yCoord,
-                            pipeTile.zCoord);
+            int brightness = pipeTile.getBlockType().getMixedBrightnessForBlock(
+                    pipeTile.getWorldObj(),
+                    pipeTile.xCoord,
+                    pipeTile.yCoord,
+                    pipeTile.zCoord);
 
             tess.setColorOpaque_F(1F, 1F, 1F);
             tess.setBrightness(brightness);
@@ -857,8 +856,10 @@ public class LogisticsNewRenderPipe {
                         }
                     }
                     for (IModel3D model : LogisticsNewRenderPipe.sideNormal.get(dir)) {
-                        Block block = new LPPosition((TileEntity) pipeTile).moveForward(dir)
-                                .getBlock(pipeTile.getWorld());
+                        Block block = pipeTile.getWorld().getBlock(
+                                pipeTile.xCoord + dir.offsetX,
+                                pipeTile.yCoord + dir.offsetY,
+                                pipeTile.zCoord + dir.offsetZ);
                         double[] bounds = { block.getBlockBoundsMinY(), block.getBlockBoundsMinZ(),
                                 block.getBlockBoundsMinX(), block.getBlockBoundsMaxY(), block.getBlockBoundsMaxZ(),
                                 block.getBlockBoundsMaxX() };
