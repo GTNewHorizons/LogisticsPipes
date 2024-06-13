@@ -140,6 +140,13 @@ public class LPPosition {
         return this;
     }
 
+    public LPPosition reset(double x, double y, double z) {
+        xPos = x;
+        yPos = y;
+        zPos = z;
+        return this;
+    }
+
     public void writeToNBT(String prefix, NBTTagCompound nbt) {
         nbt.setDouble(prefix + "xPos", xPos);
         nbt.setDouble(prefix + "yPos", yPos);

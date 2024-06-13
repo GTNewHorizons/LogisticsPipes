@@ -78,6 +78,10 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     private final RenderBlocks renderBlocks = new RenderBlocks();
     private final IBCRenderTESR bcRenderer = SimpleServiceLocator.buildCraftProxy.getBCRenderTESR();
 
+    // To reduce allocations on the hot path, we cache a single instance and reset it instead of
+    // allocating hundreds of temp objects every frame.
+    private final LPPosition pos = new LPPosition(0, 0, 0);
+
     public LogisticsRenderPipe() {
         super();
         modelSign = new ModelSign();
@@ -136,12 +140,17 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                 break;
             }
 
-            LPPosition pos = new LPPosition(0.5D, 0.5D, 0.5D);
-
-            if (item.getPosition() > 1 || item.getPosition() < 0) {
+            if (item.getPosition() > 1 || item.getPosition() < 0 || item.getItemIdentifierStack() == null) {
                 continue;
             }
 
+            if (item.getContainer().xCoord != pipe.container.xCoord
+                    || item.getContainer().yCoord != pipe.container.yCoord
+                    || item.getContainer().zCoord != pipe.container.zCoord) {
+                continue;
+            }
+
+            pos.reset(0.5D, 0.5D, 0.5D);
             float fPos = item.getPosition() + item.getSpeed() * partialTickTime;
 
             if (fPos < 0.5) {
@@ -162,14 +171,6 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                 pos.moveForward(item.output, fPos - 0.5F);
             }
 
-            if (item.getItemIdentifierStack() == null) {
-                continue;
-            }
-            if (item.getContainer().xCoord != pipe.container.xCoord
-                    || item.getContainer().yCoord != pipe.container.yCoord
-                    || item.getContainer().zCoord != pipe.container.zCoord) {
-                continue;
-            }
             doRenderItem(
                     item.getItemIdentifierStack(),
                     pipe.container.getWorldObj(),
@@ -183,10 +184,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         }
         count = 0;
         float dist = 0.135F;
-        LPPosition pos = new LPPosition(0.5D, 0.5D, 0.5D);
-        pos.moveForward(ForgeDirection.SOUTH, dist);
-        pos.moveForward(ForgeDirection.EAST, dist);
-        pos.moveForward(ForgeDirection.UP, dist);
+        pos.reset(0.5D + dist, 0.5D + dist, 0.5D + dist);
         for (Pair<ItemIdentifierStack, Pair<Integer, Integer>> item : pipe.transport._itemBuffer) {
             if (item == null || item.getValue1() == null) {
                 continue;
