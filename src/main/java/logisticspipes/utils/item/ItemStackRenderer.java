@@ -14,10 +14,8 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
@@ -34,11 +32,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ItemStackRenderer {
 
-    private RenderManager renderManager;
-    private RenderBlocks renderBlocks;
-    private RenderItem renderItem;
-    private TextureManager texManager;
-    private FontRenderer fontRenderer;
+    private final TextureManager texManager = Minecraft.getMinecraft().renderEngine;
+    private FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+
+    private final boolean renderEffects;
+    private final boolean ignoreDepth;
+    private final boolean renderInColor;
 
     private ItemIdentifierStack itemIdentifierStack;
     private int posX;
@@ -48,11 +47,6 @@ public class ItemStackRenderer {
     private float scaleY;
     private float scaleZ;
     private DisplayAmount displayAmount;
-    private boolean renderEffects;
-    private boolean ignoreDepth;
-    private boolean renderInColor;
-    private World worldObj;
-    private float partialTickTime;
 
     public ItemStackRenderer(int posX, int posY, float zLevel, boolean renderEffects, boolean ignoreDepth,
             boolean renderInColor) {
@@ -62,18 +56,6 @@ public class ItemStackRenderer {
         this.renderEffects = renderEffects;
         this.ignoreDepth = ignoreDepth;
         this.renderInColor = renderInColor;
-        renderManager = RenderManager.instance;
-        fontRenderer = renderManager.getFontRenderer();
-        if (fontRenderer == null) {
-            fontRenderer = Minecraft.getMinecraft().fontRenderer;
-        }
-        worldObj = renderManager.worldObj;
-        texManager = renderManager.renderEngine;
-        if (texManager == null) {
-            texManager = Minecraft.getMinecraft().getTextureManager();
-        }
-        renderBlocks = RenderBlocks.getInstance();
-        renderItem = RenderItem.getInstance();
         scaleX = 1.0F;
         scaleY = 1.0F;
         scaleZ = 1.0F;
@@ -171,8 +153,6 @@ public class ItemStackRenderer {
     public void renderInGui() {
         assert itemIdentifierStack != null;
         assert displayAmount != null;
-        assert renderBlocks != null;
-        assert renderItem != null;
         assert texManager != null;
         assert fontRenderer != null;
         assert scaleX != 0.0F;
@@ -197,9 +177,11 @@ public class ItemStackRenderer {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
         }
 
+        RenderBlocks renderBlocks = RenderBlocks.getInstance();
         ItemStack itemStack = itemIdentifierStack.makeNormalStack();
         if (!ForgeHooksClient
                 .renderInventoryItem(renderBlocks, texManager, itemStack, renderInColor, zLevel, posX, posY)) {
+            RenderItem renderItem = RenderItem.getInstance();
             renderItem.zLevel += zLevel;
             renderItem.renderItemIntoGUI(fontRenderer, texManager, itemStack, posX, posY, renderEffects);
             renderItem.zLevel -= zLevel;
