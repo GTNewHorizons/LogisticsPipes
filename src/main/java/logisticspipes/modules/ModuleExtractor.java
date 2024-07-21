@@ -54,11 +54,11 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
     public ModuleExtractor() {}
 
     protected int ticksToAction() {
-        return 100;
+        return 20;
     }
 
     protected int itemsToExtract() {
-        return 1;
+        return 5;
     }
 
     protected int neededEnergy() {
