@@ -9,7 +9,6 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.gui.GuiFirewall;
 import logisticspipes.gui.GuiFluidBasic;
-import logisticspipes.gui.GuiFluidSupplierMk2Pipe;
 import logisticspipes.gui.GuiFluidSupplierPipe;
 import logisticspipes.gui.GuiFreqCardContent;
 import logisticspipes.gui.GuiInvSysConnector;
@@ -22,14 +21,12 @@ import logisticspipes.gui.orderer.NormalGuiOrderer;
 import logisticspipes.gui.orderer.NormalMk2GuiOrderer;
 import logisticspipes.interfaces.IGuiOpenControler;
 import logisticspipes.items.LogisticsItemCard;
-import logisticspipes.network.packets.pipe.FluidSupplierMinMode;
 import logisticspipes.network.packets.pipe.FluidSupplierMode;
 import logisticspipes.network.packets.pipe.InvSysConResistance;
 import logisticspipes.pipes.PipeBlockRequestTable;
 import logisticspipes.pipes.PipeFluidBasic;
 import logisticspipes.pipes.PipeFluidRequestLogistics;
 import logisticspipes.pipes.PipeFluidSatellite;
-import logisticspipes.pipes.PipeFluidSupplierMk2;
 import logisticspipes.pipes.PipeItemsFirewall;
 import logisticspipes.pipes.PipeItemsFluidSupplier;
 import logisticspipes.pipes.PipeItemsInvSysConnector;
@@ -94,30 +91,6 @@ public class GuiHandler implements IGuiHandler {
                     MainProxy.sendPacketToPlayer(
                             PacketHandler.getPacket(FluidSupplierMode.class)
                                     .setInteger((((PipeItemsFluidSupplier) pipe.pipe).isRequestingPartials() ? 1 : 0))
-                                    .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
-                            player);
-                    return dummy;
-
-                case GuiIDs.GUI_FluidSupplier_MK2_ID:
-                    if (pipe == null || !(pipe.pipe instanceof PipeFluidSupplierMk2)) {
-                        return null;
-                    }
-                    dummy = new DummyContainer(
-                            player.inventory,
-                            ((PipeFluidSupplierMk2) pipe.pipe).getDummyInventory());
-                    dummy.addNormalSlotsForPlayerInventory(18, 97);
-                    dummy.addFluidSlot(0, ((PipeFluidSupplierMk2) pipe.pipe).getDummyInventory(), 0, 0);
-
-                    MainProxy
-                            .sendPacketToPlayer(
-                                    PacketHandler.getPacket(FluidSupplierMode.class)
-                                            .setInteger(
-                                                    (((PipeFluidSupplierMk2) pipe.pipe).isRequestingPartials() ? 1 : 0))
-                                            .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
-                                    player);
-                    MainProxy.sendPacketToPlayer(
-                            PacketHandler.getPacket(FluidSupplierMinMode.class)
-                                    .setInteger(((PipeFluidSupplierMk2) pipe.pipe).getMinMode().ordinal())
                                     .setPosX(pipe.xCoord).setPosY(pipe.yCoord).setPosZ(pipe.zCoord),
                             player);
                     return dummy;
@@ -321,15 +294,6 @@ public class GuiHandler implements IGuiHandler {
                             player.inventory,
                             ((PipeItemsFluidSupplier) pipe.pipe).getDummyInventory(),
                             (PipeItemsFluidSupplier) pipe.pipe);
-
-                case GuiIDs.GUI_FluidSupplier_MK2_ID:
-                    if (pipe == null || !(pipe.pipe instanceof PipeFluidSupplierMk2)) {
-                        return null;
-                    }
-                    return new GuiFluidSupplierMk2Pipe(
-                            player.inventory,
-                            ((PipeFluidSupplierMk2) pipe.pipe).getDummyInventory(),
-                            (PipeFluidSupplierMk2) pipe.pipe);
 
                 case GuiIDs.GUI_ProviderPipe_ID:
                     if (pipe == null || !(pipe.pipe instanceof PipeItemsProviderLogistics)) {

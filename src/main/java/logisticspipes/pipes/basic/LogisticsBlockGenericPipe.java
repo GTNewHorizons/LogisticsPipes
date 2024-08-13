@@ -31,6 +31,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import org.jetbrains.annotations.Nullable;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -895,12 +897,13 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
         return item;
     }
 
-    public static boolean isPipeRegistered(int key) {
-        return LogisticsBlockGenericPipe.pipes.containsKey(key);
+    @Nullable
+    public static Class<? extends CoreUnroutedPipe> getPipeClassByItem(Item key) {
+        return LogisticsBlockGenericPipe.pipes.get(key);
     }
 
     public static CoreUnroutedPipe createPipe(Item key) {
-        Class<? extends CoreUnroutedPipe> pipe = LogisticsBlockGenericPipe.pipes.get(key);
+        Class<? extends CoreUnroutedPipe> pipe = getPipeClassByItem(key);
         if (pipe != null) {
             try {
                 return pipe.getConstructor(Item.class).newInstance(key);

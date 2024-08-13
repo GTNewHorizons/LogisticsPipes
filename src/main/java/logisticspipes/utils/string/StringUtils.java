@@ -16,6 +16,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableListIterator;
 
+import logisticspipes.pipes.PipeFluidSupplierMk2;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsBlockGenericPipe;
+
 public final class StringUtils {
 
     public static final String KEY_HOLDSHIFT = "misc.holdshift";
@@ -92,6 +96,8 @@ public final class StringUtils {
                 key = baseKey + ++i;
                 translation = StringUtils.translate(key);
             }
+
+            addExtraInfo(stack, list);
         } else {
             String baseKey = MessageFormat.format("{0}.tip", stack.getItem().getUnlocalizedName(stack));
             String key = baseKey + 1;
@@ -99,6 +105,17 @@ public final class StringUtils {
             if (!translation.equals(key)) {
                 list.add(StringUtils.translate(StringUtils.KEY_HOLDSHIFT));
             }
+        }
+    }
+
+    private static void addExtraInfo(ItemStack stack, List<String> list) {
+        Class<? extends CoreUnroutedPipe> pipeClass = LogisticsBlockGenericPipe.getPipeClassByItem(stack.getItem());
+        if (pipeClass == null) {
+            return;
+        }
+
+        if (PipeFluidSupplierMk2.class.isAssignableFrom(pipeClass)) {
+            list.add(StringUtils.translate("item.logisticspipes.tip.active_destination"));
         }
     }
 

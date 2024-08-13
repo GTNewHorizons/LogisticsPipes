@@ -1,7 +1,6 @@
 package logisticspipes.pipes;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -10,15 +9,28 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import com.cleanroommc.modularui.api.drawable.IKey;
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.Tooltip;
+import com.cleanroommc.modularui.utils.Alignment;
+import com.cleanroommc.modularui.value.sync.FluidSlotSyncHandler;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.cleanroommc.modularui.value.sync.SyncHandlers;
+import com.cleanroommc.modularui.widgets.CycleButtonWidget;
+import com.cleanroommc.modularui.widgets.FluidSlot;
+import com.cleanroommc.modularui.widgets.layout.Column;
+import com.cleanroommc.modularui.widgets.layout.Row;
+import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
+
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
-import logisticspipes.LogisticsPipes;
+import logisticspipes.api.IMUICompatiblePipe;
+import logisticspipes.compat.ModularUIHelper;
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
-import logisticspipes.network.GuiIDs;
-import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.pipe.FluidSupplierAmount;
+import logisticspipes.migration.LegacyHelper;
 import logisticspipes.pipes.basic.fluid.FluidRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -29,26 +41,119 @@ import logisticspipes.transport.PipeFluidTransportLogistics;
 import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.WorldUtil;
-import logisticspipes.utils.item.ItemIdentifierInventory;
-import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 
-public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFluid, IRequireReliableFluidTransport {
+@Log4j2
+public class PipeFluidSupplierMk2 extends FluidRoutedPipe
+        implements IRequestFluid, IRequireReliableFluidTransport, IMUICompatiblePipe {
 
     private boolean _lastRequestFailed = false;
 
-    public enum MinMode {
+    private final FluidTank phantomTank = new FluidTank(1);
+    private int amount = 0;
+    private boolean requestPartials = false;
+    private int refillThreshold = 0;
 
-        NONE(0),
-        ONEBUCKET(1000),
-        TWOBUCKET(2000),
-        FIVEBUCKET(5000);
+    @Override
+    public void addUIWidgets(ModularPanel panel, PosGuiData data, PanelSyncManager syncManager) {
+        panel.background(ModularUIHelper.BACKGROUND_TEXTURE).bindPlayerInventory().child(
+                new Column().widthRel(1.0F).top(6).coverChildrenHeight().child(
+                        new Row().mainAxisAlignment(Alignment.MainAxis.CENTER)
+                                .crossAxisAlignment(Alignment.CrossAxis.CENTER).widthRel(1.0F).coverChildrenHeight()
+                                .child(IKey.lang("gui.fluidsuppliermk2.TargetInv").asWidget()))
+                        .child(
+                                new Row().mainAxisAlignment(Alignment.MainAxis.CENTER)
+                                        .crossAxisAlignment(Alignment.CrossAxis.CENTER).marginTop(5)
+                                        .coverChildrenHeight()
+                                        .child(
+                                                IKey.comp(IKey.lang("gui.fluidsuppliermk2.Fluid"), IKey.str(":"))
+                                                        .asWidget())
+                                        .child(
+                                                new FluidSlot()
+                                                        .syncHandler(
+                                                                new FluidSlotSyncHandler(phantomTank).phantom(true)
+                                                                        .controlsAmount(false))
+                                                        .marginLeft(6).width(16).height(16))
+                                        .child(
+                                                new TextFieldWidget().marginLeft(6).width(80)
+                                                        .setNumbers(0, Integer.MAX_VALUE).value(
+                                                                SyncHandlers.intNumber(
+                                                                        () -> amount,
+                                                                        value -> this.amount = value)))
+                                        .child(IKey.str("mB").asWidget().marginLeft(3)))
+                        .child(
+                                new Row().mainAxisAlignment(Alignment.MainAxis.CENTER)
+                                        .crossAxisAlignment(Alignment.CrossAxis.CENTER).marginTop(5)
+                                        .coverChildrenHeight()
+                                        .child(
+                                                IKey.comp(IKey.lang("gui.fluidsuppliermk2.partial"), IKey.str(":"))
+                                                        .asWidget())
+                                        .child(
+                                                new CycleButtonWidget().marginLeft(6).width(24)
+                                                        .value(
+                                                                SyncHandlers.bool(
+                                                                        () -> this.requestPartials,
+                                                                        value -> this.requestPartials = value))
+                                                        .overlay(
+                                                                ModularUIHelper.reallyDynamicKey(
+                                                                        () -> this.requestPartials ? IKey.lang(
+                                                                                "gui.fluidsuppliermk2.partial.yes")
+                                                                                : IKey.lang(
+                                                                                        "gui.fluidsuppliermk2.partial.no")))
+                                                        .tooltipBuilder((tooltip -> {
+                                                            tooltip.addLine(
+                                                                    IKey.lang("gui.fluidsuppliermk2.partial.tip"));
 
-        @Getter
-        private final int amount;
+                                                            if (requestPartials) {
+                                                                tooltip.addLine(
+                                                                        IKey.lang(
+                                                                                "gui.fluidsuppliermk2.partial.yes.tip"));
+                                                            } else {
+                                                                tooltip.addLine(
+                                                                        IKey.lang(
+                                                                                "gui.fluidsuppliermk2.partial.no.tip"));
+                                                            }
+                                                        })).tooltipPos(Tooltip.Pos.ABOVE)))
+                        .child(
+                                new Row().mainAxisAlignment(Alignment.MainAxis.CENTER)
+                                        .crossAxisAlignment(Alignment.CrossAxis.CENTER).marginTop(5)
+                                        .coverChildrenHeight().child(
+                                                IKey.comp(
+                                                        IKey.lang("gui.fluidsuppliermk2.refill_if_depleted"),
+                                                        IKey.str(":")).asWidget()))
+                        .child(
+                                new Row().marginTop(5).mainAxisAlignment(Alignment.MainAxis.CENTER)
+                                        .coverChildrenHeight()
+                                        .child(
+                                                new TextFieldWidget().width(80).setNumbers(0, Integer.MAX_VALUE).value(
+                                                        SyncHandlers.intNumber(
+                                                                () -> refillThreshold,
+                                                                value -> this.refillThreshold = value))
 
-        MinMode(int amount) {
-            this.amount = amount;
-        }
+                                        ).child(IKey.str("mB").asWidget().marginLeft(3))
+                                        .child(IKey.str("§9[?]").asWidget().marginLeft(6).tooltipBuilder(tooltip -> {
+                                            tooltip.setAutoUpdate(true);
+                                            tooltip.addLine(
+                                                    IKey.lang(
+                                                            "gui.fluidsuppliermk2.refill_if_depleted.tip",
+                                                            this.refillThreshold != 0 ? this.refillThreshold : "n"));
+                                            tooltip.addLine(IKey.lang("gui.fluidsuppliermk2.refill_if_depleted.tip.zero"));
+                                        }).tooltipPos(Tooltip.Pos.ABOVE))));
+    }
+
+    @Override
+    public String getId() {
+        return "fluid_supplier_mk2";
+    }
+
+    @Override
+    public int getGuiWidth() {
+        return 184;
+    }
+
+    @Override
+    public int getGuiHeight() {
+        return 186;
     }
 
     public PipeFluidSupplierMk2(Item item) {
@@ -95,29 +200,21 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
         return true;
     }
 
-    // from PipeFluidSupplierMk2
-    private final ItemIdentifierInventory dummyInventory = new ItemIdentifierInventory(
-            1,
-            "Fluid to keep stocked",
-            127,
-            true);
-    private int amount = 0;
-
     private final TObjectIntMap<FluidIdentifier> _requestedItems = new TObjectIntHashMap<>(8, 0.5f, -1);
-
-    private boolean _requestPartials = false;
-    private MinMode _bucketMinimum = MinMode.ONEBUCKET;
 
     @Override
     protected void fillSide(FluidStack toFill, ForgeDirection tankLocation, IFluidHandler tile) {
-        if (dummyInventory.getStackInSlot(0) == null)
+        if (phantomTank.getFluid() == null) {
             // shouldn't happen, but ok
             return;
+        }
         // check if this tank need more fluid
         int have = 0;
-        FluidIdentifier fIdent = FluidIdentifier.get(dummyInventory.getIDStackInSlot(0).getItem());
+
         for (FluidTankInfo info : tile.getTankInfo(ForgeDirection.UNKNOWN)) {
-            if (info.fluid != null && fIdent.equals(FluidIdentifier.get(info.fluid))) have += info.fluid.amount;
+            if (info.fluid != null && info.fluid.isFluidEqual(phantomTank.getFluid())) {
+                have += info.fluid.amount;
+            }
         }
         int vacant = amount - have;
         if (vacant <= 0)
@@ -127,7 +224,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
         // another party faster than LP can sustain.
         // the check to send fluid request does not run every tick after all...
         // so we just check if minimum is reached
-        if (_bucketMinimum.getAmount() != 0 && vacant < _bucketMinimum.getAmount()) {
+        if (refillThreshold != 0 && vacant < refillThreshold) {
             // not enough spare space - this packet must be for tank on different side
             return;
         }
@@ -148,7 +245,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
             return;
         }
         super.throttledUpdateEntity();
-        if (dummyInventory.getStackInSlot(0) == null) {
+        if (phantomTank.getFluid() == null) {
             return;
         }
 
@@ -175,7 +272,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 
             // How much should I request?
             TObjectIntMap<FluidIdentifier> wantFluids = new TObjectIntHashMap<>(8);
-            FluidIdentifier fIdent = FluidIdentifier.get(dummyInventory.getIDStackInSlot(0).getItem());
+            FluidIdentifier fIdent = FluidIdentifier.get(phantomTank.getFluid());
             wantFluids.put(fIdent, amount);
 
             FluidTankInfo[] result = container.getTankInfo(ForgeDirection.UNKNOWN);
@@ -194,14 +291,10 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
                 }
             }
 
-            // drop entries that already have enough in it
-            wantFluids.retainEntries((k, v) -> v >= 0);
-
             // Reduce what have been requested already
             for (TObjectIntIterator<FluidIdentifier> iter = requestDiscount.iterator(); iter.hasNext();) {
                 iter.advance();
                 wantFluids.adjustValue(iter.key(), -iter.value());
-                iter.remove();
             }
 
             setRequestFailed(false);
@@ -212,14 +305,13 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
                 iter.advance();
                 FluidIdentifier need = iter.key();
                 int countToRequest = iter.value();
-                if (countToRequest == 0) {
-                    continue;
-                } else if (countToRequest < 0) {
-                    // at this point a negative value can only come from requestDiscount, so add it back
-                    requestDiscount.adjustOrPutValue(need, -countToRequest, -countToRequest);
+
+                if (countToRequest <= 0) {
+                    // skip entries that already have enough in it
                     continue;
                 }
-                if (_bucketMinimum.getAmount() != 0 && countToRequest < _bucketMinimum.getAmount()) {
+
+                if (refillThreshold != 0 && countToRequest < refillThreshold) {
                     continue;
                 }
 
@@ -229,7 +321,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
 
                 boolean success = false;
 
-                if (_requestPartials) {
+                if (requestPartials) {
                     countToRequest = RequestTree.requestFluidPartial(need, countToRequest, this, null);
                     if (countToRequest > 0) {
                         success = true;
@@ -248,21 +340,39 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound) {
-        super.readFromNBT(nbttagcompound);
-        dummyInventory.readFromNBT(nbttagcompound, "");
-        _requestPartials = nbttagcompound.getBoolean("requestpartials");
-        amount = nbttagcompound.getInteger("amount");
-        _bucketMinimum = MinMode.values()[nbttagcompound.getByte("_bucketMinimum")];
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        if (compound.hasKey("items")) {
+            // legacy
+            LegacyHelper.readItemIdentifierInventoryAndConvertToTank(phantomTank, compound, "");
+        } else {
+            phantomTank.readFromNBT(compound.getCompoundTag("tank"));
+        }
+
+        if (compound.hasKey("_bucketMinimum")) {
+            // legacy
+            byte bucketMinimum = compound.getByte("_bucketMinimum");
+            if (bucketMinimum == 0) refillThreshold = -1;
+            if (bucketMinimum == 1) refillThreshold = 1000;
+            if (bucketMinimum == 2) refillThreshold = 2000;
+            if (bucketMinimum == 3) refillThreshold = 5000;
+        } else {
+            refillThreshold = compound.getInteger("refillThreshold");
+        }
+
+        requestPartials = compound.getBoolean("requestpartials");
+        amount = compound.getInteger("amount");
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound) {
-        super.writeToNBT(nbttagcompound);
-        dummyInventory.writeToNBT(nbttagcompound, "");
-        nbttagcompound.setBoolean("requestpartials", _requestPartials);
-        nbttagcompound.setInteger("amount", amount);
-        nbttagcompound.setByte("_bucketMinimum", (byte) _bucketMinimum.ordinal());
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setBoolean("requestpartials", requestPartials);
+        compound.setInteger("amount", amount);
+        compound.setInteger("refillThreshold", refillThreshold);
+
+        compound.setTag("tank", phantomTank.writeToNBT(new NBTTagCompound()));
     }
 
     private void decreaseRequested(FluidIdentifier liquid, int remaining) {
@@ -291,51 +401,9 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe implements IRequestFlu
     @Override
     public void liquidNotInserted(FluidIdentifier item, int amount) {}
 
-    public boolean isRequestingPartials() {
-        return _requestPartials;
-    }
-
-    public void setRequestingPartials(boolean value) {
-        _requestPartials = value;
-    }
-
-    public MinMode getMinMode() {
-        return _bucketMinimum;
-    }
-
-    public void setMinMode(MinMode value) {
-        _bucketMinimum = value;
-    }
-
     @Override
-    public void onWrenchClicked(EntityPlayer entityplayer) {
-        entityplayer
-                .openGui(LogisticsPipes.instance, GuiIDs.GUI_FluidSupplier_MK2_ID, getWorld(), getX(), getY(), getZ());
-    }
-
-    public IInventory getDummyInventory() {
-        return dummyInventory;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        if (MainProxy.isClient(container.getWorld())) {
-            this.amount = amount;
-        }
-    }
-
-    public void changeFluidAmount(int change, EntityPlayer player) {
-        amount += change;
-        if (amount <= 0) {
-            amount = 0;
-        }
-        MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(FluidSupplierAmount.class).setInteger(amount).setPosX(getX()).setPosY(getY())
-                        .setPosZ(getZ()),
-                player);
+    public void onWrenchClicked(EntityPlayer player) {
+        openGui(player, this);
     }
 
     @Override
