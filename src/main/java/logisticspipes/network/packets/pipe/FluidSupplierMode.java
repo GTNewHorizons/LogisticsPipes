@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import logisticspipes.network.abstractpackets.IntegerCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
-import logisticspipes.pipes.PipeFluidSupplierMk2;
 import logisticspipes.pipes.PipeItemsFluidSupplier;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
 import logisticspipes.proxy.MainProxy;
@@ -32,16 +31,9 @@ public class FluidSupplierMode extends IntegerCoordinatesPacket {
             if (pipe.pipe instanceof PipeItemsFluidSupplier) {
                 ((PipeItemsFluidSupplier) pipe.pipe).setRequestingPartials((getInteger() % 10) == 1);
             }
-            if (pipe.pipe instanceof PipeFluidSupplierMk2) {
-                ((PipeFluidSupplierMk2) pipe.pipe).setRequestingPartials((getInteger() % 10) == 1);
-            }
         } else {
             if (pipe.pipe instanceof PipeItemsFluidSupplier) {
                 PipeItemsFluidSupplier liquid = (PipeItemsFluidSupplier) pipe.pipe;
-                liquid.setRequestingPartials((getInteger() % 10) == 1);
-            }
-            if (pipe.pipe instanceof PipeFluidSupplierMk2) {
-                PipeFluidSupplierMk2 liquid = (PipeFluidSupplierMk2) pipe.pipe;
                 liquid.setRequestingPartials((getInteger() % 10) == 1);
             }
         }

@@ -20,6 +20,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -747,5 +748,9 @@ public class LogisticsPipes {
             LogisticsPipes.playerConfig = new PlayerConfig(true, null);
         }
         return LogisticsPipes.playerConfig;
+    }
+
+    public static ResourceLocation rl(String path) {
+        return new ResourceLocation("logisticspipes", path);
     }
 }

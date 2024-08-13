@@ -185,10 +185,10 @@ public class ItemIdentifierInventory
         NBTTagList nbttaglist = nbttagcompound.getTagList(prefix + "items", nbttagcompound.getId());
 
         for (int j = 0; j < nbttaglist.tagCount(); ++j) {
-            NBTTagCompound nbttagcompound2 = nbttaglist.getCompoundTagAt(j);
-            int index = nbttagcompound2.getInteger("index");
+            NBTTagCompound itemTag = nbttaglist.getCompoundTagAt(j);
+            int index = itemTag.getInteger("index");
             if (index < _contents.length) {
-                ItemStack stack = ItemStack.loadItemStackFromNBT(nbttagcompound2);
+                ItemStack stack = ItemStack.loadItemStackFromNBT(itemTag);
                 if (stack != null) {
                     ItemIdentifierStack itemstack = ItemIdentifierStack.getFromStack(stack);
                     if (isValidStack(itemstack)) {
@@ -214,10 +214,10 @@ public class ItemIdentifierInventory
         NBTTagList nbttaglist = new NBTTagList();
         for (int j = 0; j < _contents.length; ++j) {
             if (_contents[j] != null && _contents[j].getStackSize() > 0) {
-                NBTTagCompound nbttagcompound2 = new NBTTagCompound();
-                nbttaglist.appendTag(nbttagcompound2);
-                nbttagcompound2.setInteger("index", j);
-                _contents[j].unsafeMakeNormalStack().writeToNBT(nbttagcompound2);
+                NBTTagCompound itemTag = new NBTTagCompound();
+                nbttaglist.appendTag(itemTag);
+                itemTag.setInteger("index", j);
+                _contents[j].unsafeMakeNormalStack().writeToNBT(itemTag);
             }
         }
         nbttagcompound.setTag(prefix + "items", nbttaglist);
