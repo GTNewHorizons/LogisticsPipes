@@ -137,7 +137,8 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe
                                                     IKey.lang(
                                                             "gui.fluidsuppliermk2.refill_if_depleted.tip",
                                                             this.refillThreshold != 0 ? this.refillThreshold : "n"));
-                                            tooltip.addLine(IKey.lang("gui.fluidsuppliermk2.refill_if_depleted.tip.zero"));
+                                            tooltip.addLine(
+                                                    IKey.lang("gui.fluidsuppliermk2.refill_if_depleted.tip.zero"));
                                         }).tooltipPos(Tooltip.Pos.ABOVE))));
     }
 
