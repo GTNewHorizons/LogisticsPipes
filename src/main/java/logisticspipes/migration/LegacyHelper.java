@@ -1,7 +1,8 @@
 package logisticspipes.migration;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
