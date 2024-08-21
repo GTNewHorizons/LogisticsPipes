@@ -41,10 +41,10 @@ public class WorldUtil {
         return getAdjacentTileEntities(false);
     }
 
-    public List<AdjacentTile> getAdjacentTileEntities(boolean flag) {
+    public List<AdjacentTile> getAdjacentTileEntities(boolean connectedOnly) {
         ArrayList<AdjacentTile> foundTiles = new ArrayList<>(6);
         TileEntity tilePipe = null;
-        if (flag) {
+        if (connectedOnly) {
             tilePipe = _worldObj.getTileEntity(_x, _y, _z);
         }
         for (ForgeDirection o : ForgeDirection.values()) {
@@ -58,7 +58,7 @@ public class WorldUtil {
                 continue;
             }
 
-            if (flag) {
+            if (connectedOnly) {
                 if (SimpleServiceLocator.pipeInformationManager.isItemPipe(tilePipe)) {
                     if (!MainProxy.checkPipesConnections(tilePipe, tile, o)) {
                         continue;

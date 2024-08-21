@@ -39,6 +39,7 @@ import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.interfaces.routing.IItemSpaceControl;
+import logisticspipes.interfaces.routing.IRequest;
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.items.ItemUpgrade;
@@ -307,7 +308,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
 
     @Override
     public Set<ItemIdentifier> getSpecificInterests() {
-        List<ItemIdentifierStack> result = getCraftedItems();
+        List<ItemIdentifierStack> result = getConfiguredCraftResults();
         if (result == null) {
             return null;
         }
@@ -370,12 +371,13 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 }
             }
         }
-        remaining -= root.getAllPromissesFor(this, getCraftedItem().getItem());
+        remaining -= root.getAllPromissesFor(this, getConfiguredCraftResult().getItem());
         if (remaining < 1) {
             return;
         }
         if (this.getUpgradeManager().isFuzzyUpgrade() && outputFuzzyFlags.getBitSet().nextSetBit(0) != -1) {
-            DictResource dict = new DictResource(getCraftedItem(), null).loadFromBitSet(outputFuzzyFlags.getBitSet());
+            DictResource dict = new DictResource(getConfiguredCraftResult(), null)
+                    .loadFromBitSet(outputFuzzyFlags.getBitSet());
             LogisticsExtraDictPromise promise = new LogisticsExtraDictPromise(
                     dict,
                     Math.min(remaining, tree.getMissingAmount()),
@@ -384,7 +386,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             tree.addPromise(promise);
         } else {
             LogisticsExtraPromise promise = new LogisticsExtraPromise(
-                    getCraftedItem().getItem(),
+                    getConfiguredCraftResult().getItem(),
                     Math.min(remaining, tree.getMissingAmount()),
                     this,
                     true);
@@ -435,7 +437,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     }
 
     @Override
-    public int compareTo(IRequestItems value2) {
+    public int compareTo(IRequest request) {
         return 0;
     }
 
@@ -452,7 +454,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     @Override
     public ICraftingTemplate addCrafting(IResource toCraft) {
 
-        List<ItemIdentifierStack> stack = getCraftedItems();
+        List<ItemIdentifierStack> stack = getConfiguredCraftResults();
         if (stack == null) {
             return null;
         }
@@ -526,7 +528,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             } else {
                 req = new ItemResource(resourceStack, target[i]);
             }
-            template.addRequirement(req, new CraftingChassieInformation(i, getPositionInt()));
+            template.addIngredient(req, new CraftingChassieInformation(i, getPositionInt()));
         }
 
         int liquidCrafter = getUpgradeManager().getFluidCrafter();
@@ -559,7 +561,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             if (liquid == null || amount <= 0 || liquidTarget[i] == null) {
                 continue;
             }
-            template.addRequirement(new FluidResource(liquid, amount, liquidTarget[i]), null);
+            template.addIngredient(new FluidResource(liquid, amount, liquidTarget[i]), null);
         }
 
         if (getUpgradeManager().hasByproductExtractor() && getByproductItem() != null) {
@@ -626,25 +628,25 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
 
     @Override
     public boolean canCraft(IResource toCraft) {
-        if (getCraftedItem() == null) {
+        if (getConfiguredCraftResult() == null) {
             return false;
         }
         if (toCraft instanceof ItemResource || toCraft instanceof DictResource) {
-            return toCraft.matches(getCraftedItem().getItem(), IResource.MatchSettings.NORMAL);
+            return toCraft.matches(getConfiguredCraftResult().getItem(), IResource.MatchSettings.NORMAL);
         }
         return false;
     }
 
     @Override
-    public List<ItemIdentifierStack> getCraftedItems() {
+    public List<ItemIdentifierStack> getConfiguredCraftResults() {
         List<ItemIdentifierStack> list = new ArrayList<>(1);
-        if (getCraftedItem() != null) {
-            list.add(getCraftedItem());
+        if (getConfiguredCraftResult() != null) {
+            list.add(getConfiguredCraftResult());
         }
         return list;
     }
 
-    public ItemIdentifierStack getCraftedItem() {
+    public ItemIdentifierStack getConfiguredCraftResult() {
         return _dummyInventory.getIDStackInSlot(9);
     }
 
@@ -1282,7 +1284,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
 
         waitingForCraft = false;
 
-        if ((!_service.getItemOrderManager().hasOrders(ResourceType.CRAFTING, ResourceType.EXTRA))) {
+        if (!_service.getItemOrderManager().hasOrders(ResourceType.CRAFTING, ResourceType.EXTRA)) {
             if (getUpgradeManager().getCrafterCleanup() > 0) {
                 List<AdjacentTile> crafters = locateCrafters();
                 ItemStack extracted = null;
@@ -1316,7 +1318,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             return;
         }
 
-        List<ItemIdentifierStack> wanteditem = getCraftedItems();
+        List<ItemIdentifierStack> wanteditem = getConfiguredCraftResults();
         if (wanteditem == null || wanteditem.isEmpty()) {
             return;
         }
@@ -1624,18 +1626,18 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     private List<AdjacentTile> _cachedCrafters = null;
 
     public List<AdjacentTile> locateCrafters() {
-        if (_cachedCrafters != null) {
-            return _cachedCrafters;
-        }
-        WorldUtil worldUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
-        LinkedList<AdjacentTile> crafters = new LinkedList<>();
-        for (AdjacentTile tile : worldUtil.getAdjacentTileEntities(true)) {
-            if (!(tile.tile instanceof IInventory)) {
-                continue;
+        if (_cachedCrafters == null) {
+            WorldUtil worldUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
+            LinkedList<AdjacentTile> crafters = new LinkedList<>();
+            for (AdjacentTile tile : worldUtil.getAdjacentTileEntities(true)) {
+                if (!(tile.tile instanceof IInventory)) {
+                    continue;
+                }
+                crafters.add(tile);
             }
-            crafters.add(tile);
+            _cachedCrafters = crafters;
         }
-        _cachedCrafters = crafters;
+
         return _cachedCrafters;
     }
 

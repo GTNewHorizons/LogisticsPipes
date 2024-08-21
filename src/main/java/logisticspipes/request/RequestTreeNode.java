@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import logisticspipes.interfaces.IStack;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraft;
 import logisticspipes.interfaces.routing.IFilter;
@@ -418,7 +419,7 @@ public class RequestTreeNode {
                     continue; // we this is crafting something else
                 }
                 for (IFilter filter : crafter.getValue2()) { // is this filtered for some reason.
-                    if (filter.isBlocked() == filter.isFilteredItem(template.getResultItem())
+                    if (filter.isBlocked() == filter.isFilteredItem(template.getResultResource())
                             || filter.blockCrafting()) {
                         continue outer;
                     }
@@ -526,7 +527,7 @@ public class RequestTreeNode {
             this.treeNode = treeNode;
             originalToDo = crafter.getValue1().getCrafter().getTodo();
             stacksOfWorkRequested = 0;
-            setSize = crafter.getValue1().getResultStackSize();
+            setSize = crafter.getValue1().getResultStack().getStackSize();
             maxWorkSetsAvailable = ((treeNode.getMissingAmount()) + setSize - 1) / setSize;
         }
 
@@ -599,7 +600,7 @@ public class RequestTreeNode {
                     ICraftingTemplate craftable = ((ICraft) pipe).addCrafting(iRequestType);
                     if (craftable != null) {
                         for (IFilter filter : r.filters) {
-                            if (filter.isBlocked() == filter.isFilteredItem(craftable.getResultItem())
+                            if (filter.isBlocked() == filter.isFilteredItem(craftable.getResultResource())
                                     || filter.blockCrafting()) {}
                         }
                         List<IFilter> list = new LinkedList<>(r.filters);
@@ -690,8 +691,9 @@ public class RequestTreeNode {
 
         ICraftingTemplate template = lastCrafterTried;
 
-        int nCraftingSetsNeeded = (getMissingAmount() + template.getResultStackSize() - 1)
-                / template.getResultStackSize();
+        IStack resultStack = template.getResultStack();
+
+        int nCraftingSetsNeeded = (getMissingAmount() + resultStack.getStackSize() - 1) / resultStack.getStackSize();
 
         List<Pair<IResource, IAdditionalTargetInformation>> stacks = template.getComponents(nCraftingSetsNeeded);
 

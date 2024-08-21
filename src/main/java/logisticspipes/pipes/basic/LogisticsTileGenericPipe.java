@@ -27,6 +27,8 @@ import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.network.NetworkUtils;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
+import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
 
 import buildcraft.api.core.EnumColor;
 import buildcraft.api.transport.IPipe;
@@ -40,7 +42,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.*;
+import li.cil.oc.api.network.Environment;
+import li.cil.oc.api.network.ManagedPeripheral;
+import li.cil.oc.api.network.Message;
+import li.cil.oc.api.network.Node;
+import li.cil.oc.api.network.SidedEnvironment;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
@@ -70,8 +76,12 @@ import logisticspipes.renderer.LogisticsTileRenderController;
 import logisticspipes.renderer.state.PipeRenderState;
 import logisticspipes.routing.pathfinder.IPipeInformationProvider;
 import logisticspipes.transport.LPTravelingItem;
-import logisticspipes.utils.*;
+import logisticspipes.utils.AdjacentTile;
+import logisticspipes.utils.OrientationsUtil;
+import logisticspipes.utils.StackTraceUtil;
 import logisticspipes.utils.StackTraceUtil.Info;
+import logisticspipes.utils.TileBuffer;
+import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.tuples.LPPosition;
 import lombok.Getter;
@@ -109,6 +119,9 @@ public class LogisticsTileGenericPipe extends TileEntity
     public final IBCTilePart tilePart;
     public final IBCPluggableState bcPlugableState;
 
+    @Getter
+    private IBlockPos pos;
+
     public LogisticsTileGenericPipe() {
         if (SimpleServiceLocator.ccProxy.isCC()) {
             connections = new HashMap<>();
@@ -145,6 +158,8 @@ public class LogisticsTileGenericPipe extends TileEntity
     @Override
     public void validate() {
         super.validate();
+        pos = new BlockPos(xCoord, yCoord, zCoord);
+
         initialized = false;
         tileBuffer = null;
         bindPipe();

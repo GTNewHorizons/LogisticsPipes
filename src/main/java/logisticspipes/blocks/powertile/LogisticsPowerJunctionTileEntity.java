@@ -9,6 +9,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
+import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
+
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
@@ -36,6 +39,7 @@ import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.utils.PlayerCollectionList;
+import lombok.Getter;
 
 @Optional.InterfaceList({ @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink"),
         @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler"),
@@ -67,6 +71,9 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     private final PlayerCollectionList guiListener = new PlayerCollectionList();
     private final PlayerCollectionList watcherList = new PlayerCollectionList();
     private final IHeadUpDisplayRenderer HUD;
+
+    @Getter
+    private IBlockPos pos;
 
     public LogisticsPowerJunctionTileEntity() {
         HUD = new HUDPowerLevel(this);
@@ -185,6 +192,8 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     @Override
     public void validate() {
         super.validate();
+        pos = new BlockPos(xCoord, yCoord, zCoord);
+
         if (MainProxy.isClient(getWorld())) {
             init = false;
         }

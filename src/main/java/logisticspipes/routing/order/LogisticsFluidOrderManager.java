@@ -40,10 +40,15 @@ public class LogisticsFluidOrderManager extends LogisticsOrderManager<LogisticsF
 
     public LogisticsFluidOrder addOrder(FluidLogisticsPromise promise, IRequestFluid destination, ResourceType type,
             IAdditionalTargetInformation info) {
-        if (promise.amount < 0) {
+        if (promise.getAmount() < 0) {
             throw new RuntimeException("The amount can't be less than zero");
         }
-        LogisticsFluidOrder order = new LogisticsFluidOrder(promise.liquid, promise.amount, destination, type, info);
+        LogisticsFluidOrder order = new LogisticsFluidOrder(
+                promise.getLiquid(),
+                promise.getAmount(),
+                destination,
+                type,
+                info);
         _orders.addLast(order);
         listen();
         return order;

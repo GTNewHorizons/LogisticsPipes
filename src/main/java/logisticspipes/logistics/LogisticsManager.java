@@ -307,8 +307,8 @@ public class LogisticsManager implements ILogisticsManager {
 
         if (r.getPipe() instanceof PipeItemsCraftingLogistics) {
             PipeItemsCraftingLogistics pipe = (PipeItemsCraftingLogistics) r.getPipe();
-            if (pipe.getCraftedItems() != null) {
-                List<ItemIdentifierStack> items = pipe.getCraftedItems();
+            if (pipe.getConfiguredCraftResults() != null) {
+                List<ItemIdentifierStack> items = pipe.getConfiguredCraftResults();
                 if (items.size() == 1) {
                     return ("Crafter<" + items.get(0).getFriendlyName() + ">");
                 }
@@ -398,7 +398,7 @@ public class LogisticsManager implements ILogisticsManager {
                 }
             }
             ICraftItems crafter = (ICraftItems) r.destination.getPipe();
-            List<ItemIdentifierStack> craftedItems = crafter.getCraftedItems();
+            List<ItemIdentifierStack> craftedItems = crafter.getConfiguredCraftResults();
             if (craftedItems != null) {
                 outer2: for (ItemIdentifierStack craftedItem : craftedItems) {
                     if (craftedItem != null && !craftableItems.contains(craftedItem.getItem())) {

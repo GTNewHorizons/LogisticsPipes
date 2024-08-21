@@ -62,9 +62,13 @@ public class FluidResource implements IResource {
     public boolean matches(ItemIdentifier itemType, MatchSettings settings) {
         if (itemType.isFluidContainer()) {
             FluidIdentifier other = FluidIdentifier.get(itemType);
-            return other.equals(liquid);
+            return isFluidIdentifierSame(other);
         }
         return false;
+    }
+
+    public boolean isFluidIdentifierSame(FluidIdentifier fluid) {
+        return fluid.equals(liquid);
     }
 
     @Override

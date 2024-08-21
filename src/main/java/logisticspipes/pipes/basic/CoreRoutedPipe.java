@@ -53,6 +53,7 @@ import logisticspipes.interfaces.IWatchingHandler;
 import logisticspipes.interfaces.IWorldProvider;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IFilter;
+import logisticspipes.interfaces.routing.IRequest;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
@@ -1241,7 +1242,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     @Override
-    public int compareTo(IRequestItems other) {
+    public int compareTo(IRequest other) {
         return getID() - other.getID();
     }
 

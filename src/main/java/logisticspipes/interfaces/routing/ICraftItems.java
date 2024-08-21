@@ -19,5 +19,5 @@ public interface ICraftItems extends ICraft, IProvideItems, IItemSpaceControl, I
      * @deprecated getCraftedItems can be slow, instead ask if the item you are after can be crafted
      */
     @Deprecated
-    List<ItemIdentifierStack> getCraftedItems(); // list of all items that can be crafted.
+    List<ItemIdentifierStack> getConfiguredCraftResults(); // list of all items that can be crafted.
 }

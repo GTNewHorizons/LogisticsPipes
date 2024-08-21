@@ -7,7 +7,6 @@ package logisticspipes.request;
 import java.util.ArrayList;
 import java.util.List;
 
-import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.request.resources.DictResource;
 import logisticspipes.request.resources.IResource;
@@ -16,27 +15,18 @@ import logisticspipes.routing.LogisticsExtraPromise;
 import logisticspipes.routing.LogisticsPromise;
 import logisticspipes.routing.order.IOrderInfoProvider.ResourceType;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.tuples.Pair;
 
-public class ItemCraftingTemplate implements IReqCraftingTemplate {
+public class ItemCraftingTemplate extends BaseCraftingTemplate {
 
     protected ItemIdentifierStack _result;
     protected ICraftItems _crafter;
 
-    protected ArrayList<Pair<IResource, IAdditionalTargetInformation>> _required = new ArrayList<>(9);
-
     protected ArrayList<ItemIdentifierStack> _byproduct = new ArrayList<>(9);
 
-    private final int priority;
-
     public ItemCraftingTemplate(ItemIdentifierStack result, ICraftItems crafter, int priority) {
+        super(9, priority);
         _result = result;
         _crafter = crafter;
-        this.priority = priority;
-    }
-
-    public void addRequirement(IResource requirement, IAdditionalTargetInformation info) {
-        _required.add(new Pair<>(requirement, info));
     }
 
     public void addByproduct(ItemIdentifierStack stack) {
@@ -66,38 +56,6 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
     }
 
     @Override
-    public int getPriority() {
-        return priority;
-    }
-
-    @Override
-    public int compareTo(ICraftingTemplate o) {
-        int c = o.comparePriority(priority);
-        if (c == 0) {
-            c = o.compareStack(_result);
-        }
-        if (c == 0) {
-            c = o.compareCrafter(_crafter);
-        }
-        return c;
-    }
-
-    @Override
-    public int comparePriority(int priority) {
-        return priority - this.priority;
-    }
-
-    @Override
-    public int compareStack(ItemIdentifierStack stack) {
-        return stack.compareTo(this._result);
-    }
-
-    @Override
-    public int compareCrafter(ICraftItems crafter) {
-        return crafter.compareTo(this._crafter);
-    }
-
-    @Override
     public boolean canCraft(IResource type) {
         if (type instanceof ItemResource) {
             return ((ItemResource) type).getItem().equals(_result.getItem());
@@ -108,13 +66,13 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
     }
 
     @Override
-    public int getResultStackSize() {
-        return _result.getStackSize();
+    public IResource getResultResource() {
+        return new ItemResource(_result, null);
     }
 
     @Override
-    public IResource getResultItem() {
-        return new ItemResource(_result, null);
+    public ItemIdentifierStack getResultStack() {
+        return _result;
     }
 
     @Override
@@ -124,19 +82,5 @@ public class ItemCraftingTemplate implements IReqCraftingTemplate {
             list.add(new LogisticsExtraPromise(stack.getItem(), stack.getStackSize() * workSets, getCrafter(), false));
         }
         return list;
-    }
-
-    @Override
-    public List<Pair<IResource, IAdditionalTargetInformation>> getComponents(int nCraftingSetsNeeded) {
-        List<Pair<IResource, IAdditionalTargetInformation>> stacks = new ArrayList<>(_required.size());
-
-        // for each thing needed to satisfy this promise
-        for (Pair<IResource, IAdditionalTargetInformation> stack : _required) {
-            Pair<IResource, IAdditionalTargetInformation> pair = new Pair<>(
-                    stack.getValue1().clone(nCraftingSetsNeeded),
-                    stack.getValue2());
-            stacks.add(pair);
-        }
-        return stacks;
     }
 }
