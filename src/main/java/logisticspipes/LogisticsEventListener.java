@@ -14,8 +14,10 @@ import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -27,6 +29,7 @@ import net.minecraftforge.event.world.ChunkWatchEvent.UnWatch;
 import net.minecraftforge.event.world.ChunkWatchEvent.Watch;
 import net.minecraftforge.event.world.WorldEvent;
 
+import buildcraft.BuildCraftCore;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
@@ -116,6 +119,17 @@ public class LogisticsEventListener {
             }
             if (event.action == Action.RIGHT_CLICK_BLOCK) {
                 final TileEntity tile = event.entityPlayer.worldObj.getTileEntity(event.x, event.y, event.z);
+
+                if (!event.world.isRemote) {
+                    ItemStack heldStack = event.entityPlayer.getHeldItem();
+                    if (heldStack != null && heldStack.getItem() == BuildCraftCore.debuggerItem) {
+                        NBTTagCompound compound = new NBTTagCompound();
+                        tile.writeToNBT(compound);
+                        event.entityPlayer.addChatMessage(new ChatComponentText(compound.toString()));
+                        return;
+                    }
+                }
+
                 if (tile instanceof TileEntityChest || SimpleServiceLocator.ironChestProxy.isIronChest(tile)) {
                     List<WeakReference<ModuleQuickSort>> list = new ArrayList<>();
                     for (AdjacentTile adj : new WorldUtil(tile).getAdjacentTileEntities()) {

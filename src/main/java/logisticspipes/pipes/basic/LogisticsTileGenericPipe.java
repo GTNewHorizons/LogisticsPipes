@@ -22,6 +22,12 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import org.apache.logging.log4j.Level;
 
+import com.cleanroommc.modularui.api.IGuiHolder;
+import com.cleanroommc.modularui.factory.PosGuiData;
+import com.cleanroommc.modularui.network.NetworkUtils;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+
 import buildcraft.api.core.EnumColor;
 import buildcraft.api.transport.IPipe;
 import buildcraft.api.transport.IPipeConnection;
@@ -43,6 +49,7 @@ import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
+import logisticspipes.api.IMUICompatiblePipe;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.interfaces.IClientState;
 import logisticspipes.interfaces.routing.IFilter;
@@ -85,7 +92,7 @@ import lombok.Getter;
         @Optional.Interface(modid = "BuildCraft|Transport", iface = "buildcraft.api.transport.IPipeConnection"), })
 public class LogisticsTileGenericPipe extends TileEntity
         implements IOCTile, ILPPipeTile, IPipeInformationProvider, IItemDuct, ManagedPeripheral, Environment,
-        SidedEnvironment, IFluidHandler, IPipeTile, ILogicControllerTile, IPipeConnection {
+        SidedEnvironment, IFluidHandler, IPipeTile, ILogicControllerTile, IPipeConnection, IGuiHolder<PosGuiData> {
 
     public Object OPENPERIPHERAL_IGNORE; // Tell OpenPeripheral to ignore this class
 
@@ -1112,5 +1119,28 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (cache != null) {
             cache[side.ordinal()].refresh();
         }
+    }
+
+    @Override
+    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
+        if (!(pipe instanceof IMUICompatiblePipe)) {
+            throw new IllegalArgumentException();
+        }
+
+        IMUICompatiblePipe pipeWithGui = (IMUICompatiblePipe) pipe;
+
+        ModularPanel panel = ModularPanel
+                .defaultPanel(pipeWithGui.getId(), pipeWithGui.getGuiWidth(), pipeWithGui.getGuiHeight());
+
+        // auto-saving of tile on gui close
+        syncManager.addCloseListener(player -> {
+            if (!NetworkUtils.isClient(player)) {
+                markDirty();
+            }
+        });
+
+        pipeWithGui.addUIWidgets(panel, data, syncManager);
+
+        return panel;
     }
 }
