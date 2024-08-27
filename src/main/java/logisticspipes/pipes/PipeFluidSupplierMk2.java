@@ -95,11 +95,10 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe
                                                                         () -> this.requestPartials,
                                                                         value -> this.requestPartials = value))
                                                         .overlay(
-                                                                ModularUIHelper.reallyDynamicKey(
-                                                                        () -> this.requestPartials ? IKey.lang(
-                                                                                "gui.fluidsuppliermk2.partial.yes")
-                                                                                : IKey.lang(
-                                                                                        "gui.fluidsuppliermk2.partial.no")))
+                                                                IKey.lang(
+                                                                        () -> this.requestPartials
+                                                                                ? "gui.fluidsuppliermk2.partial.yes"
+                                                                                : "gui.fluidsuppliermk2.partial.no"))
                                                         .tooltipBuilder((tooltip -> {
                                                             tooltip.addLine(
                                                                     IKey.lang("gui.fluidsuppliermk2.partial.tip"));
