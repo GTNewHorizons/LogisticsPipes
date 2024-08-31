@@ -6,6 +6,7 @@ import net.minecraftforge.fluids.FluidTank;
 
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class LegacyHelper {
 
@@ -14,8 +15,14 @@ public class LegacyHelper {
         ItemIdentifierInventory inv = makeSingleFluidInventory();
         inv.readFromNBT(compound, prefix);
 
-        FluidIdentifier fluidIdentifier = FluidIdentifier.get(inv.getIDStackInSlot(0).getItem());
-        FluidStack fluidStack = fluidIdentifier.makeFluidStack(1);
+        ItemIdentifierStack savedFluid = inv.getIDStackInSlot(0);
+
+        FluidStack fluidStack = null;
+        if (savedFluid != null) {
+            FluidIdentifier fluidIdentifier = FluidIdentifier.get(savedFluid.getItem());
+            fluidStack = fluidIdentifier.makeFluidStack(1);
+        }
+
         tank.setFluid(fluidStack);
     }
 
