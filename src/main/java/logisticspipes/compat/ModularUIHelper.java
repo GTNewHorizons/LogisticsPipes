@@ -1,11 +1,9 @@
 package logisticspipes.compat;
 
-import java.util.function.Supplier;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.drawable.UITexture;
 import com.cleanroommc.modularui.factory.TileEntityGuiFactory;
 
@@ -22,9 +20,5 @@ public class ModularUIHelper {
         if (world == null || world.isRemote) return;
 
         TileEntityGuiFactory.open(player, pipe.getX(), pipe.getY(), pipe.getZ());
-    }
-
-    public static IKey reallyDynamicKey(Supplier<IKey> keySupplier) {
-        return IKey.dynamic(() -> keySupplier.get().get());
     }
 }
