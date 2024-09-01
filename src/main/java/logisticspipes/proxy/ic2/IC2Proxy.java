@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.common.Loader;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
@@ -129,6 +130,9 @@ public class IC2Proxy implements IIC2Proxy {
      */
     @Override
     public void addCraftingRecipes(ICraftingParts parts) {
+        if (Loader.isModLoaded("dreamcraft")) {
+            return;
+        }
         if (!Configs.ENABLE_BETA_RECIPES) {
             Recipes.advRecipes.addRecipe(
                     new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER),
