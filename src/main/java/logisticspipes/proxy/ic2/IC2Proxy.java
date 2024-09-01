@@ -1,5 +1,6 @@
 package logisticspipes.proxy.ic2;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -129,6 +130,9 @@ public class IC2Proxy implements IIC2Proxy {
      */
     @Override
     public void addCraftingRecipes(ICraftingParts parts) {
+        if (Loader.isModLoaded("dreamcraft")) {
+            return;
+        }
         if (!Configs.ENABLE_BETA_RECIPES) {
             Recipes.advRecipes.addRecipe(
                     new ItemStack(LogisticsPipes.ModuleItem, 1, ItemModule.ELECTRICBUFFER),
