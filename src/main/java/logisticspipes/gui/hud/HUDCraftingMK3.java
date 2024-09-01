@@ -65,12 +65,12 @@ public class HUDCraftingMK3 extends BasicHUDGui {
         }
         GL11.glScalef(0.8F, 0.8F, -1F);
         List<ItemIdentifierStack> list = new ArrayList<>();
-        List<ItemIdentifierStack> craftables = pipe.getCraftedItems();
-        if (craftables != null && craftables.size() > 0) {
+        List<ItemIdentifierStack> craftables = pipe.getConfiguredCraftResults();
+        if (craftables != null && !craftables.isEmpty()) {
             // TODO: handle multiple crafables.
             list.add(craftables.get(0));
         }
-        if (pipe.displayList.size() > 0 && pipe.getMk3Module().bufferList.size() == 0) {
+        if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.size() == 0) {
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                     list,
                     null,
@@ -169,9 +169,9 @@ public class HUDCraftingMK3 extends BasicHUDGui {
 
     @Override
     public boolean display(IHUDConfig config) {
-        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getCraftedItems() != null)
-                || pipe.getMk3Module().bufferList.size() > 0
-                || pipe.displayList.size() > 0);
+        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getConfiguredCraftResults() != null)
+                || !pipe.getMk3Module().bufferList.isEmpty()
+                || !pipe.displayList.isEmpty());
     }
 
     @Override

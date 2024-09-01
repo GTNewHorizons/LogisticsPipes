@@ -1,5 +1,7 @@
 package logisticspipes.api;
 
+import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
+
 /**
  * Public interface implemented by LP's Pipe tile
  */
@@ -11,4 +13,6 @@ public interface ILPPipeTile {
      * @return the pipe
      */
     ILPPipe getLPPipe();
+
+    IBlockPos getPos();
 }

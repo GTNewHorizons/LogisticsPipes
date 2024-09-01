@@ -737,7 +737,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
     }
 
     @Override
-    public List<ItemIdentifierStack> getCraftedItems() {
+    public List<ItemIdentifierStack> getConfiguredCraftResults() {
         List<ItemIdentifierStack> craftables = null;
         for (int i = 0; i < getChassiSize(); i++) {
             LogisticsModule x = _module.getSubModule(i);
@@ -746,7 +746,7 @@ public abstract class PipeLogisticsChassi extends CoreRoutedPipe
                 if (craftables == null) {
                     craftables = new LinkedList<>();
                 }
-                craftables.addAll(((ICraftItems) x).getCraftedItems());
+                craftables.addAll(((ICraftItems) x).getConfiguredCraftResults());
             }
         }
         return craftables;

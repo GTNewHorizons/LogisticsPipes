@@ -12,15 +12,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import logisticspipes.interfaces.IStack;
 import logisticspipes.logisticspipes.IRoutedItem;
 import logisticspipes.pipes.basic.CoreRoutedPipe.ItemSendMode;
 import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
 import logisticspipes.utils.tuples.Triplet;
+import lombok.Getter;
+import lombok.Setter;
 
-public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack>, ILPCCTypeHolder {
+public final class ItemIdentifierStack implements IStack, ILPCCTypeHolder {
 
     private Object ccType;
     private final ItemIdentifier _item;
+
+    @Getter
+    @Setter
     private int stackSize;
 
     public static ItemIdentifierStack getFromStack(ItemStack stack) {
@@ -34,20 +40,6 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
 
     public ItemIdentifier getItem() {
         return _item;
-    }
-
-    /**
-     * @return the stackSize
-     */
-    public int getStackSize() {
-        return stackSize;
-    }
-
-    /**
-     * @param stackSize the stackSize to set
-     */
-    public void setStackSize(int stackSize) {
-        this.stackSize = stackSize;
     }
 
     public void lowerStackSize(int stackSize) {
@@ -141,12 +133,8 @@ public final class ItemIdentifierStack implements Comparable<ItemIdentifierStack
     }
 
     @Override
-    public int compareTo(ItemIdentifierStack o) {
-        int c = _item.compareTo(o._item);
-        if (c == 0) {
-            return getStackSize() - o.getStackSize();
-        }
-        return c;
+    public ItemIdentifier getItemIdentifier() {
+        return _item;
     }
 
     @Override

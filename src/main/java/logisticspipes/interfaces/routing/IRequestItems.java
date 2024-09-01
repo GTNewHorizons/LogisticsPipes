@@ -4,14 +4,9 @@
  */
 package logisticspipes.interfaces.routing;
 
-import org.jetbrains.annotations.NotNull;
-
 import logisticspipes.utils.item.ItemIdentifierStack;
 
-public interface IRequestItems extends Comparable<IRequestItems>, IRequest {
+public interface IRequestItems extends IRequest {
 
     void itemCouldNotBeSend(ItemIdentifierStack item, IAdditionalTargetInformation info);
-
-    @Override
-    int compareTo(@NotNull IRequestItems value2);
 }

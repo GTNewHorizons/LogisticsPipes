@@ -27,6 +27,8 @@ import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.network.NetworkUtils;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
+import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
 
 import buildcraft.api.core.EnumColor;
 import buildcraft.api.transport.IPipe;
@@ -117,6 +119,9 @@ public class LogisticsTileGenericPipe extends TileEntity
     public final IBCTilePart tilePart;
     public final IBCPluggableState bcPlugableState;
 
+    @Getter
+    private IBlockPos pos;
+
     public LogisticsTileGenericPipe() {
         if (SimpleServiceLocator.ccProxy.isCC()) {
             connections = new HashMap<>();
@@ -153,6 +158,8 @@ public class LogisticsTileGenericPipe extends TileEntity
     @Override
     public void validate() {
         super.validate();
+        pos = new BlockPos(xCoord, yCoord, zCoord);
+
         initialized = false;
         tileBuffer = null;
         bindPipe();

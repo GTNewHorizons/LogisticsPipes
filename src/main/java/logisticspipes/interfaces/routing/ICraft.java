@@ -4,7 +4,7 @@ import logisticspipes.request.ICraftingTemplate;
 import logisticspipes.request.IPromise;
 import logisticspipes.request.resources.IResource;
 
-public interface ICraft extends IProvide {
+public interface ICraft extends IProvide, IRequest {
 
     void registerExtras(IPromise promise);
 
