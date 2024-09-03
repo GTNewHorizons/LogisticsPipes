@@ -5,14 +5,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.common.tileentities.storage.GT_MetaTileEntity_QuantumChest;
+import gregtech.common.tileentities.storage.MTEQuantumChest;
 
 public class QuantumChestInventoryHandler extends DSULikeInventoryHandler {
 
-    private final GT_MetaTileEntity_QuantumChest _mte;
+    private final MTEQuantumChest _mte;
 
-    private QuantumChestInventoryHandler(GT_MetaTileEntity_QuantumChest tile, boolean hideOnePerStack, boolean hideOne,
-            int cropStart, int cropEnd) {
+    private QuantumChestInventoryHandler(MTEQuantumChest tile, boolean hideOnePerStack, boolean hideOne, int cropStart,
+            int cropEnd) {
         _mte = tile;
         _hideOnePerStack = hideOnePerStack || hideOne;
     }
@@ -30,14 +30,14 @@ public class QuantumChestInventoryHandler extends DSULikeInventoryHandler {
     @Override
     public boolean isType(TileEntity tile) {
         if (!(tile instanceof IGregTechTileEntity)) return false;
-        return ((IGregTechTileEntity) tile).getMetaTileEntity() instanceof GT_MetaTileEntity_QuantumChest;
+        return ((IGregTechTileEntity) tile).getMetaTileEntity() instanceof MTEQuantumChest;
     }
 
     @Override
     public SpecialInventoryHandler getUtilForTile(TileEntity tile, ForgeDirection dir, boolean hideOnePerStack,
             boolean hideOne, int cropStart, int cropEnd) {
         return new QuantumChestInventoryHandler(
-                ((GT_MetaTileEntity_QuantumChest) ((IGregTechTileEntity) tile).getMetaTileEntity()),
+                ((MTEQuantumChest) ((IGregTechTileEntity) tile).getMetaTileEntity()),
                 hideOnePerStack,
                 hideOne,
                 cropStart,

@@ -16,8 +16,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.objects.ItemData;
-import gregtech.api.util.GT_OreDictUnificator;
-import gregtech.common.tileentities.automation.GT_MetaTileEntity_TypeFilter;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.common.tileentities.automation.MTETypeFilter;
 import logisticspipes.gui.hud.modules.HUDStringBasedItemSink;
 import logisticspipes.interfaces.IClientInformationProvider;
 import logisticspipes.interfaces.IHUDModuleHandler;
@@ -81,12 +81,11 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
 
     private boolean isStackAllowed(ItemIdentifier identifier) {
         ItemStack stack = identifier.makeNormalStackNoTag(1);
-        ItemData data = GT_OreDictUnificator.getItemData(stack);
+        ItemData data = GTOreDictUnificator.getItemData(stack);
 
         for (OrePrefixes prefix : prefixes) {
             if (prefix == OrePrefixes.ore) {
-                if (data != null && data.mPrefix != null
-                        && GT_MetaTileEntity_TypeFilter.OREBLOCK_PREFIXES.contains(data.mPrefix)) {
+                if (data != null && data.mPrefix != null && MTETypeFilter.OREBLOCK_PREFIXES.contains(data.mPrefix)) {
                     return true;
                 }
             }
@@ -205,7 +204,7 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
 
     @Override
     public String getStringForItem(ItemIdentifier ident) {
-        ItemData data = GT_OreDictUnificator.getAssociation(ident.makeNormalStackNoTag(1));
+        ItemData data = GTOreDictUnificator.getAssociation(ident.makeNormalStackNoTag(1));
         if (data != null && data.hasValidPrefixData()) {
             return data.mPrefix.toString();
         }
