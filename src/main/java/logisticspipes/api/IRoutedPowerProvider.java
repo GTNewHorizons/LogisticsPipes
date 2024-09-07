@@ -2,6 +2,8 @@ package logisticspipes.api;
 
 import java.util.List;
 
+import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
+
 /**
  * things implementing this interface are capable of providing power, but they draw from another sources Implement
  * ILogisticsPowerProvider if you wish to provide power to the LP network. Losses of energy based on distance may be
@@ -30,4 +32,6 @@ public interface IRoutedPowerProvider {
     int getY();
 
     int getZ();
+
+    IBlockPos getPos();
 }

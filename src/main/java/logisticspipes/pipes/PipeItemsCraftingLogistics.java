@@ -142,8 +142,8 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
     }
 
     @Override
-    public List<ItemIdentifierStack> getCraftedItems() {
-        return craftingModule.getCraftedItems();
+    public List<ItemIdentifierStack> getConfiguredCraftResults() {
+        return craftingModule.getConfiguredCraftResults();
     }
 
     @Override

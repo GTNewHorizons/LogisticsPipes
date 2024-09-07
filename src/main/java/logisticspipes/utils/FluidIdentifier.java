@@ -27,6 +27,7 @@ import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 public class FluidIdentifier implements ILPCCTypeHolder {
 
@@ -48,6 +49,8 @@ public class FluidIdentifier implements ILPCCTypeHolder {
     public final String name;
     public final FinalNBTTagCompound tag;
     public final int uniqueID;
+    @Getter
+    private final ItemIdentifier itemIdentifier;
 
     @AllArgsConstructor
     private static class FluidStackAddInfo implements IAddInfo {
@@ -66,6 +69,7 @@ public class FluidIdentifier implements ILPCCTypeHolder {
         this.name = name;
         this.tag = tag;
         this.uniqueID = uniqueID;
+        this.itemIdentifier = SimpleServiceLocator.logisticsFluidManager.getFluidContainer(makeFluidStack(0)).getItem();
     }
 
     public static FluidIdentifier get(Fluid fluid, NBTTagCompound tag, FluidIdentifier proposal) {
@@ -351,10 +355,6 @@ public class FluidIdentifier implements ILPCCTypeHolder {
         List<FluidIdentifier> list = Collections.unmodifiableList(FluidIdentifier._fluidIdentifierCache);
         FluidIdentifier.rlock.unlock();
         return list;
-    }
-
-    public ItemIdentifier getItemIdentifier() {
-        return SimpleServiceLocator.logisticsFluidManager.getFluidContainer(makeFluidStack(0)).getItem();
     }
 
     private Object ccObject;

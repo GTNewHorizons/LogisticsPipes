@@ -15,22 +15,32 @@ import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.routing.order.IOrderInfoProvider.ResourceType;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
+import lombok.Getter;
 
 public class FluidLogisticsPromise implements IPromise {
 
-    public FluidIdentifier liquid;
-    public int amount;
-    public IProvideFluids sender;
-    public ResourceType type;
+    @Getter
+    private final FluidIdentifier liquid;
+    @Getter
+    private final int amount;
+    private final IProvideFluids sender;
+    @Getter
+    private final ResourceType type;
+
+    public FluidLogisticsPromise(FluidIdentifier liquid, int amount, IProvideFluids sender, ResourceType type) {
+        this.liquid = liquid;
+        this.amount = amount;
+        this.sender = sender;
+        this.type = type;
+    }
 
     @Override
     public FluidLogisticsPromise copy() {
-        FluidLogisticsPromise result = new FluidLogisticsPromise();
-        result.liquid = liquid;
-        result.amount = amount;
-        result.sender = sender;
-        result.type = type;
-        return result;
+        return new FluidLogisticsPromise(liquid, amount, sender, type);
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     @Override
@@ -40,11 +50,6 @@ public class FluidLogisticsPromise implements IPromise {
             return fluid.getFluid().equals(liquid);
         }
         return false;
-    }
-
-    @Override
-    public int getAmount() {
-        return amount;
     }
 
     @Override
@@ -61,11 +66,6 @@ public class FluidLogisticsPromise implements IPromise {
     @Override
     public ItemIdentifier getItemType() {
         return liquid.getItemIdentifier();
-    }
-
-    @Override
-    public ResourceType getType() {
-        return type;
     }
 
     @Override

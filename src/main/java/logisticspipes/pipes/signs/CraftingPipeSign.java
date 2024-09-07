@@ -83,10 +83,10 @@ public class CraftingPipeSign implements IPipeSign {
         PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
         FontRenderer var17 = renderer.func_147498_b();
         if (cpipe != null) {
-            List<ItemIdentifierStack> craftables = cpipe.getCraftedItems();
+            List<ItemIdentifierStack> craftables = cpipe.getConfiguredCraftResults();
 
             String name = "";
-            if (craftables != null && craftables.size() > 0) {
+            if (craftables != null && !craftables.isEmpty()) {
                 ItemStack itemstack = craftables.get(0).unsafeMakeNormalStack();
 
                 renderer.renderItemStackOnSign(itemstack);
@@ -138,8 +138,8 @@ public class CraftingPipeSign implements IPipeSign {
     public IPipeSignData getRenderData(CoreRoutedPipe pipe) {
         PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
         if (cpipe != null) {
-            List<ItemIdentifierStack> craftables = cpipe.getCraftedItems();
-            if (craftables != null && craftables.size() > 0) {
+            List<ItemIdentifierStack> craftables = cpipe.getConfiguredCraftResults();
+            if (craftables != null && !craftables.isEmpty()) {
                 ItemIdentifierStack itemIdentifierStack = craftables.get(0);
                 ModuleCrafter logisticsMod = cpipe.getLogisticsModule();
                 return new CraftingPipeSignData(itemIdentifierStack, logisticsMod.satelliteId);

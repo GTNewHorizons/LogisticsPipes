@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.LogisticsPipes;
@@ -256,6 +258,10 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
 
     public final int getZ() {
         return container.zCoord;
+    }
+
+    public final IBlockPos getPos() {
+        return container.getPos();
     }
 
     public boolean canBeDestroyed() {
