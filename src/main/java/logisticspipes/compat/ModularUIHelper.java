@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.cleanroommc.modularui.drawable.UITexture;
-import com.cleanroommc.modularui.factory.TileEntityGuiFactory;
+import com.cleanroommc.modularui.factory.GuiFactories;
 
 import logisticspipes.LogisticsPipes;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
@@ -18,6 +18,6 @@ public class ModularUIHelper {
         World world = pipe.getWorld();
         if (world == null || world.isRemote) return;
 
-        TileEntityGuiFactory.open(player, pipe.getX(), pipe.getY(), pipe.getZ());
+        GuiFactories.tileEntity().open(player, pipe.getX(), pipe.getY(), pipe.getZ());
     }
 }

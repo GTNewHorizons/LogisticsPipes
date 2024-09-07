@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import logisticspipes.LPConstants;
+import logisticspipes.Tags;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.gui.hud.HUDPowerLevel;
 import logisticspipes.interfaces.IBlockWatchingHandler;
@@ -360,7 +360,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     @Override
     public void func_145828_a(CrashReportCategory par1CrashReportCategory) {
         super.func_145828_a(par1CrashReportCategory);
-        par1CrashReportCategory.addCrashSection("LP-Version", LPConstants.VERSION);
+        par1CrashReportCategory.addCrashSection("LP-Version", Tags.VERSION);
     }
 
     public void handlePowerPacket(float float1) {
