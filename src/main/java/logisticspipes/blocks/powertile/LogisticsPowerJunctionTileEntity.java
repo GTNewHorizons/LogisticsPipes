@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
-import logisticspipes.LPConstants;
+import logisticspipes.Tags;
 import logisticspipes.api.ILogisticsPowerProvider;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.config.Configs;
@@ -307,7 +307,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     @Override
     public void func_145828_a(CrashReportCategory par1CrashReportCategory) {
         super.func_145828_a(par1CrashReportCategory);
-        par1CrashReportCategory.addCrashSection("LP-Version", LPConstants.VERSION);
+        par1CrashReportCategory.addCrashSection("LP-Version", Tags.VERSION);
     }
 
     @Override

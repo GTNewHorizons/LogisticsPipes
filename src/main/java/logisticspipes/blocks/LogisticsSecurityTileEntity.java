@@ -20,8 +20,8 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
+import logisticspipes.Tags;
 import logisticspipes.api.IRoutedPowerProvider;
 import logisticspipes.interfaces.IGuiOpenControler;
 import logisticspipes.interfaces.IGuiTileEntity;
@@ -364,7 +364,7 @@ public class LogisticsSecurityTileEntity extends LogisticsSolidTileEntity
     @Override
     public void func_145828_a(CrashReportCategory par1CrashReportCategory) {
         super.func_145828_a(par1CrashReportCategory);
-        par1CrashReportCategory.addCrashSection("LP-Version", LPConstants.VERSION);
+        par1CrashReportCategory.addCrashSection("LP-Version", Tags.VERSION);
     }
 
     public World getWorld() {

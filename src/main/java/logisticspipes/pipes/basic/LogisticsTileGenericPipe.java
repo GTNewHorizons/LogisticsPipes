@@ -47,6 +47,7 @@ import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.SidedEnvironment;
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
+import logisticspipes.Tags;
 import logisticspipes.api.ILPPipe;
 import logisticspipes.api.ILPPipeTile;
 import logisticspipes.api.IMUICompatiblePipe;
@@ -282,7 +283,7 @@ public class LogisticsTileGenericPipe extends TileEntity
                 e.printStackTrace();
             }
         }
-        par1CrashReportCategory.addCrashSection("LP-Version", LPConstants.VERSION);
+        par1CrashReportCategory.addCrashSection("LP-Version", Tags.VERSION);
         if (pipe != null) {
             par1CrashReportCategory.addCrashSection("Pipe", pipe.getClass().getCanonicalName());
             if (pipe.transport != null) {

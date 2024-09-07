@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import logisticspipes.LPConstants;
+import logisticspipes.Tags;
 import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ICraftingResultHandler;
 import logisticspipes.interfaces.IGuiOpenControler;
@@ -427,7 +427,7 @@ public class LogisticsSolderingTileEntity extends LogisticsSolidTileEntity
     @Override
     public void func_145828_a(CrashReportCategory par1CrashReportCategory) {
         super.func_145828_a(par1CrashReportCategory);
-        par1CrashReportCategory.addCrashSection("LP-Version", LPConstants.VERSION);
+        par1CrashReportCategory.addCrashSection("LP-Version", Tags.VERSION);
     }
 
     @Override
