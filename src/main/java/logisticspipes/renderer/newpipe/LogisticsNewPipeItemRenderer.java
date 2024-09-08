@@ -3,20 +3,20 @@ package logisticspipes.renderer.newpipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gtnewhorizon.gtnhlib.client.renderer.CapturingTessellator;
-import com.gtnewhorizon.gtnhlib.client.renderer.TessellatorManager;
-import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
-import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
-import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.obj.Vertex;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
+
+import com.gtnewhorizon.gtnhlib.client.renderer.CapturingTessellator;
+import com.gtnewhorizon.gtnhlib.client.renderer.TessellatorManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
+import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
 
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.ItemLogisticsPipe;
@@ -54,7 +54,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         if (item.getItem() instanceof ItemLogisticsPipe) {
             ItemLogisticsPipe lItem = (ItemLogisticsPipe) item.getItem();
             int renderList = lItem.getNewPipeRenderList();
-            if (renderList == -1){
+            if (renderList == -1) {
                 TessellatorManager.startCapturing();
                 CapturingTessellator tess = (CapturingTessellator) TessellatorManager.get();
 
@@ -77,7 +77,6 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         GL11.glPopAttrib();
         GL11.glPopMatrix();
     }
-
 
     private void generatePipeRenderList(int texture) {
         List<Pair<IModel3D, IIconTransformation>> objectsToRender = new ArrayList<>();
