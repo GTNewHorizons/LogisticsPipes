@@ -781,7 +781,7 @@ public class LogisticsNewRenderPipe {
             renderState.renderList.stopCompile();
         }
         if (renderState.renderList != null) {
-            GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
+            GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_ENABLE_BIT);
             GL11.glPushMatrix();
             GL11.glTranslated(x, y, z);
             GL11.glEnable(GL11.GL_BLEND);
