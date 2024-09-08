@@ -773,12 +773,15 @@ public class LogisticsNewRenderPipe {
                     model.getValue1().render(model.getValue2());
                 }
             }
+
             SimpleServiceLocator.cclProxy.getRenderState().setAlphaOverride(0xff);
+
             tess.draw();
 
             renderState.renderList.stopCompile();
         }
         if (renderState.renderList != null) {
+            GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
             GL11.glPushMatrix();
             GL11.glTranslated(x, y, z);
             GL11.glEnable(GL11.GL_BLEND);
@@ -786,6 +789,7 @@ public class LogisticsNewRenderPipe {
             renderState.renderList.render();
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glPopMatrix();
+            GL11.glPopAttrib();
         }
     }
 
