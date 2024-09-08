@@ -3,11 +3,17 @@ package logisticspipes.renderer.newpipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gtnewhorizon.gtnhlib.client.renderer.CapturingTessellator;
+import com.gtnewhorizon.gtnhlib.client.renderer.TessellatorManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
+import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.obj.Vertex;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
@@ -35,32 +41,35 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
     private void renderPipeItem(RenderBlocks render, ItemStack item, float translateX, float translateY,
             float translateZ) {
         GL11.glPushMatrix();
-
-        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT); // don't break other mods' guis when holding a pipe
-
+        // don't break other mods' guis when holding a pipe
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_ENABLE_BIT);
         // force transparency
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_BLEND);
 
         // GL11.glBindTexture(GL11.GL_TEXTURE_2D, 10);
-        Tessellator tessellator = Tessellator.instance;
-
         GL11.glTranslatef(translateX, translateY, translateZ);
         Block block = LogisticsPipes.LogisticsPipeBlock;
         if (item.getItem() instanceof ItemLogisticsPipe) {
             ItemLogisticsPipe lItem = (ItemLogisticsPipe) item.getItem();
             int renderList = lItem.getNewPipeRenderList();
+            if (renderList == -1){
+                TessellatorManager.startCapturing();
+                CapturingTessellator tess = (CapturingTessellator) TessellatorManager.get();
 
-            if (renderList == -1) {
-                lItem.setNewPipeRenderList(GL11.glGenLists(1));
-                renderList = lItem.getNewPipeRenderList();
-                GL11.glNewList(renderList, GL11.GL_COMPILE);
-                tessellator.startDrawingQuads();
+                tess.startDrawingQuads();
                 generatePipeRenderList(lItem.getNewPipeIconIndex());
-                tessellator.draw();
-                GL11.glEndList();
+                tess.draw();
+
+                VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
+                int vboID = VBOManager.generateDisplayLists(1);
+                VBOManager.registerVBO(vboID, vbo);
+
+                lItem.setNewPipeRenderList(vboID);
+                renderList = vboID;
             }
-            GL11.glCallList(renderList);
+            VBOManager.get(renderList).render();
         }
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -68,6 +77,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         GL11.glPopAttrib();
         GL11.glPopMatrix();
     }
+
 
     private void generatePipeRenderList(int texture) {
         List<Pair<IModel3D, IIconTransformation>> objectsToRender = new ArrayList<>();
