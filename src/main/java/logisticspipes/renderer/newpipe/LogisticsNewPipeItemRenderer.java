@@ -54,28 +54,54 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         if (item.getItem() instanceof ItemLogisticsPipe) {
             ItemLogisticsPipe lItem = (ItemLogisticsPipe) item.getItem();
             int renderList = lItem.getNewPipeRenderList();
+
             if (renderList == -1) {
-                TessellatorManager.startCapturing();
-                CapturingTessellator tess = (CapturingTessellator) TessellatorManager.get();
-
-                tess.startDrawingQuads();
-                generatePipeRenderList(lItem.getNewPipeIconIndex());
-                tess.draw();
-
-                VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
-                int vboID = VBOManager.generateDisplayLists(1);
-                VBOManager.registerVBO(vboID, vbo);
-
-                lItem.setNewPipeRenderList(vboID);
-                renderList = vboID;
+                if (LogisticsPipes.hasGTNHLib) {
+                    renderList = buildVBO(lItem);
+                } else {
+                    renderList = buildDisplayList(lItem);
+                }
             }
-            VBOManager.get(renderList).render();
+
+            if (LogisticsPipes.hasGTNHLib) {
+                VBOManager.get(renderList).render();
+            } else {
+                GL11.glCallList(renderList);
+            }
         }
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
         GL11.glPopAttrib();
         GL11.glPopMatrix();
+    }
+
+    private int buildDisplayList(ItemLogisticsPipe lItem) {
+        Tessellator tessellator = Tessellator.instance;
+        lItem.setNewPipeRenderList(GL11.glGenLists(1));
+        int listID = lItem.getNewPipeRenderList();
+        GL11.glNewList(listID, GL11.GL_COMPILE);
+        tessellator.startDrawingQuads();
+        generatePipeRenderList(lItem.getNewPipeIconIndex());
+        tessellator.draw();
+        GL11.glEndList();
+        return listID;
+    }
+
+    private int buildVBO(ItemLogisticsPipe lItem) {
+        TessellatorManager.startCapturing();
+        CapturingTessellator tess = (CapturingTessellator) TessellatorManager.get();
+
+        tess.startDrawingQuads();
+        generatePipeRenderList(lItem.getNewPipeIconIndex());
+        tess.draw();
+
+        VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
+        int vboID = VBOManager.generateDisplayLists(1);
+        VBOManager.registerVBO(vboID, vbo);
+
+        lItem.setNewPipeRenderList(vboID);
+        return vboID;
     }
 
     private void generatePipeRenderList(int texture) {
