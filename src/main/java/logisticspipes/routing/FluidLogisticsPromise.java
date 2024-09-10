@@ -39,10 +39,6 @@ public class FluidLogisticsPromise implements IPromise {
         return new FluidLogisticsPromise(liquid, amount, sender, type);
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
     @Override
     public boolean matches(IResource requestType) {
         if (requestType instanceof FluidResource) {
