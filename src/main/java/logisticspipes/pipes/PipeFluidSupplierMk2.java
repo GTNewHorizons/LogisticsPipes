@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
-import com.cleanroommc.modularui.screen.Tooltip;
+import com.cleanroommc.modularui.screen.RichTooltip;
 import com.cleanroommc.modularui.utils.Alignment;
 import com.cleanroommc.modularui.value.sync.FluidSlotSyncHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
@@ -112,7 +112,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe
                                                                         IKey.lang(
                                                                                 "gui.fluidsuppliermk2.partial.no.tip"));
                                                             }
-                                                        })).tooltipPos(Tooltip.Pos.ABOVE)))
+                                                        })).tooltipPos(RichTooltip.Pos.ABOVE)))
                         .child(
                                 new Row().mainAxisAlignment(Alignment.MainAxis.CENTER)
                                         .crossAxisAlignment(Alignment.CrossAxis.CENTER).marginTop(5)
@@ -138,7 +138,7 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe
                                                             this.refillThreshold != 0 ? this.refillThreshold : "n"));
                                             tooltip.addLine(
                                                     IKey.lang("gui.fluidsuppliermk2.refill_if_depleted.tip.zero"));
-                                        }).tooltipPos(Tooltip.Pos.ABOVE))));
+                                        }).tooltipPos(RichTooltip.Pos.ABOVE))));
     }
 
     @Override
