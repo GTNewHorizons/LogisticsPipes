@@ -287,6 +287,7 @@ public class LogisticsPipes {
     private static PlayerConfig playerConfig;
 
     public static boolean isGTNH = false;
+    public static boolean hasGTNHLib = false;
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
@@ -337,6 +338,7 @@ public class LogisticsPipes {
     public void preInit(FMLPreInitializationEvent evt) {
         // Gregtech New Horizons compat
         isGTNH = Loader.isModLoaded("dreamcraft") && Loader.isModLoaded("gregtech");
+        hasGTNHLib = isGTNH || Loader.isModLoaded("gtnhlib");
 
         LogisticsPipes.log = evt.getModLog();
         loadClasses();
