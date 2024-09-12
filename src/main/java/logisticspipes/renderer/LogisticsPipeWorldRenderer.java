@@ -208,6 +208,7 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId,
             RenderBlocks renderer) {
         TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile == null) return false;
         LogisticsTileGenericPipe pipeTile = (LogisticsTileGenericPipe) tile;
         if (config.isUseNewRenderer() && !pipeTile.renderState.forceRenderOldPipe) {
             return newRenderer.renderWorldBlock(world, x, y, z, block, modelId, renderer);
