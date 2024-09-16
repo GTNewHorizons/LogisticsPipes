@@ -287,7 +287,7 @@ public class LogisticsPipes {
     private static PlayerConfig playerConfig;
 
     public static boolean isGTNH = false;
-    public static boolean hasGTNHLib = false;
+    public static boolean enableVBO = false;
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
@@ -338,7 +338,11 @@ public class LogisticsPipes {
     public void preInit(FMLPreInitializationEvent evt) {
         // Gregtech New Horizons compat
         isGTNH = Loader.isModLoaded("dreamcraft") && Loader.isModLoaded("gregtech");
-        hasGTNHLib = isGTNH || Loader.isModLoaded("gtnhlib");
+        enableVBO = Loader.isModLoaded("gtnhlib");
+        try {
+            Class.forName("optifine.OptiFineForgeTweaker");
+            enableVBO = false;
+        } catch (ClassNotFoundException ignored) {}
 
         LogisticsPipes.log = evt.getModLog();
         loadClasses();
