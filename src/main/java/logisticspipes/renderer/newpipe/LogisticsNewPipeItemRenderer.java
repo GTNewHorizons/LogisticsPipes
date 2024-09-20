@@ -56,14 +56,14 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
             int renderList = lItem.getNewPipeRenderList();
 
             if (renderList == -1) {
-                if (LogisticsPipes.hasGTNHLib) {
+                if (LogisticsPipes.enableVBO) {
                     renderList = buildVBO(lItem);
                 } else {
                     renderList = buildDisplayList(lItem);
                 }
             }
 
-            if (LogisticsPipes.hasGTNHLib) {
+            if (LogisticsPipes.enableVBO) {
                 VBOManager.get(renderList).render();
             } else {
                 GL11.glCallList(renderList);
