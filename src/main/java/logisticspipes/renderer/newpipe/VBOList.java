@@ -1,13 +1,14 @@
 package logisticspipes.renderer.newpipe;
 
-import net.minecraft.client.renderer.GLAllocation;
+import com.gtnewhorizon.gtnhlib.client.renderer.TessellatorManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
+import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
 
-import org.lwjgl.opengl.GL11;
+public class VBOList implements IRenderable {
 
-public class GLRenderList implements IRenderable {
-
-    private final int listID = GLAllocation.generateDisplayLists(1);
-    public boolean isValid = true;
+    private final int listID = VBOManager.generateDisplayLists(1);
+    private boolean isValid = true;
     private long lastUsed = System.currentTimeMillis();
     private boolean isFilled = false;
 
@@ -18,18 +19,13 @@ public class GLRenderList implements IRenderable {
 
     @Override
     public void startListCompile() {
-        if (!isValid) {
-            throw new UnsupportedOperationException("Can't use a removed list");
-        }
-        GL11.glNewList(listID, GL11.GL_COMPILE);
+        TessellatorManager.startCapturing();
     }
 
     @Override
     public void stopCompile() {
-        if (!isValid) {
-            throw new UnsupportedOperationException("Can't use a removed list");
-        }
-        GL11.glEndList();
+        VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
+        VBOManager.registerVBO(listID, vbo);
         isFilled = true;
     }
 
@@ -38,7 +34,7 @@ public class GLRenderList implements IRenderable {
         if (!isValid) {
             throw new UnsupportedOperationException("Can't use a removed list");
         }
-        GL11.glCallList(listID);
+        VBOManager.get(listID).render();
         lastUsed = System.currentTimeMillis();
     }
 
@@ -66,7 +62,8 @@ public class GLRenderList implements IRenderable {
 
     @Override
     public void close() {
-        GLAllocation.deleteDisplayLists(listID);
+        VertexBuffer buffer = VBOManager.get(listID);
+        buffer.close();
         isValid = false;
     }
 }

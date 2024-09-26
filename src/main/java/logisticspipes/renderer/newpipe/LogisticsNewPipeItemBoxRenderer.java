@@ -1,5 +1,7 @@
 package logisticspipes.renderer.newpipe;
 
+import static logisticspipes.LogisticsPipes.enableVBO;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,13 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
+import com.gtnewhorizon.gtnhlib.client.renderer.CapturingTessellator;
+import com.gtnewhorizon.gtnhlib.client.renderer.TessellatorManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
+import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
+import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
+
+import logisticspipes.LogisticsPipes;
 import logisticspipes.items.LogisticsFluidContainer;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.CustomBlockRenderer;
@@ -32,18 +41,18 @@ public class LogisticsNewPipeItemBoxRenderer {
         GL11.glPushMatrix();
 
         if (renderList == -1) {
-            renderList = GLAllocation.generateDisplayLists(1);
-            GL11.glNewList(renderList, GL11.GL_COMPILE);
-            Tessellator tess = Tessellator.instance;
-            tess.startDrawingQuads();
-            LogisticsNewRenderPipe.innerTransportBox.render(LogisticsNewRenderPipe.innerBoxTexture);
-            tess.draw();
-            GL11.glEndList();
+            if (enableVBO) renderList = generateInnerBoxVBO();
+            else renderList = generateInnerBoxDisplayList();
         }
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(LogisticsNewPipeItemBoxRenderer.BLOCKS);
         GL11.glTranslated(x - 0.5, y - 0.5, z - 0.5);
-        GL11.glCallList(renderList);
+
+        if (LogisticsPipes.enableVBO) {
+            VBOManager.get(renderList).render();
+        } else {
+            GL11.glCallList(renderList);
+        }
 
         if (itemIdentifierStack != null && itemIdentifierStack.getItem().item instanceof LogisticsFluidContainer) {
             FluidStack f = SimpleServiceLocator.logisticsFluidManager.getFluidFromContainer(itemIdentifierStack);
@@ -56,7 +65,12 @@ public class LogisticsNewPipeItemBoxRenderer {
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-                GL11.glCallList(list);
+                if (LogisticsPipes.enableVBO) {
+                    VBOManager.get(list).render();
+                } else {
+                    GL11.glCallList(list);
+                }
+
                 GL11.glPopAttrib();
             }
         }
@@ -73,17 +87,11 @@ public class LogisticsNewPipeItemBoxRenderer {
         if (array[pos] != 0) {
             return array[pos];
         }
-        RenderInfo block = new RenderInfo();
-
-        block.baseBlock = fluid.getFluid().getBlock();
-        block.texture = fluid.getFluid().getStillIcon();
-
         float ratio = pos * 1.0F / (LogisticsNewPipeItemBoxRenderer.RENDER_SIZE - 1);
 
-        // CENTER HORIZONTAL
-
-        array[pos] = GLAllocation.generateDisplayLists(1);
-        GL11.glNewList(array[pos], 4864 /* GL_COMPILE */);
+        RenderInfo block = new RenderInfo();
+        block.baseBlock = fluid.getFluid().getBlock();
+        block.texture = fluid.getFluid().getStillIcon();
 
         block.minX = 0.32;
         block.maxX = 0.68;
@@ -94,9 +102,57 @@ public class LogisticsNewPipeItemBoxRenderer {
         block.minZ = 0.32;
         block.maxZ = 0.68;
 
+        if (enableVBO) array[pos] = generateVBO(block);
+        else array[pos] = generateDisplayList(block);
+
+        return array[pos];
+    }
+
+    private int generateDisplayList(RenderInfo block) {
+        int id = GLAllocation.generateDisplayLists(1);
+        GL11.glNewList(id, GL11.GL_COMPILE);
+
         CustomBlockRenderer.INSTANCE.renderBlock(block, Minecraft.getMinecraft().theWorld, 0, 0, 0, false, true);
 
         GL11.glEndList();
-        return array[pos];
+        return id;
     }
+
+    private int generateVBO(RenderInfo block) {
+        TessellatorManager.startCapturing();
+
+        CustomBlockRenderer.INSTANCE.renderBlock(block, Minecraft.getMinecraft().theWorld, 0, 0, 0, false, true);
+
+        VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
+        int vboID = VBOManager.generateDisplayLists(1);
+        VBOManager.registerVBO(vboID, vbo);
+        return vboID;
+    }
+
+    private int generateInnerBoxDisplayList() {
+        int id = GLAllocation.generateDisplayLists(1);
+        GL11.glNewList(id, GL11.GL_COMPILE);
+        Tessellator tess = Tessellator.instance;
+        tess.startDrawingQuads();
+
+        LogisticsNewRenderPipe.innerTransportBox.render(LogisticsNewRenderPipe.innerBoxTexture);
+
+        tess.draw();
+        GL11.glEndList();
+        return id;
+    }
+
+    private int generateInnerBoxVBO() {
+        TessellatorManager.startCapturing();
+        CapturingTessellator tess = (CapturingTessellator) TessellatorManager.get();
+        tess.startDrawingQuads();
+        LogisticsNewRenderPipe.innerTransportBox.render(LogisticsNewRenderPipe.innerBoxTexture);
+        tess.draw();
+
+        VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
+        int vboID = VBOManager.generateDisplayLists(1);
+        VBOManager.registerVBO(vboID, vbo);
+        return vboID;
+    }
+
 }
