@@ -1,25 +1,25 @@
 package logisticspipes.renderer.newpipe;
 
+import static logisticspipes.LogisticsPipes.enableVBO;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.renderer.GLAllocation;
-
 public class GLRenderListHandler {
 
-    private List<GLRenderList> collection = new ArrayList<>();
+    private List<IRenderable> collection = new ArrayList<>();
 
-    public GLRenderList getNewRenderList() {
-        GLRenderList list = new GLRenderList();
+    public IRenderable getNewRenderList() {
+        IRenderable list = enableVBO ? new VBOList() : new GLRenderList();
         collection.add(list);
         return list;
     }
 
     public void tick() {
-        List<GLRenderList> newCollection = new ArrayList<>(collection);
-        for (GLRenderList ref : collection) {
+        List<IRenderable> newCollection = new ArrayList<>(collection);
+        for (IRenderable ref : collection) {
             if (!ref.check()) {
-                GLAllocation.deleteDisplayLists(ref.getID());
+                ref.close();
                 newCollection.remove(ref);
             }
         }
