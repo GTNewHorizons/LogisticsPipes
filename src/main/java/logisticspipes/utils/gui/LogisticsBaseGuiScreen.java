@@ -624,7 +624,8 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     @Optional.Method(modid = "NotEnoughItems")
     public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
         if (gui instanceof LogisticsBaseGuiScreen) {
-            return ((LogisticsBaseGuiScreen) gui).extentionControllerRight.isOverPanel(x, y, w, h);
+            return ((LogisticsBaseGuiScreen) gui).extentionControllerRight.isOverPanel(x, y, w, h)
+                    || ((LogisticsBaseGuiScreen) gui).extentionControllerLeft.isOverPanel(x, y, w, h);
         }
         return false;
     }
