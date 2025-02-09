@@ -341,7 +341,7 @@ public class ItemDisplay {
     public void handleMouse() {
         boolean isShift = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
         boolean isControl = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-        int wheel = Mouse.getEventDWheel() / 120;
+        int wheel = Mouse.getEventDWheel();
         if (wheel == 0) {
             return;
         }
