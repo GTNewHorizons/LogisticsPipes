@@ -155,7 +155,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(6, right - 86, bottom - 26, 10, 10, "+"))); // +1
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
-        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
         buttonList.add(hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
 
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
