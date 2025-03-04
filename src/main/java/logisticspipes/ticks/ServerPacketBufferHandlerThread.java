@@ -187,6 +187,16 @@ public class ServerPacketBufferHandlerThread {
                     }
                 }
             } while (flag);
+
+            synchronized (playersToClear) {
+                EntityPlayer player;
+                do {
+                    player = playersToClear.poll();
+                    if (player != null) {
+                        ByteBuffer.remove(player);
+                    }
+                } while (player != null);
+            }
         }
 
         @Override
@@ -254,15 +264,6 @@ public class ServerPacketBufferHandlerThread {
                             queue.wait();
                         } catch (InterruptedException ignored) {}
                     }
-                }
-                synchronized (playersToClear) {
-                    EntityPlayer player;
-                    do {
-                        player = playersToClear.poll();
-                        if (player != null) {
-                            ByteBuffer.remove(player);
-                        }
-                    } while (player != null);
                 }
             }
         }
