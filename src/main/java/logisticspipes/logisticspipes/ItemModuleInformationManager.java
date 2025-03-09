@@ -79,7 +79,6 @@ public class ItemModuleInformationManager {
         }
     }
 
-
     /**
      * Remove mod-specific NBT tags from the given ItemStack.
      */
