@@ -1,11 +1,12 @@
 package logisticspipes.logisticspipes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
@@ -78,21 +79,22 @@ public class ItemModuleInformationManager {
         }
     }
 
-    public static void removeInformation(ItemStack itemStack) {
-        if (itemStack == null) {
+    /**
+     * Remove mod-specific NBT tags from the given ItemStack.
+     */
+    public static void removeInformation(final ItemStack itemStack) {
+        if (itemStack == null || !itemStack.hasTagCompound()) {
             return;
         }
-        if (itemStack.hasTagCompound()) {
-            NBTTagCompound nbt = itemStack.getTagCompound();
+
+        final NBTTagCompound nbtCopy = new NBTTagCompound();
+        for (Object e : itemStack.getTagCompound().tagMap.entrySet()) {
             @SuppressWarnings("unchecked")
-            Collection<String> collection = nbt.tagMap.keySet();
-            nbt = new NBTTagCompound();
-            for (String key : collection) {
-                if (!ItemModuleInformationManager.Filter.contains(key)) {
-                    nbt.setTag(key, nbt.getTag(key));
-                }
+            final Map.Entry<String, NBTBase> entry = (Map.Entry<String, NBTBase>) e;
+            if (!ItemModuleInformationManager.Filter.contains(entry.getKey())) {
+                nbtCopy.setTag(entry.getKey(), entry.getValue());
             }
-            itemStack.setTagCompound(nbt);
         }
+        itemStack.setTagCompound(nbtCopy);
     }
 }
