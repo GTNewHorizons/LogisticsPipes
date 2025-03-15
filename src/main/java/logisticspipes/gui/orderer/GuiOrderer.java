@@ -13,6 +13,10 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Keyboard;
 
@@ -152,6 +156,22 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {
             return true;
+        }
+        if (item.tag != null && "IC2".equals(item.getModName())
+                && "itemFluidCell".equals(item.item.getUnlocalizedName())) {
+            if (item.tag.hasKey("Fluid")) {
+                final NBTTagCompound fluidTag = item.tag.getCompoundTag("Fluid");
+                if (fluidTag.hasKey("FluidName") && fluidTag.hasKey("Amount")) {
+                    final String fluidName = fluidTag.getString("FluidName");
+                    final int fluidAmount = fluidTag.getInteger("Amount");
+                    final Fluid fluid = FluidRegistry.getFluid(fluidName);
+                    if (isSearched(
+                            fluid.getLocalizedName(new FluidStack(fluid, fluidAmount)).toLowerCase(Locale.US),
+                            search.getContent().toLowerCase(Locale.US))) {
+                        return true;
+                    }
+                }
+            }
         }
         if (isSearched(item.getFriendlyName().toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
             return true;
