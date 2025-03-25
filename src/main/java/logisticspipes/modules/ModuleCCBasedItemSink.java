@@ -1,8 +1,12 @@
 package logisticspipes.modules;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import logisticspipes.proxy.computers.interfaces.CCCommand;
+import logisticspipes.proxy.computers.interfaces.SetSourceMod;
+import logisticspipes.proxy.computers.wrapper.CCWrapperInformation.SourceMod;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -21,6 +25,10 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 public class ModuleCCBasedItemSink extends LogisticsModule {
 
     private IQueueCCEvent eventQueuer;
+
+    private final List<CCSinkResponder> responses = new ArrayList<>();
+
+    private SourceMod sourceMod;
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {}
@@ -89,14 +97,56 @@ public class ModuleCCBasedItemSink extends LogisticsModule {
 
     @Override
     public List<CCSinkResponder> queueCCSinkEvent(ItemIdentifierStack item) {
-        CCSinkResponder resonse = new CCSinkResponder(item, _service.getSourceID(), eventQueuer);
-        eventQueuer.queueEvent("ItemSink", new Object[] { SimpleServiceLocator.ccProxy.getAnswer(resonse) });
-        return new OneList<>(resonse);
+        CCSinkResponder response = new CCSinkResponder(item, _service.getSourceID(), eventQueuer);
+        eventQueuer.queueEvent("ItemSink", new Object[] { nextResponseId(response) }); // Interactive objects cannot be transmitted in OC signal.
+        return new OneList<>(response);
+    }
+
+    @SetSourceMod
+    public void setSourceMod(SourceMod sourceMod) {
+        this.sourceMod = sourceMod;
+    }
+
+    @CCCommand(description = "return response from CC Based Quick Sort by local response id")
+    public Object getResponseCCBQ(Double id) {
+        CCSinkResponder response = responses.get(id.intValue() - 1);
+        Object wrapper = response;
+        if (response.isDestroy()) return wrapper;
+        switch (sourceMod) {
+            case OPENCOMPUTERS:
+                wrapper = SimpleServiceLocator.openComputersProxy.getWrappedObject(response);
+                break;
+            case COMPUTERCRAFT:
+                wrapper = SimpleServiceLocator.ccProxy.getAnswer(response);
+                break;
+        }
+        return wrapper;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconTexture(IIconRegister register) {
         return register.registerIcon("logisticspipes:itemModule/ModuleCCBasedItemSink");
+    }
+
+    private int nextResponseId(CCSinkResponder response) {
+        boolean noSet = true;
+        int id = responses.size();
+        for (int i = 0; i < responses.size(); i++) {
+            CCSinkResponder resp = responses.get(i);
+            if (resp != null && resp.isDestroy())
+                responses.set(i, null);
+            if (resp == null && noSet) {
+                responses.set(i, response);
+                noSet = false;
+                id = i;
+            }
+        }
+
+        if (noSet) {
+            responses.add(response);
+        }
+
+        return id + 1;
     }
 }

@@ -93,6 +93,8 @@ import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCDirectCall;
 import logisticspipes.proxy.computers.interfaces.CCSecurtiyCheck;
 import logisticspipes.proxy.computers.interfaces.CCType;
+import logisticspipes.proxy.computers.interfaces.SetSourceMod;
+import logisticspipes.proxy.computers.wrapper.CCWrapperInformation.SourceMod;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.IRouter;
 import logisticspipes.routing.ItemRoutingInformation;
@@ -134,6 +136,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
 
     protected boolean stillNeedReplace = true;
     private boolean recheckConnections = false;
+    private SourceMod sourceMod;
 
     protected IRouter router;
     protected String routerId;
@@ -1400,6 +1403,12 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         crashReportCategory.addCrashSection("Router", getRouter().toString());
     }
 
+    /* --- SetSourceMod --- */
+    @SetSourceMod
+    public void setSourceCommand(SourceMod sourceMod) {
+        this.sourceMod = sourceMod;
+    }
+
     /* --- CCCommands --- */
     @CCCommand(description = "Returns the Router UUID as an integer; all pipes have a unique ID (runtime stable)")
     public int getRouterId() {
@@ -1414,7 +1423,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     @CCCommand(description = "Returns the Router UUID for the givvin router Id")
     public String getRouterUUID(Double id) {
         IRouter router = SimpleServiceLocator.routerManager.getRouter((int) ((double) id));
-        if (router == null) {
+        if (router == null || router.getDistanceTo(getRouter()).isEmpty()) {
             return null;
         }
         return router.getId().toString();
@@ -1456,18 +1465,25 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             description = "Sends a message to the givven computerId over the LP network. Event: "
                     + CCConstants.LP_CC_MESSAGE_EVENT)
     @CCDirectCall
-    public void sendMessage(final Double computerId, final Object message) {
-        int sourceId = -1;
+    public void sendMessage(final Object computerId, final Object message) {
+        Object sourceId = -1;
         if (container != null) {
-            sourceId = SimpleServiceLocator.ccProxy.getLastCCID(container);
+            switch (sourceMod) {
+                case COMPUTERCRAFT:
+                    sourceId = SimpleServiceLocator.ccProxy.getLastCCID(container);
+                    break;
+                case OPENCOMPUTERS:
+                    sourceId = SimpleServiceLocator.openComputersProxy.getAddress(container);
+                    break;
+            }
         }
-        final int fSourceId = sourceId;
+        final Object fSourceId = sourceId;
         BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
                 exit.destination.queueTask(
                         10,
-                        (pipe, router) -> pipe.handleMesssage((int) ((double) computerId), message, fSourceId));
+                        (pipe, router) -> pipe.handleMesssage(computerId, message, fSourceId));
                 set.set(exit.destination.getSimpleID());
             }
         }
@@ -1477,12 +1493,19 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             description = "Sends a broadcast message to all Computer connected to this LP network. Event: "
                     + CCConstants.LP_CC_BROADCAST_EVENT)
     @CCDirectCall
-    public void sendBroadcast(final String message) {
-        int sourceId = -1;
+    public void sendBroadcast(final Object message) {
+        Object sourceId = -1;
         if (container != null) {
-            sourceId = SimpleServiceLocator.ccProxy.getLastCCID(container);
+            switch (sourceMod) {
+                case COMPUTERCRAFT:
+                    sourceId = SimpleServiceLocator.ccProxy.getLastCCID(container);
+                    break;
+                case OPENCOMPUTERS:
+                    sourceId = SimpleServiceLocator.openComputersProxy.getAddress(container);
+                    break;
+            }
         }
-        final int fSourceId = sourceId;
+        final Object fSourceId = sourceId;
         BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
@@ -1493,16 +1516,20 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     @CCCommand(description = "Returns the access to the pipe of the givven router UUID")
-    @cpw.mods.fml.common.Optional.Method(modid = LPConstants.computerCraftModID)
     @CCDirectCall
     public Object getPipeForUUID(String sUuid) throws PermissionException {
         if (!getUpgradeManager().hasCCRemoteControlUpgrade()) {
             throw new PermissionException();
         }
-        UUID uuid = UUID.fromString(sUuid);
+        UUID uuid;
+        try {
+            uuid = UUID.fromString(sUuid);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
         int id = SimpleServiceLocator.routerManager.getIDforUUID(uuid);
         IRouter router = SimpleServiceLocator.routerManager.getRouter(id);
-        if (router == null) {
+        if (router == null || router.getDistanceTo(getRouter()).isEmpty()) { // Blocked access for router from other networks
             return null;
         }
         return router.getPipe();
@@ -1521,13 +1548,13 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         return getLogisticsModule() != null;
     }
 
-    private void handleMesssage(int computerId, Object message, int sourceId) {
+    private void handleMesssage(Object computerId, Object message, Object sourceId) {
         if (container != null) {
             container.handleMesssage(computerId, message, sourceId);
         }
     }
 
-    private void handleBroadcast(String message, int sourceId) {
+    private void handleBroadcast(Object message, Object sourceId) {
         queueEvent(CCConstants.LP_CC_BROADCAST_EVENT, new Object[] { sourceId, message });
     }
 
