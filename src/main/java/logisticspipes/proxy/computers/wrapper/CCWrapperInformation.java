@@ -19,6 +19,8 @@ public class CCWrapperInformation {
     public Method setSourceMod = null;
 
     public enum SourceMod {
-        UNKNOWN, COMPUTERCRAFT, OPENCOMPUTERS
+        UNKNOWN,
+        COMPUTERCRAFT,
+        OPENCOMPUTERS
     }
 }

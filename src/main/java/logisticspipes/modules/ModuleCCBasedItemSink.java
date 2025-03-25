@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import logisticspipes.proxy.computers.interfaces.CCCommand;
-import logisticspipes.proxy.computers.interfaces.SetSourceMod;
-import logisticspipes.proxy.computers.wrapper.CCWrapperInformation.SourceMod;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
@@ -16,7 +13,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.interfaces.IQueueCCEvent;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.proxy.computers.interfaces.CCCommand;
+import logisticspipes.proxy.computers.interfaces.SetSourceMod;
 import logisticspipes.proxy.computers.objects.CCSinkResponder;
+import logisticspipes.proxy.computers.wrapper.CCWrapperInformation.SourceMod;
 import logisticspipes.utils.OneList;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -98,7 +98,8 @@ public class ModuleCCBasedItemSink extends LogisticsModule {
     @Override
     public List<CCSinkResponder> queueCCSinkEvent(ItemIdentifierStack item) {
         CCSinkResponder response = new CCSinkResponder(item, _service.getSourceID(), eventQueuer);
-        eventQueuer.queueEvent("ItemSink", new Object[] { nextResponseId(response) }); // Interactive objects cannot be transmitted in OC signal.
+        eventQueuer.queueEvent("ItemSink", new Object[] { nextResponseId(response) }); // Interactive objects cannot be
+                                                                                       // transmitted in OC signal.
         return new OneList<>(response);
     }
 
@@ -134,8 +135,7 @@ public class ModuleCCBasedItemSink extends LogisticsModule {
         int id = responses.size();
         for (int i = 0; i < responses.size(); i++) {
             CCSinkResponder resp = responses.get(i);
-            if (resp != null && resp.isDestroy())
-                responses.set(i, null);
+            if (resp != null && resp.isDestroy()) responses.set(i, null);
             if (resp == null && noSet) {
                 responses.set(i, response);
                 noSet = false;

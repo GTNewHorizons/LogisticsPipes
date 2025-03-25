@@ -1481,9 +1481,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         BitSet set = new BitSet(ServerRouter.getBiggestSimpleID());
         for (ExitRoute exit : getRouter().getIRoutersByCost()) {
             if (exit.destination != null && !set.get(exit.destination.getSimpleID())) {
-                exit.destination.queueTask(
-                        10,
-                        (pipe, router) -> pipe.handleMesssage(computerId, message, fSourceId));
+                exit.destination.queueTask(10, (pipe, router) -> pipe.handleMesssage(computerId, message, fSourceId));
                 set.set(exit.destination.getSimpleID());
             }
         }
@@ -1529,7 +1527,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         }
         int id = SimpleServiceLocator.routerManager.getIDforUUID(uuid);
         IRouter router = SimpleServiceLocator.routerManager.getRouter(id);
-        if (router == null || router.getDistanceTo(getRouter()).isEmpty()) { // Blocked access for router from other networks
+        if (router == null || router.getDistanceTo(getRouter()).isEmpty()) { // Blocked access for router from other
+                                                                             // networks
             return null;
         }
         return router.getPipe();

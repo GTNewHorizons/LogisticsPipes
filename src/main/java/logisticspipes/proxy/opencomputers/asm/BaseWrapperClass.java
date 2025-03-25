@@ -338,7 +338,8 @@ public abstract class BaseWrapperClass extends AbstractValue {
     }
 
     private boolean argumentsMatch(Method method, Object[] arguments) {
-        if (arguments.length != method.getParameterCount()) return false; // he must not skip loop for empty parameters method and not empty arguments
+        if (arguments.length != method.getParameterCount()) return false; // he must not skip loop for empty parameters
+                                                                          // method and not empty arguments
         int i = 0;
         for (Class<?> args : method.getParameterTypes()) {
             if (arguments.length <= i) {

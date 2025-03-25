@@ -73,7 +73,11 @@ public class CCSinkResponder implements ILPCCTypeHolder {
         return ccType;
     }
 
-    public boolean isDestroy() { return destroy; }
+    public boolean isDestroy() {
+        return destroy;
+    }
 
-    public void onDestroy() { destroy = true; }
+    public void onDestroy() {
+        destroy = true;
+    }
 }

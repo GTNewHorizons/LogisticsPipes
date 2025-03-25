@@ -1,23 +1,24 @@
 package logisticspipes.proxy.opencomputers;
 
-import li.cil.oc.api.machine.Architecture;
-import logisticspipes.proxy.cc.CCConstants;
-import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
-import logisticspipes.proxy.opencomputers.asm.BaseWrapperClass;
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import li.cil.oc.api.Network;
+import li.cil.oc.api.machine.Architecture;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.cc.CCConstants;
+import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
 import logisticspipes.proxy.interfaces.IOpenComputersProxy;
-
-import java.util.HashSet;
-import java.util.Set;
+import logisticspipes.proxy.opencomputers.asm.BaseWrapperClass;
 
 public class OpenComputersProxy implements IOpenComputersProxy {
+
     static final private Set<String> targetName = new HashSet<>();
     static final private Set<String> skipName = new HashSet<>();
 
@@ -81,7 +82,8 @@ public class OpenComputersProxy implements IOpenComputersProxy {
     @Override
     public void handleMesssage(Object sourceId, String receiveId, Object message, IOCTile tile) {
         if (tile.getOCNode() != null && ((Node) tile.getOCNode()).address().equals(receiveId)) {
-            ((Node) tile.getOCNode()).sendToNeighbors("computer.signal", CCConstants.LP_CC_MESSAGE_EVENT, sourceId, message);
+            ((Node) tile.getOCNode())
+                    .sendToNeighbors("computer.signal", CCConstants.LP_CC_MESSAGE_EVENT, sourceId, message);
         }
     }
 
@@ -96,17 +98,14 @@ public class OpenComputersProxy implements IOpenComputersProxy {
         if (ste.length < 8) return false; // 2 operation instead of 8
         for (int i = ste.length - 8; i >= 0; i--) {
             if (skipName.contains(ste[i].getClassName())) continue;
-            if (targetName.contains(ste[i].getClassName()))
-                return true;
-            else
-                try {
-                    Class<?> clazz = Class.forName(ste[i].getClassName());
-                    if (Architecture.class.isAssignableFrom(clazz)) {
-                        targetName.add(ste[i].getClassName());
-                        return true;
-                    }
-                } catch (ClassNotFoundException ignored) {
+            if (targetName.contains(ste[i].getClassName())) return true;
+            else try {
+                Class<?> clazz = Class.forName(ste[i].getClassName());
+                if (Architecture.class.isAssignableFrom(clazz)) {
+                    targetName.add(ste[i].getClassName());
+                    return true;
                 }
+            } catch (ClassNotFoundException ignored) {}
             skipName.add(ste[i].getClassName());
         }
         return false;
