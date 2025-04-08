@@ -155,7 +155,7 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
         for (int i = 0; i < targetUtil.getSizeInventory(); i++) {
 
             ItemStack slot = targetUtil.getStackInSlot(i);
-            if (slot == null) {
+            if (slot == null || slot.stackSize == 0) {
                 continue;
             }
             ItemIdentifier slotitem = ItemIdentifier.get(slot);
@@ -193,7 +193,7 @@ public class ModuleExtractor extends LogisticsSneakyDirectionModule
                     break;
                 }
                 slot = targetUtil.getStackInSlot(i);
-                if (slot == null) {
+                if (slot == null || slot.stackSize == 0) {
                     break;
                 }
                 jamList.add(reply.getValue1());
