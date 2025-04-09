@@ -14,6 +14,7 @@ import logisticspipes.proxy.computers.interfaces.CCSecurtiyCheck;
 import logisticspipes.proxy.computers.interfaces.CCType;
 import logisticspipes.proxy.computers.interfaces.ILPCCTypeDefinition;
 import logisticspipes.proxy.computers.interfaces.ILPCCTypeHolder;
+import logisticspipes.proxy.computers.interfaces.SetSourceMod;
 import logisticspipes.proxy.computers.objects.CCFilterInventory;
 import logisticspipes.proxy.computers.objects.CCFluidIdentifier;
 import logisticspipes.proxy.computers.objects.CCItemIdentifier;
@@ -143,10 +144,17 @@ public class CCObjectWrapper {
                 while (clazz != Object.class) {
                     for (Method method : clazz.getDeclaredMethods()) {
                         if (method.isAnnotationPresent(CCSecurtiyCheck.class)) {
-                            if (method.getParameterTypes().length > 0) {
+                            if (method.getParameterCount() > 0) {
                                 throw new InternalError("Internal Excption (Code: 4)");
                             }
                             info.securityMethod = method;
+                        }
+                        if (method.isAnnotationPresent(SetSourceMod.class)) {
+                            if (method.getParameterCount() != 1
+                                    && method.getParameterTypes()[0] != CCWrapperInformation.SourceMod.class) {
+                                throw new InternalError("Internal Excption (Code: 6)");
+                            }
+                            info.setSourceMod = method;
                         }
                         if (!method.isAnnotationPresent(CCCommand.class)) {
                             continue;

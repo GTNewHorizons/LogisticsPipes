@@ -22,4 +22,14 @@ public interface IOpenComputersProxy {
     void handleWriteToNBT(IOCTile tile, NBTTagCompound nbt);
 
     void handleReadFromNBT(IOCTile tile, NBTTagCompound nbt);
+
+    void pushSignal(String event, Object[] arguments, IOCTile tile);
+
+    void handleMesssage(Object sourceId, String receiveId, Object message, IOCTile tile);
+
+    String getAddress(IOCTile tile);
+
+    boolean isServerSide(Thread thread);
+
+    Object getWrappedObject(Object object);
 }

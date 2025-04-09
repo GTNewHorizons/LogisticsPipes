@@ -22,7 +22,7 @@ public interface ICCProxy {
 
     int getLastCCID(LogisticsTileGenericPipe logisticsTileGenericPipe);
 
-    void handleMesssage(int computerId, Object message, LogisticsTileGenericPipe tile, int sourceId);
+    void handleMesssage(int computerId, Object message, LogisticsTileGenericPipe tile, Object sourceId);
 
     void addCraftingRecipes(ICraftingParts parts);
 

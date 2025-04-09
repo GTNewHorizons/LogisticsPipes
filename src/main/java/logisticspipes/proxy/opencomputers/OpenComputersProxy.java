@@ -1,16 +1,26 @@
 package logisticspipes.proxy.opencomputers;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import li.cil.oc.api.Network;
+import li.cil.oc.api.machine.Architecture;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.cc.CCConstants;
+import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
 import logisticspipes.proxy.interfaces.IOpenComputersProxy;
+import logisticspipes.proxy.opencomputers.asm.BaseWrapperClass;
 
 public class OpenComputersProxy implements IOpenComputersProxy {
+
+    static final private Set<String> targetName = new HashSet<>();
+    static final private Set<String> skipName = new HashSet<>();
 
     @Override
     public void initLogisticsTileGenericPipe(LogisticsTileGenericPipe tile) {
@@ -57,5 +67,52 @@ public class OpenComputersProxy implements IOpenComputersProxy {
             ((Node) tile.getOCNode()).save(nodeNbt);
             nbt.setTag("oc:node", nodeNbt);
         }
+    }
+
+    @Override
+    public void pushSignal(String event, Object[] arguments, IOCTile tile) {
+        if (tile.getOCNode() != null) {
+            Object[] data = new Object[1 + arguments.length];
+            data[0] = event;
+            System.arraycopy(arguments, 0, data, 1, arguments.length);
+            ((Node) tile.getOCNode()).sendToNeighbors("computer.signal", data);
+        }
+    }
+
+    @Override
+    public void handleMesssage(Object sourceId, String receiveId, Object message, IOCTile tile) {
+        if (tile.getOCNode() != null && ((Node) tile.getOCNode()).address().equals(receiveId)) {
+            ((Node) tile.getOCNode())
+                    .sendToNeighbors("computer.signal", CCConstants.LP_CC_MESSAGE_EVENT, sourceId, message);
+        }
+    }
+
+    @Override
+    public String getAddress(IOCTile tile) {
+        return (tile.getOCNode() != null) ? ((Node) tile.getOCNode()).address() : null;
+    }
+
+    @Override
+    public boolean isServerSide(Thread thread) {
+        StackTraceElement[] ste = thread.getStackTrace();
+        if (ste.length < 8) return false; // 2 operation instead of 8
+        for (int i = ste.length - 8; i >= 0; i--) {
+            if (skipName.contains(ste[i].getClassName())) continue;
+            if (targetName.contains(ste[i].getClassName())) return true;
+            else try {
+                Class<?> clazz = Class.forName(ste[i].getClassName());
+                if (Architecture.class.isAssignableFrom(clazz)) {
+                    targetName.add(ste[i].getClassName());
+                    return true;
+                }
+            } catch (ClassNotFoundException ignored) {}
+            skipName.add(ste[i].getClassName());
+        }
+        return false;
+    }
+
+    @Override
+    public Object getWrappedObject(Object object) {
+        return CCObjectWrapper.getWrappedObject(object, BaseWrapperClass.WRAPPER);
     }
 }
