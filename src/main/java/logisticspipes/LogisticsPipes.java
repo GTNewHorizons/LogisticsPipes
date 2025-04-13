@@ -132,6 +132,7 @@ import logisticspipes.recipes.CraftingPermissionManager;
 import logisticspipes.recipes.RecipeManager;
 import logisticspipes.recipes.SolderingStationRecipes;
 import logisticspipes.renderer.FluidContainerRenderer;
+import logisticspipes.renderer.ItemModuleRenderer;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.renderer.LogisticsPipeItemRenderer;
 import logisticspipes.routing.RouterManager;
@@ -494,6 +495,9 @@ public class LogisticsPipes {
         LogisticsPipes.ModuleItem.setUnlocalizedName("itemModule");
         LogisticsPipes.ModuleItem.loadModules();
         GameRegistry.registerItem(LogisticsPipes.ModuleItem, LogisticsPipes.ModuleItem.getUnlocalizedName());
+        if (isClient) {
+            MinecraftForgeClient.registerItemRenderer(LogisticsPipes.ModuleItem, new ItemModuleRenderer());
+        }
 
         LogisticsPipes.LogisticsItemDisk = new ItemDisk();
         LogisticsPipes.LogisticsItemDisk.setUnlocalizedName("itemDisk");
