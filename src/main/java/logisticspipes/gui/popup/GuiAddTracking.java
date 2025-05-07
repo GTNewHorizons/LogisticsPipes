@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import logisticspipes.utils.gui.ISearchBar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
@@ -33,7 +34,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
     private final String PREFIX = "gui.networkstatistics.add.";
 
     ItemDisplay itemDisplay;
-    SearchBar search;
+    ISearchBar search;
     private final LogisticsStatisticsTileEntity tile;
 
     public GuiAddTracking(LogisticsStatisticsTileEntity tile) {

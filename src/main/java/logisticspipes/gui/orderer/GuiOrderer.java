@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import logisticspipes.utils.gui.ISearchBar;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -45,7 +46,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
 
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
-    private SearchBar search;
+    private ISearchBar search;
 
     protected String _title = "Request items";
 

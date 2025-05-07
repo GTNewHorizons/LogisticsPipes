@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import logisticspipes.utils.gui.GuiSearchBar;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -56,7 +57,6 @@ import logisticspipes.utils.gui.IItemSearch;
 import logisticspipes.utils.gui.ISubGuiControler;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -82,7 +82,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
-    private SearchBar search;
+    private GuiSearchBar search;
 
     protected final String _title = "Request items";
 
@@ -188,7 +188,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 		// @formatter:on
 
         if (search == null) {
-            search = new SearchBar(mc.fontRenderer, this, guiLeft + 205, bottom - 78, 200, 15);
+            search = new GuiSearchBar("search");
         }
         search.reposition(guiLeft + 205, bottom - 78, 200, 15);
 
@@ -773,7 +773,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     @Override
     protected void keyTyped(char c, int i) {
-        if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-a
+        if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && !search.isFocused()) { // Ctrl-a
             itemDisplay.setMaxAmount();
         } else if (i == 32 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-d
             itemDisplay.resetAmount();
