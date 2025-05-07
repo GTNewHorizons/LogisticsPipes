@@ -86,25 +86,6 @@ public class RecipeManager {
     }
 
     public static void loadRecipes(ICraftingParts parts) {
-
-        String[] dyes = {
-            "dyeBlack",
-            "dyeRed",
-            "dyeGreen",
-            "dyeBrown",
-            "dyeBlue",
-            "dyePurple",
-            "dyeCyan",
-            "dyeLightGray",
-            "dyeGray",
-            "dyePink",
-            "dyeLime",
-            "dyeYellow",
-            "dyeLightBlue",
-            "dyeMagenta",
-            "dyeOrange",
-            "dyeWhite"
-        };
         if (!Configs.ENABLE_BETA_RECIPES && !LogisticsPipes.isGTNH) {
             RecipeManager.craftingManager.addRecipe(
                     new ItemStack(LogisticsPipes.BasicTransportPipe, 8),
@@ -1626,8 +1607,6 @@ public class RecipeManager {
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_LOGICEXPANDER);
             ItemStack lense =
                     new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_FOCUSLENSE);
-            ItemStack accept =
-                    new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, ItemPipeComponents.ITEM_POWERACCEPT);
             ItemStack basic = new ItemStack(LogisticsPipes.BasicTransportPipe, 1);
             ItemStack pipe = new ItemStack(LogisticsPipes.LogisticsBasicPipe, 1);
 

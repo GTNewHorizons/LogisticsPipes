@@ -12,8 +12,6 @@ import javax.swing.text.StyleConstants;
 
 public class DebugWindow extends JFrame {
 
-    private int width;
-    private int height;
     private final JTextPane textArea;
     private final JScrollPane pane;
 

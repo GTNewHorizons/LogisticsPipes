@@ -538,7 +538,6 @@ public class PipeTransportLogistics {
                     }
                     slotManager = getRoutedPipe().getUpgradeManager(slot, positionInt);
                 }
-                boolean tookSome = false;
                 if (arrivingItem.getAdditionalTargetInformation() instanceof ITargetSlotInformation) {
 
                     ITargetSlotInformation information = (ITargetSlotInformation) arrivingItem
