@@ -58,7 +58,6 @@ public class SlotFinderNumberPacket extends ModuleCoordinatesPacket {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void processPacket(EntityPlayer player) {
         IInventory inv = this.getTile(player.worldObj, IInventory.class);
         if (inv instanceof ISidedInventory) {

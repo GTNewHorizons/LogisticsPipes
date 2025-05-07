@@ -115,6 +115,7 @@ public class ClassCreator {
         return cw.toByteArray();
     }
 
+    @SuppressWarnings("unchecked")
     public static Class<? extends BaseWrapperClass> getWrapperClass(CCWrapperInformation info, String className)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {

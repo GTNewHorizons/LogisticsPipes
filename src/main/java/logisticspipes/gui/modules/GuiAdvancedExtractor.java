@@ -22,7 +22,6 @@ public class GuiAdvancedExtractor extends ModuleBaseGui {
 
     private final ModuleAdvancedExtractor _advancedExtractor;
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

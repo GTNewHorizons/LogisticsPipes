@@ -77,7 +77,6 @@ public class GuiRecipeImport extends SubGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         buttonList.clear();

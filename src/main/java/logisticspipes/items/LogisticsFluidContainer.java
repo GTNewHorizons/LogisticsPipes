@@ -55,10 +55,9 @@ public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvan
         return super.getUnlocalizedName(par1ItemStack);
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             FluidStack stack = SimpleServiceLocator.logisticsFluidManager
@@ -71,7 +70,7 @@ public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvan
     }
 
     @Override
-    public void getSubItems(Item par1, CreativeTabs ct, List list) {
+    public void getSubItems(Item par1, CreativeTabs ct, List<ItemStack> list) {
         // Don't add to creative in any way
     }
 }

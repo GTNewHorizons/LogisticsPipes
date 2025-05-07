@@ -106,7 +106,7 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
     }
 
     @Override
-    public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List arraylist,
+    public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB axisalignedbb, List<AxisAlignedBB> arraylist,
             Entity par7Entity) {
         TileEntity tile = world.getTileEntity(i, j, k);
         if (tile instanceof LogisticsTileGenericPipe

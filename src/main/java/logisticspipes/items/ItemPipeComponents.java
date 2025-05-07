@@ -76,9 +76,8 @@ public class ItemPipeComponents extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2, List par3) {
+    public void getSubItems(Item par1, CreativeTabs par2, List<ItemStack> par3) {
         if (Configs.ENABLE_BETA_RECIPES) {
             par3.add(new ItemStack(this, 1, 0));
             par3.add(new ItemStack(this, 1, 1));

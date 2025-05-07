@@ -66,17 +66,17 @@ public class OpenGLDebugger {
         INTEGER(Integer.class, "int", "GL11.glGetInteger"),
         INTEGER64(Long.class, "long", "GL32.glGetInteger64");
 
-        private final Class javaClass;
+        private final Class<?> javaClass;
         private final String getterFunction;
         private final String niceName;
 
-        GLTypes(Class javaClass, String niceName, String getterFunction) {
+        GLTypes(Class<?> javaClass, String niceName, String getterFunction) {
             this.javaClass = javaClass;
             this.niceName = niceName;
             this.getterFunction = getterFunction;
         }
 
-        public Class getJavaClass() {
+        public Class<?> getJavaClass() {
             return javaClass;
         }
 
@@ -435,7 +435,7 @@ public class OpenGLDebugger {
             String nextGL = String.format("%s.%s", "org.lwjgl.opengl", packageGL);
             try {
                 crawlerVersion++;
-                Class glClass = GL11.class.getClassLoader().loadClass(nextGL);
+                Class<?> glClass = GL11.class.getClassLoader().loadClass(nextGL);
                 com.google.common.reflect.Reflection.initialize(glClass);
                 almostEnd = false;
 

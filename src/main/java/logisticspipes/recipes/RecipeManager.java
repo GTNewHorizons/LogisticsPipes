@@ -42,7 +42,6 @@ public class RecipeManager {
             			craftingManager.getRecipeList().add(new LPShapelessOreRecipe(stack, dependent, objects));
         }
 
-        @SuppressWarnings("unchecked")
         public void addShapelessResetRecipe(Item item, int meta) {
             craftingManager.getRecipeList().add(new ShapelessResetRecipe(item, meta));
         }
