@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import logisticspipes.utils.gui.ISearchBar;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -34,6 +33,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISearchBar;
 import logisticspipes.utils.gui.ISubGuiControler;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;

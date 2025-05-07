@@ -5,7 +5,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import logisticspipes.utils.gui.ISearchBar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
@@ -21,6 +20,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISearchBar;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.gui.SmallGuiButton;

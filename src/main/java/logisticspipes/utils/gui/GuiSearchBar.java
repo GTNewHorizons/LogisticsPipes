@@ -1,10 +1,10 @@
 package logisticspipes.utils.gui;
 
-import codechicken.nei.TextField;
 import org.lwjgl.input.Mouse;
 
+import codechicken.nei.TextField;
 
-public class GuiSearchBar extends TextField implements ISearchBar  {
+public class GuiSearchBar extends TextField implements ISearchBar {
 
     public GuiSearchBar(String ident) {
         super(ident);
@@ -37,7 +37,6 @@ public class GuiSearchBar extends TextField implements ISearchBar  {
     public String getContent() {
         return text();
     }
-
 
     @Override
     public void onTextChange(String oldText) {

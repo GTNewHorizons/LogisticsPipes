@@ -1,6 +1,7 @@
 package logisticspipes.utils.gui;
 
 public interface ISearchBar {
+
     void reposition(int left, int top, int width, int heigth);
 
     void renderSearchBar();
