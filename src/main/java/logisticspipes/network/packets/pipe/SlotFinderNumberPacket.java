@@ -63,7 +63,7 @@ public class SlotFinderNumberPacket extends ModuleCoordinatesPacket {
         if (inv instanceof ISidedInventory) {
             inv = new SidedInventoryMinecraftAdapter((ISidedInventory) inv, ForgeDirection.UNKNOWN, false);
         }
-        IInventoryUtil util = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv);
+        IInventoryUtil util = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, ForgeDirection.UNKNOWN);
         Slot result = null;
         if (((List<Slot>) player.openContainer.inventorySlots).get(inventorySlot).slotNumber == inventorySlot) {
             result = ((List<Slot>) player.openContainer.inventorySlots).get(inventorySlot);
