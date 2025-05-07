@@ -160,7 +160,8 @@ import logisticspipes.utils.RoutedItemHelper;
                 + "required-after:BuildCraft|Transport;"
                 + "required-after:BuildCraft|Silicon;"
                 + "required-after:BuildCraft|Robotics;"
-                + "required-after:gregtech;"
+                + "required-after:modularui2;"
+                + "after:gregtech;"
                 + "after:IC2;"
                 + "after:Forestry;"
                 + "after:Thaumcraft;"
@@ -170,7 +171,8 @@ import logisticspipes.utils.RoutedItemHelper;
                 + "after:GregTech_Addon;"
                 + "after:AppliedEnergistics;"
                 + "after:ThermalExpansion;"
-                + "after:BetterStorage")
+                + "after:BetterStorage",
+        acceptedMinecraftVersions = "[1.7.10]")
 public class LogisticsPipes {
 
     // @formatter:on
