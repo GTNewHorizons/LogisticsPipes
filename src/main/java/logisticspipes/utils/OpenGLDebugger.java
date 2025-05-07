@@ -91,6 +91,7 @@ public class OpenGLDebugger {
 
     public static class ExtendedHashMap extends HashMap<Integer, Object> {
 
+        private static final long serialVersionUID = -5819215350118148008L;
         private final ArrayList<Integer> orderedKeys;
         private ArrayList<Integer> newKeys;
         private ArrayList<Integer> updatedKeys;
@@ -163,6 +164,8 @@ public class OpenGLDebugger {
 
     public class SpecialTableModel extends DefaultTableModel {
 
+        private static final long serialVersionUID = -1280016482018663878L;
+
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -210,6 +213,8 @@ public class OpenGLDebugger {
 
     public class SpecialTableCellRenderer extends DefaultTableCellRenderer {
 
+        private static final long serialVersionUID = 8412772262414452065L;
+
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
@@ -231,6 +236,7 @@ public class OpenGLDebugger {
 
     public class ProbeGUI extends JDialog implements Runnable {
 
+        private static final long serialVersionUID = -6292214700969900830L;
         private JPanel mainPanel;
         private JTable variableMonitorTable;
         private JButton closeButton;
