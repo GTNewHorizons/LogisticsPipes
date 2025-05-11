@@ -15,4 +15,12 @@ public class CCWrapperInformation {
     public Map<Integer, Method> commands = new LinkedHashMap<>();
     public Map<String, Pair<Boolean, String>> commandTypes = new LinkedHashMap<>();
     public Method securityMethod = null;
+
+    public Method setSourceMod = null;
+
+    public enum SourceMod {
+        UNKNOWN,
+        COMPUTERCRAFT,
+        OPENCOMPUTERS
+    }
 }
