@@ -205,6 +205,7 @@ public class ModuleCCBasedQuickSort extends ModuleQuickSort
         final IRouter source = _service.getRouter();
         List<Triplet<Integer, Double, CCSinkResponder>> posibilities = new ArrayList<>();
         for (CCSinkResponder sink : list) {
+            sink.onDestroy();
             if (!sink.isDone()) {
                 continue;
             }

@@ -683,8 +683,7 @@ public class ProxyManager {
                     }
 
                     @Override
-                    public void handleMesssage(
-                            int computerId, Object message, LogisticsTileGenericPipe tile, int sourceId) {}
+                    public void handleMesssage(int computerId, Object message, LogisticsTileGenericPipe tile, Object sourceId) {}
 
                     @Override
                     public void addCraftingRecipes(ICraftingParts parts) {}
@@ -911,6 +910,27 @@ public class ProxyManager {
 
                     @Override
                     public void addToNetwork(TileEntity tile) {}
+
+                    @Override
+                    public void pushSignal(String event, Object[] arguments, IOCTile tile) {}
+
+                    @Override
+                    public void handleMesssage(Object sourceId, String receiveId, Object message, IOCTile tile) {}
+
+                    @Override
+                    public String getAddress(IOCTile tile) {
+                        return null;
+                    }
+
+                    @Override
+                    public boolean isServerSide(Thread thread) {
+                        return false;
+                    }
+
+                    @Override
+                    public Object getWrappedObject(Object object) {
+                        return object;
+                    }
                 }));
 
         SimpleServiceLocator.setToolWrenchProxy(ProxyManager.getWrappedProxy(

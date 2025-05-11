@@ -71,6 +71,10 @@ public class MainProxy {
         if (SimpleServiceLocator.ccProxy != null && SimpleServiceLocator.ccProxy.isLuaThread(thr)) {
             return Side.SERVER;
         }
+        if (SimpleServiceLocator.openComputersProxy != null
+                && SimpleServiceLocator.openComputersProxy.isServerSide(thr)) {
+            return Side.SERVER;
+        }
         return Side.CLIENT;
     }
 

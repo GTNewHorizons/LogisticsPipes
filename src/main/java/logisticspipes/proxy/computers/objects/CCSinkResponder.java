@@ -31,6 +31,8 @@ public class CCSinkResponder implements ILPCCTypeHolder {
     @Getter
     private int priority;
 
+    private boolean destroy = false;
+
     public CCSinkResponder(ItemIdentifierStack stack, int id, IQueueCCEvent queuer) {
         this.stack = stack;
         routerId = id;
@@ -69,5 +71,13 @@ public class CCSinkResponder implements ILPCCTypeHolder {
     @Override
     public Object getCCType() {
         return ccType;
+    }
+
+    public boolean isDestroy() {
+        return destroy;
+    }
+
+    public void onDestroy() {
+        destroy = true;
     }
 }

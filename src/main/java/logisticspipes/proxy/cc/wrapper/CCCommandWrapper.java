@@ -138,6 +138,8 @@ public class CCCommandWrapper implements ILuaObject {
             booleans[1] = false;
             QueuedTasks.queueTask((Callable<Object>) () -> {
                 try {
+                    if (info.setSourceMod != null)
+                        info.setSourceMod.invoke(object, CCWrapperInformation.SourceMod.COMPUTERCRAFT);
                     Object result = m.invoke(object, a);
                     if (result != null) {
                         resultArray[0] = result;
@@ -185,6 +187,8 @@ public class CCCommandWrapper implements ILuaObject {
         }
         Object result;
         try {
+            if (info.setSourceMod != null)
+                info.setSourceMod.invoke(object, CCWrapperInformation.SourceMod.COMPUTERCRAFT);
             result = match.invoke(object, arguments);
         } catch (InvocationTargetException e) {
             if (e.getTargetException() instanceof Exception) {
@@ -306,7 +310,7 @@ public class CCCommandWrapper implements ILuaObject {
         help.append(method.getName());
         help.append("\n");
         help.append("Parameter: ");
-        if (method.getParameterTypes().length > 0) {
+        if (method.getParameterCount() > 0) {
             help.append("\n");
             boolean a = false;
             for (Class<?> clazz : method.getParameterTypes()) {
@@ -329,6 +333,8 @@ public class CCCommandWrapper implements ILuaObject {
     }
 
     private boolean argumentsMatch(Method method, Object[] arguments) {
+        if (arguments.length != method.getParameterCount()) return false; // he must not skip loop for empty parameters
+                                                                          // method and not empty arguments
         int i = 0;
         for (Class<?> args : method.getParameterTypes()) {
             if (arguments.length <= i) {
