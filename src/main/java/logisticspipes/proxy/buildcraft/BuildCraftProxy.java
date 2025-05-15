@@ -137,7 +137,7 @@ public class BuildCraftProxy implements IBCProxy {
     @Override
     public void initProxy() {
 
-        RedstoneBoardRegistry.instance.registerBoardClass(LogisticsRoutingBoardRobotNBT.instance, 10);
+        RedstoneBoardRegistry.instance.registerBoardType(LogisticsRoutingBoardRobotNBT.instance, 16000);
         RobotManager.registerAIRobot(
                 LogisticsRoutingBoardRobot.class,
                 "boardLogisticsRoutingRobot",

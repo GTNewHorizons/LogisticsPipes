@@ -59,7 +59,6 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
         localresistance = pipe.resistance;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

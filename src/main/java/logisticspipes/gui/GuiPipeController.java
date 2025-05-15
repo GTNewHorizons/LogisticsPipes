@@ -476,7 +476,6 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void checkButtons() {
         super.checkButtons();
         for (GuiButton button : (List<GuiButton>) buttonList) {

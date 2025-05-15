@@ -20,7 +20,7 @@ import lombok.Getter;
 
 public class ParamProfiler {
 
-    private static final boolean isActive = false;
+    private static final boolean isActive = Boolean.getBoolean("logisticspipes.enableParamProfiler");
 
     private static volatile long minMethodId = 0;
 

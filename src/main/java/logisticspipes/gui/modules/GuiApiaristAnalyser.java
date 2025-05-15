@@ -19,7 +19,6 @@ public class GuiApiaristAnalyser extends ModuleBaseGui {
         ySize = 60;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

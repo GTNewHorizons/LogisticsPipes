@@ -29,7 +29,6 @@ public class GuiHUDSettings extends LogisticsBaseGuiScreen {
         inventorySlots = dummy;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

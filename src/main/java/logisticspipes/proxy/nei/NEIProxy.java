@@ -35,6 +35,7 @@ public class NEIProxy implements INEIProxy {
         return ItemInfo.getText(items.get(0), world, player, objectMouseOver);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @SideOnly(Side.CLIENT)
     @SneakyThrows({ NoSuchFieldException.class, IllegalAccessException.class })

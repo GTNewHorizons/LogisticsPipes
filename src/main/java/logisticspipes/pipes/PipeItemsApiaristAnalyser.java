@@ -141,7 +141,7 @@ public class PipeItemsApiaristAnalyser extends CoreRoutedPipe implements ISendRo
         if (inv == null) {
             return null;
         }
-        return SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv);
+        return SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, ForgeDirection.UNKNOWN);
     }
 
     @Override

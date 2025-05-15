@@ -18,9 +18,8 @@ public class ItemDisk extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> list, boolean flag) {
         if (itemStack.hasTagCompound()) {
             if (itemStack.getTagCompound().hasKey("name")) {
                 String name = "\u00a78" + itemStack.getTagCompound().getString("name");

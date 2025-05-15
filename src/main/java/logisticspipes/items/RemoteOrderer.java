@@ -51,9 +51,8 @@ public class RemoteOrderer extends Item {
         return RemoteOrderer._icons[par1];
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack itemstack, EntityPlayer player, List<String> list, boolean flag) {
         // Add special tooltip in tribute to DireWolf
         if (itemstack != null && itemstack.getItem() == LogisticsPipes.LogisticsRemoteOrderer) {
             if ((Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
@@ -159,9 +158,8 @@ public class RemoteOrderer extends Item {
         return CreativeTabs.tabTools;
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
         for (int i = 0; i < 17; i++) {
             par3List.add(new ItemStack(par1, 1, i));
         }

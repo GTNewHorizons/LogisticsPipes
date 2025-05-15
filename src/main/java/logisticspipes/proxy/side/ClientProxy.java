@@ -330,7 +330,6 @@ public class ClientProxy implements IProxy {
         FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().clearChatMessages();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void storeSendMessages(List<String> sendChatMessages) {
         sendChatMessages.clear();

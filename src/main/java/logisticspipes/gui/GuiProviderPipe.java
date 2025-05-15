@@ -46,7 +46,6 @@ public class GuiProviderPipe extends LogisticsBaseGuiScreen {
         ySize = 186;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

@@ -38,7 +38,6 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
         ySize = 208;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

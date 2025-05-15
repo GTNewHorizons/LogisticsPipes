@@ -10,14 +10,12 @@ import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
 
 public class LPPeripheralTileSolidWrapper implements IPeripheral {
 
-    private final ForgeDirection dir;
     private final CCCommandWrapper wrapped;
     private final LogisticsSolidTileEntity tile;
 
     public LPPeripheralTileSolidWrapper(LogisticsSolidTileEntity tile, ForgeDirection dir) {
         this.tile = tile;
         wrapped = (CCCommandWrapper) CCObjectWrapper.checkForAnnotations(tile, CCCommandWrapper.WRAPPER);
-        this.dir = dir;
     }
 
     @Override

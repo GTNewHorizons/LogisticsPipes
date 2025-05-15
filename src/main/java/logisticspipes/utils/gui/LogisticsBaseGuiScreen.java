@@ -356,7 +356,6 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
         return func_146978_c(fuzzySlot.getX(), fuzzySlot.getY() + 16, 60, 52, x, y);
     }
 
-    @SuppressWarnings("unchecked")
     protected void checkButtons() {
         for (GuiButton button : (List<GuiButton>) buttonList) {
             if (extentionControllerLeft.renderButtonControlled(button)) {
@@ -368,7 +367,6 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
         }
     }
 
-    @SuppressWarnings("unchecked")
     public GuiButton addButton(GuiButton button) {
         buttonList.add(button);
         return button;

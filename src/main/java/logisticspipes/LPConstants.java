@@ -11,8 +11,7 @@ public class LPConstants {
     public static final float BC_PIPE_MIN_POS = 0.25F;
     public static final float BC_PIPE_MAX_POS = 0.75F;
 
-    public static final boolean DEBUG = false;
-    public static final boolean DEV_BUILD = false;
+    public static final boolean DEBUG = Boolean.getBoolean("logisticspipes.enableDebug");
 
     public static int pipeModel = -1;
     public static int solidBlockModel = -1;
@@ -21,8 +20,4 @@ public class LPConstants {
     public static final String openComputersModID = "OpenComputers";
 
     public static boolean COREMOD_LOADED = false;
-
-    public static void loadedCoremod() {
-        LPConstants.COREMOD_LOADED = true;
-    }
 }

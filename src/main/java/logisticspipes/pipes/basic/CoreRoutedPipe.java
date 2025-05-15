@@ -1618,7 +1618,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
         if (inv == null) {
             return null;
         }
-        return SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv);
+        return SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, ForgeDirection.UNKNOWN);
     }
 
     @Override

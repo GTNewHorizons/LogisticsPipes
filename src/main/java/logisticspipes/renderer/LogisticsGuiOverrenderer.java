@@ -107,7 +107,6 @@ public class LogisticsGuiOverrenderer {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public void renderOverGui() {
         if (hasBeenSaved) {
             hasBeenSaved = false;

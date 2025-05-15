@@ -66,7 +66,7 @@ public class ItemIdentifierInventory
 
     @Override
     @Deprecated
-    // NOTE: this is a clone, changing the return of this function does not altet the inventory
+    // NOTE: this is a clone, changing the return of this function does not alter the inventory
     public ItemStack getStackInSlot(int i) {
         if (_contents[i] == null) {
             return null;

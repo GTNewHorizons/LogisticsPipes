@@ -67,7 +67,6 @@ public class FindMostLikelyRecipeComponents extends CoordinatesPacket {
         LinkedList<ItemIdentifier> craftable = null;
         for (int j = 0; j < content.size(); j++) {
             GuiRecipeImport.Canidates canidates = content.get(j);
-            ItemIdentifier maxItem;
             int maxItemPos = -1;
             int max = 0;
             for (int i = 0; i < canidates.order.size(); i++) {

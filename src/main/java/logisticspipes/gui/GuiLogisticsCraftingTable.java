@@ -24,10 +24,6 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
 
     public LogisticsCraftingTableTileEntity _crafter;
 
-    private final int fuzzyPanelSelection = -1;
-    private final int fuzzyPanelHover = -1;
-    private final int fuzzyPanelHoverTime = 0;
-
     private final GuiButton[] sycleButtons = new GuiButton[2];
 
     public GuiLogisticsCraftingTable(EntityPlayer player, LogisticsCraftingTableTileEntity crafter) {
@@ -119,14 +115,5 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(CraftingCycleRecipe.class).setDown(button.id == 1).setTilePos(_crafter));
         }
-    }
-
-    private boolean isMouseInFuzzyPanel(int mx, int my) {
-        if (fuzzyPanelSelection == -1) {
-            return false;
-        }
-        int posX = -60;
-        int posY = 0;
-        return mx >= posX && my >= posY && mx <= posX + 60 && my <= posY + 52;
     }
 }

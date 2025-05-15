@@ -39,7 +39,6 @@ public class NormalMk2GuiOrderer extends NormalGuiOrderer implements IDiskProvid
                         .setPosZ(pipe.getZ()));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

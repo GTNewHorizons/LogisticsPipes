@@ -113,7 +113,6 @@ public class RequestMonitorPopup extends SubGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         buttonList.clear();

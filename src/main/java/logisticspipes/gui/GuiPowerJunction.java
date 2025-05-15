@@ -71,7 +71,6 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
         mc.fontRenderer.drawString("1 EU = 2 LP", guiLeft + 100, guiTop + 58, 0x404040);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

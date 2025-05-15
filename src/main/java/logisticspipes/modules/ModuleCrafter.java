@@ -123,8 +123,6 @@ import lombok.Getter;
 
 public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IHUDModuleHandler, IModuleWatchReciver {
 
-    private PipeItemsCraftingLogistics _pipe;
-
     private IRequestItems _invRequester;
     // private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
@@ -168,7 +166,6 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     }
 
     public ModuleCrafter(PipeItemsCraftingLogistics parent) {
-        _pipe = parent;
         _service = parent;
         _invRequester = parent;
         _world = parent;

@@ -95,7 +95,6 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

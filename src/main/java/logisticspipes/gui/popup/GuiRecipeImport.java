@@ -77,7 +77,6 @@ public class GuiRecipeImport extends SubGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         buttonList.clear();
@@ -85,7 +84,7 @@ public class GuiRecipeImport extends SubGuiScreen {
         buttonList.add(new SmallGuiButton(1, guiLeft + 10, guiTop + 180, 60, 10, "Most likely"));
         int x = 0;
         int y = 0;
-        for (Canidates canidate : list) {
+        for (int i = 0; i < list.size(); i++) {
             buttonList.add(
                     new SmallGuiButton(10 + x + y * 3, guiLeft + 38 + x * 40, guiTop + 88 + y * 40, 15, 10, "/\\"));
             buttonList.add(
@@ -212,7 +211,7 @@ public class GuiRecipeImport extends SubGuiScreen {
         }
         int x = 0;
         int y = 0;
-        for (Canidates canidate : list) {
+        for (int i = 0; i < list.size(); i++) {
             GuiGraphics.drawSlotBackground(mc, guiLeft + 19 + x * 40, guiTop + 89 + y * 40);
             x++;
             if (x > 2) {

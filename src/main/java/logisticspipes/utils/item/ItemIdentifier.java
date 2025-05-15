@@ -91,12 +91,10 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     // remember itemId/damage/tag so we can find GCed ItemIdentifiers
     private static class IDReference extends WeakReference<ItemIdentifier> {
 
-        private final ItemKey key;
         private final int uniqueID;
 
         IDReference(ItemKey k, int u, ItemIdentifier id) {
             super(id, ItemIdentifier.keyRefQueue);
-            key = k;
             uniqueID = u;
         }
     }
@@ -189,41 +187,6 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     private static final ReadWriteLock keyRefLock = new ReentrantReadWriteLock();
     private static final Lock keyRefRlock = ItemIdentifier.keyRefLock.readLock();
     private static final Lock keyRefWlock = ItemIdentifier.keyRefLock.writeLock();
-
-    // helper thread to clean up references to GCed ItemIdentifiers
-    private static final class ItemIdentifierCleanupThread extends Thread {
-
-        public ItemIdentifierCleanupThread() {
-            setName("LogisticsPipes ItemIdentifier Cleanup Thread");
-            setDaemon(true);
-            start();
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                IDReference r;
-                try {
-                    r = (IDReference) (ItemIdentifier.keyRefQueue.remove());
-                } catch (InterruptedException e) {
-                    continue;
-                }
-                ItemIdentifier.keyRefWlock.lock();
-                do {
-                    // value in the map might have been replaced in the meantime
-                    IDReference current = ItemIdentifier.keyRefMap.get(r.key);
-                    if (r == current) {
-                        ItemIdentifier.keyRefMap.remove(r.key);
-                        ItemIdentifier.tagIDsets.get(r.key.item).clear(r.uniqueID);
-                    }
-                    r = (IDReference) (ItemIdentifier.keyRefQueue.poll());
-                } while (r != null);
-                ItemIdentifier.keyRefWlock.unlock();
-            }
-        }
-    }
-
-    private static final ItemIdentifierCleanupThread cleanupThread = new ItemIdentifierCleanupThread();
 
     // Hide default constructor
     private ItemIdentifier(Item item, int itemDamage, FinalNBTTagCompound tag, int uniqueID) {
@@ -364,7 +327,6 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         private final ItemIdentifier ident;
     }
 
-    @SuppressWarnings("ConstantConditions")
     public static ItemIdentifier get(ItemStack itemStack) {
         if (itemStack == null && ItemIdentifier.allowNullsForTesting) {
             return null;

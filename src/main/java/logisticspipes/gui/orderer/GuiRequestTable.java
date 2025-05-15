@@ -135,7 +135,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         boolean reHide = false;
         if (!showRequest) {
@@ -290,7 +289,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     private int width = 4;
                     private GuiButton localControlledButton;
 
-                    @SuppressWarnings("unchecked")
                     @Override
                     public void renderForground(int left, int top) {
                         if (!_table.watchedRequests.containsKey(entry.getKey())) {
@@ -682,7 +680,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 && _table.diskInv.getStackInSlot(0).getItem().equals(LogisticsPipes.LogisticsItemDisk);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {

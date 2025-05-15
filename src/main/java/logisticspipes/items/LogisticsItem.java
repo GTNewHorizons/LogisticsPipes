@@ -40,8 +40,8 @@ public class LogisticsItem extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({ "unchecked" })
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List,
+            boolean par4) {
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
         if (addShiftInfo()) {
             StringUtils.addShiftAddition(par1ItemStack, par3List);
