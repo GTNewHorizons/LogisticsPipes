@@ -163,6 +163,7 @@ import logisticspipes.utils.RoutedItemHelper;
                 + "required-after:BuildCraft|Robotics;"
                 + "required-after:modularui2;"
                 + "required-after:gtnhmixins;"
+                + "required-after:NotEnoughItems;"
                 + "after:gregtech;"
                 + "after:IC2;"
                 + "after:Forestry;"
