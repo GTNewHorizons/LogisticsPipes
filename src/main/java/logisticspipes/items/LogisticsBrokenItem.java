@@ -26,7 +26,8 @@ public class LogisticsBrokenItem extends LogisticsItem implements IItemAdvancedE
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List,
+            boolean par4) {
         par3List.add(" - " + StringUtils.translate(LogisticsBrokenItem.PREFIX + "1"));
         par3List.add(" - " + StringUtils.translate(LogisticsBrokenItem.PREFIX + "2"));
         par3List.add("    " + StringUtils.translate(LogisticsBrokenItem.PREFIX + "3"));

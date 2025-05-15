@@ -546,7 +546,8 @@ public class PipeTransportLogistics {
                     if (inv instanceof ISidedInventory) {
                         inv = new SidedInventoryMinecraftAdapter((ISidedInventory) inv, ForgeDirection.UNKNOWN, false);
                     }
-                    IInventoryUtil util = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, ForgeDirection.UNKNOWN);
+                    IInventoryUtil util = SimpleServiceLocator.inventoryUtilFactory
+                            .getInventoryUtil(inv, ForgeDirection.UNKNOWN);
                     if (util instanceof ISpecialInsertion) {
                         int slot = information.getTargetSlot();
                         int amount = information.getAmount();

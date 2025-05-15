@@ -83,7 +83,8 @@ public class TeleportPipes implements ISpecialPipedConnection {
         List<ConnectionInformation> list = new ArrayList<>();
         if (tile.getTile() instanceof TileGenericPipe && ((TileGenericPipe) tile.getTile()).pipe != null) {
             try {
-                LinkedList<? extends Pipe<?>> pipes = getConnectedTeleportPipes(((TileGenericPipe) tile.getTile()).pipe);
+                LinkedList<? extends Pipe<?>> pipes = getConnectedTeleportPipes(
+                        ((TileGenericPipe) tile.getTile()).pipe);
                 for (Pipe<?> pipe : pipes) {
                     list.add(
                             new ConnectionInformation(
