@@ -7,8 +7,6 @@ import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 
-import cpw.mods.fml.common.Loader;
-
 @LateMixin
 public class LogisticsPipesLateMixins implements ILateMixinLoader {
 
@@ -19,7 +17,7 @@ public class LogisticsPipesLateMixins implements ILateMixinLoader {
 
     @Override
     public List<String> getMixins(Set<String> loadedMods) {
-        if (Loader.isModLoaded("ComputerCraft")) {
+        if (loadedMods.contains("ComputerCraft")) {
             return Collections.singletonList("computercraft.MixinLuaJLuaMachine");
         }
         return Collections.emptyList();
