@@ -161,6 +161,7 @@ import logisticspipes.utils.RoutedItemHelper;
                 + "required-after:BuildCraft|Silicon;"
                 + "required-after:BuildCraft|Robotics;"
                 + "required-after:modularui2;"
+                + "required-after:gtnhmixins;"
                 + "after:gregtech;"
                 + "after:IC2;"
                 + "after:Forestry;"
@@ -179,7 +180,6 @@ public class LogisticsPipes {
     // CHECKSTYLE:ON
 
     public LogisticsPipes() {
-        LaunchClassLoader loader = Launch.classLoader;
         if (!LPConstants.COREMOD_LOADED) {
             if (LPConstants.DEBUG) {
                 throw new RuntimeException(
@@ -189,6 +189,7 @@ public class LogisticsPipes {
                         "LogisticsPipes FMLLoadingPlugin wasn't loaded. Your download seems to be corrupt/modified. Please redownload LP from our Jenkins [http://ci.thezorro266.com/] and move it into your mods folder.");
             }
         }
+        LaunchClassLoader loader = Launch.classLoader;
         try {
             Field fTransformers = LaunchClassLoader.class.getDeclaredField("transformers");
             fTransformers.setAccessible(true);
@@ -350,12 +351,6 @@ public class LogisticsPipes {
         loadClasses();
         ProxyManager.load();
         Configs.load();
-        if (LPConstants.DEV_BUILD) {
-            LogisticsPipes.log.debug("You are using a dev version.");
-            LogisticsPipes.log
-                    .debug("While the dev versions contain cutting edge features, they may also contain more bugs.");
-            LogisticsPipes.log.debug("Please report any you find to https://github.com/RS485/LogisticsPipes/issues");
-        }
         SimpleServiceLocator.setPipeInformationManager(new PipeInformationManager());
 
         if (Configs.EASTER_EGGS) {

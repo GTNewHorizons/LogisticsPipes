@@ -26,6 +26,7 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.util.CheckClassAdapter;
 
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
@@ -38,7 +39,7 @@ import logisticspipes.utils.ModStatusHelper;
 
 public class LogisticsWrapperHandler {
 
-    private static final boolean DUMP = false;
+    private static final boolean DUMP = Boolean.getBoolean("logisticspipes.dumpWrapperClasses");
 
     private static final Map<String, Class<?>> lookupMap = new HashMap<>();
     public static List<AbstractWrapper> wrapperController = new ArrayList<>();
@@ -182,7 +183,8 @@ public class LogisticsWrapperHandler {
                             Opcodes.INVOKESPECIAL,
                             "logisticspipes/asm/wrapper/AbstractWrapper",
                             "<init>",
-                            "()V", false);
+                            "()V",
+                            false);
                     Label l1 = new Label();
                     mv.visitLabel(l1);
                     mv.visitLineNumber(12, l1);
@@ -231,8 +233,7 @@ public class LogisticsWrapperHandler {
                         LogisticsWrapperHandler.saveGeneratedClass(bytes, lookfor, "LP_WRAPPER_CLASSES");
                     }
                     ClassReader cr = new ClassReader(bytes);
-                    org.objectweb.asm.util.CheckClassAdapter
-                            .verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
+                    CheckClassAdapter.verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
                 }
 
                 try {
@@ -358,7 +359,8 @@ public class LogisticsWrapperHandler {
                             Opcodes.INVOKESPECIAL,
                             "logisticspipes/asm/wrapper/AbstractSubWrapper",
                             "<init>",
-                            "(Llogisticspipes/asm/wrapper/AbstractWrapper;)V", false);
+                            "(Llogisticspipes/asm/wrapper/AbstractWrapper;)V",
+                            false);
                     Label l1 = new Label();
                     mv.visitLabel(l1);
                     mv.visitLineNumber(12, l1);
@@ -406,8 +408,7 @@ public class LogisticsWrapperHandler {
                         LogisticsWrapperHandler.saveGeneratedClass(bytes, lookfor, "LP_WRAPPER_CLASSES");
                     }
                     ClassReader cr = new ClassReader(bytes);
-                    org.objectweb.asm.util.CheckClassAdapter
-                            .verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
+                    CheckClassAdapter.verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
                 }
 
                 try {
@@ -563,7 +564,8 @@ public class LogisticsWrapperHandler {
                     Opcodes.INVOKESTATIC,
                     "logisticspipes/asm/wrapper/LogisticsWrapperHandler",
                     "getWrappedSubProxy",
-                    "(Llogisticspipes/asm/wrapper/AbstractWrapper;Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", false);
+                    "(Llogisticspipes/asm/wrapper/AbstractWrapper;Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                    false);
             mv.visitTypeInsn(Opcodes.CHECKCAST, resultClass);
             mv.visitLabel(l1);
             mv.visitInsn(Opcodes.ARETURN);
