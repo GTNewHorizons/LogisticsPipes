@@ -420,4 +420,10 @@ public class ItemModule extends LogisticsItem {
             StringUtils.addShiftAddition(itemStack, list);
         }
     }
+
+    public static boolean isCrafter(ItemStack itemStack) {
+        return itemStack.getItem() instanceof ItemModule && (itemStack.getItemDamage() == ItemModule.CRAFTER
+                || itemStack.getItemDamage() == ItemModule.CRAFTER_MK2
+                || itemStack.getItemDamage() == ItemModule.CRAFTER_MK3);
+    }
 }
