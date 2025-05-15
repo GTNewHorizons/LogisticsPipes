@@ -33,6 +33,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISearchBar;
 import logisticspipes.utils.gui.ISubGuiControler;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
@@ -45,7 +46,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
 
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
-    private SearchBar search;
+    private ISearchBar search;
 
     protected String _title = "Request items";
 
