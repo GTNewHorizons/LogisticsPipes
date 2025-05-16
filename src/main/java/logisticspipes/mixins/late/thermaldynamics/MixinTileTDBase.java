@@ -22,7 +22,7 @@ public class MixinTileTDBase implements DuctAccessor {
     Duct duct;
 
     @ModifyReturnValue(at = @At("RETURN"), method = "getAdjTileEntitySafe", remap = false)
-    private TileEntity logisticspipes$checkGetTileEntity(TileEntity tile, int side) {
+    private TileEntity LogisticsPipes$checkGetTileEntity(TileEntity tile, int side) {
         if ((TileTDBase) (Object) this instanceof TileItemDuct) {
             if (tile instanceof LogisticsTileGenericPipe) {
                 LogisticsTileGenericPipe pipe = (LogisticsTileGenericPipe) tile;

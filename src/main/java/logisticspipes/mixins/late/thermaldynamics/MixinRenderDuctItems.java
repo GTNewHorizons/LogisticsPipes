@@ -24,7 +24,7 @@ public class MixinRenderDuctItems {
                     value = "FIELD"),
             method = "renderTravelingItems",
             remap = false)
-    private void logisticspipes$renderItemTransportBox(CallbackInfo ci, @Local TravelingItem item) {
+    private void LogisticsPipes$renderItemTransportBox(CallbackInfo ci, @Local TravelingItem item) {
         if (!LogisticsRenderPipe.config.isUseNewRenderer()) {
             return;
         }

@@ -15,7 +15,7 @@ import logisticspipes.routing.pathfinder.changedetection.TEControl;
 public class MixinWorld {
 
     @Inject(at = @At("HEAD"), method = "notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;)V")
-    private void logisticspipes$notifyBlocksOfNeighborChange_Start(int p_147459_1_, int p_147459_2_, int p_147459_3_,
+    private void LogisticsPipes$notifyBlocksOfNeighborChange_Start(int p_147459_1_, int p_147459_2_, int p_147459_3_,
             Block p_147459_4_, CallbackInfo ci) {
         try {
             TEControl.notifyBlocksOfNeighborChange_Start((World) (Object) this, p_147459_1_, p_147459_2_, p_147459_3_);
@@ -28,7 +28,7 @@ public class MixinWorld {
     }
 
     @Inject(at = @At("TAIL"), method = "notifyBlocksOfNeighborChange(IIILnet/minecraft/block/Block;)V")
-    private void logisticspipes$notifyBlocksOfNeighborChange_Stop(int p_147459_1_, int p_147459_2_, int p_147459_3_,
+    private void LogisticsPipes$notifyBlocksOfNeighborChange_Stop(int p_147459_1_, int p_147459_2_, int p_147459_3_,
             Block p_147459_4_, CallbackInfo ci) {
         try {
             TEControl.notifyBlocksOfNeighborChange_Stop((World) (Object) this, p_147459_1_, p_147459_2_, p_147459_3_);
@@ -41,7 +41,7 @@ public class MixinWorld {
     }
 
     @Inject(at = @At("HEAD"), method = "notifyBlockOfNeighborChange")
-    private void logisticspipes$notifyBlockOfNeighborChange(int p_147460_1_, int p_147460_2_, int p_147460_3_,
+    private void LogisticsPipes$notifyBlockOfNeighborChange(int p_147460_1_, int p_147460_2_, int p_147460_3_,
             final Block p_147460_4_, CallbackInfo ci) {
         try {
             TEControl.notifyBlockOfNeighborChange((World) (Object) this, p_147460_1_, p_147460_2_, p_147460_3_);

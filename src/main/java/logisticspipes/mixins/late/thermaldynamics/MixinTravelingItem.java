@@ -20,34 +20,34 @@ import logisticspipes.routing.ItemRoutingInformation;
 public class MixinTravelingItem implements RoutingInformationAccessor {
 
     @Unique
-    private ItemRoutingInformation logisticspipes$routingInformation;
+    private ItemRoutingInformation LogisticsPipes$routingInformation;
 
     @Override
     public ItemRoutingInformation getRoutingInformation() {
-        return this.logisticspipes$routingInformation;
+        return this.LogisticsPipes$routingInformation;
     }
 
     @Override
     public void setRoutingInformation(ItemRoutingInformation routingInformation) {
-        this.logisticspipes$routingInformation = routingInformation;
+        this.LogisticsPipes$routingInformation = routingInformation;
     }
 
     @Inject(at = @At("HEAD"), method = "toNBT", remap = false)
-    private void logisticspipes$travelingItemToNBT(NBTTagCompound nbt, CallbackInfo ci) {
-        if (this.logisticspipes$routingInformation != null) {
+    private void LogisticsPipes$travelingItemToNBT(NBTTagCompound nbt, CallbackInfo ci) {
+        if (this.LogisticsPipes$routingInformation != null) {
             NBTTagCompound save = new NBTTagCompound();
-            this.logisticspipes$routingInformation.writeToNBT(save);
+            this.LogisticsPipes$routingInformation.writeToNBT(save);
             nbt.setTag("LPRoutingInformation", save);
         }
     }
 
     @Inject(at = @At("TAIL"), method = "<init>(Lnet/minecraft/nbt/NBTTagCompound;)V", remap = false)
-    private void logisticspipes$travelingItemNBTContructor(NBTTagCompound nbt, CallbackInfo ci) {
+    private void LogisticsPipes$travelingItemNBTContructor(NBTTagCompound nbt, CallbackInfo ci) {
         if (!nbt.hasKey("LPRoutingInformation")) {
             return;
         }
-        this.logisticspipes$routingInformation = new ItemRoutingInformation();
-        this.logisticspipes$routingInformation.readFromNBT(nbt.getCompoundTag("LPRoutingInformation"));
+        this.LogisticsPipes$routingInformation = new ItemRoutingInformation();
+        this.LogisticsPipes$routingInformation.readFromNBT(nbt.getCompoundTag("LPRoutingInformation"));
     }
 
     @ModifyExpressionValue(
@@ -58,11 +58,11 @@ public class MixinTravelingItem implements RoutingInformationAccessor {
                     value = "FIELD"),
             method = "writePacket",
             remap = false)
-    private ItemStack logisticspipes$handleItemSendPacket(ItemStack original) {
+    private ItemStack LogisticsPipes$handleItemSendPacket(ItemStack original) {
         if (original == null) {
             return null;
         }
-        if (this.logisticspipes$routingInformation != null) {
+        if (this.LogisticsPipes$routingInformation != null) {
             original = original.copy();
             if (!original.hasTagCompound()) {
                 original.setTagCompound(new NBTTagCompound());
