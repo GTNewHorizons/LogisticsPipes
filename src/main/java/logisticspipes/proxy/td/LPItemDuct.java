@@ -1,7 +1,6 @@
 package logisticspipes.proxy.td;
 
 import java.util.ArrayList;
-import java.util.function.Supplier;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -13,6 +12,7 @@ import cofh.thermaldynamics.duct.item.TileItemDuct;
 import cofh.thermaldynamics.duct.item.TravelingItem;
 import cofh.thermaldynamics.multiblock.IMultiBlock;
 import logisticspipes.asm.td.DuctAccessor;
+import logisticspipes.asm.td.RoutingInformationAccessor;
 import logisticspipes.logisticspipes.IRoutedItem.TransportMode;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
@@ -52,8 +52,7 @@ public class LPItemDuct extends TileItemDuct {
 
     @Override
     public void transferItem(TravelingItem item) {
-        @SuppressWarnings("unchecked")
-        ItemRoutingInformation info = ((Supplier<ItemRoutingInformation>) item).get();
+        ItemRoutingInformation info = ((RoutingInformationAccessor) item).getRoutingInformation();
         if (info != null) {
             info.setItem(ItemIdentifierStack.getFromStack(item.stack));
             LPTravelingItemServer lpItem = new LPTravelingItemServer(info);

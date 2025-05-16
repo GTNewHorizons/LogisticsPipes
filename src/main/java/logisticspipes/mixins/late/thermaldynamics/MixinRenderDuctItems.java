@@ -17,9 +17,10 @@ public class MixinRenderDuctItems {
 
     @Inject(
             at = @At(
-                    opcode = Opcodes.GETSTATIC,
+                    opcode = Opcodes.GETFIELD,
+                    ordinal = 1,
                     remap = false,
-                    target = "Lcofh/thermaldynamics/render/RenderDuctItems;travelingItemRender:Lnet/minecraft/client/renderer/entity/RenderItem;",
+                    target = "Lcofh/thermaldynamics/duct/item/TravelingItem;stack:Lnet/minecraft/item/ItemStack;",
                     value = "FIELD"),
             method = "renderTravelingItems",
             remap = false)
