@@ -22,7 +22,6 @@ public class DrawHandler implements IContainerDrawHandler {
     public void postRenderObjects(GuiContainer gui, int mousex, int mousey) {}
 
     @Override
-    @SuppressWarnings("unchecked")
     public void renderSlotUnderlay(GuiContainer gui, Slot slotActive) {
         if (slotActive.slotNumber == 0) {
             if (QuickSortChestMarkerStorage.getInstance().isActivated()) {

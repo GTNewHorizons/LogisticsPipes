@@ -80,7 +80,6 @@ public class GuiDiskPopup extends SubGuiScreen {
                         .setPosY(diskProvider.getY()).setPosZ(diskProvider.getZ()));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

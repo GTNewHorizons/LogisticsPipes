@@ -33,7 +33,7 @@ public class CrafterDefault extends Integer2CoordinatesPacket {
             if (!(((CoreRoutedPipe) pipe.pipe).getLogisticsModule() instanceof ModuleCrafter)) {
                 return;
             }
-            ModuleCrafter module = (ModuleCrafter) ((CoreRoutedPipe) pipe.pipe).getLogisticsModule();
+            // ModuleCrafter module = (ModuleCrafter) ((CoreRoutedPipe) pipe.pipe).getLogisticsModule();
             // module.setDefaultRoute(getInteger() == 1);
             return;
         }
@@ -44,8 +44,8 @@ public class CrafterDefault extends Integer2CoordinatesPacket {
             return;
         }
         if (((PipeLogisticsChassi) pipe.pipe).getModules().getSubModule(getInteger2()) instanceof ModuleCrafter) {
-            ModuleCrafter module = (ModuleCrafter) ((PipeLogisticsChassi) pipe.pipe).getModules()
-                    .getSubModule(getInteger2());
+            // ModuleCrafter module = (ModuleCrafter) ((PipeLogisticsChassi) pipe.pipe).getModules()
+            // .getSubModule(getInteger2());
             // module.setDefaultRoute(getInteger() == 1);
         }
     }

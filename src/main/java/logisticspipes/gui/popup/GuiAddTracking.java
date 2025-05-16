@@ -42,7 +42,6 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         this.tile = tile;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();
@@ -185,7 +184,6 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         itemDisplay.setItemList(identList);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {

@@ -123,9 +123,6 @@ public abstract class LPTravelingItem {
         @Setter
         private ItemIdentifierStack item;
 
-        private int age;
-        private final float hoverStart = (float) (Math.random() * Math.PI * 2.0D);
-
         public LPTravelingItemClient(int id, float position, ForgeDirection input, ForgeDirection output) {
             super(id, position, input, output);
         }
@@ -153,9 +150,7 @@ public abstract class LPTravelingItem {
         }
 
         @Override
-        public void addAge() {
-            age++;
-        }
+        public void addAge() {}
 
         @Override
         public float getHoverStart() {
