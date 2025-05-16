@@ -152,6 +152,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
 
             pos.reset(0.5D, 0.5D, 0.5D);
             float fPos = item.getPosition() + item.getSpeed() * partialTickTime;
+            double boxScale = 1;
 
             if (fPos < 0.5) {
                 if (item.input == ForgeDirection.UNKNOWN) {
@@ -170,6 +171,16 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                 }
                 pos.moveForward(item.output, fPos - 0.5F);
             }
+            if (pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.input.getOpposite())) {
+                boxScale = (fPos * (1 - 0.65)) + 0.65;
+            }
+            if (pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.output)) {
+                boxScale = ((1 - fPos) * (1 - 0.65)) + 0.65;
+            }
+            if (pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.input.getOpposite())
+                    && pipe.container.renderState.pipeConnectionMatrix.isTDConnected(item.output)) {
+                boxScale = 0.65;
+            }
 
             doRenderItem(
                     item.getItemIdentifierStack(),
@@ -178,7 +189,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                     y + pos.getYD(),
                     z + pos.getZD(),
                     0.75F,
-                    /* renderTransportBox */ true,
+                    boxScale,
                     partialTickTime);
             count++;
         }
@@ -196,7 +207,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
                     y + pos.getYD(),
                     z + pos.getZD(),
                     0.25F,
-                    /* renderTransportBox */ false,
+                    0.0,
                     partialTickTime);
             count++;
             if (count >= 27) {
@@ -217,9 +228,9 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     }
 
     public void doRenderItem(ItemIdentifierStack itemIdentifierStack, World worldObj, double x, double y, double z,
-            float renderScale, boolean renderTransportBox, float partialTickTime) {
-        if (LogisticsRenderPipe.config.isUseNewRenderer() && renderTransportBox) {
-            LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, x, y, z);
+            float renderScale, double boxScale, float partialTickTime) {
+        if (LogisticsRenderPipe.config.isUseNewRenderer() && boxScale != 0.0) {
+            LogisticsRenderPipe.boxRenderer.doRenderItem(itemIdentifierStack, x, y, z, boxScale);
         }
 
         GL11.glPushMatrix();

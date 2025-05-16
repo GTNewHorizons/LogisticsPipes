@@ -17,15 +17,15 @@ import logisticspipes.asm.addinfo.IAddInfoProvider;
 public class MixinAddInfoPart implements IAddInfoProvider {
 
     @Unique
-    private List<IAddInfo> logisticspipes$additionalInformation;
+    private List<IAddInfo> LogisticsPipes$additionalInformation;
 
     @SuppressWarnings("unchecked")
     @Override
     public <T extends IAddInfo> T getLogisticsPipesAddInfo(Class<T> clazz) {
-        if (this.logisticspipes$additionalInformation == null) {
+        if (this.LogisticsPipes$additionalInformation == null) {
             return null;
         }
-        for (IAddInfo info : this.logisticspipes$additionalInformation) {
+        for (IAddInfo info : this.LogisticsPipes$additionalInformation) {
             if (info != null && info.getClass() == clazz) {
                 return (T) info;
             }
@@ -35,13 +35,13 @@ public class MixinAddInfoPart implements IAddInfoProvider {
 
     @Override
     public void setLogisticsPipesAddInfo(IAddInfo info) {
-        if (this.logisticspipes$additionalInformation == null) {
-            this.logisticspipes$additionalInformation = new ArrayList<>();
+        if (this.LogisticsPipes$additionalInformation == null) {
+            this.LogisticsPipes$additionalInformation = new ArrayList<>();
         }
-        for (int i = 0; i < this.logisticspipes$additionalInformation.size(); i++) {
-            if (this.logisticspipes$additionalInformation.get(i) != null
-                    && this.logisticspipes$additionalInformation.get(i).getClass() == info.getClass()) {
-                this.logisticspipes$additionalInformation.set(i, info);
+        for (int i = 0; i < this.LogisticsPipes$additionalInformation.size(); i++) {
+            if (this.LogisticsPipes$additionalInformation.get(i) != null
+                    && this.LogisticsPipes$additionalInformation.get(i).getClass() == info.getClass()) {
+                this.LogisticsPipes$additionalInformation.set(i, info);
             }
         }
     }

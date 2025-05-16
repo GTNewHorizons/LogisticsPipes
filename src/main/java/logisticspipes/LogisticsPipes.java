@@ -379,6 +379,7 @@ public class LogisticsPipes {
 
         SimpleServiceLocator.buildCraftProxy.registerPipeInformationProvider();
         SimpleServiceLocator.buildCraftProxy.initProxy();
+        SimpleServiceLocator.thermalDynamicsProxy.registerPipeInformationProvider();
 
         SimpleServiceLocator.specialpipeconnection.registerHandler(new TeleportPipes());
         SimpleServiceLocator.specialtileconnection.registerHandler(new TesseractConnection());

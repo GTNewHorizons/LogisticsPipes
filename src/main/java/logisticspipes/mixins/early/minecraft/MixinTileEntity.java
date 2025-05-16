@@ -17,10 +17,10 @@ import logisticspipes.routing.pathfinder.changedetection.TEControl;
 public class MixinTileEntity implements ILPTEInformation {
 
     @Unique
-    private LPTileEntityObject logisticspipes$informationObject;
+    private LPTileEntityObject LogisticsPipes$informationObject;
 
     @Inject(at = @At("HEAD"), method = "invalidate")
-    private void logisticspipes$invalidate(CallbackInfo ci) {
+    private void LogisticsPipes$invalidate(CallbackInfo ci) {
         try {
             TEControl.invalidate((TileEntity) (Object) this);
         } catch (Exception e) {
@@ -32,7 +32,7 @@ public class MixinTileEntity implements ILPTEInformation {
     }
 
     @Inject(at = @At("HEAD"), method = "validate")
-    private void logisticspipes$validate(CallbackInfo ci) {
+    private void LogisticsPipes$validate(CallbackInfo ci) {
         try {
             TEControl.validate((TileEntity) (Object) this);
         } catch (Exception e) {
@@ -45,11 +45,11 @@ public class MixinTileEntity implements ILPTEInformation {
 
     @Override
     public LPTileEntityObject getObject() {
-        return this.logisticspipes$informationObject;
+        return this.LogisticsPipes$informationObject;
     }
 
     @Override
     public void setObject(LPTileEntityObject object) {
-        this.logisticspipes$informationObject = object;
+        this.LogisticsPipes$informationObject = object;
     }
 }
