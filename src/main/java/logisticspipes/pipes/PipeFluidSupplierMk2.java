@@ -18,9 +18,9 @@ import com.cleanroommc.modularui.value.sync.FluidSlotSyncHandler;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.value.sync.SyncHandlers;
 import com.cleanroommc.modularui.widgets.CycleButtonWidget;
-import com.cleanroommc.modularui.widgets.FluidSlot;
 import com.cleanroommc.modularui.widgets.layout.Column;
 import com.cleanroommc.modularui.widgets.layout.Row;
+import com.cleanroommc.modularui.widgets.slot.FluidSlot;
 import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
 import gnu.trove.iterator.TObjectIntIterator;
