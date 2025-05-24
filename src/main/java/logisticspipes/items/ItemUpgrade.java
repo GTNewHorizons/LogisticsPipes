@@ -217,9 +217,8 @@ public class ItemUpgrade extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
         for (Upgrade upgrade : upgrades) {
             par3List.add(new ItemStack(this, 1, upgrade.getId()));
         }
@@ -320,8 +319,7 @@ public class ItemUpgrade extends LogisticsItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings({ "unchecked" })
-    public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List list, boolean flag) {
+    public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List<String> list, boolean flag) {
         super.addInformation(stack, par2EntityPlayer, list, flag);
         IPipeUpgrade upgrade = getUpgradeForItem(stack, null);
         if (upgrade == null) {

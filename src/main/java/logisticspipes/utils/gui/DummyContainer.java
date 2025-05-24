@@ -37,6 +37,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.DictResource;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.MinecraftColor;
+import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifier;
 
 public class DummyContainer extends Container {
@@ -869,7 +870,6 @@ public class DummyContainer extends Container {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void detectAndSendChanges() {
         for (int i = 0; i < inventorySlots.size(); ++i) {
             if (inventorySlots.get(i) instanceof IFuzzySlot) {
@@ -880,7 +880,7 @@ public class DummyContainer extends Container {
                     MainProxy.sendToPlayerList(
                             PacketHandler.getPacket(FuzzySlotSettingsPacket.class).setSlotNumber(fuzzySlot.getSlotId())
                                     .setFlags(set),
-                            crafters);
+                            (PlayerCollectionList) crafters);
                     inventoryFuzzySlotsContent.set(i, set);
                 } else {
                     BitSet setB = fuzzySlot.getFuzzyFlags().getBitSet();
@@ -888,7 +888,7 @@ public class DummyContainer extends Container {
                         MainProxy.sendToPlayerList(
                                 PacketHandler.getPacket(FuzzySlotSettingsPacket.class)
                                         .setSlotNumber(fuzzySlot.getSlotId()).setFlags(setB),
-                                crafters);
+                                (PlayerCollectionList) crafters);
                         inventoryFuzzySlotsContent.set(i, setB);
                     }
                 }

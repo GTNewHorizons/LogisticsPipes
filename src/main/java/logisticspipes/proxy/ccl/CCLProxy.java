@@ -68,7 +68,7 @@ public class CCLProxy implements ICCLProxy {
 
             @Override
             public void reset() {
-                state.reset();
+                CCRenderState.reset();
             }
 
             @Override

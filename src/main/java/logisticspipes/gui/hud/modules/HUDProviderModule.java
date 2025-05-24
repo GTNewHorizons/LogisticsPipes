@@ -3,11 +3,8 @@ package logisticspipes.gui.hud.modules;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import logisticspipes.interfaces.IHUDButton;
 import logisticspipes.interfaces.IHUDModuleRenderer;
 import logisticspipes.modules.ModuleProvider;
@@ -71,7 +68,6 @@ public class HUDProviderModule implements IHUDModuleRenderer {
 
     @Override
     public void renderContent(boolean shifted) {
-        Minecraft mc = FMLClientHandler.instance().getClient();
         GL11.glScalef(1.0F, 1.0F, -0.00001F);
         ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                 module.displayList,

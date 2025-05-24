@@ -54,7 +54,8 @@ public class ClassCreator {
                     Opcodes.INVOKESPECIAL,
                     "logisticspipes/proxy/opencomputers/asm/BaseWrapperClass",
                     "<init>",
-                    "(Ljava/lang/String;)V");
+                    "(Ljava/lang/String;)V",
+                    false);
             Label l1 = new Label();
             mv.visitLabel(l1);
             mv.visitLineNumber(11, l1);
@@ -83,7 +84,8 @@ public class ClassCreator {
                     Opcodes.INVOKESPECIAL,
                     "logisticspipes/proxy/opencomputers/asm/BaseWrapperClass",
                     "<init>",
-                    "(Llogisticspipes/proxy/computers/wrapper/CCWrapperInformation;Ljava/lang/Object;)V");
+                    "(Llogisticspipes/proxy/computers/wrapper/CCWrapperInformation;Ljava/lang/Object;)V",
+                    false);
             Label l1 = new Label();
             mv.visitLabel(l1);
             mv.visitLineNumber(15, l1);
@@ -115,6 +117,7 @@ public class ClassCreator {
         return cw.toByteArray();
     }
 
+    @SuppressWarnings("unchecked")
     public static Class<? extends BaseWrapperClass> getWrapperClass(CCWrapperInformation info, String className)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
@@ -158,7 +161,8 @@ public class ClassCreator {
                 Opcodes.INVOKEVIRTUAL,
                 "logisticspipes/proxy/opencomputers/asm/BaseWrapperClass",
                 "invokeMethod",
-                "(Ljava/lang/String;Lli/cil/oc/api/machine/Context;Lli/cil/oc/api/machine/Arguments;)[Ljava/lang/Object;");
+                "(Ljava/lang/String;Lli/cil/oc/api/machine/Context;Lli/cil/oc/api/machine/Arguments;)[Ljava/lang/Object;",
+                false);
         mv.visitInsn(Opcodes.ARETURN);
         Label l1 = new Label();
         mv.visitLabel(l1);

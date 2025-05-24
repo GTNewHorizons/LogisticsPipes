@@ -98,6 +98,8 @@ public class LPPosition {
             case WEST:
                 xPos -= steps;
                 break;
+            default:
+                break;
         }
         return this;
     }

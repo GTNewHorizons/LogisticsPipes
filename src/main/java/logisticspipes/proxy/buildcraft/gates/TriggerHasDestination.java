@@ -30,7 +30,7 @@ public class TriggerHasDestination extends LPTrigger implements ITriggerInternal
     }
 
     @Override
-    public boolean isTriggerActive(Pipe pipe, IStatementParameter parameter) {
+    public boolean isTriggerActive(Pipe<?> pipe, IStatementParameter parameter) {
         if (pipe instanceof LPBCPipe) {
             if (((LPBCPipe) pipe).pipe.pipe instanceof CoreRoutedPipe) {
                 if (parameter != null && parameter.getItemStack() != null) {

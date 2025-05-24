@@ -81,7 +81,6 @@ public class StackTraceUtil {
         synchronized (System.err) {
             synchronized (StackTraceUtil.informationMap) {
                 // Print our stack trace
-                @SuppressWarnings("unchecked")
                 LinkedList<StackTraceElement> traceList = new LinkedList<StackTraceElement>(
                         Arrays.asList(Thread.currentThread().getStackTrace()));
                 traceList.removeFirst();
