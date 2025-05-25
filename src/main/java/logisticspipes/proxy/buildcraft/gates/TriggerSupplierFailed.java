@@ -29,7 +29,7 @@ public class TriggerSupplierFailed extends LPTrigger implements ITriggerInternal
     }
 
     @Override
-    public boolean isTriggerActive(Pipe pipe, IStatementParameter parameter) {
+    public boolean isTriggerActive(Pipe<?> pipe, IStatementParameter parameter) {
         if (pipe instanceof LPBCPipe) {
             if (((LPBCPipe) pipe).pipe.pipe instanceof PipeItemsSupplierLogistics) {
                 PipeItemsSupplierLogistics supplier = (PipeItemsSupplierLogistics) ((LPBCPipe) pipe).pipe.pipe;

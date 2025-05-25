@@ -66,7 +66,7 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         if (sideTanks[from.ordinal()].getFluid() == null
                 || !(sideTanks[from.ordinal()].getFluid().isFluidEqual(resource))) {
-            return new FluidStack(resource.getFluidID(), 0);
+            return new FluidStack(resource.getFluid(), 0);
         }
         return drain(from, resource.amount, doDrain);
     }

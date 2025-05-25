@@ -21,7 +21,6 @@ public class GuiElectricManager extends ModuleBaseGui {
 
     private final ModuleElectricManager _module;
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

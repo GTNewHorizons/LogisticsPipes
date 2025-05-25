@@ -23,10 +23,9 @@ public class LogisticsItemCard extends LogisticsItem implements IItemAdvancedExi
         hasSubtypes = true;
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> list, boolean flag) {
         super.addInformation(itemStack, player, list, flag);
         if (!itemStack.hasTagCompound()) {
             list.add(StringUtils.translate("tooltip.logisticsItemCard"));

@@ -12,8 +12,7 @@ import javax.swing.text.StyleConstants;
 
 public class DebugWindow extends JFrame {
 
-    private int width;
-    private int height;
+    private static final long serialVersionUID = -6071825908782027957L;
     private final JTextPane textArea;
     private final JScrollPane pane;
 
