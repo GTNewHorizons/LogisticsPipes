@@ -26,6 +26,7 @@ import logisticspipes.proxy.interfaces.IIC2Proxy;
 import logisticspipes.proxy.interfaces.IIronChestProxy;
 import logisticspipes.proxy.interfaces.INEIProxy;
 import logisticspipes.proxy.interfaces.IOpenComputersProxy;
+import logisticspipes.proxy.interfaces.ITDProxy;
 import logisticspipes.proxy.interfaces.IThaumCraftProxy;
 import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
 import logisticspipes.proxy.interfaces.IToolWrenchProxy;
@@ -242,6 +243,12 @@ public final class SimpleServiceLocator {
 
     public static void setCoFHPowerProxy(ICoFHPowerProxy proxy) {
         SimpleServiceLocator.cofhPowerProxy = proxy;
+    }
+
+    public static ITDProxy thermalDynamicsProxy;
+
+    public static void setThermalDynamicsProxy(ITDProxy proxy) {
+        SimpleServiceLocator.thermalDynamicsProxy = proxy;
     }
 
     public static IBinnieProxy binnieProxy;
