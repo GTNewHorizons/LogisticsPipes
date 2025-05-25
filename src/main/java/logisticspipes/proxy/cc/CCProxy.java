@@ -95,7 +95,7 @@ public class CCProxy implements ICCProxy {
     }
 
     @Override
-    public void handleMesssage(int computerId, Object message, LogisticsTileGenericPipe tile, int sourceId) {
+    public void handleMesssage(int computerId, Object message, LogisticsTileGenericPipe tile, Object sourceId) {
         for (Object computerO : tile.connections.keySet()) {
             IComputerAccess computer = (IComputerAccess) computerO;
             if (computer.getID() == computerId) {

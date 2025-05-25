@@ -445,10 +445,19 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public void queueEvent(String event, Object[] arguments) {
         SimpleServiceLocator.ccProxy.queueEvent(event, arguments, this);
+        SimpleServiceLocator.openComputersProxy.pushSignal(event, arguments, this);
     }
 
-    public void handleMesssage(int computerId, Object message, int sourceId) {
-        SimpleServiceLocator.ccProxy.handleMesssage(computerId, message, this, sourceId);
+    public void handleMesssage(Object computerId, Object message, Object sourceId) {
+        if (computerId instanceof Long) { // OC -> CC
+            SimpleServiceLocator.ccProxy.handleMesssage(((Long) computerId).intValue(), message, this, sourceId);
+        } else {
+            if (computerId instanceof Double) { // (CC | OC) -> CC
+                SimpleServiceLocator.ccProxy.handleMesssage(((Double) computerId).intValue(), message, this, sourceId);
+            } else { // (CC | OC) -> OC
+                SimpleServiceLocator.openComputersProxy.handleMesssage(sourceId, (String) computerId, message, this);
+            }
+        }
     }
 
     public void setTurtleConnect(boolean flag) {
