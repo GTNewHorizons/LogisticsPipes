@@ -41,7 +41,6 @@ public class GuiProvider extends ModuleBaseGui {
         ySize = 186;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

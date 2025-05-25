@@ -22,7 +22,7 @@ import logisticspipes.routing.pathfinder.IPipeInformationProvider;
  **/
 public class TeleportPipes implements ISpecialPipedConnection {
 
-    private static Class<? extends Pipe> PipeItemTeleport;
+    private static Class<? extends Pipe<?>> PipeItemTeleport;
     private static Method teleportPipeMethod;
     private static Object teleportManager;
 
@@ -31,10 +31,10 @@ public class TeleportPipes implements ISpecialPipedConnection {
     public boolean init() {
         try {
             try {
-                TeleportPipes.PipeItemTeleport = (Class<? extends Pipe>) Class
+                TeleportPipes.PipeItemTeleport = (Class<? extends Pipe<?>>) Class
                         .forName("buildcraft.additionalpipes.pipes.PipeItemTeleport");
             } catch (Exception e) {
-                TeleportPipes.PipeItemTeleport = (Class<? extends Pipe>) Class
+                TeleportPipes.PipeItemTeleport = (Class<? extends Pipe<?>>) Class
                         .forName("net.minecraft.src.buildcraft.additionalpipes.pipes.PipeItemTeleport");
             }
             TeleportPipes.teleportPipeMethod = TeleportPipes.PipeItemTeleport
@@ -43,7 +43,7 @@ public class TeleportPipes implements ISpecialPipedConnection {
             return true;
         } catch (Exception e1) {
             try {
-                TeleportPipes.PipeItemTeleport = (Class<? extends Pipe>) Class
+                TeleportPipes.PipeItemTeleport = (Class<? extends Pipe<?>>) Class
                         .forName("buildcraft.additionalpipes.pipes.PipeItemsTeleport");
                 Class<?> tpmanager = Class.forName("buildcraft.additionalpipes.pipes.TeleportManager");
                 TeleportPipes.teleportManager = tpmanager.getField("instance").get(null);
@@ -69,12 +69,12 @@ public class TeleportPipes implements ISpecialPipedConnection {
     }
 
     @SuppressWarnings("unchecked")
-    private LinkedList<? extends Pipe> getConnectedTeleportPipes(Pipe pipe) throws Exception {
+    private LinkedList<? extends Pipe<?>> getConnectedTeleportPipes(Pipe<?> pipe) throws Exception {
         if (TeleportPipes.teleportManager != null) {
-            return (LinkedList<? extends Pipe>) TeleportPipes.teleportPipeMethod
+            return (LinkedList<? extends Pipe<?>>) TeleportPipes.teleportPipeMethod
                     .invoke(TeleportPipes.teleportManager, pipe, false);
         }
-        return (LinkedList<? extends Pipe>) TeleportPipes.teleportPipeMethod.invoke(pipe, false);
+        return (LinkedList<? extends Pipe<?>>) TeleportPipes.teleportPipeMethod.invoke(pipe, false);
     }
 
     @Override
@@ -83,8 +83,9 @@ public class TeleportPipes implements ISpecialPipedConnection {
         List<ConnectionInformation> list = new ArrayList<>();
         if (tile.getTile() instanceof TileGenericPipe && ((TileGenericPipe) tile.getTile()).pipe != null) {
             try {
-                LinkedList<? extends Pipe> pipes = getConnectedTeleportPipes(((TileGenericPipe) tile.getTile()).pipe);
-                for (Pipe pipe : pipes) {
+                LinkedList<? extends Pipe<?>> pipes = getConnectedTeleportPipes(
+                        ((TileGenericPipe) tile.getTile()).pipe);
+                for (Pipe<?> pipe : pipes) {
                     list.add(
                             new ConnectionInformation(
                                     SimpleServiceLocator.pipeInformationManager

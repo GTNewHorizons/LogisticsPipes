@@ -39,7 +39,6 @@ public class SelectItemOutOfList extends SubGuiScreen {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         super.initGui();
         buttonList.clear();
@@ -129,7 +128,7 @@ public class SelectItemOutOfList extends SubGuiScreen {
                 false);
         int x = 0;
         int y = -page * 10;
-        for (ItemIdentifierStack stack : canidate) {
+        for (int i = 0; i < canidate.size(); i++) {
             if (y >= 0) {
                 GuiGraphics.drawSlotBackground(mc, guiLeft + 4 + x * 18, guiTop + 16 + y * 18);
             }
@@ -165,7 +164,7 @@ public class SelectItemOutOfList extends SubGuiScreen {
         int x = 0;
         int y = -page * 10;
         int count = 0;
-        for (ItemIdentifierStack stack : canidate) {
+        for (int i = 0; i < canidate.size(); i++) {
             if (y >= 0) {
                 if (guiLeft + 5 + x * 18 < mouseX && mouseX < guiLeft + 5 + x * 18 + 16
                         && guiTop + 17 + y * 18 < mouseY

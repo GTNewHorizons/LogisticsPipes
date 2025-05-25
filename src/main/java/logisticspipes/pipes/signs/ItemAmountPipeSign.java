@@ -222,11 +222,9 @@ public class ItemAmountPipeSign implements IPipeSign, ISimpleInventoryEventHandl
 
     @Override
     public IPipeSignData getRenderData(CoreRoutedPipe pipe) {
-        ItemAmountPipeSignData result = null;
         if (pipe != null) {
             final ItemIdentifierStack idStackInSlot = itemTypeInv.getIDStackInSlot(0);
             if (itemTypeInv != null && idStackInSlot != null) {
-                String displayAmount = StringUtils.getFormatedStackSize(amount, false);
                 return new ItemAmountPipeSignData(idStackInSlot, amount);
             } else {
                 return new ItemAmountPipeSignData(null, -1);

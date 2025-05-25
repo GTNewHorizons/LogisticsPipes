@@ -78,7 +78,6 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         itemDisplay.setItemList(allItems);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();
@@ -152,7 +151,6 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         GuiGraphics.displayItemToolTip(itemDisplay.getToolTip(), this, zLevel, guiLeft, guiTop);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {
