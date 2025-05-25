@@ -3,8 +3,8 @@
 dependencies {
     api('com.github.GTNewHorizons:BuildCraft:7.1.42:dev')
 
-    implementation('com.github.GTNewHorizons:NotEnoughItems:2.7.40-GTNH:dev')
-    implementation("com.github.GTNewHorizons:ModularUI2:2.2.7-1.7.10:dev")
+    implementation('com.github.GTNewHorizons:NotEnoughItems:2.7.45-GTNH:dev')
+    implementation("com.github.GTNewHorizons:ModularUI2:2.2.15-1.7.10:dev")
 
     compileOnly('com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-615-GTNH:api') { transitive = false }
     compileOnly('com.github.GTNewHorizons:Binnie:2.5.10:dev') { transitive = false }
@@ -18,7 +18,7 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:ironchest:6.1.2:dev') { transitive = false }
     compileOnly('com.github.GTNewHorizons:Jabba:1.5.4:dev') { transitive = false }
     compileOnly("com.github.GTNewHorizons:OpenComputers:1.11.15-GTNH:api") {transitive = false}
-    compileOnly('com.github.GTNewHorizons:StorageDrawers:2.1.0-GTNH:api') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:StorageDrawers:2.1.2-GTNH:api') { transitive = false }
     compileOnly('net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev') { transitive = false }
     compileOnly('thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev') { transitive = false }
     compileOnly('curse.maven:computercraft-67504:2269339') { transitive = false }
