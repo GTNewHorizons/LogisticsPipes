@@ -78,7 +78,7 @@ public class CCItemIdentifier implements ILPCCTypeDefinition {
         }
 
         @CCCommand(description = "Returns a new ItemIdentifierStack")
-        public ItemIdentifierStack makeStack(Double stackSize) {
+        public ItemIdentifierStack makeStack(Long stackSize) {
             return ident.makeStack(stackSize.intValue());
         }
 

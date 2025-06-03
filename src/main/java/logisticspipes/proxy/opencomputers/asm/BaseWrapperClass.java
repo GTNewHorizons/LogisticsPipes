@@ -273,34 +273,52 @@ public abstract class BaseWrapperClass extends AbstractValue {
 
         if (match == null) {
             StringBuilder error = new StringBuilder();
-            error.append("No such method.");
-            boolean handled = false;
+
+            // Build argument type list for the attempted call
+            StringBuilder attemptedArgs = new StringBuilder();
+            attemptedArgs.append("(");
+            for (int i = 0; i < arguments.length; i++) {
+                if (i > 0) {
+                    attemptedArgs.append(", ");
+                }
+                attemptedArgs.append(arguments[i] != null ? arguments[i].getClass().getSimpleName() : "null");
+            }
+            attemptedArgs.append(")");
+
+            error.append("Method '").append(methodName).append(attemptedArgs).append("' not found.");
+
+            // Check if any methods with this name exist
+            boolean foundMethodsWithSameName = false;
             for (Method method : info.commands.values()) {
-                if (!method.getName().equalsIgnoreCase(methodName)) {
-                    continue;
+                if (method.getName().equalsIgnoreCase(methodName)) {
+                    foundMethodsWithSameName = true;
+                    break;
                 }
-                if (handled) {
-                    error.append("\n");
-                }
-                handled = true;
-                error.append(method.getName());
-                error.append("(");
-                boolean a = false;
-                for (Class<?> clazz : method.getParameterTypes()) {
-                    if (a) {
-                        error.append(", ");
+            }
+
+            if (foundMethodsWithSameName) {
+                error.append("\n\nAvailable overloads for '").append(methodName).append("':");
+                for (Method method : info.commands.values()) {
+                    if (!method.getName().equalsIgnoreCase(methodName)) {
+                        continue;
                     }
-                    error.append(clazz.getName());
-                    a = true;
+                    error.append("\n  - ").append(method.getName()).append("(");
+                    boolean first = true;
+                    for (Class<?> clazz : method.getParameterTypes()) {
+                        if (!first) {
+                            error.append(", ");
+                        }
+                        error.append(clazz.getSimpleName());
+                        first = false;
+                    }
+                    error.append(")");
                 }
-                error.append(")");
+                error.append("\n\nCheck parameter types and count.");
+            } else {
+                error.append("\n\nNo method named '").append(methodName).append("' exists.");
+                error.append("\nUse help() to see all available methods.");
             }
-            if (!handled) {
-                error = new StringBuilder();
-                error.append("Internal Excption (Code: 1, ");
-                error.append(methodName);
-                error.append(")");
-            }
+
             throw new UnsupportedOperationException(error.toString());
         }
 
@@ -407,8 +425,8 @@ public abstract class BaseWrapperClass extends AbstractValue {
             ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
             if (stack != null) {
                 CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
-                builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
-                builder.setItemData((double) stack.getItemDamage());
+                builder.setItemID(Long.valueOf(Item.getIdFromItem(stack.getItem())));
+                builder.setItemData((long) stack.getItemDamage());
                 object = builder;
                 checkType();
             }

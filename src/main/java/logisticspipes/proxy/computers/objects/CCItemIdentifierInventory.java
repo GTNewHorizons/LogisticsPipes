@@ -22,7 +22,7 @@ public class CCItemIdentifierInventory {
 
     @CCCommand(description = "Returns the ItemIdentifierStack in the givven slot")
     @CCQueued
-    public ItemIdentifierStack getItemIdentifierStack(Double slot) {
+    public ItemIdentifierStack getItemIdentifierStack(Long slot) {
         int s = slot.intValue();
         if (s <= 0 || s > getSizeInventory()) {
             throw new UnsupportedOperationException("Slot out of Inventory");
@@ -36,7 +36,7 @@ public class CCItemIdentifierInventory {
 
     @CCCommand(description = "Sets the ItemIdentifierStack at the givven slot")
     @CCQueued
-    public void setItemIdentifierStack(Double slot, ItemIdentifierStack stack) {
+    public void setItemIdentifierStack(Long slot, ItemIdentifierStack stack) {
         int s = slot.intValue();
         if (s <= 0 || s > getSizeInventory()) {
             throw new UnsupportedOperationException("Slot out of Inventory");
@@ -50,7 +50,7 @@ public class CCItemIdentifierInventory {
 
     @CCCommand(description = "Sets the ItemIdentifierStack at the givven slot")
     @CCQueued
-    public void clearSlot(Double slot) {
+    public void clearSlot(Long slot) {
         int s = slot.intValue();
         if (s <= 0 || s > getSizeInventory()) {
             throw new UnsupportedOperationException("Slot out of Inventory");

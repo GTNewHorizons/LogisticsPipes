@@ -24,14 +24,14 @@ public class OpenComputersProxy implements IOpenComputersProxy {
 
     @Override
     public void initLogisticsTileGenericPipe(LogisticsTileGenericPipe tile) {
-        tile.node = Network.newNode(tile, Visibility.Neighbors).withComponent("logisticspipe", Visibility.Neighbors)
+        tile.node = Network.newNode(tile, Visibility.Network).withComponent("logisticspipe", Visibility.Network)
                 .create();
     }
 
     @Override
     public void initLogisticsSolidTileEntity(LogisticsSolidTileEntity tile) {
-        tile.node = Network.newNode(tile, Visibility.Neighbors)
-                .withComponent("logisticssolidblock", Visibility.Neighbors).create();
+        tile.node = Network.newNode(tile, Visibility.Network).withComponent("logisticssolidblock", Visibility.Network)
+                .create();
     }
 
     @Override
