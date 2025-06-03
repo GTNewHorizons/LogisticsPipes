@@ -245,9 +245,8 @@ public class ItemModule extends LogisticsItem {
         return CreativeTabs.tabRedstone;
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
-    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List<ItemStack> par3List) {
         for (Module module : modules) {
             par3List.add(new ItemStack(this, 1, module.getId()));
         }
@@ -370,9 +369,8 @@ public class ItemModule extends LogisticsItem {
         return null;
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean flag) {
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List<String> list, boolean flag) {
         if (itemStack.hasTagCompound()) {
             NBTTagCompound nbt = itemStack.getTagCompound();
             if (nbt.hasKey("informationList")) {
@@ -421,5 +419,11 @@ public class ItemModule extends LogisticsItem {
         } else {
             StringUtils.addShiftAddition(itemStack, list);
         }
+    }
+
+    public static boolean isCrafter(ItemStack itemStack) {
+        return itemStack.getItem() instanceof ItemModule && (itemStack.getItemDamage() == ItemModule.CRAFTER
+                || itemStack.getItemDamage() == ItemModule.CRAFTER_MK2
+                || itemStack.getItemDamage() == ItemModule.CRAFTER_MK3);
     }
 }

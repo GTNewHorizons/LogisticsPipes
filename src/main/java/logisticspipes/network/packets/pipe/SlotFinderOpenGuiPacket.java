@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import logisticspipes.interfaces.ISpecialInsertion;
 import logisticspipes.network.LPDataInputStream;
@@ -67,7 +68,7 @@ public class SlotFinderOpenGuiPacket extends ModuleCoordinatesPacket {
         boolean found = false;
         for (final AdjacentTile tile : worldUtil.getAdjacentTileEntities(true)) {
             if (tile instanceof IInventory && !(SimpleServiceLocator.inventoryUtilFactory
-                    .getInventoryUtil((IInventory) tile) instanceof ISpecialInsertion)) {
+                    .getInventoryUtil((IInventory) tile, ForgeDirection.UNKNOWN) instanceof ISpecialInsertion)) {
                 continue;
             }
             for (ICraftingRecipeProvider provider : SimpleServiceLocator.craftingRecipeProviders) {

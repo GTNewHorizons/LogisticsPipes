@@ -20,6 +20,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISearchBar;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.gui.SmallGuiButton;
@@ -33,7 +34,7 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
     private final String PREFIX = "gui.networkstatistics.add.";
 
     ItemDisplay itemDisplay;
-    SearchBar search;
+    ISearchBar search;
     private final LogisticsStatisticsTileEntity tile;
 
     public GuiAddTracking(LogisticsStatisticsTileEntity tile) {
@@ -41,7 +42,6 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         this.tile = tile;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();
@@ -184,7 +184,6 @@ public class GuiAddTracking extends SubGuiScreen implements IItemSearch {
         itemDisplay.setItemList(identList);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {

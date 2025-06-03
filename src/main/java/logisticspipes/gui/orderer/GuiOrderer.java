@@ -13,6 +13,10 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Keyboard;
 
@@ -29,6 +33,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISearchBar;
 import logisticspipes.utils.gui.ISubGuiControler;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
@@ -41,7 +46,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
 
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
-    private SearchBar search;
+    private ISearchBar search;
 
     protected String _title = "Request items";
 
@@ -73,7 +78,6 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         itemDisplay.setItemList(allItems);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();
@@ -147,11 +151,26 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         GuiGraphics.displayItemToolTip(itemDisplay.getToolTip(), this, zLevel, guiLeft, guiTop);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {
             return true;
+        }
+        if (item.tag != null && "IC2".equals(item.getModName())
+                && "itemFluidCell".equals(item.item.getUnlocalizedName())) {
+            if (item.tag.hasKey("Fluid")) {
+                final NBTTagCompound fluidTag = item.tag.getCompoundTag("Fluid");
+                if (fluidTag.hasKey("FluidName") && fluidTag.hasKey("Amount")) {
+                    final String fluidName = fluidTag.getString("FluidName");
+                    final int fluidAmount = fluidTag.getInteger("Amount");
+                    final Fluid fluid = FluidRegistry.getFluid(fluidName);
+                    if (isSearched(
+                            fluid.getLocalizedName(new FluidStack(fluid, fluidAmount)).toLowerCase(Locale.US),
+                            search.getContent().toLowerCase(Locale.US))) {
+                        return true;
+                    }
+                }
+            }
         }
         if (isSearched(item.getFriendlyName().toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
             return true;

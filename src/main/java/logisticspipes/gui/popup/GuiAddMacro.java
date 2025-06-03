@@ -95,7 +95,6 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();
@@ -129,7 +128,7 @@ public class GuiAddMacro extends SubGuiScreen implements IItemSearch {
 
     @Override
     public void handleMouseInputSub() {
-        int wheel = org.lwjgl.input.Mouse.getDWheel() / 120;
+        int wheel = org.lwjgl.input.Mouse.getDWheel();
         if (wheel == 0) {
             super.handleMouseInputSub();
         }

@@ -58,7 +58,6 @@ public class AETankHandler implements ISpecialTankAccessHandler {
         return tiles;
     }
 
-    @SuppressWarnings("unused")
     @Override
     public Map<FluidIdentifier, Long> getAvailableLiquid(TileEntity tile) {
         Map<FluidIdentifier, Long> map = new HashMap<>();
@@ -88,7 +87,6 @@ public class AETankHandler implements ISpecialTankAccessHandler {
         return map;
     }
 
-    @SuppressWarnings("unused")
     @Override
     public FluidStack drainFrom(TileEntity tile, FluidIdentifier ident, Integer amount, boolean drain) {
         if (tile instanceof ITileStorageMonitorable) {

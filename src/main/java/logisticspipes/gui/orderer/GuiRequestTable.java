@@ -17,6 +17,10 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -48,11 +52,11 @@ import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
+import logisticspipes.utils.gui.GuiSearchBar;
 import logisticspipes.utils.gui.IItemSearch;
 import logisticspipes.utils.gui.ISubGuiControler;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
-import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -78,7 +82,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
-    private SearchBar search;
+    private GuiSearchBar search;
 
     protected final String _title = "Request items";
 
@@ -131,7 +135,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void initGui() {
         boolean reHide = false;
         if (!showRequest) {
@@ -155,7 +158,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(6, right - 86, bottom - 26, 10, 10, "+"))); // +1
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
-        buttonList.add(moveWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
         buttonList.add(hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
 
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
@@ -184,7 +187,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 		// @formatter:on
 
         if (search == null) {
-            search = new SearchBar(mc.fontRenderer, this, guiLeft + 205, bottom - 78, 200, 15);
+            search = new GuiSearchBar("search");
         }
         search.reposition(guiLeft + 205, bottom - 78, 200, 15);
 
@@ -286,7 +289,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                     private int width = 4;
                     private GuiButton localControlledButton;
 
-                    @SuppressWarnings("unchecked")
                     @Override
                     public void renderForground(int left, int top) {
                         if (!_table.watchedRequests.containsKey(entry.getKey())) {
@@ -678,11 +680,26 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 && _table.diskInv.getStackInSlot(0).getItem().equals(LogisticsPipes.LogisticsItemDisk);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean itemSearched(ItemIdentifier item) {
         if (search.isEmpty()) {
             return true;
+        }
+        if (item.tag != null && "IC2".equals(item.getModName())
+                && "itemFluidCell".equals(item.item.getUnlocalizedName())) {
+            if (item.tag.hasKey("Fluid")) {
+                final NBTTagCompound fluidTag = item.tag.getCompoundTag("Fluid");
+                if (fluidTag.hasKey("FluidName") && fluidTag.hasKey("Amount")) {
+                    final String fluidName = fluidTag.getString("FluidName");
+                    final int fluidAmount = fluidTag.getInteger("Amount");
+                    final Fluid fluid = FluidRegistry.getFluid(fluidName);
+                    if (isSearched(
+                            fluid.getLocalizedName(new FluidStack(fluid, fluidAmount)).toLowerCase(Locale.US),
+                            search.getContent().toLowerCase(Locale.US))) {
+                        return true;
+                    }
+                }
+            }
         }
         if (isSearched(item.getFriendlyName().toLowerCase(Locale.US), search.getContent().toLowerCase(Locale.US))) {
             return true;
@@ -753,7 +770,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     @Override
     protected void keyTyped(char c, int i) {
-        if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-a
+        if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && !search.isFocused()) { // Ctrl-a
             itemDisplay.setMaxAmount();
         } else if (i == 32 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-d
             itemDisplay.resetAmount();

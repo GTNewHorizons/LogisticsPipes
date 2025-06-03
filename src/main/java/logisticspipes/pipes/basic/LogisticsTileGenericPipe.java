@@ -1,6 +1,7 @@
 package logisticspipes.pipes.basic;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import com.cleanroommc.modularui.api.IGuiHolder;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.network.NetworkUtils;
 import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import com.gtnewhorizon.gtnhlib.blockpos.IBlockPos;
@@ -72,6 +74,7 @@ import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
 import logisticspipes.proxy.computers.wrapper.CCObjectWrapper;
 import logisticspipes.proxy.opencomputers.IOCTile;
 import logisticspipes.proxy.opencomputers.asm.BaseWrapperClass;
+import logisticspipes.proxy.td.subproxies.ITDPart;
 import logisticspipes.renderer.IIconProvider;
 import logisticspipes.renderer.LogisticsTileRenderController;
 import logisticspipes.renderer.state.PipeRenderState;
@@ -119,6 +122,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     public final CoreState coreState = new CoreState();
     public final IBCTilePart tilePart;
     public final IBCPluggableState bcPlugableState;
+    public final ITDPart tdPart;
 
     @Getter
     private IBlockPos pos;
@@ -129,6 +133,7 @@ public class LogisticsTileGenericPipe extends TileEntity
         }
         SimpleServiceLocator.openComputersProxy.initLogisticsTileGenericPipe(this);
         tilePart = SimpleServiceLocator.buildCraftProxy.getBCTilePart(this);
+        tdPart = SimpleServiceLocator.thermalDynamicsProxy.getTDPart(this);
         renderState = new PipeRenderState(tilePart);
         bcPlugableState = tilePart.getBCPlugableState();
     }
@@ -153,6 +158,7 @@ public class LogisticsTileGenericPipe extends TileEntity
             super.invalidate();
             SimpleServiceLocator.openComputersProxy.handleInvalidate(this);
             tilePart.invalidate_LP();
+            tdPart.invalidate();
         }
     }
 
@@ -176,6 +182,7 @@ public class LogisticsTileGenericPipe extends TileEntity
             pipe.onChunkUnload();
         }
         SimpleServiceLocator.openComputersProxy.handleChunkUnload(this);
+        tdPart.onChunkUnload();
     }
 
     @Override
@@ -232,6 +239,7 @@ public class LogisticsTileGenericPipe extends TileEntity
             for (ForgeDirection o : ForgeDirection.VALID_DIRECTIONS) {
                 renderState.pipeConnectionMatrix.setConnected(o, pipeConnectionsBuffer[o.ordinal()]);
                 renderState.pipeConnectionMatrix.setBCConnected(o, pipeBCConnectionsBuffer[o.ordinal()]);
+                renderState.pipeConnectionMatrix.setTDConnected(o, pipeTDConnectionsBuffer[o.ordinal()]);
             }
             // Pipe Textures
             for (int i = 0; i < 7; i++) {
@@ -312,6 +320,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     @Override
     public void scheduleNeighborChange() {
         tilePart.scheduleNeighborChange();
+        tdPart.scheduleNeighborChange();
         blockNeighborChange = true;
         boolean[] connected = new boolean[6];
         WorldUtil world = new WorldUtil(getWorld(), xCoord, yCoord, zCoord);
@@ -425,6 +434,9 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (!SimpleServiceLocator.buildCraftProxy.checkForPipeConnection(with, side, this)) {
             return false;
         }
+        if (SimpleServiceLocator.thermalDynamicsProxy.isBlockedSide(with, side.getOpposite())) {
+            return false;
+        }
         if (with instanceof LogisticsTileGenericPipe) {
             if (((LogisticsTileGenericPipe) with).tilePart.hasBlockingPluggable(side.getOpposite())) {
                 return false;
@@ -444,10 +456,19 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public void queueEvent(String event, Object[] arguments) {
         SimpleServiceLocator.ccProxy.queueEvent(event, arguments, this);
+        SimpleServiceLocator.openComputersProxy.pushSignal(event, arguments, this);
     }
 
-    public void handleMesssage(int computerId, Object message, int sourceId) {
-        SimpleServiceLocator.ccProxy.handleMesssage(computerId, message, this, sourceId);
+    public void handleMesssage(Object computerId, Object message, Object sourceId) {
+        if (computerId instanceof Long) { // OC -> CC
+            SimpleServiceLocator.ccProxy.handleMesssage(((Long) computerId).intValue(), message, this, sourceId);
+        } else {
+            if (computerId instanceof Double) { // (CC | OC) -> CC
+                SimpleServiceLocator.ccProxy.handleMesssage(((Double) computerId).intValue(), message, this, sourceId);
+            } else { // (CC | OC) -> OC
+                SimpleServiceLocator.openComputersProxy.handleMesssage(sourceId, (String) computerId, message, this);
+            }
+        }
     }
 
     public void setTurtleConnect(boolean flag) {
@@ -692,6 +713,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public boolean[] pipeConnectionsBuffer = new boolean[6];
     public boolean[] pipeBCConnectionsBuffer = new boolean[6];
+    public boolean[] pipeTDConnectionsBuffer = new boolean[6];
 
     public CoreUnroutedPipe pipe;
     // public int redstoneInput = 0;
@@ -847,6 +869,8 @@ public class LogisticsTileGenericPipe extends TileEntity
             return;
         }
 
+        boolean[] pipeTDConnectionsBufferOld = pipeTDConnectionsBuffer.clone();
+
         for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
             TileBuffer t = cache[side.ordinal()];
             t.refresh();
@@ -855,9 +879,15 @@ public class LogisticsTileGenericPipe extends TileEntity
             if (pipeConnectionsBuffer[side.ordinal()]) {
                 pipeBCConnectionsBuffer[side.ordinal()] = SimpleServiceLocator.buildCraftProxy
                         .isTileGenericPipe(t.getTile());
+                pipeTDConnectionsBuffer[side.ordinal()] = SimpleServiceLocator.thermalDynamicsProxy
+                        .isItemDuct(t.getTile());
             } else {
                 pipeBCConnectionsBuffer[side.ordinal()] = false;
+                pipeTDConnectionsBuffer[side.ordinal()] = false;
             }
+        }
+        if (!Arrays.equals(pipeTDConnectionsBufferOld, pipeTDConnectionsBuffer)) {
+            tdPart.connectionsChanged();
         }
     }
 
@@ -1090,6 +1120,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     public void setWorldObj(World world) {
         super.setWorldObj(world);
         tilePart.setWorldObj_LP(world);
+        tdPart.setWorldObj_LP(world);
     }
 
     @SideOnly(Side.CLIENT)
@@ -1130,7 +1161,7 @@ public class LogisticsTileGenericPipe extends TileEntity
     }
 
     @Override
-    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
+    public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings settings) {
         if (!(pipe instanceof IMUICompatiblePipe)) {
             throw new IllegalArgumentException();
         }

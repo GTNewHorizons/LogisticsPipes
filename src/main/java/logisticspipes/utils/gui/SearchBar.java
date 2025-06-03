@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 
 import logisticspipes.utils.Color;
 
-public class SearchBar {
+public class SearchBar implements ISearchBar {
 
     public String searchinput1 = "";
     public String searchinput2 = "";
@@ -55,6 +55,7 @@ public class SearchBar {
         this.alignRight = alignRight;
     }
 
+    @Override
     public void reposition(int left, int top, int width, int heigth) {
         this.left = left;
         this.top = top;
@@ -63,6 +64,7 @@ public class SearchBar {
         searchWidth = width - 10;
     }
 
+    @Override
     public void renderSearchBar() {
         if (isFocused()) {
             screen.drawRect(left, top - 2, left + width, top + heigth, Color.BLACK);
@@ -100,6 +102,7 @@ public class SearchBar {
     /**
      * @return Boolean, true if click was handled.
      */
+    @Override
     public boolean handleClick(int x, int y, int k) {
         if (x >= left + 2 && x < left + width - 2 && y >= top && y < top + heigth) {
             focus();
@@ -136,6 +139,7 @@ public class SearchBar {
         isActive = true;
     }
 
+    @Override
     public boolean isFocused() {
         return isActive;
     }
@@ -143,6 +147,7 @@ public class SearchBar {
     /**
      * @return Boolean, true if key was handled.
      */
+    @Override
     public boolean handleKey(char typedChar, int keyCode) {
         if (!isFocused()) {
             return false;
@@ -203,10 +208,12 @@ public class SearchBar {
         return true;
     }
 
+    @Override
     public String getContent() {
         return searchinput1 + searchinput2;
     }
 
+    @Override
     public boolean isEmpty() {
         return searchinput1.isEmpty() && searchinput2.isEmpty();
     }

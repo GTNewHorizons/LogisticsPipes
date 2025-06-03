@@ -26,6 +26,7 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.util.CheckClassAdapter;
 
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
@@ -38,7 +39,7 @@ import logisticspipes.utils.ModStatusHelper;
 
 public class LogisticsWrapperHandler {
 
-    private static final boolean DUMP = false;
+    private static final boolean DUMP = Boolean.getBoolean("logisticspipes.dumpWrapperClasses");
 
     private static final Map<String, Class<?>> lookupMap = new HashMap<>();
     public static List<AbstractWrapper> wrapperController = new ArrayList<>();
@@ -182,7 +183,8 @@ public class LogisticsWrapperHandler {
                             Opcodes.INVOKESPECIAL,
                             "logisticspipes/asm/wrapper/AbstractWrapper",
                             "<init>",
-                            "()V");
+                            "()V",
+                            false);
                     Label l1 = new Label();
                     mv.visitLabel(l1);
                     mv.visitLineNumber(12, l1);
@@ -231,8 +233,7 @@ public class LogisticsWrapperHandler {
                         LogisticsWrapperHandler.saveGeneratedClass(bytes, lookfor, "LP_WRAPPER_CLASSES");
                     }
                     ClassReader cr = new ClassReader(bytes);
-                    org.objectweb.asm.util.CheckClassAdapter
-                            .verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
+                    CheckClassAdapter.verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
                 }
 
                 try {
@@ -358,7 +359,8 @@ public class LogisticsWrapperHandler {
                             Opcodes.INVOKESPECIAL,
                             "logisticspipes/asm/wrapper/AbstractSubWrapper",
                             "<init>",
-                            "(Llogisticspipes/asm/wrapper/AbstractWrapper;)V");
+                            "(Llogisticspipes/asm/wrapper/AbstractWrapper;)V",
+                            false);
                     Label l1 = new Label();
                     mv.visitLabel(l1);
                     mv.visitLineNumber(12, l1);
@@ -406,8 +408,7 @@ public class LogisticsWrapperHandler {
                         LogisticsWrapperHandler.saveGeneratedClass(bytes, lookfor, "LP_WRAPPER_CLASSES");
                     }
                     ClassReader cr = new ClassReader(bytes);
-                    org.objectweb.asm.util.CheckClassAdapter
-                            .verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
+                    CheckClassAdapter.verify(cr, Launch.classLoader, false, new PrintWriter(System.err));
                 }
 
                 try {
@@ -533,9 +534,9 @@ public class LogisticsWrapperHandler {
         mv.visitLineNumber(lineAddition + 1, l4);
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         if (method.isAnnotationPresent(IgnoreDisabledProxy.class) || !normalResult) {
-            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "canTryAnyway", "()Z");
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "canTryAnyway", "()Z", false);
         } else {
-            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "isEnabled", "()Z");
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "isEnabled", "()Z", false);
         }
         Label l5 = new Label();
         mv.visitJumpInsn(Opcodes.IFEQ, l5);
@@ -545,7 +546,7 @@ public class LogisticsWrapperHandler {
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(Opcodes.GETFIELD, className, "proxy", "L" + fieldName + ";");
             LogisticsWrapperHandler.addMethodParameterLoad(mv, method);
-            mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString());
+            mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString(), true);
             mv.visitLabel(l1);
             mv.visitInsn(returnType);
         } else {
@@ -554,16 +555,17 @@ public class LogisticsWrapperHandler {
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(Opcodes.GETFIELD, className, "proxy", "L" + fieldName + ";");
             LogisticsWrapperHandler.addMethodParameterLoad(mv, method);
-            mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString());
+            mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString(), true);
             mv.visitVarInsn(Opcodes.ALOAD, 0);
             mv.visitFieldInsn(Opcodes.GETFIELD, className, "dummyProxy", "L" + fieldName + ";");
             LogisticsWrapperHandler.addMethodParameterLoad(mv, method);
-            mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString());
+            mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString(), true);
             mv.visitMethodInsn(
                     Opcodes.INVOKESTATIC,
                     "logisticspipes/asm/wrapper/LogisticsWrapperHandler",
                     "getWrappedSubProxy",
-                    "(Llogisticspipes/asm/wrapper/AbstractWrapper;Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+                    "(Llogisticspipes/asm/wrapper/AbstractWrapper;Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                    false);
             mv.visitTypeInsn(Opcodes.CHECKCAST, resultClass);
             mv.visitLabel(l1);
             mv.visitInsn(Opcodes.ARETURN);
@@ -577,7 +579,7 @@ public class LogisticsWrapperHandler {
         mv.visitLineNumber(lineAddition + 4, l6);
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitVarInsn(Opcodes.ALOAD, eIndex);
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "handleException", "(Ljava/lang/Throwable;)V");
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "handleException", "(Ljava/lang/Throwable;)V", false);
         Label l7 = new Label();
         mv.visitLabel(l7);
         mv.visitJumpInsn(Opcodes.GOTO, l5);
@@ -590,14 +592,14 @@ public class LogisticsWrapperHandler {
         mv.visitLineNumber(lineAddition + 6, l8);
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitVarInsn(Opcodes.ALOAD, eIndex);
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "handleException", "(Ljava/lang/Throwable;)V");
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, className, "handleException", "(Ljava/lang/Throwable;)V", false);
         mv.visitLabel(l5);
         mv.visitLineNumber(lineAddition + 7, l5);
         mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
         mv.visitVarInsn(Opcodes.ALOAD, 0);
         mv.visitFieldInsn(Opcodes.GETFIELD, className, "dummyProxy", "L" + fieldName + ";");
         LogisticsWrapperHandler.addMethodParameterLoad(mv, method);
-        mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString());
+        mv.visitMethodInsn(Opcodes.INVOKEINTERFACE, fieldName, method.getName(), desc.toString(), true);
         mv.visitInsn(returnType);
         Label l9 = new Label();
         mv.visitLabel(l9);
