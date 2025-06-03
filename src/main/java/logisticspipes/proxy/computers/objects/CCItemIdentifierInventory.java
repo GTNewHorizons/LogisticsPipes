@@ -22,20 +22,6 @@ public class CCItemIdentifierInventory {
 
     @CCCommand(description = "Returns the ItemIdentifierStack in the givven slot")
     @CCQueued
-    public ItemIdentifierStack getItemIdentifierStack(Double slot) {
-        int s = slot.intValue();
-        if (s <= 0 || s > getSizeInventory()) {
-            throw new UnsupportedOperationException("Slot out of Inventory");
-        }
-        if (s != slot) {
-            throw new UnsupportedOperationException("Slot not an Integer");
-        }
-        s--;
-        return inv.getIDStackInSlot(s);
-    }
-
-    @CCCommand(description = "Returns the ItemIdentifierStack in the givven slot")
-    @CCQueued
     public ItemIdentifierStack getItemIdentifierStack(Long slot) {
         int s = slot.intValue();
         if (s <= 0 || s > getSizeInventory()) {
@@ -50,20 +36,6 @@ public class CCItemIdentifierInventory {
 
     @CCCommand(description = "Sets the ItemIdentifierStack at the givven slot")
     @CCQueued
-    public void setItemIdentifierStack(Double slot, ItemIdentifierStack stack) {
-        int s = slot.intValue();
-        if (s <= 0 || s > getSizeInventory()) {
-            throw new UnsupportedOperationException("Slot out of Inventory");
-        }
-        if (s != slot) {
-            throw new UnsupportedOperationException("Slot not an Integer");
-        }
-        s--;
-        inv.setInventorySlotContents(s, stack);
-    }
-
-    @CCCommand(description = "Sets the ItemIdentifierStack at the givven slot")
-    @CCQueued
     public void setItemIdentifierStack(Long slot, ItemIdentifierStack stack) {
         int s = slot.intValue();
         if (s <= 0 || s > getSizeInventory()) {
@@ -74,20 +46,6 @@ public class CCItemIdentifierInventory {
         }
         s--;
         inv.setInventorySlotContents(s, stack);
-    }
-
-    @CCCommand(description = "Sets the ItemIdentifierStack at the givven slot")
-    @CCQueued
-    public void clearSlot(Double slot) {
-        int s = slot.intValue();
-        if (s <= 0 || s > getSizeInventory()) {
-            throw new UnsupportedOperationException("Slot out of Inventory");
-        }
-        if (s != slot) {
-            throw new UnsupportedOperationException("Slot not an Integer");
-        }
-        s--;
-        inv.setInventorySlotContents(s, (ItemIdentifierStack) null);
     }
 
     @CCCommand(description = "Sets the ItemIdentifierStack at the givven slot")

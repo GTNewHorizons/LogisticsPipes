@@ -421,8 +421,8 @@ public abstract class BaseWrapperClass extends AbstractValue {
             ItemStack stack = ItemStack.loadItemStackFromNBT(nbt);
             if (stack != null) {
                 CCItemIdentifierBuilder builder = new CCItemIdentifierBuilder();
-                builder.setItemID(Double.valueOf(Item.getIdFromItem(stack.getItem())));
-                builder.setItemData((double) stack.getItemDamage());
+                builder.setItemID(Long.valueOf(Item.getIdFromItem(stack.getItem())));
+                builder.setItemData((long) stack.getItemDamage());
                 object = builder;
                 checkType();
             }
