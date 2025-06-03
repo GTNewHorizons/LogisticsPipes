@@ -25,6 +25,12 @@ public class CCItemIdentifierBuilder implements ILPCCTypeHolder {
     }
 
     @CCCommand(description = "Set the itemID for this ItemIdentifierBuilder")
+    public void setItemID(Long id) {
+        itemID = id.intValue();
+        itemIDName = null;
+    }
+
+    @CCCommand(description = "Set the itemID for this ItemIdentifierBuilder")
     public void setItemID(String id) {
         itemID = 0;
         itemIDName = id;
@@ -40,6 +46,11 @@ public class CCItemIdentifierBuilder implements ILPCCTypeHolder {
 
     @CCCommand(description = "Set the item data/damage for this ItemIdentifierBuilder")
     public void setItemData(Double data) {
+        itemData = data.intValue();
+    }
+
+    @CCCommand(description = "Set the item data/damage for this ItemIdentifierBuilder")
+    public void setItemData(Long data) {
         itemData = data.intValue();
     }
 

@@ -82,6 +82,11 @@ public class CCItemIdentifier implements ILPCCTypeDefinition {
             return ident.makeStack(stackSize.intValue());
         }
 
+        @CCCommand(description = "Returns a new ItemIdentifierStack")
+        public ItemIdentifierStack makeStack(Long stackSize) {
+            return ident.makeStack(stackSize.intValue());
+        }
+
         @CCCommand(description = "Returns true if this ItemIdentifier represents an FluidIdentifier")
         public boolean isFluidContainer() {
             return ident.isFluidContainer();
