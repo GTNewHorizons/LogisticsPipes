@@ -37,7 +37,6 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.DictResource;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.MinecraftColor;
-import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.item.ItemIdentifier;
 
 public class DummyContainer extends Container {
@@ -869,6 +868,7 @@ public class DummyContainer extends Container {
         super.putStackInSlot(par1, par2ItemStack);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void detectAndSendChanges() {
         for (int i = 0; i < inventorySlots.size(); ++i) {
@@ -880,7 +880,7 @@ public class DummyContainer extends Container {
                     MainProxy.sendToPlayerList(
                             PacketHandler.getPacket(FuzzySlotSettingsPacket.class).setSlotNumber(fuzzySlot.getSlotId())
                                     .setFlags(set),
-                            (PlayerCollectionList) crafters);
+                            (Iterable<EntityPlayer>) (Object) crafters);
                     inventoryFuzzySlotsContent.set(i, set);
                 } else {
                     BitSet setB = fuzzySlot.getFuzzyFlags().getBitSet();
@@ -888,7 +888,7 @@ public class DummyContainer extends Container {
                         MainProxy.sendToPlayerList(
                                 PacketHandler.getPacket(FuzzySlotSettingsPacket.class)
                                         .setSlotNumber(fuzzySlot.getSlotId()).setFlags(setB),
-                                (PlayerCollectionList) crafters);
+                                (Iterable<EntityPlayer>) (Object) crafters);
                         inventoryFuzzySlotsContent.set(i, setB);
                     }
                 }
@@ -900,14 +900,14 @@ public class DummyContainer extends Container {
                 itemstack1 = itemstack == null ? null : itemstack.copy();
                 inventoryItemStacks.set(i, itemstack1);
 
-                for (Object crafter : crafters) {
+                for (ICrafting crafter : crafters) {
                     boolean revert = false;
-                    if (overrideMCAntiSend && crafter instanceof EntityPlayerMP
-                            && ((EntityPlayerMP) crafter).isChangingQuantityOnly) {
-                        ((EntityPlayerMP) crafter).isChangingQuantityOnly = false;
+                    if (overrideMCAntiSend && crafter instanceof EntityPlayerMP player
+                            && player.isChangingQuantityOnly) {
+                        player.isChangingQuantityOnly = false;
                         revert = true;
                     }
-                    ((ICrafting) crafter).sendSlotContents(this, i, itemstack1);
+                    crafter.sendSlotContents(this, i, itemstack1);
                     if (revert) {
                         ((EntityPlayerMP) crafter).isChangingQuantityOnly = true;
                     }
