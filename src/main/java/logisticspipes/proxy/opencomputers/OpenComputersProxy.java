@@ -58,4 +58,16 @@ public class OpenComputersProxy implements IOpenComputersProxy {
             nbt.setTag("oc:node", nodeNbt);
         }
     }
+
+    @Override
+    public void queueEvent(String event, Object[] arguments, LogisticsTileGenericPipe tile) {
+        if (tile.getOCNode() != null) {
+            // Send signal to OpenComputers using the proper API
+            // The signal name is the event name, and arguments are passed as-is
+            Object[] signalArgs = new Object[arguments.length + 1];
+            signalArgs[0] = event;
+            System.arraycopy(arguments, 0, signalArgs, 1, arguments.length);
+            ((Node) tile.getOCNode()).sendToReachable("computer.signal", signalArgs);
+        }
+    }
 }

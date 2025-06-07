@@ -911,6 +911,9 @@ public class ProxyManager {
 
                     @Override
                     public void addToNetwork(TileEntity tile) {}
+
+                    @Override
+                    public void queueEvent(String event, Object[] arguments, LogisticsTileGenericPipe tile) {}
                 }));
 
         SimpleServiceLocator.setToolWrenchProxy(ProxyManager.getWrappedProxy(

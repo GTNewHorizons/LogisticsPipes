@@ -22,4 +22,6 @@ public interface IOpenComputersProxy {
     void handleWriteToNBT(IOCTile tile, NBTTagCompound nbt);
 
     void handleReadFromNBT(IOCTile tile, NBTTagCompound nbt);
+
+    void queueEvent(String event, Object[] arguments, LogisticsTileGenericPipe tile);
 }

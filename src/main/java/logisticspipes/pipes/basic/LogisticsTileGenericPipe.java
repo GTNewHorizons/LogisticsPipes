@@ -444,6 +444,7 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     public void queueEvent(String event, Object[] arguments) {
         SimpleServiceLocator.ccProxy.queueEvent(event, arguments, this);
+        SimpleServiceLocator.openComputersProxy.queueEvent(event, arguments, this);
     }
 
     public void handleMesssage(int computerId, Object message, int sourceId) {
