@@ -45,6 +45,11 @@ public class CCFluidIdentifier implements ILPCCTypeDefinition {
             return ident.getName();
         }
 
+        @CCCommand(description = "Returns the Localized Name of this FluidIdentifier")
+        public String getLocalizedName() {
+            return ident.makeFluidStack(0).getLocalizedName();
+        }
+
         @CCCommand(description = "Returns an ItemIdentifier if one exists for this FluidIdentifier")
         public ItemIdentifier getItemIdentifier() {
             return ident.getItemIdentifier();
