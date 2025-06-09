@@ -55,17 +55,23 @@ public class OpenComputersProxy implements IOpenComputersProxy {
 
     @Override
     public void handleReadFromNBT(IOCTile tile, NBTTagCompound nbt) {
-        if (tile.getOCNode() != null && ((Node) tile.getOCNode()).host() == tile) {
-            ((Node) tile.getOCNode()).load(nbt.getCompoundTag("oc:node"));
+        if (tile.getOCNode() != null) {
+            Node node = (Node) tile.getOCNode();
+            if (node.host() != null && node.host() == tile) {
+                node.load(nbt.getCompoundTag("oc:node"));
+            }
         }
     }
 
     @Override
     public void handleWriteToNBT(IOCTile tile, NBTTagCompound nbt) {
-        if (tile.getOCNode() != null && ((Node) tile.getOCNode()).host() == tile) {
-            final NBTTagCompound nodeNbt = new NBTTagCompound();
-            ((Node) tile.getOCNode()).save(nodeNbt);
-            nbt.setTag("oc:node", nodeNbt);
+        if (tile.getOCNode() != null) {
+            Node node = (Node) tile.getOCNode();
+            if (node.host() != null && node.host() == tile) {
+                final NBTTagCompound nodeNbt = new NBTTagCompound();
+                node.save(nodeNbt);
+                nbt.setTag("oc:node", nodeNbt);
+            }
         }
     }
 
