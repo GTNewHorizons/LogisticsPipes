@@ -68,12 +68,12 @@ public class LogisticsFluidManager implements ILogisticsFluidManager {
         if (stack.getItem().item instanceof LogisticsFluidContainer && stack.getItem().tag != null) {
             return FluidStack.loadFluidStackFromNBT(stack.getItem().tag);
         }
-        
+
         // Support for GregTech fluid containers
         if (stack.getItem().tag != null && stack.getItem().tag.hasKey("GT.FluidContent", 10)) {
             return FluidStack.loadFluidStackFromNBT(stack.getItem().tag.getCompoundTag("GT.FluidContent"));
         }
-        
+
         return null;
     }
 
