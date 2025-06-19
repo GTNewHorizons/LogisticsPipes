@@ -72,10 +72,10 @@ public class OpenComputersProxy implements IOpenComputersProxy {
     @Override
     public void pushSignal(String event, Object[] arguments, IOCTile tile) {
         if (tile.getOCNode() != null) {
-            Object[] data = new Object[1 + arguments.length];
-            data[0] = event;
-            System.arraycopy(arguments, 0, data, 1, arguments.length);
-            ((Node) tile.getOCNode()).sendToNeighbors("computer.signal", data);
+            Object[] signalArgs = new Object[arguments.length + 1];
+            signalArgs[0] = event;
+            System.arraycopy(arguments, 0, signalArgs, 1, arguments.length);
+            ((Node) tile.getOCNode()).sendToReachable("computer.signal", signalArgs);
         }
     }
 
