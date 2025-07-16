@@ -63,11 +63,10 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
         int freeSpace = -onTheWay;
 
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(true)) {
-            if (!(pair.getValue1() instanceof IFluidHandler)) {
+            if (!(pair.getValue1() instanceof IFluidHandler handler)) {
                 continue;
             }
 
-            IFluidHandler handler = (IFluidHandler) pair.getValue1();
             ForgeDirection dir = pair.getValue2().getOpposite();
 
             // ensure we are actually able to fill this handler, and it's not some output tank or such
