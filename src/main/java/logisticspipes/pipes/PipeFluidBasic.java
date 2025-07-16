@@ -60,7 +60,9 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
         }
 
         int onTheWay = this.countOnRoute(ident);
+
         int freeSpace = -onTheWay;
+        int internalCapacity = ((PipeFluidTransportLogistics) transport).getSideCapacity();
 
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(true)) {
             if (!(pair.getValue1() instanceof IFluidHandler handler)) {
@@ -76,14 +78,24 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
             }
 
             FluidTank tank = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
-            freeSpace += ident.getFreeSpaceInsideTank(handler, dir);
-            freeSpace += ident.getFreeSpaceInsideTank(tank);
+            int internalFreeSpace = ident.getFreeSpaceInsideTank(tank);
+            int externalFreeSpace = ident.getFreeSpaceInsideTank(handler, dir);
+
+            // don't count this entity if we have enough in our internal buffer
+            // to fill it
+            if (internalCapacity - internalFreeSpace > externalFreeSpace) {
+                continue;
+            }
+
+            freeSpace += internalFreeSpace;
+            freeSpace += externalFreeSpace;
+
             if (freeSpace >= stack.amount) {
                 return stack.amount;
             }
         }
 
-        return freeSpace;
+        return Math.min(freeSpace, stack.amount);
     }
 
     @Override
