@@ -247,13 +247,17 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
                 && ItemModule.isCrafter(entityplayer.getCurrentEquippedItem())) {
             if (MainProxy.isServer(getWorld())) {
                 if (settings == null || settings.openGui) {
-                    // Get the crafter and set the id
                     ItemStack crafterStack = entityplayer.getCurrentEquippedItem();
                     logisticspipes.modules.ModuleCrafter crafter = (logisticspipes.modules.ModuleCrafter) LogisticsPipes.ModuleItem
                             .getModuleForItem(crafterStack, null, this, this);
 
                     if (crafter != null) {
+                        // First read the existing module data to preserve crafting configuration
+                        ItemModuleInformationManager.readInformation(crafterStack, crafter);
+
+                        // Now set only the satellite ID
                         crafter.satelliteId = this.satelliteId;
+
                         // Save the module data back to the ItemStack
                         ItemModuleInformationManager.saveInfotmation(crafterStack, crafter);
                         entityplayer.addChatComponentMessage(
