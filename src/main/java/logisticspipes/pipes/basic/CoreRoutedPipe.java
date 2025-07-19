@@ -1565,11 +1565,11 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     }
 
     public void handleRFPowerArival(float toSend) {
-        powerHandler.addRFPower(toSend);
+        powerHandler.addRFPower((long) toSend);
     }
 
     public void handleIC2PowerArival(float toSend) {
-        powerHandler.addIC2Power(toSend);
+        powerHandler.addIC2Power((long) toSend);
     }
 
     /*** IInventoryProvider ***/

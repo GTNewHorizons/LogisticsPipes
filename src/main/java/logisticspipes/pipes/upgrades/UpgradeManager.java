@@ -1,6 +1,7 @@
 package logisticspipes.pipes.upgrades;
 
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,6 +62,7 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
     private boolean hasPowerPassUpgrade = false;
     private boolean hasRFPowerUpgrade = false;
     private int getIC2PowerLevel = 0;
+    private final HashMap<Long, Integer> ic2PowerLevel = new HashMap<>(4);
     private boolean hasCCRemoteControlUpgrade = false;
     private boolean hasCraftingMonitoringUpgrade = false;
     private boolean hasOpaqueUpgrade = false;
@@ -141,6 +143,7 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
         hasPowerPassUpgrade = false;
         hasRFPowerUpgrade = false;
         getIC2PowerLevel = 0;
+        ic2PowerLevel.clear();
         hasCCRemoteControlUpgrade = false;
         hasCraftingMonitoringUpgrade = false;
         hasOpaqueUpgrade = false;
@@ -172,8 +175,11 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
                 hasPowerPassUpgrade = true;
             } else if (upgrade instanceof RFPowerSupplierUpgrade) {
                 hasRFPowerUpgrade = true;
-            } else if (upgrade instanceof IC2PowerSupplierUpgrade) {
-                getIC2PowerLevel = Math.max(getIC2PowerLevel, ((IC2PowerSupplierUpgrade) upgrade).getPowerLevel());
+            } else if (upgrade instanceof IC2PowerSupplierUpgrade ic2PowerSupplierUpgrade) {
+                getIC2PowerLevel = Math.toIntExact(Math.max(getIC2PowerLevel, ic2PowerSupplierUpgrade.getPowerLevel()));
+                int numberOfUpgrades = inv.getStackInSlot(i).stackSize;
+                ic2PowerLevel.computeIfPresent(ic2PowerSupplierUpgrade.getPowerLevel(), (k, v) -> v + numberOfUpgrades);
+                ic2PowerLevel.putIfAbsent(ic2PowerSupplierUpgrade.getPowerLevel(), numberOfUpgrades);
             } else if (upgrade instanceof CCRemoteControlUpgrade) {
                 hasCCRemoteControlUpgrade = true;
             } else if (upgrade instanceof CraftingMonitoringUpgrade) {
@@ -473,6 +479,11 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
     @Override
     public int getIC2PowerLevel() {
         return getIC2PowerLevel;
+    }
+
+    @Override
+    public int getIC2MaxAmperage(long level) {
+        return ic2PowerLevel.getOrDefault(level, 0);
     }
 
     @Override

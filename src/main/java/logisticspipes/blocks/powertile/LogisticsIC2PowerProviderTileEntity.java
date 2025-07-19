@@ -1,5 +1,6 @@
 package logisticspipes.blocks.powertile;
 
+import logisticspipes.routing.ExitRoute;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -115,8 +116,10 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
     }
 
     @Override
-    protected void handlePower(CoreRoutedPipe pipe, float toSend) {
-        pipe.handleIC2PowerArival(toSend);
+    protected void sendPowerToPipe(ExitRoute route, float energyAmount) {
+        //we need to get the actual route somehow, so we can check it for how much energy will be lost on it.
+        //we also need to get the amperage here, so we can calculate loss/meter/amp
+        route.destination.getPipe().handleIC2PowerArival(energyAmount);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package logisticspipes.blocks.powertile;
 
+import logisticspipes.routing.ExitRoute;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -119,8 +120,8 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     }
 
     @Override
-    protected void handlePower(CoreRoutedPipe pipe, float toSend) {
-        pipe.handleRFPowerArival(toSend);
+    protected void sendPowerToPipe(ExitRoute route, float energyAmount) {
+        route.destination.getPipe().handleRFPowerArival(energyAmount);
     }
 
     @Override

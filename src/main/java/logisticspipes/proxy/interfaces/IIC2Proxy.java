@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public interface IIC2Proxy {
+public interface IIC2Proxy extends IEUProxy {
 
     boolean isElectricItem(ItemStack stack);
 
@@ -24,11 +24,14 @@ public interface IIC2Proxy {
 
     void unregisterToEneryNet(TileEntity tile);
 
-    boolean acceptsEnergyFrom(TileEntity energy, TileEntity tile, ForgeDirection opposite);
+    @Override
+    default long maxInputAmperage(TileEntity sink) {
+        return 1;
+    }
 
-    boolean isEnergySink(TileEntity tile);
-
-    double demandedEnergyUnits(TileEntity tile);
+    default long injectEnergyUnits(TileEntity sink, ForgeDirection sinkSide, long amount, long amperage){
+        return (long) injectEnergyUnits(sink, sinkSide, amount);
+    }
 
     double injectEnergyUnits(TileEntity tile, ForgeDirection opposite, double d);
 }

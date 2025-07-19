@@ -510,8 +510,11 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     @Override
-    public boolean acceptsEnergyFrom(TileEntity energy, TileEntity tile, ForgeDirection opposite) {
-        return ((IEnergySink) energy).acceptsEnergyFrom(tile, opposite);
+    public boolean acceptsEnergyFrom(TileEntity sink, TileEntity source, ForgeDirection opposite) {
+        if (sink instanceof IEnergySink iEnergySink) {
+            return iEnergySink.acceptsEnergyFrom(source, opposite);
+        }
+        return false;
     }
 
     @Override
@@ -520,12 +523,18 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     @Override
-    public double demandedEnergyUnits(TileEntity tile) {
-        return ((IEnergySink) tile).getDemandedEnergy();
+    public double demandedEnergyUnits(TileEntity sink) {
+        if (sink instanceof IEnergySink iEnergySink) {
+            return iEnergySink.getDemandedEnergy();
+        }
+        return 0;
     }
 
     @Override
-    public double injectEnergyUnits(TileEntity tile, ForgeDirection opposite, double d) {
-        return ((IEnergySink) tile).injectEnergy(opposite, d, 1); // TODO check the voltage
+    public double injectEnergyUnits(TileEntity sink, ForgeDirection opposite, double amount) {
+        if (sink instanceof IEnergySink iEnergySink) {
+            return iEnergySink.injectEnergy(opposite, amount, 1);
+        }
+        return 0;
     }
 }

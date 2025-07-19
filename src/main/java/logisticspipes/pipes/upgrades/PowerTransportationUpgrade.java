@@ -22,11 +22,18 @@ public class PowerTransportationUpgrade implements IPipeUpgrade {
 
     @Override
     public String[] getAllowedPipes() {
-        return new String[] { "all" };
+        return new String[]{"all"};
     }
 
     @Override
     public String[] getAllowedModules() {
-        return new String[] {};
+        return new String[]{};
+    }
+
+    /**
+     * @return the ic2 voltage that this power transportation upgrade can superconduct (with 0 loss)
+     */
+    public int getSuperconductorLevel() {
+        return 0;
     }
 }

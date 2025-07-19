@@ -1,13 +1,45 @@
 package logisticspipes.proxy;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import logisticspipes.LPConstants;
+import logisticspipes.asm.wrapper.LogisticsWrapperHandler;
+import logisticspipes.blocks.LogisticsSolidTileEntity;
+import logisticspipes.network.LPDataInputStream;
+import logisticspipes.network.LPDataOutputStream;
+import logisticspipes.pipes.basic.CoreUnroutedPipe;
+import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
+import logisticspipes.proxy.binnie.BinnieProxy;
+import logisticspipes.proxy.bs.BetterStorageProxy;
+import logisticspipes.proxy.bs.ICrateStorageProxy;
+import logisticspipes.proxy.buildcraft.BuildCraftProxy;
+import logisticspipes.proxy.buildcraft.subproxies.*;
+import logisticspipes.proxy.cc.CCProxy;
+import logisticspipes.proxy.ccl.CCLProxy;
+import logisticspipes.proxy.cofh.CoFHPowerProxy;
+import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyReceiver;
+import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
+import logisticspipes.proxy.ec.ExtraCellsProxy;
+import logisticspipes.proxy.enderchest.EnderStorageProxy;
+import logisticspipes.proxy.enderio.EnderIOProxy;
+import logisticspipes.proxy.factorization.FactorizationProxy;
+import logisticspipes.proxy.forestry.ForestryProxy;
+import logisticspipes.proxy.gt.GTProxy;
+import logisticspipes.proxy.ic.IronChestProxy;
+import logisticspipes.proxy.ic2.IC2Proxy;
+import logisticspipes.proxy.interfaces.*;
+import logisticspipes.proxy.nei.NEIProxy;
+import logisticspipes.proxy.object3d.interfaces.*;
+import logisticspipes.proxy.object3d.operation.LPScale;
+import logisticspipes.proxy.opencomputers.IOCTile;
+import logisticspipes.proxy.opencomputers.OpenComputersProxy;
+import logisticspipes.proxy.td.ThermalDynamicsProxy;
+import logisticspipes.proxy.td.subproxies.ITDPart;
+import logisticspipes.proxy.te.ThermalExpansionProxy;
+import logisticspipes.proxy.thaumcraft.ThaumCraftProxy;
+import logisticspipes.proxy.toolWrench.ToolWrenchProxy;
+import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
+import logisticspipes.utils.item.ItemIdentifier;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -26,78 +58,9 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import logisticspipes.LPConstants;
-import logisticspipes.asm.wrapper.LogisticsWrapperHandler;
-import logisticspipes.blocks.LogisticsSolidTileEntity;
-import logisticspipes.network.LPDataInputStream;
-import logisticspipes.network.LPDataOutputStream;
-import logisticspipes.pipes.basic.CoreUnroutedPipe;
-import logisticspipes.pipes.basic.LogisticsTileGenericPipe;
-import logisticspipes.proxy.binnie.BinnieProxy;
-import logisticspipes.proxy.bs.BetterStorageProxy;
-import logisticspipes.proxy.bs.ICrateStorageProxy;
-import logisticspipes.proxy.buildcraft.BuildCraftProxy;
-import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPipePart;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
-import logisticspipes.proxy.buildcraft.subproxies.IBCPluggableState;
-import logisticspipes.proxy.buildcraft.subproxies.IBCRenderState;
-import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
-import logisticspipes.proxy.buildcraft.subproxies.IBCTilePart;
-import logisticspipes.proxy.buildcraft.subproxies.IConnectionOverrideResult;
-import logisticspipes.proxy.cc.CCProxy;
-import logisticspipes.proxy.ccl.CCLProxy;
-import logisticspipes.proxy.cofh.CoFHPowerProxy;
-import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyReceiver;
-import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
-import logisticspipes.proxy.ec.ExtraCellsProxy;
-import logisticspipes.proxy.enderchest.EnderStorageProxy;
-import logisticspipes.proxy.enderio.EnderIOProxy;
-import logisticspipes.proxy.factorization.FactorizationProxy;
-import logisticspipes.proxy.forestry.ForestryProxy;
-import logisticspipes.proxy.ic.IronChestProxy;
-import logisticspipes.proxy.ic2.IC2Proxy;
-import logisticspipes.proxy.interfaces.IBCProxy;
-import logisticspipes.proxy.interfaces.IBetterStorageProxy;
-import logisticspipes.proxy.interfaces.IBinnieProxy;
-import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.interfaces.ICCProxy;
-import logisticspipes.proxy.interfaces.ICoFHPowerProxy;
-import logisticspipes.proxy.interfaces.ICraftingParts;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.proxy.interfaces.IEnderIOProxy;
-import logisticspipes.proxy.interfaces.IEnderStorageProxy;
-import logisticspipes.proxy.interfaces.IExtraCellsProxy;
-import logisticspipes.proxy.interfaces.IFactorizationProxy;
-import logisticspipes.proxy.interfaces.IForestryProxy;
-import logisticspipes.proxy.interfaces.IIC2Proxy;
-import logisticspipes.proxy.interfaces.IIronChestProxy;
-import logisticspipes.proxy.interfaces.INEIProxy;
-import logisticspipes.proxy.interfaces.IOpenComputersProxy;
-import logisticspipes.proxy.interfaces.ITDProxy;
-import logisticspipes.proxy.interfaces.IThaumCraftProxy;
-import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
-import logisticspipes.proxy.interfaces.IToolWrenchProxy;
-import logisticspipes.proxy.nei.NEIProxy;
-import logisticspipes.proxy.object3d.interfaces.I3DOperation;
-import logisticspipes.proxy.object3d.interfaces.IBounds;
-import logisticspipes.proxy.object3d.interfaces.IIconTransformation;
-import logisticspipes.proxy.object3d.interfaces.IModel3D;
-import logisticspipes.proxy.object3d.interfaces.IRenderState;
-import logisticspipes.proxy.object3d.interfaces.ITranslation;
-import logisticspipes.proxy.object3d.interfaces.IVec3;
-import logisticspipes.proxy.object3d.operation.LPScale;
-import logisticspipes.proxy.opencomputers.IOCTile;
-import logisticspipes.proxy.opencomputers.OpenComputersProxy;
-import logisticspipes.proxy.td.ThermalDynamicsProxy;
-import logisticspipes.proxy.td.subproxies.ITDPart;
-import logisticspipes.proxy.te.ThermalExpansionProxy;
-import logisticspipes.proxy.thaumcraft.ThaumCraftProxy;
-import logisticspipes.proxy.toolWrench.ToolWrenchProxy;
-import logisticspipes.transport.LPTravelingItem.LPTravelingItemServer;
-import logisticspipes.utils.item.ItemIdentifier;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 // @formatter:off
 // CHECKSTYLE:OFF
@@ -641,8 +604,7 @@ public class ProxyManager {
                         return 0;
                     }
 
-                    @Override
-                    public double injectEnergyUnits(TileEntity tile, ForgeDirection opposite, double d) {
+                    @Override public double injectEnergyUnits(TileEntity tile, ForgeDirection opposite, double d) {
                         return d;
                     }
                 }));
@@ -1291,5 +1253,28 @@ public class ProxyManager {
         SimpleServiceLocator.setCCLProxy(ProxyManager.getWrappedProxy(
                 "!CCLRender", ICCLProxy.class, CCLProxy.class, dummyCCLProxy, cclSubWrapper));
         assert SimpleServiceLocator.cclProxy.isActivated();
+
+        SimpleServiceLocator.setGTProxy(ProxyManager.getWrappedProxy(
+            "gregtech",
+            IEUProxy.class,
+            GTProxy.class,
+            new IEUProxy() {
+                @Override public boolean acceptsEnergyFrom(TileEntity sink, TileEntity source, ForgeDirection sinkSide) {
+                    return false;
+                }
+                @Override public boolean isEnergySink(TileEntity tileEntity) {
+                    return false;
+                }
+                @Override public double demandedEnergyUnits(TileEntity sink) {
+                    return 0;
+                }
+                @Override public long maxInputAmperage(TileEntity sink) {
+                    return 0;
+                }
+                @Override public long injectEnergyUnits(TileEntity sink, ForgeDirection sinkSide, long amount, long amperage) {
+                    return 0;
+                }
+            }
+        ));
     }
 }
