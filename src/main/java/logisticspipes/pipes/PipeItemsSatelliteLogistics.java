@@ -255,10 +255,8 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
                         // First read the existing module data to preserve crafting configuration
                         ItemModuleInformationManager.readInformation(crafterStack, crafter);
 
-                        // Now set only the satellite ID
                         crafter.satelliteId = this.satelliteId;
 
-                        // Save the module data back to the ItemStack
                         ItemModuleInformationManager.saveInfotmation(crafterStack, crafter);
                         entityplayer.addChatComponentMessage(
                                 new ChatComponentTranslation("lp.chat.satelliteid.set", this.satelliteId));
