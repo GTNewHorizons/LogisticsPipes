@@ -14,8 +14,10 @@ import java.util.WeakHashMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import logisticspipes.LogisticsPipes;
@@ -26,6 +28,8 @@ import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.interfaces.routing.IRequireReliableTransport;
+import logisticspipes.items.ItemModule;
+import logisticspipes.logisticspipes.ItemModuleInformationManager;
 import logisticspipes.modules.ModuleSatelite;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.GuiIDs;
@@ -41,6 +45,7 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.request.RequestTree;
+import logisticspipes.security.SecuritySettings;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
 import logisticspipes.utils.InventoryHelper;
@@ -230,6 +235,38 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
             }
         }
         return potentialId;
+    }
+
+    @Override
+    public boolean handleClick(EntityPlayer entityplayer, SecuritySettings settings) {
+        if (entityplayer.getCurrentEquippedItem() == null) {
+            return super.handleClick(entityplayer, settings);
+        }
+
+        if (!entityplayer.isSneaking() && entityplayer.getCurrentEquippedItem().getItem() == LogisticsPipes.ModuleItem
+                && ItemModule.isCrafter(entityplayer.getCurrentEquippedItem())) {
+            if (MainProxy.isServer(getWorld())) {
+                if (settings == null || settings.openGui) {
+                    // Get the crafter and set the id
+                    ItemStack crafterStack = entityplayer.getCurrentEquippedItem();
+                    logisticspipes.modules.ModuleCrafter crafter = (logisticspipes.modules.ModuleCrafter) LogisticsPipes.ModuleItem
+                            .getModuleForItem(crafterStack, null, this, this);
+
+                    if (crafter != null) {
+                        crafter.satelliteId = this.satelliteId;
+                        // Save the module data back to the ItemStack
+                        ItemModuleInformationManager.saveInfotmation(crafterStack, crafter);
+                        entityplayer.addChatComponentMessage(
+                                new ChatComponentTranslation("lp.chat.satelliteid.set", this.satelliteId));
+                    }
+                } else {
+                    entityplayer.addChatComponentMessage(new ChatComponentTranslation("lp.chat.permissiondenied"));
+                }
+            }
+            return true;
+        }
+
+        return false;
     }
 
     protected void ensureAllSatelliteStatus() {
