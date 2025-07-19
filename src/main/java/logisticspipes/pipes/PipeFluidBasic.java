@@ -50,6 +50,7 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
         if (!guiOpenedBy.isEmpty()) {
             return 0; // Don't sink when the gui is open
         }
+
         FluidIdentifier ident = FluidIdentifier.get(stack);
         if (filterInv.getStackInSlot(0) == null) {
             return 0;
@@ -57,20 +58,44 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
         if (!ident.equals(FluidIdentifier.get(filterInv.getIDStackInSlot(0).getItem()))) {
             return 0;
         }
+
         int onTheWay = this.countOnRoute(ident);
+
         int freeSpace = -onTheWay;
+        int internalCapacity = ((PipeFluidTransportLogistics) transport).getSideCapacity();
+
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(true)) {
-            if (!(pair.getValue1() instanceof IFluidHandler)) {
+            if (!(pair.getValue1() instanceof IFluidHandler handler)) {
                 continue;
             }
+
+            ForgeDirection dir = pair.getValue2().getOpposite();
+
+            // ensure we are actually able to fill this handler, and it's not some output tank or such
+            int simulatedFill = handler.fill(dir, stack, false);
+            if (simulatedFill <= 0) {
+                continue;
+            }
+
             FluidTank tank = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
-            freeSpace += ident.getFreeSpaceInsideTank((IFluidHandler) pair.getValue1(), pair.getValue2().getOpposite());
-            freeSpace += ident.getFreeSpaceInsideTank(tank);
+            int internalFreeSpace = ident.getFreeSpaceInsideTank(tank);
+            int externalFreeSpace = ident.getFreeSpaceInsideTank(handler, dir);
+
+            // don't count this entity if we have enough in our internal buffer
+            // to fill it
+            if (internalCapacity - internalFreeSpace > externalFreeSpace) {
+                continue;
+            }
+
+            freeSpace += internalFreeSpace;
+            freeSpace += externalFreeSpace;
+
             if (freeSpace >= stack.amount) {
                 return stack.amount;
             }
         }
-        return freeSpace;
+
+        return Math.min(freeSpace, stack.amount);
     }
 
     @Override

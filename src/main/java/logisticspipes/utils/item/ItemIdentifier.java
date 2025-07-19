@@ -711,7 +711,17 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
     }
 
     public boolean isFluidContainer() {
-        return item instanceof LogisticsFluidContainer;
+        // Check if it's a Logistics Pipes fluid container
+        if (item instanceof LogisticsFluidContainer) {
+            return true;
+        }
+
+        // Check if it's a GregTech fluid container (has GT.FluidContent NBT tag)
+        if (tag != null && tag.hasKey("GT.FluidContent", 10)) {
+            return true;
+        }
+
+        return false;
     }
 
     public DictItemIdentifier getDictIdentifiers() {

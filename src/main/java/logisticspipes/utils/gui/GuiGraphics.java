@@ -375,9 +375,10 @@ public final class GuiGraphics {
         }
         mc.renderEngine.bindTexture(GuiGraphics.BACKGROUND_TEXTURE);
 
+        Tessellator var9 = Tessellator.instance;
+
         if (displayTop) {
             // Top Side
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(guiLeft + 15, guiTop + 15, zLevel, 0.33, 0.33);
             var9.addVertexWithUV(right - 15, guiTop + 15, zLevel, 0.66, 0.33);
@@ -388,7 +389,6 @@ public final class GuiGraphics {
 
         if (displayLeft) {
             // Left Side
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(guiLeft, bottom - 15, zLevel, 0, 0.66);
             var9.addVertexWithUV(guiLeft + 15, bottom - 15, zLevel, 0.33, 0.66);
@@ -399,7 +399,6 @@ public final class GuiGraphics {
 
         if (displayBottom) {
             // Bottom Side
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(guiLeft + 15, bottom, zLevel, 0.33, 1);
             var9.addVertexWithUV(right - 15, bottom, zLevel, 0.66, 1);
@@ -410,7 +409,6 @@ public final class GuiGraphics {
 
         if (displayRight) {
             // Right Side
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(right - 15, bottom - 15, zLevel, 0.66, 0.66);
             var9.addVertexWithUV(right, bottom - 15, zLevel, 1, 0.66);
@@ -421,7 +419,6 @@ public final class GuiGraphics {
 
         if (displayTop && displayLeft) {
             // Top Left
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(guiLeft, guiTop + 15, zLevel, 0, 0.33);
             var9.addVertexWithUV(guiLeft + 15, guiTop + 15, zLevel, 0.33, 0.33);
@@ -432,7 +429,6 @@ public final class GuiGraphics {
 
         if (displayBottom && displayLeft) {
             // Bottom Left
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(guiLeft, bottom, zLevel, 0, 1);
             var9.addVertexWithUV(guiLeft + 15, bottom, zLevel, 0.33, 1);
@@ -443,7 +439,6 @@ public final class GuiGraphics {
 
         if (displayBottom && displayRight) {
             // Bottom Right
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(right - 15, bottom, zLevel, 0.66, 1);
             var9.addVertexWithUV(right, bottom, zLevel, 1, 1);
@@ -454,7 +449,6 @@ public final class GuiGraphics {
 
         if (displayTop && displayRight) {
             // Top Right
-            Tessellator var9 = Tessellator.instance;
             var9.startDrawingQuads();
             var9.addVertexWithUV(right - 15, guiTop + 15, zLevel, 0.66, 0.33);
             var9.addVertexWithUV(right, guiTop + 15, zLevel, 1, 0.33);
@@ -464,7 +458,6 @@ public final class GuiGraphics {
         }
 
         // Center
-        Tessellator var9 = Tessellator.instance;
         var9.startDrawingQuads();
         var9.addVertexWithUV(guiLeft + 15, bottom - 15, zLevel, 0.33, 0.66);
         var9.addVertexWithUV(right - 15, bottom - 15, zLevel, 0.66, 0.66);
