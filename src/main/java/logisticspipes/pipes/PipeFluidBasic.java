@@ -87,6 +87,13 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
                 continue;
             }
 
+            // some entities that void fluids, like the gt5 super tank, report a capacity of
+            // Integer.MAX_VALUE. that could cause an integer overflow below,
+            // which this early return avoids.
+            if (externalFreeSpace >= stack.amount) {
+                return stack.amount;
+            }
+
             freeSpace += internalFreeSpace;
             freeSpace += externalFreeSpace;
 
