@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class PowerSupplierHandler {
 
     private static final long INTERNAL_RF_BUFFER_MAX = 10000;
-    private static final long INTERNAL_IC2_BUFFER_MAX = 2048 * 4;
+    private static long INTERNAL_IC2_BUFFER_MAX = 0;
 
     private final CoreRoutedPipe pipe;
 
@@ -130,6 +130,7 @@ public class PowerSupplierHandler {
 
     public void update() {
         WorldUtil wu = new WorldUtil(pipe.getWorld(), pipe.getX(), pipe.getY(), pipe.getZ());
+        updateICBuffer();
 
         var powerProvider = pipe.getRouter().getSubSystemPowerProvider().stream().filter(it -> it.getValue2().stream().noneMatch(IFilter::blockPower)).map(Pair::getValue1).collect(Collectors.toList());
 
@@ -144,6 +145,11 @@ public class PowerSupplierHandler {
             provideEUPower(adjacentTile);
             receiveEUPower(powerProvider.stream().filter(it -> it.getBrand().equals("EU")).collect(Collectors.toList()));
         }
+    }
+
+    public void updateICBuffer() {
+        var upgradeManager = pipe.getUpgradeManager();
+        INTERNAL_IC2_BUFFER_MAX = upgradeManager.getIC2PowerLevel() * upgradeManager.getIC2MaxAmperage(upgradeManager.getIC2PowerLevel()) * 8L;
     }
 
     public void addRFPower(long toSend) {
