@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import logisticspipes.pipes.upgrades.power.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +31,6 @@ import logisticspipes.pipes.upgrades.IPipeUpgrade;
 import logisticspipes.pipes.upgrades.LogicControllerUpgrade;
 import logisticspipes.pipes.upgrades.OpaqueUpgrade;
 import logisticspipes.pipes.upgrades.PatternUpgrade;
-import logisticspipes.pipes.upgrades.PowerTransportationUpgrade;
 import logisticspipes.pipes.upgrades.SpeedUpgrade;
 import logisticspipes.pipes.upgrades.UpgradeModuleUpgrade;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeDOWN;
@@ -39,11 +39,6 @@ import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeNORTH;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeSOUTH;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeUP;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeWEST;
-import logisticspipes.pipes.upgrades.power.IC2EVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2HVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2LVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2MVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.RFPowerSupplierUpgrade;
 import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeDOWN;
 import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeEAST;
 import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeNORTH;
@@ -84,11 +79,15 @@ public class ItemUpgrade extends LogisticsItem {
 
     // Power Upgrades
     public static final int POWER_TRANSPORTATION = 30;
-    public static final int POWER_RF_SUPPLIER = 32;
-    public static final int POWER_IC2_LV_SUPPLIER = 33;
-    public static final int POWER_IC2_MV_SUPPLIER = 34;
-    public static final int POWER_IC2_HV_SUPPLIER = 35;
-    public static final int POWER_IC2_EV_SUPPLIER = 36;
+    public static final int POWER_TRANSPORTATION_LV = 31;
+    public static final int POWER_TRANSPORTATION_MV = 32;
+    public static final int POWER_TRANSPORTATION_HV = 33;
+    public static final int POWER_TRANSPORTATION_EV = 34;
+    public static final int POWER_RF_SUPPLIER = 35;
+    public static final int POWER_IC2_LV_SUPPLIER = 36;
+    public static final int POWER_IC2_MV_SUPPLIER = 37;
+    public static final int POWER_IC2_HV_SUPPLIER = 38;
+    public static final int POWER_IC2_EV_SUPPLIER = 39;
 
     // Various
     public static final int CC_REMOTE_CONTROL = 40;
@@ -144,7 +143,7 @@ public class ItemUpgrade extends LogisticsItem {
 
     public ItemUpgrade() {
         hasSubtypes = true;
-    }
+}
 
     public void loadUpgrades() {
         registerUpgrade(ItemUpgrade.SNEAKY_UP, SneakyUpgradeUP.class, 0);
@@ -168,6 +167,10 @@ public class ItemUpgrade extends LogisticsItem {
         registerUpgrade(ItemUpgrade.SUPPLIER_PATTERN, PatternUpgrade.class, 17);
         registerUpgrade(ItemUpgrade.FUZZY_CRAFTING, FuzzyUpgrade.class, 18);
         registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION, PowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_LV, IC2LVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_MV, IC2MVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_HV, IC2HVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_EV, IC2EVPowerTransportationUpgrade.class, 19);
         registerUpgrade(ItemUpgrade.POWER_RF_SUPPLIER, RFPowerSupplierUpgrade.class, 21);
         registerUpgrade(ItemUpgrade.POWER_IC2_LV_SUPPLIER, IC2LVPowerSupplierUpgrade.class, 22);
         registerUpgrade(ItemUpgrade.POWER_IC2_MV_SUPPLIER, IC2MVPowerSupplierUpgrade.class, 23);

@@ -1,7 +1,8 @@
-package logisticspipes.pipes.upgrades;
+package logisticspipes.pipes.upgrades.power;
 
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.pipes.basic.CoreRoutedPipe;
+import logisticspipes.pipes.upgrades.IPipeUpgrade;
 
 public class PowerTransportationUpgrade implements IPipeUpgrade {
 
@@ -31,9 +32,7 @@ public class PowerTransportationUpgrade implements IPipeUpgrade {
     }
 
     /**
-     * @return the ic2 voltage that this power transportation upgrade can superconduct (with 0 loss)
+     * @return the ic2 voltage that this power transportation upgrade can transport
      */
-    public int getSuperconductorLevel() {
-        return 0;
-    }
+     public long getPowerLevel() { return 0; }
 }
