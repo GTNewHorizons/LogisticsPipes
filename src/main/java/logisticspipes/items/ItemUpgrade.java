@@ -79,15 +79,23 @@ public class ItemUpgrade extends LogisticsItem {
 
     // Power Upgrades
     public static final int POWER_TRANSPORTATION = 30;
-    public static final int POWER_TRANSPORTATION_LV = 31;
-    public static final int POWER_TRANSPORTATION_MV = 32;
-    public static final int POWER_TRANSPORTATION_HV = 33;
-    public static final int POWER_TRANSPORTATION_EV = 34;
+    public static final int POWER_TRANSPORTATION_LV = 50;
+    public static final int POWER_TRANSPORTATION_MV = 51;
+    public static final int POWER_TRANSPORTATION_HV = 52;
+    public static final int POWER_TRANSPORTATION_EV = 53;
+    public static final int POWER_TRANSPORTATION_IV = 54;
+    public static final int POWER_TRANSPORTATION_LuV = 55;
+    public static final int POWER_TRANSPORTATION_ZPM = 56;
+    public static final int POWER_TRANSPORTATION_UV = 57;
     public static final int POWER_RF_SUPPLIER = 35;
-    public static final int POWER_IC2_LV_SUPPLIER = 36;
-    public static final int POWER_IC2_MV_SUPPLIER = 37;
-    public static final int POWER_IC2_HV_SUPPLIER = 38;
-    public static final int POWER_IC2_EV_SUPPLIER = 39;
+    public static final int POWER_IC2_LV_SUPPLIER = 60;
+    public static final int POWER_IC2_MV_SUPPLIER = 61;
+    public static final int POWER_IC2_HV_SUPPLIER = 62;
+    public static final int POWER_IC2_EV_SUPPLIER = 63;
+    public static final int POWER_IC2_IV_SUPPLIER = 64;
+    public static final int POWER_IC2_LuV_SUPPLIER = 65;
+    public static final int POWER_IC2_ZPM_SUPPLIER = 66;
+    public static final int POWER_IC2_UV_SUPPLIER = 67;
 
     // Various
     public static final int CC_REMOTE_CONTROL = 40;
@@ -171,11 +179,20 @@ public class ItemUpgrade extends LogisticsItem {
         registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_MV, IC2MVPowerTransportationUpgrade.class, 19);
         registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_HV, IC2HVPowerTransportationUpgrade.class, 19);
         registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_EV, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_IV, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_LuV, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_ZPM, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_UV, IC2EVPowerTransportationUpgrade.class, 19);
         registerUpgrade(ItemUpgrade.POWER_RF_SUPPLIER, RFPowerSupplierUpgrade.class, 21);
         registerUpgrade(ItemUpgrade.POWER_IC2_LV_SUPPLIER, IC2LVPowerSupplierUpgrade.class, 22);
         registerUpgrade(ItemUpgrade.POWER_IC2_MV_SUPPLIER, IC2MVPowerSupplierUpgrade.class, 23);
         registerUpgrade(ItemUpgrade.POWER_IC2_HV_SUPPLIER, IC2HVPowerSupplierUpgrade.class, 24);
         registerUpgrade(ItemUpgrade.POWER_IC2_EV_SUPPLIER, IC2EVPowerSupplierUpgrade.class, 25);
+        registerUpgrade(ItemUpgrade.POWER_IC2_IV_SUPPLIER, IC2IVPowerSupplierUpgrade.class, 22);
+        registerUpgrade(ItemUpgrade.POWER_IC2_LuV_SUPPLIER, IC2LuVPowerSupplierUpgrade.class, 22);
+        registerUpgrade(ItemUpgrade.POWER_IC2_ZPM_SUPPLIER, IC2ZPMPowerSupplierUpgrade.class, 22);
+        registerUpgrade(ItemUpgrade.POWER_IC2_UV_SUPPLIER, IC2UVPowerSupplierUpgrade.class, 22);
+
         registerUpgrade(ItemUpgrade.CC_REMOTE_CONTROL, CCRemoteControlUpgrade.class, 26);
         registerUpgrade(ItemUpgrade.CRAFTING_MONITORING, CraftingMonitoringUpgrade.class, 27);
         registerUpgrade(ItemUpgrade.OPAQUE_UPGRADE, OpaqueUpgrade.class, 28);

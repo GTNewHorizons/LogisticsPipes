@@ -62,7 +62,7 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
     private boolean hasPatternUpgrade = false;
     private boolean hasPowerPassUpgrade = false;
     private boolean hasRFPowerUpgrade = false;
-    private int getIC2PowerLevel = 0;
+    private long getIC2PowerLevel = 0;
     private final HashMap<Long, Integer> ic2PowerLevel = new HashMap<>(4);
     private boolean hasCCRemoteControlUpgrade = false;
     private boolean hasCraftingMonitoringUpgrade = false;
@@ -478,7 +478,7 @@ public class UpgradeManager implements ISimpleInventoryEventHandler, ISlotUpgrad
     }
 
     @Override
-    public int getIC2PowerLevel() {
+    public long getIC2PowerLevel() {
         return getIC2PowerLevel;
     }
 

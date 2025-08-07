@@ -8,7 +8,7 @@ public interface IPipeUpgradeManager {
 
     boolean hasRFPowerSupplierUpgrade();
 
-    int getIC2PowerLevel();
+    long getIC2PowerLevel();
 
     /**
      * Returns the number of Upgrades the pipe has for this level of power (1 lv, 2 mv, ...)

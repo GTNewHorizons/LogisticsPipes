@@ -4,6 +4,7 @@ import gregtech.api.metatileentity.BaseMetaTileEntity;
 import logisticspipes.proxy.interfaces.IEUProxy;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import tectech.thing.metaTileEntity.hatch.MTEHatchEnergyTunnel;
 
 public class GTProxy implements IEUProxy {
 

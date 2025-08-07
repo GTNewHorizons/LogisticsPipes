@@ -134,7 +134,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
                     internalStorage -= toSend;
                     sendPowerToPipe(route, toSend);
 
-                    break orders;
+                    continue orders;
                 }
             }
         }
