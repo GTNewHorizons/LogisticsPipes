@@ -221,7 +221,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
     }
 
     @Override
-    public int getDisplayPowerLevel() {
+    public double getCurrentEnergy() {
         return getPowerLevel();
     }
 
@@ -232,7 +232,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
 
     @Override
     @CCCommand(description = "Returns the max. storable power")
-    public int getMaxStorage() {
+    public double getMaxEnergy() {
         return LogisticsPowerJunctionTileEntity.MAX_STORAGE;
     }
 

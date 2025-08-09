@@ -1564,12 +1564,12 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     final void destroy() { // no overide, put code in OnBlockRemoval
     }
 
-    public void handleRFPowerArival(float toSend) {
-        powerHandler.addRFPower((long) toSend);
+    public void handleRFPowerArival(double toSend) {
+        powerHandler.addRFPower(toSend);
     }
 
-    public void handleIC2PowerArival(float toSend) {
-        powerHandler.addIC2Power((long) toSend);
+    public void handleIC2PowerArival(double toSend) {
+        powerHandler.addIC2Power(toSend);
     }
 
     /*** IInventoryProvider ***/

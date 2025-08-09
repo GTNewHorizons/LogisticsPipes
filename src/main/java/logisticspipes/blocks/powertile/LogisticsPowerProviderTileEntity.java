@@ -25,10 +25,14 @@ import logisticspipes.routing.IRouter;
 import logisticspipes.routing.PipeRoutingConnectionType;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.WorldUtil;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
+import lombok.Getter;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -40,56 +44,96 @@ import java.util.List;
 @CCType(name = "LogisticsPowerProvider")
 public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTileEntity
     implements IGuiTileEntity, ISubSystemPowerProvider, IPowerLevelDisplay, IGuiOpenControler,
-    IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler {
+    IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler, ISidedInventory {
 
-    public static final int BC_COLOR = 0x00ffff;
     public static final int RF_COLOR = 0xff0000;
     public static final int IC2_COLOR = 0xffff00;
+    public static final short BATTERY_COUNT = 9;
+    private static final short HISTORY_COUNT = 32;
 
     // true if it needs more power, turns off at full, turns on at 50%.
     public boolean needMorePowerTriggerCheck = true;
 
     protected List<PowerOrder> orders = new ArrayList<>();
     protected List<Pair<CoreRoutedPipe, ForgeDirection>> adjacentPipes = new ArrayList<>();
-
-    protected long internalStorage = 0;
-    private float lastUpdateStorage = 0;
-    protected int maxMode = 1;
-
+    protected final ItemIdentifierInventory inventory = new ItemIdentifierInventory(BATTERY_COUNT, "PowerProvider Inventory", 1);
+    private final IHeadUpDisplayRenderer HUD = new HUDPowerLevel(this);
     private final PlayerCollectionList guiListener = new PlayerCollectionList();
     private final PlayerCollectionList watcherList = new PlayerCollectionList();
-    private final IHeadUpDisplayRenderer HUD;
-    private boolean initialized = false;
-    WorldUtil worldUtil = null;
+    public final double[] energyHistory = new double[HISTORY_COUNT];
+
+    protected double currentEnergy = 0;
+    protected double maxEnergy = 0;
+    /**
+     * -- GETTER --
+     *
+     * @return the average energy IO over the last {@code HISTORY_COUNT} ticks
+     */
+    @Getter
+    private double averageIO = 0;
+    private short tickTimer = 0;
+    private boolean initialized;
+    WorldUtil worldUtil;
 
 
     protected LogisticsPowerProviderTileEntity() {
-        HUD = new HUDPowerLevel(this);
+        System.out.println("new LogisticsPowerProviderTileEntity at " + xCoord + ", " + yCoord + ", " + zCoord);
+        inventory.addListener(e -> updateCapacity());
     }
+
+    /**
+     * Updates the capacity of the internal buffer.
+     * Gets called on inventory change
+     */
+    protected abstract void updateCapacity();
+
+    /**
+     * @return The maximum voltage for the IO of this PowerProvider
+     */
+    protected abstract double getMaxEnergyIO();
 
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if (!initialized) {
-            if (MainProxy.isClient(getWorld())) {
-                LogisticsHUDRenderer.instance().add(this);
-            }
-            worldUtil = new WorldUtil(getWorldObj(), getX(), getY(), getZ());
-            initialized = true;
-        }
 
+        if (!initialized) initialize();
+
+        if (MainProxy.isClient(getWorld())) doClientEntityUpdate();
+        else doServerEntityUpdate();
+    }
+
+    private void doServerEntityUpdate() {
         updateAdjacentPipes();
-
         if (!adjacentPipes.isEmpty())
             handleOrders();
-
         orders.clear();
-        if (MainProxy.isServer(worldObj)) {
-            if (internalStorage != lastUpdateStorage) {
-                updateClients();
-                lastUpdateStorage = internalStorage;
-            }
+
+        if (++tickTimer >= HISTORY_COUNT) tickTimer = 0;
+        energyHistory[tickTimer] = currentEnergy;
+        double average = 0;
+
+        for (int i = 0; i < HISTORY_COUNT - 1; i++) {
+            var index1 = (tickTimer + i + 1) % HISTORY_COUNT;
+            var index2 = (tickTimer + i + 2) % HISTORY_COUNT;
+            average += (energyHistory[index2] - energyHistory[index1]);
         }
+
+        averageIO = average / (HISTORY_COUNT - 1);
+
+        updateClientSend();
+    }
+
+    private void doClientEntityUpdate() {
+        //
+    }
+
+    private void initialize() {
+        if (MainProxy.isClient(getWorld())) {
+            LogisticsHUDRenderer.instance().add(this);
+        }
+
+        worldUtil = new WorldUtil(getWorldObj(), getX(), getY(), getZ());
+        initialized = true;
     }
 
     /**
@@ -110,10 +154,19 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         }
     }
 
+    /**
+     * Handles all present ordes that were send by any pipes in the same network, that want power.
+     * Provides power to these orders one by one, until the internal buffer is empty
+     */
     private void handleOrders() {
+        double sendEnergyThisTick = 0;
+
         orders:
         for (PowerOrder order : orders) {
-            long toSend = Math.min(order.requestAmount(), internalStorage);
+            if (currentEnergy == 0) return;
+            if (sendEnergyThisTick >= getMaxEnergyIO()) return;
+
+            double toSend = Math.min(Math.min(order.requestAmount(), currentEnergy), sendEnergyThisTick);
             if (toSend == 0) continue;
 
             IRouter destinationRouter = SimpleServiceLocator.routerManager.getRouter(order.destinationID());
@@ -131,7 +184,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
 
                     pipe.container.addLaser(adjacent.getValue2().getOpposite(), 1, getLaserColor(), true, true);
                     sendPowerLaserPackets(sourceRouter, destinationRouter, route.exitOrientation, route.exitOrientation != adjacent.getValue2());
-                    internalStorage -= toSend;
+                    currentEnergy -= toSend;
                     sendPowerToPipe(route, toSend);
 
                     continue orders;
@@ -144,10 +197,10 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
      * Sends power to the destination of the given route.
      * This method doesn't perform any sanity checks, and injects power directly into that Pipe.
      *
-     * @param route the route
+     * @param route        the route
      * @param energyAmount the amount of energy to send
      */
-    protected abstract void sendPowerToPipe( ExitRoute route, float energyAmount);
+    protected abstract void sendPowerToPipe(ExitRoute route, double energyAmount);
 
     private void sendPowerLaserPackets(IRouter sourceRouter, IRouter destinationRouter, ForgeDirection exitOrientation,
                                        boolean addBall) {
@@ -192,14 +245,30 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         }
     }
 
-    protected abstract float getMaxProvidePerTick();
-
     @CCCommand(description = "Returns the color for the power provided by this power provider")
     protected abstract int getLaserColor();
 
     @Override
     @CCCommand(description = "Returns the max. amount of storable power")
-    public abstract int getMaxStorage();
+    public double getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    /**
+     * @return The current amount of stored power
+     */
+    @CCCommand(description = "Returns the current amount of stored power")
+    public double getCurrentEnergy() {
+        return currentEnergy;
+    }
+
+    /**
+     * @return how much power is missing until this provider is full
+     */
+    @CCCommand(description = "Returns how much power is missing until this provider is full")
+    public double getDemandedEnergy() {
+        return getMaxEnergy() - getCurrentEnergy();
+    }
 
     @Override
     @CCCommand(description = "Returns the power type stored in this power provider")
@@ -229,33 +298,115 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         }
     }
 
+    /**
+     * Checks if the item stack can be placed in the inventory
+     *
+     * @param itemStack the item stack
+     * @return true if the item stack can be placed, otherwise false
+     */
+    public abstract boolean checkSlot(int SlotId, ItemStack itemStack);
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+        return new int[1];
+    }
+
+    @Override
+    public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
+        for (int i = 0; i < 9; i++) {
+            if (checkSlot(i, p_102007_2_)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+        return false;
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slotIn) {
+        return inventory.getStackInSlot(slotIn);
+    }
+
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+        return inventory.decrStackSize(index, count);
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int index) {
+        return inventory.getStackInSlotOnClosing(index);
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        inventory.setInventorySlotContents(index, stack);
+    }
+
+    @Override
+    public String getInventoryName() {
+        return inventory.getInventoryName();
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return true;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return inventory.isUseableByPlayer(player);
+    }
+
+    @Override
+    public void openInventory() {
+        inventory.openInventory();
+    }
+
+    @Override
+    public void closeInventory() {
+        inventory.closeInventory();
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return checkSlot(index, stack);
+    }
+
     @Desugar
-    protected record PowerOrder(int destinationID, long requestAmount) {
+    protected record PowerOrder(int destinationID, double requestAmount) {
     }
 
     @Override
-    public void requestPower(int destination, long amount) {
+    public void requestPower(int destination, double amount) {
         orders.add(new PowerOrder(destination, amount));
-    }
-
-    @Override
-    @CCCommand(description = "Returns the current power level for this power provider")
-    public float getPowerLevel() {
-        return lastUpdateStorage;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        internalStorage = nbt.getLong("internalStorage");
-        maxMode = nbt.getInteger("maxMode");
+        currentEnergy = nbt.getDouble("currentEnergy");
+        maxEnergy = nbt.getDouble("maxEnergy");
+        inventory.readFromNBT(nbt);
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        nbt.setLong("internalStorage", internalStorage);
-        nbt.setInteger("maxMode", maxMode);
+        nbt.setDouble("currentEnergy", currentEnergy);
+        nbt.setDouble("maxEnergy", maxEnergy);
+        inventory.writeToNBT(nbt);
     }
 
     @Override
@@ -300,7 +451,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     @Override
     public void playerStartWatching(EntityPlayer player) {
         watcherList.add(player);
-        updateClients();
+        updateClientSend();
     }
 
     @Override
@@ -316,7 +467,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     @Override
     public void guiOpenedByPlayer(EntityPlayer player) {
         guiListener.add(player);
-        updateClients();
+        updateClientSend();
     }
 
     @Override
@@ -324,13 +475,15 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         guiListener.remove(player);
     }
 
-    public void updateClients() {
-        MainProxy.sendToPlayerList(
-            PacketHandler.getPacket(PowerProviderLevel.class).setFloat(internalStorage).setTilePos(this),
-            guiListener);
-        MainProxy.sendToPlayerList(
-            PacketHandler.getPacket(PowerProviderLevel.class).setFloat(internalStorage).setTilePos(this),
-            watcherList);
+    public void updateClientSend() {
+        var pack = PacketHandler.getPacket(PowerProviderLevel.class)
+            .setMaxEnergy(maxEnergy)
+            .setStoredEnergy(currentEnergy)
+            .setAverageIO(averageIO)
+            .setTilePos(this);
+
+        MainProxy.sendToPlayerList(pack, guiListener);
+        MainProxy.sendToPlayerList(pack, watcherList);
     }
 
     @Override
@@ -339,20 +492,21 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         par1CrashReportCategory.addCrashSection("LP-Version", Tags.VERSION);
     }
 
-    public void handlePowerPacket(float float1) {
-        if (MainProxy.isClient(getWorld())) {
-            internalStorage = (long) float1;
-        }
+    /**
+     * Updates the client side with the data from the server side
+     *
+     * @param updatePackage the update package send from the server
+     */
+    public void updateClientReceive(PowerProviderLevel updatePackage) {
+        if (MainProxy.isServer(getWorld())) return;
+        currentEnergy = updatePackage.getStoredEnergy();
+        maxEnergy = updatePackage.getMaxEnergy();
+        averageIO = updatePackage.getAverageIO();
     }
 
     @Override
     public int getChargeState() {
-        return (int) Math.min(100F, internalStorage * 100 / getMaxStorage());
-    }
-
-    @Override
-    public int getDisplayPowerLevel() {
-        return Math.round(internalStorage);
+        return (int) Math.min(100, 100.0 * currentEnergy / getMaxEnergy());
     }
 
     @Override

@@ -291,7 +291,7 @@ public class LogisticsPipes {
     private static LPGlobalCCAccess generalAccess;
     private static PlayerConfig playerConfig;
 
-    public static boolean isGTNH = false;
+    public static boolean isGTNH = true;
     public static boolean enableVBO = false;
 
     @EventHandler

@@ -21,7 +21,10 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
         if (tile == null) {
             return null;
         }
-        return new GuiPowerProvider(player, tile);
+
+        var gui = new GuiPowerProvider(player, tile);
+        gui.inventorySlots = getContainer(player);
+        return gui;
     }
 
     @Override
@@ -31,7 +34,11 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
         if (tile == null) {
             return null;
         }
-        DummyContainer dummy = new DummyContainer(player, null, tile);
+        DummyContainer dummy = new DummyContainer(player, tile, tile);
+        for (int i = 0; i < 9; i++){
+            int finalI = i;
+            dummy.addRestrictedSlot(i, tile, 8 + 18 * i,58, itemStack -> tile.checkSlot(finalI, itemStack));
+        }
         dummy.addNormalSlotsForPlayerInventory(8, 80);
         return dummy;
     }

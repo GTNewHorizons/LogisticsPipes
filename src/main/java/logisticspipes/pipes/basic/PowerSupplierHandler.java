@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 
 public class PowerSupplierHandler {
 
-    private static final long INTERNAL_RF_BUFFER_MAX = 10000;
-    private static long INTERNAL_IC2_BUFFER_MAX = 0;
+    private static final double INTERNAL_RF_BUFFER_MAX = 10000;
+    private static double INTERNAL_IC2_BUFFER_MAX = 0;
 
     private final CoreRoutedPipe pipe;
 
-    private long internal_RF_Buffer = 0;
-    private long internal_IC2_Buffer = 0;
+    private double internal_RF_Buffer = 0;
+    private double internal_IC2_Buffer = 0;
 
     public PowerSupplierHandler(CoreRoutedPipe pipe) {
         this.pipe = pipe;
@@ -31,10 +31,10 @@ public class PowerSupplierHandler {
 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         if (internal_RF_Buffer > 0) {
-            nbttagcompound.setFloat("bufferRF", internal_RF_Buffer);
+            nbttagcompound.setDouble("bufferRF", internal_RF_Buffer);
         }
         if (internal_IC2_Buffer > 0) {
-            nbttagcompound.setFloat("bufferEU", internal_IC2_Buffer);
+            nbttagcompound.setDouble("bufferEU", internal_IC2_Buffer);
         }
     }
 
@@ -78,7 +78,7 @@ public class PowerSupplierHandler {
 
     public void receiveRFPower(List<ISubSystemPowerProvider> powerProvider) {
         for (ISubSystemPowerProvider provider : powerProvider) {
-            long needed = INTERNAL_RF_BUFFER_MAX - internal_RF_Buffer;
+            double needed = INTERNAL_RF_BUFFER_MAX - internal_RF_Buffer;
             if (needed <= 0F) return;
             provider.requestPower(pipe.getRouterId(), needed);
         }
@@ -117,7 +117,7 @@ public class PowerSupplierHandler {
     }
 
     public void receiveEUPower(List<ISubSystemPowerProvider> powerProvider) {
-        Supplier<Long> needSupplier = () -> INTERNAL_IC2_BUFFER_MAX - internal_IC2_Buffer;
+        Supplier<Double> needSupplier = () -> INTERNAL_IC2_BUFFER_MAX - internal_IC2_Buffer;
 
         if (needSupplier.get() <= 0) return;
 
@@ -152,11 +152,11 @@ public class PowerSupplierHandler {
         INTERNAL_IC2_BUFFER_MAX = upgradeManager.getIC2PowerLevel() * upgradeManager.getIC2MaxAmperage(upgradeManager.getIC2PowerLevel()) * 8L;
     }
 
-    public void addRFPower(long toSend) {
+    public void addRFPower(double toSend) {
         internal_RF_Buffer += toSend;
     }
 
-    public void addIC2Power(long toSend) {
+    public void addIC2Power(double toSend) {
         internal_IC2_Buffer += toSend;
     }
 }
