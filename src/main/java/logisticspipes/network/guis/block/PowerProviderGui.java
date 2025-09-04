@@ -1,5 +1,6 @@
 package logisticspipes.network.guis.block;
 
+import logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 
 import logisticspipes.blocks.powertile.LogisticsPowerProviderTileEntity;
@@ -22,9 +23,7 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
             return null;
         }
 
-        var gui = new GuiPowerProvider(player, tile);
-        gui.inventorySlots = getContainer(player);
-        return gui;
+        return new GuiPowerProvider(player, tile);
     }
 
     @Override
@@ -34,11 +33,17 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
         if (tile == null) {
             return null;
         }
-        DummyContainer dummy = new DummyContainer(player, tile, tile);
-        for (int i = 0; i < 9; i++){
-            int finalI = i;
-            dummy.addRestrictedSlot(i, tile, 8 + 18 * i,58, itemStack -> tile.checkSlot(finalI, itemStack));
+        if (tile instanceof LogisticsIC2PowerProviderTileEntity ic2Power) {
+            DummyContainer dummy = new DummyContainer(player, ic2Power, ic2Power);
+            for (int i = 0; i < 9; i++){
+                int finalI = i;
+                dummy.addRestrictedSlot(i, ic2Power, 8 + 18 * i,58, itemStack -> ic2Power.checkSlot(finalI, itemStack));
+            }
+            dummy.addNormalSlotsForPlayerInventory(8, 80);
+            return dummy;
         }
+
+        DummyContainer dummy = new DummyContainer(player, null, tile);
         dummy.addNormalSlotsForPlayerInventory(8, 80);
         return dummy;
     }

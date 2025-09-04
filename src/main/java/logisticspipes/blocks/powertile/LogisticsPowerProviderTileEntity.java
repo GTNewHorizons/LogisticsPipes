@@ -44,19 +44,15 @@ import java.util.List;
 @CCType(name = "LogisticsPowerProvider")
 public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTileEntity
     implements IGuiTileEntity, ISubSystemPowerProvider, IPowerLevelDisplay, IGuiOpenControler,
-    IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler, ISidedInventory {
+    IHeadUpDisplayBlockRendererProvider, IBlockWatchingHandler {
 
     public static final int RF_COLOR = 0xff0000;
     public static final int IC2_COLOR = 0xffff00;
     public static final short BATTERY_COUNT = 9;
-    private static final short HISTORY_COUNT = 32;
-
-    // true if it needs more power, turns off at full, turns on at 50%.
-    public boolean needMorePowerTriggerCheck = true;
+    private static final short HISTORY_COUNT = 256;
 
     protected List<PowerOrder> orders = new ArrayList<>();
     protected List<Pair<CoreRoutedPipe, ForgeDirection>> adjacentPipes = new ArrayList<>();
-    protected final ItemIdentifierInventory inventory = new ItemIdentifierInventory(BATTERY_COUNT, "PowerProvider Inventory", 1);
     private final IHeadUpDisplayRenderer HUD = new HUDPowerLevel(this);
     private final PlayerCollectionList guiListener = new PlayerCollectionList();
     private final PlayerCollectionList watcherList = new PlayerCollectionList();
@@ -74,18 +70,6 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     private short tickTimer = 0;
     private boolean initialized;
     WorldUtil worldUtil;
-
-
-    protected LogisticsPowerProviderTileEntity() {
-        System.out.println("new LogisticsPowerProviderTileEntity at " + xCoord + ", " + yCoord + ", " + zCoord);
-        inventory.addListener(e -> updateCapacity());
-    }
-
-    /**
-     * Updates the capacity of the internal buffer.
-     * Gets called on inventory change
-     */
-    protected abstract void updateCapacity();
 
     /**
      * @return The maximum voltage for the IO of this PowerProvider
@@ -166,7 +150,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
             if (currentEnergy == 0) return;
             if (sendEnergyThisTick >= getMaxEnergyIO()) return;
 
-            double toSend = Math.min(Math.min(order.requestAmount(), currentEnergy), sendEnergyThisTick);
+            double toSend = Math.min(Math.min(order.requestAmount(), currentEnergy), getMaxEnergyIO() - sendEnergyThisTick);
             if (toSend == 0) continue;
 
             IRouter destinationRouter = SimpleServiceLocator.routerManager.getRouter(order.destinationID());
@@ -298,91 +282,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         }
     }
 
-    /**
-     * Checks if the item stack can be placed in the inventory
-     *
-     * @param itemStack the item stack
-     * @return true if the item stack can be placed, otherwise false
-     */
-    public abstract boolean checkSlot(int SlotId, ItemStack itemStack);
 
-    @Override
-    public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
-        return new int[1];
-    }
-
-    @Override
-    public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
-        for (int i = 0; i < 9; i++) {
-            if (checkSlot(i, p_102007_2_)) return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
-        return false;
-    }
-
-    @Override
-    public int getSizeInventory() {
-        return inventory.getSizeInventory();
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int slotIn) {
-        return inventory.getStackInSlot(slotIn);
-    }
-
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return inventory.decrStackSize(index, count);
-    }
-
-    @Override
-    public ItemStack getStackInSlotOnClosing(int index) {
-        return inventory.getStackInSlotOnClosing(index);
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        inventory.setInventorySlotContents(index, stack);
-    }
-
-    @Override
-    public String getInventoryName() {
-        return inventory.getInventoryName();
-    }
-
-    @Override
-    public boolean hasCustomInventoryName() {
-        return true;
-    }
-
-    @Override
-    public int getInventoryStackLimit() {
-        return inventory.getInventoryStackLimit();
-    }
-
-    @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return inventory.isUseableByPlayer(player);
-    }
-
-    @Override
-    public void openInventory() {
-        inventory.openInventory();
-    }
-
-    @Override
-    public void closeInventory() {
-        inventory.closeInventory();
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return checkSlot(index, stack);
-    }
 
     @Desugar
     protected record PowerOrder(int destinationID, double requestAmount) {
@@ -398,7 +298,6 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         super.readFromNBT(nbt);
         currentEnergy = nbt.getDouble("currentEnergy");
         maxEnergy = nbt.getDouble("maxEnergy");
-        inventory.readFromNBT(nbt);
     }
 
     @Override
@@ -406,7 +305,6 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
         super.writeToNBT(nbt);
         nbt.setDouble("currentEnergy", currentEnergy);
         nbt.setDouble("maxEnergy", maxEnergy);
-        inventory.writeToNBT(nbt);
     }
 
     @Override

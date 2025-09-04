@@ -13,19 +13,15 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 
 import java.io.IOException;
 
+@Setter
+@Getter
 @Accessors(chain = true)
 public class PowerProviderLevel extends CoordinatesPacket {
 
-    @Getter
-    @Setter
     private double storedEnergy;
 
-    @Getter
-    @Setter
     private double maxEnergy;
 
-    @Getter
-    @Setter
     private double averageIO;
 
     public PowerProviderLevel(int id) {
@@ -55,7 +51,6 @@ public class PowerProviderLevel extends CoordinatesPacket {
 
     @Override
     public void processPacket(EntityPlayer player) {
-        System.out.println("Processing " + this);
         LogisticsPowerProviderTileEntity tile = this.getTile(player.worldObj, LogisticsPowerProviderTileEntity.class);
         if (tile != null) {
             tile.updateClientReceive(this);

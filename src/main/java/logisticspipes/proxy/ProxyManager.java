@@ -561,6 +561,31 @@ public class ProxyManager {
                     }
 
                     @Override
+                    public double chargeElectricItem(ItemStack stack, double amount) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double dischargeElectricItem(ItemStack stack, double amount) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double getCurrentCharge(ItemStack stack) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double getMaxCharge(ItemStack stack) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double getVoltage(ItemStack stack) {
+                        return 0;
+                    }
+
+                    @Override
                     public boolean isFullyCharged(ItemStack stack) {
                         return false;
                     }

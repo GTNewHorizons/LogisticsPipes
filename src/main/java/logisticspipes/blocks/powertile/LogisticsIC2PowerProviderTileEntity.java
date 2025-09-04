@@ -1,67 +1,45 @@
 package logisticspipes.blocks.powertile;
 
 import cpw.mods.fml.common.Optional;
-import gregtech.api.items.MetaBaseItem;
-import gregtech.api.util.GTModHandler;
 import ic2.api.energy.tile.IEnergySink;
-import ic2.api.item.IElectricItem;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.routing.ExitRoute;
-import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.tuples.Pair;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 @Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySink")
-public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergySink {
+public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergySink, ISidedInventory {
+
+    private final LogisticsIC2PowerProviderTileEntityInventory inventory;
 
     public static final double BASE_STORAGE = 32000.0;
     public static final double BASE_IO_ENERGY = 32.0;
 
-    protected double maxIOEnergy = BASE_IO_ENERGY;
     private boolean addedToEnergyNet = false;
     private boolean init = false;
-    private double energyInputThisTick = 0;
+
 
     public LogisticsIC2PowerProviderTileEntity() {
         super();
-        maxEnergy = BASE_STORAGE;
-    }
-
-
-    @Override
-    protected void updateCapacity() {
-        double newCapacity = BASE_STORAGE;
-        double newAmperage = BASE_IO_ENERGY;
-
-        for (int i = 0; i < inventory.getSizeInventory(); i++) {
-            var batteryStack = inventory.getStackInSlot(i);
-            if (batteryStack == null) continue;
-
-            var battery = (ic2.api.item.IElectricItem) batteryStack.getItem();
-            if (battery == null) continue;
-
-            newCapacity += battery.getMaxCharge(batteryStack);
-            newAmperage += battery.getTransferLimit(batteryStack);
-        }
-
-        maxEnergy = newCapacity;
-        maxIOEnergy = newAmperage;
-
-        if (maxEnergy < currentEnergy)
-            currentEnergy = maxEnergy;
+        inventory = new LogisticsIC2PowerProviderTileEntityInventory(this);
     }
 
     @Override
     protected double getMaxEnergyIO() {
-        return maxIOEnergy;
+        return BASE_IO_ENERGY + inventory.getMaxIO();
+    }
+
+    @Override
+    public double getMaxEnergy() {
+        return BASE_STORAGE + inventory.getCurrentCapacity();
     }
 
     @Override
@@ -74,7 +52,9 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
             }
         }
 
-        if (MainProxy.isServer(getWorld())) energyInputThisTick = 0;
+        if (MainProxy.isServer(getWorld())) {
+            inventory.onTick();
+        }
     }
 
     @Override
@@ -112,7 +92,6 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
         }
     }
 
-    @Override
     public boolean checkSlot(int slotId, ItemStack itemStack) {
         if (itemStack.getItem() == null) return false;
         //test if item is a battery
@@ -177,43 +156,91 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
         if (MainProxy.isClient(getWorld())) return 0;
 
         // idk why, but from gt cables we get multiple injections per tick, with amount as the energy provided, and
-        // voltage the same value, and not (like i would expect) amount the energy, and voltage the actual amperes.
+        // voltage the same value, and not (like i would expect) voltage the energy, and amount the actual amperes.
         // we need to collect the energy in on tick and check that we only accept as much as this block can handle
-        // for now we dont do any shenanigans with explosions or overvoltages on LP Power providers or the internal
-        // batteries.
+        // for now we dont do any shenanigans with explosions on LP Power providers or the internal batteries.
 
-        var maxIO = getMaxEnergyIO();
-        if (energyInputThisTick + amount > maxIO) {
-            amount = maxIO - energyInputThisTick;
-        }
-        currentEnergy += amount;
-        energyInputThisTick += amount;
-
-        addEnergyToBatteries(amount);
-
-        if (currentEnergy > getMaxEnergy()) currentEnergy = getMaxEnergy();
-
-        //return the 'unused' amount of the send energy
-        return voltage - amount;
+        return voltage - inventory.chargeBatteries(voltage);
     }
 
-    private void addEnergyToBatteries(double amount) {
-        for (int i = 0; i < inventory.getSizeInventory(); i++) {
-            var aStack = inventory.getStackInSlot(i);
-            if (GTModHandler.isElectricItem(aStack)) {
+    // ---- INVENTORY HANLDER ---- //
 
-                if (aStack.getItem() instanceof MetaBaseItem metaBaseItem) {
-                    Long[] stats = metaBaseItem.getElectricStats(aStack);
-                    var charge = Math.min(stats[1],amount);
-                    metaBaseItem.charge(aStack, charge, metaBaseItem.getTier(aStack), false, false);
-
-                    System.out.println(metaBaseItem.getCharge(aStack));
-                } else if (aStack.getItem() instanceof IElectricItem) {
-                    var stored = ic2.api.item.ElectricItem.manager.getCharge(aStack);
-                    var maxCharge = ((IElectricItem) aStack.getItem()).getMaxCharge(aStack);
-                    System.out.println(stored + " / " + maxCharge);
-                }
-            }
-        }
+    @Override
+    public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+        return new int[1];
     }
+
+    @Override
+    public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_, int p_102007_3_) {
+        for (int i = 0; i < 9; i++) {
+            if (checkSlot(i, p_102007_2_)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_, int p_102008_3_) {
+        return false;
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return inventory.getSizeInventory();
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int slotIn) {
+        return inventory.getStackInSlot(slotIn);
+    }
+
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+        return inventory.decrStackSize(index, count);
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int index) {
+        return inventory.getStackInSlotOnClosing(index);
+    }
+
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        inventory.setInventorySlotContents(index, stack);
+    }
+
+    @Override
+    public String getInventoryName() {
+        return inventory.getInventoryName();
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return true;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return inventory.getInventoryStackLimit();
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return inventory.isUseableByPlayer(player);
+    }
+
+    @Override
+    public void openInventory() {
+        inventory.openInventory();
+    }
+
+    @Override
+    public void closeInventory() {
+        inventory.closeInventory();
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return checkSlot(index, stack);
+    }
+
 }

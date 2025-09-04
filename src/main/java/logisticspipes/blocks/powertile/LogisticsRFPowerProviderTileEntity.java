@@ -23,11 +23,6 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     }
 
     @Override
-    protected void updateCapacity() {
-        maxEnergy = BASE_STORAGE;
-    }
-
-    @Override
     protected double getMaxEnergyIO() {
         return BASE_STORAGE;
     }
@@ -99,11 +94,6 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     @Override
     public String getBrand() {
         return "RF";
-    }
-
-    @Override
-    public boolean checkSlot(int slotId, ItemStack itemStack) {
-        return false;
     }
 
     @Override
