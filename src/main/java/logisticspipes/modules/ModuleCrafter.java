@@ -1,14 +1,11 @@
 package logisticspipes.modules;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.DelayQueue;
+import java.util.stream.Collectors;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -56,10 +53,8 @@ import logisticspipes.network.abstractpackets.CoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.guis.module.inhand.CraftingModuleInHand;
 import logisticspipes.network.guis.module.inpipe.CraftingModuleSlot;
-import logisticspipes.network.packets.block.CraftingPipeNextAdvancedSatellitePacket;
-import logisticspipes.network.packets.block.CraftingPipePrevAdvancedSatellitePacket;
-import logisticspipes.network.packets.cpipe.CPipeNextSatellite;
-import logisticspipes.network.packets.cpipe.CPipePrevSatellite;
+import logisticspipes.network.packets.block.CraftingPipeIncrementAdvancedSatellitePacket;
+import logisticspipes.network.packets.cpipe.CPipeIncrementSatellite;
 import logisticspipes.network.packets.cpipe.CPipeSatelliteId;
 import logisticspipes.network.packets.cpipe.CPipeSatelliteImport;
 import logisticspipes.network.packets.cpipe.CPipeSatelliteImportBack;
@@ -127,6 +122,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     // private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
     public int satelliteId = 0;
+    //Advanced satellite upgrades contain map each input slot (up to 9) to a satellite pipe ID. This array contains those mappings
     public int[] advancedSatelliteIdArray = new int[9];
     public DictResource[] fuzzyCraftingFlagArray = new DictResource[9];
     public DictResource outputFuzzyFlags = new DictResource(null, null);
@@ -652,55 +648,34 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         return _service.getItemOrderManager().totalAmountCountInAllOrders();
     }
 
-    protected int getNextConnectSatelliteId(boolean prev, int x) {
-        int closestIdFound = prev ? 0 : Integer.MAX_VALUE;
-        if (_service == null) {
-            return prev ? Math.max(0, satelliteId - 1) : satelliteId + 1;
+    // Basically, we increment the id by "increment" then:
+    //   - Look for all satellite pipes that are valid routes for this module/pipe
+    //   - Find the one with the id closest to the (current id + increment)
+    //      - We only look in the direction of the increment. So if we are trying to increase the id, we will only look at modules/pipes with an id >= "initialGuess"
+    //Advanced satellite modules store their currentIds in advancedSatelliteArray, crafting pipes/modules use satelliteId
+    protected int getNextConnectSatelliteId(int currentId, int increment) {
+        final int initialGuess = currentId + increment;
+        final int sign = increment >= 0 ? 1 : -1;
+        // A list of potential satellite IDs
+        List<Integer> validSatelliteIds = PipeItemsSatelliteLogistics.AllSatellites.stream()
+                .filter(satellite -> !satellite.stillNeedReplace())
+                .filter(satellite -> !satellite.isFluidPipe())
+                .filter(satellite -> getRouter().getDistanceTo(satellite.getRouter()).stream().anyMatch(route -> route.filters.isEmpty()))
+                .map(satellite -> satellite.satelliteId)
+                // Only look at ids in the direction we are incrementing
+                .filter(id -> sign == 1 ? id >= initialGuess : id <= initialGuess)
+                .sorted()
+                .collect(Collectors.toList());
+
+        if (validSatelliteIds.isEmpty()) {
+            //Default to 0 if there are no IDs in the list
+            validSatelliteIds = Lists.newArrayList(0);
         }
-        for (final PipeItemsSatelliteLogistics satellite : PipeItemsSatelliteLogistics.AllSatellites) {
-            if (satellite == null || satellite.stillNeedReplace()
-                    || satellite.getRouter() == null
-                    || satellite.isFluidPipe()) {
-                continue;
-            }
-            IRouter satRouter = satellite.getRouter();
-            List<ExitRoute> routes = getRouter().getDistanceTo(satRouter);
-            if (routes != null && !routes.isEmpty()) {
-                boolean filterFree = false;
-                for (ExitRoute route : routes) {
-                    if (route.filters.isEmpty()) {
-                        filterFree = true;
-                        break;
-                    }
-                }
-                if (!filterFree) {
-                    continue;
-                }
-                if (x == -1) {
-                    if (!prev && satellite.satelliteId > satelliteId && satellite.satelliteId < closestIdFound) {
-                        closestIdFound = satellite.satelliteId;
-                    } else if (prev && satellite.satelliteId < satelliteId && satellite.satelliteId > closestIdFound) {
-                        closestIdFound = satellite.satelliteId;
-                    }
-                } else {
-                    if (!prev && satellite.satelliteId > advancedSatelliteIdArray[x]
-                            && satellite.satelliteId < closestIdFound) {
-                        closestIdFound = satellite.satelliteId;
-                    } else if (prev && satellite.satelliteId < advancedSatelliteIdArray[x]
-                            && satellite.satelliteId > closestIdFound) {
-                                closestIdFound = satellite.satelliteId;
-                            }
-                }
-            }
+
+        if (sign == -1) {
+            return validSatelliteIds.get(validSatelliteIds.size() - 1);
         }
-        if (closestIdFound == Integer.MAX_VALUE) {
-            if (x == -1) {
-                return satelliteId;
-            } else {
-                return advancedSatelliteIdArray[x];
-            }
-        }
-        return closestIdFound;
+        return validSatelliteIds.get(0);
     }
 
     protected int getNextConnectFluidSatelliteId(boolean prev, int x) {
@@ -752,12 +727,14 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         return closestIdFound;
     }
 
-    public void setNextSatellite(EntityPlayer player) {
+    public void incrementId(EntityPlayer player, int increment) {
         if (MainProxy.isClient(player.worldObj)) {
-            final CoordinatesPacket packet = PacketHandler.getPacket(CPipeNextSatellite.class).setModulePos(this);
+            final CPipeIncrementSatellite packet = PacketHandler.getPacket(CPipeIncrementSatellite.class);
+            packet.setModulePos(this);
+            packet.setIncrement(increment);
             MainProxy.sendPacketToServer(packet);
         } else {
-            satelliteId = getNextConnectSatelliteId(false, -1);
+            satelliteId = getNextConnectSatelliteId( satelliteId, increment);
             final CoordinatesPacket packet = PacketHandler.getPacket(CPipeSatelliteId.class).setPipeId(satelliteId)
                     .setModulePos(this);
             MainProxy.sendPacketToPlayer(packet, player);
@@ -770,18 +747,6 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             this.satelliteId = satelliteId;
         } else {
             advancedSatelliteIdArray[x] = satelliteId;
-        }
-    }
-
-    public void setPrevSatellite(EntityPlayer player) {
-        if (MainProxy.isClient(player.worldObj)) {
-            final CoordinatesPacket packet = PacketHandler.getPacket(CPipePrevSatellite.class).setModulePos(this);
-            MainProxy.sendPacketToServer(packet);
-        } else {
-            satelliteId = getNextConnectSatelliteId(true, -1);
-            final CoordinatesPacket packet = PacketHandler.getPacket(CPipeSatelliteId.class).setPipeId(satelliteId)
-                    .setModulePos(this);
-            MainProxy.sendPacketToPlayer(packet, player);
         }
     }
 
@@ -1047,27 +1012,16 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         return FluidIdentifier.get(stack.getItem());
     }
 
-    public void setNextSatellite(EntityPlayer player, int i) {
+    // i is the index of the slot in the advanced satellite upgrade. Normal crafting pipes use the method without the "i" parameter
+    public void incrementId(EntityPlayer player, int increment, int i) {
         if (MainProxy.isClient(player.worldObj)) {
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(CraftingPipeNextAdvancedSatellitePacket.class).setInteger(i)
-                            .setModulePos(this));
+            final CraftingPipeIncrementAdvancedSatellitePacket packet = PacketHandler.getPacket(CraftingPipeIncrementAdvancedSatellitePacket.class);
+            packet.setInteger(i);
+            packet.setModulePos(this);
+            packet.setIncrement(increment);
+            MainProxy.sendPacketToServer(packet);
         } else {
-            advancedSatelliteIdArray[i] = getNextConnectSatelliteId(false, i);
-            MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(CraftingAdvancedSatelliteId.class).setInteger2(i)
-                            .setInteger(advancedSatelliteIdArray[i]).setModulePos(this),
-                    player);
-        }
-    }
-
-    public void setPrevSatellite(EntityPlayer player, int i) {
-        if (MainProxy.isClient(player.worldObj)) {
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(CraftingPipePrevAdvancedSatellitePacket.class).setInteger(i)
-                            .setModulePos(this));
-        } else {
-            advancedSatelliteIdArray[i] = getNextConnectSatelliteId(true, i);
+            advancedSatelliteIdArray[i] = getNextConnectSatelliteId(advancedSatelliteIdArray[i], increment);
             MainProxy.sendPacketToPlayer(
                     PacketHandler.getPacket(CraftingAdvancedSatelliteId.class).setInteger2(i)
                             .setInteger(advancedSatelliteIdArray[i]).setModulePos(this),
