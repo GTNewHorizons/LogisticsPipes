@@ -252,7 +252,7 @@ public class PipeFluidSatellite extends FluidRoutedPipe implements IRequestFluid
             MainProxy.sendPacketToServer(packet);
         } else {
             final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
-                .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
+                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
             MainProxy.sendPacketToPlayer(packet, player);
         }
         updateWatchers();

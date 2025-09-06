@@ -211,7 +211,8 @@ public class PipeItemsSatelliteLogistics extends CoreRoutedPipe
     }
 
     /*
-     * Increments by at least increment, then iterates either upwards or downwards until a non conflicting id is found, depending on the sign of the increment
+     * Increments by at least increment, then iterates either upwards or downwards until a non conflicting id is found,
+     * depending on the sign of the increment
      */
     protected int findId(int increment) {
         if (MainProxy.isClient(getWorld())) {

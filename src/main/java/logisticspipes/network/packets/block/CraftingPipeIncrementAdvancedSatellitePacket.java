@@ -1,22 +1,23 @@
 package logisticspipes.network.packets.block;
 
-import logisticspipes.network.LPDataInputStream;
-import logisticspipes.network.LPDataOutputStream;
-import lombok.Getter;
-import lombok.Setter;
+import java.io.IOException;
+
 import net.minecraft.entity.player.EntityPlayer;
 
 import logisticspipes.modules.ModuleCrafter;
+import logisticspipes.network.LPDataInputStream;
+import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.network.abstractpackets.IntegerModuleCoordinatesPacket;
 import logisticspipes.network.abstractpackets.ModernPacket;
-
-import java.io.IOException;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 public class CraftingPipeIncrementAdvancedSatellitePacket extends IntegerModuleCoordinatesPacket {
 
     private int increment;
+
     public CraftingPipeIncrementAdvancedSatellitePacket(int id) {
         super(id);
         this.increment = 1;

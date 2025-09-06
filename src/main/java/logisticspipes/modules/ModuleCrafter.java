@@ -5,7 +5,6 @@ import java.util.*;
 import java.util.concurrent.DelayQueue;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,6 +20,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.google.common.collect.Lists;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -122,7 +123,8 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     // private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
 
     public int satelliteId = 0;
-    //Advanced satellite upgrades contain map each input slot (up to 9) to a satellite pipe ID. This array contains those mappings
+    // Advanced satellite upgrades contain map each input slot (up to 9) to a satellite pipe ID. This array contains
+    // those mappings
     public int[] advancedSatelliteIdArray = new int[9];
     public DictResource[] fuzzyCraftingFlagArray = new DictResource[9];
     public DictResource outputFuzzyFlags = new DictResource(null, null);
@@ -649,26 +651,28 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     }
 
     // Basically, we increment the id by "increment" then:
-    //   - Look for all satellite pipes that are valid routes for this module/pipe
-    //   - Find the one with the id closest to the (current id + increment)
-    //      - We only look in the direction of the increment. So if we are trying to increase the id, we will only look at modules/pipes with an id >= "initialGuess"
-    //Advanced satellite modules store their currentIds in advancedSatelliteArray, crafting pipes/modules use satelliteId
+    // - Look for all satellite pipes that are valid routes for this module/pipe
+    // - Find the one with the id closest to the (current id + increment)
+    // - We only look in the direction of the increment. So if we are trying to increase the id, we will only look at
+    // modules/pipes with an id >= "initialGuess"
+    // Advanced satellite modules store their currentIds in advancedSatelliteArray, crafting pipes/modules use
+    // satelliteId
     protected int getNextConnectSatelliteId(int currentId, int increment) {
         final int initialGuess = currentId + increment;
         final int sign = increment >= 0 ? 1 : -1;
         // A list of potential satellite IDs
         List<Integer> validSatelliteIds = PipeItemsSatelliteLogistics.AllSatellites.stream()
-                .filter(satellite -> !satellite.stillNeedReplace())
-                .filter(satellite -> !satellite.isFluidPipe())
-                .filter(satellite -> getRouter().getDistanceTo(satellite.getRouter()).stream().anyMatch(route -> route.filters.isEmpty()))
+                .filter(satellite -> !satellite.stillNeedReplace()).filter(satellite -> !satellite.isFluidPipe())
+                .filter(
+                        satellite -> getRouter().getDistanceTo(satellite.getRouter()).stream()
+                                .anyMatch(route -> route.filters.isEmpty()))
                 .map(satellite -> satellite.satelliteId)
                 // Only look at ids in the direction we are incrementing
-                .filter(id -> sign == 1 ? id >= initialGuess : id <= initialGuess)
-                .sorted()
+                .filter(id -> sign == 1 ? id >= initialGuess : id <= initialGuess).sorted()
                 .collect(Collectors.toList());
 
         if (validSatelliteIds.isEmpty()) {
-            //Default to 0 if there are no IDs in the list
+            // Default to 0 if there are no IDs in the list
             validSatelliteIds = Lists.newArrayList(0);
         }
 
@@ -734,7 +738,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             packet.setIncrement(increment);
             MainProxy.sendPacketToServer(packet);
         } else {
-            satelliteId = getNextConnectSatelliteId( satelliteId, increment);
+            satelliteId = getNextConnectSatelliteId(satelliteId, increment);
             final CoordinatesPacket packet = PacketHandler.getPacket(CPipeSatelliteId.class).setPipeId(satelliteId)
                     .setModulePos(this);
             MainProxy.sendPacketToPlayer(packet, player);
@@ -1012,10 +1016,12 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         return FluidIdentifier.get(stack.getItem());
     }
 
-    // i is the index of the slot in the advanced satellite upgrade. Normal crafting pipes use the method without the "i" parameter
+    // i is the index of the slot in the advanced satellite upgrade. Normal crafting pipes use the method without the
+    // "i" parameter
     public void incrementId(EntityPlayer player, int increment, int i) {
         if (MainProxy.isClient(player.worldObj)) {
-            final CraftingPipeIncrementAdvancedSatellitePacket packet = PacketHandler.getPacket(CraftingPipeIncrementAdvancedSatellitePacket.class);
+            final CraftingPipeIncrementAdvancedSatellitePacket packet = PacketHandler
+                    .getPacket(CraftingPipeIncrementAdvancedSatellitePacket.class);
             packet.setInteger(i);
             packet.setModulePos(this);
             packet.setIncrement(increment);
