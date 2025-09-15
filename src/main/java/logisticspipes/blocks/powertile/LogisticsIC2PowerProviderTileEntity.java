@@ -20,8 +20,8 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
 
     private final LogisticsIC2PowerProviderTileEntityInventory inventory;
 
-    public static final double BASE_STORAGE = 32000.0;
-    public static final double BASE_IO_ENERGY = 32.0;
+    public static final int BASE_STORAGE = 32000;
+    public static final int BASE_IO_ENERGY = 32;
 
     private boolean addedToEnergyNet = false;
     private boolean init = false;
@@ -40,6 +40,11 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
     @Override
     public double getMaxEnergy() {
         return BASE_STORAGE + inventory.getCurrentCapacity();
+    }
+
+    @Override
+    public double getCurrentEnergy() {
+        return inventory.getCurrentCharge();
     }
 
     @Override

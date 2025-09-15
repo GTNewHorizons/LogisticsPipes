@@ -8,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 public class LogisticsIC2PowerProviderTileEntityInventory extends SimpleStackInventory {
     private static final IIC2Proxy IIC_2_PROXY = SimpleServiceLocator.IC2Proxy;
     private LogisticsIC2PowerProviderTileEntity parent;
+    private int currentBaseCharge;
     private double currentCharge;
     private double currentCapacity;
     private double maxTransferLimit;
@@ -25,9 +26,9 @@ public class LogisticsIC2PowerProviderTileEntityInventory extends SimpleStackInv
     }
 
     private void onInventoryChanged(IInventory iInventory) {
-        currentCharge = 0;
-        currentCapacity = 0;
-        maxTransferLimit = 0;
+        currentCharge = currentBaseCharge;
+        currentCapacity = LogisticsIC2PowerProviderTileEntity.BASE_STORAGE;
+        maxTransferLimit = LogisticsIC2PowerProviderTileEntity.BASE_IO_ENERGY;
 
         for (int i = 0; i < getSizeInventory(); i++) {
             var stack = getStackInSlot(i);
@@ -42,6 +43,11 @@ public class LogisticsIC2PowerProviderTileEntityInventory extends SimpleStackInv
     public double chargeBatteries(double amount) {
         var remainingTransfer = maxTransferLimit - energyInjected;
         var chargedAmount = 0.0;
+
+        //charge internal buffer
+
+
+        //charge additional battery
         for (int i = 0; i < getSizeInventory(); i++) {
             var stack = getStackInSlot(i);
             if (stack == null || amount <= 0) continue;

@@ -16,6 +16,8 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
 
     public static final int BASE_STORAGE = 10000000;
 
+    private int currentEnergy = 0;
+
     private final ICoFHEnergyStorage storage;
 
     public LogisticsRFPowerProviderTileEntity() {
@@ -104,5 +106,15 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     @Override
     protected int getLaserColor() {
         return LogisticsPowerProviderTileEntity.RF_COLOR;
+    }
+
+    @Override
+    public double getMaxEnergy() {
+        return BASE_STORAGE;
+    }
+
+    @Override
+    public double getCurrentEnergy() {
+        return currentEnergy;
     }
 }

@@ -17,22 +17,19 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
 
     @Override
     public Object getClientGui(EntityPlayer player) {
-        LogisticsPowerProviderTileEntity tile = this
-                .getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
-        if (tile == null) {
-            return null;
-        }
+        var tile = this.getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
+        if (tile == null) return null;
 
-        return new GuiPowerProvider(player, tile);
+        var gui = new GuiPowerProvider(player, tile);
+        gui.inventorySlots = getContainer(player);
+        return gui;
     }
 
     @Override
     public DummyContainer getContainer(EntityPlayer player) {
-        LogisticsPowerProviderTileEntity tile = this
-                .getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
-        if (tile == null) {
-            return null;
-        }
+        var tile = this.getTile(player.getEntityWorld(), LogisticsPowerProviderTileEntity.class);
+        if (tile == null) return null;
+
         if (tile instanceof LogisticsIC2PowerProviderTileEntity ic2Power) {
             DummyContainer dummy = new DummyContainer(player, ic2Power, ic2Power);
             for (int i = 0; i < 9; i++){

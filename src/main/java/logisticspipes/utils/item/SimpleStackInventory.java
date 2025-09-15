@@ -69,6 +69,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
         } else {
             _contents[i] = null;
         }
+        markDirty();
     }
 
     @Override
@@ -119,6 +120,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
                                 + _contents.length);
             }
         }
+        markDirty();
     }
 
     @Override
