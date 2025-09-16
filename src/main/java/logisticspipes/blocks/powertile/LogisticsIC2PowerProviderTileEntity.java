@@ -29,7 +29,7 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
 
     public LogisticsIC2PowerProviderTileEntity() {
         super();
-        inventory = new LogisticsIC2PowerProviderTileEntityInventory(this);
+        inventory = new LogisticsIC2PowerProviderTileEntityInventory();
     }
 
     @Override
@@ -38,13 +38,17 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
     }
 
     @Override
-    public double getMaxEnergy() {
-        return BASE_STORAGE + inventory.getCurrentCapacity();
+    public double getCurrentCapacity() {
+        var e = super.getCurrentCapacity();
+        if (e == -1) return inventory.getCurrentCapacity();
+        else return e;
     }
 
     @Override
     public double getCurrentEnergy() {
-        return inventory.getCurrentCharge();
+        var e = super.getCurrentEnergy();
+        if (e == -1) return inventory.getCurrentCharge();
+        else return e;
     }
 
     @Override
@@ -165,7 +169,13 @@ public class LogisticsIC2PowerProviderTileEntity extends LogisticsPowerProviderT
         // we need to collect the energy in on tick and check that we only accept as much as this block can handle
         // for now we dont do any shenanigans with explosions on LP Power providers or the internal batteries.
 
-        return voltage - inventory.chargeBatteries(voltage);
+        return voltage - inventory.addEnergy(voltage);
+    }
+
+    @Optional.Method(modid = "IC2")
+    public double removeEnergy(double amount) {
+        if (amount <= 0) return 0;
+        return inventory.removeEnergy(amount);
     }
 
     // ---- INVENTORY HANLDER ---- //

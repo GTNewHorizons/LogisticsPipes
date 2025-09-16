@@ -51,7 +51,7 @@ public class HUDPowerLevel extends BasicHUDGui implements IHeadUpDisplayRenderer
                 -5,
                 0x404040);
         mc.fontRenderer.drawString(
-                "/ " + StringUtils.getStringWithSpacesFromDouble(junction.getMaxEnergy()) + " " + junction.getBrand(),
+                "/ " + StringUtils.getStringWithSpacesFromDouble(junction.getCurrentCapacity()) + " " + junction.getBrand(),
                 -30,
                 5,
                 0x404040);

@@ -15,7 +15,7 @@ public interface IPowerLevelDisplay {
     /**
      * @return the maximum stored energy
      */
-    double getMaxEnergy();
+    double getCurrentCapacity();
 
     boolean isHUDInvalid();
 

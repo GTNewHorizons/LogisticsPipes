@@ -58,7 +58,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
             return ret;
         }
         ItemStack ret = _contents[slot];
-        _contents[slot] = null;
+        clearInventorySlotContents(slot);
         return ret;
     }
 
@@ -69,7 +69,6 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
         } else {
             _contents[i] = null;
         }
-        markDirty();
     }
 
     @Override
@@ -120,7 +119,6 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
                                 + _contents.length);
             }
         }
-        markDirty();
     }
 
     @Override

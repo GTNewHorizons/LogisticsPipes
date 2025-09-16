@@ -4,7 +4,13 @@ import com.github.bsideup.jabel.Desugar;
 import logisticspipes.Tags;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
 import logisticspipes.gui.hud.HUDPowerLevel;
-import logisticspipes.interfaces.*;
+import logisticspipes.interfaces.IBlockWatchingHandler;
+import logisticspipes.interfaces.IGuiOpenControler;
+import logisticspipes.interfaces.IGuiTileEntity;
+import logisticspipes.interfaces.IHeadUpDisplayBlockRendererProvider;
+import logisticspipes.interfaces.IHeadUpDisplayRenderer;
+import logisticspipes.interfaces.IPowerLevelDisplay;
+import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.network.NewGuiHandler;
 import logisticspipes.network.PacketHandler;
@@ -23,16 +29,14 @@ import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.routing.ExitRoute;
 import logisticspipes.routing.IRouter;
 import logisticspipes.routing.PipeRoutingConnectionType;
+import logisticspipes.utils.MathUtil;
 import logisticspipes.utils.PlayerCollectionList;
 import logisticspipes.utils.WorldUtil;
-import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.tuples.Pair;
 import logisticspipes.utils.tuples.Triplet;
 import lombok.Getter;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -56,12 +60,9 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     private final PlayerCollectionList guiListener = new PlayerCollectionList();
     private final PlayerCollectionList watcherList = new PlayerCollectionList();
     public final double[] energyHistory = new double[HISTORY_COUNT];
+    private double currentEnergy = 0; // Only used on client side
+    private double maxEnergy = 0; // Only used on client side
 
-    /**
-     * -- GETTER --
-     *
-     * @return the average energy IO over the last {@code HISTORY_COUNT} ticks
-     */
     @Getter
     private double averageIO = 0;
     private short tickTimer = 0;
@@ -140,22 +141,18 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
      * Provides power to these orders one by one, until the internal buffer is empty
      */
     private void handleOrders() {
-        double sendEnergyThisTick = 0;
-
         orders:
         for (PowerOrder order : orders) {
-            if (getCurrentEnergy() == 0) return;
-            if (sendEnergyThisTick >= getMaxEnergyIO()) return;
-
-            double toSend = Math.min(Math.min(order.requestAmount(), getCurrentEnergy()), getMaxEnergyIO() - sendEnergyThisTick);
+            double toSend = MathUtil.min(order.requestAmount(), getCurrentEnergy(), getMaxEnergyIO());
+            if (this instanceof LogisticsIC2PowerProviderTileEntity logisticsIC2PowerProviderTileEntity) toSend = logisticsIC2PowerProviderTileEntity.removeEnergy(toSend);
             if (toSend == 0) continue;
 
             IRouter destinationRouter = SimpleServiceLocator.routerManager.getRouter(order.destinationID());
             if (destinationRouter == null || destinationRouter.getPipe() == null) continue;
 
             //collect routes from source to end router
+            //todo calculate loss on route and adjust toSend accordingly
 
-            //todo respect max energy io
             for (Pair<CoreRoutedPipe, ForgeDirection> adjacent : adjacentPipes) {
                 CoreRoutedPipe pipe = adjacent.getValue1();
                 IRouter sourceRouter = pipe.getRouter();
@@ -166,8 +163,9 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
                     if (route.filters.stream().anyMatch(IFilter::blockPower)) continue;
 
                     pipe.container.addLaser(adjacent.getValue2().getOpposite(), 1, getLaserColor(), true, true);
-                    sendPowerLaserPackets(sourceRouter, destinationRouter, route.exitOrientation, route.exitOrientation != adjacent.getValue2());
 
+
+                    sendPowerLaserPackets(sourceRouter, destinationRouter, route.exitOrientation, route.exitOrientation != adjacent.getValue2());
                     sendPowerToPipe(route, toSend);
 
                     continue orders;
@@ -233,20 +231,26 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
 
     @Override
     @CCCommand(description = "Returns the max. amount of storable power")
-    public abstract double getMaxEnergy();
+    public double getCurrentCapacity() {
+        if (MainProxy.isClient(worldObj)) return maxEnergy;
+        return -1;
+    }
 
     /**
      * @return The current amount of stored power
      */
     @CCCommand(description = "Returns the current amount of stored power")
-    public abstract double getCurrentEnergy();
+    public double getCurrentEnergy() {
+        if (MainProxy.isClient(worldObj)) return currentEnergy;
+        return -1;
+    }
 
     /**
      * @return how much power is missing until this provider is full
      */
     @CCCommand(description = "Returns how much power is missing until this provider is full")
     public double getDemandedEnergy() {
-        return getMaxEnergy() - getCurrentEnergy();
+        return getCurrentCapacity() - getCurrentEnergy();
     }
 
     @Override
@@ -276,8 +280,6 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
             LogisticsHUDRenderer.instance().remove(this);
         }
     }
-
-
 
     @Desugar
     protected record PowerOrder(int destinationID, double requestAmount) {
@@ -366,7 +368,7 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
 
     public void updateClientSend() {
         var pack = PacketHandler.getPacket(PowerProviderLevel.class)
-            .setMaxEnergy(getMaxEnergy())
+            .setMaxEnergy(getCurrentCapacity())
             .setStoredEnergy(getCurrentEnergy())
             .setAverageIO(averageIO)
             .setTilePos(this);
@@ -389,11 +391,13 @@ public abstract class LogisticsPowerProviderTileEntity extends LogisticsSolidTil
     public void updateClientReceive(PowerProviderLevel updatePackage) {
         if (MainProxy.isServer(getWorld())) return;
         averageIO = updatePackage.getAverageIO();
+        currentEnergy = updatePackage.getStoredEnergy();
+        maxEnergy = updatePackage.getMaxEnergy();
     }
 
     @Override
     public int getChargeState() {
-        return (int) Math.min(100, 100.0 * getCurrentEnergy() / getMaxEnergy());
+        return (int) Math.ceil(Math.min(100, 100.0 * getCurrentEnergy() / getCurrentCapacity()));
     }
 
     @Override

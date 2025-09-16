@@ -40,7 +40,7 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     public double getCurrentCharge(ItemStack stack) {
-        if (stack.hasTagCompound() && isElectricItem(stack)) return stack.getTagCompound().getDouble("charge");
+        if (isElectricItem(stack)) return ElectricItem.manager.getCharge(stack);
         else return 0;
     }
 
@@ -58,8 +58,7 @@ public class IC2Proxy implements IIC2Proxy {
     public double chargeElectricItem(ItemStack stack, double amount) {
         if (!isElectricItem(stack)) return 0.0;
         var charge = Math.min(Math.min(getMaxCharge(stack) - getCurrentCharge(stack), amount), getVoltage(stack));
-        ElectricItem.manager.charge(stack, charge, Integer.MAX_VALUE, true, false);
-        return charge;
+        return ElectricItem.manager.charge(stack, charge, Integer.MAX_VALUE, true, false);
     }
 
     @Override

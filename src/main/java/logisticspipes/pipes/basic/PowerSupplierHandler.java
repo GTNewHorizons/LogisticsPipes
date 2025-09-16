@@ -7,6 +7,7 @@ import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyReceiver;
 import logisticspipes.proxy.interfaces.IEUProxy;
 import logisticspipes.utils.AdjacentTile;
+import logisticspipes.utils.MathUtil;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.Pair;
 import net.minecraft.nbt.NBTTagCompound;
@@ -99,10 +100,10 @@ public class PowerSupplierHandler {
         if (!proxy.acceptsEnergyFrom(adjacentTile.tile, pipe.container, opposingDir)) return;
 
         long pipePowerLevel = pipe.upgradeManager.getIC2PowerLevel();
-        long energyToProvide = (long) Math.min(Math.min(proxy.demandedEnergyUnits(adjacentTile.tile), pipePowerLevel), internal_IC2_Buffer);
+        long energyToProvide = (long) MathUtil.min(proxy.demandedEnergyUnits(adjacentTile.tile), pipePowerLevel, internal_IC2_Buffer);
         if (energyToProvide <= 0) return;
 
-        double maxAmps = Math.min(internal_IC2_Buffer / (double) pipePowerLevel, Math.min(proxy.maxInputAmperage(adjacentTile.tile), pipe.upgradeManager.getIC2MaxAmperage(pipePowerLevel)));
+        double maxAmps = MathUtil.min(internal_IC2_Buffer / (double) pipePowerLevel, proxy.maxInputAmperage(adjacentTile.tile), pipe.upgradeManager.getIC2MaxAmperage(pipePowerLevel));
         long used = 0;
         long multiAmps = (long) Math.floor(maxAmps);
         if (multiAmps > 0) used += proxy.injectEnergyUnits(adjacentTile.tile, opposingDir, energyToProvide, multiAmps);

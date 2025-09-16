@@ -232,7 +232,7 @@ public class LogisticsPowerJunctionTileEntity extends LogisticsSolidTileEntity
 
     @Override
     @CCCommand(description = "Returns the max. storable power")
-    public double getMaxEnergy() {
+    public double getCurrentCapacity() {
         return LogisticsPowerJunctionTileEntity.MAX_STORAGE;
     }
 

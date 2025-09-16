@@ -1,7 +1,6 @@
 package logisticspipes.blocks.powertile;
 
 import logisticspipes.routing.ExitRoute;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -34,7 +33,7 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
         int available = (storage.extractEnergy(space, true));
         if (available > 0) {
             if (storage.extractEnergy(available, false) == available) {
-                currentEnergy += Math.min(available, getMaxEnergy());
+                currentEnergy += (int) Math.min(available, this.getCurrentCapacity());
 
             }
         }
@@ -109,7 +108,7 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     }
 
     @Override
-    public double getMaxEnergy() {
+    public double getCurrentCapacity() {
         return BASE_STORAGE;
     }
 

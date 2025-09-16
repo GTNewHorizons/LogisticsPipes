@@ -10,8 +10,6 @@ import logisticspipes.blocks.powertile.LogisticsPowerProviderTileEntity;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.string.StringUtils;
 
-import java.util.Arrays;
-
 public class GuiPowerProvider extends LogisticsBaseGuiScreen {
 
     private static final String PREFIX = "gui.powerprovider.";
@@ -35,10 +33,10 @@ public class GuiPowerProvider extends LogisticsBaseGuiScreen {
         int j = guiLeft;
         int k = guiTop;
         drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
-        drawRect(guiLeft + 8, guiTop + 50, guiLeft + 8 + (xSize - 16) / 100 * junction.getChargeState(), guiTop + 60, Color.RED);
+        drawRect(guiLeft + 8, guiTop + 50, guiLeft + 8 + (xSize - 16) / 100 * junction.getChargeState(), guiTop + 55, Color.RED);
 
         String currentEnergyStringTemp = StringUtils.getStringWithSpacesFromDouble(junction.getCurrentEnergy()) + " " + junction.getBrand();
-        String maxEnergyString = "/ " + StringUtils.getStringWithSpacesFromDouble(junction.getMaxEnergy()) + " " + junction.getBrand();
+        String maxEnergyString = "/ " + StringUtils.getStringWithSpacesFromDouble(junction.getCurrentCapacity()) + " " + junction.getBrand();
         String currentEnergyString = new String(new char[Math.max(0,maxEnergyString.length() - currentEnergyStringTemp.length()) + 1]).replace("\0", " ") + currentEnergyStringTemp;
 
         mc.fontRenderer.drawString(
