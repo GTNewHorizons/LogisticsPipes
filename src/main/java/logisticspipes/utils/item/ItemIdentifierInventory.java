@@ -160,6 +160,7 @@ public class ItemIdentifierInventory
     @Override
     public void markDirty() {
         updateContents();
+        _listener.forEach(it -> it.InventoryChanged(this));
     }
 
     @Override
@@ -363,8 +364,6 @@ public class ItemIdentifierInventory
             _contentsNoNBTSet.add(itemId.getIgnoringNBT());
             _contentsUndamagedNoNBTSet.add(itemId.getIgnoringNBT().getUndamaged());
         }
-
-        _listener.forEach(it -> it.InventoryChanged(this));
     }
 
     public int itemCount(final ItemIdentifier item) {
