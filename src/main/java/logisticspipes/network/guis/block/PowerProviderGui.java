@@ -34,7 +34,7 @@ public class PowerProviderGui extends CoordinatesGuiProvider {
             DummyContainer dummy = new DummyContainer(player, ic2Power, ic2Power);
             for (int i = 0; i < 9; i++){
                 int finalI = i;
-                dummy.addRestrictedSlot(i, ic2Power, 8 + 18 * i,58, itemStack -> ic2Power.checkSlot(finalI, itemStack));
+                dummy.addRestrictedSlot(i, ic2Power, 8 + 18 * i,59, itemStack -> ic2Power.checkSlot(finalI, itemStack));
             }
             dummy.addNormalSlotsForPlayerInventory(8, 80);
             return dummy;

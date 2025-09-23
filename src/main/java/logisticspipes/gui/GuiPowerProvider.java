@@ -1,5 +1,6 @@
 package logisticspipes.gui;
 
+import logisticspipes.blocks.powertile.LogisticsIC2PowerProviderTileEntity;
 import logisticspipes.utils.Color;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -25,15 +26,21 @@ public class GuiPowerProvider extends LogisticsBaseGuiScreen {
     private static final ResourceLocation TEXTURE = new ResourceLocation(
             "logisticspipes",
             "textures/gui/power_junction.png");
+    private static final ResourceLocation TEXTURE_IC2 = new ResourceLocation(
+        "logisticspipes",
+        "textures/gui/ic2_power_junction.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(GuiPowerProvider.TEXTURE);
+
+        if (this.junction instanceof LogisticsIC2PowerProviderTileEntity) mc.renderEngine.bindTexture(TEXTURE_IC2);
+        else mc.renderEngine.bindTexture(GuiPowerProvider.TEXTURE);
+
         int j = guiLeft;
         int k = guiTop;
         drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
-        drawRect(guiLeft + 8, guiTop + 50, guiLeft + 8 + (xSize - 16) / 100 * junction.getChargeState(), guiTop + 55, Color.RED);
+        drawRect(guiLeft + 8, guiTop + 50, guiLeft + 8 + (int) ((xSize - 16.0) / 100 * junction.getChargeState()), guiTop + 55, Color.RED);
 
         String currentEnergyStringTemp = StringUtils.getStringWithSpacesFromDouble(junction.getCurrentEnergy()) + " " + junction.getBrand();
         String maxEnergyString = "/ " + StringUtils.getStringWithSpacesFromDouble(junction.getCurrentCapacity()) + " " + junction.getBrand();
