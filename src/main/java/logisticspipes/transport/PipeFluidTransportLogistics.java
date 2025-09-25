@@ -115,7 +115,7 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     }
 
     public int getSideCapacity() {
-        return Configs.MAX_LOGISTICS_FLUID_TRANSPORT_SIDE_CAPACITY;
+        return Configs.MAX_LOGISTICS_FLUID_TRANSPORT_INNER_CAPACITY / 2;
     }
 
     @Override
