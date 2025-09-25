@@ -58,6 +58,9 @@ public class Configs {
 
     public static int MAX_ROBOT_DISTANCE = 64;
 
+    public static int MAX_LOGISTICS_FLUID_TRANSPORT_INNER_CAPACITY = 10000;
+    public static int MAX_LOGISTICS_FLUID_TRANSPORT_SIDE_CAPACITY = 5000;
+
     private static boolean loaded = false;
 
     public static void load() {
@@ -250,6 +253,22 @@ public class Configs {
         Configs.EASTER_EGGS = Configs.CONFIGURATION
                 .get(Configuration.CATEGORY_GENERAL, "easterEggs", Configs.EASTER_EGGS, "Do you fancy easter eggs?")
                 .getBoolean(false);
+
+        Configs.MAX_LOGISTICS_FLUID_TRANSPORT_INNER_CAPACITY = Configs.CONFIGURATION
+            .get(
+                Configuration.CATEGORY_GENERAL,
+                "maxLogisticsFluidInnerCapacity",
+                Configs.MAX_LOGISTICS_FLUID_TRANSPORT_INNER_CAPACITY,
+                "Set the maximum amount for a liquid that can be held in a fluid pipe. Default value: 10000 (1000 equals 1 Bucket for normal fluids). If you are playing GTNH this value represents the liters this number (10000 = 10000L).")
+            .getInt();
+
+        Configs.MAX_LOGISTICS_FLUID_TRANSPORT_SIDE_CAPACITY = Configs.CONFIGURATION
+            .get(
+                Configuration.CATEGORY_GENERAL,
+                "maxLogisticsFluidSideCapacity",
+                Configs.MAX_LOGISTICS_FLUID_TRANSPORT_SIDE_CAPACITY,
+                "Set the maximum amount for a liquid that can be held in each attached side a fluid pipe. This value should be half of 'maxLogisticsFluidInnerCapacity' Default value: 5000 (1000 equals 1 Bucket for normal fluids). If you are playing GTNH this value represents the liters this number (10000 = 10000L).")
+            .getInt();
 
         Configs.CONFIGURATION.save();
     }

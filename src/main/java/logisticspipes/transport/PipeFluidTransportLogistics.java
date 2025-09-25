@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import logisticspipes.config.Configs;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.pipe.PipeFluidUpdate;
@@ -110,11 +111,11 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     }
 
     public int getInnerCapacity() {
-        return 10000;
+        return Configs.MAX_LOGISTICS_FLUID_TRANSPORT_INNER_CAPACITY;
     }
 
     public int getSideCapacity() {
-        return 5000;
+        return Configs.MAX_LOGISTICS_FLUID_TRANSPORT_SIDE_CAPACITY;
     }
 
     @Override
