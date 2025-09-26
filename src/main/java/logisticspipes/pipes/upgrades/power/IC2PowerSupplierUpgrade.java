@@ -31,5 +31,5 @@ public abstract class IC2PowerSupplierUpgrade implements IPipeUpgrade {
         return new String[] {};
     }
 
-    public abstract int getPowerLevel();
+    public abstract long getPowerLevel();
 }
