@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import logisticspipes.config.Configs;
 import logisticspipes.interfaces.ISpecialTankAccessHandler;
 import logisticspipes.interfaces.ISpecialTankHandler;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
@@ -53,7 +54,8 @@ public class PipeFluidProvider extends FluidRoutedPipe implements IProvideFluids
 
         LogisticsFluidOrder order = getFluidOrderManager().peekAtTopRequest(ResourceType.PROVIDER);
         int amountToSend, attemptedAmount;
-        amountToSend = attemptedAmount = Math.min(order.getAmount(), 5000);
+        amountToSend = attemptedAmount = Math
+                .min(order.getAmount(), Configs.MAX_LOGISTICS_FLUID_TRANSPORT_INNER_CAPACITY / 2);
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(false)) {
             if (amountToSend <= 0) {
                 break;
