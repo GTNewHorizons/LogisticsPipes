@@ -18,6 +18,7 @@ import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
 import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
 import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
 
+import codechicken.lib.render.CCRenderState;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -51,8 +52,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         // GL11.glBindTexture(GL11.GL_TEXTURE_2D, 10);
         GL11.glTranslatef(translateX, translateY, translateZ);
         Block block = LogisticsPipes.LogisticsPipeBlock;
-        if (item.getItem() instanceof ItemLogisticsPipe) {
-            ItemLogisticsPipe lItem = (ItemLogisticsPipe) item.getItem();
+        if (item.getItem() instanceof ItemLogisticsPipe lItem) {
             int renderList = lItem.getNewPipeRenderList();
 
             if (renderList == -1) {
@@ -147,7 +147,10 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
 
         BlockRotation rotation = BlockRotation.ZERO;
 
-        tess.startDrawingQuads();
+        CCRenderState.instance().resetInstance();
+        CCRenderState.instance().setDynamicInstance();
+        CCRenderState.instance().pullLightmapInstance();
+        CCRenderState.instance().startDrawingInstance();
 
         IIconTransformation icon = SimpleServiceLocator.cclProxy
                 .createIconTransformer(Textures.LOGISTICS_REQUEST_TABLE_NEW);
@@ -157,7 +160,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         for (CoverSides side : CoverSides.values()) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation).render(icon);
         }
-        tess.draw();
+        CCRenderState.instance().drawInstance();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
         GL11.glPopAttrib(); // nicely leave the rendering how it was
