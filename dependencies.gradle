@@ -3,22 +3,22 @@
 dependencies {
     api('com.github.GTNewHorizons:BuildCraft:7.1.45:dev')
 
-    implementation('com.github.GTNewHorizons:NotEnoughItems:2.8.0-GTNH:dev')
-    implementation("com.github.GTNewHorizons:ModularUI2:2.2.19-1.7.10:dev")
+    implementation('com.github.GTNewHorizons:NotEnoughItems:2.8.20-GTNH:dev')
+    implementation("com.github.GTNewHorizons:ModularUI2:2.3.5-1.7.10:dev")
 
-    compileOnly('com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-700-GTNH:api') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-719-GTNH:api') { transitive = false }
     compileOnly('com.github.GTNewHorizons:Binnie:2.6.0:dev') { transitive = false }
-    compileOnly('com.github.GTNewHorizons:EnderCore:0.4.8:dev') { transitive = false }
-    compileOnly('com.github.GTNewHorizons:EnderIO:2.9.26:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:EnderCore:0.5.0:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:EnderIO:2.10.3:dev') { transitive = false }
     compileOnly('com.github.GTNewHorizons:EnderStorage:1.7.7:dev') { transitive = false }
     compileOnly('com.github.GTNewHorizons:ExtraCells2:2.5.35:api') { transitive = false }
     compileOnly('com.github.GTNewHorizons:ForestryMC:4.10.17:dev') { transitive = false }
-    compileOnly('com.github.GTNewHorizons:GT5-Unofficial:5.09.52.02:dev') { transitive = false }
-    compileOnly("com.github.GTNewHorizons:GTNHLib:0.7.0:dev") {transitive = false}
+    compileOnly('com.github.GTNewHorizons:GT5-Unofficial:5.09.52.69:dev') { transitive = false }
+    compileOnly("com.github.GTNewHorizons:GTNHLib:0.7.1:dev") {transitive = false}
     compileOnly('com.github.GTNewHorizons:ironchest:6.1.6:dev') { transitive = false }
     compileOnly('com.github.GTNewHorizons:Jabba:1.5.10:dev') { transitive = false }
-    compileOnly("com.github.GTNewHorizons:OpenComputers:1.12.0-GTNH:api") {transitive = false}
-    compileOnly('com.github.GTNewHorizons:StorageDrawers:2.2.0-GTNH:api') { transitive = false }
+    compileOnly("com.github.GTNewHorizons:OpenComputers:1.12.2-GTNH:api") {transitive = false}
+    compileOnly('com.github.GTNewHorizons:StorageDrawers:2.2.1-GTNH:api') { transitive = false }
     compileOnly('net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev') { transitive = false }
     compileOnly('thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev') { transitive = false }
     compileOnly('curse.maven:computercraft-67504:2269339') { transitive = false }
