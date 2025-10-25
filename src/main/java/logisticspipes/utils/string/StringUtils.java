@@ -180,6 +180,11 @@ public final class StringUtils {
         return StringUtils.insertThousandsSeparators(data);
     }
 
+    public static String getStringWithSpacesFromDouble(double source) {
+        if (source > Long.MAX_VALUE) return Double.toString(source);
+        return getStringWithSpacesFromLong((long) source);
+    }
+
     public static String insertThousandsSeparators(String source) {
         StringBuilder sb = new StringBuilder();
         int i;
