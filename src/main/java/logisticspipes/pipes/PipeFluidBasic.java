@@ -59,10 +59,11 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
             return 0;
         }
 
-        int onTheWay = this.countOnRoute(ident);
-
-        int freeSpace = -onTheWay;
-        int internalCapacity = ((PipeFluidTransportLogistics) transport).getSideCapacity();
+        // using long for our internal calculations avoids an overflow when tanks report
+        // a capacity of Integer.MAX_VALUE (notably gt5 super tank when set to void fluids)
+        long onTheWay = (long) this.countOnRoute(ident);
+        long freeSpace = -onTheWay;
+        long internalCapacity = (long) ((PipeFluidTransportLogistics) transport).getSideCapacity();
 
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(true)) {
             if (!(pair.getValue1() instanceof IFluidHandler handler)) {
@@ -78,24 +79,20 @@ public class PipeFluidBasic extends FluidRoutedPipe implements IFluidSink {
             }
 
             FluidTank tank = ((PipeFluidTransportLogistics) transport).sideTanks[pair.getValue2().ordinal()];
-            int internalFreeSpace = ident.getFreeSpaceInsideTank(tank);
-            int externalFreeSpace = ident.getFreeSpaceInsideTank(handler, dir);
+            long internalFreeSpace = (long) ident.getFreeSpaceInsideTank(tank);
+            long externalFreeSpace = (long) ident.getFreeSpaceInsideTank(handler, dir);
 
-            // don't count this entity if we have enough in our internal buffer
-            // to fill it
+            // don't count this entity if we have enough in our internal buffer to fill it
             if (internalCapacity - internalFreeSpace > externalFreeSpace) {
                 continue;
             }
 
             freeSpace += internalFreeSpace;
             freeSpace += externalFreeSpace;
-
-            if (freeSpace >= stack.amount) {
-                return stack.amount;
-            }
         }
 
-        return Math.min(freeSpace, stack.amount);
+        int clampedFreeSpace = (int) Math.min(freeSpace, (long) Integer.MAX_VALUE);
+        return Math.min(clampedFreeSpace, stack.amount);
     }
 
     @Override
