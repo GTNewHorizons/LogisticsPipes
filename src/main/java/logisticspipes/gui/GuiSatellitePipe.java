@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import logisticspipes.pipes.PipeFluidSatellite;
@@ -62,23 +63,39 @@ public class GuiSatellitePipe extends LogisticsBaseGuiScreen {
     protected void actionPerformed(GuiButton guibutton) {
         if (_satellite != null) {
             if (guibutton.id == 0) {
-                _satellite.setNextId(_player);
+                _satellite.incrementId(_player, calculateIdIncrement());
             }
 
             if (guibutton.id == 1) {
-                _satellite.setPrevId(_player);
+                _satellite.incrementId(_player, -calculateIdIncrement());
             }
             super.actionPerformed(guibutton);
         } else if (_liquidSatellite != null) {
             if (guibutton.id == 0) {
-                _liquidSatellite.setNextId(_player);
+                _liquidSatellite.incrementId(_player, calculateIdIncrement());
             }
 
             if (guibutton.id == 1) {
-                _liquidSatellite.setPrevId(_player);
+                _liquidSatellite.incrementId(_player, -calculateIdIncrement());
             }
             super.actionPerformed(guibutton);
         }
+    }
+
+    private int calculateIdIncrement() {
+        int increment = 1;
+        final boolean shiftDown = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+        final boolean ctrlDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+        if (shiftDown) {
+            increment = 10;
+        }
+        if (ctrlDown) {
+            increment = 25;
+        }
+        if (shiftDown && ctrlDown) {
+            increment = 100;
+        }
+        return increment;
     }
 
     @Override
