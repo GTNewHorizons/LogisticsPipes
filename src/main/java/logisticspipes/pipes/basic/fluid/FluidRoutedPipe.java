@@ -108,6 +108,24 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
     }
 
     /***
+     * @param dir  the direction to check
+     * @param flag Weather to list a Nearby Pipe or not
+     */
+    public final TileEntity getAdjacentTank(ForgeDirection dir, boolean flag) {
+        if (worldUtil == null) {
+            worldUtil = new WorldUtil(getWorld(), getX(), getY(), getZ());
+        }
+        if (dir == ForgeDirection.UNKNOWN || dir == null) {
+            return null;
+        }
+        TileEntity tile = worldUtil.getAdjacentTileEntitie(dir);
+        if (!isConnectableTank(tile, dir, flag)) {
+            return null;
+        }
+        return tile;
+    }
+
+    /***
      * @param tile The connected TileEntity
      * @param dir  The direction the TileEntity is in relative to the currect pipe
      * @param flag Weather to list a Nearby Pipe or not
@@ -235,19 +253,41 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
             FluidStack liquid = SimpleServiceLocator.logisticsFluidManager
                     .getFluidFromContainer(arrivingItem.getItemIdentifierStack());
             if (isConnectableTank(tile, arrivingItem.output, false)) {
-                List<Pair<TileEntity, ForgeDirection>> adjTanks = getAdjacentTanks(false);
-                // Try to put liquid into all adjacent tanks.
-                for (Pair<TileEntity, ForgeDirection> pair : adjTanks) {
-                    if (!(pair.getValue1() instanceof IFluidHandler)) {
-                        continue;
+                // Try to put liquid into where it should be
+                TileEntity intendedTank = getAdjacentTank(arrivingItem.output, false);
+                if (intendedTank instanceof IFluidHandler tank) {
+                    fillSide(liquid, arrivingItem.output, tank);
+                    if (liquid.amount == 0) {
+                        return true;
                     }
-                    IFluidHandler tank = (IFluidHandler) pair.getValue1();
-                    ForgeDirection dir = pair.getValue2();
-                    fillSide(liquid, dir, tank);
-                    if (liquid.amount != 0) {
-                        continue;
+                }
+                if (intendedTank == null) {
+                    // TL,DR: this piece of legacy code acts as a fallback to above intendedTank handling in case
+                    // something goes wrong
+
+                    // Before my 2023 change it dumps fluid into first tank ever visited, pretty bad obviously
+                    // my 2023 change try to be smart and worked somewhat, but it was not really a well-thought-out
+                    // change. It simply checks if the target might have requested fluid (that code is still live in
+                    // PipeFluidSupplierMK2.java) and if not it goes to next tank.
+                    //
+                    // Now it suddenly appears to me LP knows which direction this arrivingItem should go out
+                    // and in my limited debugging sessions it shows it's never UNKNOWN or an incorrect direction value
+                    // I can only speculate why the original LP developers decided to go with this weird approach.
+                    // Fearful of hitting some weird niche in routing code, I decided to not entirely ditch this for
+                    // loop and instead put it as a fallback when intended tank is not found...
+                    List<Pair<TileEntity, ForgeDirection>> adjTanks = getAdjacentTanks(false);
+                    // Try to put liquid into all adjacent tanks.
+                    for (Pair<TileEntity, ForgeDirection> pair : adjTanks) {
+                        if (!(pair.getValue1() instanceof IFluidHandler tank)) {
+                            continue;
+                        }
+                        ForgeDirection dir = pair.getValue2();
+                        fillSide(liquid, dir, tank);
+                        if (liquid.amount != 0) {
+                            continue;
+                        }
+                        return true;
                     }
-                    return true;
                 }
                 // Try inserting the liquid into the pipe side tank
                 filled = ((PipeFluidTransportLogistics) transport).sideTanks[arrivingItem.output.ordinal()]
