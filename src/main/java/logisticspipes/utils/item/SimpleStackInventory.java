@@ -58,7 +58,7 @@ public class SimpleStackInventory implements IInventory, ISaveState, Iterable<Pa
             return ret;
         }
         ItemStack ret = _contents[slot];
-        _contents[slot] = null;
+        clearInventorySlotContents(slot);
         return ret;
     }
 

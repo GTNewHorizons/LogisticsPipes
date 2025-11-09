@@ -1,11 +1,11 @@
 package logisticspipes.blocks.powertile;
 
+import logisticspipes.routing.ExitRoute;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.Optional;
-import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
@@ -13,9 +13,9 @@ import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyStorage;
 @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyHandler")
 public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTileEntity implements IEnergyHandler {
 
-    public static final int MAX_STORAGE = 10000000;
-    public static final int MAX_MAXMODE = 8;
-    public static final int MAX_PROVIDE_PER_TICK = 10000; // TODO
+    public static final int BASE_STORAGE = 10000000;
+
+    private int currentEnergy = 0;
 
     private final ICoFHEnergyStorage storage;
 
@@ -23,38 +23,28 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
         storage = SimpleServiceLocator.cofhPowerProxy.getEnergyStorage(10000);
     }
 
-    public void addEnergy(float amount) {
-        if (MainProxy.isClient(getWorldObj())) {
-            return;
-        }
-        internalStorage += amount;
-        if (internalStorage > LogisticsRFPowerProviderTileEntity.MAX_STORAGE) {
-            internalStorage = LogisticsRFPowerProviderTileEntity.MAX_STORAGE;
-        }
-        if (internalStorage >= getMaxStorage()) {
-            needMorePowerTriggerCheck = false;
-        }
+    @Override
+    protected double getMaxEnergyIO() {
+        return BASE_STORAGE;
     }
 
     private void addStoredRF() {
-        int space = freeSpace();
+        int space = (int) getDemandedEnergy();
         int available = (storage.extractEnergy(space, true));
         if (available > 0) {
             if (storage.extractEnergy(available, false) == available) {
-                addEnergy(available);
+                currentEnergy += (int) Math.min(available, this.getCurrentCapacity());
+
             }
         }
     }
 
-    public int freeSpace() {
-        return (int) (getMaxStorage() - internalStorage);
-    }
 
     @Override
     public void updateEntity() {
         super.updateEntity();
         if (MainProxy.isServer(worldObj)) {
-            if (freeSpace() > 0) {
+            if (getDemandedEnergy() > 0) {
                 addStoredRF();
             }
         }
@@ -91,12 +81,6 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     }
 
     @Override
-    public int getMaxStorage() {
-        maxMode = Math.min(LogisticsRFPowerProviderTileEntity.MAX_MAXMODE, Math.max(1, maxMode));
-        return (LogisticsRFPowerProviderTileEntity.MAX_STORAGE / maxMode);
-    }
-
-    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         storage.readFromNBT(nbt);
@@ -114,17 +98,22 @@ public class LogisticsRFPowerProviderTileEntity extends LogisticsPowerProviderTi
     }
 
     @Override
-    protected float getMaxProvidePerTick() {
-        return LogisticsRFPowerProviderTileEntity.MAX_PROVIDE_PER_TICK;
-    }
-
-    @Override
-    protected void handlePower(CoreRoutedPipe pipe, float toSend) {
-        pipe.handleRFPowerArival(toSend);
+    protected void sendPowerToPipe(ExitRoute route, double energyAmount) {
+        route.destination.getPipe().handleRFPowerArival((float) energyAmount);
     }
 
     @Override
     protected int getLaserColor() {
         return LogisticsPowerProviderTileEntity.RF_COLOR;
+    }
+
+    @Override
+    public double getCurrentCapacity() {
+        return BASE_STORAGE;
+    }
+
+    @Override
+    public double getCurrentEnergy() {
+        return currentEnergy;
     }
 }

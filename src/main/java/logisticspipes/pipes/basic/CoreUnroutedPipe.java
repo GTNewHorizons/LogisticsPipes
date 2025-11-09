@@ -338,7 +338,12 @@ public abstract class CoreUnroutedPipe implements IClientState, ILPPipe, ILPCCTy
             }
 
             @Override
-            public int getIC2PowerLevel() {
+            public long getIC2PowerLevel() {
+                return 0;
+            }
+
+            @Override
+            public int getIC2MaxAmperage(long level) {
                 return 0;
             }
 

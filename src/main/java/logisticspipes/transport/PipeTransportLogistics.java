@@ -677,10 +677,9 @@ public class PipeTransportLogistics {
                     || SimpleServiceLocator.factorizationProxy.isBarral(tile)
                     // || (Configs.TE_PIPE_SUPPORT && SimpleServiceLocator.thermalExpansionProxy.isItemConduit(tile) &&
                     // SimpleServiceLocator.thermalExpansionProxy.isSideFree(tile, side.getOpposite().ordinal()))
-                    || (getPipe().getUpgradeManager().hasRFPowerSupplierUpgrade()
-                            && SimpleServiceLocator.cofhPowerProxy.isEnergyReceiver(tile))
-                    || (getPipe().getUpgradeManager().getIC2PowerLevel() > 0
-                            && SimpleServiceLocator.IC2Proxy.isEnergySink(tile))) {
+                    || SimpleServiceLocator.cofhPowerProxy.isEnergyReceiver(tile)
+                    || SimpleServiceLocator.IC2Proxy.isEnergySink(tile)
+                    || SimpleServiceLocator.gtProxy.isEnergySink(tile)) {
                 return true;
             }
             if (tile instanceof ISidedInventory) {

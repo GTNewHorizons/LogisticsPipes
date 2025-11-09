@@ -10,26 +10,7 @@ import logisticspipes.interfaces.ISecurityStationManager;
 import logisticspipes.interfaces.routing.IDirectConnectionManager;
 import logisticspipes.logistics.ILogisticsFluidManager;
 import logisticspipes.logistics.ILogisticsManager;
-import logisticspipes.proxy.interfaces.IBCProxy;
-import logisticspipes.proxy.interfaces.IBetterStorageProxy;
-import logisticspipes.proxy.interfaces.IBinnieProxy;
-import logisticspipes.proxy.interfaces.ICCLProxy;
-import logisticspipes.proxy.interfaces.ICCProxy;
-import logisticspipes.proxy.interfaces.ICoFHPowerProxy;
-import logisticspipes.proxy.interfaces.ICraftingRecipeProvider;
-import logisticspipes.proxy.interfaces.IEnderIOProxy;
-import logisticspipes.proxy.interfaces.IEnderStorageProxy;
-import logisticspipes.proxy.interfaces.IExtraCellsProxy;
-import logisticspipes.proxy.interfaces.IFactorizationProxy;
-import logisticspipes.proxy.interfaces.IForestryProxy;
-import logisticspipes.proxy.interfaces.IIC2Proxy;
-import logisticspipes.proxy.interfaces.IIronChestProxy;
-import logisticspipes.proxy.interfaces.INEIProxy;
-import logisticspipes.proxy.interfaces.IOpenComputersProxy;
-import logisticspipes.proxy.interfaces.ITDProxy;
-import logisticspipes.proxy.interfaces.IThaumCraftProxy;
-import logisticspipes.proxy.interfaces.IThermalExpansionProxy;
-import logisticspipes.proxy.interfaces.IToolWrenchProxy;
+import logisticspipes.proxy.interfaces.*;
 import logisticspipes.proxy.progressprovider.MachineProgressProvider;
 import logisticspipes.proxy.specialconnection.SpecialPipeConnection;
 import logisticspipes.proxy.specialconnection.SpecialTileConnection;
@@ -261,5 +242,11 @@ public final class SimpleServiceLocator {
 
     public static void setCCLProxy(ICCLProxy proxy) {
         SimpleServiceLocator.cclProxy = proxy;
+    }
+
+    public static IEUProxy gtProxy;
+
+    public static void setGTProxy(IEUProxy proxy) {
+        SimpleServiceLocator.gtProxy = proxy;
     }
 }

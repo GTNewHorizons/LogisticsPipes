@@ -58,13 +58,13 @@ public class NEILogisticsPipesConfig implements IConfigureNEI {
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsPipeBlock, 1));
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsParts, 1, 3));
             // electric stuff
-            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 30));
-            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 32));
-            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 33));
-            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 34));
-            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 35));
-            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 36));
-            API.hideItem(new ItemStack(LogisticsPipes.ModuleItem, 1, 301));
+//            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 30));
+//            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 32));
+//            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 33));
+//            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 34));
+//            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 35));
+//            API.hideItem(new ItemStack(LogisticsPipes.UpgradeItem, 1, 36));
+//            API.hideItem(new ItemStack(LogisticsPipes.ModuleItem, 1, 301));
             // This are used to connect 2 LP networks through chests and might lag, it is disabled for now
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsInvSysConPipe));
             // Should be added when Logistics Item Card is added

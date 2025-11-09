@@ -160,9 +160,7 @@ public class ItemIdentifierInventory
     @Override
     public void markDirty() {
         updateContents();
-        for (ISimpleInventoryEventHandler handler : _listener) {
-            handler.InventoryChanged(this);
-        }
+        _listener.forEach(it -> it.InventoryChanged(this));
     }
 
     @Override
@@ -359,21 +357,12 @@ public class ItemIdentifierInventory
         _contentsNoNBTSet.clear();
         _contentsUndamagedNoNBTSet.clear();
         for (ItemIdentifierStack _content : _contents) {
-            if (_content == null) {
-                continue;
-            }
+            if (_content == null) continue;
             ItemIdentifier itemId = _content.getItem();
             _contentsMap.merge(itemId, _content.getStackSize(), Integer::sum);
-            _contentsUndamagedSet.add(itemId.getUndamaged()); // add is cheaper than check then add; it just returns
-            // false if it is
-            // already there
-            _contentsNoNBTSet.add(itemId.getIgnoringNBT()); // add is cheaper than check then add; it just returns false
-            // if it is
-            // already there
-            _contentsUndamagedNoNBTSet.add(itemId.getIgnoringNBT().getUndamaged()); // add is cheaper than check then
-            // add; it just returns false if it
-            // is already
-            // there
+            _contentsUndamagedSet.add(itemId.getUndamaged()); // add is cheaper than check then add; it just returns false if it is already there
+            _contentsNoNBTSet.add(itemId.getIgnoringNBT());
+            _contentsUndamagedNoNBTSet.add(itemId.getIgnoringNBT().getUndamaged());
         }
     }
 

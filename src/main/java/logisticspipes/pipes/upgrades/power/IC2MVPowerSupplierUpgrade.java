@@ -3,7 +3,7 @@ package logisticspipes.pipes.upgrades.power;
 public class IC2MVPowerSupplierUpgrade extends IC2PowerSupplierUpgrade {
 
     @Override
-    public int getPowerLevel() {
+    public long getPowerLevel() {
         return 128;
     }
 }
