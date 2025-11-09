@@ -2,8 +2,9 @@ package logisticspipes.modules;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -48,7 +49,7 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
     private final IHUDModuleRenderer HUD = new HUDStringBasedItemSink(this);
 
     private SinkReply sinkReply;
-    private final EnumSet<OrePrefixes> prefixes = EnumSet.noneOf(OrePrefixes.class);
+    private final Set<OrePrefixes> prefixes = new HashSet<>();
     private List<String> clientPrefixes = new ArrayList<>();
 
     @Override
@@ -198,7 +199,7 @@ public class ModuleTypeFilterItemSink extends LogisticsGuiModule
 
     @Override
     public List<String> getStringList() {
-        clientPrefixes = prefixes.stream().map(Enum::toString).collect(Collectors.toList());
+        clientPrefixes = prefixes.stream().map(OrePrefixes::getName).collect(Collectors.toList());
         return clientPrefixes;
     }
 
