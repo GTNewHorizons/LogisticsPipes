@@ -32,8 +32,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.hud.ChestContent;
 import logisticspipes.network.packets.hud.HUDStartWatchingPacket;
 import logisticspipes.network.packets.hud.HUDStopWatchingPacket;
-import logisticspipes.network.packets.satpipe.SatPipeNext;
-import logisticspipes.network.packets.satpipe.SatPipePrev;
+import logisticspipes.network.packets.satpipe.IncrementSatPipeId;
 import logisticspipes.network.packets.satpipe.SatPipeSetID;
 import logisticspipes.pipes.basic.fluid.FluidRoutedPipe;
 import logisticspipes.proxy.MainProxy;
@@ -240,27 +239,16 @@ public class PipeFluidSatellite extends FluidRoutedPipe implements IRequestFluid
         }
     }
 
-    public void setNextId(EntityPlayer player) {
-        satelliteId = findId(1);
+    public void incrementId(EntityPlayer player, int increment) {
+        satelliteId = findId(increment);
         ensureAllSatelliteStatus();
         if (MainProxy.isClient(player.worldObj)) {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeNext.class).setPosX(getX()).setPosY(getY())
-                    .setPosZ(getZ());
-            MainProxy.sendPacketToServer(packet);
-        } else {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)
-                    .setPosX(getX()).setPosY(getY()).setPosZ(getZ());
-            MainProxy.sendPacketToPlayer(packet, player);
-        }
-        updateWatchers();
-    }
+            final IncrementSatPipeId packet = PacketHandler.getPacket(IncrementSatPipeId.class);
+            packet.setPosX(getX());
+            packet.setPosY(getY());
+            packet.setPosZ(getZ());
+            packet.setIncrement(increment);
 
-    public void setPrevId(EntityPlayer player) {
-        satelliteId = findId(-1);
-        ensureAllSatelliteStatus();
-        if (MainProxy.isClient(player.worldObj)) {
-            final ModernPacket packet = PacketHandler.getPacket(SatPipePrev.class).setPosX(getX()).setPosY(getY())
-                    .setPosZ(getZ());
             MainProxy.sendPacketToServer(packet);
         } else {
             final ModernPacket packet = PacketHandler.getPacket(SatPipeSetID.class).setSatID(satelliteId)

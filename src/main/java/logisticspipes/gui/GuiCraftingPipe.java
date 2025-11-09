@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -427,10 +428,10 @@ public class GuiCraftingPipe extends ModuleBaseGui {
          * if(5 <= guibutton.id && guibutton.id < 11) { _pipe.handleStackMove(guibutton.id - 5); }
          */
         if (30 <= guibutton.id && guibutton.id < 40) {
-            _pipe.setNextSatellite(_player, guibutton.id - 30);
+            _pipe.incrementId(_player, calculateIdIncrement(), guibutton.id - 30);
         }
         if (40 <= guibutton.id && guibutton.id < 50) {
-            _pipe.setPrevSatellite(_player, guibutton.id - 40);
+            _pipe.incrementId(_player, -calculateIdIncrement(), guibutton.id - 40);
         }
         if (100 <= guibutton.id && guibutton.id < 200) {
             int i = guibutton.id - 100;
@@ -476,10 +477,10 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         }
         switch (guibutton.id) {
             case 0:
-                _pipe.setNextSatellite(_player);
+                _pipe.incrementId(_player, calculateIdIncrement());
                 return;
             case 1:
-                _pipe.setPrevSatellite(_player);
+                _pipe.incrementId(_player, -calculateIdIncrement());
                 return;
             /*
              * case 2: _logic.paintPathToSatellite(); return;
@@ -513,6 +514,22 @@ public class GuiCraftingPipe extends ModuleBaseGui {
             default:
                 super.actionPerformed(guibutton);
         }
+    }
+
+    private int calculateIdIncrement() {
+        int increment = 1;
+        final boolean shiftDown = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+        final boolean ctrlDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+        if (shiftDown) {
+            increment = 10;
+        }
+        if (ctrlDown) {
+            increment = 25;
+        }
+        if (shiftDown && ctrlDown) {
+            increment = 100;
+        }
+        return increment;
     }
 
     @Override
