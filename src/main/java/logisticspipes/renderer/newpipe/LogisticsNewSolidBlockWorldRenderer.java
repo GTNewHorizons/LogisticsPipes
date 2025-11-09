@@ -12,6 +12,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
+import codechicken.lib.render.CCRenderState;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.blocks.LogisticsSolidBlock;
 import logisticspipes.blocks.LogisticsSolidTileEntity;
@@ -224,11 +225,13 @@ public class LogisticsNewSolidBlockWorldRenderer {
 
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         Block block = LogisticsPipes.LogisticsPipeBlock;
-        Tessellator tess = Tessellator.instance;
 
         BlockRotation rotation = BlockRotation.ZERO;
 
-        tess.startDrawingQuads();
+        CCRenderState.instance().resetInstance();
+        CCRenderState.instance().setDynamicInstance();
+        CCRenderState.instance().pullLightmapInstance();
+        CCRenderState.instance().startDrawingInstance();
 
         IIconTransformation icon = SimpleServiceLocator.cclProxy
                 .createIconTransformer(LogisticsSolidBlock.getNewIcon(metadata));
@@ -238,7 +241,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         for (CoverSides side : CoverSides.values()) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation).render(icon);
         }
-        tess.draw();
+        CCRenderState.instance().drawInstance();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
         GL11.glPopAttrib(); // nicely leave the rendering how it was

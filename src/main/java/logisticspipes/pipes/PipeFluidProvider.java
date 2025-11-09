@@ -228,6 +228,12 @@ public class PipeFluidProvider extends FluidRoutedPipe implements IProvideFluids
         if (!(tree.getRequestType() instanceof FluidResource)) {
             return;
         }
+        // FIXME this is a bandaid fix to fluid provider pipe being able to provide fluid across firewall bug
+        // a more long term solution would be to actually allow fluid to cross firewall boundary and have
+        // proper filtering, but for now this will make do
+        if (filter.stream().anyMatch(IFilter::blockProvider)) {
+            return;
+        }
         FluidIdentifier fluid = ((FluidResource) tree.getRequestType()).getFluid();
         int containedAmount = 0;
         for (Pair<TileEntity, ForgeDirection> pair : getAdjacentTanks(false)) {
