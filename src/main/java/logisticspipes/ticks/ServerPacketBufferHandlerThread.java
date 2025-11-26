@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -31,13 +32,13 @@ public class ServerPacketBufferHandlerThread {
     private static class ServerCompressorThread extends Thread {
 
         // Map of Players to lists of S->C packets to be serialized and compressed
-        private final HashMap<EntityPlayer, LinkedList<ModernPacket>> serverList = new HashMap<>();
+        private final HashMap<UUID, LinkedList<ModernPacket>> serverList = new HashMap<>();
         // Map of Players to serialized but still uncompressed S->C data
-        private final HashMap<EntityPlayer, byte[]> serverBuffer = new HashMap<>();
+        private final HashMap<UUID, byte[]> serverBuffer = new HashMap<>();
         // used to cork the compressor so we can queue up a whole bunch of packets at once
         private boolean pause = false;
         // Clear content on next tick
-        private final Queue<EntityPlayer> playersToClear = new LinkedList<>();
+        private final Queue<UUID> playersToClear = new LinkedList<>();
 
         public ServerCompressorThread() {
             super("LogisticsPipes Packet Compressor Server");
@@ -51,14 +52,14 @@ public class ServerPacketBufferHandlerThread {
                 try {
                     synchronized (serverList) {
                         if (!pause) {
-                            for (Entry<EntityPlayer, LinkedList<ModernPacket>> player : serverList.entrySet()) {
+                            for (Entry<UUID, LinkedList<ModernPacket>> entry : serverList.entrySet()) {
                                 ByteArrayOutputStream out = new ByteArrayOutputStream();
                                 DataOutputStream data = new DataOutputStream(out);
-                                byte[] towrite = serverBuffer.get(player.getKey());
+                                byte[] towrite = serverBuffer.get(entry.getKey());
                                 if (towrite != null) {
                                     data.write(towrite);
                                 }
-                                LinkedList<ModernPacket> packets = player.getValue();
+                                LinkedList<ModernPacket> packets = entry.getValue();
                                 for (ModernPacket packet : packets) {
                                     LPDataOutputStream t = new LPDataOutputStream();
                                     t.writeShort(packet.getId());
@@ -74,42 +75,41 @@ public class ServerPacketBufferHandlerThread {
                                     data.writeInt(t.size());
                                     data.write(t.toByteArray());
                                 }
-                                serverBuffer.put(player.getKey(), out.toByteArray());
+                                serverBuffer.put(entry.getKey(), out.toByteArray());
                             }
                             serverList.clear();
                         }
                     }
                     // Send Content
-                    for (Entry<EntityPlayer, byte[]> player : serverBuffer.entrySet()) {
-                        while (player.getValue().length > 32 * 1024) {
-                            byte[] sendbuffer = Arrays.copyOf(player.getValue(), 1024 * 32);
-                            byte[] newbuffer = Arrays
-                                    .copyOfRange(player.getValue(), 1024 * 32, player.getValue().length);
-                            player.setValue(newbuffer);
+                    for (Entry<UUID, byte[]> entry : serverBuffer.entrySet()) {
+                        while (entry.getValue().length > 32 * 1024) {
+                            byte[] sendbuffer = Arrays.copyOf(entry.getValue(), 1024 * 32);
+                            byte[] newbuffer = Arrays.copyOfRange(entry.getValue(), 1024 * 32, entry.getValue().length);
+                            entry.setValue(newbuffer);
                             byte[] compressed = ServerPacketBufferHandlerThread.compress(sendbuffer);
                             MainProxy.sendPacketToPlayer(
                                     PacketHandler.getPacket(BufferTransfer.class).setContent(compressed),
-                                    player.getKey());
+                                    entry.getKey());
                         }
-                        byte[] sendbuffer = player.getValue();
+                        byte[] sendbuffer = entry.getValue();
                         byte[] compressed = ServerPacketBufferHandlerThread.compress(sendbuffer);
                         MainProxy.sendPacketToPlayer(
                                 PacketHandler.getPacket(BufferTransfer.class).setContent(compressed),
-                                player.getKey());
+                                entry.getKey());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 serverBuffer.clear();
                 synchronized (serverList) {
-                    while (pause || serverList.size() == 0) {
+                    while (pause || serverList.isEmpty()) {
                         try {
                             serverList.wait();
                         } catch (InterruptedException ignored) {}
                     }
                 }
                 synchronized (playersToClear) {
-                    EntityPlayer player;
+                    UUID player;
                     do {
                         player = playersToClear.poll();
                         if (player != null) {
@@ -122,7 +122,8 @@ public class ServerPacketBufferHandlerThread {
 
         public void addPacketToCompressor(ModernPacket packet, EntityPlayer player) {
             synchronized (serverList) {
-                LinkedList<ModernPacket> packetList = serverList.computeIfAbsent(player, k -> new LinkedList<>());
+                LinkedList<ModernPacket> packetList = serverList
+                        .computeIfAbsent(player.getUniqueID(), k -> new LinkedList<>());
                 packetList.add(packet);
                 if (!pause) {
                     serverList.notify();
@@ -141,10 +142,10 @@ public class ServerPacketBufferHandlerThread {
 
         public void clear(EntityPlayer player) {
             synchronized (serverList) {
-                serverList.remove(player);
+                serverList.remove(player.getUniqueID());
             }
             synchronized (playersToClear) {
-                playersToClear.add(player);
+                playersToClear.add(player.getUniqueID());
             }
         }
     }
@@ -154,13 +155,13 @@ public class ServerPacketBufferHandlerThread {
     private static class ServerDecompressorThread extends Thread {
 
         // Map of Player to received compressed C->S data
-        private final HashMap<EntityPlayer, LinkedList<byte[]>> queue = new HashMap<>();
+        private final HashMap<UUID, LinkedList<byte[]>> queue = new HashMap<>();
         // Map of Player to decompressed serialized C->S data
-        private final HashMap<EntityPlayer, byte[]> ByteBuffer = new HashMap<>();
+        private final HashMap<UUID, byte[]> ByteBuffer = new HashMap<>();
         // FIFO for deserialized C->S packets, decompressor adds, tickEnd removes
-        private final LinkedList<Pair<EntityPlayer, byte[]>> PacketBuffer = new LinkedList<>();
+        private final LinkedList<Pair<UUID, byte[]>> PacketBuffer = new LinkedList<>();
         // Clear content on next tick
-        private final Queue<EntityPlayer> playersToClear = new LinkedList<>();
+        private final Queue<UUID> playersToClear = new LinkedList<>();
 
         public ServerDecompressorThread() {
             super("LogisticsPipes Packet Decompressor Server");
@@ -172,9 +173,9 @@ public class ServerPacketBufferHandlerThread {
             boolean flag;
             do {
                 flag = false;
-                Pair<EntityPlayer, byte[]> part = null;
+                Pair<UUID, byte[]> part = null;
                 synchronized (PacketBuffer) {
-                    if (PacketBuffer.size() > 0) {
+                    if (!PacketBuffer.isEmpty()) {
                         flag = true;
                         part = PacketBuffer.pop();
                     }
@@ -189,7 +190,7 @@ public class ServerPacketBufferHandlerThread {
             } while (flag);
 
             synchronized (playersToClear) {
-                EntityPlayer player;
+                UUID player;
                 do {
                     player = playersToClear.poll();
                     if (player != null) {
@@ -206,18 +207,18 @@ public class ServerPacketBufferHandlerThread {
                 do {
                     flag = false;
                     byte[] buffer = null;
-                    EntityPlayer player = null;
+                    UUID playerId = null;
                     synchronized (queue) {
-                        if (queue.size() > 0) {
-                            for (Iterator<Entry<EntityPlayer, LinkedList<byte[]>>> it = queue.entrySet().iterator(); it
+                        if (!queue.isEmpty()) {
+                            for (Iterator<Entry<UUID, LinkedList<byte[]>>> it = queue.entrySet().iterator(); it
                                     .hasNext();) {
-                                Entry<EntityPlayer, LinkedList<byte[]>> lPlayer = it.next();
-                                if (lPlayer.getValue().size() > 0) {
+                                Entry<UUID, LinkedList<byte[]>> entry = it.next();
+                                if (!entry.getValue().isEmpty()) {
                                     flag = true;
-                                    buffer = lPlayer.getValue().getFirst();
-                                    player = lPlayer.getKey();
-                                    if (lPlayer.getValue().size() > 1) {
-                                        lPlayer.getValue().removeFirst();
+                                    buffer = entry.getValue().getFirst();
+                                    playerId = entry.getKey();
+                                    if (entry.getValue().size() > 1) {
+                                        entry.getValue().removeFirst();
                                     } else {
                                         it.remove();
                                     }
@@ -228,19 +229,19 @@ public class ServerPacketBufferHandlerThread {
                             }
                         }
                     }
-                    if (flag && buffer != null && player != null) {
-                        byte[] ByteBufferForPlayer = ByteBuffer.computeIfAbsent(player, k -> new byte[] {});
+                    if (flag && buffer != null && playerId != null) {
+                        byte[] ByteBufferForPlayer = ByteBuffer.computeIfAbsent(playerId, k -> new byte[] {});
                         byte[] packetbytes = ServerPacketBufferHandlerThread.decompress(buffer);
                         byte[] newBuffer = new byte[packetbytes.length + ByteBufferForPlayer.length];
                         System.arraycopy(ByteBufferForPlayer, 0, newBuffer, 0, ByteBufferForPlayer.length);
                         System.arraycopy(packetbytes, 0, newBuffer, ByteBufferForPlayer.length, packetbytes.length);
-                        ByteBuffer.put(player, newBuffer);
+                        ByteBuffer.put(playerId, newBuffer);
                     }
                 } while (flag);
 
-                for (Entry<EntityPlayer, byte[]> player : ByteBuffer.entrySet()) {
-                    while (player.getValue().length >= 4) {
-                        byte[] ByteBufferForPlayer = player.getValue();
+                for (Entry<UUID, byte[]> entry : ByteBuffer.entrySet()) {
+                    while (entry.getValue().length >= 4) {
+                        byte[] ByteBufferForPlayer = entry.getValue();
                         int size = ((ByteBufferForPlayer[0] & 255) << 24) + ((ByteBufferForPlayer[1] & 255) << 16)
                                 + ((ByteBufferForPlayer[2] & 255) << 8)
                                 + ((ByteBufferForPlayer[3] & 255) << 0);
@@ -250,16 +251,16 @@ public class ServerPacketBufferHandlerThread {
                         byte[] packet = Arrays.copyOfRange(ByteBufferForPlayer, 4, size + 4);
                         ByteBufferForPlayer = Arrays
                                 .copyOfRange(ByteBufferForPlayer, size + 4, ByteBufferForPlayer.length);
-                        player.setValue(ByteBufferForPlayer);
+                        entry.setValue(ByteBufferForPlayer);
                         synchronized (PacketBuffer) {
-                            PacketBuffer.add(new Pair<>(player.getKey(), packet));
+                            PacketBuffer.add(new Pair<>(entry.getKey(), packet));
                         }
                     }
                 }
                 ByteBuffer.values().removeIf(ByteBufferForPlayer -> ByteBufferForPlayer.length == 0);
 
                 synchronized (queue) {
-                    while (queue.size() == 0) {
+                    while (queue.isEmpty()) {
                         try {
                             queue.wait();
                         } catch (InterruptedException ignored) {}
@@ -270,7 +271,7 @@ public class ServerPacketBufferHandlerThread {
 
         public void handlePacket(byte[] content, EntityPlayer player) {
             synchronized (queue) {
-                LinkedList<byte[]> list = queue.computeIfAbsent(player, k -> new LinkedList<>());
+                LinkedList<byte[]> list = queue.computeIfAbsent(player.getUniqueID(), k -> new LinkedList<>());
                 list.addLast(content);
                 queue.notify();
             }
@@ -278,10 +279,10 @@ public class ServerPacketBufferHandlerThread {
 
         public void clear(EntityPlayer player) {
             synchronized (queue) {
-                queue.remove(player);
+                queue.remove(player.getUniqueID());
             }
             synchronized (playersToClear) {
-                playersToClear.add(player);
+                playersToClear.add(player.getUniqueID());
             }
         }
     }

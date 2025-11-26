@@ -594,6 +594,7 @@ public class LogisticsPipes {
         }
         LogisticsEventListener.serverShutdown();
         SimpleServiceLocator.buildCraftProxy.cleanup();
+        MainProxy.uuidToPlayerMap.clear();
     }
 
     @EventHandler
