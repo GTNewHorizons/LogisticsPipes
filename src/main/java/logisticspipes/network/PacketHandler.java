@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -148,6 +149,10 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         FMLLog.log(Level.ERROR, cause, "LogisticsPipes PacketHandler exception caught");
         super.exceptionCaught(ctx, cause);
+    }
+
+    public static void onPacketData(final LPDataInputStream data, final UUID playerId) throws IOException {
+        onPacketData(data, MainProxy.uuidToPlayerMap.get(playerId));
     }
 
     // hacky callback to process packets coming from by the packetbufferhandler decompressors

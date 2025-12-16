@@ -199,6 +199,7 @@ public class LogisticsEventListener {
 
     @SubscribeEvent
     public void onPlayerLogin(PlayerLoggedInEvent event) {
+        MainProxy.uuidToPlayerMap.put(event.player.getUniqueID(), event.player);
         if (MainProxy.isServer(event.player.worldObj)) {
             SimpleServiceLocator.securityStationManager.sendClientAuthorizationList(event.player);
             SimpleServiceLocator.craftingPermissionManager.sendCraftingPermissionsToPlayer(event.player);
@@ -220,6 +221,7 @@ public class LogisticsEventListener {
             config.writeToFile();
         }
         LogisticsEventListener.playerConfigs.remove(ident);
+        MainProxy.uuidToPlayerMap.remove(event.player.getUniqueID());
     }
 
     @AllArgsConstructor

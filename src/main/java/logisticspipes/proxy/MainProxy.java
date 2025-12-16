@@ -2,7 +2,10 @@ package logisticspipes.proxy;
 
 import java.io.File;
 import java.util.EnumMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,6 +52,7 @@ public class MainProxy {
 
     private static final WeakHashMap<Thread, Side> threadSideMap = new WeakHashMap<>();
     public static final String networkChannelName = "LogisticsPipes";
+    public static final Map<UUID, EntityPlayer> uuidToPlayerMap = new ConcurrentHashMap<>();
 
     private static Side getEffectiveSide() {
         Thread thr = Thread.currentThread();
@@ -143,6 +147,14 @@ public class MainProxy {
             MainProxy.channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(OutboundTarget.TOSERVER);
             MainProxy.channels.get(Side.CLIENT).writeOutbound(packet);
         }
+    }
+
+    public static void sendPacketToPlayer(ModernPacket packet, UUID playerId) {
+        final EntityPlayer player = uuidToPlayerMap.get(playerId);
+        if (player == null) {
+            return;
+        }
+        sendPacketToPlayer(packet, player);
     }
 
     public static void sendPacketToPlayer(ModernPacket packet, EntityPlayer player) {
