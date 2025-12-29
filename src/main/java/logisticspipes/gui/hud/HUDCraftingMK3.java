@@ -1,6 +1,7 @@
 package logisticspipes.gui.hud;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -33,9 +34,9 @@ public class HUDCraftingMK3 extends BasicHUDGui {
         } else {
             GL11.glColor4b((byte) 127, (byte) 127, (byte) 127, (byte) 64);
         }
-        if (pipe.displayList.size() > 0 && pipe.getMk3Module().bufferList.size() == 0) {
+        if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.isEmpty()) {
             GuiGraphics.drawGuiBackGround(mc, -50, -28, 50, 30, 0, false);
-        } else if (pipe.getMk3Module().bufferList.size() > 0) {
+        } else if (!pipe.getMk3Module().bufferList.isEmpty()) {
             GuiGraphics.drawGuiBackGround(mc, -50, -50, 50, bufferSize * 20 + 10, 0, false);
         } else {
             GuiGraphics.drawGuiBackGround(mc, -30, -22, 30, 25, 0, false);
@@ -49,12 +50,12 @@ public class HUDCraftingMK3 extends BasicHUDGui {
         GL11.glTranslatef(0.0F, 0.0F, -0.005F);
         GL11.glScalef(1.5F, 1.5F, 0.0001F);
 
-        if (pipe.displayList.size() > 0 && pipe.getMk3Module().bufferList.size() == 0) {
+        if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.isEmpty()) {
             String message = "Result:";
             mc.fontRenderer.drawString(message, -28, -10, 0);
             message = "Todo:";
             mc.fontRenderer.drawString(message, -28, 5, 0);
-        } else if (pipe.getMk3Module().bufferList.size() > 0) {
+        } else if (!pipe.getMk3Module().bufferList.isEmpty()) {
             String message = "Result:";
             mc.fontRenderer.drawString(message, -28, -28, 0);
             message = "Todo:";
@@ -64,15 +65,11 @@ public class HUDCraftingMK3 extends BasicHUDGui {
             mc.fontRenderer.drawString(message, -16, -10, 0);
         }
         GL11.glScalef(0.8F, 0.8F, -1F);
-        List<ItemIdentifierStack> list = new ArrayList<>();
-        List<ItemIdentifierStack> craftables = pipe.getConfiguredCraftResults();
-        if (craftables != null && !craftables.isEmpty()) {
-            // TODO: handle multiple crafables.
-            list.add(craftables.get(0));
-        }
-        if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.size() == 0) {
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list,
+
+        if (pipe.getDummyInventory().getStackInSlot(9) != null) {
+            if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.isEmpty()) {
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
                     null,
                     0,
                     13,
@@ -86,7 +83,7 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     true,
                     false,
                     shifted);
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                     pipe.displayList,
                     null,
                     0,
@@ -101,9 +98,9 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     true,
                     false,
                     shifted);
-        } else if (pipe.getMk3Module().bufferList.size() > 0) {
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list,
+            } else if (!pipe.getMk3Module().bufferList.isEmpty()) {
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
                     null,
                     0,
                     13,
@@ -117,7 +114,7 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     true,
                     false,
                     shifted);
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                     pipe.displayList,
                     null,
                     0,
@@ -133,7 +130,7 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     false,
                     shifted);
 
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                     pipe.getMk3Module().bufferList,
                     null,
                     0,
@@ -148,9 +145,9 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     true,
                     false,
                     shifted);
-        } else {
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list,
+            } else {
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
                     null,
                     0,
                     -9,
@@ -164,6 +161,7 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                     true,
                     false,
                     shifted);
+            }
         }
     }
 
@@ -180,9 +178,9 @@ public class HUDCraftingMK3 extends BasicHUDGui {
         if (pipe.getMk3Module().bufferList.size() % 4 == 0) {
             bufferSize--;
         }
-        if (pipe.displayList.size() > 0 && pipe.getMk3Module().bufferList.size() == 0) {
+        if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.isEmpty()) {
             return -50 < x && x < 50 && -28 < y && y < 30;
-        } else if (pipe.getMk3Module().bufferList.size() > 0) {
+        } else if (!pipe.getMk3Module().bufferList.isEmpty()) {
             return -50 < x && x < 50 && -50 < y && y < bufferSize * 20 + 10;
         } else {
             return -30 < x && x < 30 && -22 < y && y < 25;

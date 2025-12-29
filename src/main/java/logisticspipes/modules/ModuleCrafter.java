@@ -1,14 +1,13 @@
 package logisticspipes.modules;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.DelayQueue;
 
+import logisticspipes.interfaces.*;
+import logisticspipes.network.packets.module.ModuleInventory;
+import logisticspipes.proxy.computers.interfaces.CCCommand;
+import logisticspipes.utils.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,13 +27,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
-import logisticspipes.interfaces.IHUDModuleHandler;
-import logisticspipes.interfaces.IHUDModuleRenderer;
-import logisticspipes.interfaces.IInventoryUtil;
-import logisticspipes.interfaces.IModuleWatchReciver;
-import logisticspipes.interfaces.IPipeServiceProvider;
-import logisticspipes.interfaces.ISlotUpgradeManager;
-import logisticspipes.interfaces.IWorldProvider;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.interfaces.routing.IFilter;
@@ -105,23 +97,16 @@ import logisticspipes.routing.LogisticsExtraPromise;
 import logisticspipes.routing.LogisticsPromise;
 import logisticspipes.routing.order.IOrderInfoProvider.ResourceType;
 import logisticspipes.routing.order.LogisticsItemOrder;
-import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.CacheHolder.CacheTypes;
-import logisticspipes.utils.DelayedGeneric;
-import logisticspipes.utils.FluidIdentifier;
-import logisticspipes.utils.PlayerCollectionList;
-import logisticspipes.utils.SidedInventoryMinecraftAdapter;
-import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.BufferMode;
 import logisticspipes.utils.SinkReply.FixedPriority;
-import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
 
-public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IHUDModuleHandler, IModuleWatchReciver {
+public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IHUDModuleHandler, IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
     private IRequestItems _invRequester;
     // private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
@@ -166,6 +151,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     }
 
     public ModuleCrafter(PipeItemsCraftingLogistics parent) {
+        _dummyInventory.addListener(this);
         _service = parent;
         _invRequester = parent;
         _world = parent;
@@ -1676,6 +1662,10 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     @Override
     public void startWatching(EntityPlayer player) {
         localModeWatchers.add(player);
+        MainProxy.sendPacketToPlayer(
+            PacketHandler.getPacket(ModuleInventory.class)
+                .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
+            player);
     }
 
     @Override
@@ -1687,6 +1677,21 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public IHUDModuleRenderer getHUDRenderer() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void handleInvContent(Collection<ItemIdentifierStack> _allItems) {
+        _dummyInventory.handleItemIdentifierList(_allItems);
+    }
+
+    @Override
+    public void InventoryChanged(IInventory inventory) {
+        if (MainProxy.isServer(_world.getWorld())) {
+            MainProxy.sendToPlayerList(
+                PacketHandler.getPacket(ModuleInventory.class)
+                    .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
+                localModeWatchers);
+        }
     }
 
     public static class CraftingChassieInformation extends ChassiTargetInformation {

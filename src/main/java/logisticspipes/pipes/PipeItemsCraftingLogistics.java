@@ -4,19 +4,22 @@
  */
 package logisticspipes.pipes;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import logisticspipes.asm.ParamProfiler;
-import logisticspipes.interfaces.*;
-import logisticspipes.network.packets.hud.ChestContent;
-import logisticspipes.network.packets.module.ModuleInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
-import java.util.Map.Entry;
 
 import logisticspipes.gui.hud.HUDCrafting;
+import logisticspipes.interfaces.IChangeListener;
+import logisticspipes.interfaces.IHeadUpDisplayRenderer;
+import logisticspipes.interfaces.IHeadUpDisplayRendererProvider;
+import logisticspipes.interfaces.IOrderManagerContentReceiver;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.interfaces.routing.IFilter;
@@ -52,14 +55,12 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 @CCType(name = "LogisticsPipes:Crafting")
 public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraftItems, IRequireReliableTransport,
-        IHeadUpDisplayRendererProvider, IChangeListener, IOrderManagerContentReceiver, IHavePriority, IChestContentReceiver {
+    IHeadUpDisplayRendererProvider, IChangeListener, IOrderManagerContentReceiver, IHavePriority {
 
     protected ModuleCrafter craftingModule;
 
-    private final Map<ItemIdentifier, Integer> displayMap = new TreeMap<>();
     public final LinkedList<ItemIdentifierStack> oldList = new LinkedList<>();
     public final LinkedList<ItemIdentifierStack> displayList = new LinkedList<>();
-    public final LinkedList<ItemIdentifierStack> craftingResults = new LinkedList<>();
     public final PlayerCollectionList localModeWatchers = new PlayerCollectionList();
     private final HUDCrafting HUD = new HUDCrafting(this);
 
@@ -90,11 +91,6 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
     @Override
     public void enabledUpdateEntity() {
         super.enabledUpdateEntity();
-
-        if (isNthTick(20)) {
-            updateCraftingResults();
-        }
-
         if (doContentUpdate) {
             checkContentUpdate();
         }
@@ -126,7 +122,7 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
 
     @Override
     public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination,
-            IAdditionalTargetInformation info) {
+                                   IAdditionalTargetInformation info) {
         return craftingModule.fullFill(promise, destination, info);
     }
 
@@ -168,26 +164,25 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
     @Override
     public void startWatching() {
         MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
-                        .setPosZ(getZ()));
+            PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
         MainProxy.sendPacketToServer(
-                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
-                        .setPosZ(getZ()));
+            PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                .setPosZ(getZ()));
     }
 
     @Override
     public void playerStartWatching(EntityPlayer player, int mode) {
         if (mode == 1) {
             localModeWatchers.add(player);
-            updateCraftingResults();
             MainProxy.sendPacketToPlayer(
-                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(oldList).setPosX(getX())
-                            .setPosY(getY()).setPosZ(getZ()),
-                    player);
+                PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(oldList).setPosX(getX())
+                    .setPosY(getY()).setPosZ(getZ()),
+                player);
             craftingModule.startWatching(player);
         } else {
             super.playerStartWatching(player, mode);
@@ -213,28 +208,10 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
             oldList.clear();
             oldList.addAll(all);
             MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
-                            .setPosY(getY()).setPosZ(getZ()),
-                    localModeWatchers);
-        }
-    }
-
-    public void updateCraftingResults() {
-        List<ItemIdentifierStack> results = craftingModule.getConfiguredCraftResults();
-        if (!results.equals(craftingResults)) {
-            craftingResults.clear();
-            craftingResults.addAll(results);
-            MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(ChestContent.class).setIdentList(results).setPosX(getX())
+                PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
                     .setPosY(getY()).setPosZ(getZ()),
                 localModeWatchers);
         }
-    }
-
-    @Override
-    public void setReceivedChestContent(Collection<ItemIdentifierStack> _allItems) {
-        craftingResults.clear();
-        craftingResults.addAll(_allItems);
     }
 
     @Override

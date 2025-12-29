@@ -19,15 +19,13 @@ public class HUDCrafting extends BasicHUDGui {
 
     private final PipeItemsCraftingLogistics pipe;
 
+
     public HUDCrafting(PipeItemsCraftingLogistics pipe) {
         this.pipe = pipe;
     }
 
     @Override
     public void renderHeadUpDisplay(double d, boolean day, boolean shifted, Minecraft mc, IHUDConfig config) {
-        if (pipe.craftingResults == null) {
-            pipe.updateCraftingResults();
-        }
         if (day) {
             GL11.glColor4b((byte) 64, (byte) 64, (byte) 64, (byte) 64);
         } else {
@@ -57,9 +55,11 @@ public class HUDCrafting extends BasicHUDGui {
             mc.fontRenderer.drawString(message, -16, -10, 0);
         }
         GL11.glScalef(0.8F, 0.8F, -1F);
-        if (!pipe.displayList.isEmpty() && pipe.craftingResults != null) {
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.craftingResults,
+        // Check if item is there before render
+        if (pipe.getDummyInventory().getStackInSlot(9) != null) {
+            if (!pipe.displayList.isEmpty()) {
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
                     null,
                     0,
                     11,
@@ -73,7 +73,7 @@ public class HUDCrafting extends BasicHUDGui {
                     true,
                     false,
                     shifted);
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
                     pipe.displayList,
                     null,
                     0,
@@ -88,9 +88,9 @@ public class HUDCrafting extends BasicHUDGui {
                     true,
                     false,
                     shifted);
-        } else {
-            ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.craftingResults,
+            } else {
+                ItemStackRenderer.renderItemIdentifierStackListIntoGui(
+                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
                     null,
                     0,
                     -9,
@@ -104,13 +104,13 @@ public class HUDCrafting extends BasicHUDGui {
                     true,
                     false,
                     shifted);
+            }
         }
     }
 
     @Override
     public boolean display(IHUDConfig config) {
-        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && !pipe.craftingResults.isEmpty())
-            || !pipe.displayList.isEmpty());
+        return config.isHUDCrafting() && (!pipe.hasCraftingSign() || !pipe.displayList.isEmpty());
     }
 
     @Override
