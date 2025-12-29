@@ -4,10 +4,6 @@ import java.lang.ref.WeakReference;
 import java.util.*;
 import java.util.concurrent.DelayQueue;
 
-import logisticspipes.interfaces.*;
-import logisticspipes.network.packets.module.ModuleInventory;
-import logisticspipes.proxy.computers.interfaces.CCCommand;
-import logisticspipes.utils.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,6 +23,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.blocks.crafting.LogisticsCraftingTableTileEntity;
+import logisticspipes.interfaces.*;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.interfaces.routing.ICraftItems;
 import logisticspipes.interfaces.routing.IFilter;
@@ -59,6 +56,7 @@ import logisticspipes.network.packets.cpipe.CraftingAdvancedSatelliteId;
 import logisticspipes.network.packets.cpipe.CraftingPipeOpenConnectedGuiPacket;
 import logisticspipes.network.packets.hud.HUDStartModuleWatchingPacket;
 import logisticspipes.network.packets.hud.HUDStopModuleWatchingPacket;
+import logisticspipes.network.packets.module.ModuleInventory;
 import logisticspipes.network.packets.pipe.CraftingPipePriorityDownPacket;
 import logisticspipes.network.packets.pipe.CraftingPipePriorityUpPacket;
 import logisticspipes.network.packets.pipe.CraftingPipeUpdatePacket;
@@ -97,6 +95,7 @@ import logisticspipes.routing.LogisticsExtraPromise;
 import logisticspipes.routing.LogisticsPromise;
 import logisticspipes.routing.order.IOrderInfoProvider.ResourceType;
 import logisticspipes.routing.order.LogisticsItemOrder;
+import logisticspipes.utils.*;
 import logisticspipes.utils.CacheHolder.CacheTypes;
 import logisticspipes.utils.SinkReply.BufferMode;
 import logisticspipes.utils.SinkReply.FixedPriority;
@@ -106,7 +105,8 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
 
-public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IHUDModuleHandler, IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
+public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IHUDModuleHandler, IModuleWatchReciver,
+        ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
     private IRequestItems _invRequester;
     // private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
@@ -1663,9 +1663,9 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public void startWatching(EntityPlayer player) {
         localModeWatchers.add(player);
         MainProxy.sendPacketToPlayer(
-            PacketHandler.getPacket(ModuleInventory.class)
-                .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
-            player);
+                PacketHandler.getPacket(ModuleInventory.class)
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
+                player);
     }
 
     @Override
@@ -1688,9 +1688,9 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public void InventoryChanged(IInventory inventory) {
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(ModuleInventory.class)
-                    .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
-                localModeWatchers);
+                    PacketHandler.getPacket(ModuleInventory.class)
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
+                    localModeWatchers);
         }
     }
 

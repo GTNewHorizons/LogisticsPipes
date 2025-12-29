@@ -55,7 +55,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 @CCType(name = "LogisticsPipes:Crafting")
 public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraftItems, IRequireReliableTransport,
-    IHeadUpDisplayRendererProvider, IChangeListener, IOrderManagerContentReceiver, IHavePriority {
+        IHeadUpDisplayRendererProvider, IChangeListener, IOrderManagerContentReceiver, IHavePriority {
 
     protected ModuleCrafter craftingModule;
 
@@ -122,7 +122,7 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
 
     @Override
     public LogisticsOrder fullFill(LogisticsPromise promise, IRequestItems destination,
-                                   IAdditionalTargetInformation info) {
+            IAdditionalTargetInformation info) {
         return craftingModule.fullFill(promise, destination, info);
     }
 
@@ -164,15 +164,15 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
     @Override
     public void startWatching() {
         MainProxy.sendPacketToServer(
-            PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
-                .setPosZ(getZ()));
+                PacketHandler.getPacket(HUDStartWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
     public void stopWatching() {
         MainProxy.sendPacketToServer(
-            PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
-                .setPosZ(getZ()));
+                PacketHandler.getPacket(HUDStopWatchingPacket.class).setInteger(1).setPosX(getX()).setPosY(getY())
+                        .setPosZ(getZ()));
     }
 
     @Override
@@ -180,9 +180,9 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
         if (mode == 1) {
             localModeWatchers.add(player);
             MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(oldList).setPosX(getX())
-                    .setPosY(getY()).setPosZ(getZ()),
-                player);
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(oldList).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
+                    player);
             craftingModule.startWatching(player);
         } else {
             super.playerStartWatching(player, mode);
@@ -208,9 +208,9 @@ public class PipeItemsCraftingLogistics extends CoreRoutedPipe implements ICraft
             oldList.clear();
             oldList.addAll(all);
             MainProxy.sendToPlayerList(
-                PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
-                    .setPosY(getY()).setPosZ(getZ()),
-                localModeWatchers);
+                    PacketHandler.getPacket(OrdererManagerContent.class).setIdentList(all).setPosX(getX())
+                            .setPosY(getY()).setPosZ(getZ()),
+                    localModeWatchers);
         }
     }
 

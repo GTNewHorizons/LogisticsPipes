@@ -1,8 +1,6 @@
 package logisticspipes.gui.hud;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
 
@@ -69,98 +67,101 @@ public class HUDCraftingMK3 extends BasicHUDGui {
         if (pipe.getDummyInventory().getStackInSlot(9) != null) {
             if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.isEmpty()) {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
-                    null,
-                    0,
-                    13,
-                    -17,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        Collections.singletonList(
+                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        null,
+                        0,
+                        13,
+                        -17,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.displayList,
-                    null,
-                    0,
-                    13,
-                    3,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        pipe.displayList,
+                        null,
+                        0,
+                        13,
+                        3,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
             } else if (!pipe.getMk3Module().bufferList.isEmpty()) {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
-                    null,
-                    0,
-                    13,
-                    -37,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        Collections.singletonList(
+                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        null,
+                        0,
+                        13,
+                        -37,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.displayList,
-                    null,
-                    0,
-                    13,
-                    -17,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        pipe.displayList,
+                        null,
+                        0,
+                        13,
+                        -17,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
 
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.getMk3Module().bufferList,
-                    null,
-                    0,
-                    -35,
-                    0,
-                    4,
-                    16,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        pipe.getMk3Module().bufferList,
+                        null,
+                        0,
+                        -35,
+                        0,
+                        4,
+                        16,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
             } else {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
-                    null,
-                    0,
-                    -9,
-                    0,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        Collections.singletonList(
+                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        null,
+                        0,
+                        -9,
+                        0,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
             }
         }
     }

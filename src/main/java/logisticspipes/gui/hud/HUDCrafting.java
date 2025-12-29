@@ -1,8 +1,6 @@
 package logisticspipes.gui.hud;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
 
@@ -18,7 +16,6 @@ import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 public class HUDCrafting extends BasicHUDGui {
 
     private final PipeItemsCraftingLogistics pipe;
-
 
     public HUDCrafting(PipeItemsCraftingLogistics pipe) {
         this.pipe = pipe;
@@ -59,51 +56,53 @@ public class HUDCrafting extends BasicHUDGui {
         if (pipe.getDummyInventory().getStackInSlot(9) != null) {
             if (!pipe.displayList.isEmpty()) {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
-                    null,
-                    0,
-                    11,
-                    -18,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        Collections.singletonList(
+                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        null,
+                        0,
+                        11,
+                        -18,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    pipe.displayList,
-                    null,
-                    0,
-                    13,
-                    3,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        pipe.displayList,
+                        null,
+                        0,
+                        13,
+                        3,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
             } else {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    Collections.singletonList(ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
-                    null,
-                    0,
-                    -9,
-                    -1,
-                    1,
-                    1,
-                    18,
-                    18,
-                    100.0F,
-                    DisplayAmount.ALWAYS,
-                    true,
-                    false,
-                    shifted);
+                        Collections.singletonList(
+                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        null,
+                        0,
+                        -9,
+                        -1,
+                        1,
+                        1,
+                        18,
+                        18,
+                        100.0F,
+                        DisplayAmount.ALWAYS,
+                        true,
+                        false,
+                        shifted);
             }
         }
     }
