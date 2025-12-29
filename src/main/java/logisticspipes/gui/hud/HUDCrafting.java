@@ -1,6 +1,7 @@
 package logisticspipes.gui.hud;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,9 @@ public class HUDCrafting extends BasicHUDGui {
 
     @Override
     public void renderHeadUpDisplay(double d, boolean day, boolean shifted, Minecraft mc, IHUDConfig config) {
+        if (pipe.craftingResults == null) {
+            pipe.updateCraftingResults();
+        }
         if (day) {
             GL11.glColor4b((byte) 64, (byte) 64, (byte) 64, (byte) 64);
         } else {
@@ -53,15 +57,9 @@ public class HUDCrafting extends BasicHUDGui {
             mc.fontRenderer.drawString(message, -16, -10, 0);
         }
         GL11.glScalef(0.8F, 0.8F, -1F);
-        List<ItemIdentifierStack> list = new ArrayList<>();
-        List<ItemIdentifierStack> craftables = pipe.getConfiguredCraftResults();
-        if (craftables != null && !craftables.isEmpty()) {
-            // TODO: handle multiple crafables.
-            list.add(craftables.get(0));
-        }
-        if (!pipe.displayList.isEmpty()) {
+        if (!pipe.displayList.isEmpty() && pipe.craftingResults != null) {
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list,
+                    pipe.craftingResults,
                     null,
                     0,
                     11,
@@ -92,7 +90,7 @@ public class HUDCrafting extends BasicHUDGui {
                     shifted);
         } else {
             ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                    list,
+                    pipe.craftingResults,
                     null,
                     0,
                     -9,
@@ -111,8 +109,8 @@ public class HUDCrafting extends BasicHUDGui {
 
     @Override
     public boolean display(IHUDConfig config) {
-        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getConfiguredCraftResults() != null)
-                || pipe.displayList.size() > 0);
+        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && !pipe.craftingResults.isEmpty())
+            || !pipe.displayList.isEmpty());
     }
 
     @Override
