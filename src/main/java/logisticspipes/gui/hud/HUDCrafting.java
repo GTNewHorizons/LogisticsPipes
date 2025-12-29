@@ -1,7 +1,5 @@
 package logisticspipes.gui.hud;
 
-import java.util.Collections;
-
 import net.minecraft.client.Minecraft;
 
 import org.lwjgl.opengl.GL11;
@@ -9,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 import logisticspipes.interfaces.IHUDConfig;
 import logisticspipes.pipes.PipeItemsCraftingLogistics;
 import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 
@@ -28,7 +25,7 @@ public class HUDCrafting extends BasicHUDGui {
         } else {
             GL11.glColor4b((byte) 127, (byte) 127, (byte) 127, (byte) 64);
         }
-        if (pipe.displayList.size() > 0) {
+        if (!pipe.displayList.isEmpty()) {
             GuiGraphics.drawGuiBackGround(mc, -50, -28, 50, 30, 0, false);
         } else {
             GuiGraphics.drawGuiBackGround(mc, -30, -22, 30, 25, 0, false);
@@ -42,7 +39,7 @@ public class HUDCrafting extends BasicHUDGui {
         GL11.glTranslatef(0.0F, 0.0F, -0.005F);
         GL11.glScalef(1.5F, 1.5F, 0.0001F);
 
-        if (pipe.displayList.size() > 0) {
+        if (!pipe.displayList.isEmpty()) {
             String message = "Result:";
             mc.fontRenderer.drawString(message, -28, -10, 0);
             message = "Todo:";
@@ -52,12 +49,11 @@ public class HUDCrafting extends BasicHUDGui {
             mc.fontRenderer.drawString(message, -16, -10, 0);
         }
         GL11.glScalef(0.8F, 0.8F, -1F);
-        // Check if item is there before render
-        if (pipe.getDummyInventory().getStackInSlot(9) != null) {
+        // Check if item exists before render
+        if (pipe.getConfiguredCraftResults() != null) {
             if (!pipe.displayList.isEmpty()) {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                        Collections.singletonList(
-                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        pipe.getConfiguredCraftResults(),
                         null,
                         0,
                         11,
@@ -88,8 +84,7 @@ public class HUDCrafting extends BasicHUDGui {
                         shifted);
             } else {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                        Collections.singletonList(
-                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        pipe.getConfiguredCraftResults(),
                         null,
                         0,
                         -9,
@@ -109,12 +104,13 @@ public class HUDCrafting extends BasicHUDGui {
 
     @Override
     public boolean display(IHUDConfig config) {
-        return config.isHUDCrafting() && (!pipe.hasCraftingSign() || !pipe.displayList.isEmpty());
+        return config.isHUDCrafting() && ((!pipe.hasCraftingSign() && pipe.getConfiguredCraftResults() != null)
+                || !pipe.displayList.isEmpty());
     }
 
     @Override
     public boolean cursorOnWindow(int x, int y) {
-        if (pipe.displayList.size() > 0) {
+        if (!pipe.displayList.isEmpty()) {
             return -50 < x && x < 50 && -28 < y && y < 30;
         } else {
             return -30 < x && x < 30 && -22 < y && y < 25;

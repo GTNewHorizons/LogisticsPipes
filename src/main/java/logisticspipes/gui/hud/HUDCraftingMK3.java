@@ -1,7 +1,5 @@
 package logisticspipes.gui.hud;
 
-import java.util.Collections;
-
 import net.minecraft.client.Minecraft;
 
 import org.lwjgl.opengl.GL11;
@@ -9,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 import logisticspipes.interfaces.IHUDConfig;
 import logisticspipes.pipes.PipeItemsCraftingLogisticsMk3;
 import logisticspipes.utils.gui.GuiGraphics;
-import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
 
@@ -63,12 +60,11 @@ public class HUDCraftingMK3 extends BasicHUDGui {
             mc.fontRenderer.drawString(message, -16, -10, 0);
         }
         GL11.glScalef(0.8F, 0.8F, -1F);
-
-        if (pipe.getDummyInventory().getStackInSlot(9) != null) {
+        // Check if item exists before render
+        if (pipe.getConfiguredCraftResults() != null) {
             if (!pipe.displayList.isEmpty() && pipe.getMk3Module().bufferList.isEmpty()) {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                        Collections.singletonList(
-                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        pipe.getConfiguredCraftResults(),
                         null,
                         0,
                         13,
@@ -99,8 +95,7 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                         shifted);
             } else if (!pipe.getMk3Module().bufferList.isEmpty()) {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                        Collections.singletonList(
-                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        pipe.getConfiguredCraftResults(),
                         null,
                         0,
                         13,
@@ -147,8 +142,7 @@ public class HUDCraftingMK3 extends BasicHUDGui {
                         shifted);
             } else {
                 ItemStackRenderer.renderItemIdentifierStackListIntoGui(
-                        Collections.singletonList(
-                                ItemIdentifierStack.getFromStack(pipe.getDummyInventory().getStackInSlot(9))),
+                        pipe.getConfiguredCraftResults(),
                         null,
                         0,
                         -9,
