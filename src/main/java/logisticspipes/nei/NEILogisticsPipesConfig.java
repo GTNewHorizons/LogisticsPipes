@@ -42,14 +42,49 @@ public class NEILogisticsPipesConfig implements IConfigureNEI {
 
         API.registerRecipeHandler(new NEISolderingStationRecipeManager());
         API.registerUsageHandler(new NEISolderingStationRecipeManager());
+
         API.registerGuiOverlay(GuiSolderingStation.class, "solderingstation");
-        API.registerGuiOverlayHandler(
-                GuiLogisticsCraftingTable.class,
-                new LogisticsCraftingOverlayHandler(),
-                "crafting");
+
+        API.registerGuiOverlay(GuiLogisticsCraftingTable.class, "crafting");
+        API.registerGuiOverlayHandler(GuiLogisticsCraftingTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
         API.registerGuiOverlayHandler(GuiRequestTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
 
+        API.registerGuiOverlayHandler(
+                logisticspipes.gui.GuiCraftingPipe.class,
+                new CraftingPipeOverlayHandler(),
+                "crafting");
+        API.registerGuiOverlayHandler(
+                logisticspipes.gui.GuiCraftingPipe.class,
+                new CraftingPipeOverlayHandler(),
+                "smelting");
+        API.registerGuiOverlayHandler(
+                logisticspipes.gui.GuiCraftingPipe.class,
+                new CraftingPipeOverlayHandler(),
+                "fuel");
+        API.registerGuiOverlayHandler(
+                logisticspipes.gui.GuiCraftingPipe.class,
+                new CraftingPipeOverlayHandler(),
+                "brewing");
+
         if (LogisticsPipes.isGTNH) {
+            String[] gtCategories = { "gt.recipe.assembler", "gt.recipe.chemicalreactor", "gt.recipe.alloysmelter",
+                    "gt.recipe.arcfurnace", "gt.recipe.autoclave", "gt.recipe.bender", "gt.recipe.brewery",
+                    "gt.recipe.circuitassembler",
+                    "gt.recipe.canner", "gt.recipe.centrifuge", "gt.recipe.chemicalbath", "gt.recipe.cutter",
+                    "gt.recipe.distillery", "gt.recipe.electrolyzer", "gt.recipe.electromagneticseparator",
+                    "gt.recipe.extractor", "gt.recipe.extruder", "gt.recipe.fermenter", "gt.recipe.fluidcanner",
+                    "gt.recipe.fluidextractor", "gt.recipe.fluidheater", "gt.recipe.fluidsolidifier", "gt.recipe.forge",
+                    "gt.recipe.formingpress", "gt.recipe.fusionreactor", "gt.recipe.hammer", "gt.recipe.lathe",
+                    "gt.recipe.macerator", "gt.recipe.mixer", "gt.recipe.orewasher", "gt.recipe.packer",
+                    "gt.recipe.polarizer", "gt.recipe.press", "gt.recipe.pyrolyse", "gt.recipe.sifter",
+                    "gt.recipe.thermalcentrifuge", "gt.recipe.unpacker", "gt.recipe.wirerenewer" };
+            for (String category : gtCategories) {
+                API.registerGuiOverlayHandler(
+                        logisticspipes.gui.GuiCraftingPipe.class,
+                        new CraftingPipeOverlayHandler(),
+                        category);
+            }
+
             // unused stuff
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 0));
