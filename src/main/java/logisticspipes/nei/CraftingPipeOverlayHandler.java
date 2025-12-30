@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import codechicken.nei.recipe.IUsageHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -38,12 +37,11 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         List<ItemStack> outputs = new ArrayList<>();
         List<FluidStack> fluidInputs = new ArrayList<>();
 
-
         for (PositionedStack ps : recipe.getIngredientStacks(recipeIndex)) {
             if (ps.items != null && ps.items.length > 0) {
-                //check of this is a fluid from gt
-                if(ps.items[0].getTagCompound() != null){
-                    if(ps.items[0].getTagCompound().getTag("mFluidMaterialName") != null){
+                // check of this is a fluid from gt
+                if (ps.items[0].getTagCompound() != null) {
+                    if (ps.items[0].getTagCompound().getTag("mFluidMaterialName") != null) {
 
                         String name = ps.items[0].getTagCompound().getString("mFluidMaterialName");
                         int amount = ps.items[0].getTagCompound().getInteger("mFluidDisplayAmount");
@@ -89,7 +87,6 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
                 outputs.add(ps.items[0]);
             }
         }
-
 
         if (isCraftingRecipe(recipe)) {
             inputs = collapseStacks(inputs);

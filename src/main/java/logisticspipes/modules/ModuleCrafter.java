@@ -996,7 +996,7 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
             }
         }
 
-        //Populate liquids
+        // Populate liquids
         _liquidInventory.clearGrid();
         for (int i = 0; i < amount.length; i++) {
             amount[i] = 0;

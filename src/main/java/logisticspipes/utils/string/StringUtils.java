@@ -122,7 +122,6 @@ public final class StringUtils {
     public static String getFormatedStackSize(long stackSize, boolean forceDisplayNumber) {
         String s;
 
-
         if (stackSize == 1 && !forceDisplayNumber) {
             s = "";
         } else if (stackSize < 0) {
@@ -133,9 +132,10 @@ public final class StringUtils {
             s = stackSize / 1000 + "K";
         } else if (stackSize < 1000000000) {
             s = stackSize / 1000000 + "M";
-        } else if (stackSize <= Integer.MAX_VALUE){
-            s = stackSize / 1000000000 + "." + (stackSize / 100000000)%10 + "G";
+        } else if (stackSize <= Integer.MAX_VALUE) {
+            s = stackSize / 1000000000 + "." + (stackSize / 100000000) % 10 + "G";
         } else {
+            //This is suboptimal because we are in GTNH and 2bil items is childsplay, but LP doesn't support larger quantities so screw it
             s = "Inf";
         }
         return s;
