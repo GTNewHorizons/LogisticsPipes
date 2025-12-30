@@ -27,7 +27,7 @@ public abstract class ModuleBaseGui extends LogisticsBaseGuiScreen {
             return;
         }
 
-        // Fix for NEI integration because fuck me that's why
+        // Fix for NEI integration
         super.keyTyped(c, i);
 
         if (i == 1 || c == 'e') {
