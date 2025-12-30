@@ -135,7 +135,6 @@ public final class StringUtils {
         } else if (stackSize <= Integer.MAX_VALUE) {
             s = stackSize / 1000000000 + "." + (stackSize / 100000000) % 10 + "G";
         } else {
-            //This is suboptimal because we are in GTNH and 2bil items is childsplay, but LP doesn't support larger quantities so screw it
             s = "Inf";
         }
         return s;
