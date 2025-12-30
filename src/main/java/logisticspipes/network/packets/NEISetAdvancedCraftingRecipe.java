@@ -40,7 +40,7 @@ public class NEISetAdvancedCraftingRecipe extends ModuleCoordinatesPacket {
     public void processPacket(EntityPlayer player) {
         ModuleCrafter module = getLogisticsModule(player, ModuleCrafter.class);
         if (module != null) {
-            module.handleAdvancedNEIRecipePacket(inputs, outputs, fluidInputs);
+            module.handleAdvancedNEIRecipePacket(inputs, outputs, fluidInputs, player);
         }
     }
 

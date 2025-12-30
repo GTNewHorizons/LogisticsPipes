@@ -969,17 +969,20 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
         _dummyInventory.setInventorySlotContents(slot, itemstack);
     }
 
-    public void handleNEIRecipePacket(ItemStack[] content) {
+    public void handleNEIRecipePacket(ItemStack[] content, EntityPlayer player) {
         _dummyInventory.clearGrid();
         for (int i = 0; i < content.length; i++) {
             if (i < _dummyInventory.getSizeInventory()) {
                 _dummyInventory.setInventorySlotContents(i, content[i]);
             }
         }
+        if (player != null) {
+            MainProxy.sendPacketToPlayer(getCPipePacket(), player);
+        }
     }
 
     public void handleAdvancedNEIRecipePacket(List<ItemStack> inputs, List<ItemStack> outputs,
-            List<FluidStack> fluidInputs) {
+            List<FluidStack> fluidInputs, EntityPlayer player) {
         _dummyInventory.clearGrid();
         int itemSlot = 0;
         for (int i = 0; i < inputs.size() && itemSlot < 9; i++) {
@@ -1005,6 +1008,9 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
                 _liquidInventory.setInventorySlotContents(i, FluidIdentifier.get(fs).getItemIdentifier().makeStack(1));
                 amount[i] = fs.amount;
             }
+        }
+        if (player != null) {
+            MainProxy.sendPacketToPlayer(getCPipePacket(), player);
         }
     }
 

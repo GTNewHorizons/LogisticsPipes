@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import codechicken.nei.recipe.IUsageHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -101,24 +102,6 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         packet.setModulePos(module);
         MainProxy.sendPacketToServer(packet);
     }
-
-    /*
-    @Override
-    public boolean mouseClicked(GuiRecipe<?> gui, int button, int recipe) {
-        boolean isUsage = button == 1;
-        BarrelPair barrelPair = (BarrelPair) arecipes.get(recipe);
-        if (barrelPair.ingred2 != null && barrelPair.ingredFS != null) {
-            if (NEICompat.isHovering(barrelPair.ingred2, gui, recipe)) {
-                return NEICompat.transferFluid(isUsage, barrelPair.ingredFS);
-            }
-        }
-        if (barrelPair.resultF != null && barrelPair.resultFS != null) {
-            if (NEICompat.isHovering(barrelPair.resultF, gui, recipe)) {
-                return NEICompat.transferFluid(isUsage, barrelPair.resultFS);
-            }
-        }
-        return super.mouseClicked(gui, button, recipe);
-    }*/
 
     private List<FluidStack> collapseFluids(List<FluidStack> fluids) {
         List<FluidStack> result = new ArrayList<>();

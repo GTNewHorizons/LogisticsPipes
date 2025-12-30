@@ -1,5 +1,6 @@
 package logisticspipes.nei;
 
+import gregtech.api.util.GTRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -46,6 +47,7 @@ public class NEILogisticsPipesConfig implements IConfigureNEI {
         API.registerGuiOverlay(GuiSolderingStation.class, "solderingstation");
 
         API.registerGuiOverlay(GuiLogisticsCraftingTable.class, "crafting");
+
         API.registerGuiOverlayHandler(GuiLogisticsCraftingTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
         API.registerGuiOverlayHandler(GuiRequestTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
 
@@ -54,35 +56,27 @@ public class NEILogisticsPipesConfig implements IConfigureNEI {
                 new CraftingPipeOverlayHandler(),
                 "crafting");
         API.registerGuiOverlayHandler(
-                logisticspipes.gui.GuiCraftingPipe.class,
-                new CraftingPipeOverlayHandler(),
-                "smelting");
+            logisticspipes.gui.GuiCraftingPipe.class,
+            new CraftingPipeOverlayHandler(),
+            "smelting");
+
         API.registerGuiOverlayHandler(
                 logisticspipes.gui.GuiCraftingPipe.class,
-                new CraftingPipeOverlayHandler(),
-                "fuel");
-        API.registerGuiOverlayHandler(
-                logisticspipes.gui.GuiCraftingPipe.class,
-                new CraftingPipeOverlayHandler(),
-                "brewing");
+                new CraftingPipeOverlayHandler(), null);
+
+
 
         if (LogisticsPipes.isGTNH) {
-            String[] gtCategories = { "gt.recipe.assembler", "gt.recipe.chemicalreactor", "gt.recipe.alloysmelter",
-                    "gt.recipe.arcfurnace", "gt.recipe.autoclave", "gt.recipe.bender", "gt.recipe.brewery",
-                    "gt.recipe.circuitassembler",
-                    "gt.recipe.canner", "gt.recipe.centrifuge", "gt.recipe.chemicalbath", "gt.recipe.cutter",
-                    "gt.recipe.distillery", "gt.recipe.electrolyzer", "gt.recipe.electromagneticseparator",
-                    "gt.recipe.extractor", "gt.recipe.extruder", "gt.recipe.fermenter", "gt.recipe.fluidcanner",
-                    "gt.recipe.fluidextractor", "gt.recipe.fluidheater", "gt.recipe.fluidsolidifier", "gt.recipe.forge",
-                    "gt.recipe.formingpress", "gt.recipe.fusionreactor", "gt.recipe.hammer", "gt.recipe.lathe",
-                    "gt.recipe.macerator", "gt.recipe.mixer", "gt.recipe.orewasher", "gt.recipe.packer",
-                    "gt.recipe.polarizer", "gt.recipe.press", "gt.recipe.pyrolyse", "gt.recipe.sifter",
-                    "gt.recipe.thermalcentrifuge", "gt.recipe.unpacker", "gt.recipe.wirerenewer" };
-            for (String category : gtCategories) {
-                API.registerGuiOverlayHandler(
-                        logisticspipes.gui.GuiCraftingPipe.class,
-                        new CraftingPipeOverlayHandler(),
-                        category);
+
+            for (gregtech.api.recipe.RecipeMap map : gregtech.api.recipe.RecipeMap.ALL_RECIPE_MAPS.values()) {
+                if (!map.unlocalizedName.isEmpty()) {
+                    API.registerGuiOverlay(logisticspipes.gui.GuiCraftingPipe.class, map.unlocalizedName);
+                    API.registerGuiOverlayHandler(logisticspipes.gui.GuiCraftingPipe.class, new CraftingPipeOverlayHandler(), map.unlocalizedName);
+                    API.registerGuiOverlay(GuiLogisticsCraftingTable.class, map.unlocalizedName);
+                    API.registerGuiOverlayHandler(GuiLogisticsCraftingTable.class, new LogisticsCraftingOverlayHandler(), map.unlocalizedName);
+                    API.registerGuiOverlay(GuiRequestTable.class, map.unlocalizedName);
+                    API.registerGuiOverlayHandler(GuiRequestTable.class, new LogisticsCraftingOverlayHandler(), map.unlocalizedName);
+                }
             }
 
             // unused stuff

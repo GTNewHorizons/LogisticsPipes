@@ -42,7 +42,7 @@ public class NEISetCraftingRecipe extends ModuleCoordinatesPacket {
                 } else {
                     ModuleCrafter module = getLogisticsModule(player, ModuleCrafter.class);
                     if (module != null) {
-                        module.handleNEIRecipePacket(getContent());
+                        module.handleNEIRecipePacket(getContent(), player);
                     }
                 }
     }
