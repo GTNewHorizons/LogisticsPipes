@@ -26,8 +26,11 @@ public abstract class ModuleBaseGui extends LogisticsBaseGuiScreen {
             super.keyTyped(c, i);
             return;
         }
+
+        // Fix for NEI integration
+        super.keyTyped(c, i);
+
         if (i == 1 || c == 'e') {
-            super.keyTyped(c, i);
             if (module.getSlot() == ModulePositionType.SLOT) {
                 MainProxy.sendPacketToServer(
                         PacketHandler.getPacket(GuiOpenChassie.class).setPosX(module.getX()).setPosY(module.getY())

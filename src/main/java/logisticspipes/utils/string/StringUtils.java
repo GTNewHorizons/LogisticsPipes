@@ -121,16 +121,21 @@ public final class StringUtils {
 
     public static String getFormatedStackSize(long stackSize, boolean forceDisplayNumber) {
         String s;
+
         if (stackSize == 1 && !forceDisplayNumber) {
             s = "";
+        } else if (stackSize < 0) {
+            s = "Inf";
         } else if (stackSize < 1000) {
             s = stackSize + "";
-        } else if (stackSize < 100000) {
-            s = stackSize / 1000 + "K";
         } else if (stackSize < 1000000) {
-            s = "0M" + stackSize / 100000;
-        } else {
+            s = stackSize / 1000 + "K";
+        } else if (stackSize < 1000000000) {
             s = stackSize / 1000000 + "M";
+        } else if (stackSize <= Integer.MAX_VALUE) {
+            s = stackSize / 1000000000 + "." + (stackSize / 100000000) % 10 + "G";
+        } else {
+            s = "Inf";
         }
         return s;
     }
