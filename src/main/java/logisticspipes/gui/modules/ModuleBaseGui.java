@@ -22,14 +22,11 @@ public abstract class ModuleBaseGui extends LogisticsBaseGuiScreen {
 
     @Override
     protected void keyTyped(char c, int i) {
-        if (module == null) {
-            super.keyTyped(c, i);
-            return;
-        }
-
         // Fix for NEI integration
         super.keyTyped(c, i);
-
+        
+        if (module == null) return;
+        
         if (i == 1 || c == 'e') {
             if (module.getSlot() == ModulePositionType.SLOT) {
                 MainProxy.sendPacketToServer(
