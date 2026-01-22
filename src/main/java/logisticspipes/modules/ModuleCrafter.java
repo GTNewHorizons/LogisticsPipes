@@ -118,6 +118,7 @@ import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
 
@@ -133,7 +134,10 @@ public class ModuleCrafter extends LogisticsGuiModule implements ICraftItems, IH
     public int priority = 0;
 
     // from PipeItemsCraftingLogistics
-    protected ItemIdentifierInventory _dummyInventory = new ItemIdentifierInventory(11, "Requested items", 127);
+    protected ItemIdentifierInventory _dummyInventory = new ItemIdentifierInventory(
+            11,
+            StringUtils.translate("gui.module.requestedItems"),
+            127);
     protected ItemIdentifierInventory _liquidInventory = new ItemIdentifierInventory(
             ItemUpgrade.MAX_LIQUID_CRAFTER,
             "Fluid items",
