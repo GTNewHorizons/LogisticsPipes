@@ -42,14 +42,50 @@ public class NEILogisticsPipesConfig implements IConfigureNEI {
 
         API.registerRecipeHandler(new NEISolderingStationRecipeManager());
         API.registerUsageHandler(new NEISolderingStationRecipeManager());
+
         API.registerGuiOverlay(GuiSolderingStation.class, "solderingstation");
+
+        API.registerGuiOverlay(GuiLogisticsCraftingTable.class, "crafting");
+
         API.registerGuiOverlayHandler(
                 GuiLogisticsCraftingTable.class,
                 new LogisticsCraftingOverlayHandler(),
                 "crafting");
         API.registerGuiOverlayHandler(GuiRequestTable.class, new LogisticsCraftingOverlayHandler(), "crafting");
 
+        API.registerGuiOverlayHandler(
+                logisticspipes.gui.GuiCraftingPipe.class,
+                new CraftingPipeOverlayHandler(),
+                "crafting");
+        API.registerGuiOverlayHandler(
+                logisticspipes.gui.GuiCraftingPipe.class,
+                new CraftingPipeOverlayHandler(),
+                "smelting");
+
+        API.registerGuiOverlayHandler(logisticspipes.gui.GuiCraftingPipe.class, new CraftingPipeOverlayHandler(), null);
+
         if (LogisticsPipes.isGTNH) {
+
+            for (gregtech.api.recipe.RecipeMap map : gregtech.api.recipe.RecipeMap.ALL_RECIPE_MAPS.values()) {
+                if (!map.unlocalizedName.isEmpty()) {
+                    API.registerGuiOverlay(logisticspipes.gui.GuiCraftingPipe.class, map.unlocalizedName);
+                    API.registerGuiOverlayHandler(
+                            logisticspipes.gui.GuiCraftingPipe.class,
+                            new CraftingPipeOverlayHandler(),
+                            map.unlocalizedName);
+                    API.registerGuiOverlay(GuiLogisticsCraftingTable.class, map.unlocalizedName);
+                    API.registerGuiOverlayHandler(
+                            GuiLogisticsCraftingTable.class,
+                            new LogisticsCraftingOverlayHandler(),
+                            map.unlocalizedName);
+                    API.registerGuiOverlay(GuiRequestTable.class, map.unlocalizedName);
+                    API.registerGuiOverlayHandler(
+                            GuiRequestTable.class,
+                            new LogisticsCraftingOverlayHandler(),
+                            map.unlocalizedName);
+                }
+            }
+
             // unused stuff
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsPipeComponents, 1, OreDictionary.WILDCARD_VALUE));
             API.hideItem(new ItemStack(LogisticsPipes.LogisticsSolidBlock, 1, 0));
