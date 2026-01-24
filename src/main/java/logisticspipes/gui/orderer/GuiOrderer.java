@@ -41,6 +41,7 @@ import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 
 public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItemSearch, ISpecialItemRenderer {
 
@@ -48,7 +49,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     public ItemDisplay itemDisplay;
     private ISearchBar search;
 
-    protected String _title = "Request items";
+    protected String _title = "gui.requesttable.RequestItems";
 
     public final int xCoord;
     public final int yCoord;
@@ -126,14 +127,17 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     public void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
 
-        mc.fontRenderer.drawString(_title, guiLeft + mc.fontRenderer.getStringWidth(_title) / 2, guiTop + 6, 0x404040);
+        String titleText = StringUtils.translate(_title);
+        mc.fontRenderer
+                .drawString(titleText, guiLeft + mc.fontRenderer.getStringWidth(titleText) / 2, guiTop + 6, 0x404040);
         itemDisplay.renderPageNumber(right - 47, guiTop + 6);
 
+        int popupColor = Color.getValue(Color.GREY);
         if (buttonList.get(9) instanceof GuiCheckBox && ((GuiCheckBox) buttonList.get(9)).getState()) {
-            mc.fontRenderer.drawString("Popup", guiLeft + 25, bottom - 56, 0x404040);
-        } else {
-            mc.fontRenderer.drawString("Popup", guiLeft + 25, bottom - 56, Color.getValue(Color.GREY));
+            popupColor = 0x404040;
         }
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.requesttable.Popup"), guiLeft + 25, bottom - 56, popupColor);
 
         itemDisplay.renderAmount(xCenter, bottom - 24, getStackAmount());
         // SearchInput

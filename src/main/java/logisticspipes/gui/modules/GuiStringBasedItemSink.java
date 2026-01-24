@@ -11,6 +11,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiStringBasedItemSink extends ModuleBaseGui {
 
@@ -83,16 +84,20 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 7, guiTop + 126);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 7,
+                guiTop + 126,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 6, guiTop + 7);
-        SimpleGraphics.drawRectNoBlend(guiLeft + 26, guiTop + 5, guiLeft + 169, guiTop + 17, Color.DARK_GREY, 0.0);
+        GuiGraphics.drawNineSlice(mc, guiLeft + 26, guiTop + 5, 143, 12, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
         if (tmpInv.getIDStackInSlot(0) != null) {
             name = "";
-            mc.fontRenderer.drawString(
-                    _itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()),
-                    guiLeft + 28,
-                    guiTop + 7,
-                    0x404040);
+            String displayName = _itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem());
+            String nameFormat = StringUtils.translate("gui.module.ItemSink.text");
+            String nameText = nameFormat.equals("gui.module.ItemSink.text") ? displayName
+                    : String.format(nameFormat, displayName);
+            mc.fontRenderer.drawString(nameText, guiLeft + 28, guiTop + 7, 0x404040);
             if (_itemSink.getStringList().contains(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()))) {
                 ((GuiButton) buttonList.get(0)).enabled = false;
                 ((GuiButton) buttonList.get(1)).enabled = true;
@@ -108,7 +113,10 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
             ((GuiButton) buttonList.get(1)).enabled = false;
         } else {
             if (_itemSink.getStringList().contains(name)) {
-                mc.fontRenderer.drawString(name, guiLeft + 28, guiTop + 7, 0x404040);
+                String nameFormat = StringUtils.translate("gui.module.ItemSink.text");
+                String nameText = nameFormat.equals("gui.module.ItemSink.text") ? name
+                        : String.format(nameFormat, name);
+                mc.fontRenderer.drawString(nameText, guiLeft + 28, guiTop + 7, 0x404040);
                 ((GuiButton) buttonList.get(0)).enabled = false;
                 ((GuiButton) buttonList.get(1)).enabled = true;
             } else {
@@ -117,7 +125,7 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
                 ((GuiButton) buttonList.get(1)).enabled = false;
             }
         }
-        SimpleGraphics.drawRectNoBlend(guiLeft + 5, guiTop + 30, guiLeft + 169, guiTop + 122, Color.DARK_GREY, 0.0);
+        GuiGraphics.drawNineSlice(mc, guiLeft + 5, guiTop + 30, 164, 92, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
         for (int i = 0; i < _itemSink.getStringList().size() && i < 9; i++) {
             int pointerX = var2 - guiLeft;
             int pointerY = var3 - guiTop;
@@ -130,7 +138,11 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
                         Color.LIGHT_GREY,
                         0.0);
             }
-            mc.fontRenderer.drawString(_itemSink.getStringList().get(i), guiLeft + 7, guiTop + 32 + (10 * i), 0x404040);
+            String entry = _itemSink.getStringList().get(i);
+            String entryFormat = StringUtils.translate("gui.module.ItemSink.text");
+            String entryText = entryFormat.equals("gui.module.ItemSink.text") ? entry
+                    : String.format(entryFormat, entry);
+            mc.fontRenderer.drawString(entryText, guiLeft + 7, guiTop + 32 + (10 * i), 0x404040);
             if (6 <= mouseX && mouseX < 168 && 31 + (10 * i) <= mouseY && mouseY < 31 + (10 * (i + 1))) {
                 name = _itemSink.getStringList().get(i);
                 mouseX = 0;
