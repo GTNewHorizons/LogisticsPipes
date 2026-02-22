@@ -66,7 +66,7 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
 
         List<List<ItemStack>> collapsedInputOptions = collapseInputOptions(inputOptions);
 
-        //Special check if we don't have any substitutions
+        // Special check if we don't have any substitutions
         boolean allSingle = true;
         for (List<ItemStack> options : collapsedInputOptions) {
             if (options != null && options.size() > 1) {
