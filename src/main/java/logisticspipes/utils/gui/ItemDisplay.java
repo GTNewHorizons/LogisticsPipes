@@ -29,6 +29,7 @@ import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.ItemStackRenderer;
 import logisticspipes.utils.item.ItemStackRenderer.DisplayAmount;
+import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 import lombok.Getter;
 
@@ -191,13 +192,36 @@ public class ItemDisplay {
     }
 
     public void renderSortMode(int x, int y) {
-        String name = ItemDisplay.option.name();
+        String labelKey;
         boolean up = true;
-        if (name.endsWith("_DOWN")) {
-            name = name.substring(0, name.length() - 5);
-            up = false;
+        switch (ItemDisplay.option) {
+            case ID:
+                labelKey = "gui.sortmode.id";
+                break;
+            case ID_DOWN:
+                labelKey = "gui.sortmode.id";
+                up = false;
+                break;
+            case SIZE:
+                labelKey = "gui.sortmode.size";
+                break;
+            case SIZE_DOWN:
+                labelKey = "gui.sortmode.size";
+                up = false;
+                break;
+            case NAME:
+                labelKey = "gui.sortmode.name";
+                break;
+            case NAME_DOWN:
+                labelKey = "gui.sortmode.name";
+                up = false;
+                break;
+            default:
+                labelKey = "gui.sortmode.id";
+                break;
         }
-        name += !up ? " /\\" : " \\/";
+        String label = StringUtils.translate(labelKey);
+        String name = label + (up ? " \\/" : " /\\");
         fontRenderer.drawString(name, x - fontRenderer.getStringWidth(name) / 2, y, 0x404040);
     }
 
@@ -209,7 +233,8 @@ public class ItemDisplay {
         if (page > maxPage) {
             page = maxPage;
         }
-        String pageString = "Page " + (page + 1) + " / " + (maxPage + 1);
+        String pageString = String
+                .format(StringUtils.translate("gui.networkstatistics.ItemDisplay"), page + 1, maxPage + 1);
         fontRenderer.drawString(pageString, x - fontRenderer.getStringWidth(pageString) / 2, y, 0x404040);
     }
 
@@ -224,20 +249,35 @@ public class ItemDisplay {
     }
 
     public void renderAmount(int x, int y, int stackAmount) {
-        String StackrequestCount = "" + (requestCount / stackAmount) + "+" + (requestCount % stackAmount);
-        fontRenderer.drawString(requestCount + "", x - fontRenderer.getStringWidth(requestCount + "") / 2, y, 0x404040);
-        fontRenderer.drawString(
-                StackrequestCount + "",
-                x - fontRenderer.getStringWidth(StackrequestCount + "") / 2,
-                y + 10,
-                0x404040);
+        String requestCountKey = "gui.requesttable.requestCount";
+        String requestCountFormat = StringUtils.translate(requestCountKey);
+        String requestCountText;
+        if (requestCountFormat.equals(requestCountKey)) {
+            requestCountText = Integer.toString(requestCount);
+        } else {
+            requestCountText = String.format(requestCountFormat, requestCount);
+        }
+
+        String stackCountKey = "gui.requesttable.StackRequestCount";
+        String stackCountFormat = StringUtils.translate(stackCountKey);
+        String stackCountText;
+        String fullStacks = Integer.toString(requestCount / stackAmount);
+        String remainder = Integer.toString(requestCount % stackAmount);
+        if (stackCountFormat.equals(stackCountKey)) {
+            stackCountText = fullStacks + "+" + remainder;
+        } else {
+            stackCountText = String.format(stackCountFormat, fullStacks, remainder);
+        }
+
+        fontRenderer.drawString(requestCountText, x - fontRenderer.getStringWidth(requestCountText) / 2, y, 0x404040);
+        fontRenderer.drawString(stackCountText, x - fontRenderer.getStringWidth(stackCountText) / 2, y + 10, 0x404040);
     }
 
     public void renderItemArea(double zLevel) {
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        screen.drawRect(left, top, left + width, top + height, Color.GREY);
+        GuiGraphics.drawNineSlice(mc, left, top, width, height, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
 
         tooltip = null;
         int ppi = 0;

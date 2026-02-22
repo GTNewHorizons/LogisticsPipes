@@ -17,6 +17,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiAdvancedExtractor extends ModuleBaseGui {
 
@@ -74,7 +75,8 @@ public class GuiAdvancedExtractor extends ModuleBaseGui {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(_advancedExtractor.getFilterInventory().getInventoryName(), 8, 6, 0x404040);
-        mc.fontRenderer.drawString("Inventory", 8, ySize - 92, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 8, ySize - 92, 0x404040);
     }
 
     @Override

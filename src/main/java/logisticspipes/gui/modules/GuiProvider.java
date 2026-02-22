@@ -13,6 +13,7 @@ import logisticspipes.network.packets.module.ProviderModuleNextModePacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiProvider extends ModuleBaseGui {
 
@@ -98,11 +99,13 @@ public class GuiProvider extends ModuleBaseGui {
                 xSize / 2 - mc.fontRenderer.getStringWidth(_provider.getFilterInventory().getInventoryName()) / 2,
                 6,
                 0x404040);
-        mc.fontRenderer.drawString("Inventory", 18, ySize - 102, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 18, ySize - 102, 0x404040);
         // mc.fontRenderer.drawString("Mode: " + _provider.getExtractionMode().getExtractionModeString(), 9, ySize -
         // 112, 0x404040);
         mc.fontRenderer.drawString(
-                "Excess Inventory: " + _provider.getExtractionMode().getExtractionModeString(),
+                StringUtils.translate("gui.module.ModuleProvider.ExcessInventory") + " "
+                        + _provider.getExtractionMode().getExtractionModeString(),
                 9,
                 ySize - 112,
                 0x404040);

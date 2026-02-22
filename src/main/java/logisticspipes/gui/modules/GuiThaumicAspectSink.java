@@ -14,6 +14,7 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiThaumicAspectSink extends ModuleBaseGui {
 
@@ -30,7 +31,7 @@ public class GuiThaumicAspectSink extends ModuleBaseGui {
 
         _module = itemSink;
 
-        tmpInv = new ItemIdentifierInventory(1, "Aspect Reader", 1);
+        tmpInv = new ItemIdentifierInventory(1, "gui.module.ModuleThaumicAspectSink", 1);
 
         DummyContainer dummy = new DummyContainer(playerInventory, tmpInv);
         dummy.addDummySlot(0, 7, 7);
@@ -63,9 +64,10 @@ public class GuiThaumicAspectSink extends ModuleBaseGui {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
 
-        mc.fontRenderer.drawString("Aspect Reader", 26, 11, 0x404040);
-        mc.fontRenderer.drawString("Sunk Aspects", 8, 48, 0x404040);
-        mc.fontRenderer.drawString("Inventory", 8, ySize - 92, 0x404040);
+        mc.fontRenderer.drawString(StringUtils.translate("gui.module.ModuleThaumicAspectSink"), 26, 11, 0x404040);
+        mc.fontRenderer.drawString(StringUtils.translate("gui.module.ModuleThaumicAspectSink.sunk"), 8, 48, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 8, ySize - 92, 0x404040);
 
         // handle clicks
         if (6 <= mouseX && mouseX < 6 + 9 * 18 && 24 <= mouseY && mouseY < 24 + 18) {
@@ -132,7 +134,8 @@ public class GuiThaumicAspectSink extends ModuleBaseGui {
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         super.drawGuiContainerBackgroundLayer(var1, var2, var3);
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, false);
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 7, guiTop + 90);
+        GuiGraphics
+                .drawPlayerInventoryBackground(mc, guiLeft + 7, guiTop + 90, GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
 
         GuiGraphics.drawSlotBackground(mc, guiLeft + 6, guiTop + 6);
 

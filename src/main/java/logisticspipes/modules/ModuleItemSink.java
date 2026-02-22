@@ -46,13 +46,17 @@ import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 
 @CCType(name = "ItemSink Module")
 public class ModuleItemSink extends LogisticsGuiModule implements IClientInformationProvider, IHUDModuleHandler,
         IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
-    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Requested items", 1);
+    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
+            9,
+            StringUtils.translate("gui.module.requestedItems"),
+            1);
     private boolean _isDefaultRoute;
 
     private BitSet ignoreData = new BitSet(_filterInventory.getSizeInventory());

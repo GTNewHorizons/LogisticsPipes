@@ -53,11 +53,8 @@ public class GuiFluidSupplierPipe extends LogisticsBaseGuiScreen {
                         .getStringWidth(StringUtils.translate(GuiFluidSupplierPipe.PREFIX + "TargetInv")) / 2,
                 6,
                 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiFluidSupplierPipe.PREFIX + "Inventory"),
-                18,
-                ySize - 102,
-                0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 18, ySize - 102, 0x404040);
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiFluidSupplierPipe.PREFIX + "Partialrequests") + ":",
                 xSize - 140,
