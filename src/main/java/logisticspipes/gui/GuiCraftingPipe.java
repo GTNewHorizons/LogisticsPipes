@@ -52,6 +52,8 @@ public class GuiCraftingPipe extends ModuleBaseGui {
 
     private GuiButton cleanupModeButton;
 
+    private FluidCraftingExtention fluidCraftingExtention = null;
+
     public GuiCraftingPipe(EntityPlayer player, IInventory dummyInventory, ModuleCrafter module, boolean isAdvancedSat,
             int liquidCrafter, int[] amount, boolean hasByproductExtractor, boolean isFuzzy, int cleanupSize,
             boolean cleanupExclude) {
@@ -139,10 +141,10 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         super.initGui();
         extentionControllerLeft.clear();
         buttonList.clear();
-        FluidCraftingExtention extention = null;
+        fluidCraftingExtention = null;
         if (!isAdvancedSat) {
             if (liquidCrafter != 0) {
-                extention = new FluidCraftingExtention(0);
+                fluidCraftingExtention = new FluidCraftingExtention(0);
             }
             addButton(
                     normalButtonArray[0] = new SmallGuiButton(
@@ -193,7 +195,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                             10,
                             "<"));
             if (liquidCrafter != 0) {
-                extention.registerButton(
+                fluidCraftingExtention.registerButton(
                         extentionControllerLeft.registerControlledButton(
                                 addButton(
                                         normalButtonArray[6] = new SmallGuiButton(
@@ -203,7 +205,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                                 10,
                                                 10,
                                                 ">"))));
-                extention.registerButton(
+                fluidCraftingExtention.registerButton(
                         extentionControllerLeft.registerControlledButton(
                                 addButton(
                                         normalButtonArray[7] = new SmallGuiButton(
@@ -268,7 +270,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         }
         for (int i = 0; i < liquidCrafter; i++) {
             if (isAdvancedSat) {
-                extention = new FluidCraftingExtention(i);
+                fluidCraftingExtention = new FluidCraftingExtention(i);
             }
             int liquidLeft = 0;
             if (isAdvancedSat) {
@@ -277,7 +279,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                 liquidLeft = guiLeft - (liquidCrafter * 40) + (i * 40);
             }
             liquidGuiParts[i] = new GuiButton[10];
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][0] = new SmallGuiButton(
@@ -287,7 +289,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "+"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][1] = new SmallGuiButton(
@@ -297,7 +299,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "+"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][2] = new SmallGuiButton(
@@ -307,7 +309,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "+"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][3] = new SmallGuiButton(
@@ -317,7 +319,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "+"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][4] = new SmallGuiButton(
@@ -327,7 +329,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "-"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][5] = new SmallGuiButton(
@@ -337,7 +339,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "-"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][6] = new SmallGuiButton(
@@ -347,7 +349,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             10,
                                             "-"))));
-            extention.registerButton(
+            fluidCraftingExtention.registerButton(
                     extentionControllerLeft.registerControlledButton(
                             addButton(
                                     liquidGuiParts[i][7] = new SmallGuiButton(
@@ -358,7 +360,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                             10,
                                             "-"))));
             if (isAdvancedSat) {
-                extention.registerButton(
+                fluidCraftingExtention.registerButton(
                         extentionControllerLeft.registerControlledButton(
                                 addButton(
                                         liquidGuiParts[i][8] = new SmallGuiButton(
@@ -368,7 +370,7 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                                 10,
                                                 10,
                                                 "<"))));
-                extention.registerButton(
+                fluidCraftingExtention.registerButton(
                         extentionControllerLeft.registerControlledButton(
                                 addButton(
                                         liquidGuiParts[i][9] = new SmallGuiButton(
@@ -378,12 +380,12 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                                                 10,
                                                 10,
                                                 ">"))));
-                extentionControllerLeft.addExtention(extention);
+                extentionControllerLeft.addExtention(fluidCraftingExtention);
             }
-            extention.registerSlot(fluidSlotIDs[i]);
+            fluidCraftingExtention.registerSlot(fluidSlotIDs[i]);
         }
         if (!isAdvancedSat && liquidCrafter != 0) {
-            extentionControllerLeft.addExtention(extention);
+            extentionControllerLeft.addExtention(fluidCraftingExtention);
         }
         if (hasByproductExtractor) {
             ByproductExtention byproductExtention = new ByproductExtention();
