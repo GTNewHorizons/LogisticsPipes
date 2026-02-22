@@ -1,9 +1,6 @@
 package logisticspipes.nei;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import codechicken.nei.recipe.StackInfo;
 import codechicken.nei.recipe.TemplateRecipeHandler;
@@ -17,7 +14,7 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.recipe.IRecipeHandler;
 import logisticspipes.gui.GuiCraftingPipe;
-import logisticspipes.gui.popup.SelectItemOutOfList;
+import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.NEISetAdvancedCraftingRecipe;
@@ -49,10 +46,7 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
                 if (fluid != null) {
                     fluidInputs.add(fluid);
                 } else {
-                    List<ItemStack> options = new ArrayList<>();
-                    for (ItemStack stack : ps.items) {
-                        options.add(stack);
-                    }
+                    List<ItemStack> options = new ArrayList<>(Arrays.asList(ps.items));
                     inputOptions.add(options);
                 }
 
@@ -73,44 +67,32 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         }
 
         final List<FluidStack> finalFluidInputs = collapseFluids(fluidInputs);
-        final List<ItemStack> finalOutputs = isCraftingRecipe(recipe) ? collapseStacks(outputs) : outputs;
-        final boolean isCrafting = isCraftingRecipe(recipe);
+        final List<ItemStack> finalOutputs = collapseStacks(outputs);
 
-        handleOptions(gui, inputOptions, new ArrayList<>(), module, isCrafting, finalOutputs, finalFluidInputs);
-    }
+        List<List<ItemStack>> collapsedInputOptions = collapseInputOptions(inputOptions);
 
-    private void handleOptions(GuiCraftingPipe gui, List<List<ItemStack>> inputOptions, List<ItemStack> selectedInputs, ModuleCrafter module, boolean isCrafting, List<ItemStack> outputs, List<FluidStack> fluidInputs) {
-        if (selectedInputs.size() == inputOptions.size()) {
-            List<ItemStack> finalInputs = isCrafting ? collapseStacks(selectedInputs) : selectedInputs;
-            NEISetAdvancedCraftingRecipe packet = PacketHandler.getPacket(NEISetAdvancedCraftingRecipe.class);
-            packet.setInputs(finalInputs).setOutputs(outputs).setFluidInputs(fluidInputs);
-            packet.setModulePos(module);
-            MainProxy.sendPacketToServer(packet);
-            return;
+        ItemStack[][] stacks = new ItemStack[9][];
+        int i = 0;
+        for (List<ItemStack> options : collapsedInputOptions) {
+            if (options != null) {
+                stacks[i] = options.toArray(new ItemStack[0]);
+            }
+            i++;
+            if (i >= 9) break;
         }
 
-        List<ItemStack> nextOptions = inputOptions.get(selectedInputs.size());
-        if (nextOptions == null || nextOptions.size() <= 1) {
-            selectedInputs.add(nextOptions == null ? null : nextOptions.get(0));
-            handleOptions(gui, inputOptions, selectedInputs, module, isCrafting, outputs, fluidInputs);
+        NEISetAdvancedCraftingRecipe packet = PacketHandler.getPacket(NEISetAdvancedCraftingRecipe.class);
+        packet.setModulePos(module);
+
+        GuiRecipeImport subGui = new GuiRecipeImport(null, stacks, packet, finalOutputs, finalFluidInputs);
+        if (!gui.hasSubGui()) {
+            gui.setSubGui(subGui);
         } else {
-            List<ItemIdentifierStack> candidates = new ArrayList<>();
-            for (ItemStack stack : nextOptions) {
-                candidates.add(ItemIdentifierStack.getFromStack(stack));
+            SubGuiScreen next = gui.getSubGui();
+            while (next.hasSubGui()) {
+                next = next.getSubGui();
             }
-            SelectItemOutOfList subGui = new SelectItemOutOfList(candidates, slot -> {
-                selectedInputs.add(nextOptions.get(slot));
-                handleOptions(gui, inputOptions, selectedInputs, module, isCrafting, outputs, fluidInputs);
-            });
-            if (!gui.hasSubGui()) {
-                gui.setSubGui(subGui);
-            } else {
-                SubGuiScreen next = gui.getSubGui();
-                while (next.hasSubGui()) {
-                    next = next.getSubGui();
-                }
-                next.setSubGui(subGui);
-            }
+            next.setSubGui(subGui);
         }
     }
 
@@ -140,6 +122,41 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         } else {
             return false;
         }
+    }
+
+    private List<List<ItemStack>> collapseInputOptions(List<List<ItemStack>> inputOptions) {
+        List<List<ItemStack>> result = new ArrayList<>();
+        for (List<ItemStack> options : inputOptions) {
+            if (options == null || options.isEmpty()) continue;
+            boolean found = false;
+            for (List<ItemStack> existingOptions : result) {
+                if (optionsAreEqual(options, existingOptions)) {
+                    for (int i = 0; i < existingOptions.size(); i++) {
+                        existingOptions.get(i).stackSize += options.get(i).stackSize;
+                    }
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                List<ItemStack> copy = new ArrayList<>();
+                for (ItemStack stack : options) {
+                    copy.add(stack.copy());
+                }
+                result.add(copy);
+            }
+        }
+        return result;
+    }
+
+    private boolean optionsAreEqual(List<ItemStack> options1, List<ItemStack> options2) {
+        if (options1.size() != options2.size()) return false;
+        for (int i = 0; i < options1.size(); i++) {
+            ItemStack stack1 = options1.get(i);
+            ItemStack stack2 = options2.get(i);
+            if (!ItemIdentifier.get(stack1).equals(ItemIdentifier.get(stack2))) return false;
+        }
+        return true;
     }
 
     private List<ItemStack> collapseStacks(List<ItemStack> stacks) {
