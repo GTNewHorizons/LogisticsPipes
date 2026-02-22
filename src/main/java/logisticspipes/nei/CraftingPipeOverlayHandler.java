@@ -115,15 +115,6 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         return result;
     }
 
-    private boolean isCraftingRecipe(IRecipeHandler recipe) {
-        if (recipe instanceof TemplateRecipeHandler templateRecipeHandler) {
-            String overlayIdentifier = templateRecipeHandler.getOverlayIdentifier();
-            return "crafting".equals(overlayIdentifier) || "crafting2x2".equals(overlayIdentifier);
-        } else {
-            return false;
-        }
-    }
-
     private List<List<ItemStack>> collapseInputOptions(List<List<ItemStack>> inputOptions) {
         List<List<ItemStack>> result = new ArrayList<>();
         for (List<ItemStack> options : inputOptions) {
