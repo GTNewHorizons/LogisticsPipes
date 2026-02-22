@@ -2,26 +2,21 @@ package logisticspipes.nei;
 
 import java.util.*;
 
-import codechicken.nei.recipe.StackInfo;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.recipe.IRecipeHandler;
+import codechicken.nei.recipe.StackInfo;
 import logisticspipes.gui.GuiCraftingPipe;
 import logisticspipes.gui.popup.GuiRecipeImport;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.NEISetAdvancedCraftingRecipe;
-import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class CraftingPipeOverlayHandler implements IOverlayHandler {
 
@@ -70,6 +65,29 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         final List<ItemStack> finalOutputs = collapseStacks(outputs);
 
         List<List<ItemStack>> collapsedInputOptions = collapseInputOptions(inputOptions);
+
+        //Special check if we don't have any substitutions
+        boolean allSingle = true;
+        for (List<ItemStack> options : collapsedInputOptions) {
+            if (options != null && options.size() > 1) {
+                allSingle = false;
+                break;
+            }
+        }
+
+        if (allSingle) {
+            NEISetAdvancedCraftingRecipe packet = PacketHandler.getPacket(NEISetAdvancedCraftingRecipe.class);
+            packet.setModulePos(module);
+            List<ItemStack> inputs = new ArrayList<>();
+            for (List<ItemStack> options : collapsedInputOptions) {
+                if (options != null && !options.isEmpty()) {
+                    inputs.add(options.get(0));
+                }
+            }
+            packet.setInputs(inputs).setOutputs(finalOutputs).setFluidInputs(finalFluidInputs);
+            logisticspipes.proxy.MainProxy.sendPacketToServer(packet);
+            return;
+        }
 
         ItemStack[][] stacks = new ItemStack[9][];
         int i = 0;

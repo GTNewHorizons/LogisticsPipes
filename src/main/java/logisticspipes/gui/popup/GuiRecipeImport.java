@@ -13,10 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 import logisticspipes.network.PacketHandler;
+import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
 import logisticspipes.network.packets.NEISetAdvancedCraftingRecipe;
 import logisticspipes.network.packets.NEISetCraftingRecipe;
 import logisticspipes.network.packets.pipe.FindMostLikelyRecipeComponents;
-import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.Color;
 import logisticspipes.utils.gui.GuiGraphics;
@@ -52,7 +52,8 @@ public class GuiRecipeImport extends SubGuiScreen {
         this(tile, stacks, null, null, null);
     }
 
-    public GuiRecipeImport(TileEntity tile, ItemStack[][] stacks, ModuleCoordinatesPacket modulePacket, List<ItemStack> outputs, List<FluidStack> fluidInputs) {
+    public GuiRecipeImport(TileEntity tile, ItemStack[][] stacks, ModuleCoordinatesPacket modulePacket,
+            List<ItemStack> outputs, List<FluidStack> fluidInputs) {
         super(150, 200, 0, 0);
         this.tile = tile;
         this.modulePacket = modulePacket;
@@ -254,7 +255,8 @@ public class GuiRecipeImport extends SubGuiScreen {
                         inputs.add(s);
                     }
                 }
-                ((NEISetAdvancedCraftingRecipe) modulePacket).setInputs(inputs).setOutputs(outputs).setFluidInputs(fluidInputs);
+                ((NEISetAdvancedCraftingRecipe) modulePacket).setInputs(inputs).setOutputs(outputs)
+                        .setFluidInputs(fluidInputs);
                 MainProxy.sendPacketToServer(modulePacket);
             } else {
                 NEISetCraftingRecipe packet = PacketHandler.getPacket(NEISetCraftingRecipe.class);
@@ -263,7 +265,8 @@ public class GuiRecipeImport extends SubGuiScreen {
             }
             exitGui();
         } else if (id == 1) {
-            FindMostLikelyRecipeComponents packet = PacketHandler.getPacket(FindMostLikelyRecipeComponents.class).setContent(list);
+            FindMostLikelyRecipeComponents packet = PacketHandler.getPacket(FindMostLikelyRecipeComponents.class)
+                    .setContent(list);
             if (tile != null) {
                 packet.setTilePos(tile);
             } else if (modulePacket != null) {
