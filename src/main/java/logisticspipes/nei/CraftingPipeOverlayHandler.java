@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import codechicken.nei.recipe.StackInfo;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -15,11 +17,14 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.recipe.IRecipeHandler;
 import logisticspipes.gui.GuiCraftingPipe;
+import logisticspipes.gui.popup.SelectItemOutOfList;
 import logisticspipes.modules.ModuleCrafter;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.NEISetAdvancedCraftingRecipe;
 import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class CraftingPipeOverlayHandler implements IOverlayHandler {
 
@@ -33,47 +38,26 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
         GuiCraftingPipe gui = (GuiCraftingPipe) firstGui;
         ModuleCrafter module = gui.get_pipe();
 
-        List<ItemStack> inputs = new ArrayList<>();
+        List<List<ItemStack>> inputOptions = new ArrayList<>();
         List<ItemStack> outputs = new ArrayList<>();
         List<FluidStack> fluidInputs = new ArrayList<>();
 
         for (PositionedStack ps : recipe.getIngredientStacks(recipeIndex)) {
             if (ps.items != null && ps.items.length > 0) {
-                // check of this is a fluid from gt
-                if (ps.items[0].getTagCompound() != null) {
-                    if (ps.items[0].getTagCompound().getTag("mFluidMaterialName") != null) {
+                FluidStack fluid = StackInfo.getFluid(ps.items[0]);
 
-                        String name = ps.items[0].getTagCompound().getString("mFluidMaterialName");
-                        int amount = ps.items[0].getTagCompound().getInteger("mFluidDisplayAmount");
-
-                        Fluid fluid = FluidRegistry.getFluid(name);
-                        if (fluid == null) {
-                            fluid = FluidRegistry.getFluid(name.toLowerCase());
-                        }
-                        if (fluid == null) {
-                            fluid = FluidRegistry.getFluid("molten." + name.toLowerCase());
-                        }
-                        if (fluid == null) {
-                            fluid = FluidRegistry.getFluid("fluid." + name.toLowerCase());
-                        }
-                        if (fluid == null) {
-                            fluid = FluidRegistry.getFluid("gas." + name.toLowerCase());
-                        }
-                        if (fluid == null) {
-                            fluid = FluidRegistry.getFluid("plasma." + name.toLowerCase());
-                        }
-
-                        if (fluid != null) {
-                            fluidInputs.add(new FluidStack(fluid, amount));
-                        }
-                        continue;
+                if (fluid != null) {
+                    fluidInputs.add(fluid);
+                } else {
+                    List<ItemStack> options = new ArrayList<>();
+                    for (ItemStack stack : ps.items) {
+                        options.add(stack);
                     }
-                    continue;
+                    inputOptions.add(options);
                 }
 
-                inputs.add(ps.items[0]);
             } else {
-                inputs.add(null);
+                inputOptions.add(null);
             }
         }
 
@@ -88,16 +72,46 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
             }
         }
 
-        if (isCraftingRecipe(recipe)) {
-            inputs = collapseStacks(inputs);
-            outputs = collapseStacks(outputs);
-        }
-        fluidInputs = collapseFluids(fluidInputs);
+        final List<FluidStack> finalFluidInputs = collapseFluids(fluidInputs);
+        final List<ItemStack> finalOutputs = isCraftingRecipe(recipe) ? collapseStacks(outputs) : outputs;
+        final boolean isCrafting = isCraftingRecipe(recipe);
 
-        NEISetAdvancedCraftingRecipe packet = PacketHandler.getPacket(NEISetAdvancedCraftingRecipe.class);
-        packet.setInputs(inputs).setOutputs(outputs).setFluidInputs(fluidInputs);
-        packet.setModulePos(module);
-        MainProxy.sendPacketToServer(packet);
+        handleOptions(gui, inputOptions, new ArrayList<>(), module, isCrafting, finalOutputs, finalFluidInputs);
+    }
+
+    private void handleOptions(GuiCraftingPipe gui, List<List<ItemStack>> inputOptions, List<ItemStack> selectedInputs, ModuleCrafter module, boolean isCrafting, List<ItemStack> outputs, List<FluidStack> fluidInputs) {
+        if (selectedInputs.size() == inputOptions.size()) {
+            List<ItemStack> finalInputs = isCrafting ? collapseStacks(selectedInputs) : selectedInputs;
+            NEISetAdvancedCraftingRecipe packet = PacketHandler.getPacket(NEISetAdvancedCraftingRecipe.class);
+            packet.setInputs(finalInputs).setOutputs(outputs).setFluidInputs(fluidInputs);
+            packet.setModulePos(module);
+            MainProxy.sendPacketToServer(packet);
+            return;
+        }
+
+        List<ItemStack> nextOptions = inputOptions.get(selectedInputs.size());
+        if (nextOptions == null || nextOptions.size() <= 1) {
+            selectedInputs.add(nextOptions == null ? null : nextOptions.get(0));
+            handleOptions(gui, inputOptions, selectedInputs, module, isCrafting, outputs, fluidInputs);
+        } else {
+            List<ItemIdentifierStack> candidates = new ArrayList<>();
+            for (ItemStack stack : nextOptions) {
+                candidates.add(ItemIdentifierStack.getFromStack(stack));
+            }
+            SelectItemOutOfList subGui = new SelectItemOutOfList(candidates, slot -> {
+                selectedInputs.add(nextOptions.get(slot));
+                handleOptions(gui, inputOptions, selectedInputs, module, isCrafting, outputs, fluidInputs);
+            });
+            if (!gui.hasSubGui()) {
+                gui.setSubGui(subGui);
+            } else {
+                SubGuiScreen next = gui.getSubGui();
+                while (next.hasSubGui()) {
+                    next = next.getSubGui();
+                }
+                next.setSubGui(subGui);
+            }
+        }
     }
 
     private List<FluidStack> collapseFluids(List<FluidStack> fluids) {
@@ -120,11 +134,12 @@ public class CraftingPipeOverlayHandler implements IOverlayHandler {
     }
 
     private boolean isCraftingRecipe(IRecipeHandler recipe) {
-        String name = recipe.getRecipeName();
-        if (name == null) return false;
-        if (name.equals("Crafting") || name.equals("Shapeless Crafting")) return true;
-        String className = recipe.getClass().getName();
-        return className.contains("ShapedRecipeHandler") || className.contains("ShapelessRecipeHandler");
+        if (recipe instanceof TemplateRecipeHandler templateRecipeHandler) {
+            String overlayIdentifier = templateRecipeHandler.getOverlayIdentifier();
+            return "crafting".equals(overlayIdentifier) || "crafting2x2".equals(overlayIdentifier);
+        } else {
+            return false;
+        }
     }
 
     private List<ItemStack> collapseStacks(List<ItemStack> stacks) {
