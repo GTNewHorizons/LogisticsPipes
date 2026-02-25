@@ -218,6 +218,12 @@ public class SearchBar implements ISearchBar {
         return searchinput1.isEmpty() && searchinput2.isEmpty();
     }
 
+    @Override
+    public void setContent(String content) {
+        searchinput1 = content;
+        searchinput2 = "";
+    }
+
     private static String getClipboardString() {
         try {
             Transferable transferable = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
