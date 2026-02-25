@@ -10,9 +10,11 @@ import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufOutputStream;
@@ -148,6 +150,27 @@ public class LPDataOutputStream extends DataOutputStream {
     public void writeItemIdentifierStack(ItemIdentifierStack stack) throws IOException {
         writeItemIdentifier(stack.getItem());
         writeInt(stack.getStackSize());
+    }
+
+    public void writeItemStack(ItemStack stack) throws IOException {
+        if (stack == null) {
+            writeBoolean(false);
+        } else {
+            writeBoolean(true);
+            writeInt(Item.getIdFromItem(stack.getItem()));
+            writeInt(stack.stackSize);
+            writeInt(stack.getItemDamage());
+            writeNBTTagCompound(stack.getTagCompound());
+        }
+    }
+
+    public void writeFluidStack(FluidStack stack) throws IOException {
+        if (stack == null) {
+            writeBoolean(false);
+        } else {
+            writeBoolean(true);
+            writeNBTTagCompound(stack.writeToNBT(new NBTTagCompound()));
+        }
     }
 
     public <T> void writeList(List<T> list, IWriteListObject<T> handler) throws IOException {

@@ -10,8 +10,11 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fluids.FluidStack;
 
 import logisticspipes.network.PacketHandler;
+import logisticspipes.network.abstractpackets.ModuleCoordinatesPacket;
+import logisticspipes.network.packets.NEISetAdvancedCraftingRecipe;
 import logisticspipes.network.packets.NEISetCraftingRecipe;
 import logisticspipes.network.packets.pipe.FindMostLikelyRecipeComponents;
 import logisticspipes.proxy.MainProxy;
@@ -38,13 +41,24 @@ public class GuiRecipeImport extends SubGuiScreen {
 
     private final RenderItem itemRenderer = new RenderItem();
     private final TileEntity tile;
+    private final ModuleCoordinatesPacket modulePacket;
+    private final List<ItemStack> outputs;
+    private final List<FluidStack> fluidInputs;
     private final Canidates[] grid = new Canidates[9];
     private final List<Canidates> list;
     private Object[] tooltip = null;
 
     public GuiRecipeImport(TileEntity tile, ItemStack[][] stacks) {
+        this(tile, stacks, null, null, null);
+    }
+
+    public GuiRecipeImport(TileEntity tile, ItemStack[][] stacks, ModuleCoordinatesPacket modulePacket,
+            List<ItemStack> outputs, List<FluidStack> fluidInputs) {
         super(150, 200, 0, 0);
         this.tile = tile;
+        this.modulePacket = modulePacket;
+        this.outputs = outputs;
+        this.fluidInputs = fluidInputs;
         list = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             if (stacks[i] == null) {
@@ -133,7 +147,7 @@ public class GuiRecipeImport extends SubGuiScreen {
                         itemStack,
                         guiLeft + 45 + x * 18,
                         guiTop + 20 + y * 18,
-                        null);
+                        itemStack.stackSize > 1 ? String.valueOf(itemStack.stackSize) : null);
 
                 if (guiLeft + 45 + x * 18 < mouseX && mouseX < guiLeft + 45 + x * 18 + 16
                         && guiTop + 20 + y * 18 < mouseY
@@ -234,13 +248,35 @@ public class GuiRecipeImport extends SubGuiScreen {
                 }
                 stack[i++] = canidate.order.get(canidate.pos).makeNormalStack();
             }
-            NEISetCraftingRecipe packet = PacketHandler.getPacket(NEISetCraftingRecipe.class);
-            MainProxy.sendPacketToServer(
-                    packet.setContent(stack).setPosX(tile.xCoord).setPosY(tile.yCoord).setPosZ(tile.zCoord));
+            if (modulePacket instanceof NEISetAdvancedCraftingRecipe) {
+                List<ItemStack> inputs = new ArrayList<>();
+                for (ItemStack s : stack) {
+                    if (s != null) {
+                        inputs.add(s);
+                    }
+                }
+                ((NEISetAdvancedCraftingRecipe) modulePacket).setInputs(inputs).setOutputs(outputs)
+                        .setFluidInputs(fluidInputs);
+                MainProxy.sendPacketToServer(modulePacket);
+            } else {
+                NEISetCraftingRecipe packet = PacketHandler.getPacket(NEISetCraftingRecipe.class);
+                MainProxy.sendPacketToServer(
+                        packet.setContent(stack).setPosX(tile.xCoord).setPosY(tile.yCoord).setPosZ(tile.zCoord));
+            }
             exitGui();
         } else if (id == 1) {
-            MainProxy.sendPacketToServer(
-                    PacketHandler.getPacket(FindMostLikelyRecipeComponents.class).setContent(list).setTilePos(tile));
+            FindMostLikelyRecipeComponents packet = PacketHandler.getPacket(FindMostLikelyRecipeComponents.class)
+                    .setContent(list);
+            if (tile != null) {
+                packet.setTilePos(tile);
+            } else if (modulePacket != null) {
+                packet.setPosX(modulePacket.getPosX());
+                packet.setPosY(modulePacket.getPosY());
+                packet.setPosZ(modulePacket.getPosZ());
+            } else {
+                return;
+            }
+            MainProxy.sendPacketToServer(packet);
         } else if (id >= 10 && id < 30) {
             int slot = id % 10;
             boolean up = id < 20;

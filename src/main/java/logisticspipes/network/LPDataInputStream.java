@@ -9,12 +9,14 @@ import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
@@ -169,6 +171,27 @@ public class LPDataInputStream extends DataInputStream {
         ItemIdentifier item = readItemIdentifier();
         int stacksize = readInt();
         return new ItemIdentifierStack(item, stacksize);
+    }
+
+    public ItemStack readItemStack() throws IOException {
+        if (!readBoolean()) {
+            return null;
+        }
+        int itemID = readInt();
+        int stackSize = readInt();
+        int damage = readInt();
+        NBTTagCompound tag = readNBTTagCompound();
+        ItemStack stack = new ItemStack(Item.getItemById(itemID), stackSize, damage);
+        stack.setTagCompound(tag);
+        return stack;
+    }
+
+    public FluidStack readFluidStack() throws IOException {
+        if (!readBoolean()) {
+            return null;
+        }
+        NBTTagCompound tag = readNBTTagCompound();
+        return FluidStack.loadFluidStackFromNBT(tag);
     }
 
     public <T> List<T> readList(IReadListObject<T> handler) throws IOException {
