@@ -795,7 +795,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         if (showRequest) {
             itemDisplay.handleMouse();
             if (!amountField.isFocused()) {
-                amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
+                syncAmountField();
             }
         }
         super.handleMouseInputSub();

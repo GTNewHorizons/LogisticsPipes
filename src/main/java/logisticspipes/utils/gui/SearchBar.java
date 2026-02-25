@@ -123,6 +123,9 @@ public class SearchBar implements ISearchBar {
         if (numberOnly) {
             searchinput1 += searchinput2;
             searchinput2 = "";
+
+            searchinput1 = searchinput1.trim();
+
             try {
                 int value = Integer.parseInt(searchinput1);
                 searchinput1 = Integer.toString(value);

@@ -242,7 +242,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     public void handleMouseInputSub() {
         itemDisplay.handleMouse();
         if (!amountField.isFocused()) {
-            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
+            syncAmountField();
         }
         super.handleMouseInputSub();
     }
