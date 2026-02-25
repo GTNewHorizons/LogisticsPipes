@@ -49,7 +49,6 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     private ISearchBar search;
     private ISearchBar amountField;
 
-
     protected String _title = "Request items";
 
     public final int xCoord;
