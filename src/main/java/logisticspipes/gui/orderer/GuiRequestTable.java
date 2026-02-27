@@ -54,9 +54,11 @@ import logisticspipes.utils.gui.GuiCheckBox;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.GuiSearchBar;
 import logisticspipes.utils.gui.IItemSearch;
+import logisticspipes.utils.gui.ISearchBar;
 import logisticspipes.utils.gui.ISubGuiControler;
 import logisticspipes.utils.gui.ItemDisplay;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
+import logisticspipes.utils.gui.SearchBar;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
@@ -83,6 +85,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
     private GuiSearchBar search;
+    private ISearchBar amountField;
 
     protected final String _title = "Request items";
 
@@ -155,10 +158,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(10, right - 148, bottom - 15, 26, 10, "---"))); // -64
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(4, right - 148, bottom - 26, 15, 10, "--"))); // -10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(5, right - 132, bottom - 26, 10, 10, "-"))); // -1
-        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(6, right - 86, bottom - 26, 10, 10, "+"))); // +1
-        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
-        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
-        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(6, right - 82, bottom - 26, 10, 10, "+"))); // +1
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 70, bottom - 26, 15, 10, "++"))); // +10
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 82, bottom - 15, 26, 10, "+++"))); // +64
+        buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(34, right - 82, bottom - 41, 10, 10, "X"))); // x
         buttonList.add(hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
 
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
@@ -190,6 +193,12 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             search = new GuiSearchBar("search");
         }
         search.reposition(guiLeft + 205, bottom - 78, 200, 15);
+
+        if (amountField == null) {
+            amountField = new SearchBar(mc.fontRenderer, this, right - 128, bottom - 25, 45, 15, false, true, false);
+            amountField.setContent(String.valueOf(itemDisplay == null ? 1 : itemDisplay.getRequestCount()));
+        }
+        amountField.reposition(right - 122, bottom - 25, 40, 15);
 
         if (itemDisplay == null) {
             itemDisplay = new ItemDisplay(
@@ -248,7 +257,26 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 mc.fontRenderer.drawString("Popup", guiLeft + 225, bottom - 56, Color.getValue(Color.GREY));
             }
 
-            itemDisplay.renderAmount(right - 103, bottom - 24, getStackAmount());
+            // itemDisplay.renderAmount(right - 103, bottom - 24, getStackAmount());
+            amountField.renderSearchBar();
+            if (!amountField.isFocused()) {
+                syncAmountField();
+            }
+
+            // Update +++ button label based on shift
+            for (Object obj : buttonList) {
+                if (obj instanceof GuiButton) {
+                    GuiButton button = (GuiButton) obj;
+                    if (button.id == 11) {
+                        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+                            button.displayString = "max";
+                        } else {
+                            button.displayString = "+++";
+                        }
+                        break;
+                    }
+                }
+            }
             // SearchInput
             search.renderSearchBar();
 
@@ -518,6 +546,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0 && itemDisplay.getSelectedItem() != null) {
+            syncAmountField();
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RequestSubmitPacket.class).setDimension(dimension)
                             .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
@@ -531,21 +560,32 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             refreshItems();
         } else if (guibutton.id == 10) {
             itemDisplay.sub(3);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 4) {
             itemDisplay.sub(2);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 5) {
             itemDisplay.sub(1);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 6) {
             itemDisplay.add(1);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 7) {
             itemDisplay.add(2);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 11) {
-            itemDisplay.add(3);
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+                itemDisplay.setMaxAmount();
+            } else {
+                itemDisplay.add(3);
+            }
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 8) {
             GuiCheckBox button = (GuiCheckBox) guibutton;
             Configs.DISPLAY_POPUP = button.change();
             Configs.savePopupState();
         } else if (guibutton.id == 13 && itemDisplay.getSelectedItem() != null) {
+            syncAmountField();
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RequestComponentPacket.class).setDimension(dimension)
                             .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
@@ -646,6 +686,15 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         }
     }
 
+    private void syncAmountField() {
+        try {
+            int amount = Integer.parseInt(amountField.getContent());
+            itemDisplay.setRequestCount(amount);
+        } catch (NumberFormatException e) {
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
+        }
+    }
+
     private void requestMatrix(int multiplier) {
         ArrayList<ItemIdentifierStack> list = new ArrayList<>(9);
         for (Entry<ItemIdentifier, Integer> e : _table.matrix.getItemsAndCount().entrySet()) {
@@ -736,6 +785,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         if (showRequest) {
             itemDisplay.handleClick(i, j, k);
             search.handleClick(i, j, k);
+            amountField.handleClick(i, j, k);
         }
         super.mouseClicked(i, j, k);
     }
@@ -744,6 +794,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     public void handleMouseInputSub() {
         if (showRequest) {
             itemDisplay.handleMouse();
+            if (!amountField.isFocused()) {
+                syncAmountField();
+            }
         }
         super.handleMouseInputSub();
     }
@@ -770,17 +823,19 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
     @Override
     protected void keyTyped(char c, int i) {
-        if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && !search.isFocused()) { // Ctrl-a
+        if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && !search.isFocused() && !amountField.isFocused()) { // Ctrl-a
             itemDisplay.setMaxAmount();
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (i == 32 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-d
             itemDisplay.resetAmount();
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (i == 201) { // PgUp
             itemDisplay.prevPage();
         } else if (i == 209) { // PgDn
             itemDisplay.nextPage();
         } else {
             // Track everything except Escape when in search bar
-            if (i == 1 || !search.handleKey(c, i)) {
+            if (i == 1 || (!search.handleKey(c, i) && !amountField.handleKey(c, i))) {
                 super.keyTyped(c, i);
             }
         }

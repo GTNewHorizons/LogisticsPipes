@@ -47,6 +47,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     public final EntityPlayer _entityPlayer;
     public ItemDisplay itemDisplay;
     private ISearchBar search;
+    private ISearchBar amountField;
 
     protected String _title = "Request items";
 
@@ -101,6 +102,12 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         }
         search.reposition(guiLeft + 30, bottom - 78, right - guiLeft - 58, 15);
 
+        if (amountField == null) {
+            amountField = new SearchBar(mc.fontRenderer, this, xCenter - 25, bottom - 24, 50, 15, false, true, false);
+            amountField.setContent(String.valueOf(itemDisplay == null ? 1 : itemDisplay.getRequestCount()));
+        }
+        amountField.reposition(xCenter - 20, bottom - 25, 40, 15);
+
         if (itemDisplay == null) {
             itemDisplay = new ItemDisplay(
                     this,
@@ -135,7 +142,27 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
             mc.fontRenderer.drawString("Popup", guiLeft + 25, bottom - 56, Color.getValue(Color.GREY));
         }
 
-        itemDisplay.renderAmount(xCenter, bottom - 24, getStackAmount());
+        // itemDisplay.renderAmount(xCenter, bottom - 24, getStackAmount());
+        amountField.renderSearchBar();
+        if (!amountField.isFocused()) {
+            syncAmountField();
+        }
+
+        // Update +++ button label based on shift
+        for (Object obj : buttonList) {
+            if (obj instanceof GuiButton) {
+                GuiButton button = (GuiButton) obj;
+                if (button.id == 11) {
+                    if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+                        button.displayString = "max";
+                    } else {
+                        button.displayString = "+++";
+                    }
+                    break;
+                }
+            }
+        }
+
         // SearchInput
         search.renderSearchBar();
 
@@ -206,12 +233,16 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     protected void mouseClicked(int i, int j, int k) {
         itemDisplay.handleClick(i, j, k);
         search.handleClick(i, j, k);
+        amountField.handleClick(i, j, k);
         super.mouseClicked(i, j, k);
     }
 
     @Override
     public void handleMouseInputSub() {
         itemDisplay.handleMouse();
+        if (!amountField.isFocused()) {
+            syncAmountField();
+        }
         super.handleMouseInputSub();
     }
 
@@ -238,6 +269,7 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     @Override
     protected void actionPerformed(GuiButton guibutton) {
         if (guibutton.id == 0 && itemDisplay.getSelectedItem() != null) {
+            syncAmountField();
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RequestSubmitPacket.class).setDimension(dimension)
                             .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
@@ -251,21 +283,32 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
             refreshItems();
         } else if (guibutton.id == 10) {
             itemDisplay.sub(3);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 4) {
             itemDisplay.sub(2);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 5) {
             itemDisplay.sub(1);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 6) {
             itemDisplay.add(1);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 7) {
             itemDisplay.add(2);
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 11) {
-            itemDisplay.add(3);
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+                itemDisplay.setMaxAmount();
+            } else {
+                itemDisplay.add(3);
+            }
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (guibutton.id == 8) {
             GuiCheckBox button = (GuiCheckBox) guibutton;
             Configs.DISPLAY_POPUP = button.change();
             Configs.savePopupState();
         } else if (guibutton.id == 13 && itemDisplay.getSelectedItem() != null) {
+            syncAmountField();
             MainProxy.sendPacketToServer(
                     PacketHandler.getPacket(RequestComponentPacket.class).setDimension(dimension)
                             .setStack(itemDisplay.getSelectedItem().getItem().makeStack(itemDisplay.getRequestCount()))
@@ -277,6 +320,15 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
         super.actionPerformed(guibutton);
     }
 
+    private void syncAmountField() {
+        try {
+            int amount = Integer.parseInt(amountField.getContent());
+            itemDisplay.setRequestCount(amount);
+        } catch (NumberFormatException e) {
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
+        }
+    }
+
     protected int getStackAmount() {
         return 64;
     }
@@ -285,15 +337,17 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     protected void keyTyped(char c, int i) {
         if (i == 30 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-a
             itemDisplay.setMaxAmount();
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (i == 32 && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) { // Ctrl-d
             itemDisplay.resetAmount();
+            amountField.setContent(String.valueOf(itemDisplay.getRequestCount()));
         } else if (i == 201) { // PgUp
             itemDisplay.prevPage();
         } else if (i == 209) { // PgDn
             itemDisplay.nextPage();
         } else {
             // Track everything except Escape when in search bar
-            if (i == 1 || !search.handleKey(c, i)) {
+            if (i == 1 || (!search.handleKey(c, i) && !amountField.handleKey(c, i))) {
                 super.keyTyped(c, i);
             }
         }
