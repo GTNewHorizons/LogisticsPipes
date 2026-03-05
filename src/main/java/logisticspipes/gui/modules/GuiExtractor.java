@@ -18,6 +18,7 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.module.ExtractorModuleDirectionPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiExtractor extends ModuleBaseGui {
 
@@ -74,11 +75,8 @@ public class GuiExtractor extends ModuleBaseGui {
 
         super.drawGuiContainerForegroundLayer(par1, par2);
 
-        mc.fontRenderer.drawString(
-                "Extract orientation",
-                xSize / 2 - mc.fontRenderer.getStringWidth("Extract orientation") / 2,
-                10,
-                0x404040);
+        String title = StringUtils.translate("gui.module.ModuleExtractor");
+        mc.fontRenderer.drawString(title, xSize / 2 - mc.fontRenderer.getStringWidth(title) / 2, 10, 0x404040);
     }
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(

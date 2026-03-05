@@ -58,17 +58,31 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
                 guiTop + 23,
                 0x404040);
         mc.fontRenderer.drawString(
-                StringUtils.getStringWithSpacesFromInteger(junction.getPowerLevel()) + " LP",
+                String.format(
+                        StringUtils.translate(GuiPowerJunction.PREFIX + "PowerLevel"),
+                        StringUtils.getStringWithSpacesFromInteger(junction.getPowerLevel())),
                 guiLeft + 40,
                 guiTop + 33,
                 0x404040);
+        mc.fontRenderer
+                .drawString(
+                        String.format(
+                                StringUtils.translate(GuiPowerJunction.PREFIX + "MaxStorage"),
+                                StringUtils
+                                        .getStringWithSpacesFromInteger(LogisticsPowerJunctionTileEntity.MAX_STORAGE)),
+                        guiLeft + 40,
+                        guiTop + 43,
+                        0x404040);
         mc.fontRenderer.drawString(
-                "/ " + StringUtils.getStringWithSpacesFromInteger(LogisticsPowerJunctionTileEntity.MAX_STORAGE) + " LP",
-                guiLeft + 40,
-                guiTop + 43,
+                StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyRF"),
+                guiLeft + 24,
+                guiTop + 58,
                 0x404040);
-        mc.fontRenderer.drawString("10 RF = 5 LP", guiLeft + 24, guiTop + 58, 0x404040);
-        mc.fontRenderer.drawString("1 EU = 2 LP", guiLeft + 100, guiTop + 58, 0x404040);
+        mc.fontRenderer.drawString(
+                StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyEU"),
+                guiLeft + 100,
+                guiTop + 58,
+                0x404040);
     }
 
     @Override

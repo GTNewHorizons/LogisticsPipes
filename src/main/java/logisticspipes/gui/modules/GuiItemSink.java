@@ -89,7 +89,8 @@ public class GuiItemSink extends ModuleBaseGui {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(_itemSink.getFilterInventory().getInventoryName(), 8, 6, 0x404040);
-        mc.fontRenderer.drawString(StringUtils.translate(GuiItemSink.PREFIX + "Inventory"), 8, ySize - 92, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 8, ySize - 92, 0x404040);
         mc.fontRenderer.drawString(StringUtils.translate(GuiItemSink.PREFIX + "Defaultroute") + ":", 65, 45, 0x404040);
 
         if (isFuzzy) {
