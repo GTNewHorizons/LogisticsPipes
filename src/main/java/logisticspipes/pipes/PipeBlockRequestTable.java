@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import logisticspipes.routing.IRouter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
@@ -49,6 +50,7 @@ import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.item.SimpleStackInventory;
 import logisticspipes.utils.tuples.Pair;
+import logisticspipes.utils.AdjacentTile;
 
 public class PipeBlockRequestTable extends PipeItemsRequestLogistics
         implements ISimpleInventoryEventHandler, IRequestWatcher, IGuiOpenControler, IRotationProvider {
@@ -548,7 +550,30 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
 
                 @Override
                 public ForgeDirection itemArrived(IRoutedItem item, ForgeDirection denyed) {
-                    return null;
+                    IRouter _router = getRouter();
+                    List<AdjacentTile> adjacentEntities = getConnectedEntities();
+                    List<ForgeDirection> routedPipeDirections = new ArrayList<>();
+                    List<ForgeDirection> unroutedPipeDirections = new ArrayList<>();
+
+                    for (AdjacentTile tile : adjacentEntities) {
+                        CoreRoutedPipe pipe = _router.getPipe();
+                        if (pipe != null) {
+                            if (pipe.isLockedExit(tile.orientation)) {
+                                continue;
+                            }
+                        }
+                        if (_router.isRoutedExit(tile.orientation)) {
+                            routedPipeDirections.add(tile.orientation);
+                        } else {
+                            unroutedPipeDirections.add(tile.orientation);
+                        }
+                    }
+
+                    if (!routedPipeDirections.isEmpty()) {
+                        return routedPipeDirections.get(getRandomInt(routedPipeDirections.size()));
+                    } else if (!unroutedPipeDirections.isEmpty()) {
+                        return unroutedPipeDirections.get(getRandomInt(unroutedPipeDirections.size()));
+                    } else return null;
                 }
 
                 @Override
