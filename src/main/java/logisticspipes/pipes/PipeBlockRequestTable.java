@@ -550,6 +550,10 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
 
                 @Override
                 public ForgeDirection itemArrived(IRoutedItem item, ForgeDirection denyed) {
+                    if (item.getItemIdentifierStack().getStackSize() <= 0) {
+                        return null;
+                    }
+
                     IRouter _router = getRouter();
                     List<AdjacentTile> adjacentEntities = getConnectedEntities();
                     List<ForgeDirection> routedPipeDirections = new ArrayList<>();
