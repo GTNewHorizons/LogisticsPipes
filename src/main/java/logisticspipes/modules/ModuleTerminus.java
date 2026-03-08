@@ -36,12 +36,16 @@ import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 
 @CCType(name = "Terminus Module")
 public class ModuleTerminus extends LogisticsSimpleFilterModule implements IClientInformationProvider,
         IHUDModuleHandler, IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
-    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Terminated items", 1);
+    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
+            9,
+            StringUtils.translate("gui.module.ModuleTerminus"),
+            1);
 
     private final IHUDModuleRenderer HUD = new HUDSimpleFilterModule(this);
 

@@ -16,6 +16,7 @@ import logisticspipes.network.packets.module.ElectricManagerPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiStringHandlerButton;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiElectricManager extends ModuleBaseGui {
 
@@ -64,7 +65,8 @@ public class GuiElectricManager extends ModuleBaseGui {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(_module.getFilterInventory().getInventoryName(), 8, 6, 0x404040);
-        mc.fontRenderer.drawString("Inventory", 8, ySize - 92, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 8, ySize - 92, 0x404040);
     }
 
     private static final ResourceLocation TEXTURE = new ResourceLocation("logisticspipes", "textures/gui/itemsink.png");
