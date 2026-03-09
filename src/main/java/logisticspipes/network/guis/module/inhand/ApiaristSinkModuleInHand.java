@@ -33,6 +33,11 @@ public class ApiaristSinkModuleInHand extends ModuleInHandGuiProvider {
         if (!(dummy.getModule() instanceof ModuleApiaristSink)) {
             return null;
         }
+        dummy.setInventory(((ModuleApiaristSink) dummy.getModule()).getInventoryBee());
+
+        dummy.addNormalSlotsForHotbar(8, 157);
+        dummy.addDummySlot(0, 110, 121);
+
         return dummy;
     }
 

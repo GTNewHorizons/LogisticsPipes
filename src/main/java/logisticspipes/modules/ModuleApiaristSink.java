@@ -21,8 +21,11 @@ import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 
 public class ModuleApiaristSink extends LogisticsGuiModule {
+
+    private final ItemIdentifierInventory _inventoryBee = new ItemIdentifierInventory(1, "Set on click ->", 1);
 
     public enum FilterType {
 
@@ -60,6 +63,34 @@ public class ModuleApiaristSink extends LogisticsGuiModule {
 
         public SinkSetting(ModuleApiaristSink module) {
             this.module = module;
+        }
+
+        public static boolean isBee(ItemIdentifierInventory inventory, int i) {
+            return SimpleServiceLocator.forestryProxy.isBee(inventory.getIDStackInSlot(i).makeNormalStack());
+        }
+
+        public static boolean isAnalyzedBee(ItemIdentifierInventory inventory, int i) {
+            return SimpleServiceLocator.forestryProxy.isAnalysedBee(inventory.getIDStackInSlot(i).makeNormalStack());
+        }
+
+        public void firstBeeSetFirstAlleleID(ItemIdentifierInventory inventory, int i) {
+            firstBee = SimpleServiceLocator.forestryProxy
+                    .getFirstAlleleId(inventory.getIDStackInSlot(i).makeNormalStack());
+        }
+
+        public void firstBeeSetSecondAlleleID(ItemIdentifierInventory inventory, int i) {
+            firstBee = SimpleServiceLocator.forestryProxy
+                    .getSecondAlleleId(inventory.getIDStackInSlot(i).makeNormalStack());
+        }
+
+        public void secondBeeSetFirstAlleleID(ItemIdentifierInventory inventory, int i) {
+            secondBee = SimpleServiceLocator.forestryProxy
+                    .getFirstAlleleId(inventory.getIDStackInSlot(i).makeNormalStack());
+        }
+
+        public void secondBeeSetSecondAlleleID(ItemIdentifierInventory inventory, int i) {
+            secondBee = SimpleServiceLocator.forestryProxy
+                    .getSecondAlleleId(inventory.getIDStackInSlot(i).makeNormalStack());
         }
 
         public void firstBeeUp() {
@@ -200,6 +231,10 @@ public class ModuleApiaristSink extends LogisticsGuiModule {
         filter[5] = new SinkSetting(this);
     }
 
+    public ItemIdentifierInventory getInventoryBee() {
+        return _inventoryBee;
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         NBTTagCompound filters = nbttagcompound.getCompoundTag("filters");
@@ -207,6 +242,7 @@ public class ModuleApiaristSink extends LogisticsGuiModule {
             NBTTagCompound filterNBT = filters.getCompoundTag("" + i);
             filter[i].readFromNBT(filterNBT);
         }
+        _inventoryBee.readFromNBT(nbttagcompound, "");
     }
 
     @Override
@@ -218,6 +254,7 @@ public class ModuleApiaristSink extends LogisticsGuiModule {
             filters.setTag("" + i, filterNBT);
         }
         nbttagcompound.setTag("filters", filters);
+        _inventoryBee.writeToNBT(nbttagcompound, "");
     }
 
     @Override

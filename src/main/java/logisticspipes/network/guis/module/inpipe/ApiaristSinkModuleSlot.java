@@ -32,7 +32,13 @@ public class ApiaristSinkModuleSlot extends NBTModuleCoordinatesGuiProvider {
         if (module == null) {
             return null;
         }
-        return new DummyContainer(player.inventory, null);
+
+        DummyContainer dummy = new DummyContainer(player.inventory, module.getInventoryBee());
+
+        dummy.addNormalSlotsForHotbar(8, 157);
+        dummy.addDummySlot(0, 110, 121);
+
+        return dummy;
     }
 
     @Override

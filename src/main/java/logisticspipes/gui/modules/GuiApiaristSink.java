@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -18,59 +19,54 @@ import logisticspipes.network.packets.module.BeeModuleSetBeePacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.gui.DummyContainer;
-import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.IItemTextureRenderSlot;
 import logisticspipes.utils.gui.ISmallColorRenderSlot;
+import logisticspipes.utils.item.ItemIdentifierInventory;
 
 public class GuiApiaristSink extends ModuleBaseGui {
+
+    private static final ResourceLocation TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/apiarist_sink.png");
 
     private final ModuleApiaristSink module;
 
     public GuiApiaristSink(ModuleApiaristSink module, EntityPlayer player) {
-        super(new DummyContainer(player.inventory, null), module);
+        super(null, module);
+
         this.module = module;
+
+        DummyContainer dummy = new DummyContainer(player.inventory, this.module.getInventoryBee());
+        dummy.addNormalSlotsForHotbar(8, 157);
+        dummy.addDummySlot(0, 110, 121);
+
         for (int i = 0; i < 6; i++) {
             SinkSetting filter = module.filter[i];
-            addRenderSlot(new TypeSlot(20, 20 + (i * 18), filter, i));
-            addRenderSlot(new GroupSlot(guiLeft + 45, guiTop + 25 + (i * 18), filter, i));
-            addRenderSlot(new BeeSlot(60, 20 + (i * 18), filter, 0, i));
-            addRenderSlot(new BeeSlot(78, 20 + (i * 18), filter, 1, i));
+            addRenderSlot(new TypeSlot(24 + (i * 22), 20, filter, i));
+            addRenderSlot(new GroupSlot(guiLeft + 29 + (i * 22), guiTop + 45, filter, i));
+            addRenderSlot(new BeeSlot(24 + (i * 22), 60, filter, 0, i));
+            addRenderSlot(new BeeSlot(24 + (i * 22), 60 + 18, filter, 1, i));
         }
-        xSize = 120;
-        ySize = 150;
-    }
 
-    public void renderForestryBeeAt(Minecraft mc, int x, int y, float zLevel, String id) {
-        GL11.glDisable(GL11.GL_LIGHTING);
-        mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+        inventorySlots = dummy;
 
-        for (int i = 0; i < SimpleServiceLocator.forestryProxy.getRenderPassesForAlleleId(id); i++) {
-            IIcon icon = SimpleServiceLocator.forestryProxy.getIconIndexForAlleleId(id, i);
-            if (icon == null) {
-                continue;
-            }
-            int color = SimpleServiceLocator.forestryProxy.getColorForAlleleId(id, i);
-            float colorR = (color >> 16 & 0xFF) / 255.0F;
-            float colorG = (color >> 8 & 0xFF) / 255.0F;
-            float colorB = (color & 0xFF) / 255.0F;
-
-            GL11.glColor4f(colorR, colorG, colorB, 1.0F);
-
-            // Render icon
-            Tessellator var9 = Tessellator.instance;
-            var9.startDrawingQuads();
-            var9.addVertexWithUV(x, y + 16, zLevel, icon.getMinU(), icon.getMaxV());
-            var9.addVertexWithUV(x + 16, y + 16, zLevel, icon.getMaxU(), icon.getMaxV());
-            var9.addVertexWithUV(x + 16, y, zLevel, icon.getMaxU(), icon.getMinV());
-            var9.addVertexWithUV(x, y, zLevel, icon.getMinU(), icon.getMinV());
-            var9.draw();
-        }
-        GL11.glEnable(GL11.GL_LIGHTING);
+        xSize = 175;
+        ySize = 180;
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
-        GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        mc.renderEngine.bindTexture(GuiApiaristSink.TEXTURE);
+        int j = guiLeft;
+        int k = guiTop;
+        drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        super.drawGuiContainerForegroundLayer(par1, par2);
+        mc.fontRenderer.drawString(module.getInventoryBee().getInventoryName(), 35, 125, 0x404040);
     }
 
     private class TypeSlot extends IItemTextureRenderSlot {
@@ -263,8 +259,37 @@ public class GuiApiaristSink extends ModuleBaseGui {
             this.row = row;
         }
 
+        private void renderForestryBeeAt(Minecraft mc, int x, int y, float zLevel, String id) {
+            GL11.glDisable(GL11.GL_LIGHTING);
+            mc.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+
+            for (int i = 0; i < SimpleServiceLocator.forestryProxy.getRenderPassesForAlleleId(id); i++) {
+                IIcon icon = SimpleServiceLocator.forestryProxy.getIconIndexForAlleleId(id, i);
+                if (icon == null) {
+                    continue;
+                }
+                int color = SimpleServiceLocator.forestryProxy.getColorForAlleleId(id, i);
+                float colorR = (color >> 16 & 0xFF) / 255.0F;
+                float colorG = (color >> 8 & 0xFF) / 255.0F;
+                float colorB = (color & 0xFF) / 255.0F;
+
+                GL11.glColor4f(colorR, colorG, colorB, 1.0F);
+
+                // Render icon
+                Tessellator var9 = Tessellator.instance;
+                var9.startDrawingQuads();
+                var9.addVertexWithUV(x, y + 16, zLevel, icon.getMinU(), icon.getMaxV());
+                var9.addVertexWithUV(x + 16, y + 16, zLevel, icon.getMaxU(), icon.getMaxV());
+                var9.addVertexWithUV(x + 16, y, zLevel, icon.getMaxU(), icon.getMinV());
+                var9.addVertexWithUV(x, y, zLevel, icon.getMinU(), icon.getMinV());
+                var9.draw();
+            }
+            GL11.glEnable(GL11.GL_LIGHTING);
+        }
+
         @Override
         public void mouseClicked(int button) {
+
             if (button == 2) {
                 if (slotNumber == 0) {
                     setting.firstBeeReset();
@@ -272,18 +297,41 @@ public class GuiApiaristSink extends ModuleBaseGui {
                     setting.secondBeeReset();
                 }
             }
+
             if (button == 0) {
+                ItemIdentifierInventory inventoryBee = module.getInventoryBee();
                 if (slotNumber == 0) {
-                    setting.firstBeeUp();
+                    if (!inventoryBee.isEmpty() && SinkSetting.isBee(inventoryBee, 0)) {
+                        setting.firstBeeSetFirstAlleleID(inventoryBee, 0);
+                    } else {
+                        setting.firstBeeUp();
+                    }
                 } else {
-                    setting.secondBeeUp();
+                    if (!inventoryBee.isEmpty() && SinkSetting.isBee(inventoryBee, 0)) {
+                        setting.secondBeeSetFirstAlleleID(module.getInventoryBee(), 0);
+                    } else {
+                        setting.secondBeeUp();
+                    }
                 }
             }
             if (button == 1) {
+                ItemIdentifierInventory inventoryBee = module.getInventoryBee();
                 if (slotNumber == 0) {
-                    setting.firstBeeDown();
+                    if (!inventoryBee.isEmpty() && SinkSetting.isBee(inventoryBee, 0)) {
+                        if (SinkSetting.isAnalyzedBee(inventoryBee, 0)) {
+                            setting.firstBeeSetSecondAlleleID(inventoryBee, 0);
+                        }
+                    } else {
+                        setting.firstBeeDown();
+                    }
                 } else {
-                    setting.secondBeeDown();
+                    if (!inventoryBee.isEmpty() && SinkSetting.isBee(inventoryBee, 0)) {
+                        if (SinkSetting.isAnalyzedBee(inventoryBee, 0)) {
+                            setting.secondBeeSetSecondAlleleID(inventoryBee, 0);
+                        }
+                    } else {
+                        setting.secondBeeDown();
+                    }
                 }
             }
             MainProxy.sendPacketToServer(
