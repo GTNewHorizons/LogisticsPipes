@@ -214,7 +214,11 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 true,
                 false,
                 true);
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 10, guiTop + 135);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 10,
+                guiTop + 135,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
 
         // First Tab
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
