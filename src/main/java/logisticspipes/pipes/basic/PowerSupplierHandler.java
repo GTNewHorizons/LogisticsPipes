@@ -1,27 +1,30 @@
 package logisticspipes.pipes.basic;
 
-import java.util.List;
-
-import net.minecraft.nbt.NBTTagCompound;
-
 import logisticspipes.blocks.powertile.LogisticsPowerProviderTileEntity;
 import logisticspipes.interfaces.ISubSystemPowerProvider;
 import logisticspipes.interfaces.routing.IFilter;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.cofh.subproxies.ICoFHEnergyReceiver;
+import logisticspipes.proxy.interfaces.IEUProxy;
 import logisticspipes.utils.AdjacentTile;
+import logisticspipes.utils.MathUtil;
 import logisticspipes.utils.WorldUtil;
 import logisticspipes.utils.tuples.Pair;
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class PowerSupplierHandler {
 
-    private static final float INTERNAL_RF_BUFFER_MAX = 10000;
-    private static final float INTERNAL_IC2_BUFFER_MAX = 2048 * 4;
+    private static final double INTERNAL_RF_BUFFER_MAX = 10000;
+    private static double INTERNAL_IC2_BUFFER_MAX = 0;
 
     private final CoreRoutedPipe pipe;
 
-    private float internal_RF_Buffer = 0F;
-    private float internal_IC2_Buffer = 0F;
+    private double internal_RF_Buffer = 0;
+    private double internal_IC2_Buffer = 0;
 
     public PowerSupplierHandler(CoreRoutedPipe pipe) {
         this.pipe = pipe;
@@ -29,209 +32,132 @@ public class PowerSupplierHandler {
 
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         if (internal_RF_Buffer > 0) {
-            nbttagcompound.setFloat("bufferRF", internal_RF_Buffer);
+            nbttagcompound.setDouble("bufferRF", internal_RF_Buffer);
         }
         if (internal_IC2_Buffer > 0) {
-            nbttagcompound.setFloat("bufferEU", internal_IC2_Buffer);
+            nbttagcompound.setDouble("bufferEU", internal_IC2_Buffer);
         }
     }
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {
-        internal_RF_Buffer = nbttagcompound.getFloat("bufferRF");
-        internal_IC2_Buffer = nbttagcompound.getFloat("bufferEU");
+        internal_RF_Buffer = nbttagcompound.getLong("bufferRF");
+        internal_IC2_Buffer = nbttagcompound.getLong("bufferEU");
+    }
+
+    public void renderLaser(AdjacentTile adjacentTile, int laserType) {
+        pipe.container.addLaser(adjacentTile.orientation, 0.5F, laserType, false, true);
+    }
+
+    /**
+     * Provides Power to the given adjacent tile, if all prerequisites are fulfilled.
+     *
+     * @param adjacentTile the adjacent tile to provide power to
+     */
+    private void providerRFPower(AdjacentTile adjacentTile) {
+
+        if (!pipe.getUpgradeManager().hasRFPowerSupplierUpgrade()) return;
+        if (internal_RF_Buffer == 0) return;
+        if (!SimpleServiceLocator.cofhPowerProxy.isEnergyReceiver(adjacentTile.tile)) return;
+
+        ICoFHEnergyReceiver receiver = SimpleServiceLocator.cofhPowerProxy.getEnergyReceiver(adjacentTile.tile);
+        var opposingDir = adjacentTile.orientation.getOpposite();
+
+        if (!receiver.canConnectEnergy(opposingDir)) return;
+
+        int energyToProvide = (int) Math.min(receiver.getMaxEnergyStored(opposingDir) - receiver.getEnergyStored(opposingDir), internal_RF_Buffer);
+        int used = receiver.receiveEnergy(opposingDir, energyToProvide, false);
+
+
+        if (used > 0) {
+            renderLaser(adjacentTile, LogisticsPowerProviderTileEntity.RF_COLOR);
+            internal_RF_Buffer -= used;
+        }
+
+        if (internal_RF_Buffer < 0) internal_RF_Buffer = 0;
+
+    }
+
+    public void receiveRFPower(List<ISubSystemPowerProvider> powerProvider) {
+        for (ISubSystemPowerProvider provider : powerProvider) {
+            double needed = INTERNAL_RF_BUFFER_MAX - internal_RF_Buffer;
+            if (needed <= 0F) return;
+            provider.requestPower(pipe.getRouterId(), needed);
+        }
+    }
+
+
+    public void provideEUPower(AdjacentTile adjacentTile) {
+        if (pipe.upgradeManager.getIC2PowerLevel() == 0) return;
+
+        IEUProxy proxy;
+
+        if (SimpleServiceLocator.IC2Proxy.isEnergySink(adjacentTile.tile)) proxy = SimpleServiceLocator.IC2Proxy;
+        else if (SimpleServiceLocator.gtProxy.isEnergySink(adjacentTile.tile)) proxy = SimpleServiceLocator.gtProxy;
+        else return;
+
+        var opposingDir = adjacentTile.orientation.getOpposite();
+
+        if (!proxy.acceptsEnergyFrom(adjacentTile.tile, pipe.container, opposingDir)) return;
+
+        long pipePowerLevel = pipe.upgradeManager.getIC2PowerLevel();
+        long energyToProvide = (long) MathUtil.min(proxy.demandedEnergyUnits(adjacentTile.tile), pipePowerLevel, internal_IC2_Buffer);
+        if (energyToProvide <= 0) return;
+
+        double maxAmps = MathUtil.min(internal_IC2_Buffer / (double) pipePowerLevel, proxy.maxInputAmperage(adjacentTile.tile), pipe.upgradeManager.getIC2MaxAmperage(pipePowerLevel));
+        long used = 0;
+        long multiAmps = (long) Math.floor(maxAmps);
+        if (multiAmps > 0) used += proxy.injectEnergyUnits(adjacentTile.tile, opposingDir, energyToProvide, multiAmps);
+        if (maxAmps - multiAmps != 0) used += proxy.injectEnergyUnits(adjacentTile.tile, opposingDir, energyToProvide - used, 1);
+
+        if (used > 0) {
+            renderLaser(adjacentTile, LogisticsPowerProviderTileEntity.IC2_COLOR);
+            internal_IC2_Buffer -= used;
+        }
+
+        if (internal_IC2_Buffer < 0) internal_IC2_Buffer = 0;
+    }
+
+    public void receiveEUPower(List<ISubSystemPowerProvider> powerProvider) {
+        Supplier<Double> needSupplier = () -> INTERNAL_IC2_BUFFER_MAX - internal_IC2_Buffer;
+
+        if (needSupplier.get() <= 0) return;
+
+        for (ISubSystemPowerProvider provider : powerProvider) {
+            var need = needSupplier.get();
+            if (need <= 0F) return;
+            provider.requestPower(pipe.getRouterId(), need);
+        }
     }
 
     public void update() {
-        if (SimpleServiceLocator.cofhPowerProxy.isAvailable() && pipe.getUpgradeManager().hasRFPowerSupplierUpgrade()) {
-            // Use Buffer
-            WorldUtil worldUtil = new WorldUtil(pipe.getWorld(), pipe.getX(), pipe.getY(), pipe.getZ());
-            List<AdjacentTile> adjacent = worldUtil.getAdjacentTileEntities(false);
-            float globalNeed = 0;
-            float[] need = new float[adjacent.size()];
-            int i = 0;
-            for (AdjacentTile adTile : adjacent) {
-                if (SimpleServiceLocator.cofhPowerProxy.isEnergyReceiver(adTile.tile)
-                        && pipe.canPipeConnect(adTile.tile, adTile.orientation)) {
-                    ICoFHEnergyReceiver handler = SimpleServiceLocator.cofhPowerProxy.getEnergyReceiver(adTile.tile);
-                    if (handler.canConnectEnergy(adTile.orientation.getOpposite())) {
-                        globalNeed += need[i] = handler.getMaxEnergyStored(adTile.orientation.getOpposite())
-                                - handler.getEnergyStored(adTile.orientation.getOpposite());
-                    }
-                }
-                i++;
+        WorldUtil wu = new WorldUtil(pipe.getWorld(), pipe.getX(), pipe.getY(), pipe.getZ());
+        updateICBuffer();
+
+        var powerProvider = pipe.getRouter().getSubSystemPowerProvider().stream().filter(it -> it.getValue2().stream().noneMatch(IFilter::blockPower)).map(Pair::getValue1).collect(Collectors.toList());
+
+        for (AdjacentTile adjacentTile : wu.getAdjacentTileEntities()) {
+            if (!pipe.canPipeConnect(adjacentTile.tile, adjacentTile.orientation)) continue;
+            if (adjacentTile.tile instanceof LogisticsPowerProviderTileEntity) {
+                continue;
             }
-            if (globalNeed != 0 && !Float.isNaN(globalNeed)) {
-                float fullfillable = Math.min(1, internal_RF_Buffer / globalNeed);
-                i = 0;
-                for (AdjacentTile adTile : adjacent) {
-                    if (SimpleServiceLocator.cofhPowerProxy.isEnergyReceiver(adTile.tile)
-                            && pipe.canPipeConnect(adTile.tile, adTile.orientation)) {
-                        ICoFHEnergyReceiver handler = SimpleServiceLocator.cofhPowerProxy
-                                .getEnergyReceiver(adTile.tile);
-                        if (handler.canConnectEnergy(adTile.orientation.getOpposite())) {
-                            if (internal_RF_Buffer + 1 < need[i] * fullfillable) {
-                                return;
-                            }
-                            int used = handler.receiveEnergy(
-                                    adTile.orientation.getOpposite(),
-                                    (int) (need[i] * fullfillable),
-                                    false);
-                            if (used > 0) {
-                                pipe.container.addLaser(
-                                        adTile.orientation,
-                                        0.5F,
-                                        LogisticsPowerProviderTileEntity.RF_COLOR,
-                                        false,
-                                        true);
-                                internal_RF_Buffer -= used;
-                            }
-                            if (internal_RF_Buffer < 0) {
-                                internal_RF_Buffer = 0;
-                                return;
-                            }
-                        }
-                    }
-                    i++;
-                }
-            }
-            // Rerequest Buffer
-            List<Pair<ISubSystemPowerProvider, List<IFilter>>> provider = pipe.getRouter().getSubSystemPowerProvider();
-            float available = 0;
-            outer: for (Pair<ISubSystemPowerProvider, List<IFilter>> pair : provider) {
-                for (IFilter filter : pair.getValue2()) {
-                    if (filter.blockPower()) {
-                        continue outer;
-                    }
-                }
-                if (pair.getValue1().usePaused()) {
-                    continue;
-                }
-                if (!pair.getValue1().getBrand().equals("RF")) {
-                    continue;
-                }
-                available += pair.getValue1().getPowerLevel();
-            }
-            if (available > 0) {
-                float neededPower = PowerSupplierHandler.INTERNAL_RF_BUFFER_MAX - internal_RF_Buffer;
-                if (neededPower > 0) {
-                    if (pipe.useEnergy((int) (neededPower / 100), false)) {
-                        outer: for (Pair<ISubSystemPowerProvider, List<IFilter>> pair : provider) {
-                            for (IFilter filter : pair.getValue2()) {
-                                if (filter.blockPower()) {
-                                    continue outer;
-                                }
-                            }
-                            if (pair.getValue1().usePaused()) {
-                                continue;
-                            }
-                            if (!pair.getValue1().getBrand().equals("RF")) {
-                                continue;
-                            }
-                            float requestamount = neededPower * (pair.getValue1().getPowerLevel() / available);
-                            pair.getValue1().requestPower(pipe.getRouterId(), requestamount);
-                        }
-                    }
-                }
-            }
-        }
-        if (SimpleServiceLocator.IC2Proxy.hasIC2() && pipe.getUpgradeManager().getIC2PowerLevel() > 0) {
-            // Use Buffer
-            WorldUtil worldUtil = new WorldUtil(pipe.getWorld(), pipe.getX(), pipe.getY(), pipe.getZ());
-            List<AdjacentTile> adjacent = worldUtil.getAdjacentTileEntities(false);
-            float globalNeed = 0;
-            float[] need = new float[adjacent.size()];
-            int i = 0;
-            for (AdjacentTile adTile : adjacent) {
-                if (SimpleServiceLocator.IC2Proxy.isEnergySink(adTile.tile)
-                        && pipe.canPipeConnect(adTile.tile, adTile.orientation)
-                        && SimpleServiceLocator.IC2Proxy
-                                .acceptsEnergyFrom(adTile.tile, pipe.container, adTile.orientation.getOpposite())) {
-                    globalNeed += need[i] = (float) SimpleServiceLocator.IC2Proxy.demandedEnergyUnits(adTile.tile);
-                }
-                i++;
-            }
-            if (globalNeed != 0 && !Float.isNaN(globalNeed)) {
-                float fullfillable = Math.min(1, internal_IC2_Buffer / globalNeed);
-                i = 0;
-                for (AdjacentTile adTile : adjacent) {
-                    if (SimpleServiceLocator.IC2Proxy.isEnergySink(adTile.tile)
-                            && pipe.canPipeConnect(adTile.tile, adTile.orientation)
-                            && SimpleServiceLocator.IC2Proxy
-                                    .acceptsEnergyFrom(adTile.tile, pipe.container, adTile.orientation.getOpposite())) {
-                        if (internal_IC2_Buffer + 1 < need[i] * fullfillable) {
-                            return;
-                        }
-                        double toUse = Math.min(pipe.getUpgradeManager().getIC2PowerLevel(), need[i] * fullfillable);
-                        double unUsed = SimpleServiceLocator.IC2Proxy
-                                .injectEnergyUnits(adTile.tile, adTile.orientation.getOpposite(), toUse);
-                        double used = toUse - unUsed;
-                        if (used > 0) {
-                            // MainProxy.sendPacketToAllWatchingChunk(this.pipe.getX(), this.pipe.getZ(),
-                            // MainProxy.getDimensionForWorld(this.pipe.getWorld()),
-                            // PacketHandler.getPacket(PowerPacketLaser.class).setColor(LogisticsPowerProviderTileEntity.IC2_COLOR).setPos(this.pipe.getLPPosition()).setRenderBall(true).setDir(adTile.orientation).setLength(0.5F));
-                            pipe.container.addLaser(
-                                    adTile.orientation,
-                                    0.5F,
-                                    LogisticsPowerProviderTileEntity.IC2_COLOR,
-                                    false,
-                                    true);
-                            internal_IC2_Buffer -= used;
-                        }
-                        if (internal_IC2_Buffer < 0) {
-                            internal_IC2_Buffer = 0;
-                            return;
-                        }
-                    }
-                    i++;
-                }
-            }
-            // Rerequest Buffer
-            List<Pair<ISubSystemPowerProvider, List<IFilter>>> provider = pipe.getRouter().getSubSystemPowerProvider();
-            float available = 0;
-            outer: for (Pair<ISubSystemPowerProvider, List<IFilter>> pair : provider) {
-                for (IFilter filter : pair.getValue2()) {
-                    if (filter.blockPower()) {
-                        continue outer;
-                    }
-                }
-                if (pair.getValue1().usePaused()) {
-                    continue;
-                }
-                if (!pair.getValue1().getBrand().equals("EU")) {
-                    continue;
-                }
-                available += pair.getValue1().getPowerLevel();
-            }
-            if (available > 0) {
-                float neededPower = PowerSupplierHandler.INTERNAL_IC2_BUFFER_MAX - internal_IC2_Buffer;
-                if (neededPower > 0) {
-                    if (pipe.useEnergy((int) (neededPower / 10000), false)) {
-                        outer: for (Pair<ISubSystemPowerProvider, List<IFilter>> pair : provider) {
-                            for (IFilter filter : pair.getValue2()) {
-                                if (filter.blockPower()) {
-                                    continue outer;
-                                }
-                            }
-                            if (pair.getValue1().usePaused()) {
-                                continue;
-                            }
-                            if (!pair.getValue1().getBrand().equals("EU")) {
-                                continue;
-                            }
-                            float requestamount = neededPower * (pair.getValue1().getPowerLevel() / available);
-                            pair.getValue1().requestPower(pipe.getRouterId(), requestamount);
-                        }
-                    }
-                }
-            }
+            providerRFPower(adjacentTile);
+            receiveRFPower(powerProvider.stream().filter(it -> it.getBrand().equals("RF")).collect(Collectors.toList()));
+
+            provideEUPower(adjacentTile);
+            receiveEUPower(powerProvider.stream().filter(it -> it.getBrand().equals("EU")).collect(Collectors.toList()));
         }
     }
 
-    public void addRFPower(float toSend) {
+    public void updateICBuffer() {
+        var upgradeManager = pipe.getUpgradeManager();
+        INTERNAL_IC2_BUFFER_MAX = upgradeManager.getIC2PowerLevel() * upgradeManager.getIC2MaxAmperage(upgradeManager.getIC2PowerLevel()) * 8L;
+    }
+
+    public void addRFPower(double toSend) {
         internal_RF_Buffer += toSend;
     }
 
-    public void addIC2Power(float toSend) {
+    public void addIC2Power(double toSend) {
         internal_IC2_Buffer += toSend;
     }
 }

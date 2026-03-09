@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import logisticspipes.pipes.upgrades.power.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +31,6 @@ import logisticspipes.pipes.upgrades.IPipeUpgrade;
 import logisticspipes.pipes.upgrades.LogicControllerUpgrade;
 import logisticspipes.pipes.upgrades.OpaqueUpgrade;
 import logisticspipes.pipes.upgrades.PatternUpgrade;
-import logisticspipes.pipes.upgrades.PowerTransportationUpgrade;
 import logisticspipes.pipes.upgrades.SpeedUpgrade;
 import logisticspipes.pipes.upgrades.UpgradeModuleUpgrade;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeDOWN;
@@ -39,11 +39,6 @@ import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeNORTH;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeSOUTH;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeUP;
 import logisticspipes.pipes.upgrades.connection.ConnectionUpgradeWEST;
-import logisticspipes.pipes.upgrades.power.IC2EVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2HVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2LVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.IC2MVPowerSupplierUpgrade;
-import logisticspipes.pipes.upgrades.power.RFPowerSupplierUpgrade;
 import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeDOWN;
 import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeEAST;
 import logisticspipes.pipes.upgrades.sneaky.SneakyUpgradeNORTH;
@@ -84,11 +79,23 @@ public class ItemUpgrade extends LogisticsItem {
 
     // Power Upgrades
     public static final int POWER_TRANSPORTATION = 30;
-    public static final int POWER_RF_SUPPLIER = 32;
-    public static final int POWER_IC2_LV_SUPPLIER = 33;
-    public static final int POWER_IC2_MV_SUPPLIER = 34;
-    public static final int POWER_IC2_HV_SUPPLIER = 35;
-    public static final int POWER_IC2_EV_SUPPLIER = 36;
+    public static final int POWER_TRANSPORTATION_LV = 50;
+    public static final int POWER_TRANSPORTATION_MV = 51;
+    public static final int POWER_TRANSPORTATION_HV = 52;
+    public static final int POWER_TRANSPORTATION_EV = 53;
+    public static final int POWER_TRANSPORTATION_IV = 54;
+    public static final int POWER_TRANSPORTATION_LuV = 55;
+    public static final int POWER_TRANSPORTATION_ZPM = 56;
+    public static final int POWER_TRANSPORTATION_UV = 57;
+    public static final int POWER_RF_SUPPLIER = 35;
+    public static final int POWER_IC2_LV_SUPPLIER = 60;
+    public static final int POWER_IC2_MV_SUPPLIER = 61;
+    public static final int POWER_IC2_HV_SUPPLIER = 62;
+    public static final int POWER_IC2_EV_SUPPLIER = 63;
+    public static final int POWER_IC2_IV_SUPPLIER = 64;
+    public static final int POWER_IC2_LuV_SUPPLIER = 65;
+    public static final int POWER_IC2_ZPM_SUPPLIER = 66;
+    public static final int POWER_IC2_UV_SUPPLIER = 67;
 
     // Various
     public static final int CC_REMOTE_CONTROL = 40;
@@ -144,7 +151,7 @@ public class ItemUpgrade extends LogisticsItem {
 
     public ItemUpgrade() {
         hasSubtypes = true;
-    }
+}
 
     public void loadUpgrades() {
         registerUpgrade(ItemUpgrade.SNEAKY_UP, SneakyUpgradeUP.class, 0);
@@ -168,11 +175,24 @@ public class ItemUpgrade extends LogisticsItem {
         registerUpgrade(ItemUpgrade.SUPPLIER_PATTERN, PatternUpgrade.class, 17);
         registerUpgrade(ItemUpgrade.FUZZY_CRAFTING, FuzzyUpgrade.class, 18);
         registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION, PowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_LV, IC2LVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_MV, IC2MVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_HV, IC2HVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_EV, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_IV, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_LuV, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_ZPM, IC2EVPowerTransportationUpgrade.class, 19);
+        registerUpgrade(ItemUpgrade.POWER_TRANSPORTATION_UV, IC2EVPowerTransportationUpgrade.class, 19);
         registerUpgrade(ItemUpgrade.POWER_RF_SUPPLIER, RFPowerSupplierUpgrade.class, 21);
         registerUpgrade(ItemUpgrade.POWER_IC2_LV_SUPPLIER, IC2LVPowerSupplierUpgrade.class, 22);
         registerUpgrade(ItemUpgrade.POWER_IC2_MV_SUPPLIER, IC2MVPowerSupplierUpgrade.class, 23);
         registerUpgrade(ItemUpgrade.POWER_IC2_HV_SUPPLIER, IC2HVPowerSupplierUpgrade.class, 24);
         registerUpgrade(ItemUpgrade.POWER_IC2_EV_SUPPLIER, IC2EVPowerSupplierUpgrade.class, 25);
+        registerUpgrade(ItemUpgrade.POWER_IC2_IV_SUPPLIER, IC2IVPowerSupplierUpgrade.class, 22);
+        registerUpgrade(ItemUpgrade.POWER_IC2_LuV_SUPPLIER, IC2LuVPowerSupplierUpgrade.class, 22);
+        registerUpgrade(ItemUpgrade.POWER_IC2_ZPM_SUPPLIER, IC2ZPMPowerSupplierUpgrade.class, 22);
+        registerUpgrade(ItemUpgrade.POWER_IC2_UV_SUPPLIER, IC2UVPowerSupplierUpgrade.class, 22);
+
         registerUpgrade(ItemUpgrade.CC_REMOTE_CONTROL, CCRemoteControlUpgrade.class, 26);
         registerUpgrade(ItemUpgrade.CRAFTING_MONITORING, CraftingMonitoringUpgrade.class, 27);
         registerUpgrade(ItemUpgrade.OPAQUE_UPGRADE, OpaqueUpgrade.class, 28);
