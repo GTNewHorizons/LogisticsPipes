@@ -103,7 +103,7 @@ public class GuiProviderPipe extends LogisticsBaseGuiScreen {
                 6,
                 0x404040);
         mc.fontRenderer
-                .drawString(StringUtils.translate(GuiProviderPipe.PREFIX + "Inventory"), 18, ySize - 102, 0x404040);
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 18, ySize - 102, 0x404040);
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiProviderPipe.PREFIX + "Mode") + ": "
                         + logic.getExtractionMode().getExtractionModeString(),

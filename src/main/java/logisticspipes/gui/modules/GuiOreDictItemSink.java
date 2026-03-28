@@ -15,6 +15,7 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiOreDictItemSink extends ModuleBaseGui {
 
@@ -81,7 +82,11 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
         int pointerX = var2 - guiLeft;
         int pointerY = var3 - guiTop;
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 7, guiTop + 126);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 7,
+                guiTop + 126,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 6, guiTop + 7);
 
         if (tmpInv.getStackInSlot(0) != null) {
@@ -102,7 +107,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
         }
 
         // draw unsunk list and highlight bar, handle clicks
-        SimpleGraphics.drawRectNoBlend(guiLeft + 26, guiTop + 5, guiLeft + 159, guiTop + 27, Color.DARK_GREY, 0.0);
+        GuiGraphics.drawNineSlice(mc, guiLeft + 26, guiTop + 5, 133, 22, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
         for (int i = 0; i + currentOffset < unsunkNames.size() && i < 2; i++) {
             if (27 <= pointerX && pointerX < 158 && 6 + (10 * i) <= pointerY && pointerY < 6 + (10 * (i + 1))) {
                 SimpleGraphics.drawRectNoBlend(
@@ -113,8 +118,11 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
                         Color.LIGHT_GREY,
                         0.0);
             }
-            mc.fontRenderer
-                    .drawString(unsunkNames.get(currentOffset + i), guiLeft + 28, guiTop + 7 + (10 * i), 0x404040);
+            String entry = unsunkNames.get(currentOffset + i);
+            String entryFormat = StringUtils.translate("gui.module.ItemSink.text");
+            String entryText = entryFormat.equals("gui.module.ItemSink.text") ? entry
+                    : String.format(entryFormat, entry);
+            mc.fontRenderer.drawString(entryText, guiLeft + 28, guiTop + 7 + (10 * i), 0x404040);
             if (27 <= mouseX && mouseX < 158 && 6 + (10 * i) <= mouseY && mouseY < 6 + (10 * (i + 1))) {
                 mouseX = 0;
                 mouseY = 0;
@@ -130,7 +138,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
         }
 
         // draw main list and highlight bar, handle clicks
-        SimpleGraphics.drawRectNoBlend(guiLeft + 5, guiTop + 30, guiLeft + 169, guiTop + 122, Color.DARK_GREY, 0.0);
+        GuiGraphics.drawNineSlice(mc, guiLeft + 5, guiTop + 30, 164, 92, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
         for (int i = 0; i < _itemSink.oreList.size() && i < 9; i++) {
             if (6 <= pointerX && pointerX < 168 && 31 + (10 * i) <= pointerY && pointerY < 31 + (10 * (i + 1))) {
                 SimpleGraphics.drawRectNoBlend(
@@ -141,7 +149,11 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
                         Color.LIGHT_GREY,
                         0.0);
             }
-            mc.fontRenderer.drawString(_itemSink.oreList.get(i), guiLeft + 7, guiTop + 32 + (10 * i), 0x404040);
+            String entry = _itemSink.oreList.get(i);
+            String entryFormat = StringUtils.translate("gui.module.ItemSink.text");
+            String entryText = entryFormat.equals("gui.module.ItemSink.text") ? entry
+                    : String.format(entryFormat, entry);
+            mc.fontRenderer.drawString(entryText, guiLeft + 7, guiTop + 32 + (10 * i), 0x404040);
             if (6 <= mouseX && mouseX < 168 && 31 + (10 * i) <= mouseY && mouseY < 31 + (10 * (i + 1))) {
                 mouseX = 0;
                 mouseY = 0;

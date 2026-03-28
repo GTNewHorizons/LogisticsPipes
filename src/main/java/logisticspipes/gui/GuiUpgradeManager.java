@@ -34,7 +34,7 @@ public class GuiUpgradeManager extends LogisticsBaseGuiScreen {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         mc.fontRenderer.drawString(StringUtils.translate(GuiUpgradeManager.PREFIX + "Upgrades"), 8, 6, 0x404040);
         mc.fontRenderer
-                .drawString(StringUtils.translate(GuiUpgradeManager.PREFIX + "Inventory"), 8, ySize - 92, 0x404040);
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 8, ySize - 92, 0x404040);
         if (upgrade.hasCombinedSneakyUpgrade()) {
             mc.fontRenderer
                     .drawString(StringUtils.translate(GuiUpgradeManager.PREFIX + "SneakyUpgrades"), 8, 47, 0x404040);

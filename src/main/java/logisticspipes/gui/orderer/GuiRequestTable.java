@@ -84,7 +84,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     public ItemDisplay itemDisplay;
     private GuiSearchBar search;
 
-    protected final String _title = "Request items";
+    private static final String PREFIX = "gui.requesttable.";
+    protected final String _title = GuiRequestTable.PREFIX + "RequestItems";
 
     public int dimension;
     private boolean showRequest = true;
@@ -98,6 +99,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     private final IChainAddList<GuiButton> moveWhileSmall = new ChainAddArrayList<>();
     private final IChainAddList<GuiButton> hideWhileSmall = new ChainAddArrayList<>();
     private GuiButton hideShowButton;
+    private GuiCheckBox popupCheckBox;
 
     public GuiRequestTable(EntityPlayer entityPlayer, PipeBlockRequestTable table) {
         super(410, 240, 0, 0);
@@ -159,7 +161,8 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(7, right - 74, bottom - 26, 15, 10, "++"))); // +10
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(11, right - 86, bottom - 15, 26, 10, "+++"))); // +64
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(34, right - 86, bottom - 41, 10, 10, "X"))); // x
-        buttonList.add(hideWhileSmall.addChain(new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP))); // Popup
+        popupCheckBox = new GuiCheckBox(8, guiLeft + 209, bottom - 60, 14, 14, Configs.DISPLAY_POPUP);
+        buttonList.add(hideWhileSmall.addChain(popupCheckBox)); // Popup
 
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(3, guiLeft + 210, bottom - 15, 46, 10, "Refresh"))); // Refresh
         buttonList.add(hideWhileSmall.addChain(new SmallGuiButton(13, guiLeft + 210, bottom - 28, 46, 10, "Content"))); // Component
@@ -236,17 +239,21 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
         if (showRequest) {
             mc.fontRenderer.drawString(
-                    _title,
-                    guiLeft + 180 + mc.fontRenderer.getStringWidth(_title) / 2,
+                    StringUtils.translate(_title),
+                    guiLeft + 180 + mc.fontRenderer.getStringWidth(StringUtils.translate(_title)) / 2,
                     guiTop + 6,
                     0x404040);
             itemDisplay.renderPageNumber(right - 47, guiTop + 6);
 
-            if (buttonList.get(9) instanceof GuiCheckBox && ((GuiCheckBox) buttonList.get(9)).getState()) {
-                mc.fontRenderer.drawString("Popup", guiLeft + 225, bottom - 56, 0x404040);
-            } else {
-                mc.fontRenderer.drawString("Popup", guiLeft + 225, bottom - 56, Color.getValue(Color.GREY));
+            int popupColor = Color.getValue(Color.GREY);
+            if (popupCheckBox != null && popupCheckBox.getState()) {
+                popupColor = 0x404040;
             }
+            mc.fontRenderer.drawString(
+                    StringUtils.translate("gui.requesttable.Popup"),
+                    guiLeft + 225,
+                    bottom - 56,
+                    popupColor);
 
             itemDisplay.renderAmount(right - 103, bottom - 24, getStackAmount());
             // SearchInput
@@ -258,17 +265,29 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
 
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 3; y++) {
-                GuiGraphics.drawSlotBackground(mc, guiLeft + (x * 18) + 19, guiTop + (y * 18) + 79);
+                GuiGraphics.drawSlotBackground(
+                        mc,
+                        guiLeft + (x * 18) + 19,
+                        guiTop + (y * 18) + 79,
+                        GuiGraphics.CONTAINER_SLOT_TEXTURE);
             }
         }
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                GuiGraphics.drawSlotBackground(mc, guiLeft + (x * 18) + 19, guiTop + (y * 18) + 14);
+                GuiGraphics.drawSlotBackground(
+                        mc,
+                        guiLeft + (x * 18) + 19,
+                        guiTop + (y * 18) + 14,
+                        GuiGraphics.CONTAINER_SLOT_TEXTURE);
             }
         }
-        mc.fontRenderer.drawString("Sort:", guiLeft + 136, guiTop + 55, 0xffffff);
-        GuiGraphics.drawSlotBackground(mc, guiLeft + 100, guiTop + 32);
-        GuiGraphics.drawSlotBackground(mc, guiLeft + 163, guiTop + 50);
+        mc.fontRenderer.drawString(
+                StringUtils.translate(GuiRequestTable.PREFIX + "Sort"),
+                guiLeft + 136,
+                guiTop + 55,
+                0xffffff);
+        GuiGraphics.drawSlotBackground(mc, guiLeft + 100, guiTop + 32, GuiGraphics.CONTAINER_SLOT_TEXTURE);
+        GuiGraphics.drawSlotBackground(mc, guiLeft + 163, guiTop + 50, GuiGraphics.CONTAINER_SLOT_TEXTURE);
         drawRect(guiLeft + 75, guiTop + 38, guiLeft + 95, guiTop + 43, Color.DARKER_GREY);
         for (int a = 0; a < 10; a++) {
             drawRect(guiLeft + 97 - a, guiTop + 40 - a, guiLeft + 98 - a, guiTop + 41 + a, Color.DARKER_GREY);
@@ -277,7 +296,11 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
             drawRect(guiLeft + 164 + a, guiTop + 51 + a, guiLeft + 166 + a, guiTop + 53 + a, Color.DARKER_GREY);
             drawRect(guiLeft + 164 + a, guiTop + 65 - a, guiLeft + 166 + a, guiTop + 67 - a, Color.DARKER_GREY);
         }
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 20, guiTop + 150);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 20,
+                guiTop + 150,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
         for (final Entry<Integer, Pair<IResource, LinkedLogisticsOrderList>> entry : _table.watchedRequests
                 .entrySet()) {
             if (!handledExtention.get(entry.getKey())) {

@@ -12,6 +12,7 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SmallGuiButton;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiCCBasedQuickSort extends ModuleBaseGui {
 
@@ -80,11 +81,13 @@ public class GuiCCBasedQuickSort extends ModuleBaseGui {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
         mc.fontRenderer.drawString(
-                "Timeout Timer",
-                xSize / 2 - mc.fontRenderer.getStringWidth("Timeout Timer") / 2,
+                StringUtils.translate("gui.module.ModuleCCBasedQuickSort"),
+                xSize / 2 - mc.fontRenderer.getStringWidth(StringUtils.translate("gui.module.ModuleCCBasedQuickSort"))
+                        / 2,
                 10,
                 0x404040);
-        String timeoutString = _sortModule.getTimeout() + " ticks";
+        String timeoutString = String
+                .format(StringUtils.translate("gui.module.ModuleCCBasedQuickSort.ticks"), _sortModule.getTimeout());
         mc.fontRenderer
                 .drawString(timeoutString, xSize / 2 - mc.fontRenderer.getStringWidth(timeoutString) / 2, 30, 0x404040);
     }
