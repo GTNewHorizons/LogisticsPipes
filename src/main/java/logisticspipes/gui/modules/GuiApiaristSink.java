@@ -22,9 +22,11 @@ import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.IItemTextureRenderSlot;
 import logisticspipes.utils.gui.ISmallColorRenderSlot;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.string.StringUtils;
 
 public class GuiApiaristSink extends ModuleBaseGui {
 
+    static final String PREFIX = "gui.apiaristsink.";
     private static final ResourceLocation TEXTURE = new ResourceLocation(
             "logisticspipes",
             "textures/gui/apiarist_sink.png");
@@ -66,6 +68,7 @@ public class GuiApiaristSink extends ModuleBaseGui {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "title"), 8, 6, 0x404040);
         mc.fontRenderer.drawString(module.getInventoryBee().getInventoryName(), 35, 125, 0x404040);
     }
 

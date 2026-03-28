@@ -22,10 +22,15 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
+import logisticspipes.utils.string.StringUtils;
 
 public class ModuleApiaristSink extends LogisticsGuiModule {
 
-    private final ItemIdentifierInventory _inventoryBee = new ItemIdentifierInventory(1, "Set on click ->", 1);
+    static final String PREFIX = "gui.apiaristsink.";
+    private final ItemIdentifierInventory _inventoryBee = new ItemIdentifierInventory(
+            1,
+            String.format(StringUtils.translate(PREFIX + "inventorySlot"), "->"),
+            1);
 
     public enum FilterType {
 
