@@ -1,6 +1,7 @@
 package logisticspipes.gui.modules;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +21,9 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.utils.gui.DummyContainer;
 import logisticspipes.utils.gui.IItemTextureRenderSlot;
+import logisticspipes.utils.gui.IRenderSlot;
 import logisticspipes.utils.gui.ISmallColorRenderSlot;
+import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.string.StringUtils;
 
@@ -54,6 +57,29 @@ public class GuiApiaristSink extends ModuleBaseGui {
 
         xSize = 175;
         ySize = 180;
+    }
+
+    @Override
+    public void initGui() {
+        super.initGui();
+        buttonList.clear();
+        buttonList.add(
+                new SmallGuiButton(
+                        0,
+                        guiLeft + 120,
+                        guiTop + 5,
+                        40,
+                        10,
+                        StringUtils.translate(PREFIX + "resetButton")));
+    }
+
+    @Override
+    protected void actionPerformed(GuiButton guibutton) {
+        if (guibutton.id == 0) {
+            for (IRenderSlot element : slots) {
+                element.resetSetting();
+            }
+        }
     }
 
     @Override
@@ -148,6 +174,15 @@ public class GuiApiaristSink extends ModuleBaseGui {
         public boolean customRender(Minecraft mc, float zLevel) {
             return false;
         }
+
+        @Override
+        public void resetSetting() {
+            setting.FilterTypeReset();
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(BeeModuleSetBeePacket.class).setInteger2(row).setInteger3(3)
+                            .setInteger4(setting.filterType.ordinal()).setModulePos(module));
+        }
+
     }
 
     private class GroupSlot extends ISmallColorRenderSlot {
@@ -243,6 +278,14 @@ public class GuiApiaristSink extends ModuleBaseGui {
         @Override
         public boolean drawColor() {
             return drawSlotBackground();
+        }
+
+        @Override
+        public void resetSetting() {
+            setting.filterGroupReset();
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(BeeModuleSetBeePacket.class).setInteger2(row).setInteger3(2)
+                            .setInteger4(setting.filterGroup).setModulePos(module));
         }
     }
 
@@ -391,6 +434,15 @@ public class GuiApiaristSink extends ModuleBaseGui {
         @SideOnly(Side.CLIENT)
         public IIcon getTextureIcon() {
             return null;
+        }
+
+        @Override
+        public void resetSetting() {
+            setting.firstBeeReset();
+            setting.secondBeeReset();
+            MainProxy.sendPacketToServer(
+                    PacketHandler.getPacket(BeeModuleSetBeePacket.class).setInteger2(row).setInteger3(slotNumber)
+                            .setString1(slotNumber == 0 ? setting.firstBee : setting.secondBee).setModulePos(module));
         }
     }
 }
