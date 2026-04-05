@@ -1,5 +1,6 @@
 package logisticspipes.proxy.ic2;
 
+import ic2.api.item.ElectricItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,107 +27,63 @@ import logisticspipes.proxy.interfaces.IIC2Proxy;
 
 public class IC2Proxy implements IIC2Proxy {
 
-    /**
-     * @param stack The stack to check.
-     * @return Boolean, true if itemstack is a ic2 electric item.
-     */
     @Override
     public boolean isElectricItem(ItemStack stack) {
-        return stack != null && (stack.getItem() instanceof IElectricItem);
+        return stack != null && stack.getItem() != null && (stack.getItem() instanceof IElectricItem);
     }
 
-    /**
-     * @param stack    The stack to check
-     * @param template The stack to compare to
-     * @return Boolean, true if stack is the same type of ic2 electric item as template.
-     */
     @Override
     public boolean isSimilarElectricItem(ItemStack stack, ItemStack template) {
-        if (stack == null || template == null || !isElectricItem(template)) {
-            return false;
-        }
-        if (((IElectricItem) template.getItem()).getEmptyItem(stack) == stack.getItem()) {
-            return true;
-        }
-        return ((IElectricItem) template.getItem()).getChargedItem(stack) == stack.getItem();
+        if (stack == null || template == null || !isElectricItem(stack) || !isElectricItem(template)) return false;
+        var electricItem = (IElectricItem) template.getItem();
+        return electricItem.getEmptyItem(stack) == stack.getItem() || electricItem.getChargedItem(stack) == stack.getItem();
     }
 
-    /**
-     * @param stack The stack to get charge for.
-     * @return Int value of current charge on electric item.
-     */
-    private double getCharge(ItemStack stack) {
-        if ((stack.getItem() instanceof IElectricItem) && stack.hasTagCompound()) {
-            return stack.getTagCompound().getDouble("charge");
-        } else {
-            return 0;
-        }
+    public double getCurrentCharge(ItemStack stack) {
+        if (isElectricItem(stack)) return ElectricItem.manager.getCharge(stack);
+        else return 0;
     }
 
-    /**
-     * @param stack The stack to get max charge for.
-     * @return Int value of maximum charge on electric item.
-     */
-    private double getMaxCharge(ItemStack stack) {
-        if (!(stack.getItem() instanceof IElectricItem)) {
-            return 0;
-        }
+    public double getMaxCharge(ItemStack stack) {
+        if (!isElectricItem(stack)) return 0.0;
         return ((IElectricItem) stack.getItem()).getMaxCharge(stack);
     }
 
-    /**
-     * @param stack The stack to check if its fully charged.
-     * @return Boolean, true if electric item is fully charged.
-     */
+    public double getVoltage(ItemStack stack) {
+        if (!isElectricItem(stack)) return 0.0;
+        return ((IElectricItem) stack.getItem()).getTransferLimit(stack);
+    }
+
+    @Override
+    public double chargeElectricItem(ItemStack stack, double amount) {
+        if (!isElectricItem(stack)) return 0.0;
+        var charge = Math.min(Math.min(getMaxCharge(stack) - getCurrentCharge(stack), amount), getVoltage(stack));
+        return ElectricItem.manager.charge(stack, charge, Integer.MAX_VALUE, true, false);
+    }
+
+    @Override
+    public double dischargeElectricItem(ItemStack stack, double amount) {
+        if (!isElectricItem(stack)) return 0.0;
+        var discharge = Math.min(Math.min(getCurrentCharge(stack), amount), getVoltage(stack));
+        ElectricItem.manager.discharge(stack, discharge, Integer.MAX_VALUE, true, false, false);
+        return discharge;
+    }
+
     @Override
     public boolean isFullyCharged(ItemStack stack) {
-        if (!isElectricItem(stack)) {
-            return false;
-        }
-        if (((IElectricItem) stack.getItem()).getChargedItem(stack) != stack.getItem()) {
-            return false;
-        }
-        double charge = getCharge(stack);
-        double maxCharge = getMaxCharge(stack);
-        return charge == maxCharge;
+        return isElectricItem(stack) && getCurrentCharge(stack) == getMaxCharge(stack);
     }
 
-    /**
-     * @param stack The stack to check if its fully discharged.
-     * @return Boolean, true if electric item is fully discharged.
-     */
     @Override
     public boolean isFullyDischarged(ItemStack stack) {
-        if (!isElectricItem(stack)) {
-            return false;
-        }
-        if (((IElectricItem) stack.getItem()).getEmptyItem(stack) != stack.getItem()) {
-            return false;
-        }
-        double charge = getCharge(stack);
-        return charge == 0;
+        return isElectricItem(stack) && getCurrentCharge(stack) == 0.0;
     }
 
-    /**
-     * @param stack The stack to check if its partially charged.
-     * @return Boolean, true if electric item contains charge but is not full.
-     */
     @Override
     public boolean isPartiallyCharged(ItemStack stack) {
-        if (!isElectricItem(stack)) {
-            return false;
-        }
-        if (((IElectricItem) stack.getItem()).getChargedItem(stack) != stack.getItem()) {
-            return false;
-        }
-        double charge = getCharge(stack);
-        double maxCharge = getMaxCharge(stack);
-        return charge != maxCharge;
+        return isElectricItem(stack) && getCurrentCharge(stack) > 0.0 && getCurrentCharge(stack) < getMaxCharge(stack);
     }
 
-    /**
-     * Adds crafting recipes to "IC2 Crafting"
-     */
     @Override
     public void addCraftingRecipes(ICraftingParts parts) {
         if (LogisticsPipes.isGTNH) {
@@ -477,11 +434,6 @@ public class IC2Proxy implements IIC2Proxy {
         }
     }
 
-    /**
-     * Registers an TileEntity to the IC2 EnergyNet
-     *
-     * @param tile has to be an instance of IEnergyTile
-     */
     @Override
     public void registerToEneryNet(TileEntity tile) {
         if (MainProxy.isServer(tile.getWorldObj())) {
@@ -489,11 +441,6 @@ public class IC2Proxy implements IIC2Proxy {
         }
     }
 
-    /**
-     * Removes an TileEntity from the IC2 EnergyNet
-     *
-     * @param tile has to be an instance of IEnergyTile
-     */
     @Override
     public void unregisterToEneryNet(TileEntity tile) {
         if (MainProxy.isServer(tile.getWorldObj())) {
@@ -501,17 +448,17 @@ public class IC2Proxy implements IIC2Proxy {
         }
     }
 
-    /**
-     * @return If IC2 is loaded, returns true.
-     */
     @Override
     public boolean hasIC2() {
         return true;
     }
 
     @Override
-    public boolean acceptsEnergyFrom(TileEntity energy, TileEntity tile, ForgeDirection opposite) {
-        return ((IEnergySink) energy).acceptsEnergyFrom(tile, opposite);
+    public boolean acceptsEnergyFrom(TileEntity sink, TileEntity source, ForgeDirection opposite) {
+        if (sink instanceof IEnergySink iEnergySink) {
+            return iEnergySink.acceptsEnergyFrom(source, opposite);
+        }
+        return false;
     }
 
     @Override
@@ -520,12 +467,18 @@ public class IC2Proxy implements IIC2Proxy {
     }
 
     @Override
-    public double demandedEnergyUnits(TileEntity tile) {
-        return ((IEnergySink) tile).getDemandedEnergy();
+    public double demandedEnergyUnits(TileEntity sink) {
+        if (sink instanceof IEnergySink iEnergySink) {
+            return iEnergySink.getDemandedEnergy();
+        }
+        return 0;
     }
 
     @Override
-    public double injectEnergyUnits(TileEntity tile, ForgeDirection opposite, double d) {
-        return ((IEnergySink) tile).injectEnergy(opposite, d, 1); // TODO check the voltage
+    public double injectEnergyUnits(TileEntity sink, ForgeDirection opposite, double amount) {
+        if (sink instanceof IEnergySink iEnergySink) {
+            return iEnergySink.injectEnergy(opposite, amount, 1);
+        }
+        return 0;
     }
 }

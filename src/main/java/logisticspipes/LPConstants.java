@@ -11,7 +11,7 @@ public class LPConstants {
     public static final float BC_PIPE_MIN_POS = 0.25F;
     public static final float BC_PIPE_MAX_POS = 0.75F;
 
-    public static final boolean DEBUG = Boolean.getBoolean("logisticspipes.enableDebug");
+    public static final boolean DEBUG = true;
 
     public static int pipeModel = -1;
     public static int solidBlockModel = -1;

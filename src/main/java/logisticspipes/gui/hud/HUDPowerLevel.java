@@ -46,12 +46,12 @@ public class HUDPowerLevel extends BasicHUDGui implements IHeadUpDisplayRenderer
         drawTexturedModalRect(-49, -29 + (level * 59 / 100), 176, level * 59 / 100, 5, 59 - (level * 59 / 100));
         mc.fontRenderer.drawString("Stored Energy:", -30, -15, 0x404040);
         mc.fontRenderer.drawString(
-                StringUtils.getStringWithSpacesFromInteger(junction.getDisplayPowerLevel()) + " " + junction.getBrand(),
+                StringUtils.getStringWithSpacesFromDouble(junction.getCurrentEnergy()) + " " + junction.getBrand(),
                 -30,
                 -5,
                 0x404040);
         mc.fontRenderer.drawString(
-                "/ " + StringUtils.getStringWithSpacesFromInteger(junction.getMaxStorage()) + " " + junction.getBrand(),
+                "/ " + StringUtils.getStringWithSpacesFromDouble(junction.getCurrentCapacity()) + " " + junction.getBrand(),
                 -30,
                 5,
                 0x404040);
