@@ -182,10 +182,6 @@ public class ModuleCrafterMK3 extends ModuleCrafter
                     PacketHandler.getPacket(ModuleInventory.class)
                             .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
                     localModeWatchers);
-            MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
-                    localModeWatchers);
         }
     }
 
@@ -201,10 +197,6 @@ public class ModuleCrafterMK3 extends ModuleCrafter
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
                         .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
-                player);
-        MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
                 player);
         super.startWatching(player);
     }
