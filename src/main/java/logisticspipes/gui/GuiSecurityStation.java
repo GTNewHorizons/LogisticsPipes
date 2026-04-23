@@ -3,7 +3,6 @@ package logisticspipes.gui;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,7 +55,7 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
     private int addition;
     private boolean authorized;
 
-    protected final String _title = "Request items";
+    protected final String _title = "gui.requesttable.RequestItems";
     protected boolean clickWasButton = false;
 
     public GuiSecurityStation(LogisticsSecurityTileEntity tile, EntityPlayer player) {
@@ -168,18 +167,22 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
     @Override
     protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 10, guiTop + 175);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 10,
+                guiTop + 175,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 81, guiTop + 140);
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiSecurityStation.PREFIX + "SecurityStation"),
                 guiLeft + 105,
                 guiTop + 10,
                 0x404040);
-        mc.fontRenderer.drawString(
-                _tile.getSecId() == null ? "null" : _tile.getSecId().toString(),
-                guiLeft + 32,
-                guiTop + 25,
-                0x404040);
+        String playerKeyValue = _tile.getSecId() == null ? "null" : _tile.getSecId().toString();
+        String playerKeyFormat = StringUtils.translate(GuiSecurityStation.PREFIX + "PlayerKey");
+        String playerKeyText = playerKeyFormat.equals(GuiSecurityStation.PREFIX + "PlayerKey") ? playerKeyValue
+                : String.format(playerKeyFormat, playerKeyValue);
+        mc.fontRenderer.drawString(playerKeyText, guiLeft + 32, guiTop + 25, 0x404040);
         if (SimpleServiceLocator.ccProxy.isCC() || LPConstants.DEBUG) {
             mc.fontRenderer.drawString(
                     StringUtils.translate(GuiSecurityStation.PREFIX + "allowCCAccess") + ":",
@@ -210,7 +213,7 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
                 guiTop + 127,
                 0x404040);
         mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSecurityStation.PREFIX + "Inventory") + ":",
+                StringUtils.translate("gui.logisticspipes.inventory.title") + ":",
                 guiLeft + 10,
                 guiTop + 163,
                 0x404040);
@@ -262,7 +265,10 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
         int pos = bottom - 95;
         for (String player : players) {
             if (player.contains(searchinput1 + searchinput2)) {
-                mc.fontRenderer.drawString(player, guiLeft + 180, pos, 0x404040);
+                String playerListFormat = StringUtils.translate(GuiSecurityStation.PREFIX + "PlayerList");
+                String playerListText = playerListFormat.equals(GuiSecurityStation.PREFIX + "PlayerList") ? player
+                        : String.format(playerListFormat, player);
+                mc.fontRenderer.drawString(playerListText, guiLeft + 180, pos, 0x404040);
                 pos += 11;
             }
             // Check mouse click
@@ -280,9 +286,29 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
             }
         }
         if (authorized) {
-            Gui.drawRect(guiLeft + 127, guiTop + 101, guiLeft + 147, guiTop + 108, Color.getValue(Color.GREEN));
+            GuiGraphics.drawTexturedRect(
+                    mc,
+                    GuiGraphics.SECURITY_STATION_AUTH_TEXTURE,
+                    guiLeft + 127,
+                    guiTop + 101 - ((30 - 7) / 2),
+                    20,
+                    30,
+                    20,
+                    30,
+                    0,
+                    0);
         } else {
-            Gui.drawRect(guiLeft + 153, guiTop + 101, guiLeft + 173, guiTop + 108, Color.getValue(Color.RED));
+            GuiGraphics.drawTexturedRect(
+                    mc,
+                    GuiGraphics.SECURITY_STATION_DEAUTH_TEXTURE,
+                    guiLeft + 153,
+                    guiTop + 101 - ((30 - 7) / 2),
+                    20,
+                    30,
+                    20,
+                    30,
+                    0,
+                    0);
         }
     }
 

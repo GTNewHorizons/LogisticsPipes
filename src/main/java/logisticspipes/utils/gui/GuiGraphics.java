@@ -40,6 +40,21 @@ public final class GuiGraphics {
     public static final ResourceLocation SMALL_SLOT_TEXTURE = new ResourceLocation(
             "logisticspipes",
             "textures/gui/slot-small.png");
+    public static final ResourceLocation PLAYER_INVENTORY_SLOT_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/slot-player-inventory.png");
+    public static final ResourceLocation CONTAINER_SLOT_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/slot-container.png");
+    public static final ResourceLocation ITEM_AREA_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/item-area.png");
+    public static final ResourceLocation SECURITY_STATION_AUTH_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/securitystation-auth.png");
+    public static final ResourceLocation SECURITY_STATION_DEAUTH_TEXTURE = new ResourceLocation(
+            "logisticspipes",
+            "textures/gui/securitystation-deauth.png");
     public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
             "logisticspipes",
             "textures/gui/GuiBackground.png");
@@ -218,15 +233,20 @@ public final class GuiGraphics {
     }
 
     public static void drawPlayerInventoryBackground(Minecraft mc, int xOffset, int yOffset) {
+        GuiGraphics.drawPlayerInventoryBackground(mc, xOffset, yOffset, GuiGraphics.SLOT_TEXTURE);
+    }
+
+    public static void drawPlayerInventoryBackground(Minecraft mc, int xOffset, int yOffset,
+            ResourceLocation slotTexture) {
         // Player "backpack"
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
-                GuiGraphics.drawSlotBackground(mc, xOffset + column * 18 - 1, yOffset + row * 18 - 1);
+                GuiGraphics.drawSlotBackground(mc, xOffset + column * 18 - 1, yOffset + row * 18 - 1, slotTexture);
             }
         }
         // Player "hotbar"
         for (int i1 = 0; i1 < 9; i1++) {
-            GuiGraphics.drawSlotBackground(mc, xOffset + i1 * 18 - 1, yOffset + 58 - 1);
+            GuiGraphics.drawSlotBackground(mc, xOffset + i1 * 18 - 1, yOffset + 58 - 1, slotTexture);
         }
     }
 
@@ -245,9 +265,13 @@ public final class GuiGraphics {
     }
 
     public static void drawSlotBackground(Minecraft mc, int x, int y) {
+        GuiGraphics.drawSlotBackground(mc, x, y, GuiGraphics.SLOT_TEXTURE);
+    }
+
+    public static void drawSlotBackground(Minecraft mc, int x, int y, ResourceLocation slotTexture) {
         GuiGraphics.zLevel = 0;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(GuiGraphics.SLOT_TEXTURE);
+        mc.renderEngine.bindTexture(slotTexture);
 
         Tessellator var9 = Tessellator.instance;
         var9.startDrawingQuads();
@@ -464,5 +488,97 @@ public final class GuiGraphics {
         var9.addVertexWithUV(right - 15, guiTop + 15, zLevel, 0.66, 0.33);
         var9.addVertexWithUV(guiLeft + 15, guiTop + 15, zLevel, 0.33, 0.33);
         var9.draw();
+    }
+
+    public static void drawNineSlice(Minecraft mc, int x, int y, int width, int height, ResourceLocation texture,
+            int textureSize, int border, float zLevel) {
+        if (width <= border * 2 || height <= border * 2) {
+            return;
+        }
+        GuiGraphics.zLevel = 0;
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        mc.renderEngine.bindTexture(texture);
+
+        int centerWidth = width - (border * 2);
+        int centerHeight = height - (border * 2);
+
+        float tex = (float) textureSize;
+        float u0 = 0.0F;
+        float u1 = border / tex;
+        float u2 = (textureSize - border) / tex;
+        float u3 = 1.0F;
+        float v0 = 0.0F;
+        float v1 = border / tex;
+        float v2 = (textureSize - border) / tex;
+        float v3 = 1.0F;
+
+        Tessellator tess = Tessellator.instance;
+        tess.startDrawingQuads();
+        // Top-left
+        tess.addVertexWithUV(x, y + border, zLevel, u0, v1);
+        tess.addVertexWithUV(x + border, y + border, zLevel, u1, v1);
+        tess.addVertexWithUV(x + border, y, zLevel, u1, v0);
+        tess.addVertexWithUV(x, y, zLevel, u0, v0);
+        // Top
+        tess.addVertexWithUV(x + border, y + border, zLevel, u1, v1);
+        tess.addVertexWithUV(x + border + centerWidth, y + border, zLevel, u2, v1);
+        tess.addVertexWithUV(x + border + centerWidth, y, zLevel, u2, v0);
+        tess.addVertexWithUV(x + border, y, zLevel, u1, v0);
+        // Top-right
+        tess.addVertexWithUV(x + border + centerWidth, y + border, zLevel, u2, v1);
+        tess.addVertexWithUV(x + width, y + border, zLevel, u3, v1);
+        tess.addVertexWithUV(x + width, y, zLevel, u3, v0);
+        tess.addVertexWithUV(x + border + centerWidth, y, zLevel, u2, v0);
+        // Left
+        tess.addVertexWithUV(x, y + border + centerHeight, zLevel, u0, v2);
+        tess.addVertexWithUV(x + border, y + border + centerHeight, zLevel, u1, v2);
+        tess.addVertexWithUV(x + border, y + border, zLevel, u1, v1);
+        tess.addVertexWithUV(x, y + border, zLevel, u0, v1);
+        // Center
+        tess.addVertexWithUV(x + border, y + border + centerHeight, zLevel, u1, v2);
+        tess.addVertexWithUV(x + border + centerWidth, y + border + centerHeight, zLevel, u2, v2);
+        tess.addVertexWithUV(x + border + centerWidth, y + border, zLevel, u2, v1);
+        tess.addVertexWithUV(x + border, y + border, zLevel, u1, v1);
+        // Right
+        tess.addVertexWithUV(x + border + centerWidth, y + border + centerHeight, zLevel, u2, v2);
+        tess.addVertexWithUV(x + width, y + border + centerHeight, zLevel, u3, v2);
+        tess.addVertexWithUV(x + width, y + border, zLevel, u3, v1);
+        tess.addVertexWithUV(x + border + centerWidth, y + border, zLevel, u2, v1);
+        // Bottom-left
+        tess.addVertexWithUV(x, y + height, zLevel, u0, v3);
+        tess.addVertexWithUV(x + border, y + height, zLevel, u1, v3);
+        tess.addVertexWithUV(x + border, y + border + centerHeight, zLevel, u1, v2);
+        tess.addVertexWithUV(x, y + border + centerHeight, zLevel, u0, v2);
+        // Bottom
+        tess.addVertexWithUV(x + border, y + height, zLevel, u1, v3);
+        tess.addVertexWithUV(x + border + centerWidth, y + height, zLevel, u2, v3);
+        tess.addVertexWithUV(x + border + centerWidth, y + border + centerHeight, zLevel, u2, v2);
+        tess.addVertexWithUV(x + border, y + border + centerHeight, zLevel, u1, v2);
+        // Bottom-right
+        tess.addVertexWithUV(x + border + centerWidth, y + height, zLevel, u2, v3);
+        tess.addVertexWithUV(x + width, y + height, zLevel, u3, v3);
+        tess.addVertexWithUV(x + width, y + border + centerHeight, zLevel, u3, v2);
+        tess.addVertexWithUV(x + border + centerWidth, y + border + centerHeight, zLevel, u2, v2);
+        tess.draw();
+    }
+
+    public static void drawTexturedRect(Minecraft mc, ResourceLocation texture, int x, int y, int width, int height,
+            int textureWidth, int textureHeight, int u, int v) {
+        GuiGraphics.zLevel = 0;
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        mc.renderEngine.bindTexture(texture);
+
+        float u0 = (float) u / textureWidth;
+        float v0 = (float) v / textureHeight;
+        float u1 = (float) (u + width) / textureWidth;
+        float v1 = (float) (v + height) / textureHeight;
+
+        Tessellator tess = Tessellator.instance;
+        tess.startDrawingQuads();
+        tess.addVertexWithUV(x, y + height, GuiGraphics.zLevel, u0, v1);
+        tess.addVertexWithUV(x + width, y + height, GuiGraphics.zLevel, u1, v1);
+        tess.addVertexWithUV(x + width, y, GuiGraphics.zLevel, u1, v0);
+        tess.addVertexWithUV(x, y, GuiGraphics.zLevel, u0, v0);
+        tess.draw();
     }
 }

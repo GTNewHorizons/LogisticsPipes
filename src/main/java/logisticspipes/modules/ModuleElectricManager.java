@@ -45,12 +45,16 @@ import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Triplet;
 
 public class ModuleElectricManager extends LogisticsGuiModule implements IClientInformationProvider, IHUDModuleHandler,
         IModuleWatchReciver, ISimpleInventoryEventHandler, IModuleInventoryReceive {
 
-    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Electric Items", 1);
+    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
+            9,
+            StringUtils.translate("gui.module.ModuleElectricManager.ExcessInventory"),
+            1);
     private boolean _dischargeMode;
 
     private final int ticksToAction = 100;

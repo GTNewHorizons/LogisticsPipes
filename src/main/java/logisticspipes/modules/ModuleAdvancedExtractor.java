@@ -48,6 +48,7 @@ import logisticspipes.utils.SinkReply;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 
 @CCType(name = "Advanced Extractor Module")
@@ -56,7 +57,10 @@ public class ModuleAdvancedExtractor extends LogisticsSneakyDirectionModule impl
 
     protected int currentTick = 0;
 
-    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(9, "Item list", 1);
+    private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
+            9,
+            StringUtils.translate("gui.module.ModuleAdvancedExtractor"),
+            1);
     private boolean _itemsIncluded = true;
 
     private ForgeDirection _sneakyDirection = ForgeDirection.UNKNOWN;
