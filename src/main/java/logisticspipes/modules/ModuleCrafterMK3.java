@@ -1,5 +1,6 @@
 package logisticspipes.modules;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -189,7 +190,6 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     public void handleInvContent(Collection<ItemIdentifierStack> list) {
         bufferList.clear();
         bufferList.addAll(list);
-        _dummyInventory.handleItemIdentifierList(list);
     }
 
     @Override
@@ -202,16 +202,23 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     }
 
     @Override
+    public List<ItemIdentifierStack> getConfiguredCraftResults() {
+        List<ItemIdentifierStack> list = new ArrayList<>(1);
+        if (!bufferList.isEmpty()) {
+            list.add(bufferList.get(9));
+        }
+        return list;
+    }
+
+    @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
-        _dummyInventory.writeToNBT(nbttagcompound, "");
         inv.writeToNBT(nbttagcompound, "buffer");
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
-        _dummyInventory.readFromNBT(nbttagcompound, "");
         inv.readFromNBT(nbttagcompound, "buffer");
     }
 
