@@ -201,8 +201,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
         super.startWatching(player);
     }
 
-    @Override
-    public List<ItemIdentifierStack> getConfiguredCraftResults() {
+    public List<ItemIdentifierStack> getConfiguredBufferCraftResults() {
         List<ItemIdentifierStack> list = new ArrayList<>(1);
         if (!bufferList.isEmpty()) {
             list.add(bufferList.get(9));

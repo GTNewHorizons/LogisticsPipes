@@ -120,7 +120,10 @@ public class HUDCrafting extends BasicHUDGui {
     }
 
     public void renderResults(int x, int y, boolean shifted) {
-        renderList(pipe.getConfiguredCraftResults(), x, y, 1, 1, shifted);
+        var results = pipe instanceof PipeItemsCraftingLogisticsMk3 pipemk3
+                ? pipemk3.getMk3Module().getConfiguredBufferCraftResults()
+                : pipe.getConfiguredCraftResults();
+        renderList(results, x, y, 1, 1, shifted);
     }
 
     public void renderDisplay(int x, int y, boolean shifted) {
