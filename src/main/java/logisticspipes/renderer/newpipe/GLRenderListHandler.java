@@ -23,7 +23,7 @@ public class GLRenderListHandler {
             VBOList ref = it.next();
             if (!ref.check()) {
                 ref.close();
-                it.remove(); // safe removal during iteration
+                it.remove();
             }
         }
     }
