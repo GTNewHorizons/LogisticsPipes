@@ -182,8 +182,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory, true))
-                            .setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
                     localModeWatchers);
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleBufferInventory.class)
@@ -207,8 +206,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     public void startWatching(EntityPlayer player) {
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory, true))
-                        .setModulePos(this),
+                        .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
                 player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleBufferInventory.class)
