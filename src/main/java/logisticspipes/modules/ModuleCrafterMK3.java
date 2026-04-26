@@ -182,7 +182,7 @@ public class ModuleCrafterMK3 extends ModuleCrafter
         if (MainProxy.isServer(_world.getWorld())) {
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
+                            .setIdentList(ItemIdentifierStack.getListFromInventory(inventory)).setModulePos(this),
                     localModeWatchers);
             MainProxy.sendToPlayerList(
                     PacketHandler.getPacket(ModuleBufferInventory.class)
