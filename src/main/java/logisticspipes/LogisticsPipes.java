@@ -162,7 +162,7 @@ import logisticspipes.utils.RoutedItemHelper;
                 + "required-after:modularui2;"
                 + "required-after:gtnhmixins;"
                 + "required-after:NotEnoughItems;"
-                + "required-after:gtnhlib"
+                + "required-after:gtnhlib;"
                 + "after:gregtech;"
                 + "after:IC2;"
                 + "after:Forestry;"
