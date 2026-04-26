@@ -9,8 +9,6 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -164,6 +162,7 @@ import logisticspipes.utils.RoutedItemHelper;
                 + "required-after:modularui2;"
                 + "required-after:gtnhmixins;"
                 + "required-after:NotEnoughItems;"
+                + "required-after:gtnhlib"
                 + "after:gregtech;"
                 + "after:IC2;"
                 + "after:Forestry;"
@@ -285,14 +284,12 @@ public class LogisticsPipes {
     public static final String logisticsTileGenericPipeMapping = "logisticspipes.pipes.basic.LogisticsTileGenericPipe";
     public static CreativeTabLP LPCreativeTab = new CreativeTabLP();
     public static Logger log;
-    public static ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
 
     private Queue<Runnable> postInitRun = new LinkedList<>();
     private static LPGlobalCCAccess generalAccess;
     private static PlayerConfig playerConfig;
 
     public static boolean isGTNH = false;
-    public static boolean enableVBO = false;
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
@@ -343,11 +340,6 @@ public class LogisticsPipes {
     public void preInit(FMLPreInitializationEvent evt) {
         // Gregtech New Horizons compat
         isGTNH = Loader.isModLoaded("dreamcraft") && Loader.isModLoaded("gregtech");
-        enableVBO = Loader.isModLoaded("gtnhlib");
-        try {
-            Class.forName("optifine.OptiFineForgeTweaker");
-            enableVBO = false;
-        } catch (ClassNotFoundException ignored) {}
 
         LogisticsPipes.log = evt.getModLog();
         loadClasses();

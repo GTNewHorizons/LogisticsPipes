@@ -12,11 +12,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
-import com.gtnewhorizon.gtnhlib.client.renderer.CapturingTessellator;
-import com.gtnewhorizon.gtnhlib.client.renderer.TessellatorManager;
-import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VBOManager;
-import com.gtnewhorizon.gtnhlib.client.renderer.vbo.VertexBuffer;
-import com.gtnewhorizon.gtnhlib.client.renderer.vertex.DefaultVertexFormat;
+import com.gtnewhorizon.gtnhlib.client.renderer.DirectTessellator;
+import com.gtnewhorizon.gtnhlib.client.renderer.vao.IVertexArrayObject;
+import com.gtnewhorizon.gtnhlib.client.renderer.vao.VertexBufferType;
 
 import codechicken.lib.render.CCRenderState;
 import logisticspipes.LogisticsPipes;
@@ -53,21 +51,13 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         GL11.glTranslatef(translateX, translateY, translateZ);
         Block block = LogisticsPipes.LogisticsPipeBlock;
         if (item.getItem() instanceof ItemLogisticsPipe lItem) {
-            int renderList = lItem.getNewPipeRenderList();
+            IVertexArrayObject vbo = lItem.getPipeVBO();
 
-            if (renderList == -1) {
-                if (LogisticsPipes.enableVBO) {
-                    renderList = buildVBO(lItem);
-                } else {
-                    renderList = buildDisplayList(lItem);
-                }
+            if (vbo == null) {
+                vbo = buildVBO(lItem);
             }
 
-            if (LogisticsPipes.enableVBO) {
-                VBOManager.get(renderList).render();
-            } else {
-                GL11.glCallList(renderList);
-            }
+            vbo.render();
         }
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -76,32 +66,17 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
         GL11.glPopMatrix();
     }
 
-    private int buildDisplayList(ItemLogisticsPipe lItem) {
-        Tessellator tessellator = Tessellator.instance;
-        lItem.setNewPipeRenderList(GL11.glGenLists(1));
-        int listID = lItem.getNewPipeRenderList();
-        GL11.glNewList(listID, GL11.GL_COMPILE);
-        tessellator.startDrawingQuads();
-        generatePipeRenderList(lItem.getNewPipeIconIndex());
-        tessellator.draw();
-        GL11.glEndList();
-        return listID;
-    }
-
-    private int buildVBO(ItemLogisticsPipe lItem) {
-        TessellatorManager.startCapturing();
-        CapturingTessellator tess = (CapturingTessellator) TessellatorManager.get();
+    private IVertexArrayObject buildVBO(ItemLogisticsPipe lItem) {
+        final DirectTessellator tess = DirectTessellator.startCapturing();
 
         tess.startDrawingQuads();
         generatePipeRenderList(lItem.getNewPipeIconIndex());
         tess.draw();
 
-        VertexBuffer vbo = TessellatorManager.stopCapturingToVBO(DefaultVertexFormat.POSITION_TEXTURE_NORMAL);
-        int vboID = VBOManager.generateDisplayLists(1);
-        VBOManager.registerVBO(vboID, vbo);
+        IVertexArrayObject vbo = DirectTessellator.stopCapturingToVBO(VertexBufferType.IMMUTABLE);
 
-        lItem.setNewPipeRenderList(vboID);
-        return vboID;
+        lItem.setPipeVBO(vbo);
+        return vbo;
     }
 
     private void generatePipeRenderList(int texture) {

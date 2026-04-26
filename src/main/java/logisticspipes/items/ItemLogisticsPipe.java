@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 
 import org.apache.logging.log4j.Level;
 
+import com.gtnewhorizon.gtnhlib.client.renderer.vao.IVertexArrayObject;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.LogisticsPipes;
@@ -34,7 +36,7 @@ public class ItemLogisticsPipe extends LogisticsItem {
 
     private int pipeIconIndex;
     private int newPipeIconIndex;
-    private int newPipeRenderList = -1;
+    private IVertexArrayObject pipeVBO;
 
     public ItemLogisticsPipe() {
         super();
@@ -141,15 +143,12 @@ public class ItemLogisticsPipe extends LogisticsItem {
         return newPipeIconIndex;
     }
 
-    public int getNewPipeRenderList() {
-        return newPipeRenderList;
+    public IVertexArrayObject getPipeVBO() {
+        return pipeVBO;
     }
 
-    public void setNewPipeRenderList(int list) {
-        if (newPipeRenderList != -1) {
-            throw new UnsupportedOperationException("Can't reset this");
-        }
-        newPipeRenderList = list;
+    public void setPipeVBO(IVertexArrayObject vbo) {
+        this.pipeVBO = vbo;
     }
 
     @Override

@@ -48,9 +48,9 @@ import logisticspipes.pipes.signs.IPipeSignData;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.buildcraft.subproxies.IBCRenderTESR;
 import logisticspipes.renderer.CustomBlockRenderer.RenderInfo;
-import logisticspipes.renderer.newpipe.IRenderable;
 import logisticspipes.renderer.newpipe.LogisticsNewPipeItemBoxRenderer;
 import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
+import logisticspipes.renderer.newpipe.VBOList;
 import logisticspipes.transport.LPTravelingItem;
 import logisticspipes.transport.PipeFluidTransportLogistics;
 import logisticspipes.transport.PipeTransportLogistics;
@@ -68,7 +68,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
     public static LogisticsNewPipeItemBoxRenderer boxRenderer = new LogisticsNewPipeItemBoxRenderer();
     public static PlayerConfig config;
     private static final TravelingItemRenderer travelingItemRenderer = new TravelingItemRenderer();
-    private static final Map<IPipeSignData, IRenderable> pipeSignRenderListMap = new HashMap<>();
+    private static final Map<IPipeSignData, VBOList> pipeSignRenderListMap = new HashMap<>();
     private static int localItemTestRenderList = -1;
 
     private final int[] angleY = { 0, 0, 270, 90, 0, 180 };
@@ -342,7 +342,7 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
         GL11.glTranslatef(-0.32F, 0.5F * signScale + 0.08F, 0.07F * signScale);
 
         IPipeSignData data = type.getRenderData(pipe);
-        IRenderable renderList = pipeSignRenderListMap.get(data);
+        VBOList renderList = pipeSignRenderListMap.get(data);
         if (data.isListCompatible(this)) {
             if (renderList == null || renderList.isInvalid() || !renderList.isFilled()) {
                 renderList = SimpleServiceLocator.renderListHandler.getNewRenderList();
