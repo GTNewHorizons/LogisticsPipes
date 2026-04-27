@@ -21,7 +21,6 @@ import logisticspipes.interfaces.IModuleInventoryReceive;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.module.ModuleBufferInventory;
-import logisticspipes.network.packets.module.ModuleInventory;
 import logisticspipes.pipes.PipeItemsCraftingLogisticsMk3;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -181,11 +180,6 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     public void InventoryChanged(IInventory inventory) {
         if (MainProxy.isServer(_world.getWorld())) {
             if (inventory == inv) {
-                MainProxy.sendToPlayerList(
-                        PacketHandler.getPacket(ModuleInventory.class)
-                                .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory))
-                                .setModulePos(this),
-                        localModeWatchers);
                 MainProxy.sendToPlayerList(
                         PacketHandler.getPacket(ModuleBufferInventory.class)
                                 .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
