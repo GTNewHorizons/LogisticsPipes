@@ -180,14 +180,19 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     @Override
     public void InventoryChanged(IInventory inventory) {
         if (MainProxy.isServer(_world.getWorld())) {
-            MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
-                    localModeWatchers);
-            MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ModuleBufferInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
-                    localModeWatchers);
+            if (inventory == inv) {
+                MainProxy.sendToPlayerList(
+                        PacketHandler.getPacket(ModuleInventory.class)
+                                .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory))
+                                .setModulePos(this),
+                        localModeWatchers);
+                MainProxy.sendToPlayerList(
+                        PacketHandler.getPacket(ModuleBufferInventory.class)
+                                .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
+                        localModeWatchers);
+            } else {
+                super.InventoryChanged(inventory);
+            }
         }
     }
 
