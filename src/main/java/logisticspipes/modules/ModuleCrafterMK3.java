@@ -214,14 +214,12 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
-        _dummyInventory.writeToNBT(nbttagcompound, "");
         inv.writeToNBT(nbttagcompound, "buffer");
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
-        _dummyInventory.readFromNBT(nbttagcompound, "");
         inv.readFromNBT(nbttagcompound, "buffer");
     }
 
