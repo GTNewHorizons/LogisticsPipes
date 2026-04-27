@@ -204,15 +204,11 @@ public class ModuleCrafterMK3 extends ModuleCrafter
 
     @Override
     public void startWatching(EntityPlayer player) {
-        MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ModuleInventory.class)
-                        .setIdentList(ItemIdentifierStack.getListFromInventory(_dummyInventory)).setModulePos(this),
-                player);
+        super.startWatching(player);
         MainProxy.sendPacketToPlayer(
                 PacketHandler.getPacket(ModuleBufferInventory.class)
                         .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
                 player);
-        super.startWatching(player);
     }
 
     @Override
