@@ -1,6 +1,7 @@
 package logisticspipes.network;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -101,8 +102,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
         }
     }
 
-    // TODO correct to work with WeakReference (See FML original)
-    protected static final AttributeKey<ThreadLocal<FMLProxyPacket>> INBOUNDPACKETTRACKER = new AttributeKey<>(
+    protected static final AttributeKey<ThreadLocal<WeakReference<FMLProxyPacket>>> INBOUNDPACKETTRACKER = new AttributeKey<>(
             "lp:inboundpacket");
 
     @Override
@@ -127,7 +127,8 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
     @Override
     protected final void encode(ChannelHandlerContext ctx, ModernPacket msg, List<Object> out) throws Exception {
         FMLProxyPacket proxy = PacketHandler.toFMLPacket(msg, ctx.channel().attr(NetworkRegistry.FML_CHANNEL).get());
-        FMLProxyPacket old = ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).get().get();
+        WeakReference<FMLProxyPacket> ref = ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).get().get();
+        FMLProxyPacket old = ref == null ? null : ref.get();
         if (old != null) {
             proxy.setDispatcher(old.getDispatcher());
         }
@@ -140,7 +141,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
         int packetID = payload.readShort();
         final ModernPacket packet = PacketHandler.packetlist.get(packetID).template();
         packet.setDebugId(payload.readInt());
-        ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).get().set(msg);
+        ctx.attr(PacketHandler.INBOUNDPACKETTRACKER).get().set(new WeakReference<>(msg));
         packet.readData(new LPDataInputStream(payload.slice()));
         out.add(new InboundModernPacketWrapper(packet, MainProxy.proxy.getEntityPlayerFromNetHandler(msg.handler())));
     }
