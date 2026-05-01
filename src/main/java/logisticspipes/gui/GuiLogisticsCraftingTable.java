@@ -2,7 +2,6 @@ package logisticspipes.gui;
 
 import java.util.Arrays;
 
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -80,7 +79,11 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
                 GuiGraphics.drawSlotBackground(mc, guiLeft + 7 + x * 18, guiTop + 79 + y * 18);
             }
         }
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 8, guiTop + 135);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 8,
+                guiTop + 135,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
 
         ItemIdentifierStack[] items = new ItemIdentifierStack[9];
         for (int i = 0; i < 9; i++) {
@@ -104,7 +107,7 @@ public class GuiLogisticsCraftingTable extends LogisticsBaseGuiScreen {
 
         GL11.glTranslatef(0F, 0F, 20F);
         for (int a = 0; a < 9; a++) {
-            Gui.drawRect(guiLeft + 8 + (a * 18), guiTop + 80, guiLeft + 24 + (a * 18), guiTop + 96, 0xc08b8b8b);
+            GuiGraphics.drawSlotBackground(mc, guiLeft + 7 + (a * 18), guiTop + 79, GuiGraphics.CONTAINER_SLOT_TEXTURE);
         }
         GL11.glTranslatef(0F, 0F, -20F);
     }

@@ -528,7 +528,12 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         super.drawGuiContainerForegroundLayer(par1, par2);
         mc.fontRenderer.drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Inputs"), 18, 7, 0x404040);
         mc.fontRenderer
-                .drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Inventory"), 10, ySize - 93, 0x404040);
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title"), 10, ySize - 93, 0x404040);
+
+        String priorityFormat = StringUtils.translate("gui.logisticspipes.priority.text");
+        String priorityText = priorityFormat.equals("gui.logisticspipes.priority.text")
+                ? Integer.toString(_pipe.priority)
+                : String.format(priorityFormat, _pipe.priority);
 
         if (!isAdvancedSat) {
             mc.fontRenderer.drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Output"), 77, 40, 0x404040);
@@ -536,19 +541,17 @@ public class GuiCraftingPipe extends ModuleBaseGui {
             if (_pipe.satelliteId == 0) {
                 mc.fontRenderer.drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Off"), 135, 52, 0x404040);
             } else {
-                mc.fontRenderer.drawString(
-                        "" + _pipe.satelliteId,
-                        146 - mc.fontRenderer.getStringWidth("" + _pipe.satelliteId),
-                        52,
-                        0x404040);
+                String satelliteFormat = StringUtils.translate("gui.logisticspipes.priority.text");
+                String satelliteText = satelliteFormat.equals("gui.logisticspipes.priority.text")
+                        ? Integer.toString(_pipe.satelliteId)
+                        : String.format(satelliteFormat, _pipe.satelliteId);
+                mc.fontRenderer
+                        .drawString(satelliteText, 146 - mc.fontRenderer.getStringWidth(satelliteText), 52, 0x404040);
             }
             mc.fontRenderer
                     .drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Priority") + ":", 123, 75, 0x404040);
-            mc.fontRenderer.drawString(
-                    "" + _pipe.priority,
-                    143 - (mc.fontRenderer.getStringWidth("" + _pipe.priority) / 2),
-                    87,
-                    0x404040);
+            mc.fontRenderer
+                    .drawString(priorityText, 143 - (mc.fontRenderer.getStringWidth(priorityText) / 2), 87, 0x404040);
         } else {
             for (int i = 0; i < 9; i++) {
                 if (_pipe.advancedSatelliteIdArray[i] == 0) {
@@ -558,9 +561,10 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                             57,
                             0x404040);
                 } else {
+                    String satelliteText = Integer.toString(_pipe.advancedSatelliteIdArray[i]);
                     mc.fontRenderer.drawString(
-                            "" + _pipe.advancedSatelliteIdArray[i],
-                            20 - mc.fontRenderer.getStringWidth("" + _pipe.advancedSatelliteIdArray[i]) + (i * 18),
+                            satelliteText,
+                            20 - mc.fontRenderer.getStringWidth(satelliteText) + (i * 18),
                             57,
                             0x404040);
                 }
@@ -568,11 +572,8 @@ public class GuiCraftingPipe extends ModuleBaseGui {
             mc.fontRenderer.drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Output"), 77, 90, 0x404040);
             mc.fontRenderer
                     .drawString(StringUtils.translate(GuiCraftingPipe.PREFIX + "Priority") + ":", 123, 95, 0x404040);
-            mc.fontRenderer.drawString(
-                    "" + _pipe.priority,
-                    143 - (mc.fontRenderer.getStringWidth("" + _pipe.priority) / 2),
-                    107,
-                    0x404040);
+            mc.fontRenderer
+                    .drawString(priorityText, 143 - (mc.fontRenderer.getStringWidth(priorityText) / 2), 107, 0x404040);
         }
     }
 
@@ -592,7 +593,8 @@ public class GuiCraftingPipe extends ModuleBaseGui {
                 true);
 
         if (!isAdvancedSat) {
-            Gui.drawRect(guiLeft + 115, guiTop + 4, guiLeft + 170, guiTop + 70, 0xff8B8B8B);
+            GuiGraphics
+                    .drawNineSlice(mc, guiLeft + 115, guiTop + 4, 55, 66, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
         }
 
         for (int i = 0; i < 9; i++) {
@@ -603,7 +605,11 @@ public class GuiCraftingPipe extends ModuleBaseGui {
         } else {
             GuiGraphics.drawBigSlotBackground(mc, guiLeft + 80, guiTop + 100);
         }
-        GuiGraphics.drawPlayerInventoryBackground(mc, guiLeft + 8, guiTop + ySize - 82);
+        GuiGraphics.drawPlayerInventoryBackground(
+                mc,
+                guiLeft + 8,
+                guiTop + ySize - 82,
+                GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
 
         super.renderExtentions();
     }

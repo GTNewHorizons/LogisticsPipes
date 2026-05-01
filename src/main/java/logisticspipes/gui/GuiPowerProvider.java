@@ -48,12 +48,19 @@ public class GuiPowerProvider extends LogisticsBaseGuiScreen {
                 guiTop + 25,
                 0x404040);
         mc.fontRenderer.drawString(
-                StringUtils.getStringWithSpacesFromInteger(junction.getDisplayPowerLevel()) + " " + junction.getBrand(),
+                String.format(
+                        StringUtils.translate(GuiPowerProvider.PREFIX + "PowerLevel"),
+                        StringUtils.getStringWithSpacesFromInteger(junction.getDisplayPowerLevel()) + " "
+                                + junction.getBrand()),
                 guiLeft + 40,
                 guiTop + 35,
                 0x404040);
         mc.fontRenderer.drawString(
-                "/ " + StringUtils.getStringWithSpacesFromInteger(junction.getMaxStorage()) + " " + junction.getBrand(),
+                String.format(
+                        StringUtils.translate(GuiPowerProvider.PREFIX + "MaxStorage"),
+                        "/ " + StringUtils.getStringWithSpacesFromInteger(junction.getMaxStorage())
+                                + " "
+                                + junction.getBrand()),
                 guiLeft + 40,
                 guiTop + 45,
                 0x404040);

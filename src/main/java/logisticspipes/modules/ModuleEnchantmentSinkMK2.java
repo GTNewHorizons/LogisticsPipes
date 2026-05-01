@@ -36,6 +36,7 @@ import logisticspipes.utils.SinkReply.FixedPriority;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierInventory;
 import logisticspipes.utils.item.ItemIdentifierStack;
+import logisticspipes.utils.string.StringUtils;
 
 @CCType(name = "EnchantmentSink Module MK2")
 public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule implements IClientInformationProvider,
@@ -43,7 +44,7 @@ public class ModuleEnchantmentSinkMK2 extends LogisticsSimpleFilterModule implem
 
     private final ItemIdentifierInventory _filterInventory = new ItemIdentifierInventory(
             9,
-            "Requested Enchanted items",
+            StringUtils.translate("gui.module.ModuleEnchantmentSink"),
             1);
 
     public ModuleEnchantmentSinkMK2() {
