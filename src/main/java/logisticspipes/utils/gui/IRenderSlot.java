@@ -15,4 +15,6 @@ public interface IRenderSlot {
     boolean displayToolTip();
 
     int getSize();
+
+    void resetSetting();
 }
