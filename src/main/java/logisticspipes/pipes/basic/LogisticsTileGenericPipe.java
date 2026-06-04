@@ -27,6 +27,7 @@ import com.cleanroommc.modularui.api.IGuiHolder;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.network.NetworkUtils;
 import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.screen.ModularScreen;
 import com.cleanroommc.modularui.screen.UISettings;
 import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
@@ -1158,6 +1159,11 @@ public class LogisticsTileGenericPipe extends TileEntity
         if (cache != null) {
             cache[side.ordinal()].refresh();
         }
+    }
+
+    @Override
+    public ModularScreen createScreen(PosGuiData data, ModularPanel mainPanel) {
+        return new ModularScreen("LogisticsPipes", mainPanel);
     }
 
     @Override

@@ -16,10 +16,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import logisticspipes.interfaces.IBufferItems;
+import logisticspipes.interfaces.IModuleBufferInventoryReceive;
 import logisticspipes.interfaces.IModuleInventoryReceive;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
 import logisticspipes.network.PacketHandler;
-import logisticspipes.network.packets.module.ModuleInventory;
+import logisticspipes.network.packets.module.ModuleBufferInventory;
 import logisticspipes.pipes.PipeItemsCraftingLogisticsMk3;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
@@ -36,7 +37,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.Triplet;
 
 public class ModuleCrafterMK3 extends ModuleCrafter
-        implements IBufferItems, ISimpleInventoryEventHandler, IModuleInventoryReceive {
+        implements IBufferItems, ISimpleInventoryEventHandler, IModuleInventoryReceive, IModuleBufferInventoryReceive {
 
     public ItemIdentifierInventory inv = new ItemIdentifierInventory(16, "Buffer", 127);
 
@@ -178,26 +179,35 @@ public class ModuleCrafterMK3 extends ModuleCrafter
     @Override
     public void InventoryChanged(IInventory inventory) {
         if (MainProxy.isServer(_world.getWorld())) {
-            MainProxy.sendToPlayerList(
-                    PacketHandler.getPacket(ModuleInventory.class)
-                            .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
-                    localModeWatchers);
+            if (inventory == inv) {
+                MainProxy.sendToPlayerList(
+                        PacketHandler.getPacket(ModuleBufferInventory.class)
+                                .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
+                        localModeWatchers);
+            } else {
+                super.InventoryChanged(inventory);
+            }
         }
     }
 
     @Override
-    public void handleInvContent(Collection<ItemIdentifierStack> list) {
+    public void handleInvContent(Collection<ItemIdentifierStack> _allItems) {
+        _dummyInventory.handleItemIdentifierList(_allItems);
+    }
+
+    @Override
+    public void handleBufferInvContent(Collection<ItemIdentifierStack> list) {
         bufferList.clear();
         bufferList.addAll(list);
     }
 
     @Override
     public void startWatching(EntityPlayer player) {
+        super.startWatching(player);
         MainProxy.sendPacketToPlayer(
-                PacketHandler.getPacket(ModuleInventory.class)
+                PacketHandler.getPacket(ModuleBufferInventory.class)
                         .setIdentList(ItemIdentifierStack.getListFromInventory(inv, true)).setModulePos(this),
                 player);
-        super.startWatching(player);
     }
 
     @Override

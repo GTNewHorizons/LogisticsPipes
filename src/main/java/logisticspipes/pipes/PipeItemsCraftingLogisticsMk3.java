@@ -2,7 +2,7 @@ package logisticspipes.pipes;
 
 import net.minecraft.item.Item;
 
-import logisticspipes.gui.hud.HUDCraftingMK3;
+import logisticspipes.gui.hud.HUDCrafting;
 import logisticspipes.interfaces.IBufferItems;
 import logisticspipes.interfaces.IHeadUpDisplayRenderer;
 import logisticspipes.interfaces.routing.IAdditionalTargetInformation;
@@ -15,7 +15,7 @@ import logisticspipes.utils.item.ItemIdentifierStack;
 
 public class PipeItemsCraftingLogisticsMk3 extends PipeItemsCraftingLogisticsMk2 implements IBufferItems {
 
-    private final HUDCraftingMK3 HUD = new HUDCraftingMK3(this);
+    private final HUDCrafting HUD = new HUDCrafting(this);
 
     public PipeItemsCraftingLogisticsMk3(Item item) {
         super(item);
