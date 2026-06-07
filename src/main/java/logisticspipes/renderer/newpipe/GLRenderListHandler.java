@@ -1,30 +1,30 @@
 package logisticspipes.renderer.newpipe;
 
-import static logisticspipes.LogisticsPipes.enableVBO;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import logisticspipes.proxy.MainProxy;
 
 public class GLRenderListHandler {
 
-    private List<IRenderable> collection = new ArrayList<>();
+    private final List<VBOList> collection = new ArrayList<>();
 
-    public IRenderable getNewRenderList() {
-        IRenderable list = enableVBO ? new VBOList() : new GLRenderList();
+    public VBOList getNewRenderList() {
+        VBOList list = new VBOList();
         collection.add(list);
         return list;
     }
 
     public void tick() {
-        List<IRenderable> newCollection = new ArrayList<>(collection);
-        for (IRenderable ref : collection) {
+        if (collection.isEmpty() || MainProxy.getGlobalTick() % 20 != 0) return;
+        Iterator<VBOList> it = collection.iterator();
+        while (it.hasNext()) {
+            VBOList ref = it.next();
             if (!ref.check()) {
                 ref.close();
-                newCollection.remove(ref);
+                it.remove();
             }
-        }
-        if (newCollection.size() != collection.size()) {
-            collection = newCollection;
         }
     }
 }
