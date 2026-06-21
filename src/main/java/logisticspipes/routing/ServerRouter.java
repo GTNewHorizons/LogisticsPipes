@@ -17,9 +17,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -263,7 +265,7 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     private boolean destroied = false;
 
     private WeakReference<CoreRoutedPipe> _myPipeCache = null;
-    private final LinkedList<Pair<Integer, IRouterQueuedTask>> queue = new LinkedList<>();
+    private final Queue<Pair<Integer, IRouterQueuedTask>> queue = new ConcurrentLinkedQueue<>();
 
     @Override
     public void clearPipeCache() {
@@ -1264,8 +1266,8 @@ public class ServerRouter implements IRouter, Comparable<ServerRouter> {
     }
 
     private void handleQueuedTasks(CoreRoutedPipe pipe) {
-        while (!queue.isEmpty()) {
-            Pair<Integer, IRouterQueuedTask> element = queue.poll();
+        Pair<Integer, IRouterQueuedTask> element;
+        while ((element = queue.poll()) != null) {
             if (element.getValue1() > MainProxy.getGlobalTick()) {
                 element.getValue2().call(pipe, this);
             }
