@@ -234,6 +234,35 @@ public class RequestHandler {
         return status;
     }
 
+    public static Object[] computerFluidRequest(final FluidIdentifier fluid, final int amount,
+            final CoreRoutedPipe pipe, final IRequestFluid requester) {
+
+        if (!pipe.useEnergy(10)) {
+            return new Object[] { "NO_POWER" };
+        }
+        final Object[] status = new Object[2];
+        RequestTree.requestFluid(fluid, amount, requester, new RequestLog() {
+
+            @Override
+            public void handleMissingItems(List<IResource> resources) {
+                status[0] = "MISSING";
+                status[1] = resources;
+            }
+
+            @Override
+            public void handleSucessfullRequestOf(IResource item, LinkedLogisticsOrderList parts) {
+                status[0] = "DONE";
+                List<IResource> itemList = new LinkedList<>();
+                itemList.add(item);
+                status[1] = itemList;
+            }
+
+            @Override
+            public void handleSucessfullRequestOfList(List<IResource> resources, LinkedLogisticsOrderList parts) {}
+        });
+        return status;
+    }
+
     public static void refreshFluid(EntityPlayer player, CoreRoutedPipe pipe) {
         TreeSet<ItemIdentifierStack> _allItems = SimpleServiceLocator.logisticsFluidManager
                 .getAvailableFluid(pipe.getRouter().getIRoutersByCost());
