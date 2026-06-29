@@ -77,16 +77,6 @@ public class PipeFluidRequestLogistics extends FluidRoutedPipe implements IReque
         return false;
     }
 
-    /*
-     * CC/OC: makeRequest / getFluidAmount take a FluidIdentifier OBJECT (like the item pipe's ItemIdentifier).
-     * Construct one computer-side with LP.getFluidIdentifierBuilder() (mirrors getItemIdentifierBuilder()):
-     * setFluidName("water") then build(). makeRequest's amount is a whole-number Long (mB) matching makeStack(Long
-     * stackSize) - pass a Lua integer like 1, not 1.0. getAvailableFluids() deliberately returns a plain registry-name
-     * -> mB table (NOT FluidIdentifier objects) so it is always safe to serialize/print on the computer: returning
-     * fluid objects here would let a naive recursive dumper hit the FluidIdentifier <-> container-ItemIdentifier getter
-     * cycle (getItemIdentifier() <-> getFluidContainer()) and StackOverflow. Trade-off: NBT-tagged fluid variants
-     * collapse to their base name in the listing (rebuild from name addresses only the untagged variant).
-     */
     @CCCommand(description = "Requests the given amount (mB) of the given FluidIdentifier")
     @CCQueued
     public Object[] makeRequest(FluidIdentifier fluid, Long amount) throws Exception {
