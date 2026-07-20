@@ -133,6 +133,7 @@ import logisticspipes.renderer.FluidContainerRenderer;
 import logisticspipes.renderer.ItemModuleRenderer;
 import logisticspipes.renderer.LogisticsHUDRenderer;
 import logisticspipes.renderer.LogisticsPipeItemRenderer;
+import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
 import logisticspipes.routing.RouterManager;
 import logisticspipes.routing.ServerRouter;
 import logisticspipes.routing.pathfinder.PipeInformationManager;
@@ -330,6 +331,7 @@ public class LogisticsPipes {
         FMLCommonHandler.instance().bus().register(eventListener);
         MinecraftForge.EVENT_BUS.register(new LPChatListener());
         LogisticsPipes.textures.registerBlockIcons(null);
+        LogisticsNewRenderPipe.loadModels();
 
         RecipeManager.registerRecipeClasses();
 
