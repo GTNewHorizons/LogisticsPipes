@@ -47,4 +47,9 @@ public class GuiSearchBar extends TextField implements ISearchBar {
     public boolean isEmpty() {
         return text().isEmpty();
     }
+
+    @Override
+    public void setContent(String content) {
+        setText(content);
+    }
 }

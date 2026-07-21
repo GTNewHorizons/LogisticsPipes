@@ -123,6 +123,9 @@ public class SearchBar implements ISearchBar {
         if (numberOnly) {
             searchinput1 += searchinput2;
             searchinput2 = "";
+
+            searchinput1 = searchinput1.trim();
+
             try {
                 int value = Integer.parseInt(searchinput1);
                 searchinput1 = Integer.toString(value);
@@ -216,6 +219,12 @@ public class SearchBar implements ISearchBar {
     @Override
     public boolean isEmpty() {
         return searchinput1.isEmpty() && searchinput2.isEmpty();
+    }
+
+    @Override
+    public void setContent(String content) {
+        searchinput1 = content;
+        searchinput2 = "";
     }
 
     private static String getClipboardString() {

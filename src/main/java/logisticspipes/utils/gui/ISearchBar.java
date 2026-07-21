@@ -15,4 +15,6 @@ public interface ISearchBar {
     String getContent();
 
     boolean isEmpty();
+
+    void setContent(String content);
 }

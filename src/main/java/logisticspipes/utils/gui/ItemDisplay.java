@@ -534,6 +534,10 @@ public class ItemDisplay {
         return requestCount;
     }
 
+    public void setRequestCount(int count) {
+        requestCount = Math.max(1, count);
+    }
+
     public boolean handleClick(int x, int y, int k) {
         x -= left;
         y -= top;
