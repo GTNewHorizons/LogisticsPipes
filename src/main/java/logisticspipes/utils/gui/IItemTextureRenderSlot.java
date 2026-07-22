@@ -19,4 +19,6 @@ public abstract class IItemTextureRenderSlot implements IRenderSlot {
     public int getSize() {
         return 18;
     }
+
+    public abstract void resetSetting();
 }
