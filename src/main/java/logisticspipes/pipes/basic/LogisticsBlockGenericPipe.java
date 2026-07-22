@@ -46,7 +46,6 @@ import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.proxy.buildcraft.subproxies.IBCClickResult;
 import logisticspipes.proxy.buildcraft.subproxies.IBCPipePluggable;
-import logisticspipes.renderer.LogisticsPipeWorldRenderer;
 import logisticspipes.renderer.newpipe.LogisticsNewRenderPipe;
 import logisticspipes.textures.Textures;
 import logisticspipes.ticks.QueuedTasks;
@@ -576,7 +575,6 @@ public class LogisticsBlockGenericPipe extends BlockContainer {
 
     @Override
     public boolean canRenderInPass(int pass) {
-        LogisticsPipeWorldRenderer.renderPass = pass;
         return true;
     }
 
