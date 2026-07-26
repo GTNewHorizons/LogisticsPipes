@@ -69,8 +69,10 @@ public class LogisticsFluidManager implements ILogisticsFluidManager {
             return FluidStack.loadFluidStackFromNBT(stack.getItem().tag);
         }
 
-        // Support for GregTech fluid containers
-        if (stack.getItem().tag != null && stack.getItem().tag.hasKey("GT.FluidContent", 10)) {
+        // Support for GregTech fluid containers. Reachable only through FluidIdentifier.get(ItemIdentifier), i.e. the
+        // CC/OC API and the fluid slots in the GUIs; every transport caller gates on ItemIdentifier#isFluidContainer
+        // or an instanceof LogisticsFluidContainer check first, so a cell is never mistaken for bulk fluid.
+        if (stack.getItem().holdsFluid()) {
             return FluidStack.loadFluidStackFromNBT(stack.getItem().tag.getCompoundTag("GT.FluidContent"));
         }
 
