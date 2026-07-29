@@ -37,7 +37,7 @@ public class SpecialInventoryHandlerManager {
             SimpleServiceLocator.inventoryUtilFactory.registerHandler(new DSUInventoryHandler());
         } catch (ClassNotFoundException ignored) {}
 
-        if (Loader.isModLoaded("gregtech")) {
+        if (Loader.isModLoaded("gregtech_nh")) {
             SimpleServiceLocator.inventoryUtilFactory.registerHandler(new QuantumChestInventoryHandler());
         }
     }
