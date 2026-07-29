@@ -99,6 +99,19 @@ public class DummyContainer extends Container {
         }
     }
 
+    public void addNormalSlotsForHotbar(int xOffset, int yOffset) {
+
+        if (_playerInventory == null) {
+            return;
+        }
+
+        for (int i1 = 0; i1 < 9; i1++) {
+            Slot slot = new Slot(_playerInventory, i1, xOffset + i1 * 18, yOffset);
+            addSlotToContainer(slot);
+            transferBottom.add(slot);
+        }
+    }
+
     /**
      * Add a dummy slot that will not consume players items
      *
