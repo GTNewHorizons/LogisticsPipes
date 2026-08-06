@@ -36,11 +36,13 @@ import logisticspipes.pipes.basic.CoreRoutedPipe;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
 import logisticspipes.request.resources.IResource;
+import logisticspipes.routing.IRouter;
 import logisticspipes.routing.order.IOrderInfoProvider;
 import logisticspipes.routing.order.LinkedLogisticsOrderList;
 import logisticspipes.security.SecuritySettings;
 import logisticspipes.textures.Textures;
 import logisticspipes.textures.Textures.TextureType;
+import logisticspipes.utils.AdjacentTile;
 import logisticspipes.utils.CraftingUtil;
 import logisticspipes.utils.ISimpleInventoryEventHandler;
 import logisticspipes.utils.PlayerCollectionList;
@@ -548,7 +550,34 @@ public class PipeBlockRequestTable extends PipeItemsRequestLogistics
 
                 @Override
                 public ForgeDirection itemArrived(IRoutedItem item, ForgeDirection denyed) {
-                    return null;
+                    if (item.getItemIdentifierStack().getStackSize() <= 0) {
+                        return null;
+                    }
+
+                    IRouter _router = getRouter();
+                    List<AdjacentTile> adjacentEntities = getConnectedEntities();
+                    List<ForgeDirection> routedPipeDirections = new ArrayList<>();
+                    List<ForgeDirection> unroutedPipeDirections = new ArrayList<>();
+
+                    for (AdjacentTile tile : adjacentEntities) {
+                        CoreRoutedPipe pipe = _router.getPipe();
+                        if (pipe != null) {
+                            if (pipe.isLockedExit(tile.orientation)) {
+                                continue;
+                            }
+                        }
+                        if (_router.isRoutedExit(tile.orientation)) {
+                            routedPipeDirections.add(tile.orientation);
+                        } else {
+                            unroutedPipeDirections.add(tile.orientation);
+                        }
+                    }
+
+                    if (!routedPipeDirections.isEmpty()) {
+                        return routedPipeDirections.get(getRandomInt(routedPipeDirections.size()));
+                    } else if (!unroutedPipeDirections.isEmpty()) {
+                        return unroutedPipeDirections.get(getRandomInt(unroutedPipeDirections.size()));
+                    } else return null;
                 }
 
                 @Override
