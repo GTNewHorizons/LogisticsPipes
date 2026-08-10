@@ -193,7 +193,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
     protected int throttleTime = 20;
     private int throttleTimeLeft = 20 + new Random().nextInt(Configs.LOGISTICS_DETECTION_FREQUENCY);
 
-    private final int[] queuedParticles = new int[Particles.values().length];
+    private final int[] queuedParticles = new int[Particles.VALUES.length];
     private boolean hasQueuedParticles = false;
 
     protected IPipeSign[] signItem = new IPipeSign[6];
@@ -701,7 +701,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             ArrayList<ParticleCount> tosend = new ArrayList<>(queuedParticles.length);
             for (int i = 0; i < queuedParticles.length; i++) {
                 if (queuedParticles[i] > 0) {
-                    tosend.add(new ParticleCount(Particles.values()[i], queuedParticles[i]));
+                    tosend.add(new ParticleCount(Particles.VALUES[i], queuedParticles[i]));
                 }
             }
             MainProxy.sendPacketToAllWatchingChunk(
@@ -715,7 +715,7 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
                 for (int i = 0; i < queuedParticles.length; i++) {
                     if (queuedParticles[i] > 0) {
                         PipeFXRenderHandler.spawnGenericParticle(
-                                Particles.values()[i],
+                                Particles.VALUES[i],
                                 getX(),
                                 getY(),
                                 getZ(),
