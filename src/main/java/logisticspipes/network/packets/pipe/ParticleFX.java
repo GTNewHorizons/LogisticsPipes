@@ -44,7 +44,7 @@ public class ParticleFX extends CoordinatesPacket {
         for (int i = 0; i < nparticles; i++) {
             int particle = data.readByte();
             int amount = data.readInt();
-            particles.add(new ParticleCount(Particles.values()[particle], amount));
+            particles.add(new ParticleCount(Particles.VALUES[particle], amount));
         }
     }
 
