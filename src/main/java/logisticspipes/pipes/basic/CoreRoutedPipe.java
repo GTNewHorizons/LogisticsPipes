@@ -714,12 +714,8 @@ public abstract class CoreRoutedPipe extends CoreUnroutedPipe
             if (Minecraft.isFancyGraphicsEnabled()) {
                 for (int i = 0; i < queuedParticles.length; i++) {
                     if (queuedParticles[i] > 0) {
-                        PipeFXRenderHandler.spawnGenericParticle(
-                                Particles.VALUES[i],
-                                getX(),
-                                getY(),
-                                getZ(),
-                                queuedParticles[i]);
+                        PipeFXRenderHandler
+                                .spawnGenericParticle(Particles.VALUES[i], getX(), getY(), getZ(), queuedParticles[i]);
                     }
                 }
             }

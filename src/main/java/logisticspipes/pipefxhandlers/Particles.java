@@ -1,6 +1,7 @@
 package logisticspipes.pipefxhandlers;
 
 public enum Particles {
+
     WhiteParticle,
     RedParticle,
     BlueParticle,
