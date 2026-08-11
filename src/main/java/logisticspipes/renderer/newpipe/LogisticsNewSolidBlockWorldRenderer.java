@@ -70,6 +70,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         TWO(2),
         THREE(3);
 
+        public static final BlockRotation[] VALUES = values();
         @Getter
         private final int integer;
 
@@ -78,7 +79,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         }
 
         static BlockRotation getRotation(int from) {
-            for (BlockRotation rot : BlockRotation.values()) {
+            for (BlockRotation rot : BlockRotation.VALUES) {
                 if (rot.getInteger() == from) {
                     return rot;
                 }
@@ -149,7 +150,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
     private static Map<BlockRotation, IModel3D> computeRotated(IModel3D m) {
         m.apply(new LPUVScale(1, 0.75));
         Map<BlockRotation, IModel3D> map = new HashMap<>();
-        for (BlockRotation rot : BlockRotation.values()) {
+        for (BlockRotation rot : BlockRotation.VALUES) {
             IModel3D model = m.copy();
             switch (rot.getInteger()) {
                 case 0:

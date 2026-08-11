@@ -53,7 +53,7 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
                 return false;
             }
             requestBlock = new HashMap<>();
-            for (BlockRotation rot : BlockRotation.values()) {
+            for (BlockRotation rot : BlockRotation.VALUES) {
                 requestBlock.put(
                         rot,
                         LogisticsNewSolidBlockWorldRenderer.block.get(rot).copy().apply(new LPScale(0.999))
