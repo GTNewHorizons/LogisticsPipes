@@ -132,7 +132,7 @@ public class LogisticsNewPipeItemRenderer implements IItemRenderer {
 
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
-        for (CoverSides side : CoverSides.values()) {
+        for (CoverSides side : CoverSides.VALUES) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation).render(icon);
         }
         CCRenderState.instance().drawInstance();
