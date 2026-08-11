@@ -76,7 +76,7 @@ public class LogisticsNewPipeWorldRenderer implements ISimpleBlockRenderingHandl
 
             requestBlock.get(rotation).render(new LPTranslation(x, y, z), icon);
 
-            for (CoverSides side : CoverSides.values()) {
+            for (CoverSides side : CoverSides.VALUES) {
                 if (!pipeTile.renderState.pipeConnectionMatrix.isConnected(side.getDir(rotation))) {
                     LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation)
                             .render(new LPTranslation(x, y, z), icon);

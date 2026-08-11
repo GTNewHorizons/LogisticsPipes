@@ -37,6 +37,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         WEST(ForgeDirection.WEST, "W"),
         EAST(ForgeDirection.EAST, "E");
 
+        public static final CoverSides[] VALUES = values();
         private final ForgeDirection dir;
 
         @Getter
@@ -115,7 +116,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
 
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.clear();
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner.clear();
-            for (CoverSides side : CoverSides.values()) {
+            for (CoverSides side : CoverSides.VALUES) {
                 String grp_Outer = "OutSide_" + side.getLetter();
                 String grp_Inside = "Inside_" + side.getLetter();
                 for (Entry<String, IModel3D> entry : blockPartModels.entrySet()) {
@@ -197,7 +198,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(new LPTranslation(x, y, z), icon);
         LPPosition pos = new LPPosition(blockTile);
-        for (CoverSides side : CoverSides.values()) {
+        for (CoverSides side : CoverSides.VALUES) {
             boolean render = true;
             LPPosition newPos = pos.copy();
             newPos.moveForward(side.getDir(rotation));
@@ -238,7 +239,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
 
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
-        for (CoverSides side : CoverSides.values()) {
+        for (CoverSides side : CoverSides.VALUES) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation).render(icon);
         }
         CCRenderState.instance().drawInstance();
