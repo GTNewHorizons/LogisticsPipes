@@ -1,6 +1,7 @@
 package logisticspipes.pipefxhandlers;
 
 public enum Particles {
+
     WhiteParticle,
     RedParticle,
     BlueParticle,
@@ -9,10 +10,12 @@ public enum Particles {
     VioletParticle,
     OrangeParticle,
     LightGreenParticle,
-    LightRedParticle
+    LightRedParticle;
 
     /*
      * General color arangement: SinkReply: blue Extract: orange Provide/request: violet Use power: gold Render update:
      * green Power status change: red Special cases: white
      */
+
+    public static final Particles[] VALUES = values();
 }
