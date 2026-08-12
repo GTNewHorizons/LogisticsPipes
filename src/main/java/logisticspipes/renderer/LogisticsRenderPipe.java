@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -104,9 +105,10 @@ public class LogisticsRenderPipe extends TileEntitySpecialRenderer {
             renderPipeSigns((CoreRoutedPipe) pipe.pipe, x, y, z, partialTickTime);
         }
 
-        double distance = Math.pow(Minecraft.getMinecraft().thePlayer.lastTickPosX - tileentity.xCoord, 2)
-                + Math.pow(Minecraft.getMinecraft().thePlayer.lastTickPosY - tileentity.yCoord, 2)
-                + Math.pow(Minecraft.getMinecraft().thePlayer.lastTickPosZ - tileentity.zCoord, 2);
+        EntityLivingBase viewEntity = Minecraft.getMinecraft().renderViewEntity;
+        double distance = Math.pow(viewEntity.lastTickPosX - tileentity.xCoord, 2)
+                + Math.pow(viewEntity.lastTickPosY - tileentity.yCoord, 2)
+                + Math.pow(viewEntity.lastTickPosZ - tileentity.zCoord, 2);
         if (LogisticsRenderPipe.config.isUseNewRenderer()) {
             LogisticsRenderPipe.secondRenderer
                     .renderTileEntityAt((LogisticsTileGenericPipe) tileentity, x, y, z, partialTickTime, distance);
