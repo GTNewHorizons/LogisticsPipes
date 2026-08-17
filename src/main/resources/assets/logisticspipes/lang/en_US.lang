@@ -382,6 +382,10 @@ gui.itemsink.IgnoreData=Ignore Data
 gui.itemsink.IgnoreNBT=Ignore NBT
 gui.itemsink.import=Import
 
+gui.apiaristsink.title=Apiarist Sink Filters
+gui.apiaristsink.inventorySlot=Set on click %s
+gui.apiaristsink.resetButton=Reset
+
 gui.crafting.Inputs=Inputs
 gui.crafting.Import=Import
 gui.crafting.Open=Open
