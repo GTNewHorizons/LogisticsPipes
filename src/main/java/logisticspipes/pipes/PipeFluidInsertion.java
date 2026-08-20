@@ -127,4 +127,14 @@ public class PipeFluidInsertion extends FluidRoutedPipe {
     public boolean canReceiveFluid() {
         return true;
     }
+
+    @Override
+    public boolean canReceiveFluid(FluidStack resource) {
+        if (!canReceiveFluid()) {
+            return false;
+        }
+        Pair<Integer, Integer> result = SimpleServiceLocator.logisticsFluidManager
+                .getBestReply(resource, getRouter(), new ArrayList<>());
+        return result != null && result.getValue1() != null && result.getValue1() != 0 && result.getValue2() != 0;
+    }
 }

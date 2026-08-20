@@ -239,6 +239,10 @@ public abstract class FluidRoutedPipe extends CoreRoutedPipe {
 
     public abstract boolean canReceiveFluid();
 
+    public boolean canReceiveFluid(FluidStack resource) {
+        return canReceiveFluid();
+    }
+
     public boolean endReached(LPTravelingItemServer arrivingItem, TileEntity tile) {
         if (canInsertToTanks() && MainProxy.isServer(getWorld())) {
             getCacheHolder().trigger(CacheTypes.Inventory);

@@ -33,7 +33,7 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (from.ordinal() < ForgeDirection.VALID_DIRECTIONS.length && getFluidPipe().canReceiveFluid()) {
+        if (from.ordinal() < ForgeDirection.VALID_DIRECTIONS.length && getFluidPipe().canReceiveFluid(resource)) {
             return sideTanks[from.ordinal()].fill(resource, doFill);
         } else {
             return 0;
@@ -46,7 +46,7 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return getPipe().isFluidPipe() && getFluidPipe().canReceiveFluid();
+        return getPipe().isFluidPipe() && getFluidPipe().canReceiveFluid(new FluidStack(fluid, 1));
     }
 
     @Override
@@ -76,6 +76,13 @@ public class PipeFluidTransportLogistics extends PipeTransportLogistics implemen
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         if (from.ordinal() < ForgeDirection.VALID_DIRECTIONS.length) {
             return new FluidTankInfo[] { new FluidTankInfo(sideTanks[from.ordinal()]) };
+        } else if (from == ForgeDirection.UNKNOWN) {
+            FluidTankInfo[] tanks = new FluidTankInfo[sideTanks.length + 1];
+            for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
+                tanks[direction.ordinal()] = new FluidTankInfo(sideTanks[direction.ordinal()]);
+            }
+            tanks[ForgeDirection.UNKNOWN.ordinal()] = new FluidTankInfo(internalTank);
+            return tanks;
         } else {
             return null;
         }
