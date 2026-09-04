@@ -35,7 +35,7 @@ public class CraftingPipeSign implements IPipeSign {
         @Override
         @SideOnly(Side.CLIENT)
         public boolean isListCompatible(LogisticsRenderPipe render) {
-            return item == null || item.getItem().isRenderListCompatible(render);
+            return false;
         }
     }
 
