@@ -26,6 +26,13 @@ import lombok.Data;
 
 public class CraftingPipeSign implements IPipeSign {
 
+    /** Labels are laid out in 1/90 block units. */
+    private static final float TEXT_SCALE = 1.0F / 90.0F;
+    private static final int LINE_HEIGHT = 10;
+    private static final int NAME_X_OFFSET = -15;
+
+    private static final CraftingPipeSignData EMPTY_DATA = new CraftingPipeSignData(null, -1);
+
     @Data
     private static class CraftingPipeSignData implements IPipeSignData {
 
@@ -35,7 +42,7 @@ public class CraftingPipeSign implements IPipeSign {
         @Override
         @SideOnly(Side.CLIENT)
         public boolean isListCompatible(LogisticsRenderPipe render) {
-            return item == null || item.getItem().isRenderListCompatible(render);
+            return false;
         }
     }
 
@@ -80,73 +87,103 @@ public class CraftingPipeSign implements IPipeSign {
     @Override
     @SideOnly(Side.CLIENT)
     public void render(CoreRoutedPipe pipe, LogisticsRenderPipe renderer) {
-        PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
-        FontRenderer var17 = renderer.func_147498_b();
-        if (cpipe != null) {
-            List<ItemIdentifierStack> craftables = cpipe.getConfiguredCraftResults();
+        if (!(pipe instanceof PipeItemsCraftingLogistics)) {
+            return;
+        }
+        final PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
+        final FontRenderer fontRenderer = renderer.func_147498_b();
+        if (fontRenderer == null) {
+            return;
+        }
 
-            String name = "";
-            if (craftables != null && !craftables.isEmpty()) {
-                ItemStack itemstack = craftables.get(0).unsafeMakeNormalStack();
+        final ItemStack stack = getDisplayedStack(cpipe);
 
-                renderer.renderItemStackOnSign(itemstack);
-                Item item = itemstack.getItem();
+        GL11.glPushMatrix();
+        try {
+            if (stack != null) {
+                renderer.renderItemStackOnSign(stack);
+            }
 
-                GL11.glDepthMask(false);
-                GL11.glRotatef(-180.0F, 1.0F, 0.0F, 0.0F);
-                GL11.glTranslatef(0.5F, +0.08F, 0.0F);
-                GL11.glScalef(1.0F / 90.0F, 1.0F / 90.0F, 1.0F / 90.0F);
+            GL11.glDepthMask(false);
+            GL11.glRotatef(-180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glTranslatef(0.5F, 0.08F, 0.0F);
+            GL11.glScalef(TEXT_SCALE, TEXT_SCALE, TEXT_SCALE);
 
-                try {
-                    name = item.getItemStackDisplayName(itemstack);
-                } catch (Exception e) {
-                    try {
-                        name = item.getUnlocalizedName();
-                    } catch (Exception ignored) {}
-                }
+            final String name;
+            if (stack != null) {
+                name = getDisplayName(stack);
 
-                var17.drawString(
-                        "ID: " + Item.getIdFromItem(item),
-                        -var17.getStringWidth("ID: " + Item.getIdFromItem(item)) / 2,
-                        -4 * 5,
-                        0);
-                ModuleCrafter logisticsMod = cpipe.getLogisticsModule();
-                if (logisticsMod.satelliteId != 0) {
-                    var17.drawString(
-                            "Sat ID: " + logisticsMod.satelliteId,
-                            -var17.getStringWidth("Sat ID: " + logisticsMod.satelliteId) / 2,
-                            10 - 4 * 5,
-                            0);
+                drawCentered(fontRenderer, "ID: " + Item.getIdFromItem(stack.getItem()), 0, -2 * LINE_HEIGHT);
+
+                final ModuleCrafter module = cpipe.getLogisticsModule();
+                if (module != null && module.satelliteId != 0) {
+                    drawCentered(fontRenderer, "Sat ID: " + module.satelliteId, 0, -LINE_HEIGHT);
                 }
             } else {
-                GL11.glRotatef(-180.0F, 1.0F, 0.0F, 0.0F);
-                GL11.glTranslatef(0.5F, +0.08F, 0.0F);
-                GL11.glScalef(1.0F / 90.0F, 1.0F / 90.0F, 1.0F / 90.0F);
                 name = "Empty";
             }
 
-            name = renderer.cut(name, var17);
-
-            var17.drawString(name, -var17.getStringWidth(name) / 2 - 15, 3 * 10 - 4 * 5, 0);
-
+            drawCentered(fontRenderer, renderer.cut(name, fontRenderer), NAME_X_OFFSET, LINE_HEIGHT);
+        } finally {
             GL11.glDepthMask(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GL11.glPopMatrix();
         }
     }
 
     @Override
     public IPipeSignData getRenderData(CoreRoutedPipe pipe) {
-        PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
-        if (cpipe != null) {
-            List<ItemIdentifierStack> craftables = cpipe.getConfiguredCraftResults();
-            if (craftables != null && !craftables.isEmpty()) {
-                ItemIdentifierStack itemIdentifierStack = craftables.get(0);
-                ModuleCrafter logisticsMod = cpipe.getLogisticsModule();
-                return new CraftingPipeSignData(itemIdentifierStack, logisticsMod.satelliteId);
-            } else {
-                return new CraftingPipeSignData(null, -1);
+        if (!(pipe instanceof PipeItemsCraftingLogistics)) {
+            return EMPTY_DATA;
+        }
+        final PipeItemsCraftingLogistics cpipe = (PipeItemsCraftingLogistics) pipe;
+        final ItemIdentifierStack craftable = getFirstCraftable(cpipe);
+        if (craftable == null) {
+            return EMPTY_DATA;
+        }
+        final ModuleCrafter module = cpipe.getLogisticsModule();
+        return new CraftingPipeSignData(craftable, module == null ? -1 : module.satelliteId);
+    }
+
+    private static ItemIdentifierStack getFirstCraftable(PipeItemsCraftingLogistics cpipe) {
+        final List<ItemIdentifierStack> craftables = cpipe.getConfiguredCraftResults();
+        if (craftables == null || craftables.isEmpty()) {
+            return null;
+        }
+        return craftables.get(0);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static ItemStack getDisplayedStack(PipeItemsCraftingLogistics cpipe) {
+        final ItemIdentifierStack craftable = getFirstCraftable(cpipe);
+        if (craftable == null) {
+            return null;
+        }
+        final ItemStack stack = craftable.unsafeMakeNormalStack();
+        if (stack == null || stack.getItem() == null) {
+            return null;
+        }
+        return stack;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static String getDisplayName(ItemStack stack) {
+        try {
+            return stack.getItem().getItemStackDisplayName(stack);
+        } catch (Exception e) {
+            try {
+                return stack.getItem().getUnlocalizedName();
+            } catch (Exception ignored) {
+                return "";
             }
         }
-        return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void drawCentered(FontRenderer fontRenderer, String text, int xOffset, int y) {
+        if (text == null || text.isEmpty()) {
+            return;
+        }
+        fontRenderer.drawString(text, xOffset - fontRenderer.getStringWidth(text) / 2, y, 0);
     }
 }
