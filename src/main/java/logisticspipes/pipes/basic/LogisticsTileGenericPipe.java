@@ -956,6 +956,9 @@ public class LogisticsTileGenericPipe extends TileEntity
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        if (LogisticsBlockGenericPipe.isValid(pipe) && pipe.transport instanceof IFluidHandler) {
+            return ((IFluidHandler) pipe.transport).getTankInfo(from);
+        }
         return null;
     }
 
