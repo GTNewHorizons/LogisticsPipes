@@ -84,7 +84,7 @@ public class CCItemIdentifier implements ILPCCTypeDefinition {
 
         @CCCommand(description = "Returns true if this ItemIdentifier represents an FluidIdentifier")
         public boolean isFluidContainer() {
-            return ident.isFluidContainer();
+            return ident.isFluidContainer() || ident.holdsFluid();
         }
 
         @CCCommand(description = "Returns an FluidIdentifier if one exists for this ItemIdentifier")
