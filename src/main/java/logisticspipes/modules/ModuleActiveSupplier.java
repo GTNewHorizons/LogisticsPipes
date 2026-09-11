@@ -222,7 +222,41 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             }
         }
 
+        IInventoryUtil invUtil = getSingleInventory();
+        if (invUtil == null) {
+            return;
+        }
+
+        if (_service.getUpgradeManager(slot, positionInt).hasPatternUpgrade()) {
+            createPatternRequest(invUtil);
+        } else {
+            createSupplyRequest(invUtil);
+        }
+
+    }
+
+    /**
+     * Returns the single inventory that this module is attached to, or null if this inventory cannot be determined.
+     * 
+     * @return
+     */
+    private IInventoryUtil getSingleInventory() {
+        // This will only work for modules in a chassis
+        IInventory realInventory = _service.getRealInventory();
+        ForgeDirection connectionDir = _service.inventoryOrientation();
+        if (realInventory != null && realInventory.getSizeInventory() > 0
+                && connectionDir != null
+                && connectionDir != ForgeDirection.UNKNOWN) {
+            connectionDir = connectionDir.getOpposite();
+            if (_service.getUpgradeManager(slot, positionInt).hasSneakyUpgrade()) {
+                connectionDir = _service.getUpgradeManager(slot, positionInt).getSneakyOrientation();
+            }
+            return SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(realInventory, connectionDir);
+        }
+
+        // This will only work for a supplier pipe
         WorldUtil worldUtil = new WorldUtil(_world.getWorld(), getX(), getY(), getZ());
+        IInventoryUtil connectedInventory = null;
         for (AdjacentTile tile : worldUtil.getAdjacentTileEntities(true)) {
             if (!(tile.tile instanceof IInventory)) {
                 continue;
@@ -232,18 +266,20 @@ public class ModuleActiveSupplier extends LogisticsGuiModule
             if (inv.getSizeInventory() < 1) {
                 continue;
             }
-            ForgeDirection dir = tile.orientation;
-            if (_service.getUpgradeManager(slot, positionInt).hasSneakyUpgrade()) {
-                dir = _service.getUpgradeManager(slot, positionInt).getSneakyOrientation();
-            }
-            IInventoryUtil invUtil = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, dir);
 
-            if (_service.getUpgradeManager(slot, positionInt).hasPatternUpgrade()) {
-                createPatternRequest(invUtil);
-            } else {
-                createSupplyRequest(invUtil);
+            if (connectedInventory != null) {
+                _service.spawnParticle(Particles.RedParticle, 2);
+                return null; // More than one inventory found
             }
+
+            ForgeDirection tileDir = tile.orientation;
+            if (_service.getUpgradeManager(slot, positionInt).hasSneakyUpgrade()) {
+                tileDir = _service.getUpgradeManager(slot, positionInt).getSneakyOrientation();
+            }
+            connectedInventory = SimpleServiceLocator.inventoryUtilFactory.getInventoryUtil(inv, tileDir);
         }
+
+        return connectedInventory;
     }
 
     private void createPatternRequest(IInventoryUtil invUtil) {
