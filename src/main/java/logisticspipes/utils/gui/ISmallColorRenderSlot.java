@@ -10,4 +10,6 @@ public abstract class ISmallColorRenderSlot implements IRenderSlot {
     public int getSize() {
         return 8;
     }
+
+    public abstract void resetSetting();
 }
