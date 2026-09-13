@@ -381,10 +381,12 @@ public class ItemDisplay {
     public void handleMouse() {
         boolean isShift = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
         boolean isControl = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-        int wheel = Mouse.getEventDWheel();
-        if (wheel == 0) {
+        int rawWheel = Mouse.getEventDWheel();
+        if (rawWheel == 0) {
             return;
         }
+        // Convert the raw notch delta (+-120 on X11 (maybe also Windows & macOS), +-1 on Wayland) to a single step
+        int wheel = rawWheel > 0 ? 1 : -1;
 
         if (isShift && !isControl && isShiftPageChange()) {
             if (wheel > 0) {
