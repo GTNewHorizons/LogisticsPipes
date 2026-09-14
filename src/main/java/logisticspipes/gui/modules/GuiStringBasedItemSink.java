@@ -1,5 +1,8 @@
 package logisticspipes.gui.modules;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.IInventory;
 
@@ -21,6 +24,9 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
 
     private int mouseX = 0;
     private int mouseY = 0;
+
+    private String analysisNameText = null;
+    private final List<String> rowTexts = new ArrayList<>();
 
     public GuiStringBasedItemSink(IInventory playerInventory, IStringBasedModule itemSink) {
         super(null, (LogisticsGuiModule) itemSink);
@@ -91,13 +97,13 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
                 GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 6, guiTop + 7);
         GuiGraphics.drawNineSlice(mc, guiLeft + 26, guiTop + 5, 143, 12, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
+        analysisNameText = null;
         if (tmpInv.getIDStackInSlot(0) != null) {
             name = "";
             String displayName = _itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem());
             String nameFormat = StringUtils.translate("gui.module.ItemSink.text");
-            String nameText = nameFormat.equals("gui.module.ItemSink.text") ? displayName
+            analysisNameText = nameFormat.equals("gui.module.ItemSink.text") ? displayName
                     : String.format(nameFormat, displayName);
-            mc.fontRenderer.drawString(nameText, guiLeft + 28, guiTop + 7, 0x404040);
             if (_itemSink.getStringList().contains(_itemSink.getStringForItem(tmpInv.getIDStackInSlot(0).getItem()))) {
                 ((GuiButton) buttonList.get(0)).enabled = false;
                 ((GuiButton) buttonList.get(1)).enabled = true;
@@ -114,9 +120,8 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
         } else {
             if (_itemSink.getStringList().contains(name)) {
                 String nameFormat = StringUtils.translate("gui.module.ItemSink.text");
-                String nameText = nameFormat.equals("gui.module.ItemSink.text") ? name
+                analysisNameText = nameFormat.equals("gui.module.ItemSink.text") ? name
                         : String.format(nameFormat, name);
-                mc.fontRenderer.drawString(nameText, guiLeft + 28, guiTop + 7, 0x404040);
                 ((GuiButton) buttonList.get(0)).enabled = false;
                 ((GuiButton) buttonList.get(1)).enabled = true;
             } else {
@@ -126,6 +131,7 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
             }
         }
         GuiGraphics.drawNineSlice(mc, guiLeft + 5, guiTop + 30, 164, 92, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
+        rowTexts.clear();
         for (int i = 0; i < _itemSink.getStringList().size() && i < 9; i++) {
             int pointerX = var2 - guiLeft;
             int pointerY = var3 - guiTop;
@@ -142,13 +148,24 @@ public class GuiStringBasedItemSink extends ModuleBaseGui {
             String entryFormat = StringUtils.translate("gui.module.ItemSink.text");
             String entryText = entryFormat.equals("gui.module.ItemSink.text") ? entry
                     : String.format(entryFormat, entry);
-            mc.fontRenderer.drawString(entryText, guiLeft + 7, guiTop + 32 + (10 * i), 0x404040);
+            rowTexts.add(entryText);
             if (6 <= mouseX && mouseX < 168 && 31 + (10 * i) <= mouseY && mouseY < 31 + (10 * (i + 1))) {
                 name = _itemSink.getStringList().get(i);
                 mouseX = 0;
                 mouseY = 0;
                 tmpInv.clearInventorySlotContents(0);
             }
+        }
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        super.drawGuiContainerForegroundLayer(par1, par2);
+        if (analysisNameText != null) {
+            mc.fontRenderer.drawString(analysisNameText, 28, 7, 0x404040);
+        }
+        for (int i = 0; i < rowTexts.size(); i++) {
+            mc.fontRenderer.drawString(rowTexts.get(i), 7, 32 + (10 * i), 0x404040);
         }
     }
 }
