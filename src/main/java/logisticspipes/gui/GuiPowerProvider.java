@@ -37,23 +37,25 @@ public class GuiPowerProvider extends LogisticsBaseGuiScreen {
         drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
         int level = 100 - junction.getChargeState();
         drawTexturedModalRect(j + 10, k + 11 + (level * 59 / 100), 176, level * 59 / 100, 5, 59 - (level * 59 / 100));
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         mc.fontRenderer.drawString(
                 StringUtils.translate(GuiPowerProvider.PREFIX + "Logistics" + junction.getBrand() + "PowerProvider"),
-                guiLeft + 25,
-                guiTop + 8,
+                25,
+                8,
                 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerProvider.PREFIX + "StoredEnergy") + ":",
-                guiLeft + 40,
-                guiTop + 25,
-                0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiPowerProvider.PREFIX + "StoredEnergy") + ":", 40, 25, 0x404040);
         mc.fontRenderer.drawString(
                 String.format(
                         StringUtils.translate(GuiPowerProvider.PREFIX + "PowerLevel"),
                         StringUtils.getStringWithSpacesFromInteger(junction.getDisplayPowerLevel()) + " "
                                 + junction.getBrand()),
-                guiLeft + 40,
-                guiTop + 35,
+                40,
+                35,
                 0x404040);
         mc.fontRenderer.drawString(
                 String.format(
@@ -61,8 +63,8 @@ public class GuiPowerProvider extends LogisticsBaseGuiScreen {
                         "/ " + StringUtils.getStringWithSpacesFromInteger(junction.getMaxStorage())
                                 + " "
                                 + junction.getBrand()),
-                guiLeft + 40,
-                guiTop + 45,
+                40,
+                45,
                 0x404040);
     }
 }
