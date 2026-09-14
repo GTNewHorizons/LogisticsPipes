@@ -1,5 +1,6 @@
 package logisticspipes.gui;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
 
     private final LogisticsSecurityTileEntity _tile;
     private final List<String> players = new LinkedList<>();
+    private final List<String> matchingPlayers = new ArrayList<>();
 
     // Player name:
     protected String searchinput1 = "";
@@ -173,50 +175,6 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
                 guiTop + 175,
                 GuiGraphics.PLAYER_INVENTORY_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 81, guiTop + 140);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSecurityStation.PREFIX + "SecurityStation"),
-                guiLeft + 105,
-                guiTop + 10,
-                0x404040);
-        String playerKeyValue = _tile.getSecId() == null ? "null" : _tile.getSecId().toString();
-        String playerKeyFormat = StringUtils.translate(GuiSecurityStation.PREFIX + "PlayerKey");
-        String playerKeyText = playerKeyFormat.equals(GuiSecurityStation.PREFIX + "PlayerKey") ? playerKeyValue
-                : String.format(playerKeyFormat, playerKeyValue);
-        mc.fontRenderer.drawString(playerKeyText, guiLeft + 32, guiTop + 25, 0x404040);
-        if (SimpleServiceLocator.ccProxy.isCC() || LPConstants.DEBUG) {
-            mc.fontRenderer.drawString(
-                    StringUtils.translate(GuiSecurityStation.PREFIX + "allowCCAccess") + ":",
-                    guiLeft + 10,
-                    guiTop + 46,
-                    0x404040);
-            mc.fontRenderer.drawString(
-                    StringUtils.translate(GuiSecurityStation.PREFIX + "excludeIDs") + ":",
-                    guiLeft + 10,
-                    guiTop + 61,
-                    0x404040);
-        }
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSecurityStation.PREFIX + "pipeRemove") + ":",
-                guiLeft + 10,
-                guiTop + 78,
-                0x404040);
-        // mc.fontRenderer.drawString("---------------------------------------------", guiLeft + 5, guiTop + 90,
-        // 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSecurityStation.PREFIX + "Player") + ":",
-                guiLeft + 180,
-                guiTop + 127,
-                0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiSecurityStation.PREFIX + "SecurityCards") + ":",
-                guiLeft + 10,
-                guiTop + 127,
-                0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate("gui.logisticspipes.inventory.title") + ":",
-                guiLeft + 10,
-                guiTop + 163,
-                0x404040);
 
         addition = (mc.fontRenderer.getStringWidth(searchinput1 + searchinput2) - 82);
 
@@ -233,7 +191,6 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
         }
         drawRect(guiLeft + 182, bottom - 118, right - 10 + addition, bottom - 105, Color.DARKER_GREY);
 
-        mc.fontRenderer.drawString(searchinput1 + searchinput2, guiLeft + 185, bottom - 115, 0xFFFFFF);
         if (editsearch) {
             int linex = guiLeft + 185 + mc.fontRenderer.getStringWidth(searchinput1);
             if (System.currentTimeMillis() - oldSystemTime > 500) {
@@ -262,16 +219,17 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
             }
         }
 
-        int pos = bottom - 95;
+        matchingPlayers.clear();
         for (String player : players) {
             if (player.contains(searchinput1 + searchinput2)) {
-                String playerListFormat = StringUtils.translate(GuiSecurityStation.PREFIX + "PlayerList");
-                String playerListText = playerListFormat.equals(GuiSecurityStation.PREFIX + "PlayerList") ? player
-                        : String.format(playerListFormat, player);
-                mc.fontRenderer.drawString(playerListText, guiLeft + 180, pos, 0x404040);
-                pos += 11;
+                matchingPlayers.add(player);
             }
-            // Check mouse click
+        }
+
+        // Check mouse click against the visible (rendered) player rows
+        int pos = bottom - 95;
+        for (String player : matchingPlayers) {
+            pos += 11;
             if (guiLeft + 180 < lastClickedx && lastClickedx < guiLeft + 280
                     && pos - 11 < lastClickedy
                     && lastClickedy < pos) {
@@ -281,10 +239,10 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
                 searchinput2 = "";
             }
             if (pos > bottom - 12) {
-                mc.fontRenderer.drawString("...", guiLeft + 180, pos - 5, 0x404040);
                 break;
             }
         }
+
         if (authorized) {
             GuiGraphics.drawTexturedRect(
                     mc,
@@ -309,6 +267,57 @@ public class GuiSecurityStation extends LogisticsBaseGuiScreen implements Player
                     30,
                     0,
                     0);
+        }
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiSecurityStation.PREFIX + "SecurityStation"), 105, 10, 0x404040);
+        String playerKeyValue = _tile.getSecId() == null ? "null" : _tile.getSecId().toString();
+        String playerKeyFormat = StringUtils.translate(GuiSecurityStation.PREFIX + "PlayerKey");
+        String playerKeyText = playerKeyFormat.equals(GuiSecurityStation.PREFIX + "PlayerKey") ? playerKeyValue
+                : String.format(playerKeyFormat, playerKeyValue);
+        mc.fontRenderer.drawString(playerKeyText, 32, 25, 0x404040);
+        if (SimpleServiceLocator.ccProxy.isCC() || LPConstants.DEBUG) {
+            mc.fontRenderer.drawString(
+                    StringUtils.translate(GuiSecurityStation.PREFIX + "allowCCAccess") + ":",
+                    10,
+                    46,
+                    0x404040);
+            mc.fontRenderer.drawString(
+                    StringUtils.translate(GuiSecurityStation.PREFIX + "excludeIDs") + ":",
+                    10,
+                    61,
+                    0x404040);
+        }
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiSecurityStation.PREFIX + "pipeRemove") + ":", 10, 78, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiSecurityStation.PREFIX + "Player") + ":", 180, 127, 0x404040);
+        mc.fontRenderer.drawString(
+                StringUtils.translate(GuiSecurityStation.PREFIX + "SecurityCards") + ":",
+                10,
+                127,
+                0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate("gui.logisticspipes.inventory.title") + ":", 10, 163, 0x404040);
+
+        mc.fontRenderer.drawString(searchinput1 + searchinput2, 185, ySize - 115, 0xFFFFFF);
+
+        int pos = ySize - 95;
+        for (String player : matchingPlayers) {
+            String playerListFormat = StringUtils.translate(GuiSecurityStation.PREFIX + "PlayerList");
+            String playerListText = playerListFormat.equals(GuiSecurityStation.PREFIX + "PlayerList") ? player
+                    : String.format(playerListFormat, player);
+            mc.fontRenderer.drawString(playerListText, 180, pos, 0x404040);
+            pos += 11;
+            if (pos > ySize - 12) {
+                mc.fontRenderer.drawString("...", 180, pos - 5, 0x404040);
+                break;
+            }
         }
     }
 
