@@ -127,28 +127,27 @@ public abstract class GuiOrderer extends LogisticsBaseGuiScreen implements IItem
     public void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
 
-        String titleText = StringUtils.translate(_title);
-        mc.fontRenderer
-                .drawString(titleText, guiLeft + mc.fontRenderer.getStringWidth(titleText) / 2, guiTop + 6, 0x404040);
-        itemDisplay.renderPageNumber(right - 47, guiTop + 6);
-
-        int popupColor = Color.getValue(Color.GREY);
-        if (buttonList.get(9) instanceof GuiCheckBox && ((GuiCheckBox) buttonList.get(9)).getState()) {
-            popupColor = 0x404040;
-        }
-        mc.fontRenderer
-                .drawString(StringUtils.translate("gui.requesttable.Popup"), guiLeft + 25, bottom - 56, popupColor);
-
-        itemDisplay.renderAmount(xCenter, bottom - 24, getStackAmount());
         // SearchInput
         search.renderSearchBar();
 
-        itemDisplay.renderSortMode(xCenter, bottom - 52);
         itemDisplay.renderItemArea(zLevel);
     }
 
     @Override
     public void drawGuiContainerForegroundLayer(int par1, int par2) {
+        String titleText = StringUtils.translate(_title);
+        mc.fontRenderer.drawString(titleText, mc.fontRenderer.getStringWidth(titleText) / 2, 6, 0x404040);
+        itemDisplay.renderPageNumber(right - guiLeft - 47, 6);
+
+        int popupColor = Color.getValue(Color.GREY);
+        if (buttonList.get(9) instanceof GuiCheckBox && ((GuiCheckBox) buttonList.get(9)).getState()) {
+            popupColor = 0x404040;
+        }
+        mc.fontRenderer.drawString(StringUtils.translate("gui.requesttable.Popup"), 25, ySize - 56, popupColor);
+
+        itemDisplay.renderAmount(xCenter - guiLeft, ySize - 24, getStackAmount());
+        itemDisplay.renderSortMode(xCenter - guiLeft, ySize - 52);
+
         if (super.hasSubGui()) {
             return;
         }

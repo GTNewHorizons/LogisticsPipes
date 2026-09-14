@@ -2,13 +2,14 @@ package logisticspipes.request.resources;
 
 import java.io.IOException;
 
+import net.minecraft.util.EnumChatFormatting;
+
 import logisticspipes.interfaces.routing.IRequestItems;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.routing.IRouter;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 
 public class ItemResource implements IResource {
 
@@ -109,11 +110,11 @@ public class ItemResource implements IResource {
     public String getDisplayText(ColorCode code) {
         StringBuilder builder = new StringBuilder();
         if (code != ColorCode.NONE) {
-            builder.append(code == ColorCode.MISSING ? ChatColor.RED : ChatColor.GREEN);
+            builder.append(code == ColorCode.MISSING ? EnumChatFormatting.RED : EnumChatFormatting.GREEN);
         }
         builder.append(stack.getFriendlyName());
         if (code != ColorCode.NONE) {
-            builder.append(ChatColor.WHITE);
+            builder.append(EnumChatFormatting.WHITE);
         }
         return builder.toString();
     }

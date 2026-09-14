@@ -28,6 +28,9 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
     private final List<String> unsunkNames = new ArrayList<>();
     private int currentOffset = 0;
 
+    private final List<String> unsunkRowTexts = new ArrayList<>();
+    private final List<String> oreListRowTexts = new ArrayList<>();
+
     public GuiOreDictItemSink(IInventory playerInventory, ModuleOreDictItemSink itemSink) {
         super(null, itemSink);
 
@@ -108,6 +111,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
 
         // draw unsunk list and highlight bar, handle clicks
         GuiGraphics.drawNineSlice(mc, guiLeft + 26, guiTop + 5, 133, 22, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
+        unsunkRowTexts.clear();
         for (int i = 0; i + currentOffset < unsunkNames.size() && i < 2; i++) {
             if (27 <= pointerX && pointerX < 158 && 6 + (10 * i) <= pointerY && pointerY < 6 + (10 * (i + 1))) {
                 SimpleGraphics.drawRectNoBlend(
@@ -122,7 +126,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
             String entryFormat = StringUtils.translate("gui.module.ItemSink.text");
             String entryText = entryFormat.equals("gui.module.ItemSink.text") ? entry
                     : String.format(entryFormat, entry);
-            mc.fontRenderer.drawString(entryText, guiLeft + 28, guiTop + 7 + (10 * i), 0x404040);
+            unsunkRowTexts.add(entryText);
             if (27 <= mouseX && mouseX < 158 && 6 + (10 * i) <= mouseY && mouseY < 6 + (10 * (i + 1))) {
                 mouseX = 0;
                 mouseY = 0;
@@ -139,6 +143,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
 
         // draw main list and highlight bar, handle clicks
         GuiGraphics.drawNineSlice(mc, guiLeft + 5, guiTop + 30, 164, 92, GuiGraphics.ITEM_AREA_TEXTURE, 18, 2, 0.0F);
+        oreListRowTexts.clear();
         for (int i = 0; i < _itemSink.oreList.size() && i < 9; i++) {
             if (6 <= pointerX && pointerX < 168 && 31 + (10 * i) <= pointerY && pointerY < 31 + (10 * (i + 1))) {
                 SimpleGraphics.drawRectNoBlend(
@@ -153,7 +158,7 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
             String entryFormat = StringUtils.translate("gui.module.ItemSink.text");
             String entryText = entryFormat.equals("gui.module.ItemSink.text") ? entry
                     : String.format(entryFormat, entry);
-            mc.fontRenderer.drawString(entryText, guiLeft + 7, guiTop + 32 + (10 * i), 0x404040);
+            oreListRowTexts.add(entryText);
             if (6 <= mouseX && mouseX < 168 && 31 + (10 * i) <= mouseY && mouseY < 31 + (10 * (i + 1))) {
                 mouseX = 0;
                 mouseY = 0;
@@ -164,6 +169,17 @@ public class GuiOreDictItemSink extends ModuleBaseGui {
                 _itemSink.oreList.remove(oreName);
                 _itemSink.OreListChanged();
             }
+        }
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        super.drawGuiContainerForegroundLayer(par1, par2);
+        for (int i = 0; i < unsunkRowTexts.size(); i++) {
+            mc.fontRenderer.drawString(unsunkRowTexts.get(i), 28, 7 + (10 * i), 0x404040);
+        }
+        for (int i = 0; i < oreListRowTexts.size(); i++) {
+            mc.fontRenderer.drawString(oreListRowTexts.get(i), 7, 32 + (10 * i), 0x404040);
         }
     }
 

@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -37,7 +38,6 @@ import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.LPPosition;
 
@@ -338,14 +338,18 @@ public class GuiPipeController extends LogisticsBaseGuiScreen {
                 mc.fontRenderer.drawString("Id: ", 10, 68, Color.getValue(Color.DARKER_GREY), false);
                 GL11.glTranslated(10, 80, 0);
                 GL11.glScaled(0.75D, 0.75D, 1.0D);
-                mc.fontRenderer
-                        .drawString(ChatColor.BLUE.toString() + id, 0, 0, Color.getValue(Color.DARKER_GREY), false);
+                mc.fontRenderer.drawString(
+                        EnumChatFormatting.BLUE.toString() + id,
+                        0,
+                        0,
+                        Color.getValue(Color.DARKER_GREY),
+                        false);
                 GL11.glScaled(1 / 0.75D, 1 / 0.75D, 1.0D);
                 GL11.glTranslated(-10, -80, 0);
                 mc.fontRenderer.drawString(
                         "Authorization: " + (SimpleServiceLocator.securityStationManager.isAuthorized(id)
-                                ? ChatColor.GREEN + "Authorized"
-                                : ChatColor.RED + "Deauthorized"),
+                                ? EnumChatFormatting.GREEN + "Authorized"
+                                : EnumChatFormatting.RED + "Deauthorized"),
                         10,
                         94,
                         Color.getValue(Color.DARKER_GREY),

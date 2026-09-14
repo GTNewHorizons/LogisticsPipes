@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -36,7 +37,6 @@ import logisticspipes.utils.gui.GuiGraphics;
 import logisticspipes.utils.gui.SimpleGraphics;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 
 public class RequestMonitorPopup extends SubGuiScreen {
@@ -522,10 +522,12 @@ public class RequestMonitorPopup extends SubGuiScreen {
                 if (guiLeft < par1 && par1 < guiLeft + xSize - 16 && guiTop < par2 && par2 < guiTop + ySize - 16) {
                     List<String> tooltipList = new ArrayList<>();
                     tooltipList.add(
-                            ChatColor.BLUE + "Request Type: " + ChatColor.YELLOW + iOrderInfoProvider.getType().name());
+                            EnumChatFormatting.BLUE + "Request Type: "
+                                    + EnumChatFormatting.YELLOW
+                                    + iOrderInfoProvider.getType().name());
                     tooltipList.add(
-                            ChatColor.BLUE + "Send to Router ID: "
-                                    + ChatColor.YELLOW
+                            EnumChatFormatting.BLUE + "Send to Router ID: "
+                                    + EnumChatFormatting.YELLOW
                                     + iOrderInfoProvider.getRouterId());
                     tooltip = new Object[] { (int) (par1 * zoom.zoom - 10), (int) (par2 * zoom.zoom),
                             iOrderInfoProvider.getAsDisplayItem().makeNormalStack(), true, tooltipList };

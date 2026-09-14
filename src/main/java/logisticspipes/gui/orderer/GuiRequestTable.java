@@ -18,6 +18,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -61,7 +62,6 @@ import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 
@@ -238,28 +238,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         drawRect(guiLeft + 164, guiTop + 25, guiLeft + 180, guiTop + 41, Color.DARKER_GREY);
 
         if (showRequest) {
-            mc.fontRenderer.drawString(
-                    StringUtils.translate(_title),
-                    guiLeft + 180 + mc.fontRenderer.getStringWidth(StringUtils.translate(_title)) / 2,
-                    guiTop + 6,
-                    0x404040);
-            itemDisplay.renderPageNumber(right - 47, guiTop + 6);
-
-            int popupColor = Color.getValue(Color.GREY);
-            if (popupCheckBox != null && popupCheckBox.getState()) {
-                popupColor = 0x404040;
-            }
-            mc.fontRenderer.drawString(
-                    StringUtils.translate("gui.requesttable.Popup"),
-                    guiLeft + 225,
-                    bottom - 56,
-                    popupColor);
-
-            itemDisplay.renderAmount(right - 103, bottom - 24, getStackAmount());
             // SearchInput
             search.renderSearchBar();
 
-            itemDisplay.renderSortMode(right - 103, bottom - 52);
             itemDisplay.renderItemArea(zLevel);
         }
 
@@ -281,11 +262,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                         GuiGraphics.CONTAINER_SLOT_TEXTURE);
             }
         }
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiRequestTable.PREFIX + "Sort"),
-                guiLeft + 136,
-                guiTop + 55,
-                0xffffff);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 100, guiTop + 32, GuiGraphics.CONTAINER_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 163, guiTop + 50, GuiGraphics.CONTAINER_SLOT_TEXTURE);
         drawRect(guiLeft + 75, guiTop + 38, guiLeft + 95, guiTop + 43, Color.DARKER_GREY);
@@ -480,12 +456,12 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                     IOrderInfoProvider order = ordererPosition.get(key);
                                     List<String> list = new ArrayList<>();
                                     list.add(
-                                            ChatColor.BLUE + "Request Type: "
-                                                    + ChatColor.YELLOW
+                                            EnumChatFormatting.BLUE + "Request Type: "
+                                                    + EnumChatFormatting.YELLOW
                                                     + order.getType().name());
                                     list.add(
-                                            ChatColor.BLUE + "Send to Router ID: "
-                                                    + ChatColor.YELLOW
+                                            EnumChatFormatting.BLUE + "Send to Router ID: "
+                                                    + EnumChatFormatting.YELLOW
                                                     + order.getRouterId());
                                     GuiGraphics.displayItemToolTip(
                                             new Object[] { xPos - 10, yPos, order.getAsDisplayItem().makeNormalStack(),
@@ -499,7 +475,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                         } else {
                             if (entry.getValue().getValue1() != null) {
                                 List<String> list = new ArrayList<>();
-                                list.add(ChatColor.BLUE + "Request ID: " + ChatColor.YELLOW + entry.getKey());
+                                list.add(
+                                        EnumChatFormatting.BLUE + "Request ID: "
+                                                + EnumChatFormatting.YELLOW
+                                                + entry.getKey());
                                 GuiGraphics.displayItemToolTip(
                                         new Object[] { xPos - 10, yPos,
                                                 entry.getValue().getValue1().getDisplayItem().makeNormalStack(), true,
@@ -695,6 +674,23 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     @Override
     public void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
+        if (showRequest) {
+            mc.fontRenderer.drawString(
+                    StringUtils.translate(_title),
+                    180 + mc.fontRenderer.getStringWidth(StringUtils.translate(_title)) / 2,
+                    6,
+                    0x404040);
+            int popupColor = Color.getValue(Color.GREY);
+            if (popupCheckBox != null && popupCheckBox.getState()) {
+                popupColor = 0x404040;
+            }
+            mc.fontRenderer.drawString(StringUtils.translate("gui.requesttable.Popup"), 225, ySize - 56, popupColor);
+
+            itemDisplay.renderPageNumber(right - guiLeft - 47, 6);
+            itemDisplay.renderAmount(right - guiLeft - 103, ySize - 24, getStackAmount());
+            itemDisplay.renderSortMode(right - guiLeft - 103, ySize - 52);
+        }
+        mc.fontRenderer.drawString(StringUtils.translate(GuiRequestTable.PREFIX + "Sort"), 136, 55, 0xffffff);
         if (super.hasSubGui()) {
             return;
         }

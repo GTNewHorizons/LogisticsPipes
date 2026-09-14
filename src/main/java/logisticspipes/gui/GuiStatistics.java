@@ -47,6 +47,25 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
     private int move_left;
 
+    private static final class TextLabel {
+
+        final String text;
+        final int x;
+        final int y;
+        final int color;
+        final boolean shadow;
+
+        TextLabel(String text, int x, int y, int color, boolean shadow) {
+            this.text = text;
+            this.x = x;
+            this.y = y;
+            this.color = color;
+            this.shadow = shadow;
+        }
+    }
+
+    private final List<TextLabel> graphLabels = new ArrayList<>();
+
     public GuiStatistics(final LogisticsStatisticsTileEntity tile) {
         super(180, 220, 0, 0);
         this.tile = tile;
@@ -164,6 +183,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int mouse_x, int mouse_y) {
+        graphLabels.clear();
         GL11.glColor4d(1.0D, 1.0D, 1.0D, 1.0D);
         for (int i = 0; i < TAB_COUNT; i++) {
             GuiGraphics.drawGuiBackGround(
@@ -211,7 +231,6 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
         if (current_Tab == 0) {
             itemDisplay_1.renderItemArea(zLevel);
-            itemDisplay_1.renderPageNumber(right - 40, guiTop + 28);
             if (itemDisplay_1.getSelectedItem() != null) {
                 TrackingTask task = null;
                 for (TrackingTask taskLoop : tile.tasks) {
@@ -236,12 +255,13 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     GL11.glDisable(GL11.GL_LIGHTING);
                     GL11.glDisable(GL11.GL_DEPTH_TEST);
                     GuiScreen.itemRender.zLevel = 0.0F;
-                    mc.fontRenderer.drawString(
-                            StringUtils.getWithMaxWidth(task.item.getFriendlyName(), 136, fontRendererObj),
-                            guiLeft + 32,
-                            guiTop + 104,
-                            Color.getValue(Color.DARKER_GREY),
-                            false);
+                    graphLabels.add(
+                            new TextLabel(
+                                    StringUtils.getWithMaxWidth(task.item.getFriendlyName(), 136, fontRendererObj),
+                                    32,
+                                    104,
+                                    Color.getValue(Color.DARKER_GREY),
+                                    false));
 
                     int xOrigo = xCenter - 68;
                     int yOrigo = yCenter + 90;
@@ -291,12 +311,14 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                         left += (time_left % 60) + "min";
                     }
 
-                    fontRendererObj.drawString(left, xOrigo - 12, yOrigo + 6, 0x404040);
-                    fontRendererObj.drawString(
-                            right,
-                            xOrigo + 153 - fontRendererObj.getStringWidth(right),
-                            yOrigo + 6,
-                            0x404040);
+                    graphLabels.add(new TextLabel(left, xOrigo - guiLeft - 12, yOrigo - guiTop + 6, 0x404040, true));
+                    graphLabels.add(
+                            new TextLabel(
+                                    right,
+                                    xOrigo - guiLeft + 153 - fontRendererObj.getStringWidth(right),
+                                    yOrigo - guiTop + 6,
+                                    0x404040,
+                                    true));
 
                     long[] data = new long[task.amountRecorded.length];
                     int pos = 0;
@@ -323,25 +345,36 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
                     double averagey = ((double) highest + lowest) / 2;
 
-                    fontRendererObj.drawString(
-                            StringUtils.getFormatedStackSize(highest, false),
-                            xOrigo - 1
-                                    - fontRendererObj.getStringWidth(StringUtils.getFormatedStackSize(highest, false)),
-                            guiTop + 117,
-                            0x404040);
-                    fontRendererObj.drawString(
-                            StringUtils.getFormatedStackSize((long) averagey, false),
-                            xOrigo - 1
-                                    - fontRendererObj
-                                            .getStringWidth(StringUtils.getFormatedStackSize((long) averagey, false)),
-                            yCenter + 46,
-                            0x404040);
-                    fontRendererObj.drawString(
-                            StringUtils.getFormatedStackSize(lowest, false),
-                            xOrigo - 1
-                                    - fontRendererObj.getStringWidth(StringUtils.getFormatedStackSize(lowest, false)),
-                            bottom - 23,
-                            0x404040);
+                    graphLabels.add(
+                            new TextLabel(
+                                    StringUtils.getFormatedStackSize(highest, false),
+                                    xOrigo - guiLeft
+                                            - 1
+                                            - fontRendererObj
+                                                    .getStringWidth(StringUtils.getFormatedStackSize(highest, false)),
+                                    117,
+                                    0x404040,
+                                    true));
+                    graphLabels.add(
+                            new TextLabel(
+                                    StringUtils.getFormatedStackSize((long) averagey, false),
+                                    xOrigo - guiLeft
+                                            - 1
+                                            - fontRendererObj.getStringWidth(
+                                                    StringUtils.getFormatedStackSize((long) averagey, false)),
+                                    yCenter - guiTop + 46,
+                                    0x404040,
+                                    true));
+                    graphLabels.add(
+                            new TextLabel(
+                                    StringUtils.getFormatedStackSize(lowest, false),
+                                    xOrigo - guiLeft
+                                            - 1
+                                            - fontRendererObj
+                                                    .getStringWidth(StringUtils.getFormatedStackSize(lowest, false)),
+                                    ySize - 23,
+                                    0x404040,
+                                    true));
 
                     float yScale = 80F / Math.max(highest - lowest, 0.5F);
                     int x = xOrigo + 150;
@@ -368,7 +401,6 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
             }
         } else if (current_Tab == 1) {
             itemDisplay_2.renderItemArea(zLevel);
-            itemDisplay_2.renderPageNumber(right - 50, guiTop + 66);
         }
 
         super.drawGuiContainerBackgroundLayer(f, mouse_x, mouse_y);
@@ -415,6 +447,9 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
+        for (TextLabel label : graphLabels) {
+            mc.fontRenderer.drawString(label.text, label.x, label.y, label.color, label.shadow);
+        }
         if (current_Tab == 0) {
             mc.fontRenderer.drawString(
                     StringUtils.translate(PREFIX + "amount"),
@@ -422,6 +457,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     28,
                     Color.getValue(Color.DARKER_GREY),
                     false);
+            itemDisplay_1.renderPageNumber(right - guiLeft - 40, 28);
         } else if (current_Tab == 1) {
             mc.fontRenderer.drawString(
                     StringUtils.translate(PREFIX + "crafting"),
@@ -429,6 +465,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     28,
                     Color.getValue(Color.DARKER_GREY),
                     false);
+            itemDisplay_2.renderPageNumber(right - guiLeft - 50, 66);
             GuiGraphics.displayItemToolTip(itemDisplay_2.getToolTip(), this, zLevel, guiLeft, guiTop);
         }
     }

@@ -1,9 +1,6 @@
 package logisticspipes.utils.string;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -11,10 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.UnmodifiableListIterator;
 
 import logisticspipes.pipes.PipeFluidSupplierMk2;
 import logisticspipes.pipes.basic.CoreUnroutedPipe;
@@ -27,57 +20,8 @@ public final class StringUtils {
 
     private StringUtils() {}
 
-    public static String handleColor(String input) {
-        if (input == null) {
-            return "null";
-        }
-        StringBuilder builder = new StringBuilder();
-        ImmutableList<Character> chars = Lists.charactersOf(input);
-        UnmodifiableListIterator<Character> iter = chars.listIterator();
-        while (iter.hasNext()) {
-            Character c = iter.next();
-            if (c == '%' && iter.hasNext()) {
-                Character c2 = iter.next();
-                if (c2 == 'c') {
-                    StringBuilder handled = new StringBuilder();
-                    ChatColor[] values = ChatColor.values();
-                    List<ChatColor> colors = new ArrayList<>(values.length);
-                    colors.addAll(Arrays.asList(values));
-                    int i = 0;
-                    outer: while (iter.hasNext() && !colors.isEmpty()) {
-                        Character c3 = iter.next();
-                        handled.append(c3);
-                        Iterator<ChatColor> colorIter = colors.iterator();
-                        while (colorIter.hasNext()) {
-                            ChatColor color = colorIter.next();
-                            if (color.name().length() <= i) {
-                                break outer;
-                            }
-                            if (c3 != color.name().charAt(i)) {
-                                colorIter.remove();
-                            }
-                        }
-                        i++;
-                    }
-                    if (!colors.isEmpty()) {
-                        ChatColor color = colors.get(0);
-                        builder.append(color.toString());
-                    } else {
-                        builder.append(handled);
-                    }
-                } else {
-                    builder.append('%');
-                    builder.append(c2);
-                }
-            } else {
-                builder.append(c);
-            }
-        }
-        return builder.toString();
-    }
-
     public static String translate(String key) {
-        String result = StringUtils.handleColor(StatCollector.translateToLocal(key));
+        String result = StatCollector.translateToLocal(key);
         if (result.equals(key) && !StringUtils.UNTRANSLATED_STRINGS.contains(key) && !key.contains(".tip")) {
             StringUtils.UNTRANSLATED_STRINGS.add(key);
         }
@@ -85,26 +29,20 @@ public final class StringUtils {
     }
 
     public static void addShiftAddition(ItemStack stack, List<String> list) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            String baseKey = MessageFormat.format("{0}.tip", stack.getItem().getUnlocalizedName(stack));
-            String key = baseKey + 1;
-            String translation = StringUtils.translate(key);
-            int i = 1;
+        String baseKey = stack.getItem().getUnlocalizedName(stack) + ".tip";
+        String key = baseKey + 1;
+        String translation = StringUtils.translate(key);
 
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+            int i = 1;
             while (!translation.equals(key)) {
                 list.add(translation);
                 key = baseKey + ++i;
                 translation = StringUtils.translate(key);
             }
-
             addExtraInfo(stack, list);
-        } else {
-            String baseKey = MessageFormat.format("{0}.tip", stack.getItem().getUnlocalizedName(stack));
-            String key = baseKey + 1;
-            String translation = StringUtils.translate(key);
-            if (!translation.equals(key)) {
-                list.add(StringUtils.translate(StringUtils.KEY_HOLDSHIFT));
-            }
+        } else if (!translation.equals(key)) {
+            list.add(StringUtils.translate(StringUtils.KEY_HOLDSHIFT));
         }
     }
 
@@ -153,26 +91,23 @@ public final class StringUtils {
     }
 
     public static String getWithMaxWidth(String name, int width, FontRenderer fontRenderer) {
-        boolean changed = false;
-        while (fontRenderer.getStringWidth(name) > width) {
-            name = name.substring(0, name.length() - 2);
-            changed = true;
-        }
-        if (changed) {
-            name += "...";
-        }
-        return name;
+        return cutToWidth(name, width, fontRenderer);
     }
 
     public static String getCuttedString(String input, int maxLength, FontRenderer renderer) {
-        if (renderer.getStringWidth(input) < maxLength) {
-            return input;
+        return cutToWidth(input, maxLength, renderer);
+    }
+
+    private static String cutToWidth(String text, int maxWidth, FontRenderer renderer) {
+        if (renderer.getStringWidth(text) <= maxWidth) {
+            return text;
         }
-        input += "...";
-        while (renderer.getStringWidth(input) > maxLength && input.length() > 5) {
-            input = input.substring(0, input.length() - 4) + "...";
+        String result = text + "...";
+        while (renderer.getStringWidth(result) > maxWidth && text.length() > 1) {
+            text = text.substring(0, text.length() - 1);
+            result = text + "...";
         }
-        return input;
+        return result;
     }
 
     public static String getStringWithSpacesFromInteger(int source) {

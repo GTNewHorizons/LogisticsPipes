@@ -65,16 +65,18 @@ public class GuiHUDSettings extends LogisticsBaseGuiScreen {
             mc.thePlayer.closeScreen();
         }
         GuiGraphics.drawGuiBackGround(mc, guiLeft, guiTop, right, bottom, zLevel, true);
-        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "ChassiePipe"), guiLeft + 50, guiTop + 13, 0x4c4c4c);
-        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "CraftingPipe"), guiLeft + 50, guiTop + 33, 0x4c4c4c);
-        mc.fontRenderer
-                .drawString(StringUtils.translate(PREFIX + "InvSysConPipe"), guiLeft + 50, guiTop + 53, 0x4c4c4c);
-        mc.fontRenderer
-                .drawString(StringUtils.translate(PREFIX + "PowerJunction"), guiLeft + 50, guiTop + 73, 0x4c4c4c);
-        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "ProviderPipe"), guiLeft + 50, guiTop + 93, 0x4c4c4c);
-        mc.fontRenderer
-                .drawString(StringUtils.translate(PREFIX + "SatellitePipe"), guiLeft + 50, guiTop + 113, 0x4c4c4c);
         GuiGraphics.drawPlayerHotbarBackground(mc, guiLeft + 10, guiTop + 134);
         GuiGraphics.drawPlayerArmorBackground(mc, guiLeft + 10, guiTop + 65);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        super.drawGuiContainerForegroundLayer(par1, par2);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "ChassiePipe"), 50, 13, 0x4c4c4c);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "CraftingPipe"), 50, 33, 0x4c4c4c);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "InvSysConPipe"), 50, 53, 0x4c4c4c);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "PowerJunction"), 50, 73, 0x4c4c4c);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "ProviderPipe"), 50, 93, 0x4c4c4c);
+        mc.fontRenderer.drawString(StringUtils.translate(PREFIX + "SatellitePipe"), 50, 113, 0x4c4c4c);
     }
 }
