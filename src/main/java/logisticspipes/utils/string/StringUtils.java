@@ -98,26 +98,23 @@ public final class StringUtils {
     }
 
     public static String getWithMaxWidth(String name, int width, FontRenderer fontRenderer) {
-        boolean changed = false;
-        while (fontRenderer.getStringWidth(name) > width) {
-            name = name.substring(0, name.length() - 2);
-            changed = true;
-        }
-        if (changed) {
-            name += "...";
-        }
-        return name;
+        return cutToWidth(name, width, fontRenderer);
     }
 
     public static String getCuttedString(String input, int maxLength, FontRenderer renderer) {
-        if (renderer.getStringWidth(input) < maxLength) {
-            return input;
+        return cutToWidth(input, maxLength, renderer);
+    }
+
+    private static String cutToWidth(String text, int maxWidth, FontRenderer renderer) {
+        if (renderer.getStringWidth(text) <= maxWidth) {
+            return text;
         }
-        input += "...";
-        while (renderer.getStringWidth(input) > maxLength && input.length() > 5) {
-            input = input.substring(0, input.length() - 4) + "...";
+        String result = text + "...";
+        while (renderer.getStringWidth(result) > maxWidth && text.length() > 1) {
+            text = text.substring(0, text.length() - 1);
+            result = text + "...";
         }
-        return input;
+        return result;
     }
 
     public static String getStringWithSpacesFromInteger(int source) {
