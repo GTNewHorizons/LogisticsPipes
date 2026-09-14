@@ -32,12 +32,10 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerJunction.PREFIX + "LogisticsPowerJunction"),
-                30,
-                8,
-                0x404040);
-        mc.fontRenderer.drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "StoredEnergy") + ":", 40, 23, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "LogisticsPowerJunction"), 30, 8, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "StoredEnergy") + ":", 40, 23, 0x404040);
         mc.fontRenderer.drawString(
                 String.format(
                         StringUtils.translate(GuiPowerJunction.PREFIX + "PowerLevel"),
@@ -45,20 +43,19 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
                 40,
                 33,
                 0x404040);
-        mc.fontRenderer.drawString(
-                String.format(
-                        StringUtils.translate(GuiPowerJunction.PREFIX + "MaxStorage"),
-                        StringUtils.getStringWithSpacesFromInteger(LogisticsPowerJunctionTileEntity.MAX_STORAGE)),
-                40,
-                43,
-                0x404040);
+        mc.fontRenderer
+                .drawString(
+                        String.format(
+                                StringUtils.translate(GuiPowerJunction.PREFIX + "MaxStorage"),
+                                StringUtils
+                                        .getStringWithSpacesFromInteger(LogisticsPowerJunctionTileEntity.MAX_STORAGE)),
+                        40,
+                        43,
+                        0x404040);
         mc.fontRenderer
                 .drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyRF"), 24, 58, 0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyEU"),
-                100,
-                58,
-                0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyEU"), 100, 58, 0x404040);
     }
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(
