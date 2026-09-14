@@ -1,6 +1,5 @@
 package logisticspipes.utils.string;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,26 +29,20 @@ public final class StringUtils {
     }
 
     public static void addShiftAddition(ItemStack stack, List<String> list) {
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-            String baseKey = MessageFormat.format("{0}.tip", stack.getItem().getUnlocalizedName(stack));
-            String key = baseKey + 1;
-            String translation = StringUtils.translate(key);
-            int i = 1;
+        String baseKey = stack.getItem().getUnlocalizedName(stack) + ".tip";
+        String key = baseKey + 1;
+        String translation = StringUtils.translate(key);
 
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+            int i = 1;
             while (!translation.equals(key)) {
                 list.add(translation);
                 key = baseKey + ++i;
                 translation = StringUtils.translate(key);
             }
-
             addExtraInfo(stack, list);
-        } else {
-            String baseKey = MessageFormat.format("{0}.tip", stack.getItem().getUnlocalizedName(stack));
-            String key = baseKey + 1;
-            String translation = StringUtils.translate(key);
-            if (!translation.equals(key)) {
-                list.add(StringUtils.translate(StringUtils.KEY_HOLDSHIFT));
-            }
+        } else if (!translation.equals(key)) {
+            list.add(StringUtils.translate(StringUtils.KEY_HOLDSHIFT));
         }
     }
 
