@@ -2,10 +2,11 @@ package logisticspipes.asm.wrapper;
 
 import java.util.List;
 
+import net.minecraft.util.EnumChatFormatting;
+
 import logisticspipes.LPConstants;
 import logisticspipes.LogisticsPipes;
 import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.ChatColor;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,7 +49,7 @@ public abstract class AbstractWrapper {
                 + (modId != null ? (" for Mod: " + modId) : "")
                 + ". Cause was an Exception";
         LogisticsPipes.log.fatal(message);
-        MainProxy.proxy.sendBroadCast(ChatColor.RED + message);
+        MainProxy.proxy.sendBroadCast(EnumChatFormatting.RED + message);
     }
 
     public void reEnable() {

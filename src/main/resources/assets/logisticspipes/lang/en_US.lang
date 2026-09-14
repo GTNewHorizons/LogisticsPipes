@@ -1,8 +1,5 @@
 # Master language file
 
-# Insert %c and the name found in logisticspipes.utils.string.ChatColor to add colors
-# Example '%cYELLOW ' (The space behind will be removed)
-
 # Pipes
 item.PipeItemsBasicTransport=Unrouted Transport Pipe
 item.PipeItemsBasicTransport.name=Unrouted Transport Pipe
@@ -183,10 +180,10 @@ item.PipeFluidSatellite.name=Logistics Fluid Satellite Pipe
 item.PipeBlockRequestTable=Logistics Request Table
 item.PipeBlockRequestTable.name=Logistics Request Table
 
-item.logisticspipes.tip.active_destination=Valid destination for %cYELLOW Active%cGRAY  routes
-item.logisticspipes.tip.passive_destination=Valid destination for %cYELLOW Passive%cGRAY  routes
-item.logisticspipes.tip.active_source=Valid source for %cYELLOW Active%cGRAY  routes
-item.logisticspipes.tip.passive_source=Valid source for %cYELLOW Passive%cGRAY  routes
+item.logisticspipes.tip.active_destination=Valid destination for §eActive§7 routes
+item.logisticspipes.tip.passive_destination=Valid destination for §ePassive§7 routes
+item.logisticspipes.tip.active_source=Valid source for §eActive§7 routes
+item.logisticspipes.tip.passive_source=Valid source for §ePassive§7 routes
 
 # Modules
 
@@ -250,7 +247,7 @@ item.brokenItem.name=Logistics Broken Item
 item.logisticsFluidContainer=Logistics Fluid Container
 item.logisticsFluidContainer.name=Logistics Fluid Container
 
-# %cRED (DEPRECATED) %cRESET
+# (DEPRECATED)
 item.upgradeManagerItem=Upgrade Manager
 item.HUDbow=Logistics HUD Bow
 item.logisticsParts.name=Logistics HUD Bow
@@ -261,7 +258,7 @@ item.logisticsItemCard=Logistics Item Card
 item.logisticsItemCard.name=Logistics Item Card
 item.itemDisk=Logistics Disk
 item.itemDisk.name=Logistics Disk
-# %cRED (DEPRECATED) %cRESET
+# (DEPRECATED)
 item.networkMonitorItem=Network monitor
 item.ItemPipeSignCreator.name=Sign Creator
 item.ItemPipeSignCreator.0=Crafting Sign Creator
@@ -315,10 +312,10 @@ item.UpgradeModuleUpgrade=Upgrade Module Upgrade
 
 #Upgrade info
 
-item.upgrade.info.both1=Can be applied to %cYELLOW {0} %cRESET %cGRAY pipes
-item.upgrade.info.both2=and %cYELLOW {0} %cRESET %cGRAY modules
-item.upgrade.info.pipe=Can be applied to %cYELLOW {0} %cRESET %cGRAY pipes
-item.upgrade.info.module=Can be applied to %cYELLOW {0} %cRESET %cGRAY modules
+item.upgrade.info.both1=Can be applied to §e{0} §7pipes
+item.upgrade.info.both2=and §e{0} §7modules
+item.upgrade.info.pipe=Can be applied to §e{0} §7pipes
+item.upgrade.info.module=Can be applied to §e{0} §7modules
 item.upgrade.info.all=All
 item.upgrade.info.crafting=Crafting
 item.upgrade.info.itemsink=Item Sink
@@ -340,7 +337,7 @@ tile.logisticsstatisticstable=Logistics Statistics Table
 
 # Misc
 itemGroup.Logistics_Pipes=Logistics Pipes
-misc.holdshift=<Hold %cYELLOW %cITALIC Shift %cRESET %cGRAY for details>
+misc.holdshift=<Hold §e§oShift §7for details>
 misc.extractionmode.Normal=Normal
 misc.extractionmode.LeaveFirst=Leave 1st stack
 misc.extractionmode.LeaveLast=Leave last stack

@@ -18,6 +18,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -61,7 +62,6 @@ import logisticspipes.utils.gui.SmallGuiButton;
 import logisticspipes.utils.gui.extention.GuiExtention;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 import logisticspipes.utils.tuples.Pair;
 
@@ -480,12 +480,12 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                                     IOrderInfoProvider order = ordererPosition.get(key);
                                     List<String> list = new ArrayList<>();
                                     list.add(
-                                            ChatColor.BLUE + "Request Type: "
-                                                    + ChatColor.YELLOW
+                                            EnumChatFormatting.BLUE + "Request Type: "
+                                                    + EnumChatFormatting.YELLOW
                                                     + order.getType().name());
                                     list.add(
-                                            ChatColor.BLUE + "Send to Router ID: "
-                                                    + ChatColor.YELLOW
+                                            EnumChatFormatting.BLUE + "Send to Router ID: "
+                                                    + EnumChatFormatting.YELLOW
                                                     + order.getRouterId());
                                     GuiGraphics.displayItemToolTip(
                                             new Object[] { xPos - 10, yPos, order.getAsDisplayItem().makeNormalStack(),
@@ -499,7 +499,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                         } else {
                             if (entry.getValue().getValue1() != null) {
                                 List<String> list = new ArrayList<>();
-                                list.add(ChatColor.BLUE + "Request ID: " + ChatColor.YELLOW + entry.getKey());
+                                list.add(
+                                        EnumChatFormatting.BLUE + "Request ID: "
+                                                + EnumChatFormatting.YELLOW
+                                                + entry.getKey());
                                 GuiGraphics.displayItemToolTip(
                                         new Object[] { xPos - 10, yPos,
                                                 entry.getValue().getValue1().getDisplayItem().makeNormalStack(), true,

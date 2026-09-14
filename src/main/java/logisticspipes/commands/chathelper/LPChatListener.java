@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.ServerChatEvent;
@@ -18,7 +19,6 @@ import logisticspipes.LPConstants;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.ChatColor;
 import logisticspipes.utils.string.StringUtils;
 
 public class LPChatListener {
@@ -35,7 +35,7 @@ public class LPChatListener {
             if (event.message.startsWith("/")) {
                 player.addChatComponentMessage(
                         new ChatComponentText(
-                                ChatColor.RED
+                                EnumChatFormatting.RED
                                         + "You need to answer the question, before you can use any other command"));
                 MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
             } else {
@@ -46,43 +46,44 @@ public class LPChatListener {
                         && !event.message.equalsIgnoreCase("1")
                         && !event.message.equalsIgnoreCase("no")
                         && !event.message.equalsIgnoreCase("yes")) {
-                    player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "Not a valid answer."));
+                    player.addChatComponentMessage(
+                            new ChatComponentText(EnumChatFormatting.RED + "Not a valid answer."));
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    ChatColor.AQUA + "Please enter "
-                                            + ChatColor.RESET
+                                    EnumChatFormatting.AQUA + "Please enter "
+                                            + EnumChatFormatting.RESET
                                             + "<"
-                                            + ChatColor.GREEN
+                                            + EnumChatFormatting.GREEN
                                             + "yes"
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "/"
-                                            + ChatColor.RED
+                                            + EnumChatFormatting.RED
                                             + "no "
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "| "
-                                            + ChatColor.GREEN
+                                            + EnumChatFormatting.GREEN
                                             + "true"
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "/"
-                                            + ChatColor.RED
+                                            + EnumChatFormatting.RED
                                             + "flase "
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "| "
-                                            + ChatColor.GREEN
+                                            + EnumChatFormatting.GREEN
                                             + "on"
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "/"
-                                            + ChatColor.RED
+                                            + EnumChatFormatting.RED
                                             + "off "
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "| "
-                                            + ChatColor.GREEN
+                                            + EnumChatFormatting.GREEN
                                             + "1"
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + "/"
-                                            + ChatColor.RED
+                                            + EnumChatFormatting.RED
                                             + "0"
-                                            + ChatColor.RESET
+                                            + EnumChatFormatting.RESET
                                             + ">"));
                     MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
                 } else {
@@ -91,7 +92,7 @@ public class LPChatListener {
                             || event.message.equalsIgnoreCase("yes");
                     if (!handleAnswer(flag, player)) {
                         player.addChatComponentMessage(
-                                new ChatComponentText(ChatColor.RED + "Error: Could not handle answer."));
+                                new ChatComponentText(EnumChatFormatting.RED + "Error: Could not handle answer."));
                     }
                 }
             }
@@ -101,7 +102,11 @@ public class LPChatListener {
                 if (event.message.startsWith("/")) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    ChatColor.RED + "Exit " + ChatColor.AQUA + "PageView" + ChatColor.RED + " first!"));
+                                    EnumChatFormatting.RED + "Exit "
+                                            + EnumChatFormatting.AQUA
+                                            + "PageView"
+                                            + EnumChatFormatting.RED
+                                            + " first!"));
                     MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
                     event.setCanceled(true);
                 } else {
@@ -197,7 +202,7 @@ public class LPChatListener {
                 return false;
             }
         } else {
-            sender.addChatMessage(new ChatComponentText(ChatColor.GREEN + "Answer handled."));
+            sender.addChatMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Answer handled."));
         }
         LPChatListener.tasks.remove(sender.getCommandSenderName());
         return true;

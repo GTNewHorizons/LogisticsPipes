@@ -2,9 +2,9 @@ package logisticspipes.commands.commands;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 
 import logisticspipes.commands.abstracts.ICommandHandler;
-import logisticspipes.utils.string.ChatColor;
 
 public class ClearCommand implements ICommandHandler {
 
@@ -21,10 +21,10 @@ public class ClearCommand implements ICommandHandler {
     @Override
     public String[] getDescription() {
         return new String[] { "Clears the chat window from every content",
-                ChatColor.GRAY + "add '"
-                        + ChatColor.YELLOW
+                EnumChatFormatting.GRAY + "add '"
+                        + EnumChatFormatting.YELLOW
                         + "all"
-                        + ChatColor.GRAY
+                        + EnumChatFormatting.GRAY
                         + "' to also clear the send messages" };
     }
 

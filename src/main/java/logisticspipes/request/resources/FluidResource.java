@@ -2,6 +2,8 @@ package logisticspipes.request.resources;
 
 import java.io.IOException;
 
+import net.minecraft.util.EnumChatFormatting;
+
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.network.LPDataInputStream;
 import logisticspipes.network.LPDataOutputStream;
@@ -9,7 +11,6 @@ import logisticspipes.routing.IRouter;
 import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 
 public class FluidResource implements IResource {
 
@@ -108,13 +109,13 @@ public class FluidResource implements IResource {
     public String getDisplayText(ColorCode code) {
         StringBuilder builder = new StringBuilder();
         if (code != ColorCode.NONE) {
-            builder.append(code == ColorCode.MISSING ? ChatColor.RED : ChatColor.GREEN);
+            builder.append(code == ColorCode.MISSING ? EnumChatFormatting.RED : EnumChatFormatting.GREEN);
         }
         builder.append(amount);
         builder.append("mB ");
         builder.append(liquid.makeFluidStack(0).getLocalizedName());
         if (code != ColorCode.NONE) {
-            builder.append(ChatColor.WHITE);
+            builder.append(EnumChatFormatting.WHITE);
         }
         return builder.toString();
     }

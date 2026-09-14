@@ -14,6 +14,7 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -80,7 +81,6 @@ import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 
 public class ClientProxy implements IProxy {
 
@@ -422,16 +422,17 @@ public class ClientProxy implements IProxy {
                 for (IResource item : packet.getItems()) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    ChatColor.RED + "Missing: " + item.getDisplayText(IResource.ColorCode.MISSING)));
+                                    EnumChatFormatting.RED + "Missing: "
+                                            + item.getDisplayText(IResource.ColorCode.MISSING)));
                 }
             } else {
                 for (IResource item : packet.getItems()) {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    ChatColor.GREEN + "Requested: "
+                                    EnumChatFormatting.GREEN + "Requested: "
                                             + item.getDisplayText(IResource.ColorCode.SUCCESS)));
                 }
-                player.addChatComponentMessage(new ChatComponentText(ChatColor.GREEN + "Request successful!"));
+                player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.GREEN + "Request successful!"));
             }
     }
 

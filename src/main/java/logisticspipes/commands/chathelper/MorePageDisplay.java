@@ -6,11 +6,11 @@ import java.util.Arrays;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.ChatColor;
 
 public class MorePageDisplay {
 
@@ -106,22 +106,22 @@ public class MorePageDisplay {
                         break;
                     }
                     LeftDone = true;
-                    output2.append(ChatColor.AQUA);
+                    output2.append(EnumChatFormatting.AQUA);
                     for (int j = 0; j < ((colum - output.length()) / 2); j++) {
                         output2.append("=");
                     }
-                    output2.append(ChatColor.WHITE);
+                    output2.append(EnumChatFormatting.WHITE);
                     break;
                 case '>':
                     if (RightDone) {
                         break;
                     }
                     RightDone = true;
-                    output2.append(ChatColor.AQUA);
+                    output2.append(EnumChatFormatting.AQUA);
                     for (int j = 0; j < ((colum - output.length()) / 2); j++) {
                         output2.append("=");
                     }
-                    output2.append(ChatColor.WHITE);
+                    output2.append(EnumChatFormatting.WHITE);
                     break;
                 case '(':
                     if (LeftDone) {
@@ -165,7 +165,8 @@ public class MorePageDisplay {
                 sender.addChatMessage(new ChatComponentText(replaceMeta((String) zeilenobject, 0, -1)));
             }
             clearscreen(sender, 19 - header.size());
-            sender.addChatMessage(new ChatComponentText(ChatColor.AQUA + "Pageview: " + ChatColor.RED + "Exit."));
+            sender.addChatMessage(
+                    new ChatComponentText(EnumChatFormatting.AQUA + "Pageview: " + EnumChatFormatting.RED + "Exit."));
             sender.addChatMessage(new ChatComponentText("%LPRESTORESENDMESSAGE%"));
         } else if (input.equalsIgnoreCase("next") || input.equalsIgnoreCase("nex") || input.equalsIgnoreCase("n")) {
             if (currentpage > (currentpagecount - 1)) {
@@ -194,7 +195,9 @@ public class MorePageDisplay {
                     display(sender, currentpage, true);
                     sender.addChatMessage(
                             new ChatComponentText(
-                                    ChatColor.AQUA + "Pageview:" + ChatColor.RED + " Not a valid number."));
+                                    EnumChatFormatting.AQUA + "Pageview:"
+                                            + EnumChatFormatting.RED
+                                            + " Not a valid number."));
                 }
             } else if (input.equalsIgnoreCase("reprint")) {
                 display(sender, currentpage);
@@ -205,10 +208,10 @@ public class MorePageDisplay {
                 display(sender, currentpage, true, false, 1);
                 sender.addChatMessage(
                         new ChatComponentText(
-                                ChatColor.AQUA + "Added '"
-                                        + ChatColor.YELLOW
+                                EnumChatFormatting.AQUA + "Added '"
+                                        + EnumChatFormatting.YELLOW
                                         + input.substring(5)
-                                        + ChatColor.AQUA
+                                        + EnumChatFormatting.AQUA
                                         + "' to your chat history."));
                 printLastLine(sender, false);
                 if (sender instanceof EntityPlayer) {
@@ -218,10 +221,10 @@ public class MorePageDisplay {
                 display(sender, currentpage, true, false, 2);
                 sender.addChatMessage(
                         new ChatComponentText(
-                                ChatColor.AQUA + "Add an command after the '"
-                                        + ChatColor.YELLOW
+                                EnumChatFormatting.AQUA + "Add an command after the '"
+                                        + EnumChatFormatting.YELLOW
                                         + "save "
-                                        + ChatColor.AQUA
+                                        + EnumChatFormatting.AQUA
                                         + "' and it will be added to your chat history."));
                 printLastLine(sender, false);
                 if (sender instanceof EntityPlayer) {
@@ -272,37 +275,37 @@ public class MorePageDisplay {
     public void printLastLine(ICommandSender sender, boolean flag) {
         sender.addChatMessage(
                 new ChatComponentText(
-                        (flag ? "! " : "") + ChatColor.AQUA
+                        (flag ? "! " : "") + EnumChatFormatting.AQUA
                                 + "Pageview:"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + " Enter "
-                                + ChatColor.RED
+                                + EnumChatFormatting.RED
                                 + "Pre"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + "/"
-                                + ChatColor.GREEN
+                                + EnumChatFormatting.GREEN
                                 + "Next"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + ", a "
-                                + ChatColor.AQUA
+                                + EnumChatFormatting.AQUA
                                 + "number"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + ", "
-                                + ChatColor.AQUA
+                                + EnumChatFormatting.AQUA
                                 + "all"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + ", "
-                                + ChatColor.AQUA
+                                + EnumChatFormatting.AQUA
                                 + "reprint"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + ", "
-                                + ChatColor.AQUA
+                                + EnumChatFormatting.AQUA
                                 + "save"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + " or "
-                                + ChatColor.RED
+                                + EnumChatFormatting.RED
                                 + "exit"
-                                + ChatColor.WHITE
+                                + EnumChatFormatting.WHITE
                                 + (flag ? " !" : ".")));
     }
 

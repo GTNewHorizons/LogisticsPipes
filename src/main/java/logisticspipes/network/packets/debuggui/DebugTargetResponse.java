@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 
 import logisticspipes.commands.chathelper.LPChatListener;
 import logisticspipes.commands.commands.debug.DebugGuiController;
@@ -16,7 +17,6 @@ import logisticspipes.network.PacketHandler;
 import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.packets.gui.OpenChatGui;
 import logisticspipes.proxy.MainProxy;
-import logisticspipes.utils.string.ChatColor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -55,7 +55,7 @@ public class DebugTargetResponse extends ModernPacket {
     @Override
     public void processPacket(final EntityPlayer player) {
         if (mode == TargetMode.None) {
-            player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No Target Found"));
+            player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + "No Target Found"));
         } else if (mode == TargetMode.Block) {
             int x = additions[0];
             int y = additions[1];
@@ -65,14 +65,14 @@ public class DebugTargetResponse extends ModernPacket {
             player.addChatComponentMessage(new ChatComponentText("Found Block with Id: " + id.getClass()));
             final TileEntity tile = player.worldObj.getTileEntity(x, y, z);
             if (tile == null) {
-                player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No TileEntity found"));
+                player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + "No TileEntity found"));
             } else {
                 LPChatListener.addTask(() -> {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    ChatColor.GREEN + "Starting debuging of TileEntity: "
-                                            + ChatColor.BLUE
-                                            + ChatColor.UNDERLINE
+                                    EnumChatFormatting.GREEN + "Starting debuging of TileEntity: "
+                                            + EnumChatFormatting.BLUE
+                                            + EnumChatFormatting.UNDERLINE
                                             + tile.getClass().getSimpleName()));
                     DebugGuiController.instance().startWatchingOf(tile, player);
                     MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
@@ -80,21 +80,21 @@ public class DebugTargetResponse extends ModernPacket {
                 }, player);
                 player.addChatComponentMessage(
                         new ChatComponentText(
-                                ChatColor.AQUA + "Start debuging of TileEntity: "
-                                        + ChatColor.BLUE
-                                        + ChatColor.UNDERLINE
+                                EnumChatFormatting.AQUA + "Start debuging of TileEntity: "
+                                        + EnumChatFormatting.BLUE
+                                        + EnumChatFormatting.UNDERLINE
                                         + tile.getClass().getSimpleName()
-                                        + ChatColor.AQUA
+                                        + EnumChatFormatting.AQUA
                                         + "? "
-                                        + ChatColor.RESET
+                                        + EnumChatFormatting.RESET
                                         + "<"
-                                        + ChatColor.GREEN
+                                        + EnumChatFormatting.GREEN
                                         + "yes"
-                                        + ChatColor.RESET
+                                        + EnumChatFormatting.RESET
                                         + "/"
-                                        + ChatColor.RED
+                                        + EnumChatFormatting.RED
                                         + "no"
-                                        + ChatColor.RESET
+                                        + EnumChatFormatting.RESET
                                         + ">"));
                 MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
             }
@@ -102,14 +102,14 @@ public class DebugTargetResponse extends ModernPacket {
             int entityId = (Integer) additions[0];
             final Entity entity = player.worldObj.getEntityByID(entityId);
             if (entity == null) {
-                player.addChatComponentMessage(new ChatComponentText(ChatColor.RED + "No Entity found"));
+                player.addChatComponentMessage(new ChatComponentText(EnumChatFormatting.RED + "No Entity found"));
             } else {
                 LPChatListener.addTask(() -> {
                     player.addChatComponentMessage(
                             new ChatComponentText(
-                                    ChatColor.GREEN + "Starting debuging of Entity: "
-                                            + ChatColor.BLUE
-                                            + ChatColor.UNDERLINE
+                                    EnumChatFormatting.GREEN + "Starting debuging of Entity: "
+                                            + EnumChatFormatting.BLUE
+                                            + EnumChatFormatting.UNDERLINE
                                             + entity.getClass().getSimpleName()));
                     DebugGuiController.instance().startWatchingOf(entity, player);
                     MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
@@ -117,21 +117,21 @@ public class DebugTargetResponse extends ModernPacket {
                 }, player);
                 player.addChatComponentMessage(
                         new ChatComponentText(
-                                ChatColor.AQUA + "Start debuging of Entity: "
-                                        + ChatColor.BLUE
-                                        + ChatColor.UNDERLINE
+                                EnumChatFormatting.AQUA + "Start debuging of Entity: "
+                                        + EnumChatFormatting.BLUE
+                                        + EnumChatFormatting.UNDERLINE
                                         + entity.getClass().getSimpleName()
-                                        + ChatColor.AQUA
+                                        + EnumChatFormatting.AQUA
                                         + "? "
-                                        + ChatColor.RESET
+                                        + EnumChatFormatting.RESET
                                         + "<"
-                                        + ChatColor.GREEN
+                                        + EnumChatFormatting.GREEN
                                         + "yes"
-                                        + ChatColor.RESET
+                                        + EnumChatFormatting.RESET
                                         + "/"
-                                        + ChatColor.RED
+                                        + EnumChatFormatting.RED
                                         + "no"
-                                        + ChatColor.RESET
+                                        + EnumChatFormatting.RESET
                                         + ">"));
                 MainProxy.sendPacketToPlayer(PacketHandler.getPacket(OpenChatGui.class), player);
             }

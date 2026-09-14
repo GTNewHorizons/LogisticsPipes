@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.BitSet;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 import com.google.common.base.Objects;
 
@@ -13,7 +14,6 @@ import logisticspipes.network.LPDataOutputStream;
 import logisticspipes.routing.IRouter;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
-import logisticspipes.utils.string.ChatColor;
 
 public class DictResource implements IResource {
 
@@ -177,31 +177,31 @@ public class DictResource implements IResource {
     @Override
     public String getDisplayText(ColorCode code) {
         StringBuilder builder = new StringBuilder();
-        builder.append(ChatColor.GRAY);
+        builder.append(EnumChatFormatting.GRAY);
         builder.append("{");
         if (code != ColorCode.NONE) {
-            builder.append(code == ColorCode.MISSING ? ChatColor.RED : ChatColor.GREEN);
+            builder.append(code == ColorCode.MISSING ? EnumChatFormatting.RED : EnumChatFormatting.GREEN);
         }
         builder.append(stack.getFriendlyName());
         if (code != ColorCode.NONE) {
-            builder.append(ChatColor.GRAY);
+            builder.append(EnumChatFormatting.GRAY);
         }
         builder.append(" [");
-        builder.append(use_od ? ChatColor.GREEN : ChatColor.RED);
+        builder.append(use_od ? EnumChatFormatting.GREEN : EnumChatFormatting.RED);
         builder.append("OreDict");
-        builder.append(ChatColor.GRAY);
+        builder.append(EnumChatFormatting.GRAY);
         builder.append(", ");
-        builder.append(use_category ? ChatColor.GREEN : ChatColor.RED);
+        builder.append(use_category ? EnumChatFormatting.GREEN : EnumChatFormatting.RED);
         builder.append("OreCat");
-        builder.append(ChatColor.GRAY);
+        builder.append(EnumChatFormatting.GRAY);
         builder.append(", ");
-        builder.append(ignore_dmg ? ChatColor.GREEN : ChatColor.RED);
+        builder.append(ignore_dmg ? EnumChatFormatting.GREEN : EnumChatFormatting.RED);
         builder.append("IgnDmg");
-        builder.append(ChatColor.GRAY);
+        builder.append(EnumChatFormatting.GRAY);
         builder.append(", ");
-        builder.append(ignore_nbt ? ChatColor.GREEN : ChatColor.RED);
+        builder.append(ignore_nbt ? EnumChatFormatting.GREEN : EnumChatFormatting.RED);
         builder.append("IgnNBT");
-        builder.append(ChatColor.GRAY);
+        builder.append(EnumChatFormatting.GRAY);
         return builder.append("]}").toString();
     }
 
