@@ -238,22 +238,7 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         drawRect(guiLeft + 164, guiTop + 25, guiLeft + 180, guiTop + 41, Color.DARKER_GREY);
 
         if (showRequest) {
-            mc.fontRenderer.drawString(
-                    StringUtils.translate(_title),
-                    guiLeft + 180 + mc.fontRenderer.getStringWidth(StringUtils.translate(_title)) / 2,
-                    guiTop + 6,
-                    0x404040);
             itemDisplay.renderPageNumber(right - 47, guiTop + 6);
-
-            int popupColor = Color.getValue(Color.GREY);
-            if (popupCheckBox != null && popupCheckBox.getState()) {
-                popupColor = 0x404040;
-            }
-            mc.fontRenderer.drawString(
-                    StringUtils.translate("gui.requesttable.Popup"),
-                    guiLeft + 225,
-                    bottom - 56,
-                    popupColor);
 
             itemDisplay.renderAmount(right - 103, bottom - 24, getStackAmount());
             // SearchInput
@@ -281,11 +266,6 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                         GuiGraphics.CONTAINER_SLOT_TEXTURE);
             }
         }
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiRequestTable.PREFIX + "Sort"),
-                guiLeft + 136,
-                guiTop + 55,
-                0xffffff);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 100, guiTop + 32, GuiGraphics.CONTAINER_SLOT_TEXTURE);
         GuiGraphics.drawSlotBackground(mc, guiLeft + 163, guiTop + 50, GuiGraphics.CONTAINER_SLOT_TEXTURE);
         drawRect(guiLeft + 75, guiTop + 38, guiLeft + 95, guiTop + 43, Color.DARKER_GREY);
@@ -698,6 +678,19 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
     @Override
     public void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
+        if (showRequest) {
+            mc.fontRenderer.drawString(
+                    StringUtils.translate(_title),
+                    180 + mc.fontRenderer.getStringWidth(StringUtils.translate(_title)) / 2,
+                    6,
+                    0x404040);
+            int popupColor = Color.getValue(Color.GREY);
+            if (popupCheckBox != null && popupCheckBox.getState()) {
+                popupColor = 0x404040;
+            }
+            mc.fontRenderer.drawString(StringUtils.translate("gui.requesttable.Popup"), 225, ySize - 56, popupColor);
+        }
+        mc.fontRenderer.drawString(StringUtils.translate(GuiRequestTable.PREFIX + "Sort"), 136, 55, 0xffffff);
         if (super.hasSubGui()) {
             return;
         }
