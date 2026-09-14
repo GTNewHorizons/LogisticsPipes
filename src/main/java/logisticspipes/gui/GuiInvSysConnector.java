@@ -102,11 +102,16 @@ public class GuiInvSysConnector extends LogisticsBaseGuiScreen {
                 5,
                 6,
                 0x404040);
+        mc.fontRenderer.drawString(
+                StringUtils.translate(GuiInvSysConnector.PREFIX + "ConnectionCard") + ":",
+                10,
+                21,
+                0x404040);
         mc.fontRenderer
-                .drawString(StringUtils.translate(GuiInvSysConnector.PREFIX + "ConnectionCard") + ":", 10, 21, 0x404040);
-        mc.fontRenderer.drawString(StringUtils.translate(GuiInvSysConnector.PREFIX + "Waitingfor") + ":", 10, 48, 0x404040);
+                .drawString(StringUtils.translate(GuiInvSysConnector.PREFIX + "Waitingfor") + ":", 10, 48, 0x404040);
         mc.fontRenderer.drawString((page + 1) + "/" + maxPage(), 136, 49, 0x404040);
-        mc.fontRenderer.drawString(StringUtils.translate(GuiInvSysConnector.PREFIX + "Resistance") + ":", 10, 35, 0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiInvSysConnector.PREFIX + "Resistance") + ":", 10, 35, 0x404040);
         mc.fontRenderer.drawString(
                 Integer.toString(localresistance),
                 105 - (mc.fontRenderer.getStringWidth(Integer.toString(localresistance)) / 2),
