@@ -231,7 +231,6 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
 
         if (current_Tab == 0) {
             itemDisplay_1.renderItemArea(zLevel);
-            itemDisplay_1.renderPageNumber(right - 40, guiTop + 28);
             if (itemDisplay_1.getSelectedItem() != null) {
                 TrackingTask task = null;
                 for (TrackingTask taskLoop : tile.tasks) {
@@ -402,7 +401,6 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
             }
         } else if (current_Tab == 1) {
             itemDisplay_2.renderItemArea(zLevel);
-            itemDisplay_2.renderPageNumber(right - 50, guiTop + 66);
         }
 
         super.drawGuiContainerBackgroundLayer(f, mouse_x, mouse_y);
@@ -459,6 +457,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     28,
                     Color.getValue(Color.DARKER_GREY),
                     false);
+            itemDisplay_1.renderPageNumber(right - guiLeft - 40, 28);
         } else if (current_Tab == 1) {
             mc.fontRenderer.drawString(
                     StringUtils.translate(PREFIX + "crafting"),
@@ -466,6 +465,7 @@ public class GuiStatistics extends LogisticsBaseGuiScreen {
                     28,
                     Color.getValue(Color.DARKER_GREY),
                     false);
+            itemDisplay_2.renderPageNumber(right - guiLeft - 50, 66);
             GuiGraphics.displayItemToolTip(itemDisplay_2.getToolTip(), this, zLevel, guiLeft, guiTop);
         }
     }
