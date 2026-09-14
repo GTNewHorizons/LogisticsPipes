@@ -238,13 +238,9 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
         drawRect(guiLeft + 164, guiTop + 25, guiLeft + 180, guiTop + 41, Color.DARKER_GREY);
 
         if (showRequest) {
-            itemDisplay.renderPageNumber(right - 47, guiTop + 6);
-
-            itemDisplay.renderAmount(right - 103, bottom - 24, getStackAmount());
             // SearchInput
             search.renderSearchBar();
 
-            itemDisplay.renderSortMode(right - 103, bottom - 52);
             itemDisplay.renderItemArea(zLevel);
         }
 
@@ -689,6 +685,10 @@ public class GuiRequestTable extends LogisticsBaseGuiScreen
                 popupColor = 0x404040;
             }
             mc.fontRenderer.drawString(StringUtils.translate("gui.requesttable.Popup"), 225, ySize - 56, popupColor);
+
+            itemDisplay.renderPageNumber(right - guiLeft - 47, 6);
+            itemDisplay.renderAmount(right - guiLeft - 103, ySize - 24, getStackAmount());
+            itemDisplay.renderSortMode(right - guiLeft - 103, ySize - 52);
         }
         mc.fontRenderer.drawString(StringUtils.translate(GuiRequestTable.PREFIX + "Sort"), 136, 55, 0xffffff);
         if (super.hasSubGui()) {
