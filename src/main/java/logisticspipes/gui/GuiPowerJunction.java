@@ -32,6 +32,33 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         super.drawGuiContainerForegroundLayer(par1, par2);
+        mc.fontRenderer.drawString(
+                StringUtils.translate(GuiPowerJunction.PREFIX + "LogisticsPowerJunction"),
+                30,
+                8,
+                0x404040);
+        mc.fontRenderer.drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "StoredEnergy") + ":", 40, 23, 0x404040);
+        mc.fontRenderer.drawString(
+                String.format(
+                        StringUtils.translate(GuiPowerJunction.PREFIX + "PowerLevel"),
+                        StringUtils.getStringWithSpacesFromInteger(junction.getPowerLevel())),
+                40,
+                33,
+                0x404040);
+        mc.fontRenderer.drawString(
+                String.format(
+                        StringUtils.translate(GuiPowerJunction.PREFIX + "MaxStorage"),
+                        StringUtils.getStringWithSpacesFromInteger(LogisticsPowerJunctionTileEntity.MAX_STORAGE)),
+                40,
+                43,
+                0x404040);
+        mc.fontRenderer
+                .drawString(StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyRF"), 24, 58, 0x404040);
+        mc.fontRenderer.drawString(
+                StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyEU"),
+                100,
+                58,
+                0x404040);
     }
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(
@@ -47,42 +74,6 @@ public class GuiPowerJunction extends LogisticsBaseGuiScreen {
         drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
         int level = 100 - junction.getChargeState();
         drawTexturedModalRect(j + 10, k + 11 + (level * 59 / 100), 176, level * 59 / 100, 5, 59 - (level * 59 / 100));
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerJunction.PREFIX + "LogisticsPowerJunction"),
-                guiLeft + 30,
-                guiTop + 8,
-                0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerJunction.PREFIX + "StoredEnergy") + ":",
-                guiLeft + 40,
-                guiTop + 23,
-                0x404040);
-        mc.fontRenderer.drawString(
-                String.format(
-                        StringUtils.translate(GuiPowerJunction.PREFIX + "PowerLevel"),
-                        StringUtils.getStringWithSpacesFromInteger(junction.getPowerLevel())),
-                guiLeft + 40,
-                guiTop + 33,
-                0x404040);
-        mc.fontRenderer
-                .drawString(
-                        String.format(
-                                StringUtils.translate(GuiPowerJunction.PREFIX + "MaxStorage"),
-                                StringUtils
-                                        .getStringWithSpacesFromInteger(LogisticsPowerJunctionTileEntity.MAX_STORAGE)),
-                        guiLeft + 40,
-                        guiTop + 43,
-                        0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyRF"),
-                guiLeft + 24,
-                guiTop + 58,
-                0x404040);
-        mc.fontRenderer.drawString(
-                StringUtils.translate(GuiPowerJunction.PREFIX + "ConversionEnergyEU"),
-                guiLeft + 100,
-                guiTop + 58,
-                0x404040);
     }
 
     @Override
