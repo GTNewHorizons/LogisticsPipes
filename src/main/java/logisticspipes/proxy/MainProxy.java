@@ -1,6 +1,7 @@
 package logisticspipes.proxy;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,20 +51,22 @@ public class MainProxy {
 
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
 
-    private static final WeakHashMap<Thread, Side> threadSideMap = new WeakHashMap<>();
+    private static final Map<Thread, Side> threadSideMap = Collections.synchronizedMap(new WeakHashMap<>());
     public static final String networkChannelName = "LogisticsPipes";
     public static final Map<UUID, EntityPlayer> uuidToPlayerMap = new ConcurrentHashMap<>();
 
     private static Side getEffectiveSide() {
         Thread thr = Thread.currentThread();
-        if (MainProxy.threadSideMap.containsKey(thr)) {
-            return MainProxy.threadSideMap.get(thr);
+        Side side = MainProxy.threadSideMap.get(thr);
+        if (side != null) return side;
+
+        side = MainProxy.getEffectiveSide(thr);
+        synchronized (MainProxy.threadSideMap) {
+            if (MainProxy.threadSideMap.size() > 50) {
+                MainProxy.threadSideMap.clear();
+            }
+            MainProxy.threadSideMap.put(thr, side);
         }
-        Side side = MainProxy.getEffectiveSide(thr);
-        if (MainProxy.threadSideMap.size() > 50) {
-            MainProxy.threadSideMap.clear();
-        }
-        MainProxy.threadSideMap.put(thr, side);
         return side;
     }
 
