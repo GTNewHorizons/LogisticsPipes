@@ -14,9 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import org.apache.logging.log4j.Level;
 
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ClassInfo;
-
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
@@ -32,6 +29,7 @@ import logisticspipes.network.abstractpackets.ModernPacket;
 import logisticspipes.network.exception.DelayPacketException;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.proxy.SimpleServiceLocator;
+import logisticspipes.utils.PackageClassFinder;
 import lombok.SneakyThrows;
 
 /*
@@ -78,23 +76,21 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, ModernP
      * enumerates all ModernPackets, sets their IDs and populate packetlist/packetmap
      */
     @SuppressWarnings("unchecked")
-    @SneakyThrows({ IOException.class, InvocationTargetException.class, IllegalAccessException.class,
-            InstantiationException.class, IllegalArgumentException.class, NoSuchMethodException.class,
-            SecurityException.class })
+    @SneakyThrows({ IOException.class, ClassNotFoundException.class, InvocationTargetException.class,
+            IllegalAccessException.class, InstantiationException.class, IllegalArgumentException.class,
+            NoSuchMethodException.class, SecurityException.class })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
     public static void initialize() {
-        final List<ClassInfo> classes = new ArrayList<>(
-                ClassPath.from(PacketHandler.class.getClassLoader())
-                        .getTopLevelClassesRecursive("logisticspipes.network.packets"));
-        classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
+        final List<Class<?>> classes = PackageClassFinder
+                .getTopLevelClassesRecursive(PacketHandler.class, "logisticspipes.network.packets");
+        classes.sort(Comparator.comparing(Class::getSimpleName));
 
         PacketHandler.packetlist = new ArrayList<>(classes.size());
         PacketHandler.packetmap = new HashMap<>(classes.size());
 
         int currentid = 0;
 
-        for (ClassInfo c : classes) {
-            final Class<?> cls = c.load();
+        for (Class<?> cls : classes) {
             final ModernPacket instance = (ModernPacket) cls.getConstructor(int.class).newInstance(currentid);
             PacketHandler.packetlist.add(instance);
             PacketHandler.packetmap.put((Class<? extends ModernPacket>) cls, instance);

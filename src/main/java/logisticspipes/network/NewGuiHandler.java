@@ -13,9 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ClassInfo;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +20,7 @@ import logisticspipes.LogisticsPipes;
 import logisticspipes.network.abstractguis.GuiProvider;
 import logisticspipes.network.packets.gui.GUIPacket;
 import logisticspipes.proxy.MainProxy;
+import logisticspipes.utils.PackageClassFinder;
 import lombok.SneakyThrows;
 
 public class NewGuiHandler {
@@ -37,22 +35,20 @@ public class NewGuiHandler {
     }
 
     @SuppressWarnings("unchecked")
-    @SneakyThrows({ IOException.class, InvocationTargetException.class, IllegalAccessException.class,
-            InstantiationException.class })
+    @SneakyThrows({ IOException.class, ClassNotFoundException.class, InvocationTargetException.class,
+            IllegalAccessException.class, InstantiationException.class })
     // Suppression+sneakiness because these shouldn't ever fail, and if they do, it needs to fail.
     public static void initialize() {
-        final List<ClassInfo> classes = new ArrayList<>(
-                ClassPath.from(NewGuiHandler.class.getClassLoader())
-                        .getTopLevelClassesRecursive("logisticspipes.network.guis"));
-        classes.sort(Comparator.comparing(ClassInfo::getSimpleName));
+        final List<Class<?>> classes = PackageClassFinder
+                .getTopLevelClassesRecursive(NewGuiHandler.class, "logisticspipes.network.guis");
+        classes.sort(Comparator.comparing(Class::getSimpleName));
 
         NewGuiHandler.guilist = new ArrayList<>(classes.size());
         NewGuiHandler.guimap = new HashMap<>(classes.size());
 
         int currentid = 0;
 
-        for (ClassInfo c : classes) {
-            final Class<?> cls = c.load();
+        for (Class<?> cls : classes) {
             final GuiProvider instance = (GuiProvider) cls.getConstructors()[0].newInstance(currentid);
             NewGuiHandler.guilist.add(instance);
             NewGuiHandler.guimap.put((Class<? extends GuiProvider>) cls, instance);
