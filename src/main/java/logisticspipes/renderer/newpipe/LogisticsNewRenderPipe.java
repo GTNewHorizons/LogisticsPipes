@@ -305,10 +305,6 @@ public class LogisticsNewRenderPipe {
 
     private static final ResourceLocation BLOCKS = new ResourceLocation("textures/atlas/blocks.png");
 
-    static {
-        LogisticsNewRenderPipe.loadModels();
-    }
-
     public static void loadModels() {
         if (!SimpleServiceLocator.cclProxy.isActivated()) return;
         try {

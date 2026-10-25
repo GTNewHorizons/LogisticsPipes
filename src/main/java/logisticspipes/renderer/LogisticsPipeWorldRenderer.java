@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -22,15 +23,13 @@ import logisticspipes.textures.Textures;
 
 public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler {
 
-    public static int renderPass = -1;
-
     private final PlayerConfig config = LogisticsPipes.getClientPlayerConfig();
     private final LogisticsNewPipeWorldRenderer newRenderer = new LogisticsNewPipeWorldRenderer();
 
     public static boolean renderPipe(RenderBlocks renderblocks, IBlockAccess iblockaccess,
             LogisticsBlockGenericPipe block, LogisticsTileGenericPipe pipe, int x, int y, int z) {
         if (pipe.pipe instanceof PipeBlockRequestTable) {
-            if (LogisticsPipeWorldRenderer.renderPass != 0) {
+            if (ForgeHooksClient.getWorldRenderPass() != 0) {
                 return false;
             }
             PipeRenderState state = pipe.renderState;
@@ -59,7 +58,7 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
             return false;
         }
 
-        if (LogisticsPipeWorldRenderer.renderPass == 0) {
+        if (ForgeHooksClient.getWorldRenderPass() == 0) {
             int connectivity = state.pipeConnectionMatrix.getMask();
             float[] dim = new float[6];
 
@@ -157,7 +156,7 @@ public class LogisticsPipeWorldRenderer implements ISimpleBlockRenderingHandler 
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             if (pipe.tilePart.hasPipePluggable(dir)) {
                 IBCPipePluggable p = pipe.tilePart.getBCPipePluggable(dir);
-                p.renderPluggable(renderblocks, dir, LogisticsPipeWorldRenderer.renderPass, x, y, z);
+                p.renderPluggable(renderblocks, dir, ForgeHooksClient.getWorldRenderPass(), x, y, z);
             }
         }
         return true;

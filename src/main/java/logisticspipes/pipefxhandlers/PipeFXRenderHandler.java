@@ -7,7 +7,7 @@ import logisticspipes.proxy.MainProxy;
 
 public class PipeFXRenderHandler {
 
-    private static final ParticleProvider[] particlemap = new ParticleProvider[Particles.values().length];
+    private static final ParticleProvider[] particlemap = new ParticleProvider[Particles.VALUES.length];
 
     public static void spawnGenericParticle(Particles particle, double x, double y, double z, int amount) {
         if (MainProxy.getClientMainWorld() == null) {
