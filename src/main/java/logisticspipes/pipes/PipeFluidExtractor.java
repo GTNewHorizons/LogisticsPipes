@@ -45,19 +45,26 @@ public class PipeFluidExtractor extends PipeFluidInsertion {
         FluidStack contained = ((PipeFluidTransportLogistics) transport).getTankInfo(side)[0].fluid;
         int amountMissing = ((PipeFluidTransportLogistics) transport).getSideCapacity()
                 - (contained != null ? contained.amount : 0);
+
+        FluidStack extracted = container.drain(side.getOpposite(), PipeFluidExtractor.flowRate, false);
+        if (extracted == null || !canReceiveFluid(extracted)) {
+            return;
+        }
+
         if (liquidToExtract[i] < Math.min(PipeFluidExtractor.flowRate, amountMissing)) {
             if (this.useEnergy(PipeFluidExtractor.energyPerFlow)) {
                 liquidToExtract[i] += Math.min(PipeFluidExtractor.flowRate, amountMissing);
             }
         }
-        FluidStack extracted = container
+        extracted = container
                 .drain(side.getOpposite(), Math.min(liquidToExtract[i], PipeFluidExtractor.flowRate), false);
 
-        int inserted = 0;
-        if (extracted != null) {
-            inserted = ((PipeFluidTransportLogistics) transport).fill(side, extracted, true);
-            container.drain(side.getOpposite(), inserted, true);
+        if (extracted == null) {
+            return;
         }
+
+        int inserted = ((PipeFluidTransportLogistics) transport).fill(side, extracted, true);
+        container.drain(side.getOpposite(), inserted, true);
         liquidToExtract[i] -= inserted;
     }
 
