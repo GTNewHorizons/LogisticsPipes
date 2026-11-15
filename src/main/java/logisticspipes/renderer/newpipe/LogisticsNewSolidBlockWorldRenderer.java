@@ -37,6 +37,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         WEST(ForgeDirection.WEST, "W"),
         EAST(ForgeDirection.EAST, "E");
 
+        public static final CoverSides[] VALUES = values();
         private final ForgeDirection dir;
 
         @Getter
@@ -69,6 +70,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         TWO(2),
         THREE(3);
 
+        public static final BlockRotation[] VALUES = values();
         @Getter
         private final int integer;
 
@@ -77,7 +79,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         }
 
         static BlockRotation getRotation(int from) {
-            for (BlockRotation rot : BlockRotation.values()) {
+            for (BlockRotation rot : BlockRotation.VALUES) {
                 if (rot.getInteger() == from) {
                     return rot;
                 }
@@ -115,7 +117,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
 
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.clear();
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Inner.clear();
-            for (CoverSides side : CoverSides.values()) {
+            for (CoverSides side : CoverSides.VALUES) {
                 String grp_Outer = "OutSide_" + side.getLetter();
                 String grp_Inside = "Inside_" + side.getLetter();
                 for (Entry<String, IModel3D> entry : blockPartModels.entrySet()) {
@@ -148,7 +150,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
     private static Map<BlockRotation, IModel3D> computeRotated(IModel3D m) {
         m.apply(new LPUVScale(1, 0.75));
         Map<BlockRotation, IModel3D> map = new HashMap<>();
-        for (BlockRotation rot : BlockRotation.values()) {
+        for (BlockRotation rot : BlockRotation.VALUES) {
             IModel3D model = m.copy();
             switch (rot.getInteger()) {
                 case 0:
@@ -197,7 +199,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(new LPTranslation(x, y, z), icon);
         LPPosition pos = new LPPosition(blockTile);
-        for (CoverSides side : CoverSides.values()) {
+        for (CoverSides side : CoverSides.VALUES) {
             boolean render = true;
             LPPosition newPos = pos.copy();
             newPos.moveForward(side.getDir(rotation));
@@ -238,7 +240,7 @@ public class LogisticsNewSolidBlockWorldRenderer {
 
         // Draw
         LogisticsNewSolidBlockWorldRenderer.block.get(rotation).render(icon);
-        for (CoverSides side : CoverSides.values()) {
+        for (CoverSides side : CoverSides.VALUES) {
             LogisticsNewSolidBlockWorldRenderer.texturePlate_Outer.get(side).get(rotation).render(icon);
         }
         CCRenderState.instance().drawInstance();

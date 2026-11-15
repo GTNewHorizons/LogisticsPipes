@@ -710,18 +710,24 @@ public final class ItemIdentifier implements Comparable<ItemIdentifier>, ILPCCTy
         return unsafeMakeNormalStack(0).isItemStackDamageable();
     }
 
+    /**
+     * Whether this is the virtual fluid container LP uses to move fluids through item pipes. Such a container is always
+     * a stack of exactly one item that stands for a whole FluidStack, so the transport code is free to treat it as bulk
+     * fluid: dump it into a tank on arrival, count its NBT amount towards in-transit totals, and refuse to split it.
+     * Never return true here for a real, stackable item - see {@link #holdsFluid()} for those.
+     */
     public boolean isFluidContainer() {
-        // Check if it's a Logistics Pipes fluid container
-        if (item instanceof LogisticsFluidContainer) {
-            return true;
-        }
+        return item instanceof LogisticsFluidContainer;
+    }
 
-        // Check if it's a GregTech fluid container (has GT.FluidContent NBT tag)
-        if (tag != null && tag.hasKey("GT.FluidContent", 10)) {
-            return true;
-        }
-
-        return false;
+    /**
+     * Whether this is a real, physical fluid container item, currently a GregTech cell (identified by its
+     * GT.FluidContent NBT tag). These are ordinary stackable items and are routed as items, so this must only be used
+     * for informational purposes - notably the ComputerCraft/OpenComputers API - and never by the fluid transport code,
+     * which would otherwise void the item and mis-count the contained amount.
+     */
+    public boolean holdsFluid() {
+        return tag != null && tag.hasKey("GT.FluidContent", 10);
     }
 
     public DictItemIdentifier getDictIdentifiers() {

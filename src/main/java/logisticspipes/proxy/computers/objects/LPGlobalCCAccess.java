@@ -44,6 +44,11 @@ public class LPGlobalCCAccess implements ILPCCTypeHolder {
         return new CCItemIdentifierBuilder();
     }
 
+    @CCCommand(description = "Creates a new FluidIdentifier Builder")
+    public CCFluidIdentifierBuilder getFluidIdentifierBuilder() {
+        return new CCFluidIdentifierBuilder();
+    }
+
     @Override
     public void setCCType(Object type) {
         ccType = type;

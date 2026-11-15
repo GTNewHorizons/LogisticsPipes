@@ -12,6 +12,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -27,6 +29,8 @@ import logisticspipes.proxy.computers.interfaces.CCCommand;
 import logisticspipes.proxy.computers.interfaces.CCDirectCall;
 import logisticspipes.proxy.computers.interfaces.CCQueued;
 import logisticspipes.proxy.computers.interfaces.ICCTypeWrapped;
+import logisticspipes.proxy.computers.objects.CCFluidIdentifier.CCFluidIdentifierImplementation;
+import logisticspipes.proxy.computers.objects.CCFluidIdentifierBuilder;
 import logisticspipes.proxy.computers.objects.CCItemIdentifier.CCItemIdentifierImplementation;
 import logisticspipes.proxy.computers.objects.CCItemIdentifierBuilder;
 import logisticspipes.proxy.computers.objects.CCItemIdentifierStack.CCItemIdentifierStackImplementation;
@@ -36,6 +40,7 @@ import logisticspipes.proxy.computers.wrapper.CCWrapperInformation;
 import logisticspipes.proxy.computers.wrapper.ICommandWrapper;
 import logisticspipes.security.PermissionException;
 import logisticspipes.ticks.QueuedTasks;
+import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.item.ItemIdentifier;
 import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.tuples.LPPosition;
@@ -430,6 +435,17 @@ public abstract class BaseWrapperClass extends AbstractValue {
                 object = builder;
                 checkType();
             }
+        } else if ("CCFluidIdentifierImplementation".equals(type)) {
+            FluidStack stack = FluidRegistry.getFluidStack(nbt.getString("FluidName"), 1);
+            if (stack != null) {
+                object = new CCFluidIdentifierImplementation(FluidIdentifier.get(stack));
+                checkType();
+            }
+        } else if ("CCFluidIdentifierBuilder".equals(type)) {
+            CCFluidIdentifierBuilder builder = new CCFluidIdentifierBuilder();
+            builder.setFluidName(nbt.getString("FluidName"));
+            object = builder;
+            checkType();
         } else if ("LogisticsSolidTileEntity".equals(type)) {
             int x = nbt.getInteger("X");
             int y = nbt.getInteger("Y");
@@ -475,6 +491,13 @@ public abstract class BaseWrapperClass extends AbstractValue {
         } else if (object instanceof CCItemIdentifierBuilder) {
             nbt.setString("Type", "CCItemIdentifierBuilder");
             ((CCItemIdentifierBuilder) object).build().makeNormalStack(1).writeToNBT(nbt);
+        } else if (object instanceof CCFluidIdentifierImplementation) {
+            nbt.setString("Type", "CCFluidIdentifierImplementation");
+            nbt.setString("FluidName", ((CCFluidIdentifierImplementation) object).getObject().getName());
+        } else if (object instanceof CCFluidIdentifierBuilder) {
+            nbt.setString("Type", "CCFluidIdentifierBuilder");
+            String name = ((CCFluidIdentifierBuilder) object).getFluidName();
+            nbt.setString("FluidName", name == null ? "" : name);
         } else if (object instanceof LogisticsSolidTileEntity) {
             LPPosition pos = ((LogisticsSolidTileEntity) object).getLPPosition();
             nbt.setString("Type", "LogisticsSolidTileEntity");
