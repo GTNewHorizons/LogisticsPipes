@@ -21,6 +21,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -30,6 +31,7 @@ import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
 import cpw.mods.fml.common.Optional;
 import logisticspipes.LPConstants;
+import logisticspipes.gui.fluids.FluidPicker;
 import logisticspipes.interfaces.IFuzzySlot;
 import logisticspipes.network.PacketHandler;
 import logisticspipes.network.packets.gui.DummyContainerSlotClick;
@@ -37,6 +39,7 @@ import logisticspipes.network.packets.gui.FuzzySlotSettingsPacket;
 import logisticspipes.proxy.MainProxy;
 import logisticspipes.request.resources.DictResource;
 import logisticspipes.utils.Color;
+import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.gui.extention.GuiExtentionController;
 import logisticspipes.utils.gui.extention.GuiExtentionController.GuiSide;
 import logisticspipes.utils.string.StringUtils;
@@ -594,28 +597,35 @@ public abstract class LogisticsBaseGuiScreen extends GuiContainer implements ISu
     @Override
     @Optional.Method(modid = "NotEnoughItems")
     public boolean handleDragNDrop(GuiContainer gui, int mouseX, int mouseY, ItemStack stack, int button) {
-        if (gui instanceof LogisticsBaseGuiScreen && gui.inventorySlots instanceof DummyContainer && stack != null) {
-            Slot result = null;
-            int pos = -1;
-            for (int k = 0; k < inventorySlots.inventorySlots.size(); ++k) {
-                Slot slot = (Slot) inventorySlots.inventorySlots.get(k);
-                if (isMouseOverSlot(slot, mouseX, mouseY)) {
-                    result = slot;
-                    pos = k;
-                    break;
-                }
+        if (gui != this || hasSubGui() || stack == null || !(inventorySlots instanceof DummyContainer container)) {
+            return false;
+        }
+        for (int pos = 0; pos < container.inventorySlots.size(); pos++) {
+            Slot slot = container.getSlot(pos);
+            if (!isMouseOverSlot(slot, mouseX, mouseY)) continue;
+
+            if (slot instanceof FluidSlot) {
+                FluidStack fluid = FluidPicker.getDraggedFluid(stack);
+                if (fluid == null) return false;
+                ItemStack marker = FluidIdentifier.get(fluid).getItemIdentifier().makeNormalStack(1);
+                dropOnDummySlot(container, slot, pos, marker, 0);
+                stack.stackSize = 0;
+                return true;
             }
-            if (result != null) {
-                if (result instanceof DummySlot || result instanceof ColorSlot || result instanceof FluidSlot) {
-                    ((DummyContainer) gui.inventorySlots).handleDummyClick(result, pos, stack, button, 0, mc.thePlayer);
-                    MainProxy.sendPacketToServer(
-                            PacketHandler.getPacket(DummyContainerSlotClick.class).setSlotId(pos).setStack(stack)
-                                    .setButton(button));
-                    return true;
-                }
+            if (slot instanceof DummySlot || slot instanceof ColorSlot) {
+                dropOnDummySlot(container, slot, pos, stack, button);
+                return true;
             }
+            break;
         }
         return false;
+    }
+
+    private void dropOnDummySlot(DummyContainer container, Slot slot, int pos, ItemStack stack, int button) {
+        container.handleDummyClick(slot, pos, stack, button, 0, mc.thePlayer);
+        MainProxy.sendPacketToServer(
+                PacketHandler.getPacket(DummyContainerSlotClick.class).setSlotId(pos).setStack(stack)
+                        .setButton(button));
     }
 
     @Override

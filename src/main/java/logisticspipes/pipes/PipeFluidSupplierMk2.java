@@ -19,7 +19,6 @@ import com.cleanroommc.modularui.value.sync.PanelSyncManager;
 import com.cleanroommc.modularui.value.sync.SyncHandlers;
 import com.cleanroommc.modularui.widgets.CycleButtonWidget;
 import com.cleanroommc.modularui.widgets.layout.Flow;
-import com.cleanroommc.modularui.widgets.slot.FluidSlot;
 import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
 import gnu.trove.iterator.TObjectIntIterator;
@@ -27,6 +26,7 @@ import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import logisticspipes.api.IMUICompatiblePipe;
 import logisticspipes.compat.ModularUIHelper;
+import logisticspipes.gui.fluids.ModularFluidPicker;
 import logisticspipes.interfaces.routing.IRequestFluid;
 import logisticspipes.interfaces.routing.IRequireReliableFluidTransport;
 import logisticspipes.migration.LegacyHelper;
@@ -55,11 +55,14 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe
 
     @Override
     public void addUIWidgets(ModularPanel panel, PosGuiData data, PanelSyncManager syncManager) {
+        FluidSlotSyncHandler fluidSlot = new FluidSlotSyncHandler(phantomTank).phantom(true).controlsAmount(false);
         panel.background(ModularUIHelper.BACKGROUND_TEXTURE).bindPlayerInventory().child(
                 Flow.column().widthRel(1.0F).top(6).coverChildrenHeight().child(
                         Flow.row().mainAxisAlignment(Alignment.MainAxis.CENTER)
                                 .crossAxisAlignment(Alignment.CrossAxis.CENTER).widthRel(1.0F).coverChildrenHeight()
-                                .child(IKey.lang("gui.fluidsuppliermk2.TargetInv").asWidget()))
+                                .child(IKey.lang("gui.fluidsuppliermk2.TargetInv").asWidget()).child(
+                                        ModularFluidPicker.searchButton(panel, fluidSlot, syncManager.isClient())
+                                                .marginLeft(6)))
                         .child(
                                 Flow.row().mainAxisAlignment(Alignment.MainAxis.CENTER)
                                         .crossAxisAlignment(Alignment.CrossAxis.CENTER).marginTop(5)
@@ -68,11 +71,8 @@ public class PipeFluidSupplierMk2 extends FluidRoutedPipe
                                                 IKey.comp(IKey.lang("gui.fluidsuppliermk2.Fluid"), IKey.str(":"))
                                                         .asWidget())
                                         .child(
-                                                new FluidSlot()
-                                                        .syncHandler(
-                                                                new FluidSlotSyncHandler(phantomTank).phantom(true)
-                                                                        .controlsAmount(false))
-                                                        .marginLeft(6).width(16).height(16))
+                                                new ModularFluidPicker.FilterSlot().syncHandler(fluidSlot).marginLeft(6)
+                                                        .width(16).height(16))
                                         .child(
                                                 new TextFieldWidget().marginLeft(6).width(80)
                                                         .numbersInt(0, Integer.MAX_VALUE).value(
