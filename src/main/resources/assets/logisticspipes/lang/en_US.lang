@@ -540,3 +540,8 @@ gui.settings.pipevborenderer=Use VBO Renderer (experimental)
 gui.settings.pipefallbackrenderer=Use Fallback Renderer
 gui.settings.piperenderdistance=Max. Distance for new Renderer
 gui.settings.pipecontentrenderdistance=Max. Distance for Pipe Content
+
+gui.fluidpicker.title=Select fluid
+gui.fluidpicker.search=Search
+gui.fluidpicker.hint=Fluid name or pinyin
+gui.fluidpicker.noResults=No matching fluids

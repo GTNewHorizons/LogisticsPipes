@@ -638,37 +638,28 @@ public class DummyContainer extends Container {
         return currentlyEquippedStack;
     }
 
+    public static FluidIdentifier getFluidForSlot(ItemStack stack) {
+        if (stack == null) return null;
+        FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(stack);
+        if (fluid == null && stack.getItem() instanceof IFluidContainerItem item) {
+            fluid = item.getFluid(stack);
+            if (fluid == null) fluid = item.drain(stack, Integer.MAX_VALUE, false);
+        }
+        return fluid != null && fluid.getFluid() != null ? FluidIdentifier.get(fluid) : FluidIdentifier.get(stack);
+    }
+
     public void handleDummyClick(Slot slot, int slotId, ItemStack currentlyEquippedStack, int mouseButton, int isShift,
             EntityPlayer entityplayer) {
         if (slot instanceof FluidSlot) {
-            if (currentlyEquippedStack != null) {
-                FluidStack liquidId = FluidContainerRegistry.getFluidForFilledItem(currentlyEquippedStack);
-                if (liquidId == null && currentlyEquippedStack.getItem() instanceof IFluidContainerItem) {
-                    IFluidContainerItem item = (IFluidContainerItem) currentlyEquippedStack.getItem();
-                    liquidId = item.drain(currentlyEquippedStack, Integer.MAX_VALUE, false);
-                }
-                if (liquidId != null) {
-                    FluidIdentifier ident = FluidIdentifier.get(liquidId);
-                    if (mouseButton == 0) {
-                        if (ident == null) {
-                            slot.putStack(null);
-                        } else {
-                            slot.putStack(ident.getItemIdentifier().unsafeMakeNormalStack(1));
-                        }
-                    } else {
-                        slot.putStack(null);
-                    }
-                    return;
-                }
-                FluidIdentifier ident = FluidIdentifier.get(currentlyEquippedStack);
-                if (ident != null) {
-                    if (mouseButton == 0) {
-                        slot.putStack(ident.getItemIdentifier().unsafeMakeNormalStack(1));
-                    } else {
-                        slot.putStack(null);
-                    }
-                    return;
-                }
+            FluidIdentifier heldFluid = getFluidForSlot(currentlyEquippedStack);
+            if (heldFluid != null) {
+                slot.putStack(mouseButton == 0 ? heldFluid.getItemIdentifier().unsafeMakeNormalStack(1) : null);
+                return;
+            }
+
+            if (currentlyEquippedStack == null && mouseButton == 0 && isShift == 1) {
+                if (MainProxy.isClient(entityplayer.getEntityWorld())) MainProxy.proxy.openFluidSelectGui(slotId);
+                return;
             }
             FluidIdentifier ident = null;
             if (slot.getStack() != null) {

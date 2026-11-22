@@ -1,6 +1,5 @@
 package logisticspipes.proxy.side;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -38,11 +37,11 @@ import logisticspipes.config.Configs;
 import logisticspipes.gui.GuiCraftingPipe;
 import logisticspipes.gui.GuiLogisticsCraftingTable;
 import logisticspipes.gui.GuiSupplierPipe;
+import logisticspipes.gui.fluids.SelectFluidPopup;
 import logisticspipes.gui.modules.ModuleBaseGui;
 import logisticspipes.gui.orderer.GuiOrderer;
 import logisticspipes.gui.orderer.GuiRequestTable;
 import logisticspipes.gui.popup.GuiRecipeImport;
-import logisticspipes.gui.popup.SelectItemOutOfList;
 import logisticspipes.items.ItemLogisticsPipe;
 import logisticspipes.modules.abstractmodules.LogisticsModule;
 import logisticspipes.network.NewGuiHandler;
@@ -75,11 +74,9 @@ import logisticspipes.renderer.LogisticsSolidBlockWorldRenderer;
 import logisticspipes.renderer.newpipe.GLRenderListHandler;
 import logisticspipes.request.resources.IResource;
 import logisticspipes.textures.Textures;
-import logisticspipes.utils.FluidIdentifier;
 import logisticspipes.utils.gui.LogisticsBaseGuiScreen;
 import logisticspipes.utils.gui.SubGuiScreen;
 import logisticspipes.utils.item.ItemIdentifier;
-import logisticspipes.utils.item.ItemIdentifierStack;
 import logisticspipes.utils.string.ChatColor;
 
 public class ClientProxy implements IProxy {
@@ -293,18 +290,10 @@ public class ClientProxy implements IProxy {
     @Override
     public void openFluidSelectGui(final int slotId) {
         if (Minecraft.getMinecraft().currentScreen instanceof LogisticsBaseGuiScreen) {
-            final List<ItemIdentifierStack> list = new ArrayList<>();
-            for (FluidIdentifier fluid : FluidIdentifier.all()) {
-                if (fluid == null) {
-                    continue;
-                }
-                list.add(fluid.getItemIdentifier().makeStack(1));
-            }
-            SelectItemOutOfList subGui = new SelectItemOutOfList(
-                    list,
-                    slot -> MainProxy.sendPacketToServer(
+            SelectFluidPopup subGui = new SelectFluidPopup(
+                    entry -> MainProxy.sendPacketToServer(
                             PacketHandler.getPacket(DummyContainerSlotClick.class).setSlotId(slotId)
-                                    .setStack(list.get(slot).makeNormalStack()).setButton(0)));
+                                    .setStack(entry.icon().copy()).setButton(0)));
             LogisticsBaseGuiScreen gui = (LogisticsBaseGuiScreen) Minecraft.getMinecraft().currentScreen;
             if (!gui.hasSubGui()) {
                 gui.setSubGui(subGui);

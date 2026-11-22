@@ -1,0 +1,4 @@
+gui.fluidpicker.title=选择流体
+gui.fluidpicker.search=搜索
+gui.fluidpicker.hint=输入流体名、英文或拼音
+gui.fluidpicker.noResults=没有匹配的流体

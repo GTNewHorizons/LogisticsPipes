@@ -44,8 +44,7 @@ public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvan
 
     @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
-        FluidStack stack = SimpleServiceLocator.logisticsFluidManager
-                .getFluidFromContainer(ItemIdentifierStack.getFromStack(par1ItemStack));
+        FluidStack stack = getFluid(par1ItemStack);
         if (stack != null) {
             String s = stack.getFluid().getUnlocalizedName();
             if (s != null) {
@@ -56,13 +55,23 @@ public class LogisticsFluidContainer extends LogisticsItem implements IItemAdvan
     }
 
     @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        FluidStack fluid = getFluid(stack);
+        return fluid == null ? super.getItemStackDisplayName(stack) : fluid.getLocalizedName();
+    }
+
+    private FluidStack getFluid(ItemStack stack) {
+        return SimpleServiceLocator.logisticsFluidManager
+                .getFluidFromContainer(ItemIdentifierStack.getFromStack(stack));
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List<String> par3List,
             boolean par4) {
         super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            FluidStack stack = SimpleServiceLocator.logisticsFluidManager
-                    .getFluidFromContainer(ItemIdentifierStack.getFromStack(par1ItemStack));
+            FluidStack stack = getFluid(par1ItemStack);
             if (stack != null) {
                 par3List.add("Type:  " + stack.getFluid().getLocalizedName(stack));
                 par3List.add("Value: " + stack.amount + "mB");

@@ -49,6 +49,7 @@ public class DummyContainerSlotClick extends ModernPacket {
     public void processPacket(EntityPlayer player) {
         if (player instanceof EntityPlayerMP && player.openContainer instanceof DummyContainer) {
             DummyContainer container = (DummyContainer) player.openContainer;
+            if (slotId < 0 || slotId >= container.inventorySlots.size()) return;
             Slot slot = (Slot) container.inventorySlots.get(slotId);
             if (slot instanceof DummySlot || slot instanceof ColorSlot || slot instanceof FluidSlot) {
                 container.handleDummyClick(slot, slotId, stack, button, 0, player);
