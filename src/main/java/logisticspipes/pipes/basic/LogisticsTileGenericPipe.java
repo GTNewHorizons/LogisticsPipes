@@ -1161,6 +1161,7 @@ public class LogisticsTileGenericPipe extends TileEntity
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public ModularScreen createScreen(PosGuiData data, ModularPanel mainPanel) {
         return new ModularScreen("LogisticsPipes", mainPanel);
